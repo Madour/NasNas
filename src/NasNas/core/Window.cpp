@@ -1,0 +1,66 @@
+/**
+* Created by Modar Nasser on 22/04/2020.
+**/
+
+#include "NasNas/core/Window.hpp"
+#include "NasNas/core/App.hpp"
+
+
+using namespace ns;
+
+void AppWindow::onCreate() {
+    sf::RenderTarget::initialize();
+    this->clear_color = sf::Color::Black;
+}
+
+void AppWindow::onResize() {
+    this->scaleView();
+}
+
+auto AppWindow::getUIView() const -> const Camera& {
+    return this->ui_view;
+}
+
+void AppWindow::setUIView(int v_width, int v_height) {
+    this->ui_view = Camera("UI", -1);
+    this->ui_view.reset(0, 0, v_width, v_height);
+    this->ui_view.resetViewport(0, 0, 1, 1);
+}
+
+void AppWindow::scaleView(){
+    // wider than base window
+    float vp_w = 0, vp_h = 0, vp_x = 0, vp_y = 0;
+    float win_w = (float)this->getSize().x, win_h = (float)this->getSize().y;
+    float screen_ratio = (float)app->W_WIDTH / (float)app->W_HEIGHT;
+    if (win_w / win_h > screen_ratio) {
+        vp_w = win_h * screen_ratio / win_w;
+        vp_h = 1;
+        vp_x = (1 - vp_w) / 2;
+        vp_y = 0;
+    }
+    // higher than usual window
+    else {
+        vp_w = 1;
+        vp_h = win_w / screen_ratio / win_h;
+        vp_x = 0;
+        vp_y = (1 - vp_h)/2;
+    }
+    auto new_vp = [&](const FloatRect& vp){
+        return FloatRect(
+                vp_x + vp.left * (1 - 2 * vp_x), vp_y + vp.top * (1 - 2 * vp_y),
+                vp_w * vp.width, vp_h * vp.height
+        );
+    };
+    for (Camera*& cam: app->allCameras()) {
+        cam->setViewport(new_vp(cam->base_viewport));
+    }
+    this->ui_view.setViewport(new_vp(this->ui_view.base_viewport));
+}
+
+auto AppWindow::getClearColor() const -> const sf::Color & {
+    return this->clear_color;
+}
+
+auto AppWindow::setClearColor(const sf::Color &color) {
+    this->clear_color = color;
+}
