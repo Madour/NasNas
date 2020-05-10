@@ -23,7 +23,7 @@ add_executable(NasNas
         example/Sprites.cpp example/Sprites.hpp
 
         NasNas.h ${NasNas_Sources} ${NasNas_Headers}
-        )# C:/Python38-32/include/Python.h)
+        )
 
 target_include_directories(NasNas PRIVATE ${NasNas_Include_Dir})
 

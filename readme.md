@@ -1,5 +1,5 @@
-# NasNas++
-### A simple game framework to get started quickly with C++ SFML game developement.
+# NasNas
+### A simple game framework to get started quickly with C++ SFML game development.
 
 ### Features :
  - [x] Automatic resource loader and  manager system
@@ -23,13 +23,20 @@
  - [ ] Particles system
 
 
-### Install
+### Build
 
-Comming soon
+This project uses Cmake. To build :
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+Feel free to configure CmakeLists.txt file if Cmake is unable to find your SFML install location. 
 
 ### Other
 
-NasNas exists also for python, check it [here](https://github.com/Madour/NasNas).
+NasNas exists also for python, check it out [here](https://github.com/Madour/pyNasNas).
 
 ### Author
 
