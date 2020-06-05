@@ -63,21 +63,21 @@ auto Dir::getFont(const std::string& font_name) -> sf::Font& {
 
 
 void Dir::print_tree(int indent) {
-    auto print_indent = [](int n) { for (int i = 0; i < n; ++i) { std::cout << "|   "; } };
+    auto print_indent = [](int n) { for (int i = 0; i < n; ++i) { std::cout << "|  "; } };
 
     for(auto& item: this->dirs) {
         print_indent(indent);
-        std::cout << "|- " << item.first << " : Dir" << std::endl;
+        std::cout << "|_ " << item.first << " : Dir" << std::endl;
         item.second->print_tree(indent + 1);
     }
 
     for(auto& item: this->textures) {
         print_indent(indent);
-        std::cout<< "|- " << item.first << " : Texture" << std::endl;
+        std::cout<< "|_ " << item.first << " : Texture" << std::endl;
     }
     for(auto& item: this->fonts) {
         print_indent(indent);
-        std::cout<< "|- " << item.first << " : Font" << std::endl;
+        std::cout<< "|_ " << item.first << " : Font" << std::endl;
     }
 }
 
