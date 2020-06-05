@@ -12,6 +12,7 @@
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Window.hpp"
 #include "NasNas/core/Debug.hpp"
+#include "NasNas/core/Entities.hpp"
 
 namespace ns {
 
@@ -48,6 +49,9 @@ namespace ns {
         template<typename T>
         void addDebugText(const T* var_address, const std::string& var_name,const sf::Vector2f& position);
 
+        template<typename T>
+        void addDebugText(std::function<T(const BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position);
+
         auto getWindow() -> AppWindow&;
         void toggleFullscreen();
 
@@ -81,5 +85,8 @@ namespace ns {
         this->debug_texts.push_back(new DebugText<T>(var_address, var_name, position));
     }
 
+    template<typename T>
+    void App::addDebugText(std::function<T(const BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position) {
+        this->debug_texts.push_back(new DebugText<T>(method_address, object_address, var_name, position));
+    }
 }
-

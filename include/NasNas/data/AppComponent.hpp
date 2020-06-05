@@ -35,6 +35,6 @@ namespace ns {
     class Drawable: public sf::Drawable {
     public:
         virtual void move(float offsetx, float offsety) = 0;
-        virtual auto getPosition() -> sf::Vector2f = 0;
+        virtual auto getPosition() const -> sf::Vector2f = 0;
     };
 }

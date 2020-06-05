@@ -20,7 +20,7 @@ namespace ns {
         void setSprite(Sprite* sprite_data);
         void update();
 
-        auto getPosition() -> sf::Vector2f override;
+        auto getPosition() const -> sf::Vector2f override;
         void setPosition(const sf::Vector2f& pos);
 
         void setPosition(float x, float y);
@@ -31,7 +31,7 @@ namespace ns {
         auto getY() const -> float;
         void setY(float value);
 
-        auto getVelocity() -> const sf::Vector2f&;
+        auto getVelocity() const -> sf::Vector2f;
         void setVelocity(float dx, float dy);
 
         void move(float offsetx, float offsety) override;

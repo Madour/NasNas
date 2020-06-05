@@ -33,7 +33,7 @@ void BaseEntity::setSprite(Sprite* sprite_data) {
     this->sprite.setOrigin(anim_player.getActiveFrame().origin.x, anim_player.getActiveFrame().origin.y);
 }
 
-auto BaseEntity::getPosition() -> sf::Vector2f {
+auto BaseEntity::getPosition() const -> sf::Vector2f {
     return sf::Vector2f(this->getX(), this->getY());
 }
 void BaseEntity::setPosition(const sf::Vector2f& pos) {
@@ -62,7 +62,7 @@ void BaseEntity::setY(float value) {
     this->ry = (value - (float)this->gy * 16)/16;
 }
 
-auto BaseEntity::getVelocity() -> const sf::Vector2f& {
+auto BaseEntity::getVelocity() const -> sf::Vector2f {
     return this->velocity;
 }
 
@@ -76,10 +76,7 @@ void BaseEntity::update() {
     this->setX(std::round(this->getX() + this->velocity.x));
     this->setY(std::round(this->getY() + this->velocity.y));
     this->sprite.setPosition(this->getX(), this->getY());
-    //if (std::abs(this->velocity.x) > 0)
-    //    this->velocity.x = this->velocity.x + this->acceleration.x*this->velocity.x/std::abs(this->velocity.x);
-    //if (std::abs(this->velocity.y )> 0)
-    //    this->velocity.y = this->velocity.y + this->acceleration.y*this->velocity.y/std::abs(this->velocity.y);
+
     this->velocity = sf::Vector2f(this->velocity.x* 0.98, this->velocity.y*0.98);
     this->anim_player.update();
     if (this->sprite.getTextureRect() != this->anim_player.getActiveFrame().rectangle) {
