@@ -20,10 +20,10 @@ namespace ns {
         void update();
 
     private:
-        Anim* anim{};
-        int index = 0;
-        bool playing = false;
-        sf::Clock clock;
+        Anim* m_anim = nullptr;
+        int m_index = 0;
+        bool m_playing = false;
+        sf::Clock m_clock;
     };
 
     class Sprite {
@@ -37,7 +37,7 @@ namespace ns {
         const sf::Texture* texture;
 
     private:
-        std::unordered_map<std::string, Anim> anims;
+        std::unordered_map<std::string, Anim> m_anims;
     };
 
 }

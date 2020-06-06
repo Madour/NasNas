@@ -12,45 +12,48 @@ using namespace ns;
 AnimPlayer::AnimPlayer() = default;
 
 void AnimPlayer::play(const Anim& animation) {
-    this->anim = const_cast<Anim *>(&animation);
-    this->index = 0;
-    this->playing = true;
-    this->clock = sf::Clock();
+    m_anim = const_cast<Anim *>(&animation);
+    m_index = 0;
+    m_playing = true;
+    m_clock = sf::Clock();
 }
 
 auto AnimPlayer::getActiveFrame() -> const AnimFrame& {
-    return this->anim->frames[this->index];
+    if(m_anim != nullptr)
+        return m_anim->frames[m_index];
+    else {
+        std::cout << "AnimPlayer doesn't have an Anim. Use AnimPlayer::play(Anim) first." << std::endl;
+        std::exit(-1);
+    }
 }
 
 void AnimPlayer::update() {
-    if (this->playing) {
-        if (this->clock.getElapsedTime().asMilliseconds() > this->anim->frames[this->index].duration) {
-            this->index++;
-            this->clock.restart();
-            if (this->index >= this->anim->frames_count()) {
-                if (this->anim->loop) {
-                    this->index = 0;
+    if (m_playing) {
+        if (m_clock.getElapsedTime().asMilliseconds() > m_anim->frames[m_index].duration) {
+            m_index++;
+            m_clock.restart();
+            if (m_index >= m_anim->frames.size()) {
+                if (m_anim->loop) {
+                    m_index = 0;
                 }
                 else {
-                    this->index--;
-                    this->playing = false;
+                    m_index--;
+                    m_playing = false;
                 }
-
             }
         }
     }
 }
 
-//////////////////////////////////
 
-Sprite::Sprite(std::string name, const sf::Texture& texture, std::unordered_map<std::string, Anim> anims):
-        name(std::move(name)),
-        texture(&texture),
-        anims(std::move(anims))
+Sprite::Sprite(std::string name, const sf::Texture& texture, std::unordered_map<std::string, Anim> anims)
+: name(std::move(name)),
+texture(&texture),
+m_anims(std::move(anims))
 {}
 
 auto Sprite::getAnim(const std::string&anim_name) -> const Anim& {
-    return this->anims.at(anim_name);
+    return m_anims.at(anim_name);
 }
 
 Sprite::~Sprite() = default;

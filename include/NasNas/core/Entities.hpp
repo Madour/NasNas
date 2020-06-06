@@ -12,7 +12,6 @@ namespace ns {
     class BaseEntity: public AppComponent, public Drawable {
     public:
         friend App;
-        BaseEntity();
         explicit BaseEntity(const std::string& name, const std::string& default_anim_state = "idle");
         explicit BaseEntity(const std::string& name, Sprite* sprite_data, const std::string& default_anim_state = "idle");
         ~BaseEntity() override;
@@ -36,15 +35,18 @@ namespace ns {
         void move(float offsetx, float offsety) override;
 
     private:
-        Sprite* data = nullptr;
-        std::string name;
-        std::string anim_state;
-        sf::Vector2f velocity = {0, 0};
-        sf::Vector2f acceleration = {1, 1};
-        sf::Sprite sprite;
-        AnimPlayer anim_player;
-        int gx = 0, gy = 0;
-        float rx = 0, ry = 0;
+        std::string m_name;
+
+        int m_gx = 0, m_gy = 0;
+        float m_rx = 0, m_ry = 0;
+
+        sf::Vector2f m_velocity = {0, 0};
+        sf::Vector2f m_acceleration = {1, 1};
+
+        Sprite* m_spr_data = nullptr;
+        sf::Sprite m_sprite;
+        std::string m_anim_state;
+        AnimPlayer m_anim_player;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

@@ -25,7 +25,6 @@ namespace ns {
         void add(const AnimFrame& frame);
 
         std::vector<AnimFrame> frames;
-        auto frames_count() const -> int;
         bool loop = true;
     };
 

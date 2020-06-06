@@ -15,19 +15,13 @@ duration(duration),
 origin(origin)
 {}
 
-////////////////////////
+Anim::Anim() = default;
 
 Anim::Anim(std::vector<AnimFrame>  frames, bool loop):
 frames(std::move(frames)),
 loop(loop)
 {}
 
-Anim::Anim() = default;
-
 void Anim::add(const AnimFrame& frame) {
     this->frames.push_back(frame);
-}
-
-auto Anim::frames_count() const -> int {
-    return this->frames.size();
 }

@@ -38,10 +38,10 @@ namespace ns {
 
 
     private:
-        std::map<int, std::shared_ptr<Layer>> layers;
-        sf::RenderTexture render_texture;
-        sf::Sprite sprite;
-        sf::Color clear_color = sf::Color::Transparent;
+        std::map<int, std::shared_ptr<Layer>> m_layers;
+        sf::RenderTexture m_render_texture;
+        sf::Sprite m_sprite;
+        sf::Color m_clear_color = sf::Color::Transparent;
         void render();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };

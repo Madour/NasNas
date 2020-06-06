@@ -15,10 +15,13 @@ namespace ns {
     class ResourceManager;
 
     class Dir {
+    const static std::set<std::string> texture_extensions;
+    const static std::set<std::string> fonts_extensions;
 
-    using DirsMap = std::unordered_map<std::string, std::shared_ptr<Dir>>;
-    using TexturesMap = std::unordered_map<std::string, std::shared_ptr<sf::Texture>>;
-    using FontsMap = std::unordered_map<std::string, std::shared_ptr<sf::Font>>;
+    using t_DirsMap = std::unordered_map<std::string, std::shared_ptr<Dir>>;
+    using t_TexturesMap = std::unordered_map<std::string, std::shared_ptr<sf::Texture>>;
+    using t_FontsMap = std::unordered_map<std::string, std::shared_ptr<sf::Font>>;
+
     public:
         explicit Dir(const std::string& name);
         ~Dir();
@@ -30,13 +33,10 @@ namespace ns {
         auto getFont(const std::string& font_name) -> sf::Font&;
 
     private:
-        std::string name;
-        DirsMap dirs;
-        TexturesMap textures;
-        FontsMap fonts;
-
-        const std::set<std::string> texture_extensions = {".png", ".jpg", ".bmp"};
-        const std::set<std::string> fonts_extensions = {".ttf"};
+        std::string m_name;
+        t_DirsMap m_dirs;
+        t_TexturesMap m_textures;
+        t_FontsMap m_fonts;
     };
 
 }

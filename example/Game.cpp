@@ -61,11 +61,13 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
     dbg_txt->setOutlineColor(sf::Color::White);
     this->addDebugText(dbg_txt);
 
+    // creating a camera
+    this->game_camera = this->createCamera("game_camera", 0, ns::IntRect(0, 0, 1080/2, 720/2));
     // telling the camera to look at the scene
     this->game_camera->lookAt(this->scene);
     // telling the camera to follow our entity
     this->game_camera->follow(*this->player);
-    // the camera will have 10 frames delay
+    // the camera will have 10 frames delay over the player
     this->game_camera->setFramesDelay(10);
 }
 

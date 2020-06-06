@@ -17,8 +17,8 @@ namespace ns {
     private:
         ResourceManager();
         ~ResourceManager();
-        static Dir* data;
-        static bool ready;
+        static Dir* m_data;
+        static bool m_ready;
     };
 
     typedef ResourceManager Res;

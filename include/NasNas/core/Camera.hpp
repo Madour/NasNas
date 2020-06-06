@@ -21,6 +21,7 @@ namespace ns {
 
         void reset(sf::Vector2i position, sf::Vector2i size);
         void reset(int x, int y, int w, int h);
+        void reset(const FloatRect& rectangle) ;
 
         void resetViewport(sf::Vector2f position, sf::Vector2f size);
         void resetViewport(float x, float y, float w, float h);
@@ -58,19 +59,17 @@ namespace ns {
         void update();
 
     private:
-        std::string name;
-        int render_order{};
-        BaseEntity* reference{};
-        unsigned int frames_delay{};
+        std::string m_name;
+        int m_render_order;
+        bool m_visible;
+        BaseEntity* m_reference;
+        unsigned int m_frames_delay;
 
-        bool visible{};
+        IntRect m_base_view;
+        FloatRect m_base_viewport;
 
-        IntRect base_view;
-        FloatRect base_viewport;
+        Scene* m_scene;
 
-        Scene* scene{};
-
-        void reset(const FloatRect& rectangle) ;
     };
 
 }

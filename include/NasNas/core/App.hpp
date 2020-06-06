@@ -35,8 +35,6 @@ namespace ns {
         void run();
 
     protected:
-        Scene* scene = nullptr;
-        Camera* game_camera = nullptr;
 
         auto createScene(int width, int height) -> Scene*;
 
@@ -63,17 +61,23 @@ namespace ns {
         virtual void update() = 0;
 
     private:
-        std::string title;
-        int desired_fps;
-        bool fullscreen;
-        AppWindow window;
+        std::string m_title;
+        int m_desired_fps;
+        bool m_fullscreen;
+        AppWindow m_window;
 
-        sf::Clock fps_clock;
-        double dt;
-        std::vector<Camera*> cameras;
-        std::vector<Scene*> scenes;
-        std::vector<std::variant<DebugText<int>*, DebugText<float>*, DebugText<sf::Vector2f>*>> debug_texts;
-        std::vector<sf::Keyboard::Key> inputs;
+        sf::Clock m_fps_clock;
+        double m_dt;
+        std::vector<Camera*> m_cameras;
+        std::vector<Scene*> m_scenes;
+
+        std::vector<std::variant<
+            DebugText<int>*,
+            DebugText<float>*,
+            DebugText<sf::Vector2f>*,
+            DebugText<std::string>* >> m_debug_texts;
+
+        std::vector<sf::Keyboard::Key> m_inputs;
 
         void storeInputs(sf::Event event);
 
@@ -84,26 +88,26 @@ namespace ns {
     void App::addDebugText(T* var_address, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
         sf::Color old_color = ns::DebugText<T>::color;
         ns::DebugText<T>::color = color;
-        this->debug_texts.push_back(new DebugText<T>(var_address, label, position));
+        m_debug_texts.push_back(new DebugText<T>(var_address, label, position));
         ns::DebugText<T>::color = old_color;
     }
     template<typename T>
     void App::addDebugText(const T* var_address, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
         sf::Color old_color = ns::DebugText<T>::color;
         ns::DebugText<T>::color = color;
-        this->debug_texts.push_back(new DebugText<T>(var_address, label, position));
+        m_debug_texts.push_back(new DebugText<T>(var_address, label, position));
         ns::DebugText<T>::color = old_color;
     }
     template<typename T>
     void App::addDebugText(BaseEntity* object_address, std::function<T(BaseEntity &)> method_address, std::string label, const sf::Vector2f& position, const sf::Color& color) {
         sf::Color old_color = ns::DebugText<T>::color;
         ns::DebugText<T>::color = color;
-        this->debug_texts.push_back(new DebugText<T>(object_address, method_address, label, position));
+        m_debug_texts.push_back(new DebugText<T>(object_address, method_address, label, position));
         ns::DebugText<T>::color = old_color;
     }
     template<typename T>
     void App::addDebugText(ns::DebugText<T>* debug_text) {
-        this->debug_texts.push_back(debug_text);
+        m_debug_texts.push_back(debug_text);
     }
 
 }

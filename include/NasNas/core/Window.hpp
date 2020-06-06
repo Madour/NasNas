@@ -24,8 +24,8 @@ namespace ns {
     private:
         int V_WIDTH;
         int V_HEIGHT;
-        sf::Color clear_color;
-        Camera ui_view;
+        sf::Color m_clear_color;
+        Camera m_ui_view;
         void setUIView(int width, int height);
     };
 

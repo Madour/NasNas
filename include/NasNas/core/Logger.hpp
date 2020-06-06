@@ -32,7 +32,6 @@ namespace ns {
         Logger::logr(args...);
     }
 
-
     template <typename T, typename... Types>
     void Logger::logr(T arg, Types... args) {
         std::cout << arg << " ";

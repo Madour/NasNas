@@ -31,11 +31,11 @@ namespace ns {
     private:
         DebugText(std::string label, const sf::Vector2f& position);
 
-        std::string label;
-        sf::Color fillcolor = color;
-        T *variable_address = nullptr;
-        BaseEntity *object_address = nullptr;
-        std::function<T(BaseEntity &)> method_address = nullptr;
+        std::string m_label;
+        sf::Color m_fillcolor = color;
+        T* m_variable_address = nullptr;
+        BaseEntity* m_object_address = nullptr;
+        std::function<T(BaseEntity &)> m_method_address = nullptr;
     };
 
     template<typename T>
@@ -43,23 +43,23 @@ namespace ns {
 
     template<typename T>
     DebugText<T>::DebugText(std::string label, const sf::Vector2f& position) {
-        this->label = label;
-        this->setFont(Res::get().getFont("arial"));
-        this->setFillColor(fillcolor);
-        this->setPosition(position);
-        this->setCharacterSize(20);
+        m_label = label;
+        setFont(Res::get().getFont("arial"));
+        setFillColor(m_fillcolor);
+        setPosition(position);
+        setCharacterSize(20);
     }
 
     template<typename T>
     DebugText<T>::DebugText(T *var_address, std::string label, const sf::Vector2f &position)
     : DebugText(label, position) {
-        this->variable_address = var_address;
+        m_variable_address = var_address;
     }
 
     template<typename T>
     DebugText<T>::DebugText(const T *var_address, std::string label, const sf::Vector2f &position)
     : DebugText(label, position) {
-        this->variable_address = (T*) var_address;
+        m_variable_address = (T*) var_address;
     }
 
     template<typename T>
@@ -70,7 +70,7 @@ namespace ns {
             const sf::Vector2f& position
     )
     : DebugText(label, position) {
-        this->method_address = method_address;
-        this->object_address = object_address;
+        m_method_address = method_address;
+        m_object_address = object_address;
     }
 }

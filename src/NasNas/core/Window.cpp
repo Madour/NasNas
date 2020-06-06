@@ -10,27 +10,27 @@ using namespace ns;
 
 void AppWindow::onCreate() {
     sf::RenderTarget::initialize();
-    this->clear_color = sf::Color::Black;
+    m_clear_color = sf::Color::Black;
 }
 
 void AppWindow::onResize() {
-    this->scaleView();
+    scaleView();
 }
 
 auto AppWindow::getUIView() const -> const Camera& {
-    return this->ui_view;
+    return m_ui_view;
 }
 
 void AppWindow::setUIView(int v_width, int v_height) {
-    this->ui_view = Camera("UI", -1);
-    this->ui_view.reset(0, 0, v_width, v_height);
-    this->ui_view.resetViewport(0, 0, 1, 1);
+    m_ui_view = Camera("UI", -1);
+    m_ui_view.reset(0, 0, v_width, v_height);
+    m_ui_view.resetViewport(0, 0, 1, 1);
 }
 
 void AppWindow::scaleView(){
     // wider than base window
     float vp_w = 0, vp_h = 0, vp_x = 0, vp_y = 0;
-    float win_w = (float)this->getSize().x, win_h = (float)this->getSize().y;
+    float win_w = (float)getSize().x, win_h = (float)getSize().y;
     float screen_ratio = (float)app->W_WIDTH / (float)app->W_HEIGHT;
     if (win_w / win_h > screen_ratio) {
         vp_w = win_h * screen_ratio / win_w;
@@ -52,15 +52,15 @@ void AppWindow::scaleView(){
         );
     };
     for (Camera*& cam: app->allCameras()) {
-        cam->setViewport(new_vp(cam->base_viewport));
+        cam->setViewport(new_vp(cam->m_base_viewport));
     }
-    this->ui_view.setViewport(new_vp(this->ui_view.base_viewport));
+    m_ui_view.setViewport(new_vp(m_ui_view.m_base_viewport));
 }
 
 auto AppWindow::getClearColor() const -> const sf::Color & {
-    return this->clear_color;
+    return m_clear_color;
 }
 
 auto AppWindow::setClearColor(const sf::Color &color) {
-    this->clear_color = color;
+    m_clear_color = color;
 }
