@@ -9,9 +9,9 @@ using namespace ns;
 template<>
 void DebugText<int>::update() {
     if (this->variable_address != nullptr)
-        this->setString(this->variable_name + " " + std::to_string(*this->variable_address));
+        this->setString(this->label + " " + std::to_string(*this->variable_address));
     else
-        this->setString(this->variable_name + " " + std::to_string((this->method_address)(*this->object_address)));
+        this->setString(this->label + " " + std::to_string((this->method_address)(*this->object_address)));
 }
 
 template<>
@@ -23,7 +23,7 @@ void DebugText<float>::update() {
     else {
         std::sprintf(b, " %.3f", (this->method_address)(*this->object_address));
     }
-    this->setString(this->variable_name + b);
+    this->setString(this->label + b);
 }
 
 template<>
@@ -38,5 +38,13 @@ void DebugText<sf::Vector2f>::update() {
         std::sprintf(b1, " (%.3f, ", val.x);
         std::sprintf(b2, "%.3f)", val.y);
     }
-    this->setString(this->variable_name + b1 + b2);
+    this->setString(this->label + b1 + b2);
+}
+
+template<>
+void DebugText<std::string>::update() {
+    if (this->variable_address != nullptr)
+        this->setString(this->label + " " + *this->variable_address);
+    else
+        this->setString(this->label + " " + (this->method_address)(*this->object_address));
 }

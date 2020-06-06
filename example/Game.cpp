@@ -7,7 +7,7 @@
 #include "Sprites.hpp"
 
 Game::Game() :
-App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
+ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
 {
     // creating the scene
     this->scene = this->createScene(1600, 900);
@@ -51,8 +51,15 @@ App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
     this->scene->getLayer(2)->add(this->player);
 
     // adding debug texts
-    this->addDebugText<sf::Vector2f>(&ns::BaseEntity::getPosition, this->player.get(), "position:", {10, 10});
-    this->addDebugText<sf::Vector2f>(&ns::BaseEntity::getVelocity, this->player.get(), "velocity:", {10, 50});
+    // directly using addDebugText to create automatically a DebugText object
+    this->addDebugText<sf::Vector2f>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {10, 10}, sf::Color::Green);
+    this->addDebugText<sf::Vector2f>(this->player.get(), &ns::BaseEntity::getVelocity, "velocity:", {10, 50});
+    // by creating manually a DebugText object, changing its properties and adding it to the app
+    auto* dbg_txt = new ns::DebugText<float>(this->player.get(), &ns::BaseEntity::getY, "pos_y:", {500, 10});
+    dbg_txt->setFillColor(sf::Color::Black);
+    dbg_txt->setOutlineThickness(1);
+    dbg_txt->setOutlineColor(sf::Color::White);
+    this->addDebugText(dbg_txt);
 
     // telling the camera to look at the scene
     this->game_camera->lookAt(this->scene);

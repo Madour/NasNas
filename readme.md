@@ -6,10 +6,8 @@
  - [x] Scene and Layers system
  - [x] Entities, sprites and animations 
  - [x] Cameras
-
-### In progress
  - [x] Debug text display in-game
- 
+
 ### To do :
  - [ ] Text and bitmap fonts
  - [ ] Tiled map loader (.tmx)

@@ -44,13 +44,16 @@ namespace ns {
         auto createCamera(const std::string& name, int order, const IntRect& view) -> Camera*;
 
         template<typename T>
-        void addDebugText(T* var_address, const std::string& var_name,const sf::Vector2f& position);
+        void addDebugText(T* var_address, const std::string& label,const sf::Vector2f& position, const sf::Color& color = ns::DebugText<T>::color);
 
         template<typename T>
-        void addDebugText(const T* var_address, const std::string& var_name,const sf::Vector2f& position);
+        void addDebugText(const T* var_address, const std::string& label,const sf::Vector2f& position, const sf::Color& color = ns::DebugText<T>::color);
 
         template<typename T>
-        void addDebugText(std::function<T(BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position);
+        void addDebugText(BaseEntity* object_address, std::function<T(BaseEntity &)> method_address, std::string label, const sf::Vector2f& position, const sf::Color& color = ns::DebugText<T>::color);
+
+        template<typename T>
+        void addDebugText(ns::DebugText<T>* debug_text);
 
         auto getWindow() -> AppWindow&;
         void toggleFullscreen();
@@ -76,18 +79,31 @@ namespace ns {
 
         void render();
     };
-    template<typename T>
-    void App::addDebugText(T* var_address, const std::string& var_name, const sf::Vector2f& position) {
-        this->debug_texts.push_back(new DebugText<T>(var_address, var_name, position));
-    }
-    template<typename T>
-    void App::addDebugText(const T* var_address, const std::string& var_name, const sf::Vector2f& position) {
-        this->debug_texts.push_back(new DebugText<T>(var_address, var_name, position));
-    }
 
     template<typename T>
-    void App::addDebugText(std::function<T(BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position) {
-        this->debug_texts.push_back(new DebugText<T>(method_address, object_address, var_name, position));
+    void App::addDebugText(T* var_address, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
+        sf::Color old_color = ns::DebugText<T>::color;
+        ns::DebugText<T>::color = color;
+        this->debug_texts.push_back(new DebugText<T>(var_address, label, position));
+        ns::DebugText<T>::color = old_color;
+    }
+    template<typename T>
+    void App::addDebugText(const T* var_address, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
+        sf::Color old_color = ns::DebugText<T>::color;
+        ns::DebugText<T>::color = color;
+        this->debug_texts.push_back(new DebugText<T>(var_address, label, position));
+        ns::DebugText<T>::color = old_color;
+    }
+    template<typename T>
+    void App::addDebugText(BaseEntity* object_address, std::function<T(BaseEntity &)> method_address, std::string label, const sf::Vector2f& position, const sf::Color& color) {
+        sf::Color old_color = ns::DebugText<T>::color;
+        ns::DebugText<T>::color = color;
+        this->debug_texts.push_back(new DebugText<T>(object_address, method_address, label, position));
+        ns::DebugText<T>::color = old_color;
+    }
+    template<typename T>
+    void App::addDebugText(ns::DebugText<T>* debug_text) {
+        this->debug_texts.push_back(debug_text);
     }
 
 }
