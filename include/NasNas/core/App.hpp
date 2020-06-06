@@ -50,7 +50,7 @@ namespace ns {
         void addDebugText(const T* var_address, const std::string& var_name,const sf::Vector2f& position);
 
         template<typename T>
-        void addDebugText(std::function<T(const BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position);
+        void addDebugText(std::function<T(BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position);
 
         auto getWindow() -> AppWindow&;
         void toggleFullscreen();
@@ -86,7 +86,8 @@ namespace ns {
     }
 
     template<typename T>
-    void App::addDebugText(std::function<T(const BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position) {
+    void App::addDebugText(std::function<T(BaseEntity &)> method_address, BaseEntity* object_address, std::string var_name, const sf::Vector2f& position) {
         this->debug_texts.push_back(new DebugText<T>(method_address, object_address, var_name, position));
     }
+
 }

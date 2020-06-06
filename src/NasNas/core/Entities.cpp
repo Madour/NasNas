@@ -33,14 +33,13 @@ void BaseEntity::setSprite(Sprite* sprite_data) {
     this->sprite.setOrigin(anim_player.getActiveFrame().origin.x, anim_player.getActiveFrame().origin.y);
 }
 
-auto BaseEntity::getPosition() const -> sf::Vector2f {
+auto BaseEntity::getPosition() -> sf::Vector2f {
     return sf::Vector2f(this->getX(), this->getY());
 }
 void BaseEntity::setPosition(const sf::Vector2f& pos) {
     this->setX(pos.x);
     this->setY(pos.y);
 }
-
 void BaseEntity::setPosition(float x, float y) {
     this->setX(x);
     this->setY(y);
@@ -65,12 +64,10 @@ void BaseEntity::setY(float value) {
 auto BaseEntity::getVelocity() const -> sf::Vector2f {
     return this->velocity;
 }
-
 void BaseEntity::setVelocity(float dx, float dy) {
     this->velocity.x = dx;
     this->velocity.y = dy;
 }
-
 
 void BaseEntity::update() {
     this->setX(std::round(this->getX() + this->velocity.x));

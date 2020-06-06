@@ -20,9 +20,8 @@ namespace ns {
         void setSprite(Sprite* sprite_data);
         void update();
 
-        auto getPosition() const -> sf::Vector2f override;
+        auto getPosition() -> sf::Vector2f override;
         void setPosition(const sf::Vector2f& pos);
-
         void setPosition(float x, float y);
 
         auto getX() const -> float;
