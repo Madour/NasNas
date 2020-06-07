@@ -18,10 +18,19 @@ origin(origin)
 Anim::Anim() = default;
 
 Anim::Anim(std::vector<AnimFrame>  frames, bool loop):
-frames(std::move(frames)),
+m_frames(std::move(frames)),
 loop(loop)
 {}
 
 void Anim::add(const AnimFrame& frame) {
-    this->frames.push_back(frame);
+    m_frames.push_back(frame);
 }
+
+auto Anim::getFrame(int index) -> const AnimFrame& {
+    return m_frames[index];
+}
+
+auto Anim::frameCount() -> int {
+    return m_frames.size();
+}
+

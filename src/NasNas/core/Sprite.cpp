@@ -20,7 +20,7 @@ void AnimPlayer::play(const Anim& animation) {
 
 auto AnimPlayer::getActiveFrame() -> const AnimFrame& {
     if(m_anim != nullptr)
-        return m_anim->frames[m_index];
+        return m_anim->getFrame(m_index);
     else {
         std::cout << "AnimPlayer doesn't have an Anim. Use AnimPlayer::play(Anim) first." << std::endl;
         std::exit(-1);
@@ -29,10 +29,10 @@ auto AnimPlayer::getActiveFrame() -> const AnimFrame& {
 
 void AnimPlayer::update() {
     if (m_playing) {
-        if (m_clock.getElapsedTime().asMilliseconds() > m_anim->frames[m_index].duration) {
+        if (m_clock.getElapsedTime().asMilliseconds() > m_anim->getFrame(m_index).duration) {
             m_index++;
             m_clock.restart();
-            if (m_index >= m_anim->frames.size()) {
+            if (m_index >= m_anim->frameCount()) {
                 if (m_anim->loop) {
                     m_index = 0;
                 }

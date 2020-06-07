@@ -23,9 +23,13 @@ namespace ns {
         Anim();
         explicit Anim(std::vector<AnimFrame> frames, bool loop=true);
         void add(const AnimFrame& frame);
+        auto getFrame(int index) -> const AnimFrame&;
+        auto frameCount() -> int;
 
-        std::vector<AnimFrame> frames;
         bool loop = true;
+
+    private:
+        std::vector<AnimFrame> m_frames;
     };
 
 }

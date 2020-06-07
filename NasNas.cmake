@@ -4,6 +4,7 @@ set(
         NasNas_Sources
 
         src/NasNas/thirdparty/tinyxml2.cpp
+        src/NasNas/thirdparty/pugixml.cpp
 
         src/NasNas/data/AppComponent.cpp
         src/NasNas/data/Rect.cpp
@@ -29,6 +30,7 @@ set(
         NasNas_Headers
 
         include/NasNas/thirdparty/tinyxml2.h
+        include/NasNas/thirdparty/pugixml.hpp
 
         include/NasNas/data/AppComponent.hpp
         include/NasNas/data/Rect.hpp
