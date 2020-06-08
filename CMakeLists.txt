@@ -19,8 +19,9 @@ file(COPY assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 
 add_executable(NasNas
-        main.cpp main.hpp example/Game.cpp example/Game.hpp
-        example/Sprites.cpp example/Sprites.hpp
+        main.cpp main.hpp
+        example/Game.cpp example/Game.hpp
+        example/Player.cpp example/Player.hpp
 
         NasNas.h ${NasNas_Sources} ${NasNas_Headers}
         )

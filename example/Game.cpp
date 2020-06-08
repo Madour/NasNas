@@ -4,7 +4,7 @@
 
 #include "Game.hpp"
 
-#include "Sprites.hpp"
+#include "Player.hpp"
 
 Game::Game() :
 ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
@@ -42,9 +42,8 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
     auto entities_layer = std::make_shared<ns::Layer>("entities_layer");
     this->scene->addLayer(entities_layer, 2);
 
-    auto* game_sprites = new Sprites();
     // creating an entity and setting its position
-    this->player = std::make_shared<ns::BaseEntity>("Player", &game_sprites->player_spr);
+    this->player = std::make_shared<Player>();
     this->player->setPosition({100, 100});
 
     // adding the entity to the layer

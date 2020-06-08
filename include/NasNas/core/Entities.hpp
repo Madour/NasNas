@@ -17,7 +17,7 @@ namespace ns {
         ~BaseEntity() override;
 
         void setSprite(Sprite* sprite_data);
-        void update();
+        virtual void update();
 
         auto getPosition() -> sf::Vector2f override;
         void setPosition(const sf::Vector2f& pos);
@@ -40,16 +40,17 @@ namespace ns {
         int m_gx = 0, m_gy = 0;
         float m_rx = 0, m_ry = 0;
 
-        sf::Vector2f m_velocity = {0, 0};
         sf::Vector2f m_acceleration = {1, 1};
 
         Sprite* m_spr_data = nullptr;
-        sf::Sprite m_sprite;
         std::string m_anim_state;
         AnimPlayer m_anim_player;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+    protected:
+        sf::Vector2f m_velocity = {0, 0};
+        sf::Sprite m_sprite;
     };
 
 }
