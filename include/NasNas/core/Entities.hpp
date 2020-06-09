@@ -6,6 +6,7 @@
 
 #include "NasNas/data/AppComponent.hpp"
 #include "NasNas/core/Sprite.hpp"
+#include "NasNas/ecs/AnimPlayer.hpp"
 
 namespace ns {
 
@@ -44,7 +45,7 @@ namespace ns {
 
         Sprite* m_spr_data = nullptr;
         std::string m_anim_state;
-        AnimPlayer m_anim_player;
+        ecs::AnimPlayer m_anim_player;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

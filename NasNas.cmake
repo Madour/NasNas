@@ -12,6 +12,8 @@ set(
         src/NasNas/reslib/ResourceLoader.cpp
         src/NasNas/reslib/ResourceManager.cpp
 
+        src/NasNas/ecs/AnimPlayer.cpp
+
         src/NasNas/core/App.cpp
         src/NasNas/core/Camera.cpp
         src/NasNas/core/Entities.cpp
@@ -37,6 +39,8 @@ set(
 
         include/NasNas/reslib/ResourceLoader.hpp
         include/NasNas/reslib/ResourceManager.hpp
+
+        include/NasNas/ecs/AnimPlayer.hpp
 
         include/NasNas/core/App.hpp
         include/NasNas/core/Camera.hpp
