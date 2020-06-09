@@ -21,14 +21,16 @@ namespace ns {
     class Anim {
     public:
         Anim();
-        explicit Anim(std::vector<AnimFrame> frames, bool loop=true);
+        Anim(const std::string& name, std::vector<AnimFrame> frames, bool loop=true);
         void add(const AnimFrame& frame);
+        auto getName() -> const std::string&;
         auto getFrame(int index) -> const AnimFrame&;
         auto frameCount() -> int;
 
         bool loop = true;
 
     private:
+        std::string m_name;
         std::vector<AnimFrame> m_frames;
     };
 

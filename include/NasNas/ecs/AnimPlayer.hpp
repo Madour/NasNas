@@ -13,7 +13,7 @@ namespace ns::ecs {
     public:
         explicit AnimPlayer();
         auto getActiveFrame() -> const AnimFrame &;
-        void play(const Anim &animation);
+        void play(const Anim& animation);
         void setPlaySpeed(float speed);
         void update();
 

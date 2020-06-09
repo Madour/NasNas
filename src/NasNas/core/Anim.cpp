@@ -17,13 +17,19 @@ origin(origin)
 
 Anim::Anim() = default;
 
-Anim::Anim(std::vector<AnimFrame>  frames, bool loop):
+Anim::Anim(const std::string& name, std::vector<AnimFrame>  frames, bool loop):
 m_frames(std::move(frames)),
 loop(loop)
-{}
+{
+    m_name=name;
+}
 
 void Anim::add(const AnimFrame& frame) {
     m_frames.push_back(frame);
+}
+
+auto Anim::getName() -> const std::string& {
+    return m_name;
 }
 
 auto Anim::getFrame(int index) -> const AnimFrame& {

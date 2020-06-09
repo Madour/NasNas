@@ -6,23 +6,23 @@
 
 Player::Player()
 : ns::BaseEntity("Player") {
-    m_ns_sprite = new ns::Sprite(
-        "toto",
+
+    m_spritesheet = new ns::Spritesheet(
+        "adventurer",
         ns::Res::get().getTexture("adventurer"),
         {
-            {"idle", ns::Anim(
-                    {
-                        ns::AnimFrame({0, 0, 50, 40}, 250),
-                        ns::AnimFrame({50, 0, 50, 40}, 250)
-                    }
-                )
-            }
+            new ns::Anim("idle",
+                {
+                    ns::AnimFrame({0, 0, 50, 40}, 250),
+                    ns::AnimFrame({50, 0, 50, 40}, 250)
+                }
+            )
         }
     );
-    setSprite(m_ns_sprite);
+    setSprite(m_spritesheet);
 }
 Player::~Player() {
-    delete(m_ns_sprite);
+    delete(m_spritesheet);
 }
 
 void Player::update() {

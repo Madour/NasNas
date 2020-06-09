@@ -5,7 +5,7 @@
 #pragma once
 
 #include "NasNas/data/AppComponent.hpp"
-#include "NasNas/core/Sprite.hpp"
+#include "NasNas/core/Spritesheet.hpp"
 #include "NasNas/ecs/AnimPlayer.hpp"
 
 namespace ns {
@@ -14,10 +14,10 @@ namespace ns {
     public:
         friend App;
         explicit BaseEntity(const std::string& name, const std::string& default_anim_state = "idle");
-        explicit BaseEntity(const std::string& name, Sprite* sprite_data, const std::string& default_anim_state = "idle");
+        explicit BaseEntity(const std::string& name, Spritesheet* sprite_data, const std::string& default_anim_state = "idle");
         ~BaseEntity() override;
 
-        void setSprite(Sprite* sprite_data);
+        void setSprite(Spritesheet* sprite_data);
         virtual void update();
 
         auto getPosition() -> sf::Vector2f override;
@@ -43,7 +43,7 @@ namespace ns {
 
         sf::Vector2f m_acceleration = {1, 1};
 
-        Sprite* m_spr_data = nullptr;
+        Spritesheet* m_spr_data = nullptr;
         std::string m_anim_state;
         ecs::AnimPlayer m_anim_player;
 

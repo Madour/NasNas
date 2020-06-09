@@ -13,6 +13,6 @@ public:
     ~Player() override;
     void update() override;
 private:
-    ns::Sprite* m_ns_sprite = nullptr;
+    ns::Spritesheet* m_spritesheet = nullptr;
 };
 

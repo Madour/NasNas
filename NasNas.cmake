@@ -22,7 +22,7 @@ set(
         src/NasNas/core/Window.cpp
 
         src/NasNas/core/Anim.cpp
-        src/NasNas/core/Sprite.cpp
+        src/NasNas/core/Spritesheet.cpp
 
         src/NasNas/core/Logger.cpp
         src/NasNas/core/Debug.cpp
@@ -50,7 +50,7 @@ set(
         include/NasNas/core/Window.hpp
 
         include/NasNas/core/Anim.hpp
-        include/NasNas/core/Sprite.hpp
+        include/NasNas/core/Spritesheet.hpp
 
         include/NasNas/core/Logger.hpp
         include/NasNas/core/Debug.hpp

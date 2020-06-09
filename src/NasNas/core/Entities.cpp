@@ -12,7 +12,7 @@ BaseEntity::BaseEntity(const std::string &name, const std::string& default_anim_
     m_anim_state = default_anim_state;
 }
 
-BaseEntity::BaseEntity(const std::string& name, Sprite* sprite_data, const std::string& default_anim_state)
+BaseEntity::BaseEntity(const std::string& name, Spritesheet* sprite_data, const std::string& default_anim_state)
 : m_spr_data(sprite_data) {
     m_name = name;
     m_anim_state = default_anim_state;
@@ -21,7 +21,7 @@ BaseEntity::BaseEntity(const std::string& name, Sprite* sprite_data, const std::
 
 BaseEntity::~BaseEntity() = default;
 
-void BaseEntity::setSprite(Sprite* sprite_data) {
+void BaseEntity::setSprite(Spritesheet* sprite_data) {
     m_spr_data = sprite_data;
 
     m_anim_player.play(sprite_data->getAnim(m_anim_state));
