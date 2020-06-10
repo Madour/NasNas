@@ -13,7 +13,7 @@ namespace ns {
 
     class AppWindow;
 
-    class Camera: public AppComponent, public sf::View {
+    class Camera: public sf::View {
     public:
         friend AppWindow;
         Camera();

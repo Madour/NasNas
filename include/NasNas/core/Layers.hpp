@@ -9,7 +9,7 @@
 
 namespace ns {
 
-    class Layer: public AppComponent, public sf::Drawable {
+    class Layer: public sf::Drawable {
         //using DrawablesTypes = std::variant<ns::Drawable*, sf::Shape*, sf::Text* >;
         using DrawablesTypes = std::variant<std::shared_ptr<ns::Drawable>, std::shared_ptr<sf::Shape>, std::shared_ptr<sf::Text> >;
         public:

@@ -9,7 +9,7 @@
 
 namespace ns {
 
-    class Scene : public AppComponent, public sf::Drawable {
+    class Scene : public sf::Drawable {
     public:
         friend App;
         Scene(int width, int height);
