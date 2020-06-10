@@ -19,7 +19,7 @@ Player::Player()
             )
         }
     );
-    setSprite(m_spritesheet);
+    addComponent<ns::ecs::SpriteComponent>(this, m_spritesheet, "idle");
 }
 Player::~Player() {
     delete(m_spritesheet);
@@ -29,6 +29,6 @@ void Player::update() {
     ns::BaseEntity::update();
     setX(std::round(getX() + m_velocity.x));
     setY(std::round(getY() + m_velocity.y));
-    m_sprite.setPosition(getX(), getY());
+    //m_sprite.setPosition(getX(), getY());
     m_velocity = sf::Vector2f(m_velocity.x * 0.98, m_velocity.y * 0.98);
 }

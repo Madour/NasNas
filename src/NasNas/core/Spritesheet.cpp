@@ -21,7 +21,7 @@ Spritesheet::Spritesheet(std::string  name, const sf::Texture& texture, const st
 name(std::move(name)),
 texture(&texture)
 {
-    for(Anim* anim: anims) {
+    for(const auto& anim: anims) {
         m_anims_map[anim->getName()] = anim;
     }
 }
@@ -32,7 +32,14 @@ Spritesheet::~Spritesheet() {
     }
 }
 
+auto Spritesheet::animsMap() -> const std::unordered_map<std::string, Anim*>& {
+    return m_anims_map;
+}
+
 auto Spritesheet::getAnim(const std::string& anim_name) -> const Anim& {
-    return *m_anims_map.at(anim_name);
+    if(m_anims_map.count(anim_name) > 0)
+        return *m_anims_map.at(anim_name);
+    else
+        throw std::invalid_argument("Accessing unexisting Anim "+anim_name+" in spritesheet "+name);
 }
 

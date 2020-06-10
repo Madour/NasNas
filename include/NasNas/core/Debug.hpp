@@ -6,7 +6,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "NasNas/reslib/ResourceManager.hpp"
-#include "NasNas/core/Entities.hpp"
+#include "NasNas/ecs/BaseEntity.hpp"
 #include <iostream>
 
 namespace ns {

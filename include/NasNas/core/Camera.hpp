@@ -7,7 +7,7 @@
 #include "NasNas/data/AppComponent.hpp"
 #include "NasNas/data/Rect.hpp"
 #include "NasNas/core/Scene.hpp"
-#include "NasNas/core/Entities.hpp"
+#include "NasNas/ecs/BaseEntity.hpp"
 
 namespace ns {
 

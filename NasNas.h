@@ -10,7 +10,7 @@
 #include "NasNas/core/Layers.hpp"
 #include "NasNas/core/Window.hpp"
 
-#include "NasNas/core/Entities.hpp"
+#include "NasNas/ecs/BaseEntity.hpp"
 #include "NasNas/core/Logger.hpp"
 #include "NasNas/core/Debug.hpp"
 

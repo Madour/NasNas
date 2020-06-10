@@ -5,7 +5,6 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include <unordered_map>
 
 #include "NasNas/core/Anim.hpp"
 
@@ -19,6 +18,7 @@ namespace ns {
         Spritesheet(std::string  name, const sf::Texture& texture, const std::vector<Anim*>& anims);
         ~Spritesheet();
 
+        auto animsMap() -> const std::unordered_map<std::string, Anim*>&;
         auto getAnim(const std::string& anim_name) -> const Anim&;
 
         const std::string name;

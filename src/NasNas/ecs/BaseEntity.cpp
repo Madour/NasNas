@@ -2,34 +2,20 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
-#include "NasNas/core/Entities.hpp"
+#include "NasNas/ecs/BaseEntity.hpp"
 #include <cmath>
 
 using namespace ns;
 
-BaseEntity::BaseEntity(const std::string &name, const std::string& default_anim_state) {
+BaseEntity::BaseEntity(const std::string &name) {
     m_name = name;
-    m_anim_state = default_anim_state;
 }
 
-BaseEntity::BaseEntity(const std::string& name, Spritesheet* sprite_data, const std::string& default_anim_state)
-: m_spr_data(sprite_data) {
-    m_name = name;
-    m_anim_state = default_anim_state;
-    setSprite(sprite_data);
-}
-
-BaseEntity::~BaseEntity() = default;
-
-void BaseEntity::setSprite(Spritesheet* sprite_data) {
-    m_spr_data = sprite_data;
-
-    m_anim_player.play(sprite_data->getAnim(m_anim_state));
-
-    m_sprite = sf::Sprite(*sprite_data->texture);
-    m_sprite.setTextureRect(m_anim_player.getActiveFrame().rectangle);
-    m_sprite.setOrigin(m_anim_player.getActiveFrame().origin.x, m_anim_player.getActiveFrame().origin.y);
-}
+BaseEntity::~BaseEntity() {
+    for (auto& comp: m_owned_components_list) {
+        delete(comp);
+    }
+};
 
 auto BaseEntity::getPosition() -> sf::Vector2f {
     return sf::Vector2f(getX(), getY());
@@ -68,15 +54,15 @@ void BaseEntity::setVelocity(float dx, float dy) {
 }
 
 void BaseEntity::update() {
-    m_anim_player.update();
-    if (m_sprite.getTextureRect() != m_anim_player.getActiveFrame().rectangle) {
-        m_sprite.setTextureRect(m_anim_player.getActiveFrame().rectangle);
-        m_sprite.setOrigin(m_anim_player.getActiveFrame().origin.x, m_anim_player.getActiveFrame().origin.y);
+    for (auto& comp: m_components_list) {
+        comp->update();
     }
 }
 
 void BaseEntity::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(m_sprite, states);
+    for (auto& comp: m_graphics_components_list) {
+        target.draw(*comp, states);
+    }
 }
 
 void BaseEntity::move(float offsetx, float offsety) {
@@ -86,4 +72,3 @@ void BaseEntity::move(float offsetx, float offsety) {
     if (std::abs(m_velocity.y) < std::abs(offsety))
         m_velocity.y = m_acceleration.y * offsety / std::abs(offsety) + m_velocity.y;
 }
-
