@@ -18,7 +18,7 @@ class SpriteComponent : public  GraphicsComponent {
         SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset);
         void setSpritesheet(Spritesheet* spritesheet);
         void setAnimState(const std::string& anim_state);
-        auto getDrawable() -> sf::Drawable& override;
+        auto getDrawable() -> sf::Sprite& override;
         void update() override;
 
     private:

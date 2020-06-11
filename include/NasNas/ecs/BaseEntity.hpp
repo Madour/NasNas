@@ -6,7 +6,7 @@
 
 #include "NasNas/data/AppComponent.hpp"
 #include "NasNas/core/Spritesheet.hpp"
-#include "NasNas/ecs/SpriteComponent.hpp"
+#include "NasNas/ecs/GraphicsComponent.hpp"
 
 namespace ns {
 

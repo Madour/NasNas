@@ -40,7 +40,7 @@ void SpriteComponent::setAnimState(const std::string& anim_state) {
     }
 }
 
-auto SpriteComponent::getDrawable() -> sf::Drawable & {
+auto SpriteComponent::getDrawable() -> sf::Sprite& {
     return m_drawable;
 }
 

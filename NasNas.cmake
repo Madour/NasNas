@@ -12,13 +12,14 @@ set(
         src/NasNas/reslib/ResourceLoader.cpp
         src/NasNas/reslib/ResourceManager.cpp
 
+        src/NasNas/ecs/BaseEntity.cpp
         src/NasNas/ecs/BaseComponent.cpp
         src/NasNas/ecs/GraphicsComponent.cpp
         src/NasNas/ecs/SpriteComponent.cpp
+        src/NasNas/ecs/ShapeComponent.cpp
 
         src/NasNas/core/App.cpp
         src/NasNas/core/Camera.cpp
-        src/NasNas/ecs/BaseEntity.cpp
         src/NasNas/core/Layers.cpp
         src/NasNas/core/Scene.cpp
         src/NasNas/core/Window.cpp
@@ -42,13 +43,14 @@ set(
         include/NasNas/reslib/ResourceLoader.hpp
         include/NasNas/reslib/ResourceManager.hpp
 
+        include/NasNas/ecs/BaseEntity.hpp
         include/NasNas/ecs/BaseComponent.hpp
         include/NasNas/ecs/GraphicsComponent.hpp
         include/NasNas/ecs/SpriteComponent.hpp
+        include/NasNas/ecs/ShapeComponent.hpp
 
         include/NasNas/core/App.hpp
         include/NasNas/core/Camera.hpp
-        include/NasNas/ecs/BaseEntity.hpp
         include/NasNas/core/Layers.hpp
         include/NasNas/core/Scene.hpp
         include/NasNas/core/Window.hpp
