@@ -12,6 +12,7 @@ public:
     Player();
     ~Player() override;
     void update() override;
+    auto getDirection() -> sf::Vector2i;
 private:
     ns::Spritesheet* m_spritesheet = nullptr;
 };

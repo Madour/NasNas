@@ -17,6 +17,7 @@ set(
         src/NasNas/ecs/GraphicsComponent.cpp
         src/NasNas/ecs/SpriteComponent.cpp
         src/NasNas/ecs/ShapeComponent.cpp
+        src/NasNas/ecs/PhysicsComponent.cpp
 
         src/NasNas/core/App.cpp
         src/NasNas/core/Camera.cpp
@@ -48,6 +49,7 @@ set(
         include/NasNas/ecs/GraphicsComponent.hpp
         include/NasNas/ecs/SpriteComponent.hpp
         include/NasNas/ecs/ShapeComponent.hpp
+        include/NasNas/ecs/PhysicsComponent.hpp
 
         include/NasNas/core/App.hpp
         include/NasNas/core/Camera.hpp

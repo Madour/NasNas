@@ -52,7 +52,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
     // adding debug texts
     // directly using addDebugText to create automatically a DebugText object
     this->addDebugText<sf::Vector2f>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {10, 10}, sf::Color::Green);
-    this->addDebugText<sf::Vector2f>(this->player.get(), &ns::BaseEntity::getVelocity, "velocity:", {10, 50});
+    //this->addDebugText<sf::Vector2f>(this->player.get(), &Player::getDirection, "direction:", {10, 50});
     // by creating manually a DebugText object, changing its properties and adding it to the app
     auto* dbg_txt = new ns::DebugText<float>(this->player.get(), &ns::BaseEntity::getY, "pos_y:", {500, 10});
     dbg_txt->setFillColor(sf::Color::Black);

@@ -5,7 +5,7 @@
 #include "Player.hpp"
 
 Player::Player()
-: ns::BaseEntity("Player") {
+: ns::BaseEntity("Player"){
 
     m_spritesheet = new ns::Spritesheet(
         "adventurer",
@@ -26,22 +26,41 @@ Player::Player()
     // adding sprite component to player (from spritesheet defined above)
     addComponent<ns::ecs::SpriteComponent>(this, m_spritesheet, "idle");
 
+    addComponent<ns::ecs::PhysicsComponent>(this, 10.f, sf::Vector2f(12, 12),sf::Vector2f(0.8, 0.8));
+
     // adding shape component to player (red triangle)
-    auto* shape_comp = new ns::ecs::ShapeComponent<sf::ConvexShape>(this, 3, {0, 0});
-    shape_comp->getDrawable().setFillColor(sf::Color::Red);
-    shape_comp->getDrawable().setOrigin(5, 0);
-    shape_comp->getDrawable().setPoint(0, {0, 0});
-    shape_comp->getDrawable().setPoint(1, {10, 0});
-    shape_comp->getDrawable().setPoint(2, {5, 10});
-    addComponent<ns::ecs::ShapeComponent<sf::ConvexShape>>(shape_comp);
+    auto shape_component = std::make_shared<ns::ecs::ShapeComponent<sf::ConvexShape>>(this, 3, sf::Vector2f(0, 0));
+    shape_component->getDrawable().setFillColor(sf::Color::Red);
+    shape_component->getDrawable().setOrigin(5, 0);
+    shape_component->getDrawable().setPoint(0, {0, 0});
+    shape_component->getDrawable().setPoint(1, {10, 0});
+    shape_component->getDrawable().setPoint(2, {5, 10});
+    addComponent<ns::ecs::ShapeComponent<sf::ConvexShape>>(shape_component);
 }
 Player::~Player() {
     delete(m_spritesheet);
 }
 
+auto Player::getDirection() -> sf::Vector2i {
+    return physics()->getDirection();
+}
+
 void Player::update() {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        physics()->setDirection(-1, 0);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        physics()->setDirection(1, 0);
+    }
+    else physics()->setDirection(0, 0);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        physics()->setDirection(physics()->getDirection().x, -1);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        physics()->setDirection(physics()->getDirection().x, 1);
+    }
+    else physics()->setDirection(physics()->getDirection().x, 0);
+
     ns::BaseEntity::update();
-    setX(std::round(getX() + m_velocity.x));
-    setY(std::round(getY() + m_velocity.y));
-    m_velocity = sf::Vector2f(m_velocity.x * 0.98, m_velocity.y * 0.98);
 }
