@@ -4,6 +4,7 @@
 
 #include "NasNas/ecs/ShapeComponent.hpp"
 
+using namespace ns;
 using namespace ns::ecs;
 
 template<>

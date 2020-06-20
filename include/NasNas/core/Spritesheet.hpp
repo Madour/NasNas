@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <unordered_map>
 #include "SFML/Graphics.hpp"
 
 #include "NasNas/core/Anim.hpp"

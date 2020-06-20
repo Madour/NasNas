@@ -5,6 +5,7 @@
 #include "NasNas/ecs/BaseEntity.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
 
+using namespace ns;
 using namespace ns::ecs;
 
 PhysicsComponent::PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration):

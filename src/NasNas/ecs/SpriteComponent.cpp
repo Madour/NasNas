@@ -5,6 +5,7 @@
 #include "NasNas/ecs/SpriteComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 
+using namespace ns;
 using namespace ns::ecs;
 
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state) :

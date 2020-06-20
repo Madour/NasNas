@@ -5,6 +5,7 @@
 #include "NasNas/ecs/BaseEntity.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 
+using namespace ns;
 using namespace ns::ecs;
 
 GraphicsComponent::GraphicsComponent(BaseEntity* entity) : BaseComponent(entity){
