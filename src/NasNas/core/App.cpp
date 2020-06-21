@@ -6,7 +6,7 @@
 
 using namespace ns;
 
-App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps)
+App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps, int ups)
 : W_WIDTH(w_width), W_HEIGHT(w_height)
 {
     AppComponent::app = this;
@@ -15,6 +15,7 @@ App::App(const std::string& title, int w_width, int w_height, int v_width, int v
 
     m_title = title;
     m_desired_fps = fps;
+    m_ups = ups;
     m_fullscreen = false;
 
     m_window.create(sf::VideoMode(w_width, w_height), title, sf::Style::Default);
@@ -77,12 +78,14 @@ auto App::createCamera(const std::string& cam_name, int order, const IntRect& vi
 }
 
 void App::toggleFullscreen() {
+    auto clear_color = m_window.getClearColor();
     if(!m_fullscreen) {
         m_window.create(sf::VideoMode::getFullscreenModes()[0], m_title, sf::Style::None);
     }
     else {
         m_window.create(sf::VideoMode(W_WIDTH, W_HEIGHT), m_title);
     }
+    m_window.setClearColor(clear_color);
     m_window.setFramerateLimit(m_desired_fps);
     m_window.scaleView();
     m_inputs.clear();
@@ -115,12 +118,12 @@ void App::render() {
     );
     // for each camera, if it has a scene and is visible, draw its scene on its view.
     for (Camera*& cam: m_cameras) {
-        cam->update();
         if (cam->hasScene() && cam->isVisible()) {
             m_window.setView(*cam);
             m_window.draw(cam->getScene());
         }
     }
+
     // drawing UI on the UIView
     m_window.setView(m_window.getUIView());
 
@@ -131,21 +134,29 @@ void App::render() {
     }
 }
 
-
 void App::run() {
+    double current_slice = 0.;
+    double slice_time = 1.0/m_ups;
     m_window.scaleView();
     while (m_window.isOpen()) {
         m_dt = m_fps_clock.restart().asSeconds();
-        m_window.setTitle(m_title + " | FPS :" + std::to_string(1 / m_dt));
+        current_slice += m_dt;
+        m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
 
+        // getting and storing inputs
         sf::Event event{};
         while (m_window.pollEvent(event)) {
             storeInputs(event);
             onEvent(event);
         }
-
-        update();
-
+        // updating app
+        while (current_slice >= slice_time) {
+            current_slice -= slice_time;
+            update();
+            for (Camera*& cam: m_cameras)
+                cam->update();
+        }
+        // rendering drawables and displaying window
         m_window.clear(m_window.getClearColor());
         render();
         m_window.display();

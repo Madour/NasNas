@@ -18,8 +18,8 @@ namespace ns {
 
     class App {
     public:
-        explicit App(const std::string& title, int w_width=960, int w_height=540,
-                int v_width=0, int v_height=0, int desired_fps=60);
+        App(const std::string& title, int w_width, int w_height,
+            int v_width=0, int v_height=0, int fps=60, int ups=60);
         ~App();
 
         const int W_WIDTH;
@@ -62,7 +62,8 @@ namespace ns {
 
     private:
         std::string m_title;
-        int m_desired_fps;
+        int m_desired_fps;      // frame per second
+        int m_ups;              // update per second
         bool m_fullscreen;
         AppWindow m_window;
 

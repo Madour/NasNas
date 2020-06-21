@@ -7,7 +7,7 @@
 #include "Player.hpp"
 
 Game::Game() :
-ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
+ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60)
 {
     // creating the scene
     this->scene = this->createScene(1600, 900);
@@ -17,7 +17,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2)
 
     // creating a RectangleShape, fill it in Black color and adding it to the background layer
     auto rect2 = std::make_shared<sf::RectangleShape>(sf::Vector2f(1600, 900));
-    rect2->setFillColor(sf::Color::Black);
+    rect2->setFillColor(sf::Color(150, 150, 150));
     this->scene->getLayer(0)->add(rect2);
 
     // creating shapes layer

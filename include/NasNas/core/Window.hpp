@@ -19,7 +19,7 @@ namespace ns {
         void scaleView();
 
         auto getClearColor() const -> const sf::Color&;
-        auto setClearColor(const sf::Color& color);
+        void setClearColor(const sf::Color& color);
 
     private:
         int V_WIDTH;
