@@ -34,7 +34,7 @@ App::~App() {
         delete(cam);
     }
     for (auto& dbg_txt: m_debug_texts) {
-        std::visit([&](auto&& arg){delete(arg);}, dbg_txt);
+        delete(dbg_txt);
     }
     Res::dispose();
 }
@@ -130,7 +130,7 @@ void App::render() {
     // drawing debug text on DefaultView
     m_window.setView(m_window.getDefaultView());
     for(auto& dbg_txt: m_debug_texts) {
-        std::visit([&](auto&& arg){arg->update(); m_window.draw(*arg);}, dbg_txt);
+        dbg_txt->update(); m_window.draw(*dbg_txt);
     }
 }
 

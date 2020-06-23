@@ -6,45 +6,42 @@
 
 using namespace ns;
 
-template<>
-void DebugText<int>::update() {
-    if (m_variable_address != nullptr)
-        setString(m_label + " " + std::to_string(*m_variable_address));
-    else
-        setString(m_label + " " + std::to_string((m_method_address)(*m_object_address)));
-}
-
-template<>
-void DebugText<float>::update() {
+auto ns::operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream& {
     char b[255];
-    if (m_variable_address != nullptr) {
-        std::sprintf(b, " %.3f", *m_variable_address);
-    }
-    else {
-        std::sprintf(b, " %.3f", (m_method_address)(*m_object_address));
-    }
-    setString(m_label + b);
+    sprintf(b, "Vector2f(%.3f, %.3f)", vect.x, vect.y);
+    os << b;
+    return os;
+}
+auto ns::operator<<(std::ostream& os, const sf::Vector2i& vect) -> std::ostream& {
+    os << "Vector2i(" << vect.x << ", " << vect.y << ")";
+    return os;
+}
+auto ns::operator<<(std::ostream& os, const sf::Vector2u& vect) -> std::ostream& {
+    os << "Vector2u(" << vect.x << ", " << vect.y << ")";
+    return os;
 }
 
-template<>
-void DebugText<sf::Vector2f>::update() {
-    char b1[255], b2[255];
-    if (m_variable_address != nullptr) {
-        std::sprintf(b1, " (%.3f, ", m_variable_address->x);
-        std::sprintf(b2, "%.3f)", m_variable_address->y);
-    }
-    else {
-        sf::Vector2f val = (m_method_address)(*m_object_address);
-        std::sprintf(b1, "(%.3f, ", val.x);
-        std::sprintf(b2, "%.3f)", val.y);
-    }
-    setString(m_label + b1 + b2);
+auto ns::operator<<(std::ostream& os, const sf::Vector3f& vect) -> std::ostream& {
+    char b[255];
+    sprintf(b, "Vector3(%.3f, %.3f, %.3f)", vect.x, vect.y, vect.z);
+    os << b;
+    return os;
+}
+auto ns::operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream& {
+    os << "Vector3i(" << vect.x << ", " << vect.y << ", " << vect.z << ")";
+    return os;
 }
 
-template<>
-void DebugText<std::string>::update() {
-    if (m_variable_address != nullptr)
-        setString(m_label + " " + *m_variable_address);
-    else
-        setString(m_label + " " + (m_method_address)(*m_object_address));
+auto ns::operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream& {
+    os << "Rect( (" << rect.left << ", " << rect.top << "), (" << rect.width << ", " << rect.height << ") )";
+    return os;
 }
+auto ns::operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream& {
+    os << "Rect( (" << rect.left << ", " << rect.top << "), (" << rect.width << ", " << rect.height << ") )";
+    return os;
+}
+
+
+sf::Color ns::DebugTextInterface::color = sf::Color::White;
+sf::Color ns::DebugTextInterface::outline_color = sf::Color::Black;
+int ns::DebugTextInterface::outline_thickness = 0;

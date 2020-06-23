@@ -9,68 +9,94 @@
 #include "NasNas/ecs/BaseEntity.hpp"
 #include <iostream>
 
-namespace ns {
 
-    template<typename T>
-    class DebugText : public sf::Text {
+namespace ns {
+    auto operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector2i& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector2u& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector3f& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream&;
+
+    class DebugTextInterface : public sf::Text {
     public:
         static sf::Color color;
-        DebugText(T *var_address, std::string label, const sf::Vector2f &position);
+        static sf::Color outline_color;
+        static int outline_thickness;
+        virtual void update() = 0;
+    };
 
-        DebugText(const T *var_address, std::string label, const sf::Vector2f &position);
+    template<typename T, typename  ObjT>
+    class DebugText : public DebugTextInterface {
+    public:
+        DebugText(T *var_address, const std::string& label, const sf::Vector2f &position);
+
+        DebugText(const T *var_address, const std::string& label, const sf::Vector2f &position);
 
         DebugText(
-                BaseEntity* object_address,
-                std::function<T(BaseEntity &)> method_address,
-                std::string label,
+                ObjT* object_address,
+                std::function<T(ObjT &)> method_address,
+                const std::string& label,
                 const sf::Vector2f &position
         );
 
-        void update();
+        void update() override;
 
     private:
-        DebugText(std::string label, const sf::Vector2f& position);
+        DebugText(const std::string& label, const sf::Vector2f& position);
 
         std::string m_label;
-        sf::Color m_fillcolor = color;
         T* m_variable_address = nullptr;
-        BaseEntity* m_object_address = nullptr;
-        std::function<T(BaseEntity &)> m_method_address = nullptr;
+        ObjT* m_object_address = nullptr;
+        std::function<T(ObjT &)> m_method_address = nullptr;
     };
 
-    template<typename T>
-    sf::Color DebugText<T>::color = sf::Color::White;
-
-    template<typename T>
-    DebugText<T>::DebugText(std::string label, const sf::Vector2f& position) {
+    template<typename T, typename ObjT>
+    DebugText<T, ObjT>::DebugText(const std::string& label, const sf::Vector2f& position) {
         m_label = label;
         setFont(Res::get().getFont("arial"));
-        setFillColor(m_fillcolor);
+        setCharacterSize(15);
+        setFillColor(ns::DebugTextInterface::color);
+        setOutlineColor(ns::DebugTextInterface::outline_color);
+        setOutlineThickness(ns::DebugTextInterface::outline_thickness);
         setPosition(position);
         setCharacterSize(20);
     }
 
-    template<typename T>
-    DebugText<T>::DebugText(T *var_address, std::string label, const sf::Vector2f &position)
-    : DebugText(label, position) {
+    template<typename T, typename ObjT>
+    DebugText<T, ObjT>::DebugText(T* var_address, const std::string& label, const sf::Vector2f &position)
+            : DebugText(label, position) {
         m_variable_address = var_address;
     }
 
-    template<typename T>
-    DebugText<T>::DebugText(const T *var_address, std::string label, const sf::Vector2f &position)
-    : DebugText(label, position) {
+    template<typename T, typename ObjT>
+    DebugText<T, ObjT>::DebugText(const T* var_address, const std::string& label, const sf::Vector2f &position)
+            : DebugText(label, position) {
         m_variable_address = (T*) var_address;
     }
 
-    template<typename T>
-    DebugText<T>::DebugText(
-            BaseEntity* object_address,
-            std::function<T(BaseEntity &)> method_address,
-            std::string label,
+    template<typename T, typename ObjT>
+    DebugText<T, ObjT>::DebugText(
+            ObjT* object_address,
+            std::function<T(ObjT &)> method_address,
+            const std::string& label,
             const sf::Vector2f& position
     )
-    : DebugText(label, position) {
+            : DebugText(label, position) {
         m_method_address = method_address;
         m_object_address = object_address;
     }
+    template<typename T, typename ObjT>
+    void DebugText<T, ObjT>::update() {
+        std::ostringstream stream;
+        stream << m_label << " ";
+        if (m_variable_address != nullptr)
+            stream << *m_variable_address;
+        else
+            stream << (m_method_address)(*m_object_address);
+
+        setString(stream.str());
+    }
+
 }

@@ -22,7 +22,6 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60)
 
     // creating shapes layer
     this->scene->addLayer(std::make_shared<ns::Layer>("shapes"), 1);
-
     auto colors = std::vector<sf::Color>{sf::Color::Blue, sf::Color::Red, sf::Color::Green,
                                          sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,
                                          sf::Color::White};
@@ -51,10 +50,18 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60)
 
     // adding debug texts
     // directly using addDebugText to create automatically a DebugText object
-    this->addDebugText<sf::Vector2f>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {10, 10}, sf::Color::Green);
-    //this->addDebugText<sf::Vector2f>(this->player.get(), &Player::getDirection, "direction:", {10, 50});
-    // by creating manually a DebugText object, changing its properties and adding it to the app
-    auto* dbg_txt = new ns::DebugText<float>(this->player.get(), &ns::BaseEntity::getY, "pos_y:", {500, 10});
+    this->addDebugText<int>(&this->frame_counter, "frame counter:", {10, 10});
+    this->addDebugText<sf::Vector2f, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {10, 50}, sf::Color::Green);
+
+    // you can change debug text global properties by using DebugTextInterface (will be applied to ALL debug texts created after)
+    ns::DebugTextInterface::color = sf::Color::Cyan;
+    ns::DebugTextInterface::outline_thickness = 1;
+    ns::DebugTextInterface::outline_color = sf::Color::Blue;
+    this->addDebugText<sf::Vector2f, ns::ecs::PhysicsComponent>(this->player->physics(), &ns::ecs::PhysicsComponent::getVelocity, "velocity:", {10, 90});
+
+    // by creating manually a DebugText object, changing its properties and adding it to the app, the app will delete automatically
+    // the debug texts, so don't worry about memory
+    auto* dbg_txt = new ns::DebugText<float, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getY, "Y position:", {500, 10});
     dbg_txt->setFillColor(sf::Color::Black);
     dbg_txt->setOutlineThickness(1);
     dbg_txt->setOutlineColor(sf::Color::White);
@@ -71,6 +78,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60)
 }
 
 void Game::update() {
+    this->frame_counter++;
     // moving the player
     if(!this->getInputs().empty())
         switch (this->getInputs().at(0)) {

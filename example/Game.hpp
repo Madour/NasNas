@@ -19,4 +19,5 @@ private:
     ns::Scene* scene;
     ns::Camera* game_camera;
     std::shared_ptr<ns::BaseEntity> player;
+    int frame_counter = 0;
 };
