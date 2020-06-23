@@ -13,7 +13,7 @@ GraphicsComponent(entity)
 {
     setSpritesheet(spritesheet);
     m_anim_player = AnimPlayer();
-    m_anim_player.play(m_spritesheet->getAnim(anim_state));
+    setAnimState(anim_state);
 }
 
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
