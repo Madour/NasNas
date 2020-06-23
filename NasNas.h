@@ -17,5 +17,6 @@
 #include "NasNas/ecs/SpriteComponent.hpp"
 #include "NasNas/ecs/ShapeComponent.hpp"
 
+#include "NasNas/data/Config.hpp"
 
 #include "NasNas/reslib/ResourceManager.hpp"

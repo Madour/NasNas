@@ -34,6 +34,7 @@ class BaseEntity: public Drawable {
         auto getY() -> float;
         void setY(float value);
 
+        auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
         auto physics() -> ecs::PhysicsComponent*;
 
         void move(float offsetx, float offsety) override;

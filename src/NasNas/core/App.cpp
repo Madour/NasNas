@@ -6,19 +6,39 @@
 
 using namespace ns;
 
+App::App()
+: App(
+    ns::Config::Window::title,
+    ns::Config::Window::width,
+    ns::Config::Window::height,
+    ns::Config::Window::view_width,
+    ns::Config::Window::view_height,
+    ns::Config::Window::framerate_limit,
+    ns::Config::Window::update_rate
+)
+{}
+
 App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps, int ups)
 : W_WIDTH(w_width), W_HEIGHT(w_height)
 {
+    ns::Config::Window::title = title;
+    ns::Config::Window::width = w_width;
+    ns::Config::Window::height = w_height;
+    ns::Config::Window::framerate_limit = fps;
+    ns::Config::Window::update_rate = ups;
+
     AppComponent::app = this;
     if (!v_width) v_width = w_width;
     if (!v_height) v_height = w_height;
+    ns::Config::Window::view_width = v_width;
+    ns::Config::Window::view_height = v_height;
 
     m_title = title;
     m_desired_fps = fps;
     m_ups = ups;
     m_fullscreen = false;
 
-    m_window.create(sf::VideoMode(w_width, w_height), title, sf::Style::Default);
+    m_window.create(sf::VideoMode(w_width, w_height), title, ns::Config::Window::style);
     m_window.setUIView(v_width, v_height);
     m_window.setFramerateLimit(fps);
 
@@ -81,9 +101,10 @@ void App::toggleFullscreen() {
     auto clear_color = m_window.getClearColor();
     if(!m_fullscreen) {
         m_window.create(sf::VideoMode::getFullscreenModes()[0], m_title, sf::Style::None);
+        m_window.setMouseCursorVisible(false);
     }
     else {
-        m_window.create(sf::VideoMode(W_WIDTH, W_HEIGHT), m_title);
+        m_window.create(sf::VideoMode(W_WIDTH, W_HEIGHT), m_title, ns::Config::Window::style);
     }
     m_window.setClearColor(clear_color);
     m_window.setFramerateLimit(m_desired_fps);
@@ -141,7 +162,9 @@ void App::run() {
     while (m_window.isOpen()) {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
-        m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
+
+        if (ns::Config::debug)
+            m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
 
         // getting and storing inputs
         sf::Event event{};

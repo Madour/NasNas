@@ -6,6 +6,7 @@
 
 #include "NasNas/data/AppComponent.hpp"
 #include "NasNas/data/Rect.hpp"
+#include "NasNas/data/Config.hpp"
 
 #include "NasNas/core/Layers.hpp"
 #include "NasNas/core/Scene.hpp"
@@ -18,8 +19,13 @@ namespace ns {
 
     class App {
     public:
+        App();
         App(const std::string& title, int w_width, int w_height,
-            int v_width=0, int v_height=0, int fps=60, int ups=60);
+            int v_width=ns::Config::Window::view_width,
+            int v_height=ns::Config::Window::view_height,
+            int fps=ns::Config::Window::framerate_limit,
+            int ups=ns::Config::Window::update_rate
+        );
         ~App();
 
         const int W_WIDTH;

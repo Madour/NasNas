@@ -50,9 +50,13 @@ void BaseEntity::update() {
 }
 
 void BaseEntity::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (auto& comp: m_graphics_components_list) {
+    for (const auto & comp: m_graphics_components_list) {
         target.draw(*comp);
     }
+}
+
+auto BaseEntity::graphics() -> std::vector<ecs::GraphicsComponent*>& {
+    return m_graphics_components_list;
 }
 
 auto BaseEntity::physics() -> ecs::PhysicsComponent* {

@@ -39,7 +39,7 @@ namespace ns {
                 ObjT* object_address,
                 std::function<T(ObjT &)> method_address,
                 const std::string& label,
-                const sf::Vector2f &position
+                const sf::Vector2f& position
         );
 
         void update() override;

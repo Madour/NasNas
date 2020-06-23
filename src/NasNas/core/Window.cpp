@@ -10,6 +10,12 @@ using namespace ns;
 
 void AppWindow::onCreate() {
     sf::RenderTarget::initialize();
+
+    setKeyRepeatEnabled(ns::Config::Window::key_repeat);
+    setVerticalSyncEnabled(ns::Config::Window::vertical_sync);
+    setMouseCursorVisible(ns::Config::Window::cursor_visible);
+    setMouseCursorGrabbed(ns::Config::Window::cursor_grabbed);
+
     m_clear_color = sf::Color::Black;
 }
 
