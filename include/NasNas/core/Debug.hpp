@@ -8,6 +8,7 @@
 #include "NasNas/reslib/ResourceManager.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 #include <iostream>
+#include <sstream>
 
 
 namespace ns {
