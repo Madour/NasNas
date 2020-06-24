@@ -15,6 +15,9 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60)
     ns::Config::Inputs::setButtonKey("up", sf::Keyboard::Up);
     ns::Config::Inputs::setButtonKey("down", sf::Keyboard::Down);
 
+    // configuring physics constants
+    ns::Config::Physics::gravity = 0;
+
     // creating the scene
     this->scene = this->createScene(1600, 900);
 

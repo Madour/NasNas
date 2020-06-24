@@ -34,6 +34,11 @@ namespace ns {
         private:
             static std::unordered_map<std::string, sf::Keyboard::Key> m_key_buttons_map;
         };
+
+        class Physics {
+        public:
+            static float gravity;
+        };
     };
 
 }

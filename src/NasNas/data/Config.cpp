@@ -34,3 +34,5 @@ auto Config::Inputs::getButtonKey(const std::string& btn_name) -> sf::Keyboard::
     std::cout << "No button named «" << btn_name << "» in Config::Input defined. Please use Config::Input::setButtonKey first." << std::endl;
     exit(-1);
 }
+
+float Config::Physics::gravity = 0;

@@ -34,7 +34,7 @@ Player::Player()
     // adding sprite component to player (from spritesheet defined above)
     addComponent<ns::ecs::SpriteComponent>(this, m_spritesheet, "idle");
 
-    addComponent<ns::ecs::PhysicsComponent>(this, 10.f, sf::Vector2f(10, 10),sf::Vector2f(0.5, 0.5));
+    addComponent<ns::ecs::PhysicsComponent>(this, 1.f, sf::Vector2f(10, 10),sf::Vector2f(0.5, 0.5), sf::Vector2f(0.1, 0.1));
 
     // adding shape component to player (red triangle)
     auto shape_component = std::make_shared<ns::ecs::ShapeComponent<sf::ConvexShape>>(this, 3, sf::Vector2f(0, 0));

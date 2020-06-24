@@ -4,6 +4,7 @@
 
 #include "NasNas/ecs/BaseEntity.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
+#include "NasNas/data/Config.hpp"
 
 using namespace ns;
 using namespace ns::ecs;
@@ -14,6 +15,15 @@ BaseComponent(entity) {
     m_mass = mass;
     m_max_velocity = max_velocity;
     m_acceleration = acceleration;
+}
+
+PhysicsComponent::PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration, const sf::Vector2f& friction) :
+        PhysicsComponent(entity, mass, max_velocity, acceleration) {
+    if (friction.x > 1.0 || friction.y > 1.0) {
+        std::cout << "Friction parameter of PhysicsComponent should be a vector between (0, 0) and (1, 1)." << std::endl;
+        exit(-1);
+    }
+    m_friction = friction;
 }
 
 auto PhysicsComponent::getVelocity() -> sf::Vector2f {
@@ -43,7 +53,7 @@ void PhysicsComponent::update() {
             m_velocity.x = (m_velocity.x - m_acceleration.x < -m_max_velocity.x) ? -m_max_velocity.x : m_velocity.x - m_acceleration.x;
             break;
         default:
-            m_velocity.x *= 0.95f;
+            m_velocity.x *= 1 - m_friction.x;
     }
 
     switch (m_direction.y) {
@@ -54,9 +64,9 @@ void PhysicsComponent::update() {
             m_velocity.y = (m_velocity.y - m_acceleration.y < -m_max_velocity.y) ? -m_max_velocity.y : m_velocity.y - m_acceleration.y;
             break;
         default:
-            m_velocity.y *= 0.95f;
+            m_velocity.y *= 1 - m_friction.y;
     }
-
+    m_velocity.y += m_mass * Config::Physics::gravity;
     m_entity->setX(m_entity->getX()  + m_velocity.x);
     m_entity->setY(m_entity->getY()  + m_velocity.y);
 }
