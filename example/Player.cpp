@@ -58,13 +58,13 @@ Player::~Player() {
 
 void Player::moveLeft() {
     physics()->setDirection(-1, physics()->getDirection().y);
-    dynamic_cast<ns::ecs::SpriteComponent*>(graphics()[0])->getDrawable().setScale(-1, 1);
-    dynamic_cast<ns::ecs::SpriteComponent*>(graphics()[0])->setAnimState("walk");
+    graphics<ns::ecs::SpriteComponent>(0)->getDrawable().setScale(-1, 1);
+    graphics<ns::ecs::SpriteComponent>(0)->setAnimState("walk");
 }
 void Player::moveRight() {
     physics()->setDirection(1, physics()->getDirection().y);
-    dynamic_cast<ns::ecs::SpriteComponent*>(graphics()[0])->getDrawable().setScale(1, 1);
-    dynamic_cast<ns::ecs::SpriteComponent*>(graphics()[0])->setAnimState("walk");
+    graphics<ns::ecs::SpriteComponent>(0)->getDrawable().setScale(1, 1);
+    graphics<ns::ecs::SpriteComponent>(0)->setAnimState("walk");
 }
 void Player::moveUp() {
     physics()->setDirection(physics()->getDirection().x, -1);
@@ -78,5 +78,5 @@ void Player::update() {
     inputs()->update<Player>();
     ns::BaseEntity::update();
     if (physics()->getDirection().x == 0)
-        dynamic_cast<ns::ecs::SpriteComponent*>(graphics()[0])->setAnimState("idle");
+        graphics<ns::ecs::SpriteComponent>(0)->setAnimState("idle");
 }

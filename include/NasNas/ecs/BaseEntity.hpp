@@ -39,6 +39,9 @@ class BaseEntity: public Drawable {
         auto physics() -> ecs::PhysicsComponent*;
         auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
 
+        template<typename T>
+        auto graphics(int index) -> T*;
+
         void move(float offsetx, float offsety) override;
 
     private:
@@ -49,7 +52,6 @@ class BaseEntity: public Drawable {
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    protected:
         friend ecs::InputsComponent;
         friend ecs::PhysicsComponent;
         friend ecs::GraphicsComponent;
@@ -73,5 +75,12 @@ class BaseEntity: public Drawable {
         m_components_list.push_back(new_component);
     }
 
-
+    template <typename T>
+    auto BaseEntity::graphics(int index) -> T* {
+        if (index < m_graphics_components_list.size()) {
+            return dynamic_cast<T*>(m_graphics_components_list[index]);
+        }
+        std::cout << "Entity «" << m_name << "» has less than " << index << " graphics components. Index out of range." << std::endl;
+        exit(-1);
+    }
 }
