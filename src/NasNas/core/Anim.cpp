@@ -51,12 +51,16 @@ void AnimPlayer::play(const Anim& animation) {
     m_clock = sf::Clock();
 }
 
+auto AnimPlayer::getAnim() -> Anim* {
+    return m_anim;
+}
+
 auto AnimPlayer::getActiveFrame() -> const AnimFrame& {
     if(m_anim != nullptr)
         return m_anim->getFrame(m_index);
     else {
         std::cout << "AnimPlayer doesn't have an Anim. Use AnimPlayer::play(Anim) first." << std::endl;
-        std::exit(-1);
+        exit(-1);
     }
 }
 

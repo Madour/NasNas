@@ -34,7 +34,7 @@ void ResourceManager::dispose() {
 auto ResourceManager::get() -> Dir& {
     if (!m_ready) {
         std::cout << "Error : ResourceManager is not initialized. Call Res::load(<dir_name>) first." << std::endl;
-        std::exit(-1);
+        exit(-1);
     }
     return *m_data;
 }
@@ -42,7 +42,7 @@ auto ResourceManager::get() -> Dir& {
 void ResourceManager::printTree() {
     if (!m_ready) {
         std::cout << "Error : ResourceManager is not initialized. Call Res::load(<dir_name>) first." << std::endl;
-        std::exit(-1);
+        exit(-1);
     }
     std::cout << std::endl << m_data->getName() << std::endl;
     m_data->print_tree();

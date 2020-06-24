@@ -9,6 +9,12 @@
 Game::Game() :
 ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60)
 {
+    // mapping keys inputs
+    ns::Config::Inputs::setButtonKey("left", sf::Keyboard::Left);
+    ns::Config::Inputs::setButtonKey("right", sf::Keyboard::Right);
+    ns::Config::Inputs::setButtonKey("up", sf::Keyboard::Up);
+    ns::Config::Inputs::setButtonKey("down", sf::Keyboard::Down);
+
     // creating the scene
     this->scene = this->createScene(1600, 900);
 
@@ -51,7 +57,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60)
     // adding debug texts
     // directly using addDebugText to create automatically a DebugText object
     this->addDebugText<int>(&this->frame_counter, "frame counter:", {10, 10});
-    this->addDebugText<sf::Vector2f, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {10, 50}, sf::Color::Green);
+    this->addDebugText<sf::Vector2f, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {10, 50}, sf::Color(20, 255, 20));
 
     // you can change debug text global properties by using DebugTextInterface (will be applied to ALL debug texts created after)
     ns::DebugTextInterface::color = sf::Color::Cyan;

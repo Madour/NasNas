@@ -8,6 +8,7 @@
 #include "NasNas/core/Spritesheet.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
+#include "InputsComponent.hpp"
 
 namespace ns {
 
@@ -34,8 +35,9 @@ class BaseEntity: public Drawable {
         auto getY() -> float;
         void setY(float value);
 
-        auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
+        auto inputs() -> ecs::InputsComponent*;
         auto physics() -> ecs::PhysicsComponent*;
+        auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
 
         void move(float offsetx, float offsety) override;
 
@@ -48,10 +50,13 @@ class BaseEntity: public Drawable {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     protected:
-        friend ecs::PhysicsComponent; friend ecs::GraphicsComponent;
+        friend ecs::InputsComponent;
+        friend ecs::PhysicsComponent;
+        friend ecs::GraphicsComponent;
         std::vector<std::shared_ptr<ecs::BaseComponent>> m_components_list;
         std::vector<ecs::GraphicsComponent*> m_graphics_components_list;
         ecs::PhysicsComponent* m_physics_component = nullptr;
+        ecs::InputsComponent* m_inputs_component = nullptr;
 
 };
 

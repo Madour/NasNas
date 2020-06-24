@@ -9,7 +9,7 @@ auto main() -> int {
     ns::Res::printTree();
 
     ns::Config::Window::vertical_sync = true;
-    ns::Config::Window::style = sf::Style::Titlebar;
+    ns::Config::Window::style = sf::Style::Titlebar | sf::Style::Resize;
 
     Game game;
     game.run();

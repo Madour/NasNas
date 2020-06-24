@@ -43,9 +43,10 @@ void BaseEntity::setY(float value) {
 }
 
 void BaseEntity::update() {
-    if(m_physics_component) physics()->update();
-    for (auto& comp: m_components_list) {
-        if (comp.get() != m_physics_component) comp->update();
+    if(m_inputs_component) m_inputs_component->update();
+    if(m_physics_component) m_physics_component->update();
+    for (const auto& graphic_comp: m_graphics_components_list) {
+        graphic_comp->update();
     }
 }
 
@@ -55,22 +56,25 @@ void BaseEntity::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     }
 }
 
+auto BaseEntity::inputs() -> ecs::InputsComponent* {
+    if(m_inputs_component) {
+        return m_inputs_component;
+    }
+    std::cout << "Entity «"+m_name+"» does not have a InputsComponent. Please add one first." << std::endl;
+    exit(-1);
+}
+
+auto BaseEntity::physics() -> ecs::PhysicsComponent* {
+    if (m_physics_component) {
+        return m_physics_component;
+    }
+    std::cout << "Entity «"+m_name+"» does not have a PhysicsComponent. Please add one first." << std::endl;
+    exit(-1);
+}
+
 auto BaseEntity::graphics() -> std::vector<ecs::GraphicsComponent*>& {
     return m_graphics_components_list;
 }
 
-auto BaseEntity::physics() -> ecs::PhysicsComponent* {
-    if (m_physics_component == nullptr) {
-        std::cout << "Entity "+m_name+" does not have a physics component. Please add one first." << std::endl;
-        exit(-1);
-    }
-    return m_physics_component;
-}
-
 void BaseEntity::move(float offsetx, float offsety) {
-    /*if (std::abs(m_velocity.x) < std::abs(offsetx))
-        m_velocity.x = m_acceleration.x * offsetx / std::abs(offsetx) + m_velocity.x;
-
-    if (std::abs(m_velocity.y) < std::abs(offsety))
-        m_velocity.y = m_acceleration.y * offsety / std::abs(offsety) + m_velocity.y;*/
 }

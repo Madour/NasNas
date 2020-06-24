@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include "SFML/Window.hpp"
 
 namespace ns {
 
@@ -25,6 +25,14 @@ namespace ns {
             static bool key_repeat;
             static bool cursor_visible;
             static bool cursor_grabbed;
+        };
+
+        class Inputs {
+        public:
+            static void setButtonKey(const std::string& btn_name, sf::Keyboard::Key key);
+            static auto getButtonKey(const std::string& btn_name) -> sf::Keyboard::Key;
+        private:
+            static std::unordered_map<std::string, sf::Keyboard::Key> m_key_buttons_map;
         };
     };
 

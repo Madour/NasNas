@@ -39,6 +39,7 @@ namespace ns {
         explicit AnimPlayer();
         auto getActiveFrame() -> const AnimFrame &;
         void play(const Anim& animation);
+        auto getAnim() -> Anim*;
         void setPlaySpeed(float speed);
         void update();
 
