@@ -7,6 +7,7 @@
  - [x] Entities, sprites and animations 
  - [x] Cameras
  - [x] Debug text display in-game
+ - [x] Global app configuration settings
 
 ### To do :
  - [ ] Text and bitmap fonts
@@ -34,7 +35,7 @@ Feel free to configure CmakeLists.txt file if Cmake is unable to find your SFML 
 
 ### Other
 
-NasNas exists also for python, check it out [here](https://github.com/Madour/pyNasNas).
+NasNas also exists for python, check it out [here](https://github.com/Madour/pyNasNas).
 
 ### Author
 
