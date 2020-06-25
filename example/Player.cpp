@@ -5,12 +5,20 @@
 #include "Player.hpp"
 
 Player::Player()
-: ns::BaseEntity("Player"){
-
+: ns::BaseEntity("Player") {
+    // creating Player spritesheet and setting its animations
     m_spritesheet = new ns::Spritesheet(
         "adventurer",
         ns::Res::get().getTexture("adventurer"),
         {
+            new ns::Anim("idle",
+                {
+                    ns::AnimFrame({0, 0, 50, 37}, 250, {25, 37}),
+                    ns::AnimFrame({50, 0, 50, 37}, 200, {25, 37}),
+                    ns::AnimFrame({100, 0, 50, 37}, 200, {25, 37}),
+                    ns::AnimFrame({150, 0, 50, 37}, 250, {25, 37}),
+                }
+            ),
             new ns::Anim("walk",
                 {
                     ns::AnimFrame({50, 37, 50, 37}, 150, {25, 37}),
@@ -20,20 +28,13 @@ Player::Player()
                     ns::AnimFrame({250, 37, 50, 37}, 150, {25, 37}),
                     ns::AnimFrame({300, 37, 50, 37}, 150, {25, 37}),
                 }
-            ),
-            new ns::Anim("idle",
-                {
-                    ns::AnimFrame({0, 0, 50, 37}, 250, {25, 37}),
-                    ns::AnimFrame({50, 0, 50, 37}, 200, {25, 37}),
-                    ns::AnimFrame({100, 0, 50, 37}, 200, {25, 37}),
-                    ns::AnimFrame({150, 0, 50, 37}, 250, {25, 37}),
-                }
             )
         }
     );
     // adding sprite component to player (from spritesheet defined above)
     addComponent<ns::ecs::SpriteComponent>(this, m_spritesheet, "idle");
 
+    // adding physics component to player
     addComponent<ns::ecs::PhysicsComponent>(this, 1.f, sf::Vector2f(10, 10),sf::Vector2f(0.5, 0.5), sf::Vector2f(0.1, 0.1));
 
     // adding shape component to player (red triangle)
@@ -45,6 +46,7 @@ Player::Player()
     shape_component->getDrawable().setPoint(2, {5, 10});
     addComponent<ns::ecs::ShapeComponent<sf::ConvexShape>>(shape_component);
 
+    // adding inputs component to player and binding buttons to Player methods
     addComponent<ns::ecs::InputsComponent>(this);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("left"), &Player::moveLeft);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("right"), &Player::moveRight);
@@ -74,9 +76,13 @@ void Player::moveDown() {
 }
 
 void Player::update() {
+    // reset physics direction
     physics()->setDirection(0, 0);
+    // update Player inputs component
     inputs()->update<Player>();
+    // calling parent update
     ns::BaseEntity::update();
+    // if Player is not moving (drection x == 0), set anim state to idle
     if (physics()->getDirection().x == 0)
         graphics<ns::ecs::SpriteComponent>(0)->setAnimState("idle");
 }
