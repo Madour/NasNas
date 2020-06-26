@@ -30,6 +30,9 @@ namespace ns {
         T bottom = this->top + this->height;
 
         sf::Vector2<T> topleft = sf::Vector2<T>(this->left, this->top);
+        sf::Vector2<T> topright = sf::Vector2<T>(this->right, this->top);
+        sf::Vector2<T> bottomleft = sf::Vector2<T>(this->left, this->bottom);
+        sf::Vector2<T> bottomright = sf::Vector2<T>(this->right, this->bottom);
 
         sf::Vector2f center =sf::Vector2f((float)this->width/2.0, (float)this->height/2.0);
 
