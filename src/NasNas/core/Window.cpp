@@ -4,7 +4,7 @@
 
 #include "NasNas/core/Window.hpp"
 #include "NasNas/core/App.hpp"
-
+#include "NasNas/data/Config.hpp"
 
 using namespace ns;
 
@@ -37,7 +37,7 @@ void AppWindow::scaleView(){
     // wider than base window
     float vp_w = 0, vp_h = 0, vp_x = 0, vp_y = 0;
     float win_w = (float)getSize().x, win_h = (float)getSize().y;
-    float screen_ratio = (float)app->W_WIDTH / (float)app->W_HEIGHT;
+    float screen_ratio = (float)ns::Config::Window::width / (float)ns::Config::Window::height;
     if (win_w / win_h > screen_ratio) {
         vp_w = win_h * screen_ratio / win_w;
         vp_h = 1;

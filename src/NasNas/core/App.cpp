@@ -18,9 +18,7 @@ App::App()
 )
 {}
 
-App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps, int ups)
-: W_WIDTH(w_width), W_HEIGHT(w_height)
-{
+App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps, int ups) {
     ns::Config::Window::title = title;
     ns::Config::Window::width = w_width;
     ns::Config::Window::height = w_height;
@@ -104,7 +102,7 @@ void App::toggleFullscreen() {
         m_window.setMouseCursorVisible(false);
     }
     else {
-        m_window.create(sf::VideoMode(W_WIDTH, W_HEIGHT), m_title, ns::Config::Window::style);
+        m_window.create(sf::VideoMode(ns::Config::Window::width, ns::Config::Window::height), m_title, ns::Config::Window::style);
     }
     m_window.setClearColor(clear_color);
     m_window.setFramerateLimit(m_desired_fps);
