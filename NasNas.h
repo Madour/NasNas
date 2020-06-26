@@ -8,6 +8,7 @@
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Layers.hpp"
+#include "NasNas/core/BitmapText.hpp"
 #include "NasNas/core/Window.hpp"
 
 #include "NasNas/core/Logger.hpp"
