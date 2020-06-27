@@ -149,16 +149,16 @@ namespace ns {
 
         auto getPosition() const -> sf::Vector2f;
 
-        auto getLeft() const -> double;
+        auto getLeft() const -> float;
         void setLeft(float value);
 
-        auto getRight() const -> double;
+        auto getRight() const -> float;
         void setRight(float value);
 
-        auto getTop() const -> double;
+        auto getTop() const -> float;
         void setTop(float value);
 
-        auto getBottom() const -> double;
+        auto getBottom() const -> float;
         void setBottom(float value);
 
         auto getBounds() const -> FloatRect;

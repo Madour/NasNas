@@ -40,7 +40,7 @@ class BaseEntity: public Drawable {
         auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
 
         template<typename T>
-        auto graphics(int index) -> T*;
+        auto graphics(unsigned int index) -> T*;
 
         void move(float offsetx, float offsety) override;
 
@@ -76,7 +76,7 @@ class BaseEntity: public Drawable {
     }
 
     template <typename T>
-    auto BaseEntity::graphics(int index) -> T* {
+    auto BaseEntity::graphics(unsigned int index) -> T* {
         if (index < m_graphics_components_list.size()) {
             return dynamic_cast<T*>(m_graphics_components_list[index]);
         }

@@ -122,7 +122,7 @@ void Game::update() {
 
     // moving the octogons randomly
     for (const auto& drawable: this->scene->getLayer(1)->getDrawables()) {
-        std::visit([&](auto&& arg){arg->move(std::rand()%3 -1, std::rand()%3 -1);}, drawable);
+        std::visit([&](auto&& arg){arg->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);}, drawable);
     }
 
     // updating the player entity

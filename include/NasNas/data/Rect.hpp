@@ -34,7 +34,7 @@ namespace ns {
         sf::Vector2<T> bottomleft = sf::Vector2<T>(this->left, this->bottom);
         sf::Vector2<T> bottomright = sf::Vector2<T>(this->right, this->bottom);
 
-        sf::Vector2f center =sf::Vector2f((float)this->width/2.0, (float)this->height/2.0);
+        sf::Vector2f center =sf::Vector2f((float)this->width/2.f, (float)this->height/2.f);
 
         template <typename S>
         friend auto operator<< (std::ostream& os, const Rect<S>& rect) -> std::ostream& ;

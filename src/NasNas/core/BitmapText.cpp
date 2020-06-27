@@ -30,9 +30,9 @@ m_texture(&texture) {
     m_chars_map = chars_map;
     m_advance_map = spacings_map;
 
-    int i = 0;
-    for (int y = 0; y < m_texture->getSize().y; y += m_glyph_size.y) {
-        for (int x = 0; x < m_texture->getSize().x; x += m_glyph_size.x) {
+    unsigned int i = 0;
+    for (int y = 0; y < (int)m_texture->getSize().y; y += m_glyph_size.y) {
+        for (int x = 0; x < (int)m_texture->getSize().x; x += m_glyph_size.x) {
             if (i < m_chars_map.size()) {
                 char character = m_chars_map[i];
                 int spacing = m_glyph_size.x;
@@ -115,7 +115,7 @@ auto BitmapText::getHeight() -> int {
 }
 
 auto BitmapText::getSize() -> sf::Vector2f {
-    return sf::Vector2f(getWidth(), getHeight());
+    return sf::Vector2f((float)getWidth(), (float)getHeight());
 }
 
 void BitmapText::move(float offsetx, float offsety) {

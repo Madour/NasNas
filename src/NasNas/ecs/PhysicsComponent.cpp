@@ -38,7 +38,7 @@ void PhysicsComponent::setDirection(const sf::Vector2i& direction) {
     m_direction = direction;
 }
 
-void PhysicsComponent::setDirection(float direction_x, float direction_y) {
+void PhysicsComponent::setDirection(int direction_x, int direction_y) {
     m_direction.x = direction_x;
     m_direction.y = direction_y;
 }

@@ -20,7 +20,7 @@ auto ResourceManager::load(const std::string& assets_directory_name) -> bool {
         m_ready = true;
         return true;
     }
-    catch (std::exception& e) {
+    catch (std::exception&) {
         std::cout << "Error : ResourceLoading failed. The directory " << assets_directory_name << " was not found." << std::endl;
         return false;
     }

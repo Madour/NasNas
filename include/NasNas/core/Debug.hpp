@@ -24,7 +24,7 @@ namespace ns {
     public:
         static sf::Color color;
         static sf::Color outline_color;
-        static int outline_thickness;
+        static float outline_thickness;
         virtual void update() = 0;
     };
 

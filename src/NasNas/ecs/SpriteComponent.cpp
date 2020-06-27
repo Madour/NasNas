@@ -33,7 +33,7 @@ void SpriteComponent::setAnimState(const std::string& anim_state) {
             try {
                 m_anim_player.play(m_spritesheet->getAnim(anim_state));
                 m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
-                m_drawable.setOrigin(m_anim_player.getActiveFrame().origin.x, m_anim_player.getActiveFrame().origin.y);
+                m_drawable.setOrigin((float)m_anim_player.getActiveFrame().origin.x, (float)m_anim_player.getActiveFrame().origin.y);
             }
             catch (std::invalid_argument &exception) {
                 std::cout << exception.what() << std::endl;
@@ -50,7 +50,7 @@ auto SpriteComponent::getDrawable() -> sf::Sprite& {
 void SpriteComponent::update() {
     m_anim_player.update();
     m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
-    m_drawable.setOrigin(m_anim_player.getActiveFrame().origin.x, m_anim_player.getActiveFrame().origin.y);
+    m_drawable.setOrigin((float)m_anim_player.getActiveFrame().origin.x, (float)m_anim_player.getActiveFrame().origin.y);
     m_drawable.setPosition(m_entity->getPosition() + m_pos_offset);
 }
 

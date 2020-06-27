@@ -18,7 +18,7 @@ namespace ns::ecs {
 
         auto getDirection() -> sf::Vector2i;
         void setDirection(const sf::Vector2i& direction);
-        void setDirection(float direction_x, float direction_y);
+        void setDirection(int direction_x, int direction_y);
         void update() override;
 
     private:

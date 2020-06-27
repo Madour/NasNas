@@ -24,13 +24,13 @@ Camera::Camera(const std::string& name, int render_order) {
 }
 
 void Camera::reset(int x, int y, int w, int h) {
-    reset(FloatRect(x, y, w, h));
+    reset(FloatRect((float)x, (float)y, (float)w, (float)h));
 }
 void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
-    reset(FloatRect(position.x, position.y, size.x, size.y));
+    reset(FloatRect((float)position.x, (float)position.y, (float)size.x, (float)size.y));
 }
 void Camera::reset(const FloatRect &rectangle) {
-    m_base_view = IntRect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
+    m_base_view = IntRect((int)rectangle.left, (int)rectangle.top, (int)rectangle.width, (int)rectangle.height);
     sf::View::reset(rectangle);
 }
 
@@ -72,29 +72,29 @@ auto Camera::getPosition() const -> sf::Vector2f {
     return sf::Vector2f(getLeft(), getTop());
 }
 
-auto Camera::getLeft() const -> double{
-    return getCenter().x - getSize().x/2.0;
+auto Camera::getLeft() const -> float{
+    return getCenter().x - getSize().x/2.f;
 }
 void Camera::setLeft(float value) {
     setCenter(value + getSize().x/2, getCenter().y);
 }
 
-auto Camera::getRight() const -> double {
-    return getCenter().x + getSize().x/2.0;
+auto Camera::getRight() const -> float {
+    return getCenter().x + getSize().x/2.f;
 }
 void Camera::setRight(float value) {
     setCenter(value - getSize().x/2, getCenter().y);
 }
 
-auto Camera::getTop() const -> double {
-    return getCenter().y - getSize().y/2.0;
+auto Camera::getTop() const -> float {
+    return getCenter().y - getSize().y/2.f;
 }
 void Camera::setTop(float value) {
     setCenter(getCenter().x, value + getSize().y/2);
 }
 
-auto Camera::getBottom() const -> double {
-    return getCenter().y + getSize().y/2.0;
+auto Camera::getBottom() const -> float {
+    return getCenter().y + getSize().y/2.f;
 }
 void Camera::setBottom(float value) {
     setCenter(getCenter().x, value - getSize().y/2);
@@ -115,8 +115,8 @@ void Camera::update() {
         }
         if (getLeft() < 0) setLeft(0);
         if (getTop() < 0) setTop(0);
-        if (getRight() > m_scene->getWidth()) setRight((float)m_scene->getWidth());
-        if (getBottom() > m_scene->getHeight()) setBottom((float)m_scene->getHeight());
+        if (getRight() > (float)m_scene->getWidth()) setRight((float)m_scene->getWidth());
+        if (getBottom() > (float)m_scene->getHeight()) setBottom((float)m_scene->getHeight());
     }
 }
 
