@@ -15,29 +15,136 @@ namespace ns {
 
     class Camera: public sf::View {
     public:
-        friend AppWindow;
-        Camera();
+        /**
+         * \brief Construct a Camera object
+         *
+         * \param name Name of the Camera object
+         * \param render_order Render order of the Camera object
+         */
         Camera(const std::string& name, int render_order);
 
+        /**
+         * \brief Reset Camera size and position
+         *
+         * \param position New position
+         * \param size New size
+         */
         void reset(sf::Vector2i position, sf::Vector2i size);
+
+        /**
+         * \brief Reset Camera size and position
+         *
+         * \param x New X position
+         * \param y New Y position
+         * \param w New width
+         * \param h New height
+         */
         void reset(int x, int y, int w, int h);
+
+        /**
+         * \brief Reset Camera size and position
+         *
+         * \param rectangle New rectangle {position, size}
+         */
         void reset(const FloatRect& rectangle) ;
 
+        /**
+         * \brief Reset Camera viewport
+         *
+         * Viewport defines how much space Camera content should take on the window
+         * and where it is placed. Coordinates in percentage.
+         * e.g. :
+         * 0 = 0% of the window
+         * 0.5 = 50% of the window
+         * 1 = 100% of the window
+         *
+         * \param position New viewport position
+         * \param size New viewport size
+         */
         void resetViewport(sf::Vector2f position, sf::Vector2f size);
+
+        /**
+         * \brief Reset Camera viewport
+         *
+         * Viewport defines how much space Camera content should take on the window
+         * and where it is placed. Coordinates in percentage.
+         * e.g. :
+         * 0 = 0% of the window
+         * 0.5 = 50% of the window
+         * 1 = 100% of the window
+         *
+         * \param x New viewport X pos
+         * \param y New viewport Y pos
+         * \param w New viewport width
+         * \param h New viewport height
+         */
         void resetViewport(float x, float y, float w, float h);
 
+        /**
+         * \brief Is the Camera looking at a Scene ?
+         *
+         * \return True if Camera looking at a Scene
+         */
         auto hasScene() -> bool;
+
+        /**
+         * \brief Get the Scene looked at
+         *
+         * \return Scene object reference
+         */
         auto getScene() -> Scene&;
+
+        /**
+         * \brief Tell the Camera to look at a Scene
+         *
+         * \param scene Pointer to a Scene object
+         */
         void lookAt(Scene* scene);
 
-        void setVisible(bool value);
+        /**
+         * \brief Is the Camera visible ?
+         *
+         * \return True if the Camera is visible
+         */
         auto isVisible() const -> bool;
+        /**
+         * \brief Show or hide the Camera content
+         *
+         * \param value
+         */
+        void setVisible(bool value);
 
+        /**
+         * \brief Follow an entity, Camera position will be updated accordingly automatically.
+         *
+         * \param entity BaseEntity to be followed
+         */
         void follow(BaseEntity& entity);
 
+        /**
+         * \brief Get render order of the Camera
+         *
+         * 0 is rendered first, then 1, then 2 ...
+         *
+         * \return Camera render order
+         */
         auto getRenderOrder() const -> int;
 
+        /**
+         * \biref Get delay in position update over the followed entity
+         *
+         * \return Frame delay
+         */
         auto getFramesDelay() const -> unsigned int;
+
+        /**
+         * \brief Set the frame delay
+         *
+         * A delay of N means the Camera will need N frames
+         * to go to the followed entity position. Allows smooth camera movements
+         *
+         * \param value Frame delay
+         */
         void setFramesDelay(unsigned int value);
 
         auto getPosition() const -> sf::Vector2f;
@@ -56,20 +163,28 @@ namespace ns {
 
         auto getBounds() const -> FloatRect;
 
+        /**
+         * \brief Updates Camera position if following an entity
+         */
         void update();
 
     private:
-        std::string m_name;
-        int m_render_order;
-        bool m_visible;
-        BaseEntity* m_reference;
-        unsigned int m_frames_delay;
+        friend AppWindow;
 
-        IntRect m_base_view;
-        FloatRect m_base_viewport;
+        std::string m_name;             ///< Camera name
+        int m_render_order;             ///< Camera render order
+        Scene* m_scene;                 ///< Scene looked at (content of the Camera)
+        bool m_visible;                 ///< Is the Camera content visible ?
+        BaseEntity* m_reference;        ///< Entity followed by the Camera
+        unsigned int m_frames_delay;    ///< Delay when following an entity
 
-        Scene* m_scene;
+        IntRect m_base_view;            ///< Camera size on creation or on reset
+        FloatRect m_base_viewport;      ///< Viewport size on creation or on viewport reset
 
+        /**
+         * \brief Camera default constructor
+         */
+        Camera();
     };
 
 }

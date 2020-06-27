@@ -25,7 +25,7 @@ namespace ns {
         /**
          * \brief Adds a given layer to the scene
          *
-         * \param layer The layer to add
+         * \param layer Shared pointer to the Layer to add
          * \param order The order of render of the layer on the scene
          *
          * \see getLayer
@@ -35,7 +35,7 @@ namespace ns {
         /**
          * \brief Adds a given layer to the scene
          *
-         * \param layer The layer to add
+         * \param layer Shared pointer to the Layer to add
          * \param order The order of render of the layer on the scene
          *
          * \see getLayer
@@ -69,8 +69,8 @@ namespace ns {
         friend App;
         std::map<int, std::shared_ptr<Layer>> m_layers;     ///< Map of Layer objects of the Scene sorted by their order
         sf::Color m_clear_color = sf::Color::Transparent;   ///< Clear color of the Scene render texture
-        sf::RenderTexture m_render_texture;     ///< Scene render texture
-        sf::Sprite m_sprite;                    ///< Scene sprite
+        sf::RenderTexture m_render_texture;                 ///< Scene render texture
+        sf::Sprite m_sprite;                                ///< Scene sprite
 
         /**
          * \brief Render all the Layer objects on the Scene render texture and updates Scene sprite
