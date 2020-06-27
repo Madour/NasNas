@@ -42,6 +42,6 @@ auto ns::operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream& 
 }
 
 
-sf::Color ns::DebugTextInterface::color = sf::Color::White;
-sf::Color ns::DebugTextInterface::outline_color = sf::Color::Black;
+sf::Color ns::DebugTextInterface::color = sf::Color(255, 255, 255);
+sf::Color ns::DebugTextInterface::outline_color = sf::Color(0, 0, 0);
 int ns::DebugTextInterface::outline_thickness = 0;

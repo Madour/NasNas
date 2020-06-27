@@ -57,12 +57,11 @@ namespace ns {
     DebugText<T, ObjT>::DebugText(const std::string& label, const sf::Vector2f& position) {
         m_label = label;
         setFont(Res::get().getFont("arial"));
-        setCharacterSize(15);
+        setCharacterSize(20);
         setFillColor(ns::DebugTextInterface::color);
         setOutlineColor(ns::DebugTextInterface::outline_color);
         setOutlineThickness(ns::DebugTextInterface::outline_thickness);
         setPosition(position);
-        setCharacterSize(20);
     }
 
     template<typename T, typename ObjT>

@@ -34,8 +34,7 @@ namespace ns::ecs {
     };
 
     template <typename T>
-    std::unordered_map<InputsComponent*, std::unordered_map<sf::Keyboard::Key, std::function<void(T&)>>> InputsComponent::m_controls;
-
+    std::unordered_map<InputsComponent*, std::unordered_map<sf::Keyboard::Key, std::function<void(T&)>>> InputsComponent::m_controls = {};
     template<typename T>
     void InputsComponent::bind(sf::Keyboard::Key key, std::function<void(T &)> function) {
         static_assert(std::is_base_of_v<BaseEntity, T>);
