@@ -7,10 +7,19 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
+#include "SFML/Graphics.hpp"
 
 #define ns_LOG(...) ns::Logger::log(__FILE__, __LINE__, __VA_ARGS__)
 
 namespace ns {
+
+    auto operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector2i& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector2u& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector3f& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream&;
 
     class Logger {
     public:
@@ -28,7 +37,6 @@ namespace ns {
     template<typename... Types>
     void Logger::log(const std::string& file, int line_nb, Types... args) {
         std::cout << "["<<line_nb<<"|"<<std::filesystem::path(file).filename().string()<<"] ";
-
         Logger::logr(args...);
     }
 
@@ -37,5 +45,5 @@ namespace ns {
         std::cout << arg << " ";
         Logger::logr(args...);
     }
-}
 
+}

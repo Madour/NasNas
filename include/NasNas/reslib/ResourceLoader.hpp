@@ -6,17 +6,15 @@
 
 #include "SFML/Graphics.hpp"
 #include <unordered_map>
+#include <iostream>
 #include <filesystem>
 #include <set>
 
-#include "NasNas/core/Logger.hpp"
-
 namespace ns {
+
     class ResourceManager;
 
     class Dir {
-    const static std::set<std::string> texture_extensions;
-    const static std::set<std::string> fonts_extensions;
 
     using t_DirsMap = std::unordered_map<std::string, std::shared_ptr<Dir>>;
     using t_TexturesMap = std::unordered_map<std::string, std::shared_ptr<sf::Texture>>;
@@ -33,6 +31,9 @@ namespace ns {
         auto getFont(const std::string& font_name) -> sf::Font&;
 
     private:
+        const static std::set<std::string> texture_extensions;
+        const static std::set<std::string> fonts_extensions;
+
         std::string m_name;
         t_DirsMap m_dirs;
         t_TexturesMap m_textures;
