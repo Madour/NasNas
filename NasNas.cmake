@@ -9,6 +9,7 @@ set(
         src/NasNas/data/AppComponent.cpp
         src/NasNas/data/Config.cpp
         src/NasNas/data/Rect.cpp
+        src/NasNas/data/Arial.cpp
 
         src/NasNas/reslib/ResourceLoader.cpp
         src/NasNas/reslib/ResourceManager.cpp
@@ -44,6 +45,7 @@ set(
         include/NasNas/data/AppComponent.hpp
         include/NasNas/data/Config.hpp
         include/NasNas/data/Rect.hpp
+        include/NasNas/data/Arial.hpp
 
         include/NasNas/reslib/ResourceLoader.hpp
         include/NasNas/reslib/ResourceManager.hpp

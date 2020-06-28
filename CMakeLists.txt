@@ -17,7 +17,7 @@ endif()
 
 include(NasNas.cmake)
 
-file(COPY assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+file(COPY example/assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 
 add_executable(NasNas

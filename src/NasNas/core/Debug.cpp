@@ -4,8 +4,6 @@
 
 #include "NasNas/core/Debug.hpp"
 
-using namespace ns;
-
 auto ns::operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream& {
     char b[255];
     sprintf_s(b, "Vector2f(%.3f, %.3f)", vect.x, vect.y);

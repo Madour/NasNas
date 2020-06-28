@@ -3,6 +3,7 @@
 **/
 
 #include "NasNas/reslib/ResourceManager.hpp"
+#include "NasNas/data/Arial.hpp"
 
 using namespace ns;
 
@@ -11,6 +12,7 @@ ResourceManager::~ResourceManager() = default;
 
 bool ResourceManager::m_ready = false;
 Dir* ResourceManager::m_data = nullptr;
+sf::Font* ResourceManager::m_default_font = nullptr;
 
 
 auto ResourceManager::load(const std::string& assets_directory_name) -> bool {
@@ -29,6 +31,8 @@ auto ResourceManager::load(const std::string& assets_directory_name) -> bool {
 void ResourceManager::dispose() {
     if(m_ready)
         delete(m_data);
+    if(m_default_font)
+        delete(m_default_font);
 }
 
 auto ResourceManager::get() -> Dir& {
@@ -37,6 +41,14 @@ auto ResourceManager::get() -> Dir& {
         exit(-1);
     }
     return *m_data;
+}
+
+auto ResourceManager::getDefaultFont() -> sf::Font& {
+    if (m_default_font == nullptr) {
+        m_default_font = new sf::Font();
+        m_default_font->loadFromMemory(Arial::data, Arial::len);
+    }
+    return *m_default_font;
 }
 
 void ResourceManager::printTree() {
