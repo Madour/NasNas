@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
 
 if (WIN32)
     set(SFML_STATIC_LIBRARIES TRUE)
@@ -19,15 +21,23 @@ include(NasNas.cmake)
 
 file(COPY example/assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
+add_executable( NasNas_demo
+    main.cpp main.hpp
+    example/Game.cpp example/Game.hpp
+    example/Player.cpp example/Player.hpp
+    NasNas.h ${NasNas_Sources} ${NasNas_Headers}
+)
+add_library(NasNas_static STATIC ${NasNas_Sources} ${NasNas_Headers})
+add_library(NasNas_shared SHARED ${NasNas_Sources} ${NasNas_Headers})
 
-add_executable(NasNas
-        main.cpp main.hpp
-        example/Game.cpp example/Game.hpp
-        example/Player.cpp example/Player.hpp
+# Static lib target
+target_include_directories(NasNas_static PRIVATE ${NasNas_Include_Dir})
+target_link_libraries(NasNas_static sfml-graphics sfml-audio)
 
-        NasNas.h ${NasNas_Sources} ${NasNas_Headers}
-        )
+# Shared lib target
+target_include_directories(NasNas_shared PRIVATE ${NasNas_Include_Dir})
+target_link_libraries(NasNas_shared sfml-graphics sfml-audio)
 
-target_include_directories(NasNas PRIVATE ${NasNas_Include_Dir})
-
-target_link_libraries(NasNas sfml-graphics)
+# Demo game
+target_include_directories(NasNas_demo PRIVATE ${NasNas_Include_Dir})
+target_link_libraries(NasNas_demo sfml-graphics sfml-audio)
