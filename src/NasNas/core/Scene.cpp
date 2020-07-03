@@ -13,15 +13,29 @@ Scene::Scene(int width, int height) {
 }
 
 void Scene::addLayer(const std::shared_ptr<Layer>& layer, int order) {
-    m_layers[order] = std::make_shared<Layer>(*layer);
+    m_layers[std::pair<int, std::string>(order, layer->getName())] = std::make_shared<Layer>(*layer);
 }
 
 void Scene::addLayer(std::shared_ptr<Layer>& layer, int order) {
-    m_layers[order] = layer;
+    m_layers[std::pair<int, std::string>(order, layer->getName())] = layer;
 }
 
 auto Scene::getLayer(int order) -> Layer* {
-    return m_layers.at(order).get();
+    for (auto [key, value] : m_layers) {
+        if (key.first == order)
+            return value.get();
+    }
+    std::cout << "Your Scene has no Layer " << order << std::endl;
+    exit(-1);
+}
+
+auto Scene::getLayer(const std::string& name) -> Layer* {
+    for (auto [key, value] : m_layers) {
+        if (key.second == name)
+            return value.get();
+    }
+    std::cout << "Your Scene has no Layer name " << name << std::endl;
+    exit(-1);
 }
 
 auto Scene::getWidth() -> int { return m_render_texture.getSize().x;}

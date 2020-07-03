@@ -48,14 +48,14 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     }
 
     // creating entities layer
-    auto entities_layer = std::make_shared<ns::Layer>("entities_layer");
+    auto entities_layer = std::make_shared<ns::Layer>("entities");
     this->scene->addLayer(entities_layer, 2);
 
     // creating an entity and setting its position
     this->player = std::make_shared<Player>();
     this->player->setPosition({100, 100});
     // adding the entity to the layer
-    this->scene->getLayer(2)->add(this->player);
+    this->scene->getLayer("entities")->add(this->player);
 
     // creating BitmapFont
     auto bmp_font = std::make_shared<ns::BitmapFont>(
@@ -68,7 +68,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     auto bmp_text = std::make_shared<ns::BitmapText>("THIS IS A BITMAP TEXT CREATED FROM PNG FONT", bmp_font);
     bmp_text->setPosition(sf::Vector2f((float)ns::Config::Window::view_width/2, (float)ns::Config::Window::view_height/2) - bmp_text->getSize()/2.f);
     // adding the BitmapText to the layer
-    this->scene->getLayer(2)->add(bmp_text);
+    this->scene->getLayer("entities")->add(bmp_text);
 
     // adding debug texts
     // directly using addDebugText to create automatically a DebugText object

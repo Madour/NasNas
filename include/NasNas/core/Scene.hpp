@@ -52,6 +52,15 @@ namespace ns {
         auto getLayer(int order) -> Layer*;
 
         /**
+         * \brief Returns the layer of the given name
+         *
+         * \param name The name of the layer to get
+         *
+         * \return Pointer to Layer object
+         */
+        auto getLayer(const std::string& name) -> Layer*;
+
+        /**
          * \brief Get the width of the Scene
          *
          * \return Scene width
@@ -67,7 +76,9 @@ namespace ns {
 
     private:
         friend App;
-        std::map<int, std::shared_ptr<Layer>> m_layers;     ///< Map of Layer objects of the Scene sorted by their order
+
+        /// Map of Layer objects of the Scene sorted by their order
+        std::map<std::pair<int, std::string>, std::shared_ptr<Layer>> m_layers;
         sf::Color m_clear_color = sf::Color::Transparent;   ///< Clear color of the Scene render texture
         sf::RenderTexture m_render_texture;                 ///< Scene render texture
         sf::Sprite m_sprite;                                ///< Scene sprite
