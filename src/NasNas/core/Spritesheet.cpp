@@ -8,14 +8,6 @@
 
 using namespace ns;
 
-// old constructor
-/*
-Spritesheet::Spritesheet(std::string name, const sf::Texture& texture, std::unordered_map<std::string, Anim*> anims):
-name(std::move(name)),
-texture(&texture),
-m_anims_map(std::move(anims))
-{}
-*/
 
 Spritesheet::Spritesheet(std::string  name, const sf::Texture& texture, const std::vector<Anim*>& anims):
 name(std::move(name)),
@@ -32,7 +24,7 @@ Spritesheet::~Spritesheet() {
     }
 }
 
-auto Spritesheet::animsMap() -> const std::unordered_map<std::string, Anim*>& {
+auto Spritesheet::getAnimsMap() -> const std::unordered_map<std::string, Anim*>& {
     return m_anims_map;
 }
 

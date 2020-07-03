@@ -83,6 +83,13 @@ namespace ns {
     protected:
 
         /**
+         * \brief Get the AppWindow
+         *
+         * \return Reference to the AppWindow
+         */
+        auto getWindow() -> AppWindow&;
+
+        /**
          * \brief Creates a Scene object and returns a pointer to it
          *
          * \param width Width of the new Scene
@@ -180,13 +187,6 @@ namespace ns {
          */
         template<typename T, typename ObjT>
         void addDebugText(DebugText<T, ObjT>* debug_text);
-
-        /**
-         * \brief Get the AppWindow
-         *
-         * \return Reference to the AppWindow
-         */
-        auto getWindow() -> AppWindow&;
 
         /**
          * \brief Toggle fullscreen display.
