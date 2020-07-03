@@ -27,8 +27,8 @@ texture(&texture)
 }
 
 Spritesheet::~Spritesheet() {
-    for(auto& pair: m_anims_map) {
-        delete(pair.second);
+    for(auto& [name, anim]: m_anims_map) {
+        delete(anim);
     }
 }
 

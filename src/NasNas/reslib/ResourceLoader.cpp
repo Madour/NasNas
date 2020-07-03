@@ -66,20 +66,20 @@ auto Dir::getFont(const std::string& font_name) -> sf::Font& {
 void Dir::print_tree(int indent) {
     auto print_indent = [](int n) { for (int i = 0; i < n; ++i) { std::cout << "|  "; } };
 
-    for(auto& item: m_dirs) {
+    for(auto& [dir_name, dir_ptr]: m_dirs) {
         print_indent(indent);
-        std::cout << "|_ " << item.first << " : Dir" << std::endl;
-        item.second->print_tree(indent + 1);
+        std::cout << "|_ " << dir_name << " : Dir" << std::endl;
+        dir_ptr->print_tree(indent + 1);
     }
 
-    for(auto& item: m_textures) {
+    for(auto& [texture_name, _]: m_textures) {
         print_indent(indent);
-        std::cout<< "|_ " << item.first << " : Texture" << std::endl;
+        std::cout<< "|_ " << texture_name << " : Texture" << std::endl;
     }
 
-    for(auto& item: m_fonts) {
+    for(auto& [font_name, _]: m_fonts) {
         print_indent(indent);
-        std::cout<< "|_ " << item.first << " : Font" << std::endl;
+        std::cout<< "|_ " << font_name << " : Font" << std::endl;
     }
 }
 

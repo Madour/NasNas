@@ -46,8 +46,8 @@ m_texture(&texture) {
 }
 
 BitmapFont::~BitmapFont() {
-    for (const auto& item : m_glyphs) {
-        delete(item.second);
+    for (const auto& [name, glyph] : m_glyphs) {
+        delete(glyph);
     }
 }
 

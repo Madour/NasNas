@@ -43,8 +43,8 @@ auto Scene::getHeight() -> int { return m_render_texture.getSize().y;}
 
 void Scene::render() {
     m_render_texture.clear(m_clear_color);
-    for (auto& item: m_layers) {
-        m_render_texture.draw(*item.second);
+    for (auto& [key, layer]: m_layers) {
+        m_render_texture.draw(*layer);
     }
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
