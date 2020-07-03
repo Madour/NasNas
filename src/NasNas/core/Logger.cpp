@@ -8,7 +8,7 @@ using namespace ns;
 
 auto ns::operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream& {
     char b[255];
-    sprintf_s(b, "Vector2f(%.3f, %.3f)", vect.x, vect.y);
+    sprintf(b, "Vector2f(%.3f, %.3f)", vect.x, vect.y);
     os << b;
     return os;
 }
@@ -23,7 +23,7 @@ auto ns::operator<<(std::ostream& os, const sf::Vector2u& vect) -> std::ostream&
 
 auto ns::operator<<(std::ostream& os, const sf::Vector3f& vect) -> std::ostream& {
     char b[255];
-    sprintf_s(b, "Vector3(%.3f, %.3f, %.3f)", vect.x, vect.y, vect.z);
+    sprintf(b, "Vector3(%.3f, %.3f, %.3f)", vect.x, vect.y, vect.z);
     os << b;
     return os;
 }

@@ -39,6 +39,30 @@ Feel free to configure CmakeLists.txt file if Cmake is unable to find your SFML 
 Please check the [example game](https://github.com/Madour/NasNas/tree/master/example) source code
 to get an idea of how the framework is used. A proper wiki and documentation will be written in the future.
 
+Here is a sample code using NasNas framework, this will create a 720x480 window and log a string to the console : 
+
+```c++
+#include "NasNas.h"
+
+class Game : public ns::App {
+public:
+    Game() : ns::App("My game", 720, 480) {
+        ns_LOG("Created a NasNas app !");
+    }
+    void onEvent(sf::Event event) override {
+        if (event.type == sf::Event::Closed)
+            getWindow().close();
+    }
+    void update() override {}
+};
+
+int main() {
+    Game g;
+    g.run();
+    return 0;
+}
+```
+
 ### Other
 
 NasNas also exists for python, check it out [here](https://github.com/Madour/pyNasNas).
