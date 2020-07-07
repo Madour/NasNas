@@ -12,7 +12,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
 
 if (WIN32)
     set(SFML_STATIC_LIBRARIES TRUE)
-    find_package(SFML COMPONENTS graphics audio PATHS C:/SFML/lib/cmake/ )
+    set(SFML_ROOT C:/SFML)
+    find_package(SFML COMPONENTS graphics audio PATHS ${SFML_ROOT}/lib/cmake/ )
 else()
     find_package(SFML COMPONENTS graphics audio )
 endif()
@@ -31,13 +32,13 @@ add_library(NasNas_static STATIC ${NasNas_Sources} ${NasNas_Headers})
 add_library(NasNas_shared SHARED ${NasNas_Sources} ${NasNas_Headers})
 
 # Static lib target
-target_include_directories(NasNas_static PRIVATE ${NasNas_Include_Dir})
+target_include_directories(NasNas_static PRIVATE include)
 target_link_libraries(NasNas_static sfml-graphics sfml-audio)
 
 # Shared lib target
-target_include_directories(NasNas_shared PRIVATE ${NasNas_Include_Dir})
+target_include_directories(NasNas_shared PRIVATE include)
 target_link_libraries(NasNas_shared sfml-graphics sfml-audio)
 
-# Demo game
-target_include_directories(NasNas_demo PRIVATE ${NasNas_Include_Dir})
+# Demo game target
+target_include_directories(NasNas_demo PRIVATE include)
 target_link_libraries(NasNas_demo sfml-graphics sfml-audio)
