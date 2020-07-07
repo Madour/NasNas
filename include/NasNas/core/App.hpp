@@ -97,7 +97,7 @@ namespace ns {
          *
          * \return Pointer to the created Scene object
          */
-        auto createScene(int width, int height) -> Scene*;
+        auto createScene(const std::string& name) -> Scene*;
 
         /**
          * \brief Creates a Camera object and returns a pointer to it

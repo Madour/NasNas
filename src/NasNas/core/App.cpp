@@ -37,7 +37,7 @@ App::App(const std::string& title, int w_width, int w_height, int v_width, int v
     m_fullscreen = false;
 
     m_window.create(sf::VideoMode(w_width, w_height), title, ns::Config::Window::style);
-    m_window.setUIView(v_width, v_height);
+    m_window.setAppView(v_width, v_height);
     m_window.setFramerateLimit(fps);
 
     m_dt = 0.0;
@@ -77,8 +77,8 @@ auto App::getInputs() -> std::vector<sf::Keyboard::Key> & {
     return m_inputs;
 }
 
-auto App::createScene(int width, int height) -> Scene* {
-    auto* new_scene = new Scene(width, height);
+auto App::createScene(const std::string& name) -> Scene* {
+    auto* new_scene = new Scene(name);
     m_scenes.push_back(new_scene);
     return new_scene;
 }
@@ -123,30 +123,25 @@ void App::storeInputs(sf::Event event) {
 }
 
 void App::render() {
-    // updating all scenes by rendering on their textures
-    for (Scene*& scn: m_scenes) {
-        scn->render();
-    }
 
     // sorting cameras by their render order, order 0 being always drawn first
     std::sort(
-            m_cameras.begin(), m_cameras.end(),
-            [](auto& lhs, auto& rhs){
-                return lhs->getRenderOrder() < rhs->getRenderOrder();
-            }
+        m_cameras.begin(), m_cameras.end(),
+        [](auto& lhs, auto& rhs){
+            return lhs->getRenderOrder() < rhs->getRenderOrder();
+        }
     );
-    // for each camera, if it has a scene and is visible, draw its scene on its view.
+
+    // drawing Camera contents on App view
+    m_window.setView(m_window.getAppView());
+    // for each camera, if it has a scene and is visible, render the content
     for (Camera*& cam: m_cameras) {
         if (cam->hasScene() && cam->isVisible()) {
-            m_window.setView(*cam);
-            m_window.draw(cam->getScene());
+            cam->render(m_window);
         }
     }
 
-    // drawing UI on the UIView
-    m_window.setView(m_window.getUIView());
-
-    // drawing debug text on DefaultView
+    // drawing debug texts on DefaultView
     m_window.setView(m_window.getDefaultView());
     for(auto& dbg_txt: m_debug_texts) {
         dbg_txt->update(); m_window.draw(*dbg_txt);

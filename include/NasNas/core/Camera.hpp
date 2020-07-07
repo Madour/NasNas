@@ -23,6 +23,8 @@ namespace ns {
          */
         Camera(const std::string& name, int render_order);
 
+        void setName(const std::string& name);
+
         /**
          * \brief Reset Camera size and position
          *
@@ -169,22 +171,33 @@ namespace ns {
         void update();
 
     private:
-        friend AppWindow;
+        friend AppWindow; friend App;
 
         std::string m_name;             ///< Camera name
         int m_render_order;             ///< Camera render order
-        Scene* m_scene;                 ///< Scene looked at (content of the Camera)
         bool m_visible;                 ///< Is the Camera content visible ?
+        Scene* m_scene;                 ///< Scene looked at (content of the Camera)
+
         BaseEntity* m_reference;        ///< Entity followed by the Camera
         unsigned int m_frames_delay;    ///< Delay when following an entity
 
         IntRect m_base_view;            ///< Camera size on creation or on reset
         FloatRect m_base_viewport;      ///< Viewport size on creation or on viewport reset
 
+        sf::RenderTexture m_render_texture;
+        sf::Sprite m_sprite;
+
         /**
          * \brief Camera default constructor
          */
         Camera();
+
+        /**
+         * \brief Renders Camera content on the given target
+         * \param target Target where content is drawn on, usualy the AppWindow
+         */
+        void render(sf::RenderTarget& target);
+
     };
 
 }

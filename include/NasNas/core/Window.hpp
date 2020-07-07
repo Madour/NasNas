@@ -4,29 +4,28 @@
 
 #pragma once
 
-#include "NasNas/data/AppComponent.hpp"
 #include "NasNas/core/Camera.hpp"
 
 namespace ns {
 
-    class AppWindow: public AppComponent, public sf::RenderWindow {
+    class AppWindow: public sf::RenderWindow {
     public:
-        friend App;
-
         void onCreate() override;
         void onResize() override;
-        auto getUIView() const -> const Camera&;
+
+        auto getAppView() const -> const Camera&;
         void scaleView();
 
         auto getClearColor() const -> const sf::Color&;
         void setClearColor(const sf::Color& color);
 
     private:
-        int V_WIDTH;
-        int V_HEIGHT;
+        friend App;
+
         sf::Color m_clear_color;
-        Camera m_ui_view;
-        void setUIView(int width, int height);
+        Camera m_app_view;
+
+        void setAppView(int width, int height);
     };
 
 }

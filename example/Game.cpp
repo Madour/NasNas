@@ -19,10 +19,10 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     ns::Config::Physics::gravity = 0;
 
     // creating the scene
-    this->scene = this->createScene(1600, 900);
+    this->scene = this->createScene("main");
 
     // creating background layer
-    this->scene->addLayer(std::make_shared<ns::Layer>("background"), 0);
+    this->scene->addLayer(new ns::Layer("background"), 0);
 
     // creating a RectangleShape, fill it in Grey color and adding it to the background layer
     auto rect2 = std::make_shared<sf::RectangleShape>(sf::Vector2f(1600, 900));
@@ -30,7 +30,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     this->scene->getLayer(0)->add(rect2);
 
     // creating shapes layer
-    this->scene->addLayer(std::make_shared<ns::Layer>("shapes"), 1);
+    this->scene->addLayer(new ns::Layer("shapes"), 1);
 
     auto colors = std::vector<sf::Color>{sf::Color::Blue, sf::Color::Red, sf::Color::Green,
                                          sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,

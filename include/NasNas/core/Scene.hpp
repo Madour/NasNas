@@ -20,17 +20,17 @@ namespace ns {
          * \param width Width of the Scene
          * \param height Height of the Scene
          */
-        Scene(int width, int height);
+        explicit Scene(const std::string& name);
 
         /**
          * \brief Adds a given layer to the scene
          *
-         * \param layer Shared pointer to the Layer to add
+         * \param layer Raw pointer to the Layer to add
          * \param order The order of render of the layer on the scene
          *
          * \see getLayer
          */
-        void addLayer(const std::shared_ptr<Layer>& layer, int order);
+        void addLayer(Layer* layer, int order);
 
         /**
          * \brief Adds a given layer to the scene
@@ -60,33 +60,12 @@ namespace ns {
          */
         auto getLayer(const std::string& name) -> Layer*;
 
-        /**
-         * \brief Get the width of the Scene
-         *
-         * \return Scene width
-         */
-        auto getWidth() -> int;
-
-        /**
-         * \brief Get the height of the Scene
-         *
-         * \return Scene height
-         */
-        auto getHeight() -> int;
-
     private:
         friend App;
 
+        std::string m_name;         ///< Scene name
         /// Map of Layer objects of the Scene sorted by their order
         std::map<std::pair<int, std::string>, std::shared_ptr<Layer>> m_layers;
-        sf::Color m_clear_color = sf::Color::Transparent;   ///< Clear color of the Scene render texture
-        sf::RenderTexture m_render_texture;                 ///< Scene render texture
-        sf::Sprite m_sprite;                                ///< Scene sprite
-
-        /**
-         * \brief Render all the Layer objects on the Scene render texture and updates Scene sprite
-         */
-        void render();
 
         /**
          * \brief Draws the Scene sprite on the AppWindow
