@@ -21,6 +21,8 @@ namespace ns {
         // copy constructor
         Rect<T>(const Rect<T> &rect);
 
+        Rect<T>(const sf::Rect<T>& rect);
+
         auto repr() const -> std::string;
 
         sf::Vector2<T> size = sf::Vector2<T>(this->width, this->height);
@@ -42,6 +44,14 @@ namespace ns {
 
     template<typename T>
     Rect<T>::Rect(const Rect<T> &rect):sf::Rect<T>(rect) {
+    }
+
+    template <typename T>
+    Rect<T>::Rect(const sf::Rect<T>& rect) {
+        this->left = rect.left;
+        this->top = rect.top;
+        this->width = rect.width;
+        this->height = rect.height;
     }
 
     template <typename T>
