@@ -58,6 +58,8 @@ namespace ns {
         auto getPosition() -> sf::Vector2f override;
         void setPosition(const sf::Vector2f& position);
 
+        auto getGlobalBounds() -> ns::FloatRect override;
+
         auto getWidth() -> int;
         auto getHeight() -> int;
         auto getSize() -> sf::Vector2f;

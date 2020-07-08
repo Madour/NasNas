@@ -47,6 +47,11 @@ auto SpriteComponent::getDrawable() -> sf::Sprite& {
     return m_drawable;
 }
 
+auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
+    return m_drawable.getGlobalBounds();
+}
+
+
 void SpriteComponent::update() {
     m_anim_player.update();
     m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);

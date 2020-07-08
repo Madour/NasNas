@@ -19,6 +19,7 @@ class SpriteComponent : public  GraphicsComponent {
         void setSpritesheet(Spritesheet* spritesheet);
         void setAnimState(const std::string& anim_state);
         auto getDrawable() -> sf::Sprite& override;
+        auto getGlobalBounds() -> ns::FloatRect override;
         void update() override;
 
     private:

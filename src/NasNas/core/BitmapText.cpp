@@ -103,6 +103,10 @@ void BitmapText::setPosition(const sf::Vector2f& position) {
     m_transformable.setPosition(position);
 }
 
+auto BitmapText::getGlobalBounds() -> ns::FloatRect {
+    return ns::FloatRect(m_transformable.getPosition(), getSize());
+}
+
 auto BitmapText::getWidth() -> int {
     int width = 0;
     for (const auto& character : m_text)

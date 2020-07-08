@@ -8,11 +8,11 @@
 #include "NasNas/core/Spritesheet.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
-#include "InputsComponent.hpp"
+#include "NasNas/ecs/InputsComponent.hpp"
 
 namespace ns {
 
-class BaseEntity: public Drawable {
+    class BaseEntity: public Drawable {
     public:
         explicit BaseEntity(const std::string& name);
         ~BaseEntity() override;
@@ -35,14 +35,15 @@ class BaseEntity: public Drawable {
         auto getY() -> float;
         void setY(float value);
 
+        auto getGlobalBounds() -> ns::FloatRect override;
+        void move(float offsetx, float offsety) override;
+
         auto inputs() -> ecs::InputsComponent*;
         auto physics() -> ecs::PhysicsComponent*;
         auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
-
         template<typename T>
         auto graphics(unsigned int index) -> T*;
 
-        void move(float offsetx, float offsety) override;
 
     private:
         std::string m_name;
@@ -60,7 +61,7 @@ class BaseEntity: public Drawable {
         ecs::PhysicsComponent* m_physics_component = nullptr;
         ecs::InputsComponent* m_inputs_component = nullptr;
 
-};
+    };
 
     template<class T, typename... TArgs>
     void BaseEntity::addComponent(TArgs... component_args) {

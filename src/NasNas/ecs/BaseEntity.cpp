@@ -42,6 +42,35 @@ void BaseEntity::setY(float value) {
     m_ry = (value - (float)m_gy * 16) / 16;
 }
 
+auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
+    float left, top, right, bottom;
+    bool first = true;
+    for (const auto& graphic_comp : m_graphics_components_list) {
+        if (first) {
+            left = graphic_comp->getGlobalBounds().left;
+            top = graphic_comp->getGlobalBounds().top;
+            right = graphic_comp->getGlobalBounds().right;
+            bottom = graphic_comp->getGlobalBounds().bottom;
+            first = false;
+        }
+        else {
+            left = std::min(left, graphic_comp->getGlobalBounds().left);
+            top = std::min(top, graphic_comp->getGlobalBounds().top);
+            right = std::max(right, graphic_comp->getGlobalBounds().right);
+            bottom = std::max(bottom, graphic_comp->getGlobalBounds().bottom);
+        }
+    }
+    if (!first)
+        return ns::FloatRect(left, top, right - left, bottom - top);
+    else
+        return ns::FloatRect(0, 0, 0, 0);
+}
+
+void BaseEntity::move(float offsetx, float offsety) {
+    setX(getX() + offsetx);
+    setY(getY() + offsety);
+}
+
 void BaseEntity::update() {
     if(m_inputs_component) m_inputs_component->update();
     if(m_physics_component) m_physics_component->update();
@@ -74,7 +103,4 @@ auto BaseEntity::physics() -> ecs::PhysicsComponent* {
 
 auto BaseEntity::graphics() -> std::vector<ecs::GraphicsComponent*>& {
     return m_graphics_components_list;
-}
-
-void BaseEntity::move(float offsetx, float offsety) {
 }

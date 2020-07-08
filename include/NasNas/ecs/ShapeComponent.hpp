@@ -7,6 +7,7 @@
 
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
+#include "NasNas/data/Rect.hpp"
 
 namespace ns::ecs {
 
@@ -19,13 +20,14 @@ namespace ns::ecs {
         ShapeComponent(BaseEntity *entity, int point_count, const sf::Vector2f &pos_offset={0,0});
 
         auto getDrawable() -> T& override;
+        auto getGlobalBounds() -> ns::FloatRect override;
+
         void update() override;
 
     private:
         sf::Vector2f m_pos_offset = {0, 0};
         T m_drawable;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
     };
 
     template<typename T>
@@ -33,7 +35,12 @@ namespace ns::ecs {
         return m_drawable;
     }
 
-    template <typename T>
+    template<typename T>
+    auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
+        return m_drawable.getGlobalBounds();
+    }
+
+    template<typename T>
     void ShapeComponent<T>::update() {
         m_drawable.setPosition(m_entity->getPosition() + m_pos_offset);
     }
