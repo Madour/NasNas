@@ -107,7 +107,7 @@ void Camera::setBottom(float value) {
     setCenter(getCenter().x, value - getSize().y/2);
 }
 
-auto Camera::getBounds() const -> FloatRect {
+auto Camera::getGlobalBounds() const -> FloatRect {
     return FloatRect(getPosition(), getSize());
 }
 
@@ -132,12 +132,13 @@ void Camera::update() {
 void Camera::render(sf::RenderTarget& target) {
     m_render_texture.setView(*this);
     m_render_texture.clear(sf::Color::Transparent);
-    m_render_texture.draw(*m_scene);
-    m_render_texture.display();
 
+    m_scene->temporaryLinkCamera(this);
+    m_render_texture.draw(*m_scene);
+
+    m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
 
     target.draw(m_sprite);
-
 }
 

@@ -25,7 +25,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     this->scene->addLayer(new ns::Layer("background"), 0);
 
     // creating a RectangleShape, fill it in Grey color and adding it to the background layer
-    auto rect2 = std::make_shared<sf::RectangleShape>(sf::Vector2f(1600, 900));
+    auto rect2 = std::make_shared<sf::RectangleShape>(sf::Vector2f(2500, 2000));
     rect2->setFillColor(sf::Color(150, 150, 150));
     this->scene->getLayer(0)->add(rect2);
 
@@ -36,14 +36,14 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
                                          sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,
                                          sf::Color::White};
     // generating 100 random octogons and adding them to the shapes layer
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 10000; ++i) {
         auto shape = std::make_shared<sf::CircleShape>(20.0f);
         shape->setPointCount(8);
         shape->setFillColor(colors.at(i%colors.size()));
         shape->setOutlineColor(sf::Color::Black);
         shape->setOutlineThickness(1);
         shape->setOrigin(20, 20);
-        shape->setPosition((float)(std::rand()%1600), (float)(std::rand()%900));
+        shape->setPosition((float)(std::rand()%2500), (float)(std::rand()%2000));
         this->scene->getLayer(1)->add(shape);
     }
 
@@ -129,7 +129,7 @@ void Game::update() {
     this->player->update();
 
     // sorting the shapes layer by the y position
-    this->scene->getLayer(1)->ySort();
+    //this->scene->getLayer(1)->ySort();
 }
 
 Game::~Game() = default;

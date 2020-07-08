@@ -8,7 +8,7 @@
 #include <NasNas/core/Layers.hpp>
 
 namespace ns {
-
+    class Camera;
     class Scene : public sf::Drawable {
     public:
         /**
@@ -60,12 +60,20 @@ namespace ns {
          */
         auto getLayer(const std::string& name) -> Layer*;
 
+        /**
+         * \brief Temporary links the Scene to a Camera for rendering
+         *
+         * \param camera Camera object to link
+         */
+        void temporaryLinkCamera(Camera* camera);
+
     private:
-        friend App;
+        friend App; friend Camera;
 
         std::string m_name;         ///< Scene name
         /// Map of Layer objects of the Scene sorted by their order
         std::map<std::pair<int, std::string>, std::shared_ptr<Layer>> m_layers;
+        ns::FloatRect render_bounds;
 
         /**
          * \brief Draws the Scene sprite on the AppWindow

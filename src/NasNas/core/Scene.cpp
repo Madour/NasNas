@@ -3,6 +3,7 @@
 **/
 
 #include "NasNas/core/Scene.hpp"
+#include "NasNas/core/Camera.hpp"
 
 using namespace ns;
 
@@ -37,8 +38,16 @@ auto Scene::getLayer(const std::string& name) -> Layer* {
     exit(-1);
 }
 
+void Scene::temporaryLinkCamera(Camera* camera) {
+    render_bounds = camera->getGlobalBounds();
+}
+
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    for (const auto & [key, layer]: m_layers) {
-        target.draw(*layer, states);
+    for (const auto& [key, layer]: m_layers) {
+        for (const auto& drawable_variant: layer->getDrawables()) {
+            if (std::visit([&](auto&& drawable){return render_bounds.intersects(drawable->getGlobalBounds());}, drawable_variant)) {
+                std::visit([&](auto&& drawable){target.draw(*drawable);}, drawable_variant);
+            }
+        }
     }
 }

@@ -8,9 +8,8 @@
 #include "NasNas/data/AppComponent.hpp"
 
 namespace ns {
-
-    class Layer: public sf::Drawable {
-        using DrawablesTypes = std::variant<std::shared_ptr<ns::Drawable>, std::shared_ptr<sf::Shape>, std::shared_ptr<sf::Text>>;
+    using LayerDrawablesTypes = std::variant<std::shared_ptr<ns::Drawable>, std::shared_ptr<sf::Shape>, std::shared_ptr<sf::Text>>;
+    class Layer {
         public:
             /**
              * \brief Construct a Layer object
@@ -48,7 +47,7 @@ namespace ns {
              *
              * \return Vector of variant drawables (ns::Drawable, sf::Shape, sf::Text)
              */
-            auto getDrawables() -> std::vector<DrawablesTypes>&;
+            auto getDrawables() -> std::vector<LayerDrawablesTypes>&;
 
             /**
              * \brief Sorts Layer drawables by their Y coordinate
@@ -65,16 +64,8 @@ namespace ns {
             auto getName() -> const std::string&;
 
         private:
-            std::string m_name;                     ///< Name of the Layer
-            std::vector<DrawablesTypes> m_drawables;///< Vector of all drawables of the Layer
-
-            /**
-             * \brief Draws all the drawables of the Layer on the Scene
-             *
-             * \param target Scene
-             * \param states Render states
-             */
-            void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+            std::string m_name;                          ///< Name of the Layer
+            std::vector<LayerDrawablesTypes> m_drawables;///< Vector of all drawables of the Layer
     };
 
 }

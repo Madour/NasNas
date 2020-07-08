@@ -163,7 +163,7 @@ namespace ns {
         auto getBottom() const -> float;
         void setBottom(float value);
 
-        auto getBounds() const -> FloatRect;
+        auto getGlobalBounds() const -> FloatRect;
 
         /**
          * \brief Updates Camera position if following an entity

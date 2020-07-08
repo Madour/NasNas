@@ -33,17 +33,11 @@ void Layer::ySort() {
     );
 }
 
-void Layer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (const DrawablesTypes& drawable: m_drawables) {
-        std::visit([&](auto&& arg){target.draw(*arg);}, drawable);
-    }
-}
-
 auto Layer::getName() -> const std::string& {
     return m_name;
 }
 
-auto Layer::getDrawables() -> std::vector<DrawablesTypes> & {
+auto Layer::getDrawables() -> std::vector<LayerDrawablesTypes> & {
     return m_drawables;
 }
 
