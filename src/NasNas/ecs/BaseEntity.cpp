@@ -49,15 +49,15 @@ auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
         if (first) {
             left = graphic_comp->getGlobalBounds().left;
             top = graphic_comp->getGlobalBounds().top;
-            right = graphic_comp->getGlobalBounds().right;
-            bottom = graphic_comp->getGlobalBounds().bottom;
+            right = graphic_comp->getGlobalBounds().right();
+            bottom = graphic_comp->getGlobalBounds().bottom();
             first = false;
         }
         else {
             left = std::min(left, graphic_comp->getGlobalBounds().left);
             top = std::min(top, graphic_comp->getGlobalBounds().top);
-            right = std::max(right, graphic_comp->getGlobalBounds().right);
-            bottom = std::max(bottom, graphic_comp->getGlobalBounds().bottom);
+            right = std::max(right, graphic_comp->getGlobalBounds().right());
+            bottom = std::max(bottom, graphic_comp->getGlobalBounds().bottom());
         }
     }
     if (!first)

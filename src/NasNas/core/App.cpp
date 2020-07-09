@@ -85,8 +85,8 @@ auto App::createScene(const std::string& name) -> Scene* {
 
 auto App::createCamera(const std::string& cam_name, int order, const IntRect& view, const FloatRect& viewport) -> Camera* {
     auto* new_cam = new Camera(cam_name, order);
-    new_cam->reset(view.topleft, view.size);
-    new_cam->resetViewport(viewport.topleft, viewport.size);
+    new_cam->reset(view.topleft(), view.size());
+    new_cam->resetViewport(viewport.topleft(), viewport.size());
     m_cameras.push_back(new_cam);
     return new_cam;
 }

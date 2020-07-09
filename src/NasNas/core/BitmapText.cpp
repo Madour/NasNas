@@ -83,10 +83,10 @@ void BitmapText::setFont(const std::shared_ptr<BitmapFont>& font) {
     for(const auto& character : m_text) {
         auto glyph = m_font->getGlyph(character);
         auto glyph_size = (sf::Vector2f)m_font->getGlyphSize();
-        auto vertex_tl = sf::Vertex({x, 0}, (sf::Vector2f)glyph.texture_rect.topleft);
-        auto vertex_tr = sf::Vertex({x + glyph_size.x, 0}, (sf::Vector2f)glyph.texture_rect.topright);
-        auto vertex_br = sf::Vertex({x + glyph_size.x, glyph_size.y}, (sf::Vector2f)glyph.texture_rect.bottomright);
-        auto vertex_bl = sf::Vertex({x, glyph_size.y}, (sf::Vector2f)glyph.texture_rect.bottomleft);
+        auto vertex_tl = sf::Vertex({x, 0}, (sf::Vector2f)glyph.texture_rect.topleft());
+        auto vertex_tr = sf::Vertex({x + glyph_size.x, 0}, (sf::Vector2f)glyph.texture_rect.topright());
+        auto vertex_br = sf::Vertex({x + glyph_size.x, glyph_size.y}, (sf::Vector2f)glyph.texture_rect.bottomright());
+        auto vertex_bl = sf::Vertex({x, glyph_size.y}, (sf::Vector2f)glyph.texture_rect.bottomleft());
         m_sprite.append(vertex_tl);
         m_sprite.append(vertex_tr);
         m_sprite.append(vertex_br);

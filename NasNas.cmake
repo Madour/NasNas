@@ -5,7 +5,6 @@ set(
 
     src/NasNas/data/AppComponent.cpp
     src/NasNas/data/Config.cpp
-    src/NasNas/data/Rect.cpp
     src/NasNas/data/Arial.cpp
 
     src/NasNas/reslib/ResourceLoader.cpp

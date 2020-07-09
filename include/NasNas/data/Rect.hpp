@@ -9,9 +9,10 @@
 #include <iomanip>
 
 namespace ns {
-    /** Extending sf::Rect with customized properties / shortcuts
+    /**
+     * \brief Extending sf::Rect with customized properties
      *
-     * @tparam T : Type of the Rect (int or float)
+     * \tparam T : Type of the Rect (int or float)
      */
     template <typename T>
     class Rect: public sf::Rect<T> {
@@ -25,33 +26,29 @@ namespace ns {
 
         auto repr() const -> std::string;
 
-        sf::Vector2<T> size = sf::Vector2<T>(this->width, this->height);
+        sf::Vector2<T> size() const { return sf::Vector2<T>(this->width, this->height); }
 
-        T right = this->left + this->width;
+        T right() const { return this->left + this->width; }
 
-        T bottom = this->top + this->height;
+        T bottom() const { return this->top + this->height; }
 
-        sf::Vector2<T> topleft = sf::Vector2<T>(this->left, this->top);
-        sf::Vector2<T> topright = sf::Vector2<T>(this->right, this->top);
-        sf::Vector2<T> bottomleft = sf::Vector2<T>(this->left, this->bottom);
-        sf::Vector2<T> bottomright = sf::Vector2<T>(this->right, this->bottom);
+        sf::Vector2<T> topleft() const { return sf::Vector2<T>(this->left, this->top); }
+        sf::Vector2<T> topright() const { return sf::Vector2<T>(right(), this->top); }
+        sf::Vector2<T> bottomleft() const { return sf::Vector2<T>(this->left, bottom()); }
+        sf::Vector2<T> bottomright() const { return sf::Vector2<T>(right(), bottom()); }
 
-        sf::Vector2f center =sf::Vector2f((float)this->width/2.f, (float)this->height/2.f);
+        sf::Vector2f center() const { return sf::Vector2f((float)this->width/2.f, (float)this->height/2.f); }
 
         template <typename S>
         friend auto operator<< (std::ostream& os, const Rect<S>& rect) -> std::ostream& ;
     };
 
     template<typename T>
-    Rect<T>::Rect(const Rect<T> &rect):sf::Rect<T>(rect) {
+    Rect<T>::Rect(const Rect<T> &rect): sf::Rect<T>(rect) {
     }
 
     template <typename T>
-    Rect<T>::Rect(const sf::Rect<T>& rect) {
-        this->left = rect.left;
-        this->top = rect.top;
-        this->width = rect.width;
-        this->height = rect.height;
+    Rect<T>::Rect(const sf::Rect<T>& rect): sf::Rect<T>(rect) {
     }
 
     template <typename T>
