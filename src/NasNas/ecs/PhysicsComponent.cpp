@@ -30,6 +30,15 @@ auto PhysicsComponent::getVelocity() -> sf::Vector2f {
     return m_velocity;
 }
 
+void PhysicsComponent::setVelocity(const sf::Vector2f &velocity) {
+    m_velocity = velocity;
+}
+
+void PhysicsComponent::setVelocity(float velocity_x, float velocity_y) {
+    m_velocity.x = velocity_x;
+    m_velocity.y = velocity_y;
+}
+
 auto PhysicsComponent::getDirection() -> sf::Vector2i {
     return m_direction;
 }
