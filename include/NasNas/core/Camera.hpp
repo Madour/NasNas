@@ -121,7 +121,7 @@ namespace ns {
          *
          * \param entity BaseEntity to be followed
          */
-        void follow(BaseEntity& entity);
+        void follow(Drawable& entity);
 
         /**
          * \brief Get render order of the Camera
@@ -178,7 +178,7 @@ namespace ns {
         bool m_visible;                 ///< Is the Camera content visible ?
         Scene* m_scene;                 ///< Scene looked at (content of the Camera)
 
-        BaseEntity* m_reference;        ///< Entity followed by the Camera
+        Drawable* m_reference;        ///< Entity followed by the Camera
         unsigned int m_frames_delay;    ///< Delay when following an entity
 
         IntRect m_base_view;            ///< Camera size on creation or on reset

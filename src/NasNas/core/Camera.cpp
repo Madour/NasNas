@@ -62,7 +62,7 @@ void Camera::lookAt(Scene* target_scene) {
     m_scene = target_scene;
 }
 
-void Camera::follow(BaseEntity& entity) {
+void Camera::follow(Drawable& entity) {
     m_reference = &entity;
 }
 
