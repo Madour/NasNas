@@ -13,6 +13,7 @@ before_install:
 script:
   - cd docs
   - doxygen doxygen.conf
+  - wget https://madour.github.io/projects/NasNas/index.html
 
 deploy:
   provider: pages
