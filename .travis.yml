@@ -16,11 +16,10 @@ script:
 
 deploy:
   provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: true
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
   on:
     branch: master
-  local-dir: docs/html
+  local_dir: docs
   repo: Madour/NasNas
-  target-branch: master
