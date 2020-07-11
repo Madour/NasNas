@@ -10,6 +10,9 @@ set(
     src/NasNas/reslib/ResourceLoader.cpp
     src/NasNas/reslib/ResourceManager.cpp
 
+    src/NasNas/tilemapping/TiledMap.cpp
+    src/NasNas/tilemapping/TileLayer.cpp
+
     src/NasNas/ecs/BaseEntity.cpp
     src/NasNas/ecs/BaseComponent.cpp
     src/NasNas/ecs/GraphicsComponent.cpp
@@ -44,6 +47,10 @@ set(
 
     include/NasNas/reslib/ResourceLoader.hpp
     include/NasNas/reslib/ResourceManager.hpp
+
+    include/NasNas/tilemapping/PropertyTypes.hpp
+    include/NasNas/tilemapping/TiledMap.hpp
+    include/NasNas/tilemapping/TileLayer.hpp
 
     include/NasNas/ecs/BaseEntity.hpp
     include/NasNas/ecs/BaseComponent.hpp
