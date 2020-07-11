@@ -42,7 +42,10 @@ namespace ns {
 
     template <typename T, typename... Types>
     void Logger::logr(T arg, Types... args) {
-        std::cout << arg << " ";
+        if (std::is_same_v<T, bool>)
+            std::cout << std::boolalpha << arg << " ";
+        else
+            std::cout << arg << " ";
         Logger::logr(args...);
     }
 
