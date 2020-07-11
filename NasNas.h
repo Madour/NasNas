@@ -14,10 +14,12 @@
 #include "NasNas/core/Logger.hpp"
 #include "NasNas/core/Debug.hpp"
 
+#include "NasNas/data/Config.hpp"
+
 #include "NasNas/ecs/BaseEntity.hpp"
 #include "NasNas/ecs/SpriteComponent.hpp"
 #include "NasNas/ecs/ShapeComponent.hpp"
 
-#include "NasNas/data/Config.hpp"
+#include "NasNas/tilemapping/TiledMap.hpp"
 
 #include "NasNas/reslib/ResourceManager.hpp"
