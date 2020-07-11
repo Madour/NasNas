@@ -2,35 +2,38 @@
 * Created by Modar Nasser on 09/07/2020.
 **/
 
+
 #pragma once
 
 #include <map>
+#include <memory>
 #include "SFML/Graphics.hpp"
 #include "NasNas/thirdparty/pugixml.hpp"
-#include "NasNas/tilemapping/TileLayer.hpp"
-#include "NasNas/tilemapping/PropertyTypes.hpp"
+#include "NasNas/tilemapping/PropertiesContainer.hpp"
 
 namespace ns {
-    class TiledMap {
-    public:
-        TiledMap();
-        auto loadFromFile(const std::string& file_name) -> bool;
-        auto loadFromString(const std::string& data) -> bool;
+    namespace tm {
+        class TileLayer;
 
-    private:
-        pugi::xml_document m_xml;
+        class TiledMap : public PropertiesContainer {
+        public:
+            TiledMap();
+            auto loadFromFile(const std::string& file_name) -> bool;
+            auto loadFromString(const std::string& data) -> bool;
 
-        bool m_ready = false;
+        private:
+            pugi::xml_node m_xml_node;
 
-        int m_width = 0;
-        int m_height = 0;
-        int m_tilewidth = 0;
-        int m_tileheight = 0;
+            bool m_ready = false;
 
-        std::unordered_map<std::string, TileLayer*> m_layers;
-        std::unordered_map<std::string, PropertyTypes> m_properties;
+            unsigned int m_width = 0;
+            unsigned int m_height = 0;
+            unsigned int m_tilewidth = 0;
+            unsigned int m_tileheight = 0;
 
-        void load();
-    };
+            std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_layers;
 
+            void load(const pugi::xml_document& xml);
+        };
+    }
 }
