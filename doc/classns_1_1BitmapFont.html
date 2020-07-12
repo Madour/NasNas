@@ -49,35 +49,289 @@ $(function() {
 <div class="title">ns::BitmapFont Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A font that can be created from a texture.  
+ <a href="classns_1_1BitmapFont.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="BitmapText_8hpp_source.html">BitmapText.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab4b871f0d1d7862103adca73ae3c5063"><td class="memItemLeft" align="right" valign="top"><a id="ab4b871f0d1d7862103adca73ae3c5063"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BitmapFont</b> (const sf::Texture &amp;texture, const sf::Vector2i &amp;glyph_size)</td></tr>
-<tr class="separator:ab4b871f0d1d7862103adca73ae3c5063"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9362d109d36c726594177b5e61c6379"><td class="memItemLeft" align="right" valign="top"><a id="ad9362d109d36c726594177b5e61c6379"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BitmapFont</b> (const sf::Texture &amp;texture, const sf::Vector2i &amp;glyph_size, const std::string &amp;chars_map)</td></tr>
-<tr class="separator:ad9362d109d36c726594177b5e61c6379"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0174d028b5b57e9b52529728254cee6a"><td class="memItemLeft" align="right" valign="top"><a id="a0174d028b5b57e9b52529728254cee6a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BitmapFont</b> (const sf::Texture &amp;texture, const sf::Vector2i &amp;glyph_size, const std::unordered_map&lt; char, int &gt; &amp;advance_map)</td></tr>
-<tr class="separator:a0174d028b5b57e9b52529728254cee6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a929cb54f0b4ae72ca475c926d60a8d08"><td class="memItemLeft" align="right" valign="top"><a id="a929cb54f0b4ae72ca475c926d60a8d08"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BitmapFont</b> (const sf::Texture &amp;texture, const sf::Vector2i &amp;glyph_size, const std::string &amp;chars_map, const std::unordered_map&lt; char, int &gt; &amp;advance_map)</td></tr>
-<tr class="separator:a929cb54f0b4ae72ca475c926d60a8d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade68e90e2ed1b006450df37a5e9f9977"><td class="memItemLeft" align="right" valign="top"><a id="ade68e90e2ed1b006450df37a5e9f9977"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTexture</b> () -&gt; const sf::Texture *</td></tr>
+<tr class="memitem:a91664828f094875c5e2a09fb100ca03d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html#a91664828f094875c5e2a09fb100ca03d">BitmapFont</a> (const sf::Texture &amp;texture, const sf::Vector2u &amp;glyph_size)</td></tr>
+<tr class="memdesc:a91664828f094875c5e2a09fb100ca03d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture.  <a href="#a91664828f094875c5e2a09fb100ca03d">More...</a><br /></td></tr>
+<tr class="separator:a91664828f094875c5e2a09fb100ca03d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc814df813925b3797d4eda3a85328ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html#abc814df813925b3797d4eda3a85328ac">BitmapFont</a> (const sf::Texture &amp;texture, const sf::Vector2u &amp;glyph_size, const std::string &amp;chars_map)</td></tr>
+<tr class="memdesc:abc814df813925b3797d4eda3a85328ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture.  <a href="#abc814df813925b3797d4eda3a85328ac">More...</a><br /></td></tr>
+<tr class="separator:abc814df813925b3797d4eda3a85328ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af898728315ff543211167c222fd2873d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html#af898728315ff543211167c222fd2873d">BitmapFont</a> (const sf::Texture &amp;texture, const sf::Vector2u &amp;glyph_size, const std::unordered_map&lt; char, int &gt; &amp;advance_map)</td></tr>
+<tr class="memdesc:af898728315ff543211167c222fd2873d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture.  <a href="#af898728315ff543211167c222fd2873d">More...</a><br /></td></tr>
+<tr class="separator:af898728315ff543211167c222fd2873d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac98e8dfc86e39cf8a2e420b176e992ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html#ac98e8dfc86e39cf8a2e420b176e992ac">BitmapFont</a> (const sf::Texture &amp;texture, const sf::Vector2u &amp;glyph_size, const std::string &amp;chars_map, const std::unordered_map&lt; char, int &gt; &amp;advance_map)</td></tr>
+<tr class="memdesc:ac98e8dfc86e39cf8a2e420b176e992ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture.  <a href="#ac98e8dfc86e39cf8a2e420b176e992ac">More...</a><br /></td></tr>
+<tr class="separator:ac98e8dfc86e39cf8a2e420b176e992ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade68e90e2ed1b006450df37a5e9f9977"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html#ade68e90e2ed1b006450df37a5e9f9977">getTexture</a> () -&gt; const sf::Texture *</td></tr>
+<tr class="memdesc:ade68e90e2ed1b006450df37a5e9f9977"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> texture.  <a href="#ade68e90e2ed1b006450df37a5e9f9977">More...</a><br /></td></tr>
 <tr class="separator:ade68e90e2ed1b006450df37a5e9f9977"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2949d442bf726f772c07f05a3b66f9fd"><td class="memItemLeft" align="right" valign="top"><a id="a2949d442bf726f772c07f05a3b66f9fd"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGlyphSize</b> () -&gt; const sf::Vector2i &amp;</td></tr>
-<tr class="separator:a2949d442bf726f772c07f05a3b66f9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af212a73dcb805d71b69fce16f4775cea"><td class="memItemLeft" align="right" valign="top"><a id="af212a73dcb805d71b69fce16f4775cea"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGlyph</b> (char character) -&gt; const <a class="el" href="classns_1_1BitmapGlyph.html">BitmapGlyph</a> &amp;</td></tr>
+<tr class="memitem:a742993600cb762f336b4d710c776bdd2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html#a742993600cb762f336b4d710c776bdd2">getGlyphSize</a> () -&gt; const sf::Vector2u &amp;</td></tr>
+<tr class="memdesc:a742993600cb762f336b4d710c776bdd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> glyph size.  <a href="#a742993600cb762f336b4d710c776bdd2">More...</a><br /></td></tr>
+<tr class="separator:a742993600cb762f336b4d710c776bdd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af212a73dcb805d71b69fce16f4775cea"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html#af212a73dcb805d71b69fce16f4775cea">getGlyph</a> (char character) -&gt; const <a class="el" href="classns_1_1BitmapGlyph.html">BitmapGlyph</a> &amp;</td></tr>
+<tr class="memdesc:af212a73dcb805d71b69fce16f4775cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="classns_1_1BitmapGlyph.html">BitmapGlyph</a> data of a given character.  <a href="#af212a73dcb805d71b69fce16f4775cea">More...</a><br /></td></tr>
 <tr class="separator:af212a73dcb805d71b69fce16f4775cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="BitmapText_8hpp_source.html#l00029">29</a> of file <a class="el" href="BitmapText_8hpp_source.html">BitmapText.hpp</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<div class="textblock"><p>A font that can be created from a texture. </p>
+
+<p class="definition">Definition at line <a class="el" href="BitmapText_8hpp_source.html#l00040">40</a> of file <a class="el" href="BitmapText_8hpp_source.html">BitmapText.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a91664828f094875c5e2a09fb100ca03d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91664828f094875c5e2a09fb100ca03d">&#9670;&nbsp;</a></span>BitmapFont() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ns::BitmapFont::BitmapFont </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Texture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2u &amp;&#160;</td>
+          <td class="paramname"><em>glyph_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture. </p>
+<p>This constructor will use the default character map and advance map. Make sure your characters in the texture are placed in the following order (first character is a space): !"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?[]^_`abcdefghijklmnopqrstuvwxyz{|}~</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Font texture </td></tr>
+    <tr><td class="paramname">glyph_size</td><td>Glyphs size in pixels </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abc814df813925b3797d4eda3a85328ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc814df813925b3797d4eda3a85328ac">&#9670;&nbsp;</a></span>BitmapFont() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ns::BitmapFont::BitmapFont </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Texture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2u &amp;&#160;</td>
+          <td class="paramname"><em>glyph_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>chars_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture. </p>
+<p>This constructor will use the provided character map.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Font texture </td></tr>
+    <tr><td class="paramname">glyph_size</td><td>Glyphs size in pixels </td></tr>
+    <tr><td class="paramname">chars_map</td><td>Character map, defines the order of the characters on the texture </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af898728315ff543211167c222fd2873d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af898728315ff543211167c222fd2873d">&#9670;&nbsp;</a></span>BitmapFont() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ns::BitmapFont::BitmapFont </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Texture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2u &amp;&#160;</td>
+          <td class="paramname"><em>glyph_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; char, int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>advance_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture. </p>
+<p>This constructor will use the provided advance map and the default character map. Make sure your characters in the texture are placed in the following order (first character is a space): !"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?[]^_`abcdefghijklmnopqrstuvwxyz{|}~</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Font texture </td></tr>
+    <tr><td class="paramname">glyph_size</td><td>Glyphs size in pixels </td></tr>
+    <tr><td class="paramname">advance_map</td><td>Advance map, defines the space after each character </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac98e8dfc86e39cf8a2e420b176e992ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98e8dfc86e39cf8a2e420b176e992ac">&#9670;&nbsp;</a></span>BitmapFont() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ns::BitmapFont::BitmapFont </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Texture &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2u &amp;&#160;</td>
+          <td class="paramname"><em>glyph_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>chars_map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; char, int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>advance_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> from a Texture. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture</td><td>Font texture </td></tr>
+    <tr><td class="paramname">glyph_size</td><td>Glyphs size in pixels </td></tr>
+    <tr><td class="paramname">chars_map</td><td>Character map, defines the order of the characters on the texture </td></tr>
+    <tr><td class="paramname">advance_map</td><td>Advance map, defines the space after each character </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af212a73dcb805d71b69fce16f4775cea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af212a73dcb805d71b69fce16f4775cea">&#9670;&nbsp;</a></span>getGlyph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ns::BitmapFont::getGlyph </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>character</em></td><td>)</td>
+          <td> -&gt;  const <a class="el" href="classns_1_1BitmapGlyph.html">BitmapGlyph</a> &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the <a class="el" href="classns_1_1BitmapGlyph.html">BitmapGlyph</a> data of a given character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">character</td><td>A character of the font.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classns_1_1BitmapGlyph.html">BitmapGlyph</a> data of the character </dd></dl>
+
+</div>
+</div>
+<a id="a742993600cb762f336b4d710c776bdd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a742993600cb762f336b4d710c776bdd2">&#9670;&nbsp;</a></span>getGlyphSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ns::BitmapFont::getGlyphSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  const sf::Vector2u &amp;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> glyph size. </p>
+<dl class="section return"><dt>Returns</dt><dd>Glyph size </dd></dl>
+
+</div>
+</div>
+<a id="ade68e90e2ed1b006450df37a5e9f9977"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade68e90e2ed1b006450df37a5e9f9977">&#9670;&nbsp;</a></span>getTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ns::BitmapFont::getTexture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> -&gt;  const sf::Texture *</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> texture. </p>
+<dl class="section return"><dt>Returns</dt><dd>Const pointer to the Texture </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="BitmapText_8hpp_source.html">BitmapText.hpp</a></li>
 </ul>
 </div><!-- contents -->
