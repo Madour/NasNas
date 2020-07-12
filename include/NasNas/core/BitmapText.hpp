@@ -6,10 +6,11 @@
 #pragma once
 
 #include <memory>
+#include <unordered_map>
 
 #include "SFML/Graphics.hpp"
+#include "NasNas/data/Drawable.hpp"
 #include "NasNas/data/Rect.hpp"
-#include "NasNas/data/AppComponent.hpp"
 
 namespace ns {
     class BitmapFont;
