@@ -17,7 +17,7 @@ texture(&texture)
 }
 
 Spritesheet::~Spritesheet() {
-    for(auto& [name, anim]: m_anims_map) {
+    for(auto& [anim_name, anim]: m_anims_map) {
         delete(anim);
     }
 }

@@ -33,4 +33,5 @@ template<>
 ShapeComponent<sf::ConvexShape>::ShapeComponent(BaseEntity* entity, int point_count, const sf::Vector2f& pos_offset) :
 GraphicsComponent(entity) {
     m_drawable = sf::ConvexShape(point_count);
+    m_pos_offset = pos_offset;
 }
