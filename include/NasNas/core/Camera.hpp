@@ -148,20 +148,74 @@ namespace ns {
          */
         void setFramesDelay(unsigned int value);
 
+        /**
+         * \brief Get Camera position in world's coordinates
+         *
+         * \return Camera position
+         */
         auto getPosition() const -> sf::Vector2f;
 
+        /**
+         * \brief Get Camera left position in world's coordinates
+         *
+         * \return Camera left boundary position
+         */
         auto getLeft() const -> float;
+
+        /**
+         * \brief Set Camera left position in world's coordinates
+         *
+         * \param value New left boundary position
+         */
         void setLeft(float value);
 
+        /**
+         * \brief Get Camera right position in world's coordinates
+         *
+         * \return Camera right boundary position
+         */
         auto getRight() const -> float;
+
+        /**
+         * \brief Set Camera right position in world's coordinates
+         *
+         * \param value New right boundary position
+         */
         void setRight(float value);
 
+        /**
+         * \brief Get Camera top position in world's coordinates
+         *
+         * \return Camera top boundary position
+         */
         auto getTop() const -> float;
+
+        /**
+         * \brief Set Camera top position in world's coordinates
+         *
+         * \param value New top boundary position
+         */
         void setTop(float value);
 
+        /**
+         * \brief Get Camera bottom position in world's coordinates
+         *
+         * \return Camera bottom boundary position
+         */
         auto getBottom() const -> float;
+
+        /**
+         * \brief Set Camera bottom position in world's coordinates
+         *
+         * \param value New bottom boundary position
+         */
         void setBottom(float value);
 
+        /**
+         * \brief Get camera global bounds
+         *
+         * \return Camera rectangle view
+         */
         auto getGlobalBounds() const -> ns::FloatRect;
 
         /**
@@ -172,19 +226,19 @@ namespace ns {
     private:
         friend AppWindow; friend App;
 
-        std::string m_name;             ///< Camera name
-        int m_render_order;             ///< Camera render order
-        bool m_visible;                 ///< Is the Camera content visible ?
-        Scene* m_scene;                 ///< Scene looked at (content of the Camera)
+        std::string m_name;                 ///< Camera name
+        int m_render_order;                 ///< Camera render order
+        bool m_visible;                     ///< Is the Camera content visible ?
+        Scene* m_scene;                     ///< Scene looked at (content of the Camera)
 
-        Drawable* m_reference;        ///< Entity followed by the Camera
-        unsigned int m_frames_delay;    ///< Delay when following an entity
+        Drawable* m_reference;              ///< Entity followed by the Camera
+        unsigned int m_frames_delay;        ///< Delay when following an entity
 
         ns::IntRect m_base_view;            ///< Camera size on creation or on reset
         ns::FloatRect m_base_viewport;      ///< Viewport size on creation or on viewport reset
 
-        sf::RenderTexture m_render_texture;
-        sf::Sprite m_sprite;
+        sf::RenderTexture m_render_texture; ///< Render texture where the view will be drawn
+        sf::Sprite m_sprite;                ///< Sprite containing the render_texture's texture
 
         /**
          * \brief Camera default constructor
