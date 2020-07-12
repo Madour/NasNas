@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 23/06/2020.
 **/
 
+
 #pragma once
 
 #include <unordered_map>
@@ -12,6 +13,7 @@ namespace ns {
     class Config {
     public:
         static bool debug;
+
         class Window {
         public:
             static std::string title;

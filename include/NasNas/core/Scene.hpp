@@ -2,13 +2,16 @@
 * Created by Modar Nasser on 19/04/2020.
 **/
 
+
 #pragma once
 
-#include <NasNas/data/AppComponent.hpp>
-#include <NasNas/core/Layers.hpp>
+#include "NasNas/data/AppComponent.hpp"
+#include "NasNas/core/Layers.hpp"
 
 namespace ns {
+
     class Camera;
+
     class Scene : public sf::Drawable {
     public:
         /**

@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
+
 #include "NasNas/core/App.hpp"
 
 using namespace ns;
@@ -73,7 +74,7 @@ auto App::allCameras() -> std::vector<Camera*>& {
     return m_cameras;
 }
 
-auto App::getInputs() -> std::vector<sf::Keyboard::Key> & {
+auto App::getInputs() -> std::vector<sf::Keyboard::Key>& {
     return m_inputs;
 }
 
@@ -83,7 +84,7 @@ auto App::createScene(const std::string& name) -> Scene* {
     return new_scene;
 }
 
-auto App::createCamera(const std::string& cam_name, int order, const IntRect& view, const FloatRect& viewport) -> Camera* {
+auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect& view, const ns::FloatRect& viewport) -> Camera* {
     auto* new_cam = new Camera(cam_name, order);
     new_cam->reset(view.topleft(), view.size());
     new_cam->resetViewport(viewport.topleft(), viewport.size());
@@ -91,8 +92,8 @@ auto App::createCamera(const std::string& cam_name, int order, const IntRect& vi
     return new_cam;
 }
 
-auto App::createCamera(const std::string& cam_name, int order, const IntRect& view) -> Camera* {
-    return createCamera(cam_name, order, view, FloatRect(0, 0, 1, 1));
+auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect& view) -> Camera* {
+    return createCamera(cam_name, order, view, ns::FloatRect(0, 0, 1, 1));
 }
 
 void App::toggleFullscreen() {
@@ -178,5 +179,3 @@ void App::run() {
         m_window.display();
     }
 }
-
-

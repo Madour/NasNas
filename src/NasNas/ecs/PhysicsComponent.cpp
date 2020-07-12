@@ -2,9 +2,9 @@
 * Created by Modar Nasser on 15/06/2020.
 **/
 
-#include "NasNas/ecs/BaseEntity.hpp"
-#include "NasNas/ecs/PhysicsComponent.hpp"
+
 #include "NasNas/data/Config.hpp"
+#include "NasNas/ecs/BaseEntity.hpp"
 
 using namespace ns;
 using namespace ns::ecs;
@@ -30,7 +30,7 @@ auto PhysicsComponent::getVelocity() -> sf::Vector2f {
     return m_velocity;
 }
 
-void PhysicsComponent::setVelocity(const sf::Vector2f &velocity) {
+void PhysicsComponent::setVelocity(const sf::Vector2f& velocity) {
     m_velocity = velocity;
 }
 

@@ -2,10 +2,8 @@
 * Created by Modar Nasser on 24/06/2020.
 **/
 
-#include <utility>
 
 #include "NasNas/ecs/BaseEntity.hpp"
-#include "NasNas/ecs/InputsComponent.hpp"
 
 using namespace ns;
 using namespace ns::ecs;

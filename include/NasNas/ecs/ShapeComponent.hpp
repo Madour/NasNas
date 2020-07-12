@@ -5,19 +5,19 @@
 
 #pragma once
 
+#include "NasNas/data/Rect.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
-#include "NasNas/data/Rect.hpp"
 
 namespace ns::ecs {
 
     template <typename T>
     class ShapeComponent : public GraphicsComponent{
     public:
-        ShapeComponent(BaseEntity *entity, float radius, int point_count=30, const sf::Vector2f &pos_offset={0,0});
-        ShapeComponent(BaseEntity *entity, float radius, const sf::Vector2f &pos_offset={0,0});
-        ShapeComponent(BaseEntity *entity, const sf::Vector2f& size, const sf::Vector2f &pos_offset={0,0});
-        ShapeComponent(BaseEntity *entity, int point_count, const sf::Vector2f &pos_offset={0,0});
+        ShapeComponent(BaseEntity* entity, float radius, int point_count=30, const sf::Vector2f& pos_offset={0,0});
+        ShapeComponent(BaseEntity* entity, float radius, const sf::Vector2f& pos_offset={0,0});
+        ShapeComponent(BaseEntity* entity, const sf::Vector2f& size, const sf::Vector2f& pos_offset={0,0});
+        ShapeComponent(BaseEntity* entity, int point_count, const sf::Vector2f& pos_offset={0,0});
 
         auto getDrawable() -> T& override;
         auto getGlobalBounds() -> ns::FloatRect override;
@@ -46,7 +46,7 @@ namespace ns::ecs {
     }
 
     template<typename T>
-    void ShapeComponent<T>::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    void ShapeComponent<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         target.draw(m_drawable, states);
     }
 

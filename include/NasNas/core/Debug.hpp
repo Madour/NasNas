@@ -2,14 +2,14 @@
 * Created by Modar Nasser on 01/05/2020.
 **/
 
+
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "NasNas/reslib/ResourceManager.hpp"
-#include "NasNas/ecs/BaseEntity.hpp"
 #include <iostream>
 #include <sstream>
-
+#include <functional>
+#include <SFML/Graphics.hpp>
+#include "NasNas/reslib/ResourceManager.hpp"
 
 namespace ns {
 
@@ -24,9 +24,9 @@ namespace ns {
     template<typename T, typename  ObjT>
     class DebugText : public DebugTextInterface {
     public:
-        DebugText(T *var_address, const std::string& label, const sf::Vector2f &position);
+        DebugText(T* var_address, const std::string& label, const sf::Vector2f& position);
 
-        DebugText(const T *var_address, const std::string& label, const sf::Vector2f &position);
+        DebugText(const T* var_address, const std::string& label, const sf::Vector2f& position);
 
         DebugText(
                 ObjT* object_address,
@@ -58,13 +58,13 @@ namespace ns {
     }
 
     template<typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(T* var_address, const std::string& label, const sf::Vector2f &position)
+    DebugText<T, ObjT>::DebugText(T* var_address, const std::string& label, const sf::Vector2f& position)
             : DebugText(label, position) {
         m_variable_address = var_address;
     }
 
     template<typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(const T* var_address, const std::string& label, const sf::Vector2f &position)
+    DebugText<T, ObjT>::DebugText(const T* var_address, const std::string& label, const sf::Vector2f& position)
             : DebugText(label, position) {
         m_variable_address = (T*) var_address;
     }

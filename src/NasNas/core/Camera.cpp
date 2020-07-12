@@ -2,9 +2,9 @@
 * Created by Modar Nasser on 20/04/2020.
 **/
 
-#include "NasNas/core/Camera.hpp"
 
-#include <NasNas/core/App.hpp>
+#include "NasNas/data/Config.hpp"
+#include "NasNas/core/Camera.hpp"
 
 using namespace ns;
 
@@ -19,35 +19,35 @@ Camera::Camera(const std::string& name, int render_order) {
     m_frames_delay = 0;
     m_visible = true;
     m_scene = nullptr;
-    m_base_view = IntRect(0, 0, 1000, 1000);
-    m_base_viewport = FloatRect(0, 0, 1, 1);
+    m_base_view = ns::IntRect(0, 0, 1000, 1000);
+    m_base_viewport = ns::FloatRect(0, 0, 1, 1);
 
     if (ns::Config::Window::view_width && ns::Config::Window::view_height)
         m_render_texture.create(ns::Config::Window::view_width, ns::Config::Window::view_height);
 }
 
-void Camera::setName(const std::string &name) {
+void Camera::setName(const std::string& name) {
     m_name = name;
 }
 
 void Camera::reset(int x, int y, int w, int h) {
-    reset(FloatRect((float)x, (float)y, (float)w, (float)h));
+    reset(ns::FloatRect((float)x, (float)y, (float)w, (float)h));
 }
 void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
-    reset(FloatRect((float)position.x, (float)position.y, (float)size.x, (float)size.y));
+    reset(ns::FloatRect((float)position.x, (float)position.y, (float)size.x, (float)size.y));
 }
-void Camera::reset(const FloatRect &rectangle) {
-    m_base_view = IntRect((int)rectangle.left, (int)rectangle.top, (int)rectangle.width, (int)rectangle.height);
+void Camera::reset(const ns::FloatRect& rectangle) {
+    m_base_view = ns::IntRect((int)rectangle.left, (int)rectangle.top, (int)rectangle.width, (int)rectangle.height);
     sf::View::reset(rectangle);
 }
 
 void Camera::resetViewport(float x, float y, float w, float h) {
-    m_base_viewport = FloatRect(x, y, w, h);
-    setViewport(FloatRect(x, y, w, h));
+    m_base_viewport = ns::FloatRect(x, y, w, h);
+    setViewport(ns::FloatRect(x, y, w, h));
 }
 void Camera::resetViewport(sf::Vector2f position, sf::Vector2f size) {
-    m_base_viewport = FloatRect(position, size);
-    setViewport(FloatRect(position, size));
+    m_base_viewport = ns::FloatRect(position, size);
+    setViewport(ns::FloatRect(position, size));
 }
 
 auto Camera::getScene() -> Scene& {
@@ -107,8 +107,8 @@ void Camera::setBottom(float value) {
     setCenter(getCenter().x, value - getSize().y/2);
 }
 
-auto Camera::getGlobalBounds() const -> FloatRect {
-    return FloatRect(getPosition(), getSize());
+auto Camera::getGlobalBounds() const -> ns::FloatRect {
+    return ns::FloatRect(getPosition(), getSize());
 }
 
 void Camera::update() {
@@ -141,4 +141,3 @@ void Camera::render(sf::RenderTarget& target) {
 
     target.draw(m_sprite);
 }
-

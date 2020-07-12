@@ -2,21 +2,23 @@
 * Created by Modar Nasser on 25/06/2020.
 **/
 
+
 #include "NasNas/core/BitmapText.hpp"
 
 using namespace ns;
 
-BitmapGlyph::BitmapGlyph(const IntRect& texture_rect, char character, int spacing) :
-        texture_rect(texture_rect),
-        character(character),
-        advance(spacing)
+BitmapGlyph::BitmapGlyph(const ns::IntRect& texture_rect, char character, int spacing) :
+texture_rect(texture_rect),
+character(character),
+advance(spacing)
 {}
+
 
 BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size) :
 BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", {})
 {}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::string& chars_map)  :
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::string& chars_map) :
 BitmapFont(texture, glyph_size, chars_map, {})
 {}
 
@@ -51,11 +53,11 @@ BitmapFont::~BitmapFont() {
     }
 }
 
-auto BitmapFont::getGlyphSize() -> const sf::Vector2i & {
+auto BitmapFont::getGlyphSize() -> const sf::Vector2i& {
     return m_glyph_size;
 }
 
-auto BitmapFont::getTexture() -> const sf::Texture * {
+auto BitmapFont::getTexture() -> const sf::Texture* {
     return m_texture;
 }
 
@@ -66,6 +68,7 @@ auto BitmapFont::getGlyph(char character) -> const BitmapGlyph& {
     std::cout << "Selected BitmapFont does not have glyph for character «" << character << "» " << std::endl;
     exit(-1);
 }
+
 
 BitmapText::BitmapText(const std::string& text) {
     m_text = text;
@@ -126,7 +129,7 @@ void BitmapText::move(float offsetx, float offsety) {
     m_transformable.move(offsetx, offsety);
 }
 
-void BitmapText::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void BitmapText::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     if (m_font != nullptr) {
         states.texture = m_font->getTexture();
         states.transform *= m_transformable.getTransform();

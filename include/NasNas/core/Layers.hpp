@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
+
 #pragma once
 
 #include <variant>
@@ -9,7 +10,9 @@
 #include "NasNas/data/Drawable.hpp"
 
 namespace ns {
+
     using LayerDrawablesTypes = std::variant<std::shared_ptr<ns::Drawable>, std::shared_ptr<sf::Shape>, std::shared_ptr<sf::Text>>;
+
     class Layer {
         public:
             /**

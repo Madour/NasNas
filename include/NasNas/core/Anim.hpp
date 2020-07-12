@@ -2,11 +2,12 @@
 * Created by Modar Nasser on 25/04/2020.
 **/
 
+
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "NasNas/data/Rect.hpp"
 #include <vector>
+#include <SFML/Graphics.hpp>
+#include "NasNas/data/Rect.hpp"
 
 namespace ns {
 
@@ -19,11 +20,12 @@ namespace ns {
          * \param duration Frame duration in milliseconds
          * \param origin Frame origin, {0, 0} = top left corner by default
          */
-        AnimFrame(const IntRect& rectangle, int duration, const sf::Vector2i& origin={0, 0});
-        const IntRect rectangle;    ///< Frame rectangle
+        AnimFrame(const ns::IntRect& rectangle, int duration, const sf::Vector2i& origin={0, 0});
+        const ns::IntRect rectangle;    ///< Frame rectangle
         const int duration;         ///< Frame duration in milliseconds
         const sf::Vector2i origin;  ///< Frame origin
     };
+
 
     class Anim {
     public:
@@ -76,6 +78,7 @@ namespace ns {
         std::vector<AnimFrame> m_frames;///< Vector of AnimFrames of the Anim
     };
 
+
     class AnimPlayer {
     public:
         /**
@@ -116,7 +119,7 @@ namespace ns {
         void update();
 
     private:
-        Anim *m_anim = nullptr;     ///< Anim object currently played
+        Anim* m_anim = nullptr;     ///< Anim object currently played
         int m_index = 0;            ///< Current frame index
         bool m_playing = false;     ///< Is the AnimPlayer playing an Anim ?
         float m_play_speed = 1;     ///< Play speed of the player

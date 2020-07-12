@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 22/04/2020.
 **/
 
+
 #include "NasNas/core/Window.hpp"
 #include "NasNas/core/App.hpp"
 
@@ -55,14 +56,14 @@ void AppWindow::scaleView(){
 
     auto old_vp = m_app_view.m_base_viewport;
     // compute new viewport rectangle
-    auto new_vp = FloatRect(
+    auto new_vp = ns::FloatRect(
             vp_x + old_vp.left * (1 - 2 * vp_x), vp_y + old_vp.top * (1 - 2 * vp_y),
             vp_w * old_vp.width, vp_h * old_vp.height
     );
     m_app_view.setViewport(new_vp);
 }
 
-auto AppWindow::getClearColor() const -> const sf::Color & {
+auto AppWindow::getClearColor() const -> const sf::Color& {
     return m_clear_color;
 }
 

@@ -5,16 +5,13 @@
 
 #pragma once
 
-#include <variant>
-
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "NasNas/ecs/BaseComponent.hpp"
 #include "NasNas/data/Rect.hpp"
 
 namespace ns::ecs {
 
-
-class GraphicsComponent : public BaseComponent, public sf::Drawable {
+    class GraphicsComponent : public BaseComponent, public sf::Drawable {
     public:
         explicit GraphicsComponent(BaseEntity* entity);
         virtual auto getDrawable() -> sf::Drawable& = 0;

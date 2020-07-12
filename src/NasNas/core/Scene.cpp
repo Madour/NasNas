@@ -2,11 +2,11 @@
 * Created by Modar Nasser on 19/04/2020.
 **/
 
+
 #include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Camera.hpp"
 
 using namespace ns;
-
 
 Scene::Scene(const std::string& name) {
     m_name = name;

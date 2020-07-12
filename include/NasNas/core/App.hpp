@@ -2,10 +2,9 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
+
 #pragma once
 
-#include "NasNas/data/AppComponent.hpp"
-#include "NasNas/data/Rect.hpp"
 #include "NasNas/data/Config.hpp"
 
 #include "NasNas/core/Scene.hpp"
@@ -13,7 +12,6 @@
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Window.hpp"
 #include "NasNas/core/Debug.hpp"
-#include "NasNas/ecs/BaseEntity.hpp"
 
 namespace ns {
 
@@ -109,7 +107,7 @@ namespace ns {
          *
          * \return Pointer to the created Camera object
          */
-        auto createCamera(const std::string& name, int order, const IntRect& view, const FloatRect& viewport) -> Camera*;
+        auto createCamera(const std::string& name, int order, const ns::IntRect& view, const ns::FloatRect& viewport) -> Camera*;
 
         /**
          * \brief Creates a Camera object and returns a pointer to it
@@ -120,7 +118,7 @@ namespace ns {
          *
          * \return Pointer to the created Camera object *
          */
-        auto createCamera(const std::string& name, int order, const IntRect& view) -> Camera*;
+        auto createCamera(const std::string& name, int order, const ns::IntRect& view) -> Camera*;
 
         /**
          * \brief Creates a DebugText object and render it on the AppWindow directly

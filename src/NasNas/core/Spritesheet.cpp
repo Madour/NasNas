@@ -2,14 +2,12 @@
 * Created by Modar Nasser on 25/04/2020.
 **/
 
-#include <utility>
 
 #include "NasNas/core/Spritesheet.hpp"
 
 using namespace ns;
 
-
-Spritesheet::Spritesheet(std::string  name, const sf::Texture& texture, const std::vector<Anim*>& anims):
+Spritesheet::Spritesheet(std::string  name, const sf::Texture& texture, const std::vector<Anim*>& anims) :
 name(std::move(name)),
 texture(&texture)
 {
@@ -34,4 +32,3 @@ auto Spritesheet::getAnim(const std::string& anim_name) -> const Anim& {
     else
         throw std::invalid_argument("Accessing unexisting Anim "+anim_name+" in spritesheet "+name);
 }
-
