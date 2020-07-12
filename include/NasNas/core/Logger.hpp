@@ -9,6 +9,12 @@
 #include <string>
 #include "SFML/Graphics.hpp"
 
+/**
+ * \brief Logs a variable number of variable to the console.
+ *
+ * The logged string will contain location information : line number and file name
+ * from where the macro was called
+ */
 #define ns_LOG(...) ns::Logger::log(__FILE__, __LINE__, __VA_ARGS__)
 
 namespace ns {
@@ -21,6 +27,13 @@ namespace ns {
     auto operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream&;
     auto operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream&;
 
+    /**
+     * \brief Console Logger can log a variable number of variables to the console.
+     *
+     * Variables must have operator<< function overload.
+     * Logger class is not intended to be used directly. Instead you should use ns_LOG macro.
+     * \see ns_LOG
+     */
     class Logger {
     public:
         template <typename... Types>

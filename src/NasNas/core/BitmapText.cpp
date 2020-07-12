@@ -14,21 +14,21 @@ advance(spacing)
 {}
 
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size) :
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size) :
 BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", {})
 {}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::string& chars_map) :
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map) :
 BitmapFont(texture, glyph_size, chars_map, {})
 {}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::unordered_map<char, int>& spacings_map) :
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<char, int>& spacings_map) :
 BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", spacings_map)
 {}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::string& chars_map, const std::unordered_map<char, int>& spacings_map) :
-m_texture(&texture) {
-    m_glyph_size = glyph_size;
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<char, int>& spacings_map) :
+m_texture(&texture),
+m_glyph_size(glyph_size) {
     m_chars_map = chars_map;
     m_advance_map = spacings_map;
 
@@ -40,7 +40,7 @@ m_texture(&texture) {
                 int spacing = m_glyph_size.x;
                 if (m_advance_map.count(character) > 0)
                     spacing = m_advance_map[character];
-                m_glyphs[character] = new BitmapGlyph({{x, y}, m_glyph_size}, character, spacing);
+                m_glyphs[character] = new BitmapGlyph({{x, y}, {(int)m_glyph_size.x, (int)m_glyph_size.y}}, character, spacing);
             }
             i += 1;
         }
@@ -53,7 +53,7 @@ BitmapFont::~BitmapFont() {
     }
 }
 
-auto BitmapFont::getGlyphSize() -> const sf::Vector2i& {
+auto BitmapFont::getGlyphSize() -> const sf::Vector2u& {
     return m_glyph_size;
 }
 

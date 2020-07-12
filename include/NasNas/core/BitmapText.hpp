@@ -17,52 +17,177 @@ namespace ns {
 
     class BitmapGlyph {
     public:
-        const ns::IntRect texture_rect;
-        const char character;
-        const int advance;
+        const ns::IntRect texture_rect; ///< BitmapGlyph rectangle on the BitmapFont texutre
+        const char character;           ///< Character represented by the BitmapGlyph
+        const int advance;              ///< Space to add after the BitmapGlyph
 
     private:
         friend BitmapFont;
+
+        /**
+         * \brief Creates a BitmapGlyph
+         *
+         * \param texture_rect BitmapGlyph rectangle on the BitmapFont texutre
+         * \param character Character represented by the BitmapGlyph
+         * \param spacing Space to add after the BitmapGlyph
+         */
         BitmapGlyph(const ns::IntRect& texture_rect, char character, int spacing);
     };
 
+    /**
+     * \brief A font that can be created from a texture
+     */
     class BitmapFont {
     public:
-        BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size);
-        BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::string& chars_map);
-        BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::unordered_map<char, int>& advance_map);
-        BitmapFont(const sf::Texture& texture, const sf::Vector2i& glyph_size, const std::string& chars_map, const std::unordered_map<char, int>& advance_map);
+        /**
+         * \brief Creates a BitmapFont from a Texture
+         *
+         * This constructor will use the default character map and advance map.
+         * Make sure your characters in the texture are placed in the following order (first character is a space):
+         *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+         *
+         * \param texture Font texture
+         * \param glyph_size Glyphs size in pixels
+         */
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size);
+
+        /**
+         * \brief Creates a BitmapFont from a Texture
+         *
+         * This constructor will use the provided character map.
+         *
+         * \param texture Font texture
+         * \param glyph_size Glyphs size in pixels
+         * \param chars_map Character map, defines the order of the characters on the texture
+         */
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map);
+
+        /**
+        * \brief Creates a BitmapFont from a Texture
+        *
+        * This constructor will use the provided advance map and the default character map.
+        * Make sure your characters in the texture are placed in the following order (first character is a space):
+        *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+        *
+        * \param texture Font texture
+        * \param glyph_size Glyphs size in pixels
+        * \param advance_map Advance map, defines the space after each character
+        */
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<char, int>& advance_map);
+
+        /**
+         * \brief Creates a BitmapFont from a Texture
+         *
+         * \param texture Font texture
+         * \param glyph_size Glyphs size in pixels
+         * \param chars_map Character map, defines the order of the characters on the texture
+         * \param advance_map Advance map, defines the space after each character
+         */
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<char, int>& advance_map);
 
         ~BitmapFont();
 
+        /**
+         * \brief Get BitmapFont texture
+         *
+         * \return Const pointer to the Texture
+         */
         auto getTexture() -> const sf::Texture*;
-        auto getGlyphSize() -> const sf::Vector2i&;
+
+        /**
+         * \brief Get BitmapFont glyph size
+         *
+         * \return Glyph size
+         */
+        auto getGlyphSize() -> const sf::Vector2u&;
+
+        /**
+         * \brief Get the BitmapGlyph data of a given character
+
+         * \param character A character of the font.
+         *
+         * \return BitmapGlyph data of the character
+         */
         auto getGlyph(char character) -> const BitmapGlyph&;
 
     private:
         const sf::Texture* m_texture;
-        sf::Vector2i m_glyph_size;
+        const sf::Vector2u m_glyph_size;
         std::string m_chars_map;
         std::unordered_map<char, int> m_advance_map;
         std::unordered_map<char, BitmapGlyph*> m_glyphs;
     };
 
+    /**
+     * \brief A BitmapText is a Drawable that uses a BitmapFont to display text.
+     */
     class BitmapText : public ns::Drawable {
     public:
+        /**
+         * \brief Creates a BitmapText
+         *
+         * When using this constructor, you have to manually set the font used by
+         * calling `setFont`.
+         *
+         * \param text String to display
+         */
         explicit BitmapText(const std::string& text);
+
+        /**
+         * \brief Creates a BitmapText
+         *
+         * \param text String to display
+         * \param font BitmapFont to use
+         */
         BitmapText(const std::string& text, const std::shared_ptr<BitmapFont>& font);
 
+        /**
+         * \brief Set the BitmapFont to use
+
+         * \param font BitmapFont to use
+         */
         void setFont(const std::shared_ptr<BitmapFont>& font);
 
+        /**
+         * \brief Move the BitmapText
+         *
+         * \param offsetx X position offset
+         * \param offsety Y position offset
+         */
         void move(float offsetx, float offsety) override;
 
+        /**
+         * \brief Get BitmapText position in world's coordinates
+         * \return Position
+         */
         auto getPosition() -> sf::Vector2f override;
+
+        /**
+         * \brief Set BitmapText position in world's coordinates
+         * \param position New position
+         */
         void setPosition(const sf::Vector2f& position);
 
+        /**
+         * \brief Get BitmapText global bounds
+         * \return Global bounds rectangle
+         */
         auto getGlobalBounds() -> ns::FloatRect override;
 
+        /**
+         * \brief Get BitmapText width
+         * \return Width
+         */
         auto getWidth() -> int;
+        /**
+         * \brief Get BitmapText height
+         * \return Height
+         */
         auto getHeight() -> int;
+        /**
+         * \brief Get BitmapText size
+         * \return Size
+         */
         auto getSize() -> sf::Vector2f;
 
     private:
