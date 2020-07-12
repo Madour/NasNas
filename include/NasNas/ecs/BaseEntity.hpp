@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "NasNas/data/AppComponent.hpp"
+#include "NasNas/data/Drawable.hpp"
 #include "NasNas/core/Spritesheet.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"

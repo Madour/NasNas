@@ -4,8 +4,9 @@
 
 #pragma once
 
+#include <variant>
 #include <SFML/Graphics.hpp>
-#include "NasNas/data/AppComponent.hpp"
+#include "NasNas/data/Drawable.hpp"
 
 namespace ns {
     using LayerDrawablesTypes = std::variant<std::shared_ptr<ns::Drawable>, std::shared_ptr<sf::Shape>, std::shared_ptr<sf::Text>>;

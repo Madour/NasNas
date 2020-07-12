@@ -43,6 +43,7 @@ set(
     include/NasNas/thirdparty/pugixml.hpp
 
     include/NasNas/data/AppComponent.hpp
+    include/NasNas/data/Drawable.hpp
     include/NasNas/data/Config.hpp
     include/NasNas/data/Rect.hpp
     include/NasNas/data/Arial.hpp
