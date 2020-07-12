@@ -7,6 +7,7 @@
 
 #include <variant>
 #include <iostream>
+#include <unordered_map>
 #include "SFML/Graphics.hpp"
 #include "NasNas/thirdparty/pugixml.hpp"
 
