@@ -81,7 +81,7 @@ void BaseEntity::update() {
 
 void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& comp: m_graphics_components_list) {
-        target.draw(*comp);
+        target.draw(*comp, states);
     }
 }
 
