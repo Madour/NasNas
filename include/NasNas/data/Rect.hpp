@@ -2,11 +2,11 @@
 * Created by Modar Nasser on 20/04/2020.
 **/
 
+
 #pragma once
 
-#include "SFML/Graphics.hpp"
 #include <iostream>
-#include <iomanip>
+#include <SFML/Graphics.hpp>
 
 namespace ns {
     /**
@@ -15,7 +15,7 @@ namespace ns {
      * \tparam T : Type of the Rect (int or float)
      */
     template <typename T>
-    class Rect: public sf::Rect<T> {
+    class Rect : public sf::Rect<T> {
     public:
         // parent constructor
         using sf::Rect<T>::Rect;
@@ -68,5 +68,6 @@ namespace ns {
 
     typedef Rect<int> IntRect;
     typedef Rect<float> FloatRect;
+
 }
 

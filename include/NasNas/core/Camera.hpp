@@ -2,18 +2,17 @@
 * Created by Modar Nasser on 20/04/2020.
 **/
 
+
 #pragma once
 
-#include "NasNas/data/AppComponent.hpp"
 #include "NasNas/data/Rect.hpp"
 #include "NasNas/core/Scene.hpp"
-#include "NasNas/ecs/BaseEntity.hpp"
 
 namespace ns {
 
     class AppWindow;
 
-    class Camera: public sf::View {
+    class Camera : public sf::View {
     public:
         /**
          * \brief Construct a Camera object
@@ -48,7 +47,7 @@ namespace ns {
          *
          * \param rectangle New rectangle {position, size}
          */
-        void reset(const FloatRect& rectangle) ;
+        void reset(const ns::FloatRect& rectangle) ;
 
         /**
          * \brief Reset Camera viewport
@@ -163,7 +162,7 @@ namespace ns {
         auto getBottom() const -> float;
         void setBottom(float value);
 
-        auto getGlobalBounds() const -> FloatRect;
+        auto getGlobalBounds() const -> ns::FloatRect;
 
         /**
          * \brief Updates Camera position if following an entity
@@ -181,8 +180,8 @@ namespace ns {
         Drawable* m_reference;        ///< Entity followed by the Camera
         unsigned int m_frames_delay;    ///< Delay when following an entity
 
-        IntRect m_base_view;            ///< Camera size on creation or on reset
-        FloatRect m_base_viewport;      ///< Viewport size on creation or on viewport reset
+        ns::IntRect m_base_view;            ///< Camera size on creation or on reset
+        ns::FloatRect m_base_viewport;      ///< Viewport size on creation or on viewport reset
 
         sf::RenderTexture m_render_texture;
         sf::Sprite m_sprite;

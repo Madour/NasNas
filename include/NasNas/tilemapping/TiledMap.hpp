@@ -7,33 +7,33 @@
 
 #include <map>
 #include <memory>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "NasNas/thirdparty/pugixml.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 
-namespace ns {
-    namespace tm {
-        class TileLayer;
+namespace ns::tm {
 
-        class TiledMap : public PropertiesContainer {
-        public:
-            TiledMap();
-            auto loadFromFile(const std::string& file_name) -> bool;
-            auto loadFromString(const std::string& data) -> bool;
+    class TileLayer;
 
-        private:
-            pugi::xml_node m_xml_node;
+    class TiledMap : public PropertiesContainer {
+    public:
+        TiledMap();
+        auto loadFromFile(const std::string& file_name) -> bool;
+        auto loadFromString(const std::string& data) -> bool;
 
-            bool m_ready = false;
+    private:
+        pugi::xml_node m_xml_node;
 
-            unsigned int m_width = 0;
-            unsigned int m_height = 0;
-            unsigned int m_tilewidth = 0;
-            unsigned int m_tileheight = 0;
+        bool m_ready = false;
 
-            std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_layers;
+        unsigned int m_width = 0;
+        unsigned int m_height = 0;
+        unsigned int m_tilewidth = 0;
+        unsigned int m_tileheight = 0;
 
-            void load(const pugi::xml_document& xml);
-        };
-    }
+        std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_layers;
+
+        void load(const pugi::xml_document& xml);
+    };
+
 }

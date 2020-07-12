@@ -7,7 +7,7 @@
 
 #include <functional>
 #include <unordered_map>
-#include "SFML/Graphics.hpp"
+#include <SFML/System.hpp>
 #include "NasNas/ecs/BaseComponent.hpp"
 
 namespace ns::ecs {

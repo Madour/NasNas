@@ -2,13 +2,15 @@
 * Created by Modar Nasser on 23/04/2020.
 **/
 
+
 #include "NasNas/reslib/ResourceLoader.hpp"
+
 using namespace ns;
 
 const std::set<std::string> Dir::texture_extensions = {".png", ".jpg", ".bmp"};
 const std::set<std::string> Dir::fonts_extensions = {".ttf"};
 
-Dir::Dir(const std::string &name) {
+Dir::Dir(const std::string& name) {
     m_name = name;
 }
 
@@ -45,14 +47,13 @@ void Dir::load(const std::filesystem::path& path) {
     }
 }
 
-auto Dir::in(const std::string &dir_name) -> Dir& {
+auto Dir::in(const std::string& dir_name) -> Dir& {
     return *m_dirs.at(dir_name).get();
 }
 
 auto Dir::getName() -> const std::string& {
     return m_name;
 }
-
 
 auto Dir::getTexture(const std::string& texture_name) -> sf::Texture&{
     return *m_textures.at(texture_name).get();
@@ -82,4 +83,3 @@ void Dir::print_tree(int indent) {
         std::cout<< "|_ " << font_name << " : Font" << std::endl;
     }
 }
-

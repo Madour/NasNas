@@ -7,23 +7,23 @@
 
 #include <memory>
 #include <unordered_map>
-
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "NasNas/data/Drawable.hpp"
 #include "NasNas/data/Rect.hpp"
 
 namespace ns {
+
     class BitmapFont;
 
     class BitmapGlyph {
     public:
-        const IntRect texture_rect;
+        const ns::IntRect texture_rect;
         const char character;
         const int advance;
 
     private:
         friend BitmapFont;
-        BitmapGlyph(const IntRect& texture_rect, char character, int spacing);
+        BitmapGlyph(const ns::IntRect& texture_rect, char character, int spacing);
     };
 
     class BitmapFont {
@@ -47,7 +47,7 @@ namespace ns {
         std::unordered_map<char, BitmapGlyph*> m_glyphs;
     };
 
-    class BitmapText : public Drawable{
+    class BitmapText : public ns::Drawable {
     public:
         explicit BitmapText(const std::string& text);
         BitmapText(const std::string& text, const std::shared_ptr<BitmapFont>& font);

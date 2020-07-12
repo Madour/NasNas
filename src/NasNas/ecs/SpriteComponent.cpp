@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 10/06/2020.
 **/
 
+
 #include "NasNas/ecs/SpriteComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 
@@ -22,7 +23,7 @@ SpriteComponent(entity, spritesheet, anim_state)
     m_pos_offset = pos_offset;
 }
 
-void SpriteComponent::setSpritesheet(Spritesheet *spritesheet) {
+void SpriteComponent::setSpritesheet(Spritesheet* spritesheet) {
     m_spritesheet = spritesheet;
     m_drawable = sf::Sprite(*spritesheet->texture);
 }
@@ -35,7 +36,7 @@ void SpriteComponent::setAnimState(const std::string& anim_state) {
                 m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
                 m_drawable.setOrigin((float)m_anim_player.getActiveFrame().origin.x, (float)m_anim_player.getActiveFrame().origin.y);
             }
-            catch (std::invalid_argument &exception) {
+            catch (std::invalid_argument& exception) {
                 std::cout << exception.what() << std::endl;
                 exit(-1);
             }
@@ -51,7 +52,6 @@ auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
     return m_drawable.getGlobalBounds();
 }
 
-
 void SpriteComponent::update() {
     m_anim_player.update();
     m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
@@ -59,6 +59,6 @@ void SpriteComponent::update() {
     m_drawable.setPosition(m_entity->getPosition() + m_pos_offset);
 }
 
-void SpriteComponent::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(m_drawable, states);
 }

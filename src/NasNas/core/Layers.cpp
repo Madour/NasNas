@@ -2,13 +2,12 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
-#include <variant>
-#include <vector>
+
 #include "NasNas/core/Layers.hpp"
 
 using namespace ns;
 
-Layer::Layer(const std::string &name) {
+Layer::Layer(const std::string& name) {
     m_name = name;
 }
 
@@ -37,8 +36,6 @@ auto Layer::getName() -> const std::string& {
     return m_name;
 }
 
-auto Layer::getDrawables() -> std::vector<LayerDrawablesTypes> & {
+auto Layer::getDrawables() -> std::vector<LayerDrawablesTypes>& {
     return m_drawables;
 }
-
-

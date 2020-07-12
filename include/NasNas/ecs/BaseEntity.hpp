@@ -2,17 +2,17 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
+
 #pragma once
 
 #include "NasNas/data/Drawable.hpp"
-#include "NasNas/core/Spritesheet.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
 #include "NasNas/ecs/InputsComponent.hpp"
 
 namespace ns {
 
-    class BaseEntity: public Drawable {
+    class BaseEntity : public ns::Drawable {
     public:
         explicit BaseEntity(const std::string& name);
         ~BaseEntity() override;
@@ -84,4 +84,5 @@ namespace ns {
         std::cout << "Entity «" << m_name << "» has less than " << index << " graphics components. Index out of range." << std::endl;
         exit(-1);
     }
+
 }

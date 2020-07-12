@@ -2,13 +2,12 @@
 * Created by Modar Nasser on 25/04/2020.
 **/
 
+
 #pragma once
 
 #include <unordered_map>
-#include "SFML/Graphics.hpp"
-
+#include <SFML/Graphics.hpp>
 #include "NasNas/core/Anim.hpp"
-
 
 namespace ns {
 

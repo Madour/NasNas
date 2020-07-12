@@ -2,11 +2,11 @@
 * Created by Modar Nasser on 21/04/2020.
 **/
 
+
 #pragma once
 
 #include <iostream>
 #include <string>
-#include <filesystem>
 #include "SFML/Graphics.hpp"
 
 #define ns_LOG(...) ns::Logger::log(__FILE__, __LINE__, __VA_ARGS__)

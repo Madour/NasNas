@@ -5,10 +5,11 @@
 
 #pragma once
 
-#include "SFML/System.hpp"
+#include <SFML/System.hpp>
 #include "NasNas/ecs/BaseComponent.hpp"
 
 namespace ns::ecs {
+
     class PhysicsComponent : public BaseComponent {
     public:
         PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration);

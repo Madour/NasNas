@@ -2,13 +2,14 @@
 * Created by Modar Nasser on 23/04/2020.
 **/
 
+
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include <unordered_map>
+#include <set>
 #include <iostream>
 #include <filesystem>
-#include <set>
+#include <unordered_map>
+#include <SFML/Graphics.hpp>
 
 namespace ns {
 

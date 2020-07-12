@@ -4,7 +4,6 @@
 
 
 #include "NasNas/tilemapping/TileLayer.hpp"
-#include "NasNas/core/Logger.hpp"
 
 using namespace ns;
 using namespace ns::tm;
@@ -31,7 +30,7 @@ Layer(xml_node, tiledmap) {
                 case '\n':
                     break;
                 case ',':
-                    m_tiles.push_back({ current_gid & 0x1fffffff , (uint8_t)((current_gid&0xe0000000)>>28) });
+                    m_tiles.push_back({ current_gid&0x1fffffff , (uint8_t)((current_gid&0xe0000000) >> 28) });
                     current_gid = 0;
                     break;
                 default:

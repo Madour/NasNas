@@ -2,13 +2,13 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
+
 #include <cmath>
 #include "NasNas/ecs/BaseEntity.hpp"
-#include "NasNas/ecs/SpriteComponent.hpp"
 
 using namespace ns;
 
-BaseEntity::BaseEntity(const std::string &name) {
+BaseEntity::BaseEntity(const std::string& name) {
     m_name = name;
 }
 
@@ -79,8 +79,8 @@ void BaseEntity::update() {
     }
 }
 
-void BaseEntity::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (const auto & comp: m_graphics_components_list) {
+void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    for (const auto& comp: m_graphics_components_list) {
         target.draw(*comp);
     }
 }

@@ -2,13 +2,14 @@
 * Created by Modar Nasser on 22/04/2020.
 **/
 
+
 #pragma once
 
 #include "NasNas/core/Camera.hpp"
 
 namespace ns {
 
-    class AppWindow: public sf::RenderWindow {
+    class AppWindow : public sf::RenderWindow {
     public:
         void onCreate() override;
         void onResize() override;

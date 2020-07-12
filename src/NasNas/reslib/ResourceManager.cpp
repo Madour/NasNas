@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 23/04/2020.
 **/
 
+
 #include "NasNas/reslib/ResourceManager.hpp"
 #include "NasNas/data/Arial.hpp"
 
@@ -13,7 +14,6 @@ ResourceManager::~ResourceManager() = default;
 bool ResourceManager::m_ready = false;
 Dir* ResourceManager::m_data = nullptr;
 sf::Font* ResourceManager::m_default_font = nullptr;
-
 
 auto ResourceManager::load(const std::string& assets_directory_name) -> bool {
     try {

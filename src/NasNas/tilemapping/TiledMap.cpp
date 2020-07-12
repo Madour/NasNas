@@ -11,7 +11,7 @@ using namespace ns::tm;
 
 TiledMap::TiledMap() = default;
 
-auto TiledMap::loadFromFile(const std::string &file_name) -> bool {
+auto TiledMap::loadFromFile(const std::string& file_name) -> bool {
     pugi::xml_document xml;
     auto result = xml.load_file(file_name.c_str());
     if (!result) {

@@ -2,14 +2,12 @@
 * Created by Modar Nasser on 25/04/2020.
 **/
 
-#include "NasNas/core/Anim.hpp"
 
-#include <utility>
+#include "NasNas/core/Anim.hpp"
 
 using namespace ns;
 
-
-AnimFrame::AnimFrame(const IntRect& rectangle, int duration, const sf::Vector2i& origin) :
+AnimFrame::AnimFrame(const ns::IntRect& rectangle, int duration, const sf::Vector2i& origin) :
 rectangle(rectangle),
 duration(duration),
 origin(origin)
@@ -45,7 +43,7 @@ auto Anim::frameCount() -> int {
 AnimPlayer::AnimPlayer() = default;
 
 void AnimPlayer::play(const Anim& animation) {
-    m_anim = const_cast<Anim *>(&animation);
+    m_anim = const_cast<Anim*>(&animation);
     m_index = 0;
     m_playing = true;
     m_clock = sf::Clock();
@@ -94,4 +92,3 @@ void AnimPlayer::update() {
         }
     }
 }
-
