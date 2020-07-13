@@ -38,7 +38,6 @@ App::App(const std::string& title, int w_width, int w_height, int v_width, int v
     m_fullscreen = false;
 
     m_window.create(sf::VideoMode(w_width, w_height), title, ns::Config::Window::style);
-    m_window.setAppView(v_width, v_height);
     m_window.setFramerateLimit(fps);
 
     m_dt = 0.0;
@@ -143,7 +142,7 @@ void App::render() {
     }
 
     // drawing debug texts on DefaultView
-    m_window.setView(m_window.getDefaultView());
+    m_window.setView(m_window.getScreenView());
     for(auto& dbg_txt: m_debug_texts) {
         dbg_txt->update(); m_window.draw(*dbg_txt);
     }

@@ -15,18 +15,17 @@ namespace ns {
         void onResize() override;
 
         auto getAppView() const -> const Camera&;
+        auto getScreenView() const -> const sf::View&;
         void scaleView();
 
         auto getClearColor() const -> const sf::Color&;
         void setClearColor(const sf::Color& color);
 
     private:
-        friend App;
-
         sf::Color m_clear_color;
         Camera m_app_view;
+        sf::View m_screen_view;
 
-        void setAppView(int width, int height);
     };
 
 }
