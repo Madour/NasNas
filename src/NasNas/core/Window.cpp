@@ -16,7 +16,11 @@ void AppWindow::onCreate() {
     setMouseCursorVisible(ns::Config::Window::cursor_visible);
     setMouseCursorGrabbed(ns::Config::Window::cursor_grabbed);
 
+    m_app_view.setName("AppView");
+    m_app_view.reset(0, 0, ns::Config::Window::view_width, ns::Config::Window::view_height);
     m_app_view.m_render_texture.create(ns::Config::Window::view_width, ns::Config::Window::view_height);
+
+    m_screen_view.reset({0, 0, (float)getSize().x, (float)getSize().y});
 
     m_clear_color = sf::Color::Black;
 }
@@ -29,10 +33,8 @@ auto AppWindow::getAppView() const -> const Camera& {
     return m_app_view;
 }
 
-void AppWindow::setAppView(int v_width, int v_height) {
-    m_app_view.setName("UI");
-    m_app_view.reset(0, 0, v_width, v_height);
-    m_app_view.resetViewport(0, 0, 1, 1);
+auto AppWindow::getScreenView() const -> const sf::View& {
+    return m_screen_view;
 }
 
 void AppWindow::scaleView(){
@@ -61,6 +63,7 @@ void AppWindow::scaleView(){
             vp_w * old_vp.width, vp_h * old_vp.height
     );
     m_app_view.setViewport(new_vp);
+    m_screen_view.reset({0, 0, win_w, win_h});
 }
 
 auto AppWindow::getClearColor() const -> const sf::Color& {
