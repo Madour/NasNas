@@ -6,6 +6,7 @@
 #pragma once
 
 #include <variant>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "NasNas/data/Drawable.hpp"
 
