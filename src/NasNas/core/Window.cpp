@@ -16,10 +16,7 @@ void AppWindow::onCreate() {
     setMouseCursorVisible(ns::Config::Window::cursor_visible);
     setMouseCursorGrabbed(ns::Config::Window::cursor_grabbed);
 
-    m_app_view.setName("AppView");
-    m_app_view.reset(0, 0, ns::Config::Window::view_width, ns::Config::Window::view_height);
-    m_app_view.m_render_texture.create(ns::Config::Window::view_width, ns::Config::Window::view_height);
-
+    m_app_view.reset({0, 0, (float)ns::Config::Window::view_width, (float)ns::Config::Window::view_height});
     m_screen_view.reset({0, 0, (float)getSize().x, (float)getSize().y});
 
     m_clear_color = sf::Color::Black;
@@ -29,7 +26,7 @@ void AppWindow::onResize() {
     scaleView();
 }
 
-auto AppWindow::getAppView() const -> const Camera& {
+auto AppWindow::getAppView() const -> const sf::View& {
     return m_app_view;
 }
 
@@ -39,7 +36,7 @@ auto AppWindow::getScreenView() const -> const sf::View& {
 
 void AppWindow::scaleView(){
     // wider than base window
-    float vp_w = 0, vp_h = 0, vp_x = 0, vp_y = 0;
+    float vp_w, vp_h, vp_x, vp_y;
     float win_w = (float)getSize().x, win_h = (float)getSize().y;
     float screen_ratio = (float)ns::Config::Window::width / (float)ns::Config::Window::height;
     if (win_w / win_h > screen_ratio) {
@@ -55,14 +52,7 @@ void AppWindow::scaleView(){
         vp_h = win_w / screen_ratio / win_h;
         vp_y = (1 - vp_h)/2;
     }
-
-    auto old_vp = m_app_view.m_base_viewport;
-    // compute new viewport rectangle
-    auto new_vp = ns::FloatRect(
-            vp_x + old_vp.left * (1 - 2 * vp_x), vp_y + old_vp.top * (1 - 2 * vp_y),
-            vp_w * old_vp.width, vp_h * old_vp.height
-    );
-    m_app_view.setViewport(new_vp);
+    m_app_view.setViewport({vp_x, vp_y, vp_w, vp_h});
     m_screen_view.reset({0, 0, win_w, win_h});
 }
 

@@ -224,7 +224,7 @@ namespace ns {
         void update();
 
     private:
-        friend AppWindow; friend App;
+        friend App;
 
         std::string m_name;                 ///< Camera name
         int m_render_order;                 ///< Camera render order

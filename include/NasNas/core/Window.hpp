@@ -11,21 +11,46 @@ namespace ns {
 
     class AppWindow : public sf::RenderWindow {
     public:
-        void onCreate() override;
-        void onResize() override;
+        /**
+         * \brief Get App View defined by user
+         *
+         * \return App view
+         */
+        auto getAppView() const -> const sf::View&;
 
-        auto getAppView() const -> const Camera&;
+        /**
+         * \brief Get Screen View, has same size as the current window size
+         *
+         * \return Screen View
+         */
         auto getScreenView() const -> const sf::View&;
-        void scaleView();
 
+        /**
+         * \brief Get clear color of the window
+         *
+         * \return Clear color
+         */
         auto getClearColor() const -> const sf::Color&;
+
+        /**
+         * \brief Set clear color of the window
+         *
+         * \param color Clear color
+         */
         void setClearColor(const sf::Color& color);
 
     private:
-        sf::Color m_clear_color;
-        Camera m_app_view;
-        sf::View m_screen_view;
+        sf::Color m_clear_color;        ///< Window clear color
+        sf::View m_app_view;            ///< App view defined by use
+        sf::View m_screen_view;         ///< Screen view, same size as the window
 
+        void onCreate() override;
+        void onResize() override;
+
+        /**
+         * \brief Scales AppView on window resize to keep aspect ratio defined by user
+         */
+        void scaleView();
     };
 
 }
