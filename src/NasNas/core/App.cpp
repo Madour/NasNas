@@ -88,6 +88,15 @@ auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect
     new_cam->reset(view.topleft(), view.size());
     new_cam->resetViewport(viewport.topleft(), viewport.size());
     m_cameras.push_back(new_cam);
+
+    // sorting cameras by their render order, order 0 being always drawn first
+    std::sort(
+        m_cameras.begin(), m_cameras.end(),
+        [](auto& lhs, auto& rhs){
+            return lhs->getRenderOrder() < rhs->getRenderOrder();
+        }
+    );
+
     return new_cam;
 }
 
@@ -106,7 +115,6 @@ void App::toggleFullscreen() {
     }
     m_window.setClearColor(clear_color);
     m_window.setFramerateLimit(m_desired_fps);
-    m_window.scaleView();
     m_inputs.clear();
     m_fullscreen = !m_fullscreen;
 }
@@ -123,15 +131,6 @@ void App::storeInputs(sf::Event event) {
 }
 
 void App::render() {
-
-    // sorting cameras by their render order, order 0 being always drawn first
-    std::sort(
-        m_cameras.begin(), m_cameras.end(),
-        [](auto& lhs, auto& rhs){
-            return lhs->getRenderOrder() < rhs->getRenderOrder();
-        }
-    );
-
     // drawing Camera contents on App view
     m_window.setView(m_window.getAppView());
     // for each camera, if it has a scene and is visible, render the content
@@ -144,14 +143,14 @@ void App::render() {
     // drawing debug texts on DefaultView
     m_window.setView(m_window.getScreenView());
     for(auto& dbg_txt: m_debug_texts) {
-        dbg_txt->update(); m_window.draw(*dbg_txt);
+        dbg_txt->update();
+        m_window.draw(*dbg_txt);
     }
 }
 
 void App::run() {
     double current_slice = 0.;
     double slice_time = 1.0/m_ups;
-    m_window.scaleView();
     while (m_window.isOpen()) {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
