@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <filesystem>
 #include "SFML/Graphics.hpp"
 
 /**

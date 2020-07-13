@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <memory>
 #include "NasNas/data/Drawable.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
