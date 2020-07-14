@@ -66,15 +66,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8d8fb832be9f5aaad78cde6f22401168"><td class="memItemLeft" align="right" valign="top"><a id="a8d8fb832be9f5aaad78cde6f22401168"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
 <tr class="separator:a8d8fb832be9f5aaad78cde6f22401168"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a718a425ebcd60572257529a77fde15d6"><td class="memItemLeft" align="right" valign="top"><a id="a718a425ebcd60572257529a77fde15d6"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getId</b> () -&gt; int</td></tr>
-<tr class="separator:a718a425ebcd60572257529a77fde15d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27d0715eb575fee10778da0cdd96a390"><td class="memItemLeft" align="right" valign="top"><a id="a27d0715eb575fee10778da0cdd96a390"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getId</b> () const -&gt; unsigned int</td></tr>
+<tr class="separator:a27d0715eb575fee10778da0cdd96a390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b05a19fe6d7e0c234fec6326cf7220f"><td class="memItemLeft" align="right" valign="top"><a id="a1b05a19fe6d7e0c234fec6326cf7220f"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () -&gt; std::string &amp;</td></tr>
 <tr class="separator:a1b05a19fe6d7e0c234fec6326cf7220f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fdc714855c350460d041ff8173e86f5"><td class="memItemLeft" align="right" valign="top"><a id="a9fdc714855c350460d041ff8173e86f5"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>isVisible</b> () -&gt; bool</td></tr>
-<tr class="separator:a9fdc714855c350460d041ff8173e86f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad792a64b1ae63082e3d1cda3b9601deb"><td class="memItemLeft" align="right" valign="top"><a id="ad792a64b1ae63082e3d1cda3b9601deb"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>isVisible</b> () const -&gt; bool</td></tr>
+<tr class="separator:ad792a64b1ae63082e3d1cda3b9601deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a323fcd048c8e2f1dd327b5295f8cc7f3"><td class="memItemLeft" align="right" valign="top"><a id="a323fcd048c8e2f1dd327b5295f8cc7f3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setVisible</b> (bool value)</td></tr>
 <tr class="separator:a323fcd048c8e2f1dd327b5295f8cc7f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -90,12 +90,12 @@ template&lt;typename T &gt; </td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a023a63d1c9f06b76e5431e8cbc88cd15"><td class="memItemLeft" align="right" valign="top"><a id="a023a63d1c9f06b76e5431e8cbc88cd15"></a>
-pugi::xml_node&#160;</td><td class="memItemRight" valign="bottom"><b>m_xml_node</b></td></tr>
-<tr class="separator:a023a63d1c9f06b76e5431e8cbc88cd15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf82d737f9a1e6c9b602c4778a0dca79"><td class="memItemLeft" align="right" valign="top"><a id="adf82d737f9a1e6c9b602c4778a0dca79"></a>
 <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_tiledmap</b> = nullptr</td></tr>
 <tr class="separator:adf82d737f9a1e6c9b602c4778a0dca79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa746b5ae32b32583d088967e4c108ba"><td class="memItemLeft" align="right" valign="top"><a id="afa746b5ae32b32583d088967e4c108ba"></a>
+sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>m_position</b> = {0, 0}</td></tr>
+<tr class="separator:afa746b5ae32b32583d088967e4c108ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classns_1_1tm_1_1PropertiesContainer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classns_1_1tm_1_1PropertiesContainer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classns_1_1tm_1_1PropertiesContainer.html">ns::tm::PropertiesContainer</a></td></tr>
 <tr class="memitem:ab6bbd15b349d13ee64ec062a8b4b2ec0 inherit pro_attribs_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="ab6bbd15b349d13ee64ec062a8b4b2ec0"></a>
 std::unordered_map&lt; std::string, PropertyTypes &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_properties</b></td></tr>
@@ -110,7 +110,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addProperty</b> (cons
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Layer_8hpp_source.html#l00014">14</a> of file <a class="el" href="Layer_8hpp_source.html">Layer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Layer_8hpp_source.html#l00015">15</a> of file <a class="el" href="Layer_8hpp_source.html">Layer.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="Layer_8hpp_source.html">Layer.hpp</a></li>
 </ul>
