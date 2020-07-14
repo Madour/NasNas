@@ -9,7 +9,7 @@
 #include <sstream>
 #include <functional>
 #include <SFML/Graphics.hpp>
-#include "NasNas/reslib/ResourceManager.hpp"
+#include "NasNas/data/Arial.hpp"
 
 namespace ns {
 
@@ -101,7 +101,7 @@ namespace ns {
     template<typename T, typename ObjT>
     DebugText<T, ObjT>::DebugText(const std::string& label, const sf::Vector2f& position) {
         m_label = label;
-        setFont(Res::getDefaultFont());
+        setFont(Arial::getFont());
         setCharacterSize(DebugTextInterface::font_size);
         setFillColor(DebugTextInterface::color);
         setOutlineColor(DebugTextInterface::outline_color);
