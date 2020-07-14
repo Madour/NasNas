@@ -3,6 +3,7 @@
 **/
 
 
+#include <cmath>
 #include "NasNas/data/Config.hpp"
 #include "NasNas/core/Camera.hpp"
 
@@ -24,6 +25,10 @@ Camera::Camera(const std::string& name, int render_order) {
 
     if (ns::Config::Window::view_width && ns::Config::Window::view_height)
         m_render_texture.create(ns::Config::Window::view_width, ns::Config::Window::view_height);
+
+    m_debug_border.setOutlineThickness(1.f);
+    m_debug_border.setOutlineColor(sf::Color::Red);
+    m_debug_border.setFillColor(sf::Color::Transparent);
 }
 
 void Camera::setName(const std::string& name) {
@@ -38,6 +43,8 @@ void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
 }
 void Camera::reset(const ns::FloatRect& rectangle) {
     m_base_view = ns::IntRect((int)rectangle.left, (int)rectangle.top, (int)rectangle.width, (int)rectangle.height);
+    m_debug_border.setSize({rectangle.width - 2, rectangle.height - 2});
+    m_debug_border.setPosition(rectangle.left + 1, rectangle.top + 1);
     sf::View::reset(rectangle);
 }
 
@@ -74,6 +81,10 @@ auto Camera::getFramesDelay() const -> unsigned int {
     return m_frames_delay;
 }
 void Camera::setFramesDelay(unsigned int value) { m_frames_delay = value; }
+
+void Camera::setLimitsRectangle(ns::IntRect rectangle) {
+    m_limits = rectangle;
+}
 
 auto Camera::getPosition() const -> sf::Vector2f {
     return sf::Vector2f(getLeft(), getTop());
@@ -114,18 +125,22 @@ auto Camera::getGlobalBounds() const -> ns::FloatRect {
 void Camera::update() {
     if (m_reference != nullptr) {
         if (m_frames_delay == 0) {
-            setCenter(m_reference->getPosition());
+            setCenter({(float)(round(m_reference->getPosition().x)), (float)(round(m_reference->getPosition().y))});
         }
         else {
             sf::Vector2f diff = m_reference->getPosition() - getCenter();
-            move(diff/(float)m_frames_delay);
+            auto offset = diff/(float)m_frames_delay;
+            move({(float)round(offset.x), (float)round(offset.y)});
         }
-        /*
-        if (getLeft() < 0) setLeft(0);
-        if (getTop() < 0) setTop(0);
-        if (getRight() > (float)m_scene->getWidth()) setRight((float)m_scene->getWidth());
-        if (getBottom() > (float)m_scene->getHeight()) setBottom((float)m_scene->getHeight());
-         */
+
+        if (m_limits != ns::IntRect(0, 0, 0, 0)) {
+            if (getLeft() < m_limits.left) setLeft(m_limits.left);
+            if (getTop() < m_limits.top) setTop(m_limits.top);
+            if (getRight() > m_limits.right()) setRight(m_limits.right());
+            if (getBottom() > m_limits.bottom()) setBottom(m_limits.bottom());
+        }
+
+        m_debug_border.setPosition(getPosition() + sf::Vector2f(1, 1));
     }
 }
 
@@ -135,6 +150,7 @@ void Camera::render(sf::RenderTarget& target) {
 
     m_scene->temporaryLinkCamera(this);
     m_render_texture.draw(*m_scene);
+    m_render_texture.draw(m_debug_border);
 
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
