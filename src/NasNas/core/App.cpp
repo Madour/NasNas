@@ -54,7 +54,6 @@ App::~App() {
     for (auto& dbg_txt: m_debug_texts) {
         delete(dbg_txt);
     }
-    Res::dispose();
 }
 
 auto App::getTitle() -> std::string& {
