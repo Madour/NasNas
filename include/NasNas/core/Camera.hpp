@@ -149,6 +149,13 @@ namespace ns {
         void setFramesDelay(unsigned int value);
 
         /**
+         * \brief Sets Camera move limits
+         *
+         * \param rectangle Limits rectangle
+         */
+        void setLimitsRectangle(ns::IntRect rectangle);
+
+        /**
          * \brief Get Camera position in world's coordinates
          *
          * \return Camera position
@@ -236,10 +243,12 @@ namespace ns {
 
         ns::IntRect m_base_view;            ///< Camera size on creation or on reset
         ns::FloatRect m_base_viewport;      ///< Viewport size on creation or on viewport reset
+        ns::IntRect m_limits = {0, 0, 0, 0};///< Camera move limits
 
         sf::RenderTexture m_render_texture; ///< Render texture where the view will be drawn
         sf::Sprite m_sprite;                ///< Sprite containing the render_texture's texture
 
+        sf::RectangleShape m_debug_border;  ///< Red borders around Camera global bounds
         /**
          * \brief Camera default constructor
          */

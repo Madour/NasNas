@@ -104,6 +104,11 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     this->game_camera->follow(*this->player);
     // the camera will have 10 frames delay over the player
     this->game_camera->setFramesDelay(10);
+    // setting Camera limits
+    this->game_camera->setLimitsRectangle(ns::IntRect(
+        {0, 0},
+        {(int)(tiled_map.getSize().x*tiled_map.getTileSize().x), (int)(tiled_map.getSize().y*tiled_map.getTileSize().y)}
+    ));
 }
 
 void Game::onEvent(sf::Event event) {
