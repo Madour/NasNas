@@ -7,9 +7,11 @@
 
 #include <map>
 #include <memory>
+#include <filesystem>
 #include <SFML/Graphics.hpp>
 #include "NasNas/thirdparty/pugixml.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include "NasNas/tilemapping/Tileset.hpp"
 
 namespace ns::tm {
 
@@ -21,16 +23,24 @@ namespace ns::tm {
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
+        auto getSize() -> const sf::Vector2u&;
+        auto getTileSize() -> const sf::Vector2u&;
+        auto getTileTileset(unsigned int gid) -> std::pair<int, const Tileset*> ;
+
+        auto allTilesets() -> std::map<unsigned int, std::shared_ptr<Tileset>>&;
+
+        auto getTileLayer(const std::string& name) -> std::shared_ptr<TileLayer>&;
+
     private:
         pugi::xml_node m_xml_node;
-
+        std::string m_file_name;
+        std::filesystem::path m_file_path;
         bool m_ready = false;
 
-        unsigned int m_width = 0;
-        unsigned int m_height = 0;
-        unsigned int m_tilewidth = 0;
-        unsigned int m_tileheight = 0;
+        sf::Vector2u m_size;
+        sf::Vector2u m_tilesize;
 
+        std::map<unsigned int, std::shared_ptr<Tileset>> m_tilesets;
         std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_layers;
 
         void load(const pugi::xml_document& xml);

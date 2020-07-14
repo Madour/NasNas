@@ -29,6 +29,13 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     rect2->setFillColor(sf::Color(150, 150, 150));
     this->scene->getLayer(0)->add(rect2);
 
+    tiled_map.loadFromFile("assets/test_map.tmx");
+    auto map_layer = (std::shared_ptr<ns::Drawable>&) tiled_map.getTileLayer("bg");
+    this->scene->getLayer(0)->add(map_layer);
+
+    auto map_layer2 = (std::shared_ptr<ns::Drawable>&) tiled_map.getTileLayer("front");
+    this->scene->getLayer(0)->add(map_layer2);
+
     // creating shapes layer
     this->scene->addLayer(new ns::Layer("shapes"), 1);
 
@@ -36,7 +43,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
                                          sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,
                                          sf::Color::White};
     // generating 100 random octogons and adding them to the shapes layer
-    for (int i = 0; i < 10000; ++i) {
+    for (int i = 0; i < 1000; ++i) {
         auto shape = std::make_shared<sf::CircleShape>(20.0f);
         shape->setPointCount(8);
         shape->setFillColor(colors.at(i%colors.size()));
@@ -122,7 +129,7 @@ void Game::update() {
 
     // moving the octogons randomly
     for (const auto& drawable: this->scene->getLayer(1)->getDrawables()) {
-        std::visit([&](auto&& arg){arg->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);}, drawable);
+        //std::visit([&](auto&& arg){arg->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);}, drawable);
     }
 
     // updating the player entity

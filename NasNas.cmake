@@ -14,6 +14,7 @@ set(
     src/NasNas/tilemapping/Layer.cpp
     src/NasNas/tilemapping/TileLayer.cpp
     src/NasNas/tilemapping/TiledMap.cpp
+    src/NasNas/tilemapping/Tileset.cpp
 
     src/NasNas/ecs/BaseEntity.cpp
     src/NasNas/ecs/BaseComponent.cpp
@@ -55,6 +56,7 @@ set(
     include/NasNas/tilemapping/Layer.hpp
     include/NasNas/tilemapping/TileLayer.hpp
     include/NasNas/tilemapping/TiledMap.hpp
+    include/NasNas/tilemapping/Tileset.hpp
 
     include/NasNas/ecs/BaseEntity.hpp
     include/NasNas/ecs/BaseComponent.hpp
