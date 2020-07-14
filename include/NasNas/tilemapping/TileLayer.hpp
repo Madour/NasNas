@@ -5,9 +5,10 @@
 
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <cstdint>
 #include <SFML/Graphics.hpp>
+#include "NasNas/data/Drawable.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 
@@ -34,15 +35,25 @@ namespace ns::tm {
     };
 
 
-    class TileLayer : public Layer {
+    class TileLayer : public Layer, public ns::Drawable {
     public:
         TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
+
+        auto getPosition() -> sf::Vector2f override;
+        auto getGlobalBounds() -> ns::FloatRect override;
+        void move(float offsetx, float offsety) override;
 
     private:
         unsigned int m_width;
         unsigned int m_height;
 
         std::vector<Tile> m_tiles;
+        //std::unordered_map<const Tileset*, std::vector<sf::Vertex>> m_vertices;
+        std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
+
+        void addTile(unsigned int gid, unsigned int tile_count);
+
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
 
 }
