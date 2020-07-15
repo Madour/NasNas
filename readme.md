@@ -1,9 +1,37 @@
-# NasNas 
-[![Build Status](https://travis-ci.com/Madour/NasNas.svg?branch=master)](https://travis-ci.com/Madour/NasNas)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/23bdd1079c3f4274a712f42851a276d8)](https://www.codacy.com/manual/Madour/NasNas?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Madour/NasNas&amp;utm_campaign=Badge_Grade) 
-### A simple game framework to get started quickly with C++ SFML game development.
+<h1 align=center>NasNas</h1>
+<h3 align=center> A simple game framework to get started quickly with C++ SFML game development. </h3>
+<p align=center>
+ <a href=https://travis-ci.com/Madour/NasNas><img src=https://travis-ci.com/Madour/NasNas.svg?branch=master></a>
+ <a href=https://www.codacy.com/manual/Madour/NasNas><img src=https://app.codacy.com/project/badge/Grade/23bdd1079c3f4274a712f42851a276d8></a>
+</p>
+<p align=center>
+ <a href=#features>Features</a> •
+ <a href=#build>How to build</a> •
+ <a href=#get-started>Get Started</a> •
+ <a href=#support>Support</a>
+</p>
 
-#### Features :
+**NasNas** is a lightweight **modular 2D game framework** with a focus on pixel art style games.
+
+It is entirely written in **modern C++17**, and doesn't have any dependency other than SFML2.
+
+It provides a **clean** and **easy to use** API.
+
+The framework is separated in multiple independent modules :
+- ***Core*** and ***Data*** are the only non optional modules. They are needed to create a NasNas application. 
+They contain core classes and data needed by the framework.
+- ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
+a very elegant way. This module is optional, you can use your own resource manager and loader if you have specific needs.
+- ***ECS*** is a basic and easy to use Entity Component System created for NasNas. You can also use a third party
+ ECS if you want.
+- ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
+for tile based games. Just like the other modules, this one is optional too, you can use tmxlite for example
+as a third party tiled map loader.
+- More modules will be developed in the future !
+
+#### Features
+
+##### Implemented :
  - [x] Automatic resource loader and  manager system
  - [x] Scene and Layers system
  - [x] Cameras
@@ -13,21 +41,21 @@
  - [x] Global app configuration settings
  - [x] Text and bitmap fonts
  
-#### In progress :
+##### In progress :
  - [x] Tiled map loader (.tmx)
 
-#### To do :
+##### To do :
  - [ ] Transitions
  - [ ] Menus and UI
  
-#### Future
+##### Future :
  - [ ] Particles system
  - [ ] Splash screens
  - [ ] Levels and game events management
  - [ ] In-game command line for debugging
 
 
-#### Build
+### Build
 
 This project uses Cmake. To build (Linux and Windows, not tested on macOS):
 ```bash
@@ -41,7 +69,7 @@ This will generate a shared library, a static library and the demo application.
 If Cmake is unable to find your SFML install location, configure CMakeLists.txt by
 setting SFML_ROOT variable. 
 
-#### Get Started
+### Get Started
 
 Here is a sample code using NasNas framework, this will create a 720x480 window and log a string to the console : 
 
@@ -74,15 +102,15 @@ Documentation (work in progress) can be found [here](https://madour.github.io/Na
 
 A step by step tutorial to learn how to use the features will be written soon™ . 
 
-#### Support
+### Support
 
 If you like the project, please consider starring this repository.
 
-#### Other
+### Other
 
 NasNas also exists for python, check it out [here](https://github.com/Madour/pyNasNas).
 
-#### Author
+### Author
 
  - Modar Nasser
  
