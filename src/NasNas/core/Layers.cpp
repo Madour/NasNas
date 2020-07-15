@@ -11,15 +11,16 @@ Layer::Layer(const std::string& name) {
     m_name = name;
 }
 
+
+void Layer::add(const std::shared_ptr<ns::Drawable>& drawable) {
+    m_drawables.emplace_back(drawable);
+}
+
 void Layer::add(const std::shared_ptr<sf::Shape>& drawable) {
     m_drawables.emplace_back(drawable);
 }
 
 void Layer::add(const std::shared_ptr<sf::Text>& drawable) {
-    m_drawables.emplace_back(drawable);
-}
-
-void Layer::add(const std::shared_ptr<ns::Drawable>& drawable) {
     m_drawables.emplace_back(drawable);
 }
 

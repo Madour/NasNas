@@ -43,7 +43,7 @@ namespace ns {
          *
          * \see getLayer
          */
-        void addLayer(std::shared_ptr<Layer>& layer, int order);
+        void addLayer(const std::shared_ptr<Layer>& layer, int order);
 
         /**
          * \brief Returns the layer of the given order

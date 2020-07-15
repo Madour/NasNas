@@ -74,24 +74,19 @@ void TileLayer::addTile(unsigned int gid, unsigned int tile_count) {
     m_vertices[tileset][tile_count*4 + 3] = sf::Vertex(sf::Vector2f(x, y + tileheight), sf::Vector2f(tx, ty + tileheight));
 }
 
-auto TileLayer::getPosition() -> sf::Vector2f {
-    return m_position;
-}
-
 auto TileLayer::getGlobalBounds() -> ns::FloatRect {
-    return ns::FloatRect(m_position.x, m_position.y, m_width * m_tiledmap->getTileSize().x, m_height * m_tiledmap->getTileSize().y);
+    return ns::FloatRect(getPosition().x, getPosition().y, m_width * m_tiledmap->getTileSize().x, m_height * m_tiledmap->getTileSize().y);
 }
 
 void TileLayer::move(float offsetx, float offsety) {
-    m_position.x += offsetx;
-    m_position.y += offsety;
+    m_transformable.move(offsetx, offsety);
 }
 
 void TileLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for (auto& [tileset, vertices] : m_vertices) {
         states.texture = &tileset->getTexture();
+        states.transform *= m_transformable.getTransform();
         target.draw(vertices, states);
-        //target.draw(vertices.data(), vertices.size(), sf::PrimitiveType::Quads, states);
     }
 }
 

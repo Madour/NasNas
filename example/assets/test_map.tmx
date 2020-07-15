@@ -10,6 +10,19 @@
  </properties>
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="322" columns="23">
   <image source="tileset.png" width="368" height="224"/>
+  <tile id="2">
+   <properties>
+    <property name="tile_prop" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <animation>
+    <frame tileid="15" duration="100"/>
+    <frame tileid="16" duration="100"/>
+    <frame tileid="17" duration="100"/>
+    <frame tileid="18" duration="100"/>
+   </animation>
+  </tile>
  </tileset>
  <tileset firstgid="323" name="font" tilewidth="8" tileheight="8" tilecount="64" columns="8">
   <image source="font.png" width="64" height="64"/>

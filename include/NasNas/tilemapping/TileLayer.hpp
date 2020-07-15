@@ -35,11 +35,10 @@ namespace ns::tm {
     };
 
 
-    class TileLayer : public Layer, public ns::Drawable {
+    class TileLayer : public Layer {
     public:
         TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
-        auto getPosition() -> sf::Vector2f override;
         auto getGlobalBounds() -> ns::FloatRect override;
         void move(float offsetx, float offsety) override;
 
@@ -48,7 +47,6 @@ namespace ns::tm {
         unsigned int m_height;
 
         std::vector<Tile> m_tiles;
-        //std::unordered_map<const Tileset*, std::vector<sf::Vertex>> m_vertices;
         std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
 
         void addTile(unsigned int gid, unsigned int tile_count);

@@ -23,10 +23,10 @@ include(NasNas.cmake)
 file(COPY example/assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 add_executable( NasNas_demo
+    NasNas.h ${NasNas_Sources} ${NasNas_Headers}
     main.cpp
     example/Game.cpp example/Game.hpp
     example/Player.cpp example/Player.hpp
-    NasNas.h ${NasNas_Sources} ${NasNas_Headers}
 )
 add_library(NasNas_static STATIC ${NasNas_Sources} ${NasNas_Headers})
 add_library(NasNas_shared SHARED ${NasNas_Sources} ${NasNas_Headers})
