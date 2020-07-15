@@ -11,6 +11,8 @@
  <a href=#support>Support</a>
 </p>
 
+# 
+
 **NasNas** is a lightweight **modular 2D game framework** with a focus on pixel art style games.
 
 It is entirely written in **modern C++17**, and doesn't have any dependency other than SFML2.
@@ -29,7 +31,9 @@ for tile based games. Just like the other modules, this one is optional too, you
 as a third party tiled map loader.
 - More modules will be developed in the future !
 
-#### Features
+# 
+
+### Features
 
 ##### Implemented :
  - [x] Automatic resource loader and  manager system
