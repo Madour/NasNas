@@ -12,17 +12,18 @@
 
 namespace ns::tm {
 
-    class Layer : public PropertiesContainer {
+    class Layer : public PropertiesContainer, public ns::Drawable {
     public:
         Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
         auto getId() const -> unsigned int;
         auto getName() -> std::string&;
+        auto getPosition() -> sf::Vector2f override;
         auto isVisible() const -> bool;
         void setVisible(bool value);
 
     protected:
         TiledMap* m_tiledmap = nullptr;
-        sf::Vector2f m_position = {0, 0};
+        sf::Transformable m_transformable;
 
     private:
         unsigned int m_id;

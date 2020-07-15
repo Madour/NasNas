@@ -18,9 +18,9 @@ Layer::Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap) {
     if (xml_node.attribute("opacity"))
         m_opacity = xml_node.attribute("opacity").as_float();
     if (xml_node.attribute("offsetx"))
-        m_position.x = xml_node.attribute("offsetx").as_float();
+        m_transformable.setPosition(xml_node.attribute("offsetx").as_float(), m_transformable.getPosition().y);
     if (xml_node.attribute("offsety"))
-        m_position.y = xml_node.attribute("offsety").as_float();
+        m_transformable.setPosition(m_transformable.getPosition().x, xml_node.attribute("offsety").as_float());
 }
 
 auto Layer::getId() const -> unsigned int {
@@ -29,6 +29,10 @@ auto Layer::getId() const -> unsigned int {
 
 auto Layer::getName() -> std::string& {
     return m_name;
+}
+
+auto Layer::getPosition() -> sf::Vector2f {
+    return m_transformable.getPosition();
 }
 
 auto Layer::isVisible() const -> bool {
