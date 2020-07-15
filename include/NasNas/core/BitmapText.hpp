@@ -44,7 +44,7 @@ namespace ns {
          *
          * This constructor will use the default character map and advance map.
          * Make sure your characters in the texture are placed in the following order (first character is a space):
-         *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+         *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
          *
          * \param texture Font texture
          * \param glyph_size Glyphs size in pixels
@@ -67,7 +67,7 @@ namespace ns {
         *
         * This constructor will use the provided advance map and the default character map.
         * Make sure your characters in the texture are placed in the following order (first character is a space):
-        *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+        *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
         *
         * \param texture Font texture
         * \param glyph_size Glyphs size in pixels

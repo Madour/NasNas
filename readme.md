@@ -7,7 +7,7 @@
  - [x] Automatic resource loader and  manager system
  - [x] Scene and Layers system
  - [x] Cameras
- - [x] Entities anc components (animated sprites, shapes, physics, inputs) 
+ - [x] Entities and components (animated sprites, shapes, physics, inputs) 
  - [x] Debug text display in-game
  - [x] Convenient console Logger
  - [x] Global app configuration settings
@@ -29,14 +29,17 @@
 
 #### Build
 
-This project uses Cmake. To build :
+This project uses Cmake. To build (Linux and Windows, not tested on macOS):
 ```bash
 mkdir build
 cd build
 cmake ..
-make
+cmake --build . -j4
 ```
-Feel free to configure CMakeLists.txt file if Cmake is unable to find your SFML install location. 
+This will generate a shared library, a static library and the demo application.
+
+If Cmake is unable to find your SFML install location, configure CMakeLists.txt by
+setting SFML_ROOT variable. 
 
 #### Get Started
 
@@ -70,6 +73,10 @@ for a more complete overview of what you can do with the framework.
 Documentation (work in progress) can be found [here](https://madour.github.io/NasNas/doc).
 
 A step by step tutorial to learn how to use the features will be written soon™ . 
+
+#### Support
+
+If you like the project, please consider starring this repository.
 
 #### Other
 
