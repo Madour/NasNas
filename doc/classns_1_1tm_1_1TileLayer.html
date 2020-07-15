@@ -55,9 +55,9 @@ Inheritance diagram for ns::tm::TileLayer:</div>
  <div class="center">
   <img src="classns_1_1tm_1_1TileLayer.png" usemap="#ns::tm::TileLayer_map" alt=""/>
   <map id="ns::tm::TileLayer_map" name="ns::tm::TileLayer_map">
-<area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="0,56,162,80"/>
+<area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="86,112,248,136"/>
+<area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="0,56,162,80"/>
 <area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="172,56,334,80"/>
-<area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="0,0,162,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -66,9 +66,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a76aa0f94c2a405a764514bc828cde8"><td class="memItemLeft" align="right" valign="top"><a id="a8a76aa0f94c2a405a764514bc828cde8"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TileLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
 <tr class="separator:a8a76aa0f94c2a405a764514bc828cde8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef1a23bd7949ee70bb478d7ad76562d0"><td class="memItemLeft" align="right" valign="top"><a id="aef1a23bd7949ee70bb478d7ad76562d0"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> () -&gt; sf::Vector2f override</td></tr>
-<tr class="separator:aef1a23bd7949ee70bb478d7ad76562d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add1738a62be2ae38407d7d42b031dd93"><td class="memItemLeft" align="right" valign="top"><a id="add1738a62be2ae38407d7d42b031dd93"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGlobalBounds</b> () -&gt; <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> override</td></tr>
 <tr class="separator:add1738a62be2ae38407d7d42b031dd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -85,6 +82,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getId</b> () const -&
 <tr class="memitem:a1b05a19fe6d7e0c234fec6326cf7220f inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a1b05a19fe6d7e0c234fec6326cf7220f"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () -&gt; std::string &amp;</td></tr>
 <tr class="separator:a1b05a19fe6d7e0c234fec6326cf7220f inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e7c6f20fa6f682dbd7f97c546526e62 inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a6e7c6f20fa6f682dbd7f97c546526e62"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> () -&gt; sf::Vector2f override</td></tr>
+<tr class="separator:a6e7c6f20fa6f682dbd7f97c546526e62 inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad792a64b1ae63082e3d1cda3b9601deb inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="ad792a64b1ae63082e3d1cda3b9601deb"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>isVisible</b> () const -&gt; bool</td></tr>
 <tr class="separator:ad792a64b1ae63082e3d1cda3b9601deb inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,9 +111,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addProperty</b> (cons
 <tr class="memitem:adf82d737f9a1e6c9b602c4778a0dca79 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="adf82d737f9a1e6c9b602c4778a0dca79"></a>
 <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_tiledmap</b> = nullptr</td></tr>
 <tr class="separator:adf82d737f9a1e6c9b602c4778a0dca79 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa746b5ae32b32583d088967e4c108ba inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="afa746b5ae32b32583d088967e4c108ba"></a>
-sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>m_position</b> = {0, 0}</td></tr>
-<tr class="separator:afa746b5ae32b32583d088967e4c108ba inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa07dfc979a2c1b07d8742b05c3c8b0c3 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="aa07dfc979a2c1b07d8742b05c3c8b0c3"></a>
+sf::Transformable&#160;</td><td class="memItemRight" valign="bottom"><b>m_transformable</b></td></tr>
+<tr class="separator:aa07dfc979a2c1b07d8742b05c3c8b0c3 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classns_1_1tm_1_1PropertiesContainer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classns_1_1tm_1_1PropertiesContainer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classns_1_1tm_1_1PropertiesContainer.html">ns::tm::PropertiesContainer</a></td></tr>
 <tr class="memitem:ab6bbd15b349d13ee64ec062a8b4b2ec0 inherit pro_attribs_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="ab6bbd15b349d13ee64ec062a8b4b2ec0"></a>
 std::unordered_map&lt; std::string, PropertyTypes &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_properties</b></td></tr>

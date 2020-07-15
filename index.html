@@ -9,8 +9,23 @@
 <h3> A simple game framework to get started quickly with C++ SFML game development </h3>
 <h5> Under construction </h5>
 <hr>
-<p> NasNas is an actively developed game framework written in C++17. </p>
-<p> It provides a clear and readable API to make game development easier. </p>
+
+<p> <b>NasNas</b> is a lightweight <b>modular 2D game framework</b> with a focus on pixel art style games.</p>
+
+
+<p>It is entirely written in <b>modern C++17</b>, and doesn't have any dependency other than SFML2.</p>
+
+<p>It provides a <b>clean</b> and <b>easy to use</b> API.</p>
+
+<p>The framework is separated in multiple independent modules :</p>
+<ul>
+	<li><b><i>Core</b></i> and <b><i>Data</b></i> are the only non optional modules. They are needed to create a NasNas application. They contain core classes and data needed by the framework.</li>
+	<li><b><i>Reslib</b></i> contains the resource manager and resource loader. It handles resource loading and accessing in a very elegant way. This module is optional, you can use your own resource manager and loader if you have specific needs.</li>
+	<li><b><i>ECS</b></i> is a basic and easy to use Entity Component System created for NasNas. You can also use a third party ECS if you want.</li>
+	<li><b><i>Tilemapping</b></i> is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speed up development for tiled based games. Just like the other modules, this one is optional too, you can use tmxlite for example as a third party tiled map loader.</li>
+	<li>More modules will be developed in the future !</li>
+</ul>
+  
 <p> Useful links : </p>
 <ul>
     <li><a href="https://github.com/Madour/NasNas">Github repository</a> </li>
