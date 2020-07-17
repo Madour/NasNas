@@ -15,8 +15,6 @@
 
 namespace ns::tm {
 
-    class TileLayer;
-
     class TiledMap : public PropertiesContainer {
     public:
         TiledMap();
@@ -25,14 +23,14 @@ namespace ns::tm {
 
         auto getSize() -> const sf::Vector2u&;
         auto getTileSize() -> const sf::Vector2u&;
-        auto getTileTileset(unsigned int gid) -> std::pair<int, const Tileset*> ;
+        auto getTileTileset(unsigned int gid) -> const std::unique_ptr<Tileset>&;
 
-        auto allTilesets() -> std::map<unsigned int, std::shared_ptr<Tileset>>&;
+        auto allTilesets() -> std::vector<std::unique_ptr<Tileset>>&;
 
         auto getTileLayer(const std::string& name) -> std::shared_ptr<TileLayer>&;
 
     private:
-        pugi::xml_node m_xml_node;
+        pugi::xml_node m_xmlnode_map;
         std::string m_file_name;
         std::filesystem::path m_file_path;
         bool m_ready = false;
@@ -40,7 +38,7 @@ namespace ns::tm {
         sf::Vector2u m_size;
         sf::Vector2u m_tilesize;
 
-        std::map<unsigned int, std::shared_ptr<Tileset>> m_tilesets;
+        std::vector<std::unique_ptr<Tileset>> m_tilesets;
         std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_layers;
 
         void load(const pugi::xml_document& xml);

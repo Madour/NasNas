@@ -13,7 +13,7 @@ Layer(xml_node, tiledmap) {
     m_width = xml_node.attribute("width").as_int();
     m_height = xml_node.attribute("height").as_int();
     m_tiles.reserve(m_width * m_height);
-    for (auto& [first_gid, tileset] : m_tiledmap->allTilesets()) {
+    for (const auto& tileset : m_tiledmap->allTilesets()) {
         m_vertices[tileset.get()].resize(4 * m_width * m_height);
         m_vertices[tileset.get()].setPrimitiveType(sf::PrimitiveType::Quads);
     }
@@ -56,10 +56,10 @@ Layer(xml_node, tiledmap) {
 void TileLayer::addTile(unsigned int gid, unsigned int tile_count) {
     if (gid == 0) return;
 
-    auto [firstgid, tileset] = m_tiledmap->getTileTileset(gid);
+    auto& tileset = m_tiledmap->getTileTileset(gid);
     std::uint32_t mask = 0x1fffffff;
     std::uint8_t tile_transform = (uint8_t)((gid & ~mask))>>28u;
-    auto id = (gid & mask) - firstgid;
+    auto id = (gid & mask) - tileset->firstgid;
     auto tilewidth = tileset->tilewidth;
     auto tileheight = tileset->tileheight;
     auto x = (tile_count % m_width) * m_tiledmap->getTileSize().x;
@@ -68,10 +68,10 @@ void TileLayer::addTile(unsigned int gid, unsigned int tile_count) {
     auto ty = (id / tileset->columns) * tileheight;
 
     m_tiles.emplace_back(id , tile_transform);
-    m_vertices[tileset][tile_count*4 + 0] = sf::Vertex(sf::Vector2f(x, y), sf::Vector2f(tx, ty));
-    m_vertices[tileset][tile_count*4 + 1] = sf::Vertex(sf::Vector2f(x + tilewidth, y), sf::Vector2f(tx + tilewidth, ty));
-    m_vertices[tileset][tile_count*4 + 2] = sf::Vertex(sf::Vector2f(x + tilewidth, y + tileheight), sf::Vector2f(tx + tilewidth, ty + tileheight));
-    m_vertices[tileset][tile_count*4 + 3] = sf::Vertex(sf::Vector2f(x, y + tileheight), sf::Vector2f(tx, ty + tileheight));
+    m_vertices[tileset.get()][tile_count*4 + 0] = sf::Vertex(sf::Vector2f(x, y), sf::Vector2f(tx, ty));
+    m_vertices[tileset.get()][tile_count*4 + 1] = sf::Vertex(sf::Vector2f(x + tilewidth, y), sf::Vector2f(tx + tilewidth, ty));
+    m_vertices[tileset.get()][tile_count*4 + 2] = sf::Vertex(sf::Vector2f(x + tilewidth, y + tileheight), sf::Vector2f(tx + tilewidth, ty + tileheight));
+    m_vertices[tileset.get()][tile_count*4 + 3] = sf::Vertex(sf::Vector2f(x, y + tileheight), sf::Vector2f(tx, ty + tileheight));
 }
 
 auto TileLayer::getGlobalBounds() -> ns::FloatRect {

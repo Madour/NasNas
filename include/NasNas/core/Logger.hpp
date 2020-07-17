@@ -27,6 +27,7 @@ namespace ns {
     auto operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream&;
     auto operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream&;
     auto operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream&;
+    auto operator<<(std::ostream& os, const sf::Color& color) -> std::ostream&;
 
     /**
      * \brief Console Logger can log a variable number of variables to the console.

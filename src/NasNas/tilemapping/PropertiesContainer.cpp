@@ -4,6 +4,7 @@
 
 
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include "NasNas/core/Logger.hpp"
 
 using namespace ns;
 using namespace ns::tm;
@@ -29,4 +30,12 @@ void PropertiesContainer::addProperty(const pugi::xml_node& xml_prop) {
         prop_value = xml_prop.attribute("value").as_string();
 
     m_properties[prop_name] = prop_value;
+}
+
+
+void PropertiesContainer::printProperties() const {
+    for (const auto& [prop_name, prop_value] : m_properties) {
+        std::cout << prop_name << " : ";
+        std::visit([](auto & value){std::cout << value << std::endl;}, prop_value);
+    }
 }
