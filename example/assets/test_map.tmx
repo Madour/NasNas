@@ -9,6 +9,9 @@
   <property name="tests" value="stry"/>
  </properties>
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="322" columns="23">
+  <properties>
+   <property name="tileset_prop" type="float" value="5.45"/>
+  </properties>
   <image source="tileset.png" width="368" height="224"/>
   <tile id="2">
    <properties>
@@ -24,9 +27,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="323" name="font" tilewidth="8" tileheight="8" tilecount="64" columns="8">
-  <image source="font.png" width="64" height="64"/>
- </tileset>
+ <tileset firstgid="323" source="tsxs/font.tsx"/>
  <layer id="6" name="bg" width="50" height="50">
   <data encoding="csv">
 1,216,3,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,218,142,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,

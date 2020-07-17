@@ -42,4 +42,9 @@ auto ns::operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream& 
     return os;
 }
 
+auto ns::operator<<(std::ostream& os, const sf::Color& color) -> std::ostream& {
+    os << "RGBA(" << color.r << ", " << color.g << "), (" << color.b << ", " << color.a << ")";
+    return os;
+}
+
 void Logger::logr() { std::cout << std::endl; }

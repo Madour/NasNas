@@ -15,7 +15,7 @@ auto TiledMap::loadFromFile(const std::string& file_name) -> bool {
     pugi::xml_document xml;
     auto result = xml.load_file(file_name.c_str());
     if (!result) {
-        std::cout << "Error parsing XML file «" << file_name << "» : " << result.description() << std::endl;
+        std::cout << "Error parsing TMX file «" << file_name << "» : " << result.description() << std::endl;
         return false;
     }
     m_file_name = std::filesystem::path(file_name).filename().string();
@@ -28,7 +28,7 @@ auto TiledMap::loadFromString(const std::string& data) -> bool {
     pugi::xml_document xml;
     auto result = xml.load_string(data.c_str());
     if (!result) {
-        std::cout << "Error parsing XML data : " << result.description() << std::endl;
+        std::cout << "Error parsing TMX data : " << result.description() << std::endl;
         return false;
     }
     load(xml);
@@ -36,23 +36,31 @@ auto TiledMap::loadFromString(const std::string& data) -> bool {
 }
 
 void TiledMap::load(const pugi::xml_document& xml) {
-    m_xml_node = xml.child("map");
-    m_size.x = m_xml_node.attribute("width").as_uint();
-    m_size.y = m_xml_node.attribute("height").as_uint();
-    m_tilesize.x = m_xml_node.attribute("tilewidth").as_uint();
-    m_tilesize.y = m_xml_node.attribute("tileheight").as_uint();
+    m_xmlnode_map = xml.child("map");
+    m_size.x = m_xmlnode_map.attribute("width").as_uint();
+    m_size.y = m_xmlnode_map.attribute("height").as_uint();
+    m_tilesize.x = m_xmlnode_map.attribute("tilewidth").as_uint();
+    m_tilesize.y = m_xmlnode_map.attribute("tileheight").as_uint();
 
     // parsing properties
-    for (const auto& xml_prop : m_xml_node.child("properties").children()) {
-        addProperty(xml_prop);
+    for (const auto& xmlnode_prop : m_xmlnode_map.child("properties").children()) {
+        addProperty(xmlnode_prop);
     }
     // parsing tilesets
-    for (const auto& xml_tileset : m_xml_node.children("tileset")) {
-        m_tilesets[xml_tileset.attribute("firstgid").as_uint()] = std::make_shared<Tileset>(xml_tileset, m_file_path);
+    for (const auto& xmlnode_tileset : m_xmlnode_map.children("tileset")) {
+        unsigned int firstgid = xmlnode_tileset.attribute("firstgid").as_uint();
+        // external tileset
+        if (xmlnode_tileset.attribute("source")){
+            auto tsx_tileset = TilesetManager::get(m_file_path.append(xmlnode_tileset.attribute("source").as_string()));
+            m_tilesets.push_back(std::make_unique<Tileset>(tsx_tileset, firstgid));
+        }
+        // embedded tileset
+        else
+            m_tilesets.push_back(std::make_unique<Tileset>(xmlnode_tileset, m_file_path.string()));
     }
     // parsing layers
-    for (const auto& xml_layer : m_xml_node.children("layer")) {
-        auto new_layer = std::make_shared<TileLayer>(xml_layer, this);
+    for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
+        auto new_layer = std::make_shared<TileLayer>(xmlnode_layer, this);
         m_layers[{new_layer->getId(), new_layer->getName()}] = new_layer;
     }
 }
@@ -65,21 +73,20 @@ auto TiledMap::getTileSize() -> const sf::Vector2u& {
     return m_tilesize;
 }
 
-auto TiledMap::getTileTileset(unsigned int gid) -> std::pair<int, const Tileset*> {
-    Tileset* current_tileset;
-    int first_gid;
-    for (const auto& [firstgid, tileset_shared_ptr] : m_tilesets) {
-        if (gid >= firstgid) {
-            current_tileset = tileset_shared_ptr.get();
-            first_gid = firstgid;
+auto TiledMap::getTileTileset(unsigned int gid) -> const std::unique_ptr<Tileset>& {
+    int return_index = 0; int i = 0;
+    for (const auto& tileset : m_tilesets) {
+        if (gid >= tileset->firstgid) {
+            return_index = i;
+            i++;
         }
         else
             continue;
     }
-    return std::make_pair<>(first_gid, current_tileset);
+    return m_tilesets[return_index];
 }
 
-auto TiledMap::allTilesets() -> std::map<unsigned int, std::shared_ptr<Tileset>> & {
+auto TiledMap::allTilesets() -> std::vector<std::unique_ptr<Tileset>>& {
     return m_tilesets;
 }
 
@@ -89,7 +96,7 @@ auto TiledMap::getTileLayer(const std::string& name) -> std::shared_ptr<TileLaye
             return layer_ptr;
         }
     }
-    std::cout << "TiledMap «" << m_file_name << "» had not TileLayer names «" << name << "»." << std::endl;
+    std::cout << "TiledMap «" << m_file_name << "» has not TileLayer names «" << name << "»." << std::endl;
     exit(-1);
 }
 
