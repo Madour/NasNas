@@ -45,7 +45,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classns_1_1tm_1_1PropertiesContainer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ns::tm::PropertiesContainer Class Reference</div>  </div>
@@ -59,36 +58,35 @@ Inheritance diagram for ns::tm::PropertiesContainer:</div>
   <map id="ns::tm::PropertiesContainer_map" name="ns::tm::PropertiesContainer_map">
 <area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="0,56,162,80"/>
 <area href="classns_1_1tm_1_1TiledMap.html" alt="ns::tm::TiledMap" shape="rect" coords="172,56,334,80"/>
+<area href="classns_1_1tm_1_1TsxTileset.html" alt="ns::tm::TsxTileset" shape="rect" coords="344,56,506,80"/>
 <area href="classns_1_1tm_1_1TileLayer.html" alt="ns::tm::TileLayer" shape="rect" coords="0,112,162,136"/>
+<area href="classns_1_1tm_1_1Tileset.html" alt="ns::tm::Tileset" shape="rect" coords="344,112,506,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa55a33eadcd568d846a483d8ba5cbf39"><td class="memTemplParams" colspan="2"><a id="aa55a33eadcd568d846a483d8ba5cbf39"></a>
+<tr class="memitem:adfb89a7569262682c53f8b4c15e828e1"><td class="memTemplParams" colspan="2"><a id="adfb89a7569262682c53f8b4c15e828e1"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa55a33eadcd568d846a483d8ba5cbf39"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getProperty</b> (const std::string &amp;name) -&gt; T</td></tr>
-<tr class="separator:aa55a33eadcd568d846a483d8ba5cbf39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f8bb04bccdf51f087df69ba2d56298b"><td class="memTemplParams" colspan="2"><a id="a6f8bb04bccdf51f087df69ba2d56298b"></a>
+<tr class="memitem:adfb89a7569262682c53f8b4c15e828e1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getProperty</b> (const std::string &amp;name) const -&gt; T</td></tr>
+<tr class="separator:adfb89a7569262682c53f8b4c15e828e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555b8f60a97280c02e779fbda52b1b89"><td class="memTemplParams" colspan="2"><a id="a555b8f60a97280c02e779fbda52b1b89"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6f8bb04bccdf51f087df69ba2d56298b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addProperty</b> (const std::string &amp;name, const T &amp;value)</td></tr>
-<tr class="separator:a6f8bb04bccdf51f087df69ba2d56298b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555b8f60a97280c02e779fbda52b1b89"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addProperty</b> (const std::string &amp;name, const T &amp;value) const</td></tr>
+<tr class="separator:a555b8f60a97280c02e779fbda52b1b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab43e330de63a0b485468108a8e3ab624"><td class="memItemLeft" align="right" valign="top"><a id="ab43e330de63a0b485468108a8e3ab624"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printProperties</b> () const</td></tr>
+<tr class="separator:ab43e330de63a0b485468108a8e3ab624"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:afa220e59ccbe091681504c80885e4512"><td class="memItemLeft" align="right" valign="top"><a id="afa220e59ccbe091681504c80885e4512"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addProperty</b> (const pugi::xml_node &amp;xml_prop)</td></tr>
 <tr class="separator:afa220e59ccbe091681504c80885e4512"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ab6bbd15b349d13ee64ec062a8b4b2ec0"><td class="memItemLeft" align="right" valign="top"><a id="ab6bbd15b349d13ee64ec062a8b4b2ec0"></a>
-std::unordered_map&lt; std::string, PropertyTypes &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_properties</b></td></tr>
-<tr class="separator:ab6bbd15b349d13ee64ec062a8b4b2ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="PropertiesContainer_8hpp_source.html#l00018">18</a> of file <a class="el" href="PropertiesContainer_8hpp_source.html">PropertiesContainer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertiesContainer_8hpp_source.html#l00020">20</a> of file <a class="el" href="PropertiesContainer_8hpp_source.html">PropertiesContainer.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="PropertiesContainer_8hpp_source.html">PropertiesContainer.hpp</a></li>
 </ul>
