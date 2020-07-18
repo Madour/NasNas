@@ -8,6 +8,7 @@
 
 using namespace ns;
 
+const std::filesystem::path Config::base_path = std::filesystem::current_path();
 bool Config::debug = true;
 
 std::string Config::Window::title;
@@ -32,7 +33,7 @@ void Config::Inputs::setButtonKey(const std::string& btn_name, sf::Keyboard::Key
 auto Config::Inputs::getButtonKey(const std::string& btn_name) -> sf::Keyboard::Key {
     if (m_key_buttons_map.count(btn_name) > 0)
         return m_key_buttons_map[btn_name];
-    std::cout << "No button named «" << btn_name << "» in Config::Input defined. Please use Config::Input::setButtonKey first." << std::endl;
+    std::cout << "No button named «" << btn_name << "» is defined in Config::Input. Please use Config::Input::setButtonKey first." << std::endl;
     exit(-1);
 }
 

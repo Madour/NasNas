@@ -11,6 +11,22 @@ using namespace ns::tm;
 
 std::unordered_map<std::string, std::shared_ptr<TsxTileset>> TilesetManager::m_tsx_tilesets;
 
+auto TilesetManager::get(const std::string& tsx_file_name) -> const TsxTileset& {
+    std::cout << tsx_file_name << std::endl;
+    if (m_tsx_tilesets.count(tsx_file_name))
+        return *m_tsx_tilesets[tsx_file_name].get();
+    else {
+        pugi::xml_document xml;
+        auto result = xml.load_file(tsx_file_name.c_str());
+        if (!result) {
+            std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
+            std::exit(-1);
+        }
+        m_tsx_tilesets[tsx_file_name] =  std::make_shared<TsxTileset>(xml.child("tileset"), std::filesystem::path(tsx_file_name).remove_filename().string());
+        return *m_tsx_tilesets[tsx_file_name].get();
+    }
+}
+
 TsxTileset::TsxTileset(const pugi::xml_node& xml_node, const std::string& path) :
 name(xml_node.attribute("name").as_string()),
 tilewidth(xml_node.attribute("tilewidth").as_uint()),
@@ -47,18 +63,3 @@ Tileset::Tileset(const TsxTileset& tsx_tileset, unsigned int first_gid) :
 TsxTileset(tsx_tileset),
 firstgid(first_gid)
 {}
-
-auto TilesetManager::get(const std::string &tsx_file_name) -> const TsxTileset & {
-    if (m_tsx_tilesets.count(tsx_file_name))
-        return *m_tsx_tilesets[tsx_file_name].get();
-    else {
-        pugi::xml_document xml;
-        auto result = xml.load_file(tsx_file_name.c_str());
-        if (!result) {
-            std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
-            std::exit(-1);
-        }
-        m_tsx_tilesets[tsx_file_name] =  std::make_shared<TsxTileset>(xml.child("tileset"), std::filesystem::path(tsx_file_name).remove_filename());
-        return *m_tsx_tilesets[tsx_file_name].get();
-    }
-}

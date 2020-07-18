@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <filesystem>
 #include <unordered_map>
 #include "SFML/Window.hpp"
 
@@ -12,6 +13,7 @@ namespace ns {
 
     class Config {
     public:
+        static const std::filesystem::path base_path;
         static bool debug;
 
         class Window {

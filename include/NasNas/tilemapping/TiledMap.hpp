@@ -32,7 +32,7 @@ namespace ns::tm {
     private:
         pugi::xml_node m_xmlnode_map;
         std::string m_file_name;
-        std::filesystem::path m_file_path;
+        std::filesystem::path m_file_relative_path;
         bool m_ready = false;
 
         sf::Vector2u m_size;
