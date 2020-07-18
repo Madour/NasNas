@@ -106,7 +106,7 @@ auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect
 void App::toggleFullscreen() {
     auto clear_color = m_window.getClearColor();
     if(!m_fullscreen) {
-        m_window.create(sf::VideoMode::getFullscreenModes()[0], m_title, sf::Style::None);
+        m_window.create(sf::VideoMode::getFullscreenModes()[0], m_title, sf::Style::Fullscreen);
         m_window.setMouseCursorVisible(false);
     }
     else {
