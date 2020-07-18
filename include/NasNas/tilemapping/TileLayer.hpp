@@ -49,7 +49,7 @@ namespace ns::tm {
         std::vector<Tile> m_tiles;
         std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
 
-        void addTile(unsigned int gid, unsigned int tile_count);
+        void addTile(std::uint32_t gid, unsigned int tile_count);
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };

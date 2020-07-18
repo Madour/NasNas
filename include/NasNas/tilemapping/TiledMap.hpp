@@ -18,6 +18,7 @@ namespace ns::tm {
     class TiledMap : public PropertiesContainer {
     public:
         TiledMap();
+
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
@@ -25,7 +26,7 @@ namespace ns::tm {
         auto getTileSize() -> const sf::Vector2u&;
         auto getTileTileset(unsigned int gid) -> const std::unique_ptr<Tileset>&;
 
-        auto allTilesets() -> std::vector<std::unique_ptr<Tileset>>&;
+        auto allTilesets() -> const std::vector<std::unique_ptr<Tileset>>&;
 
         auto getTileLayer(const std::string& name) -> std::shared_ptr<TileLayer>&;
 
@@ -33,7 +34,6 @@ namespace ns::tm {
         pugi::xml_node m_xmlnode_map;
         std::string m_file_name;
         std::filesystem::path m_file_relative_path;
-        bool m_ready = false;
 
         sf::Vector2u m_size;
         sf::Vector2u m_tilesize;
