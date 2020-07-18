@@ -16,14 +16,16 @@ namespace ns::tm {
 
     class TilesetManager {
     public:
-        static auto get(const std::string& tsx_file_name) -> const TsxTileset&;
+        static auto get(const std::string& tsx_file_name) -> const std::shared_ptr<TsxTileset>&;
+
     private:
-        static std::unordered_map<std::string, std::shared_ptr<TsxTileset>> m_tsx_tilesets;
+        explicit TilesetManager();
+        std::unordered_map<std::string, std::shared_ptr<TsxTileset>> m_tsx_tilesets;
     };
 
     class TsxTileset : public PropertiesContainer{
     public:
-        explicit TsxTileset(const pugi::xml_node& xml_node, const std::string& base_path);
+        TsxTileset(const pugi::xml_node& xml_node, const std::string& base_path);
         auto getTexture() const -> const sf::Texture&;
 
         const std::string name;
@@ -41,7 +43,7 @@ namespace ns::tm {
     class Tileset : public TsxTileset {
     public:
         Tileset(const pugi::xml_node& xml_node, const std::string& base_path);
-        Tileset(const TsxTileset& tsx_tileset, unsigned int first_gid);
+        Tileset(const std::shared_ptr<TsxTileset>& tsx_tileset, unsigned int first_gid);
 
         const unsigned int firstgid;
     };

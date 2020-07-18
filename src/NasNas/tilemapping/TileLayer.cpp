@@ -26,7 +26,7 @@ Layer(xml_node, tiledmap) {
     auto xml_data = xml_node.child("data");
     auto encoding = std::string(xml_data.attribute("encoding").as_string());
     if (encoding == "csv") {
-        auto layer_data = xml_data.text().as_string();
+        const auto* layer_data = xml_data.text().as_string();
         std::uint32_t current_gid = 0;
         int tile_counter = 0;
 
@@ -53,12 +53,12 @@ Layer(xml_node, tiledmap) {
     }
 }
 
-void TileLayer::addTile(unsigned int gid, unsigned int tile_count) {
+void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     if (gid == 0) return;
 
-    auto& tileset = m_tiledmap->getTileTileset(gid);
+    const auto& tileset = m_tiledmap->getTileTileset(gid);
     std::uint32_t mask = 0x1fffffff;
-    std::uint8_t tile_transform = (uint8_t)((gid & ~mask))>>28u;
+    std::uint8_t tile_transform = ((gid & ~mask)>>28u);
     auto id = (gid & mask) - tileset->firstgid;
     auto tilewidth = tileset->tilewidth;
     auto tileheight = tileset->tileheight;
@@ -83,7 +83,7 @@ void TileLayer::move(float offsetx, float offsety) {
 }
 
 void TileLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (auto& [tileset, vertices] : m_vertices) {
+    for (const auto & [tileset, vertices] : m_vertices) {
         states.texture = &tileset->getTexture();
         states.transform *= m_transformable.getTransform();
         target.draw(vertices, states);
