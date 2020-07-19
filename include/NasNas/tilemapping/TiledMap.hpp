@@ -28,7 +28,7 @@ namespace ns::tm {
 
         auto allTilesets() -> const std::vector<std::unique_ptr<Tileset>>&;
 
-        auto getTileLayer(const std::string& name) -> std::shared_ptr<TileLayer>&;
+        auto getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>&;
 
     private:
         pugi::xml_node m_xmlnode_map;

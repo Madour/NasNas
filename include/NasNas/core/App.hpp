@@ -43,7 +43,7 @@ namespace ns {
         /**
          * \brief Delete all Scene, Camera and DebugText objects and free loaded resources
          */
-        ~App();
+        virtual ~App();
 
         /**
          * \brief Returns the title of the App

@@ -15,7 +15,6 @@ namespace ns::ecs {
     class BaseComponent {
     public:
         explicit BaseComponent(BaseEntity* entity);
-        ~BaseComponent();
         virtual void update() = 0;
 
     protected:
