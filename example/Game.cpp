@@ -44,6 +44,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     // adding its layers to the scene
     this->scene->getLayer(0)->add(tiled_map.getTileLayer("bg"));
     this->scene->getLayer(0)->add(tiled_map.getTileLayer("front"));
+    tiled_map.printProperties();
 
     /////// Adding Shapes //////////////////////////////////////
     auto colors = std::vector<sf::Color>{sf::Color::Blue, sf::Color::Red, sf::Color::Green,
