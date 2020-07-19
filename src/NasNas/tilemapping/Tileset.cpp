@@ -33,7 +33,9 @@ name(xml_node.attribute("name").as_string()),
 tilewidth(xml_node.attribute("tilewidth").as_uint()),
 tileheight(xml_node.attribute("tileheight").as_uint()),
 tilecount(xml_node.attribute("tilecount").as_uint()),
-columns(xml_node.attribute("columns").as_uint()) {
+columns(xml_node.attribute("columns").as_uint()),
+margin(xml_node.attribute("margin").as_uint()),
+spacing(xml_node.attribute("spacing").as_uint()) {
 
     m_image_source = xml_node.child("image").attribute("source").as_string();
     m_texture = std::make_shared<sf::Texture>();

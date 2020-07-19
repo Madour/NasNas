@@ -44,6 +44,8 @@ namespace ns::tm {
         const unsigned int tileheight;
         const unsigned int tilecount;
         const unsigned int columns;
+        const unsigned int margin;
+        const unsigned int spacing;
 
     private:
         std::string m_image_source;
