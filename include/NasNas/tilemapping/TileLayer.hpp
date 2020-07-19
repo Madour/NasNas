@@ -25,16 +25,18 @@ namespace ns::tm {
     };
 
 
-    struct Tile {
-        Tile(std::uint32_t tile_gid, std::uint8_t tile_flip) {
-            gid = tile_gid;
-            flip = tile_flip;
-        }
-        std::uint32_t gid;
-        std::uint8_t flip;
-    };
+
 
     class TileLayer : public Layer {
+
+        struct Tile {
+            Tile(std::uint32_t tile_gid, std::uint8_t tile_flip) {
+                gid = tile_gid;
+                flip = tile_flip;
+            }
+            std::uint32_t gid;
+            std::uint8_t flip;
+        };
 
         struct AnimatedTileInfo {
             unsigned int index;
@@ -59,6 +61,8 @@ namespace ns::tm {
         std::map<std::uint32_t, AnimatedTileInfo> m_animated_tiles_pos;
 
         void addTile(std::uint32_t gid, unsigned int tile_count);
+        auto getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) -> std::vector<sf::Vector2f>;
+        auto getTileTexCoo(const Tile& tile) -> std::vector<sf::Vector2f>;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
