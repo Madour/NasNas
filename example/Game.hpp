@@ -19,6 +19,7 @@ private:
     ns::Scene* scene;
     ns::Camera* game_camera;
     std::shared_ptr<ns::BaseEntity> player;
+    std::vector<std::shared_ptr<sf::Shape>> shapes;
     ns::tm::TiledMap tiled_map;
     int frame_counter = 0;
 };

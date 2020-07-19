@@ -49,8 +49,8 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     auto colors = std::vector<sf::Color>{sf::Color::Blue, sf::Color::Red, sf::Color::Green,
                                          sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,
                                          sf::Color::White};
-    // generating 1000 random octogons and adding them to the shapes layer
-    for (int i = 0; i < 1000; ++i) {
+    // generating 100 random octogons and adding them to the shapes layer
+    for (int i = 0; i < 100; ++i) {
         auto shape = std::make_shared<sf::CircleShape>(20.0f);
         shape->setPointCount(8);
         shape->setFillColor(colors.at(i%colors.size()));
@@ -58,6 +58,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
         shape->setOutlineThickness(1);
         shape->setOrigin(20, 20);
         shape->setPosition((float)(std::rand()%2500), (float)(std::rand()%2000));
+        this->shapes.push_back(shape);
         this->scene->getLayer(1)->add(shape);
     }
 
@@ -145,8 +146,9 @@ void Game::update() {
     this->frame_counter++;
 
     // moving the octogons randomly
-    for (const auto& drawable: this->scene->getLayer("shapes")->getDrawables()) {
-        std::visit([&](auto&& arg){arg->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);}, drawable);
+    for (const auto& shape: this->shapes) {
+        shape->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
+        shape->rotate(1);
     }
 
     // updating map layers
