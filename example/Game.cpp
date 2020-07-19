@@ -40,11 +40,10 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     ////////////// Adding Drawables to the Layers ///////////////////////////////////////
     /////// Adding TiledMap ////////////////////////////////////
     // loading tiled map from file
-    tiled_map.loadFromFile("assets/test_map.tmx");
+    this->tiled_map.loadFromFile("assets/test_map.tmx");
     // adding its layers to the scene
-    this->scene->getLayer(0)->add(tiled_map.getTileLayer("bg"));
-    this->scene->getLayer(0)->add(tiled_map.getTileLayer("front"));
-    tiled_map.printProperties();
+    this->scene->getLayer(0)->add(this->tiled_map.getTileLayer("bg"));
+    this->scene->getLayer(0)->add(this->tiled_map.getTileLayer("front"));
 
     /////// Adding Shapes //////////////////////////////////////
     auto colors = std::vector<sf::Color>{sf::Color::Blue, sf::Color::Red, sf::Color::Green,
@@ -149,6 +148,10 @@ void Game::update() {
     for (const auto& drawable: this->scene->getLayer("shapes")->getDrawables()) {
         std::visit([&](auto&& arg){arg->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);}, drawable);
     }
+
+    // updating map layers
+    this->tiled_map.getTileLayer("bg")->update();
+    this->tiled_map.getTileLayer("front")->update();
 
     // updating the player entity
     this->player->update();
