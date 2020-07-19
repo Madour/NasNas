@@ -24,9 +24,20 @@ namespace ns::tm {
     };
 
     class TsxTileset : public PropertiesContainer{
+
+        struct TileAnimFrame {
+            std::uint32_t tileid;
+            unsigned int duration;
+        };
+        struct TileAnim {
+            std::vector<TileAnimFrame> frames;
+        };
+
     public:
         TsxTileset(const pugi::xml_node& xml_node, const std::string& base_path);
+
         auto getTexture() const -> const sf::Texture&;
+        auto getTileAnim(std::uint32_t id) -> const TileAnim*;
 
         const std::string name;
         const unsigned int tilewidth;
@@ -37,7 +48,8 @@ namespace ns::tm {
     private:
         std::string m_image_source;
         std::shared_ptr<sf::Texture> m_texture;
-        std::map<unsigned int, PropertiesContainer> m_tile_properties;
+        std::map<std::uint32_t, PropertiesContainer> m_tile_properties;
+        std::map<std::uint32_t, TileAnim> m_tile_animations;
     };
 
     class Tileset : public TsxTileset {

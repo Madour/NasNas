@@ -102,5 +102,3 @@ auto TiledMap::getTileLayer(const std::string& name) -> std::shared_ptr<TileLaye
     std::cout << "TiledMap «" << m_file_name << "» has not TileLayer names «" << name << "»." << std::endl;
     exit(-1);
 }
-
-

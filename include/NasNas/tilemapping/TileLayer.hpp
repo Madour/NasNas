@@ -34,13 +34,21 @@ namespace ns::tm {
         std::uint8_t flip;
     };
 
-
     class TileLayer : public Layer {
+
+        struct AnimatedTileInfo {
+            unsigned int index;
+            sf::Clock clock;
+            std::vector<sf::Vector2u> positions;
+        };
+
     public:
         TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
         auto getGlobalBounds() -> ns::FloatRect override;
         void move(float offsetx, float offsety) override;
+
+        void update();
 
     private:
         unsigned int m_width;
@@ -48,6 +56,7 @@ namespace ns::tm {
 
         std::vector<Tile> m_tiles;
         std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
+        std::map<std::uint32_t, AnimatedTileInfo> m_animated_tiles_pos;
 
         void addTile(std::uint32_t gid, unsigned int tile_count);
 

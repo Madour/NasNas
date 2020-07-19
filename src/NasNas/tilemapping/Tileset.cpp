@@ -40,19 +40,31 @@ columns(xml_node.attribute("columns").as_uint()) {
     m_texture->loadFromFile(path + m_image_source);
 
     // parsing tileset properties
-    for (const auto& xml_prop : xml_node.child("properties").children()) {
-        addProperty(xml_prop);
+    for (const auto& xmlnode_prop : xml_node.child("properties").children()) {
+        addProperty(xmlnode_prop);
     }
-    // parsing tileset tiles properties
-    for (const auto& xml_tile : xml_node.children("tile")) {
-        auto tile_id =  xml_tile.attribute("id").as_uint();
-        for (const auto& xml_tile_prop : xml_tile.child("properties").children())
-            m_tile_properties[tile_id].addProperty(xml_tile);
+    // parsing tileset tiles properties and animations
+    for (const auto& xmlnode_tile : xml_node.children("tile")) {
+        std::uint32_t tile_id =  xmlnode_tile.attribute("id").as_uint();
+        for (const auto& xmlnode_tile_prop : xmlnode_tile.child("properties").children())
+            m_tile_properties[tile_id].addProperty(xmlnode_tile);
+
+        for (const auto& xmlnode_tile_animframe : xmlnode_tile.child("animation").children()) {
+            std::uint32_t id = xmlnode_tile_animframe.attribute("tileid").as_uint();
+            unsigned int duration = xmlnode_tile_animframe.attribute("duration").as_uint();
+            m_tile_animations[tile_id].frames.push_back({id, duration});
+        }
     }
 }
 
 auto TsxTileset::getTexture() const -> const sf::Texture & {
     return *m_texture;
+}
+
+auto TsxTileset::getTileAnim(std::uint32_t id) -> const TileAnim* {
+    if (m_tile_animations.count(id) > 0)
+        return &m_tile_animations[id];
+    return nullptr;
 }
 
 
