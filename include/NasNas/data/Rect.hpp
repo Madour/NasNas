@@ -20,35 +20,50 @@ namespace ns {
         // parent constructor
         using sf::Rect<T>::Rect;
         // copy constructor
-        Rect<T>(const Rect<T> &rect);
+        Rect(const Rect<T>& rect);
 
-        Rect<T>(const sf::Rect<T>& rect);
+        template <typename S>
+        Rect(sf::Rect<S>& rect);
 
         auto repr() const -> std::string;
 
-        sf::Vector2<T> size() const { return sf::Vector2<T>(this->width, this->height); }
+        auto size() const -> sf::Vector2<T> { return sf::Vector2<T>(this->width, this->height); }
 
-        T right() const { return this->left + this->width; }
+        auto right() const -> T { return this->left + this->width; }
 
-        T bottom() const { return this->top + this->height; }
+        auto bottom() const -> T { return this->top + this->height; }
 
-        sf::Vector2<T> topleft() const { return sf::Vector2<T>(this->left, this->top); }
-        sf::Vector2<T> topright() const { return sf::Vector2<T>(right(), this->top); }
-        sf::Vector2<T> bottomleft() const { return sf::Vector2<T>(this->left, bottom()); }
-        sf::Vector2<T> bottomright() const { return sf::Vector2<T>(right(), bottom()); }
+        auto topleft() const -> sf::Vector2<T> { return sf::Vector2<T>(this->left, this->top); }
+        auto topright() const -> sf::Vector2<T> { return sf::Vector2<T>(right(), this->top); }
+        auto bottomleft() const -> sf::Vector2<T> { return sf::Vector2<T>(this->left, bottom()); }
+        auto bottomright() const -> sf::Vector2<T> { return sf::Vector2<T>(right(), bottom()); }
 
-        sf::Vector2f center() const { return sf::Vector2f((float)this->width/2.f, (float)this->height/2.f); }
+        auto center() const -> sf::Vector2f { return sf::Vector2f((float)this->width/2.f, (float)this->height/2.f); }
+
+        template <typename S>
+        auto operator=(const sf::Rect<S>& other) -> Rect<T>&;
 
         template <typename S>
         friend auto operator<< (std::ostream& os, const Rect<S>& rect) -> std::ostream& ;
     };
 
-    template<typename T>
-    Rect<T>::Rect(const Rect<T> &rect): sf::Rect<T>(rect) {
-    }
+    template <typename T>
+    Rect<T>::Rect(const Rect<T>& rect): sf::Rect<T>(rect)
+    {}
 
     template <typename T>
-    Rect<T>::Rect(const sf::Rect<T>& rect): sf::Rect<T>(rect) {
+    template <typename S>
+    Rect<T>::Rect(sf::Rect<S>& rect) : sf::Rect<T>(rect)
+    {}
+
+    template <typename T>
+    template <typename S>
+    auto Rect<T>::operator=(const sf::Rect<S>& other) -> Rect<T>& {
+        left = static_cast<T>(other.left);
+        top = static_cast<T>(other.top);
+        width = static_cast<T>(other.width);
+        height = static_cast<T>(other.height);
+        return *this;
     }
 
     template <typename T>
@@ -70,4 +85,3 @@ namespace ns {
     typedef Rect<float> FloatRect;
 
 }
-
