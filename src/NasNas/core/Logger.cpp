@@ -34,7 +34,9 @@ auto ns::operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream&
 }
 
 auto ns::operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream& {
-    os << "Rect( (" << rect.left << ", " << rect.top << "), (" << rect.width << ", " << rect.height << ") )";
+    char b[255];
+    sprintf(b,  "Rect((%.3f ,  %.3f), (%.3f ,  %.3f))", rect.left, rect.top, rect.width, rect.height);
+    os << b;
     return os;
 }
 auto ns::operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream& {
@@ -43,7 +45,7 @@ auto ns::operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream& 
 }
 
 auto ns::operator<<(std::ostream& os, const sf::Color& color) -> std::ostream& {
-    os << "RGBA(" << color.r << ", " << color.g << "), (" << color.b << ", " << color.a << ")";
+    os << "rgba(" << (int)color.r << ", " << (int)color.g << ", " << (int)color.b << ", " << (int)color.a << ")";
     return os;
 }
 

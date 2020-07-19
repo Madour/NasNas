@@ -24,9 +24,24 @@ void PropertiesContainer::addProperty(const pugi::xml_node& xml_prop) {
         prop_value = xml_prop.attribute("value").as_bool();
     }
     else if (prop_type == "color") {
-        // temporary, TODO : convert #color string to sf::Color
-        prop_value = xml_prop.attribute("value").as_string();
-    } else
+        const auto& c = std::string(xml_prop.attribute("value").as_string());
+        sf::Color color = sf::Color::White;
+        if (c.length() == 9)  // with alpha
+            color = sf::Color(
+                std::stoul(c.substr(3, 2), nullptr, 16),
+                std::stoul(c.substr(5, 2), nullptr, 16),
+                std::stoul(c.substr(7, 2), nullptr, 16),
+                std::stoul(c.substr(1, 2), nullptr, 16)
+            );
+        else   // no alpha
+            color = sf::Color(
+                std::stoul(c.substr(1, 2), nullptr, 16),
+                std::stoul(c.substr(3, 2), nullptr, 16),
+                std::stoul(c.substr(5, 2), nullptr, 16)
+            );
+        prop_value = color;
+    }
+    else
         prop_value = xml_prop.attribute("value").as_string();
 
     m_properties[prop_name] = prop_value;
