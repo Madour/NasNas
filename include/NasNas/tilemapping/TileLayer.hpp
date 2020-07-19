@@ -46,7 +46,7 @@ namespace ns::tm {
         TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
         auto getGlobalBounds() -> ns::FloatRect override;
-        void move(float offsetx, float offsety) override;
+        void move(float offsetx, float offsety);
 
         void update();
 

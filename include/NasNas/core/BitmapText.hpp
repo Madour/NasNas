@@ -154,7 +154,7 @@ namespace ns {
          * \param offsetx X position offset
          * \param offsety Y position offset
          */
-        void move(float offsetx, float offsety) override;
+        void move(float offsetx, float offsety);
 
         /**
          * \brief Get BitmapText position in world's coordinates

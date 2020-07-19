@@ -37,7 +37,7 @@ namespace ns {
         void setY(float value);
 
         auto getGlobalBounds() -> ns::FloatRect override;
-        void move(float offsetx, float offsety) override;
+        void move(float offsetx, float offsety);
 
         auto inputs() -> ecs::InputsComponent*;
         auto physics() -> ecs::PhysicsComponent*;

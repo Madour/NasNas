@@ -17,7 +17,6 @@ namespace ns {
     public:
         virtual auto getPosition() -> sf::Vector2f = 0;
         virtual auto getGlobalBounds() -> ns::FloatRect = 0;
-        virtual void move(float offsetx, float offsety) = 0;
     };
 
 }
