@@ -132,11 +132,11 @@ auto TileLayer::getTileTexCoo(const TileLayer::Tile& tile) -> std::vector<sf::Ve
 auto TileLayer::getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) -> std::vector<sf::Vector2f> {
     const auto& tileset = m_tiledmap->getTileTileset(gid);
     auto id = gid - tileset->firstgid;
-    auto tx = (id % tileset->columns) * tileset->tilewidth;
-    auto ty = (id / tileset->columns) * tileset->tileheight;
+    auto tx = (id % tileset->columns) * (tileset->tilewidth + tileset->spacing) + tileset->margin;
+    auto ty = (id / tileset->columns) * (tileset->tileheight + tileset->spacing) + tileset->margin;
 
     auto res = std::vector<sf::Vector2f>(4);
-    res[0] = sf::Vector2f  (tx, ty);
+    res[0] = sf::Vector2f(tx, ty);
     res[1] = sf::Vector2f(tx + tileset->tilewidth, ty);
     res[2] = sf::Vector2f(tx + tileset->tilewidth, ty + tileset->tileheight);
     res[3] = sf::Vector2f(tx, ty + tileset->tileheight);
@@ -166,9 +166,9 @@ auto TileLayer::getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) ->
 }
 
 void TileLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    states.transform *= m_transformable.getTransform();
     for (const auto& [tileset, vertices] : m_vertices) {
         states.texture = &tileset->getTexture();
-        states.transform *= m_transformable.getTransform();
         target.draw(vertices, states);
     }
 }
