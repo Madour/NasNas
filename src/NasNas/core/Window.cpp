@@ -20,6 +20,7 @@ void AppWindow::onCreate() {
     m_screen_view.reset({0, 0, (float)getSize().x, (float)getSize().y});
 
     m_clear_color = sf::Color::Black;
+    scaleView();
 }
 
 void AppWindow::onResize() {
