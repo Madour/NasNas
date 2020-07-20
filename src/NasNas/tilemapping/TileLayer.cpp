@@ -10,11 +10,11 @@ using namespace ns::tm;
 
 TileLayer::TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
 Layer(xml_node, tiledmap) {
-    m_width = xml_node.attribute("width").as_int();
-    m_height = xml_node.attribute("height").as_int();
-    m_tiles.reserve(m_width * m_height);
+    m_width = xml_node.attribute("width").as_uint();
+    m_height = xml_node.attribute("height").as_uint();
+    m_tiles.reserve((size_t)m_width * (size_t)m_height);
     for (const auto& tileset : m_tiledmap->allTilesets()) {
-        m_vertices[tileset.get()].resize(4 * m_width * m_height);
+        m_vertices[tileset.get()].resize(4u * (size_t)m_width * (size_t)m_height);
         m_vertices[tileset.get()].setPrimitiveType(sf::PrimitiveType::Quads);
     }
 
