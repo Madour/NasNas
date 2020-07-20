@@ -23,7 +23,7 @@ namespace ns {
         Rect(const Rect<T>& rect);
 
         template <typename S>
-        Rect(const sf::Rect<S>& rect);
+        explicit Rect(const sf::Rect<S>& rect);
 
         auto size() const -> sf::Vector2<T> { return sf::Vector2<T>(this->width, this->height); }
 

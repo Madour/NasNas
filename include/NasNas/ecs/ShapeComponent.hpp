@@ -37,7 +37,7 @@ namespace ns::ecs {
 
     template<typename T>
     auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
-        return m_drawable.getGlobalBounds();
+        return ns::FloatRect(m_drawable.getGlobalBounds());
     }
 
     template<typename T>

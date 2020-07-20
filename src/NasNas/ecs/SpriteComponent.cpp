@@ -49,7 +49,7 @@ auto SpriteComponent::getDrawable() -> sf::Sprite& {
 }
 
 auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
-    return m_drawable.getGlobalBounds();
+    return ns::FloatRect(m_drawable.getGlobalBounds());
 }
 
 void SpriteComponent::update() {
