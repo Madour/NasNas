@@ -23,9 +23,7 @@ namespace ns {
         Rect(const Rect<T>& rect);
 
         template <typename S>
-        Rect(sf::Rect<S>& rect);
-
-        auto repr() const -> std::string;
+        Rect(const sf::Rect<S>& rect);
 
         auto size() const -> sf::Vector2<T> { return sf::Vector2<T>(this->width, this->height); }
 
@@ -43,8 +41,6 @@ namespace ns {
         template <typename S>
         auto operator=(const sf::Rect<S>& other) -> Rect<T>&;
 
-        template <typename S>
-        friend auto operator<< (std::ostream& os, const Rect<S>& rect) -> std::ostream& ;
     };
 
     template <typename T>
@@ -53,32 +49,17 @@ namespace ns {
 
     template <typename T>
     template <typename S>
-    Rect<T>::Rect(sf::Rect<S>& rect) : sf::Rect<T>(rect)
+    Rect<T>::Rect(const sf::Rect<S>& rect) : sf::Rect<T>(rect)
     {}
 
     template <typename T>
     template <typename S>
     auto Rect<T>::operator=(const sf::Rect<S>& other) -> Rect<T>& {
-        left = static_cast<T>(other.left);
-        top = static_cast<T>(other.top);
-        width = static_cast<T>(other.width);
-        height = static_cast<T>(other.height);
+        this->left = static_cast<T>(other.left);
+        this->top = static_cast<T>(other.top);
+        this->width = static_cast<T>(other.width);
+        this->height = static_cast<T>(other.height);
         return *this;
-    }
-
-    template <typename T>
-    auto Rect<T>::repr() const -> std::string {
-        std::string s_left = std::to_string(this->left);
-        std::string s_top = std::to_string(this->top);
-        std::string s_width = std::to_string(this->width);
-        std::string s_height = std::to_string(this->height);
-        return std::string("Rect(("+ s_left +", "+ s_top +"), ("+ s_width +", "+ s_height +"))" );
-    }
-
-    template <typename T>
-    auto operator<<(std::ostream& os, const Rect<T>& rect) -> std::ostream& {
-        os << rect.repr();
-        return os;
     }
 
     typedef Rect<int> IntRect;
