@@ -82,7 +82,7 @@ auto Camera::getFramesDelay() const -> unsigned int {
 }
 void Camera::setFramesDelay(unsigned int value) { m_frames_delay = value; }
 
-void Camera::setLimitsRectangle(ns::IntRect rectangle) {
+void Camera::setLimitsRectangle(const ns::IntRect& rectangle) {
     m_limits = rectangle;
 }
 
@@ -134,10 +134,10 @@ void Camera::update() {
         }
 
         if (m_limits != ns::IntRect(0, 0, 0, 0)) {
-            if (getLeft() < m_limits.left) setLeft(m_limits.left);
-            if (getTop() < m_limits.top) setTop(m_limits.top);
-            if (getRight() > m_limits.right()) setRight(m_limits.right());
-            if (getBottom() > m_limits.bottom()) setBottom(m_limits.bottom());
+            if (getLeft() < (float)m_limits.left) setLeft((float)m_limits.left);
+            if (getTop() < (float)m_limits.top) setTop((float)m_limits.top);
+            if (getRight() > (float)m_limits.right()) setRight((float)m_limits.right());
+            if (getBottom() > (float)m_limits.bottom()) setBottom((float)m_limits.bottom());
         }
 
         m_debug_border.setPosition(getPosition() + sf::Vector2f(1, 1));
