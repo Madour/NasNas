@@ -64,19 +64,17 @@ void TileLayer::move(float offsetx, float offsety) {
 void TileLayer::update() {
     for (auto& [gid, anim_info] : m_animated_tiles_pos) {
         auto& anim_index = anim_info.index;
-        auto& clock = anim_info.clock;
-        auto& positions = anim_info.positions;
 
         // getting tile anim frames from tileset
         const auto& tileset = m_tiledmap->getTileTileset(gid);
         const auto& anim_frames = tileset->getTileAnim(gid - tileset->firstgid)->frames;
 
         // go to next anim frame when elapsed time is more than frame duration
-        if (clock.getElapsedTime().asMilliseconds() > anim_frames[anim_index].duration) {
+        if (anim_info.clock.getElapsedTime().asMilliseconds() > anim_frames[anim_index].duration) {
             anim_index = (anim_index+1) % anim_frames.size();
-            clock.restart();
+            anim_info.clock.restart();
             auto new_id = anim_frames[anim_index].tileid;
-            for (const auto& pos : positions) {
+            for (const auto& pos : anim_info.positions) {
                 // calculating tile index
                 auto tile_index = pos.x/m_tiledmap->getTileSize().x + (pos.y/m_tiledmap->getTileSize().y)*m_width;
                 // calculating new texture coordinates and updating the VertexArray

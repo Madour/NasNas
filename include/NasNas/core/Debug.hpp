@@ -9,6 +9,7 @@
 #include <sstream>
 #include <functional>
 #include <SFML/Graphics.hpp>
+#include <utility>
 #include "NasNas/data/Arial.hpp"
 
 namespace ns {
@@ -95,12 +96,12 @@ namespace ns {
         ObjT* m_object_address = nullptr;
         std::function<T(ObjT &)> m_method_address = nullptr;
 
-        DebugText(const std::string& label, const sf::Vector2f& position);
+        DebugText(std::string  label, const sf::Vector2f& position);
     };
 
     template<typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(const std::string& label, const sf::Vector2f& position) {
-        m_label = label;
+    DebugText<T, ObjT>::DebugText(std::string label, const sf::Vector2f& position) :
+    m_label(std::move(label)) {
         setFont(Arial::getFont());
         setCharacterSize(DebugTextInterface::font_size);
         setFillColor(DebugTextInterface::color);
