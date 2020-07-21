@@ -9,7 +9,7 @@ Player::Player()
     // creating Player spritesheet and setting its animations
     m_spritesheet = new ns::Spritesheet(
         "adventurer",
-        ns::Res::get().getTexture("adventurer"),
+        ns::Res::get().getTexture("adventurer.png"),
         {
             new ns::Anim("idle",
                 {

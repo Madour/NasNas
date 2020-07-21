@@ -5,6 +5,9 @@
 
 #include <filesystem>
 #include "NasNas/tilemapping/Tileset.hpp"
+#ifdef NS_RESLIB
+#include "NasNas/reslib/ResourceManager.hpp"
+#endif
 
 using namespace ns;
 using namespace ns::tm;
@@ -38,8 +41,12 @@ margin(xml_node.attribute("margin").as_uint()),
 spacing(xml_node.attribute("spacing").as_uint()) {
 
     m_image_source = xml_node.child("image").attribute("source").as_string();
+#ifdef NS_RESLIB
+    m_texture = ns::Res::getTexture(path + m_image_source);
+#else
     m_texture = std::make_shared<sf::Texture>();
     m_texture->loadFromFile(path + m_image_source);
+#endif
 
     // parsing tileset properties
     for (const auto& xmlnode_prop : xml_node.child("properties").children()) {

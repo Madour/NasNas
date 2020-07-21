@@ -32,19 +32,59 @@ void ResourceManager::dispose() {
         delete(m_data);
 }
 
+void ResourceManager::checkReady() {
+    if (m_ready) return;
+    std::cout << "Error : ResourceManager is not initialized. Call Res::load(<dir_name>) first." << std::endl;
+    exit(-1);
+}
+
 auto ResourceManager::get() -> Dir& {
-    if (!m_ready) {
-        std::cout << "Error : ResourceManager is not initialized. Call Res::load(<dir_name>) first." << std::endl;
-        exit(-1);
-    }
+    checkReady();
     return *m_data;
 }
 
-void ResourceManager::printTree() {
-    if (!m_ready) {
-        std::cout << "Error : ResourceManager is not initialized. Call Res::load(<dir_name>) first." << std::endl;
-        exit(-1);
+auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture& {
+    checkReady();
+    //checking if only file name
+    auto pos = texture_path.find_last_of('/');
+    if (pos == std::string::npos)
+        return m_data->getTexture(texture_path);
+
+    // resolving path
+    std::string path = texture_path;
+    int separator_index = path.find_first_of('/'), temp = 0;
+    Dir* current_dir = m_data;
+    while(separator_index != std::string::npos) {
+        auto dir_name = path.substr(temp, separator_index);
+        path = path.substr(separator_index+1, path.size());
+        current_dir = &m_data->in(dir_name);
+        separator_index = path.find_first_of('/');
     }
+    return current_dir->getTexture(path);
+}
+
+auto ResourceManager::getFont(const std::string &font_path) -> sf::Font & {
+    checkReady();
+    //checking if only file name
+    auto pos = font_path.find_last_of('/');
+    if (pos == std::string::npos)
+        return m_data->getFont(font_path);
+
+    // resolving path
+    std::string path = font_path;
+    int separator_index = path.find_first_of('/'), temp = 0;
+    Dir* current_dir = m_data;
+    while(separator_index != std::string::npos) {
+        auto dir_name = path.substr(temp, separator_index);
+        path = path.substr(separator_index+1, path.size());
+        current_dir = &m_data->in(dir_name);
+        separator_index = path.find_first_of('/');
+    }
+    return current_dir->getFont(path);
+}
+
+void ResourceManager::printTree() {
+    checkReady();
     std::cout << std::endl << m_data->getName() << std::endl;
     m_data->print_tree();
 }
