@@ -25,12 +25,12 @@ void Dir::load(const std::filesystem::path& path) {
                     if (Dir::texture_extensions.count(file.path().extension().string()) != 0) {
                         std::shared_ptr<sf::Texture> new_texture(new sf::Texture());
                         new_texture->loadFromFile(file.path().string());
-                        m_textures[file.path().stem().string()] = new_texture;
+                        m_textures[file.path().filename().string()] = new_texture;
                     }
                     else if (Dir::fonts_extensions.count(file.path().extension().string()) != 0) {
                         std::shared_ptr<sf::Font> new_font(new sf::Font());
                         new_font->loadFromFile(file.path().string());
-                        m_fonts[file.path().stem().string()] = new_font;
+                        m_fonts[file.path().filename().string()] = new_font;
                     }
                 }
             }
@@ -48,7 +48,14 @@ void Dir::load(const std::filesystem::path& path) {
 }
 
 auto Dir::in(const std::string& dir_name) -> Dir& {
-    return *m_dirs.at(dir_name).get();
+    try {
+        return *m_dirs.at(dir_name).get();
+    }
+    catch (std::out_of_range& ex) {
+        std::cout << "Directory " << m_name << " does not contain a directory named " << "«" << dir_name << "».\n";
+        std::cout << "Exception : "<< ex.what() << std::endl;
+        exit(-1);
+    }
 }
 
 auto Dir::getName() -> const std::string& {
