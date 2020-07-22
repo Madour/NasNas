@@ -18,18 +18,23 @@ else()
     find_package(SFML COMPONENTS graphics audio )
 endif()
 
-include(NasNas.cmake)
+
+set(NASNAS_BUILD_ECS            TRUE)
+set(NASNAS_BUILD_RESLIB         TRUE)
+set(NASNAS_BUILD_TILEMAPPING    TRUE)
+
+include(cmake/NasNas.cmake)
 
 file(COPY example/assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 add_executable( NasNas_demo
-    NasNas.h ${NasNas_Sources} ${NasNas_Headers}
+    NasNas.h ${NasNas_Src} ${NasNas_Inc}
     main.cpp
     example/Game.cpp example/Game.hpp
     example/Player.cpp example/Player.hpp
 )
-add_library(NasNas_static STATIC ${NasNas_Sources} ${NasNas_Headers})
-add_library(NasNas_shared SHARED ${NasNas_Sources} ${NasNas_Headers})
+add_library(NasNas_static STATIC ${NasNas_Src} ${NasNas_Inc})
+add_library(NasNas_shared SHARED ${NasNas_Src} ${NasNas_Inc})
 
 # Static lib target
 target_include_directories(NasNas_static PRIVATE include)
