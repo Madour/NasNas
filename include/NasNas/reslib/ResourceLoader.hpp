@@ -22,7 +22,7 @@ namespace ns {
     using t_FontsMap = std::unordered_map<std::string, std::shared_ptr<sf::Font>>;
 
     public:
-        explicit Dir(const std::string& name);
+        Dir(std::string  name, Dir* parent);
         ~Dir();
         void load(const std::filesystem::path& path);
         void print_tree(int indent=0);
@@ -36,6 +36,7 @@ namespace ns {
         const static std::set<std::string> fonts_extensions;
 
         std::string m_name;
+        Dir* m_parent;
         t_DirsMap m_dirs;
         t_TexturesMap m_textures;
         t_FontsMap m_fonts;
