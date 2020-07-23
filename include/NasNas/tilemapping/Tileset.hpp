@@ -49,7 +49,7 @@ namespace ns::tm {
 
     private:
         std::string m_image_source;
-        std::shared_ptr<sf::Texture> m_texture;
+        sf::Texture* m_texture;
         std::map<std::uint32_t, PropertiesContainer> m_tile_properties;
         std::map<std::uint32_t, TileAnim> m_tile_animations;
     };

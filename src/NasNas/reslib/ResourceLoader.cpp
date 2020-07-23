@@ -3,6 +3,7 @@
 **/
 
 
+#include <utility>
 #include "NasNas/reslib/ResourceLoader.hpp"
 
 using namespace ns;
@@ -10,9 +11,10 @@ using namespace ns;
 const std::set<std::string> Dir::texture_extensions = {".png", ".jpg", ".bmp"};
 const std::set<std::string> Dir::fonts_extensions = {".ttf"};
 
-Dir::Dir(const std::string& name) {
-    m_name = name;
-}
+Dir::Dir(std::string  name, Dir* parent) :
+m_name(std::move(name)),
+m_parent(parent)
+{}
 
 Dir::~Dir() = default;
 
@@ -35,7 +37,7 @@ void Dir::load(const std::filesystem::path& path) {
                 }
             }
             else if (fs::is_directory(file)) {
-                std::shared_ptr<Dir> new_dir(new Dir(file.path().filename().string()));
+                std::shared_ptr<Dir> new_dir(new Dir(file.path().filename().string(), this));
                 m_dirs[file.path().filename().string()] = new_dir;
                 new_dir->load(file.path());
             }
@@ -49,10 +51,18 @@ void Dir::load(const std::filesystem::path& path) {
 
 auto Dir::in(const std::string& dir_name) -> Dir& {
     try {
+        if (dir_name == "..") {
+            if (m_parent)
+                return *m_parent;
+            else {
+                std::cout << "Directory «" << m_name << "» does not have parent directory." << std::endl;
+                exit(-1);
+            }
+        }
         return *m_dirs.at(dir_name).get();
     }
     catch (std::out_of_range& ex) {
-        std::cout << "Directory " << m_name << " does not contain a directory named " << "«" << dir_name << "».\n";
+        std::cout << "Directory «" << m_name << "» does not contain a directory named " << "«" << dir_name << "».\n";
         std::cout << "Exception : "<< ex.what() << std::endl;
         exit(-1);
     }

@@ -42,9 +42,9 @@ spacing(xml_node.attribute("spacing").as_uint()) {
 
     m_image_source = xml_node.child("image").attribute("source").as_string();
 #ifdef NS_RESLIB
-    m_texture = ns::Res::getTexture(path + m_image_source);
+    m_texture = &ns::Res::getTexture(path+m_image_source);
 #else
-    m_texture = std::make_shared<sf::Texture>();
+    m_texture = new sf::Texture();
     m_texture->loadFromFile(path + m_image_source);
 #endif
 

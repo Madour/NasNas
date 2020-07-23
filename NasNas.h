@@ -4,21 +4,22 @@
 
 #pragma once
 
-#define NS_DATA
 #include "NasNas/data/Config.hpp"
 
-#define NS_ECS
+#ifdef NS_ECS
 #include "NasNas/ecs/BaseEntity.hpp"
 #include "NasNas/ecs/SpriteComponent.hpp"
 #include "NasNas/ecs/ShapeComponent.hpp"
+#endif
 
-#define NS_TILEMAPPING
+#ifdef NS_TILEMAPPING
 #include "NasNas/tilemapping/TiledMap.hpp"
+#endif
 
-#define NS_RESLIB
+#ifdef NS_RESLIB
 #include "NasNas/reslib/ResourceManager.hpp"
+#endif
 
-#define NS_CORE
 #include "NasNas/core/App.hpp"
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Scene.hpp"
