@@ -16,11 +16,6 @@ namespace ns {
     class ResourceManager;
 
     class Dir {
-
-    using t_DirsMap = std::unordered_map<std::string, std::shared_ptr<Dir>>;
-    using t_TexturesMap = std::unordered_map<std::string, std::shared_ptr<sf::Texture>>;
-    using t_FontsMap = std::unordered_map<std::string, std::shared_ptr<sf::Font>>;
-
     public:
         Dir(std::string  name, Dir* parent);
         ~Dir();
@@ -37,9 +32,9 @@ namespace ns {
 
         std::string m_name;
         Dir* m_parent;
-        t_DirsMap m_dirs;
-        t_TexturesMap m_textures;
-        t_FontsMap m_fonts;
+        std::unordered_map<std::string, std::unique_ptr<Dir>> m_dirs;
+        std::unordered_map<std::string, std::unique_ptr<sf::Texture>> m_textures;
+        std::unordered_map<std::string, std::unique_ptr<sf::Font>> m_fonts;
     };
 
 }

@@ -25,21 +25,21 @@ void Dir::load(const std::filesystem::path& path) {
             if (fs::is_regular_file(file)) {
                 if (file.path().has_extension()) {
                     if (Dir::texture_extensions.count(file.path().extension().string()) != 0) {
-                        std::shared_ptr<sf::Texture> new_texture(new sf::Texture());
+                        std::unique_ptr<sf::Texture> new_texture(new sf::Texture());
                         new_texture->loadFromFile(file.path().string());
-                        m_textures[file.path().filename().string()] = new_texture;
+                        m_textures[file.path().filename().string()] = std::move(new_texture);
                     }
                     else if (Dir::fonts_extensions.count(file.path().extension().string()) != 0) {
-                        std::shared_ptr<sf::Font> new_font(new sf::Font());
+                        std::unique_ptr<sf::Font> new_font(new sf::Font());
                         new_font->loadFromFile(file.path().string());
-                        m_fonts[file.path().filename().string()] = new_font;
+                        m_fonts[file.path().filename().string()] = std::move(new_font);
                     }
                 }
             }
             else if (fs::is_directory(file)) {
-                std::shared_ptr<Dir> new_dir(new Dir(file.path().filename().string(), this));
-                m_dirs[file.path().filename().string()] = new_dir;
-                new_dir->load(file.path());
+                std::unique_ptr<Dir> new_dir(new Dir(file.path().filename().string(), this));
+                m_dirs[file.path().filename().string()] = std::move(new_dir);
+                m_dirs[file.path().filename().string()]->load(file.path());
             }
         }
     }
@@ -73,11 +73,11 @@ auto Dir::getName() -> const std::string& {
 }
 
 auto Dir::getTexture(const std::string& texture_name) -> sf::Texture&{
-    return *m_textures.at(texture_name).get();
+    return *m_textures.at(texture_name);
 }
 
 auto Dir::getFont(const std::string& font_name) -> sf::Font& {
-    return *m_fonts.at(font_name).get();
+    return *m_fonts.at(font_name);
 }
 
 

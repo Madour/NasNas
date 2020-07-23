@@ -96,7 +96,7 @@ auto TiledMap::allTilesets() -> const std::vector<std::unique_ptr<Tileset>>& {
 auto TiledMap::getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>& {
     for (const auto& [key, layer_ptr] : m_layers) {
         if (key.second == name) {
-            return layer_ptr;
+            return m_layers[key];
         }
     }
     std::cout << "TiledMap «" << m_file_name << "» has not TileLayer names «" << name << "»." << std::endl;

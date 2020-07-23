@@ -53,13 +53,13 @@ auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture
     checkReady();
 
     std::string path = texture_path;
-    auto last_slash_idx = texture_path.find_first_of('/');
+    auto first_slash_idx = texture_path.find_first_of('/');
     //checking if only file name
-    if (last_slash_idx == std::string::npos)
+    if (first_slash_idx == std::string::npos)
         return m_data->getTexture(texture_path);
     // checking if absolute path and make it relative to Res root dir
-    else if (texture_path.substr(0, last_slash_idx) == m_root_dir)
-        path = texture_path.substr(last_slash_idx+1, texture_path.size());
+    else if (texture_path.substr(0, first_slash_idx) == m_root_dir)
+        path = texture_path.substr(first_slash_idx+1, texture_path.size());
 
     Dir* current_dir = m_data;
     int separator_index = path.find_first_of('/'), temp = 0;
@@ -74,17 +74,22 @@ auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture
     return current_dir->getTexture(path);
 }
 
-auto ResourceManager::getFont(const std::string &font_path) -> sf::Font & {
+auto ResourceManager::getFont(const std::string& font_path) -> sf::Font & {
     checkReady();
-    //checking if only file name
-    auto pos = font_path.find_last_of('/');
-    if (pos == std::string::npos)
-        return m_data->getFont(font_path);
 
-    // resolving path
     std::string path = font_path;
+    auto first_slash_idx = font_path.find_first_of('/');
+    //checking if only file name
+    if (first_slash_idx == std::string::npos)
+        return m_data->getFont(font_path);
+        // checking if absolute path and make it relative to Res root dir
+    else if (font_path.substr(0, first_slash_idx) == m_root_dir)
+        path = font_path.substr(first_slash_idx+1, font_path.size());
+
     int separator_index = path.find_first_of('/'), temp = 0;
     Dir* current_dir = m_data;
+
+    // resolving path
     while(separator_index != std::string::npos) {
         auto dir_name = path.substr(temp, separator_index);
         path = path.substr(separator_index+1, path.size());
