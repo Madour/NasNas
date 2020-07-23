@@ -14,16 +14,16 @@
 
 namespace ns::tm {
 
-    class TilesetManager {
+    class SharedTilesetManager {
     public:
-        static auto get(const std::string& tsx_file_name) -> const std::shared_ptr<TsxTileset>&;
+        static auto get(const std::string& tsx_file_name) -> const std::shared_ptr<SharedTileset>&;
 
     private:
-        explicit TilesetManager();
-        std::unordered_map<std::string, std::shared_ptr<TsxTileset>> m_tsx_tilesets;
+        explicit SharedTilesetManager();
+        std::unordered_map<std::string, std::shared_ptr<SharedTileset>> m_shared_tilesets;
     };
 
-    class TsxTileset : public PropertiesContainer{
+    class SharedTileset : public PropertiesContainer{
 
         struct TileAnimFrame {
             std::uint32_t tileid;
@@ -34,7 +34,8 @@ namespace ns::tm {
         };
 
     public:
-        TsxTileset(const pugi::xml_node& xml_node, const std::string& base_path);
+        SharedTileset(const pugi::xml_node& xml_node, const std::string& base_path);
+        ~SharedTileset();
 
         auto getTexture() const -> const sf::Texture&;
         auto getTileAnim(std::uint32_t id) -> const TileAnim*;
@@ -54,11 +55,10 @@ namespace ns::tm {
         std::map<std::uint32_t, TileAnim> m_tile_animations;
     };
 
-    class Tileset : public TsxTileset {
+    class Tileset : public SharedTileset {
     public:
         Tileset(const pugi::xml_node& xml_node, const std::string& base_path);
-        Tileset(const std::shared_ptr<TsxTileset>& tsx_tileset, unsigned int first_gid);
-
+        Tileset(const std::shared_ptr<SharedTileset>& shared_tileset, unsigned int first_gid);
         const unsigned int firstgid;
     };
 
