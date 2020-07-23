@@ -12,12 +12,12 @@
 using namespace ns;
 using namespace ns::tm;
 
-TilesetManager::TilesetManager() = default;
+SharedTilesetManager::SharedTilesetManager() = default;
 
-auto TilesetManager::get(const std::string& tsx_file_name) -> const std::shared_ptr<TsxTileset>& {
-    static TilesetManager instance;
-    if (instance.m_tsx_tilesets.count(tsx_file_name))
-        return instance.m_tsx_tilesets[tsx_file_name];
+auto SharedTilesetManager::get(const std::string& tsx_file_name) -> const std::shared_ptr<SharedTileset>& {
+    static SharedTilesetManager instance;
+    if (instance.m_shared_tilesets.count(tsx_file_name))
+        return instance.m_shared_tilesets[tsx_file_name];
     else {
         pugi::xml_document xml;
         auto result = xml.load_file(tsx_file_name.c_str());
@@ -25,13 +25,13 @@ auto TilesetManager::get(const std::string& tsx_file_name) -> const std::shared_
             std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
             std::exit(-1);
         }
-        instance.m_tsx_tilesets[tsx_file_name] =  std::make_shared<TsxTileset>(xml.child("tileset"), std::filesystem::path(tsx_file_name).remove_filename().string());
-        return instance.m_tsx_tilesets[tsx_file_name];
+        instance.m_shared_tilesets[tsx_file_name] =  std::make_shared<SharedTileset>(xml.child("tileset"), std::filesystem::path(tsx_file_name).remove_filename().string());
+        return instance.m_shared_tilesets[tsx_file_name];
     }
 }
 
 
-TsxTileset::TsxTileset(const pugi::xml_node& xml_node, const std::string& path) :
+SharedTileset::SharedTileset(const pugi::xml_node& xml_node, const std::string& path) :
 name(xml_node.attribute("name").as_string()),
 tilewidth(xml_node.attribute("tilewidth").as_uint()),
 tileheight(xml_node.attribute("tileheight").as_uint()),
@@ -66,11 +66,23 @@ spacing(xml_node.attribute("spacing").as_uint()) {
     }
 }
 
-auto TsxTileset::getTexture() const -> const sf::Texture & {
+SharedTileset::~SharedTileset()
+#ifdef NS_RESLIB
+    = default;
+#else
+{
+    if(m_texture && m_texture->getSize().x > 0 && m_texture->getSize().y > 0) {
+        delete (m_texture);
+        m_texture = nullptr;
+    }
+}
+#endif
+
+auto SharedTileset::getTexture() const -> const sf::Texture & {
     return *m_texture;
 }
 
-auto TsxTileset::getTileAnim(std::uint32_t id) -> const TileAnim* {
+auto SharedTileset::getTileAnim(std::uint32_t id) -> const TileAnim* {
     if (m_tile_animations.count(id) > 0)
         return &m_tile_animations[id];
     return nullptr;
@@ -78,11 +90,11 @@ auto TsxTileset::getTileAnim(std::uint32_t id) -> const TileAnim* {
 
 
 Tileset::Tileset(const pugi::xml_node& xml_node, const std::string& base_path) :
-TsxTileset(xml_node, base_path),
-firstgid(xml_node.attribute("firstgid").as_uint())
+        SharedTileset(xml_node, base_path),
+        firstgid(xml_node.attribute("firstgid").as_uint())
 {}
 
-Tileset::Tileset(const std::shared_ptr<TsxTileset>& tsx_tileset, unsigned int first_gid) :
-TsxTileset(*tsx_tileset),
+Tileset::Tileset(const std::shared_ptr<SharedTileset>& shared_tileset, unsigned int first_gid) :
+SharedTileset(*shared_tileset),
 firstgid(first_gid)
 {}
