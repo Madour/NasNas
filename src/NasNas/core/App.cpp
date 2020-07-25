@@ -141,10 +141,12 @@ void App::render() {
 
     // drawing debug texts on DefaultView
     m_window.setView(m_window.getScreenView());
-    for(auto& dbg_txt: m_debug_texts) {
-        dbg_txt->update();
-        m_window.draw(*dbg_txt);
-    }
+
+    if (Config::debug)
+        for(auto& dbg_txt: m_debug_texts) {
+            dbg_txt->update();
+            m_window.draw(*dbg_txt);
+        }
 }
 
 void App::run() {

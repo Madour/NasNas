@@ -4,12 +4,16 @@
 
 
 #include <cmath>
+#include "NasNas/data/Config.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 
 using namespace ns;
 
 BaseEntity::BaseEntity(const std::string& name) {
     m_name = name;
+    m_debug_global_bounds.setFillColor(sf::Color::Transparent);
+    m_debug_global_bounds.setOutlineColor(sf::Color::Red);
+    m_debug_global_bounds.setOutlineThickness(1.f);
 }
 
 BaseEntity::~BaseEntity() = default;
@@ -44,6 +48,7 @@ void BaseEntity::setY(float value) {
 
 auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
     float left, top, right, bottom;
+    ns::FloatRect result;
     bool first = true;
     for (const auto& graphic_comp : m_graphics_components_list) {
         if (first) {
@@ -61,9 +66,13 @@ auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
         }
     }
     if (!first)
-        return ns::FloatRect(left, top, right - left, bottom - top);
+        result = ns::FloatRect(left, top, right - left, bottom - top);
     else
-        return ns::FloatRect(0, 0, 0, 0);
+        result = ns::FloatRect(0, 0, 0, 0);
+
+    m_debug_global_bounds.setPosition(result.topleft());
+    m_debug_global_bounds.setSize(result.size());
+    return result;
 }
 
 void BaseEntity::move(float offsetx, float offsety) {
@@ -83,6 +92,8 @@ void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& comp: m_graphics_components_list) {
         target.draw(*comp, states);
     }
+    if (Config::debug)
+        target.draw(m_debug_global_bounds);
 }
 
 auto BaseEntity::inputs() -> ecs::InputsComponent* {

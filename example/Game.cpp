@@ -135,6 +135,8 @@ void Game::onEvent(sf::Event event) {
                 this->toggleFullscreen();
             if (event.key.code == sf::Keyboard::Escape)
                 this->getWindow().close();
+            if (event.key.code == sf::Keyboard::F1)
+                ns::Config::debug = !ns::Config::debug;
             break;
 
         default:
