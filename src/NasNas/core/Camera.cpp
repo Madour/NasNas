@@ -150,7 +150,9 @@ void Camera::render(sf::RenderTarget& target) {
 
     m_scene->temporaryLinkCamera(this);
     m_render_texture.draw(*m_scene);
-    m_render_texture.draw(m_debug_border);
+
+    if (Config::debug)
+        m_render_texture.draw(m_debug_border);
 
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());

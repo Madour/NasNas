@@ -38,12 +38,13 @@ Player::Player()
     addComponent<ns::ecs::PhysicsComponent>(this, 1.f, sf::Vector2f(10, 10),sf::Vector2f(0.5f, 0.5f), sf::Vector2f(0.1f, 0.1f));
 
     // adding shape component to player (red triangle)
-    auto shape_component = std::make_shared<ns::ecs::ShapeComponent<sf::ConvexShape>>(this, 3, sf::Vector2f(0, 0));
+    auto shape_component = std::make_shared<ns::ecs::ShapeComponent<sf::ConvexShape>>(this, 4, sf::Vector2f(0, -15));
     shape_component->getDrawable().setFillColor(sf::Color::Red);
-    shape_component->getDrawable().setOrigin(5, 0);
-    shape_component->getDrawable().setPoint(0, {0, 0});
-    shape_component->getDrawable().setPoint(1, {10, 0});
-    shape_component->getDrawable().setPoint(2, {5, 10});
+    shape_component->getDrawable().setOrigin(2.5, 2.5);
+    shape_component->getDrawable().setPoint(0, {-5, -5});
+    shape_component->getDrawable().setPoint(1, {5, -5});
+    shape_component->getDrawable().setPoint(2, {5, 5});
+    shape_component->getDrawable().setPoint(3, {-5, 5});
     addComponent<ns::ecs::ShapeComponent<sf::ConvexShape>>(shape_component);
 
     // adding inputs component to player and binding buttons to Player methods
@@ -78,10 +79,23 @@ void Player::moveDown() {
 void Player::update() {
     // reset physics direction
     physics()->setDirection(0, 0);
+
     // update Player inputs component
     inputs()->update<Player>();
-    // calling parent update
-    ns::BaseEntity::update();
+
+    // updating physics component
+    physics()->update();
+
+    // updating graphics components
+    for (const auto& graphic_comp: graphics()) {
+        graphic_comp->update();
+    }
+
+    // moving and rotating the shape around the sprite
+    auto& shape = graphics<ns::ecs::ShapeComponent<sf::ConvexShape>>(1)->getDrawable();
+    shape.rotate(1.f);
+    shape.move({static_cast<float>(std::cos(shape.getRotation()*8*3.1451/180.0f)*40), static_cast<float>(std::sin(shape.getRotation()*8*3.1451/180.f)*40) });
+
     // if Player is not moving (drection x == 0), set anim state to idle
     if (physics()->getDirection().x == 0)
         graphics<ns::ecs::SpriteComponent>(0)->setAnimState("idle");
