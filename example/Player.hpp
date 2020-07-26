@@ -18,5 +18,6 @@ public:
     void moveDown();
 private:
     ns::Spritesheet* m_spritesheet = nullptr;
+    float m_rotation = 0.0;
 };
 

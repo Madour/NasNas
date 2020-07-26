@@ -40,7 +40,6 @@ Player::Player()
     // adding shape component to player (red triangle)
     auto shape_component = std::make_shared<ns::ecs::ShapeComponent<sf::ConvexShape>>(this, 4, sf::Vector2f(0, -15));
     shape_component->getDrawable().setFillColor(sf::Color::Red);
-    shape_component->getDrawable().setOrigin(2.5, 2.5);
     shape_component->getDrawable().setPoint(0, {-5, -5});
     shape_component->getDrawable().setPoint(1, {5, -5});
     shape_component->getDrawable().setPoint(2, {5, 5});
@@ -93,8 +92,10 @@ void Player::update() {
 
     // moving and rotating the shape around the sprite
     auto& shape = graphics<ns::ecs::ShapeComponent<sf::ConvexShape>>(1)->getDrawable();
-    shape.rotate(1.f);
-    shape.move({static_cast<float>(std::cos(shape.getRotation()*8*3.1451/180.0f)*40), static_cast<float>(std::sin(shape.getRotation()*8*3.1451/180.f)*40) });
+
+    m_rotation += 5;
+    shape.setRotation(m_rotation);
+    shape.move({ std::cos(ns::to_radian(m_rotation/2))*40, std::sin(ns::to_radian(m_rotation/2))*40 });
 
     // if Player is not moving (drection x == 0), set anim state to idle
     if (physics()->getDirection().x == 0)
