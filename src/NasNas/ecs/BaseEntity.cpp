@@ -83,6 +83,7 @@ void BaseEntity::move(float offsetx, float offsety) {
 void BaseEntity::update() {
     if(m_inputs_component) m_inputs_component->update();
     if(m_physics_component) m_physics_component->update();
+    if(m_collider_component) m_collider_component->update();
     for (const auto& graphic_comp: m_graphics_components_list) {
         graphic_comp->update();
     }
@@ -92,8 +93,12 @@ void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& comp: m_graphics_components_list) {
         target.draw(*comp, states);
     }
-    if (Config::debug)
+    if (Config::debug) {
         target.draw(m_debug_global_bounds);
+        if (m_collider_component)
+            target.draw(m_collider_component->getCollision().getShape());
+    }
+
 }
 
 auto BaseEntity::inputs() -> ecs::InputsComponent* {
@@ -114,4 +119,8 @@ auto BaseEntity::physics() -> ecs::PhysicsComponent* {
 
 auto BaseEntity::graphics() -> std::vector<ecs::GraphicsComponent*>& {
     return m_graphics_components_list;
+}
+
+auto BaseEntity::collider() -> ecs::ColliderComponent* {
+    return m_collider_component;
 }
