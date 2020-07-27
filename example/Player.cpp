@@ -39,7 +39,7 @@ Player::Player()
 
     // adding shape component to player (red triangle)
     auto shape_component = std::make_shared<ns::ecs::ShapeComponent<sf::ConvexShape>>(this, 4, sf::Vector2f(0, -15));
-    shape_component->getDrawable().setFillColor(sf::Color::Red);
+    shape_component->getDrawable().setFillColor(sf::Color::Blue);
     shape_component->getDrawable().setPoint(0, {-5, -5});
     shape_component->getDrawable().setPoint(1, {5, -5});
     shape_component->getDrawable().setPoint(2, {5, 5});
@@ -52,6 +52,8 @@ Player::Player()
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("right"), &Player::moveRight);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("up"), &Player::moveUp);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("down"), &Player::moveDown);
+
+    addComponent<ns::ecs::ColliderComponent>(this, new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(-7, -30));
 
 }
 Player::~Player() {
@@ -84,6 +86,8 @@ void Player::update() {
 
     // updating physics component
     physics()->update();
+
+    collider()->update();
 
     // updating graphics components
     for (const auto& graphic_comp: graphics()) {

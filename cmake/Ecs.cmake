@@ -11,6 +11,7 @@ set(
         ../src/NasNas/ecs/ShapeComponent.cpp
         ../src/NasNas/ecs/PhysicsComponent.cpp
         ../src/NasNas/ecs/InputsComponent.cpp
+        ../src/NasNas/ecs/ColliderComponent.cpp
 
 )
 
@@ -26,4 +27,5 @@ set(
         ../include/NasNas/ecs/ShapeComponent.hpp
         ../include/NasNas/ecs/PhysicsComponent.hpp
         ../include/NasNas/ecs/InputsComponent.hpp
+        ../include/NasNas/ecs/ColliderComponent.hpp
 )

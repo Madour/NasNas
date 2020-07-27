@@ -5,6 +5,7 @@
 #include "Game.hpp"
 
 #include "Player.hpp"
+#include "Wall.hpp"
 
 Game::Game() :
 ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
@@ -67,8 +68,13 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     // (see class Player for more information on Entity creation)
     this->player = std::make_shared<Player>();
     this->player->setPosition({100, 100});
+    this->entities.push_back(this->player);
     // adding the entity to the layer
     this->scene->getLayer("entities")->add(this->player);
+
+    auto wall = std::make_shared<Wall>(200, 200);
+    this->entities.push_back(wall);
+    this->scene->getLayer("entities")->add(wall);
 
     ////// Adding a BitmapText //////////////////////////////////
     // creating BitmapFont
@@ -153,12 +159,17 @@ void Game::update() {
         shape->rotate(1);
     }
 
+    // collision check
+    if (this->player->collider()->getCollision().collide(this->entities[1]->collider()->getCollision()))
+        ns_LOG("Collision between player and wall");
+
     // updating map layers
     this->tiled_map.getTileLayer("bg")->update();
     this->tiled_map.getTileLayer("front")->update();
 
-    // updating the player entity
-    this->player->update();
+    // updating the entities
+    for (const auto& entity : this->entities)
+        entity->update();
 
     // sorting the shapes layer by the y position
     // this->scene->getLayer("shapes")->ySort();

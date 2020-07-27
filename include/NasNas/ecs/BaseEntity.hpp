@@ -10,6 +10,7 @@
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
 #include "NasNas/ecs/InputsComponent.hpp"
+#include "NasNas/ecs/ColliderComponent.hpp"
 
 namespace ns {
 
@@ -44,7 +45,7 @@ namespace ns {
         auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
         template<typename T>
         auto graphics(unsigned int index) -> T*;
-
+        auto collider() -> ecs::ColliderComponent*;
 
     private:
         std::string m_name;
@@ -59,10 +60,12 @@ namespace ns {
         friend ecs::InputsComponent;
         friend ecs::PhysicsComponent;
         friend ecs::GraphicsComponent;
+        friend ecs::ColliderComponent;
         std::vector<std::shared_ptr<ecs::BaseComponent>> m_components_list;
         std::vector<ecs::GraphicsComponent*> m_graphics_components_list;
         ecs::PhysicsComponent* m_physics_component = nullptr;
         ecs::InputsComponent* m_inputs_component = nullptr;
+        ecs::ColliderComponent* m_collider_component = nullptr;
 
     };
 

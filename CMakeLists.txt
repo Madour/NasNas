@@ -31,6 +31,7 @@ add_executable( NasNas_demo
     NasNas.h ${NasNas_Src} ${NasNas_Inc}
     main.cpp
     example/Game.cpp example/Game.hpp
+    example/Wall.cpp example/Wall.hpp
     example/Player.cpp example/Player.hpp
 )
 add_library(NasNas_static STATIC ${NasNas_Src} ${NasNas_Inc})
