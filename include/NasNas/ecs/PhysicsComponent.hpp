@@ -31,7 +31,7 @@ namespace ns::ecs {
         sf::Vector2f m_velocity = {0, 0};
         sf::Vector2f m_max_velocity;
         sf::Vector2f m_acceleration;
-        sf::Vector2f m_friction = {1, 1};
+        sf::Vector2f m_friction = {0, 0};
     };
 
 }
