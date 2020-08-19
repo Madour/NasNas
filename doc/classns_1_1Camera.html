@@ -110,6 +110,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const st
 <tr class="memitem:a1a2a46fafafa0c8e266d996e2961daf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#a1a2a46fafafa0c8e266d996e2961daf7">setLimitsRectangle</a> (const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;rectangle)</td></tr>
 <tr class="memdesc:a1a2a46fafafa0c8e266d996e2961daf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets <a class="el" href="classns_1_1Camera.html">Camera</a> move limits.  <a href="#a1a2a46fafafa0c8e266d996e2961daf7">More...</a><br /></td></tr>
 <tr class="separator:a1a2a46fafafa0c8e266d996e2961daf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85e7d1249bf6436809f51ae991cdf2c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#a85e7d1249bf6436809f51ae991cdf2c2">setShader</a> (sf::Shader *shader)</td></tr>
+<tr class="memdesc:a85e7d1249bf6436809f51ae991cdf2c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the shader to be applied to the <a class="el" href="classns_1_1Camera.html">Camera</a> when rendering.  <a href="#a85e7d1249bf6436809f51ae991cdf2c2">More...</a><br /></td></tr>
+<tr class="separator:a85e7d1249bf6436809f51ae991cdf2c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484e1aa3372ef0deb9efa6e8ff701439"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#a484e1aa3372ef0deb9efa6e8ff701439">clearShader</a> ()</td></tr>
+<tr class="memdesc:a484e1aa3372ef0deb9efa6e8ff701439"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the shader.  <a href="#a484e1aa3372ef0deb9efa6e8ff701439">More...</a><br /></td></tr>
+<tr class="separator:a484e1aa3372ef0deb9efa6e8ff701439"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d03a20d84e02e25f8b046249e49d15"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#af6d03a20d84e02e25f8b046249e49d15">getPosition</a> () const -&gt; sf::Vector2f</td></tr>
 <tr class="memdesc:af6d03a20d84e02e25f8b046249e49d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1Camera.html">Camera</a> position in world's coordinates.  <a href="#af6d03a20d84e02e25f8b046249e49d15">More...</a><br /></td></tr>
 <tr class="separator:af6d03a20d84e02e25f8b046249e49d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,6 +193,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a484e1aa3372ef0deb9efa6e8ff701439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484e1aa3372ef0deb9efa6e8ff701439">&#9670;&nbsp;</a></span>clearShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ns::Camera::clearShader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove the shader. </p>
+<p>Is the same as calling setShader(nullptr) </p>
+
+</div>
+</div>
 <a id="ad63a9c3fae1cbb9ff3cd392df0c0437a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad63a9c3fae1cbb9ff3cd392df0c0437a">&#9670;&nbsp;</a></span>follow()</h2>
 
@@ -788,6 +814,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>New right boundary position </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a85e7d1249bf6436809f51ae991cdf2c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85e7d1249bf6436809f51ae991cdf2c2">&#9670;&nbsp;</a></span>setShader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ns::Camera::setShader </td>
+          <td>(</td>
+          <td class="paramtype">sf::Shader *&#160;</td>
+          <td class="paramname"><em>shader</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the shader to be applied to the <a class="el" href="classns_1_1Camera.html">Camera</a> when rendering. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shader</td><td>The shader </td></tr>
   </table>
   </dd>
 </dl>
