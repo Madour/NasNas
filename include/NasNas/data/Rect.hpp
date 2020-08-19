@@ -20,7 +20,7 @@ namespace ns {
         // parent constructor
         using sf::Rect<T>::Rect;
         // copy constructor
-        Rect(const Rect<T>& rect);
+        Rect(const ns::Rect<T>& rect);
 
         template <typename S>
         explicit Rect(const sf::Rect<S>& rect);
@@ -38,15 +38,15 @@ namespace ns {
 
         auto center() const -> sf::Vector2f { return sf::Vector2f((float)this->width/2.f, (float)this->height/2.f); }
 
-        auto operator=(const sf::Rect<T>& other) -> Rect<T>&;
+        auto operator=(const ns::Rect<T>& other) -> ns::Rect<T>&;
 
         template <typename S>
-        auto operator=(const sf::Rect<S>& other) -> Rect<T>&;
+        auto operator=(const sf::Rect<S>& other) -> ns::Rect<T>&;
 
     };
 
     template <typename T>
-    Rect<T>::Rect(const Rect<T>& rect): sf::Rect<T>(rect)
+    Rect<T>::Rect(const ns::Rect<T>& rect): sf::Rect<T>(rect)
     {}
 
     template <typename T>
@@ -55,7 +55,9 @@ namespace ns {
     {}
 
     template <typename T>
-    auto Rect<T>::operator=(const sf::Rect<T> &other) -> Rect<T>&{
+    auto Rect<T>::operator=(const ns::Rect<T> &other) -> ns::Rect<T>&{
+        if (&other == this)
+            return *this;
         this->left = other.left;
         this->top = other.top;
         this->width = other.width;
@@ -65,7 +67,7 @@ namespace ns {
 
     template <typename T>
     template <typename S>
-    auto Rect<T>::operator=(const sf::Rect<S>& other) -> Rect<T>& {
+    auto Rect<T>::operator=(const sf::Rect<S>& other) -> ns::Rect<T>& {
         this->left = static_cast<T>(other.left);
         this->top = static_cast<T>(other.top);
         this->width = static_cast<T>(other.width);
