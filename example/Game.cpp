@@ -72,7 +72,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
     // adding the entity to the layer
     this->scene->getLayer("entities")->add(this->player);
 
-    auto wall = std::make_shared<Wall>(200, 200);
+    auto wall = std::make_shared<Wall>(200.f, 200.f);
     this->entities.push_back(wall);
     this->scene->getLayer("entities")->add(wall);
 

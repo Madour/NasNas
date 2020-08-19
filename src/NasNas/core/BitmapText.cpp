@@ -71,8 +71,8 @@ auto BitmapFont::getGlyph(char character) -> const BitmapGlyph& {
 
 
 BitmapText::BitmapText(const std::string& text) {
-    m_text = text;
-    m_sprite.setPrimitiveType(sf::PrimitiveType::Quads);
+    m_string = text;
+    m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
 }
 
 BitmapText::BitmapText(const std::string& text, const std::shared_ptr<BitmapFont>& font) :
@@ -80,22 +80,19 @@ BitmapText(text) {
     setFont(font);
 }
 
+void BitmapText::setString(const std::string &string) {
+    m_string = string;
+    refresh();
+}
+
 void BitmapText::setFont(const std::shared_ptr<BitmapFont>& font) {
     m_font = font;
-    float x = 0;
-    for(const auto& character : m_text) {
-        auto glyph = m_font->getGlyph(character);
-        auto glyph_size = (sf::Vector2f)m_font->getGlyphSize();
-        auto vertex_tl = sf::Vertex({x, 0}, (sf::Vector2f)glyph.texture_rect.topleft());
-        auto vertex_tr = sf::Vertex({x + glyph_size.x, 0}, (sf::Vector2f)glyph.texture_rect.topright());
-        auto vertex_br = sf::Vertex({x + glyph_size.x, glyph_size.y}, (sf::Vector2f)glyph.texture_rect.bottomright());
-        auto vertex_bl = sf::Vertex({x, glyph_size.y}, (sf::Vector2f)glyph.texture_rect.bottomleft());
-        m_sprite.append(vertex_tl);
-        m_sprite.append(vertex_tr);
-        m_sprite.append(vertex_br);
-        m_sprite.append(vertex_bl);
-        x += (float)glyph.advance;
-    }
+    refresh();
+}
+
+void BitmapText::setColor(const sf::Color &color) {
+    m_color = color;
+    refresh();
 }
 
 auto BitmapText::getPosition() -> sf::Vector2f {
@@ -110,18 +107,15 @@ auto BitmapText::getGlobalBounds() -> ns::FloatRect {
     return ns::FloatRect(m_transformable.getPosition(), getSize());
 }
 
-auto BitmapText::getWidth() -> int {
-    int width = 0;
-    for (const auto& character : m_text)
-        width += m_font->getGlyph(character).advance;
-    return width;
+auto BitmapText::getWidth() const -> int {
+    return m_width;
 }
 
-auto BitmapText::getHeight() -> int {
-    return m_font->getGlyphSize().y;
+auto BitmapText::getHeight() const -> int {
+    return m_height;
 }
 
-auto BitmapText::getSize() -> sf::Vector2f {
+auto BitmapText::getSize() const -> sf::Vector2f {
     return sf::Vector2f((float)getWidth(), (float)getHeight());
 }
 
@@ -129,10 +123,43 @@ void BitmapText::move(float offsetx, float offsety) {
     m_transformable.move(offsetx, offsety);
 }
 
+void BitmapText::refresh() {
+    m_vertices.clear();
+    if (m_font != nullptr) {
+        float x = 0, y = 0;
+        int w = 0, h = m_font->getGlyphSize().y;
+        int max_w = 0;
+        for(const auto& character : m_string) {
+            if (character == '\n') {
+                x = 0;
+                y += (float)m_font->getGlyphSize().y;
+                max_w = std::max(max_w, w);
+                w = 0;
+                h += m_font->getGlyphSize().y;
+                continue;
+            }
+            auto glyph = m_font->getGlyph(character);
+            auto glyph_size = (sf::Vector2f)m_font->getGlyphSize();
+            auto vertex_tl = sf::Vertex({x, y}, m_color, (sf::Vector2f)glyph.texture_rect.topleft());
+            auto vertex_tr = sf::Vertex({x + glyph_size.x, y}, m_color, (sf::Vector2f)glyph.texture_rect.topright());
+            auto vertex_br = sf::Vertex({x + glyph_size.x, y + glyph_size.y}, m_color, (sf::Vector2f)glyph.texture_rect.bottomright());
+            auto vertex_bl = sf::Vertex({x, y + glyph_size.y}, m_color, (sf::Vector2f)glyph.texture_rect.bottomleft());
+            m_vertices.append(vertex_tl);
+            m_vertices.append(vertex_tr);
+            m_vertices.append(vertex_br);
+            m_vertices.append(vertex_bl);
+            x += (float)glyph.advance;
+            w += glyph.advance;
+        }
+        m_width = std::max(max_w, w);
+        m_height = h;
+    }
+}
+
 void BitmapText::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     if (m_font != nullptr) {
         states.texture = m_font->getTexture();
         states.transform *= m_transformable.getTransform();
-        target.draw(m_sprite, states);
+        target.draw(m_vertices, states);
     }
 }

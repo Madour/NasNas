@@ -142,11 +142,25 @@ namespace ns {
         BitmapText(const std::string& text, const std::shared_ptr<BitmapFont>& font);
 
         /**
+         * \brief Set a the string to be displayed
+         *
+         * \param string String to write
+         */
+        void setString(const std::string& string);
+
+        /**
          * \brief Set the BitmapFont to use
 
          * \param font BitmapFont to use
          */
         void setFont(const std::shared_ptr<BitmapFont>& font);
+
+        /**
+         * \brief Set the font color
+         *
+         * \param color The color
+         */
+        void setColor(const sf::Color& color);
 
         /**
          * \brief Move the BitmapText
@@ -178,24 +192,30 @@ namespace ns {
          * \brief Get BitmapText width
          * \return Width
          */
-        auto getWidth() -> int;
+        auto getWidth() const -> int;
         /**
          * \brief Get BitmapText height
          * \return Height
          */
-        auto getHeight() -> int;
+        auto getHeight() const -> int;
         /**
          * \brief Get BitmapText size
          * \return Size
          */
-        auto getSize() -> sf::Vector2f;
+        auto getSize() const -> sf::Vector2f;
 
     private:
+        void refresh();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-        std::string m_text;
-        sf::Transformable m_transformable;
+        std::string m_string;
         std::shared_ptr<BitmapFont> m_font = nullptr;
-        sf::VertexArray m_sprite;
+        sf::Color m_color = sf::Color::White;
+
+        int m_width = 0;
+        int m_height = 0;
+
+        sf::Transformable m_transformable;
+        sf::VertexArray m_vertices;
     };
 
 }
