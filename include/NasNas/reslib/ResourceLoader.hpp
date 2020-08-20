@@ -27,6 +27,7 @@ namespace ns {
         auto getFont(const std::string& font_name) -> sf::Font&;
 
     private:
+
         const static std::set<std::string> texture_extensions;
         const static std::set<std::string> fonts_extensions;
 
