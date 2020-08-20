@@ -11,6 +11,9 @@ Layer::Layer(const std::string& name) {
     m_name = name;
 }
 
+void Layer::clear() {
+    m_drawables.clear();
+}
 
 void Layer::add(const std::shared_ptr<ns::Drawable>& drawable) {
     m_drawables.emplace_back(drawable);
@@ -22,6 +25,39 @@ void Layer::add(const std::shared_ptr<sf::Shape>& drawable) {
 
 void Layer::add(const std::shared_ptr<sf::Text>& drawable) {
     m_drawables.emplace_back(drawable);
+}
+
+void Layer::remove(const std::shared_ptr<ns::Drawable>& drawable) {
+    for (unsigned int i = 0; i < m_drawables.size(); i++) {
+        auto& variant = m_drawables[i];
+        if (std::holds_alternative<std::shared_ptr<ns::Drawable>>(variant))
+            if (std::get<std::shared_ptr<ns::Drawable>>(variant).get() == drawable.get()) {
+                m_drawables.erase(m_drawables.begin() + i);
+                break;
+            }
+    }
+}
+
+void Layer::remove(const std::shared_ptr<sf::Shape>& drawable) {
+    for (unsigned int i = 0; i < m_drawables.size(); i++) {
+        auto& variant = m_drawables[i];
+        if (std::holds_alternative<std::shared_ptr<sf::Shape>>(variant))
+            if (std::get<std::shared_ptr<sf::Shape>>(variant).get() == drawable.get()) {
+                m_drawables.erase(m_drawables.begin() + i);
+                break;
+            }
+    }
+}
+
+void Layer::remove(const std::shared_ptr<sf::Text>& drawable) {
+    for (unsigned int i = 0; i < m_drawables.size(); i++) {
+        auto& variant = m_drawables[i];
+        if (std::holds_alternative<std::shared_ptr<sf::Text>>(variant))
+            if (std::get<std::shared_ptr<sf::Text>>(variant).get() == drawable.get()) {
+                m_drawables.erase(m_drawables.begin() + i);
+                break;
+            }
+    }
 }
 
 void Layer::ySort() {
