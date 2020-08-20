@@ -74,7 +74,7 @@ auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture
     return current_dir->getTexture(path);
 }
 
-auto ResourceManager::getFont(const std::string& font_path) -> sf::Font & {
+auto ResourceManager::getFont(const std::string& font_path) -> sf::Font& {
     checkReady();
 
     std::string path = font_path;

@@ -50,22 +50,19 @@ void Dir::load(const std::filesystem::path& path) {
 }
 
 auto Dir::in(const std::string& dir_name) -> Dir& {
-    try {
-        if (dir_name == "..") {
-            if (m_parent)
-                return *m_parent;
-            else {
-                std::cout << "Directory «" << m_name << "» does not have parent directory." << std::endl;
-                exit(-1);
-            }
+    if (dir_name == "..") {
+        if (m_parent)
+            return *m_parent;
+        else {
+            std::cout << "Directory «" << m_name << "» does not have parent directory." << std::endl;
+            exit(-1);
         }
-        return *m_dirs.at(dir_name).get();
     }
-    catch (std::out_of_range& ex) {
-        std::cout << "Directory «" << m_name << "» does not contain a directory named " << "«" << dir_name << "».\n";
-        std::cout << "Exception : "<< ex.what() << std::endl;
-        exit(-1);
-    }
+    if (m_dirs.count(dir_name) > 0)
+        return *m_dirs.at(dir_name);
+
+    std::cout << "Directory «" << m_name << "» does not contain a directory named " << "«" << dir_name << "».\n";
+    exit(-1);
 }
 
 auto Dir::getName() -> const std::string& {
@@ -73,13 +70,31 @@ auto Dir::getName() -> const std::string& {
 }
 
 auto Dir::getTexture(const std::string& texture_name) -> sf::Texture&{
-    return *m_textures.at(texture_name);
+    if (m_textures.count(texture_name) > 0)
+        return *m_textures.at(texture_name);
+
+    std::string path = m_name;
+    Dir* current_dir = this;
+    while (current_dir->m_parent != nullptr) {
+        current_dir = current_dir->m_parent;
+        path = current_dir->m_name + "/" + path;
+    }
+    std::cout << "Directory «" << path << "» does not have a file named " << texture_name << std::endl;
+    std::exit(-1);
 }
 
 auto Dir::getFont(const std::string& font_name) -> sf::Font& {
-    return *m_fonts.at(font_name);
+    if (m_fonts.count(font_name) > 0)
+        return *m_fonts.at(font_name);
+    std::string path = m_name;
+    Dir* current_dir = this;
+    while (current_dir->m_parent != nullptr) {
+        current_dir = current_dir->m_parent;
+        path = current_dir->m_name + "/" + path;
+    }
+    std::cout << "Directory «" << path << "» does not have a file named " << font_name << std::endl;
+    std::exit(-1);
 }
-
 
 void Dir::print_tree(int indent) {
     auto print_indent = [](int n) { for (int i = 0; i < n; ++i) { std::cout << "|  "; } };
