@@ -46,6 +46,20 @@ namespace ns {
         void addLayer(const std::shared_ptr<Layer>& layer, int order);
 
         /**
+         * \brief Removes and clears the Layer of the given order
+         *
+         * \param order Layer order to remove
+         */
+        void removeLayer(int order);
+
+        /**
+         * \brief Removes and clears the Layer of the given name
+         *
+         * \param name Layer name to remove
+         */
+        void removeLayer(const std::string& name);
+
+        /**
          * \brief Returns the layer of the given order
          *
          * \param order The order of the layer to get
@@ -64,19 +78,27 @@ namespace ns {
         auto getLayer(const std::string& name) -> Layer*;
 
         /**
-         * \brief Temporary links the Scene to a Camera for rendering
+         * \brief Returns the default Scene Layer
+         * Default layer will always be drawn first, before any other layer.
          *
-         * \param camera Camera object to link
+         * \return Pointer to Layer object
          */
-        void temporaryLinkCamera(Camera* camera);
+         auto getDefaultLayer() -> Layer*;
 
     private:
         friend App; friend Camera;
 
         std::string m_name;         ///< Scene name
-        /// Map of Layer objects of the Scene sorted by their order
         std::map<std::pair<int, std::string>, std::shared_ptr<Layer>> m_layers;
+        std::unique_ptr<Layer> m_default_layer;
         ns::FloatRect render_bounds;
+
+        /**
+        * \brief Temporary links the Scene to a Camera for rendering
+        *
+        * \param camera Camera object to link
+        */
+        void temporaryLinkCamera(Camera* camera);
 
         /**
          * \brief Draws the Scene sprite on the AppWindow

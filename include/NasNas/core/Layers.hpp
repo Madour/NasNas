@@ -31,6 +31,11 @@ namespace ns {
         explicit Layer(const std::string& name);
 
         /**
+         * \brief Removes all the drawable
+         */
+        void clear();
+
+        /**
          * \brief Add a ns::Drawable object to the Layer
          *
          * \param drawable Shared pointer to the ns::Drawable object to add
@@ -50,6 +55,27 @@ namespace ns {
          * \param drawable Shared pointer to the sf::Text object to add
          */
         void add(const std::shared_ptr<sf::Text>& drawable);
+
+        /**
+         * \brief Remove a ns::Drawable object from the Layer
+         *
+         * \param drawable Drawable to remove
+         */
+        void remove(const std::shared_ptr<ns::Drawable>& drawable);
+
+        /**
+         * \brief Remove a sf::Shape object from the Layer
+         *
+         * \param drawable Drawable to remove
+         */
+        void remove(const std::shared_ptr<sf::Shape>& drawable);
+
+        /**
+         * \brief Remove a sf::Text object from the Layer
+         *
+         * \param drawable Drawable to remove
+         */
+        void remove(const std::shared_ptr<sf::Text>& drawable);
 
         /**
          * \brief Get a vector of all drawables added to the Layer
