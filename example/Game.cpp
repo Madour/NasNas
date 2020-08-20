@@ -94,15 +94,17 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
 
     /////////////////////////////////////////////////////////////////////////////////////
     //////////////// Adding DebugTexts //////////////////////////////////////////////////
-    // directly using addDebugText to create automatically a DebugText object
-    this->addDebugText<int>(&this->frame_counter, "frame counter:", {10, 10});
-    this->addDebugText<sf::Vector2f, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {10, 50}, sf::Color(20, 255, 20));
 
-    // you can change debug text global properties by using DebugTextInterface (will be applied to ALL debug texts created after)
+    // adding a DebugText by using addDebugText method
+    this->addDebugText<int>(&this->frame_counter, "frame counter:", {10, 10});
+    this->addDebugText<sf::Vector2f>([&](){return player->getPosition();}, "position:", {10, 50}, sf::Color::Green);
+
+    // you can change debug text global properties by using DebugTextInterface
+    // (will be applied to ALL debug texts created afterwards)
     ns::DebugTextInterface::color = sf::Color::Cyan;
     ns::DebugTextInterface::outline_thickness = 1;
     ns::DebugTextInterface::outline_color = sf::Color::Blue;
-    this->addDebugText<sf::Vector2f, ns::ecs::PhysicsComponent>(this->player->physics(), &ns::ecs::PhysicsComponent::getVelocity, "velocity:", {10, 90});
+    this->addDebugText<sf::Vector2f>([&](){return player->physics()->getVelocity();}, "velocity:", {10, 90});
 
     // add DebugText by creating manually a DebugText object, changing its properties and adding it to the app;
     // the app will delete automatically the debug texts, so don't worry about memory

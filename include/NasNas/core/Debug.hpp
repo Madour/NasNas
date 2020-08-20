@@ -71,6 +71,15 @@ namespace ns {
         DebugText(const T* var_address, const std::string& label, const sf::Vector2f& position);
 
         /**
+         * \brief Create a DebugText from a lambda function
+         *
+         * \param fn Lambda function to be evaluated
+         * \param label Label of the DebugText
+         * \param position Position of the DebugText on the AppWindow
+         */
+        DebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position);
+
+        /**
          * \brief Create a DebugText from object and method address
          *
          * \param object_address Address of the object that will evaluate the method
@@ -93,6 +102,7 @@ namespace ns {
     private:
         std::string m_label;
         T* m_variable_address = nullptr;
+        std::function<T()> m_lambda = nullptr;
         ObjT* m_object_address = nullptr;
         std::function<T(ObjT &)> m_method_address = nullptr;
 
@@ -122,6 +132,12 @@ namespace ns {
         m_variable_address = (T*) var_address;
     }
 
+    template <typename T, typename ObjT>
+    DebugText<T, ObjT>::DebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position) :
+            DebugText(label, position) {
+        m_lambda = fn;
+    }
+
     template<typename T, typename ObjT>
     DebugText<T, ObjT>::DebugText(
             ObjT* object_address,
@@ -139,6 +155,8 @@ namespace ns {
         stream << m_label << " ";
         if (m_variable_address != nullptr)
             stream << *m_variable_address;
+        else if (m_lambda != nullptr)
+            stream << m_lambda();
         else
             stream << (m_method_address)(*m_object_address);
         setString(stream.str());

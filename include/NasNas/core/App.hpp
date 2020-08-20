@@ -157,6 +157,19 @@ namespace ns {
         /**
          * \brief Creates a DebugText object and render it on the AppWindow directly
          *
+         * \tparam T Type of the value returned by the lambda function
+         *
+         * \param fn Lambda function to be evaluated
+         * \param label Label of the DebugText
+         * \param position Position of the DebugText on the AppWindow
+         * \param color Fill color of the DebugText
+         */
+        template<typename T>
+        void addDebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
+
+        /**
+         * \brief Creates a DebugText object and render it on the AppWindow directly
+         *
          * \tparam T Return type of the method to be evaluated
          * \tparam ObjT Type of the method's object
          *
@@ -251,6 +264,13 @@ namespace ns {
         sf::Color old_color = ns::DebugTextInterface::color;
         ns::DebugTextInterface::color = color;
         m_debug_texts.push_back(new DebugText<T, char>(var_address, label, position));
+        ns::DebugTextInterface::color = old_color;
+    }
+    template<typename T>
+    void App::addDebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
+        sf::Color old_color = ns::DebugTextInterface::color;
+        ns::DebugTextInterface::color = color;
+        m_debug_texts.push_back(new DebugText<T, char>(fn, label, position));
         ns::DebugTextInterface::color = old_color;
     }
     template<typename T, typename ObjT>
