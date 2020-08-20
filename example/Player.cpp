@@ -53,7 +53,7 @@ Player::Player()
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("up"), &Player::moveUp);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("down"), &Player::moveDown);
 
-    addComponent<ns::ecs::ColliderComponent>(this, new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(-7, -30));
+    addComponent<ns::ecs::ColliderComponent>(this, new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
 
 }
 Player::~Player() {

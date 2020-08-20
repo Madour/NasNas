@@ -68,8 +68,7 @@ namespace ns::ecs  {
 
     class ColliderComponent : public BaseComponent {
     public:
-        explicit ColliderComponent(BaseEntity* entity, Collision* collision, bool is_dynamic = false, sf::Vector2f pos_offset={0, 0});
-        explicit ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset);
+        explicit ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset={0, 0});
 
         auto isDynamic() const -> bool;
 
