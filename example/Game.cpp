@@ -8,7 +8,7 @@
 #include "Wall.hpp"
 
 Game::Game() :
-ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
+ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////// Game Config /////////////////////////////////////////////////////////
     // mapping keys inputs
@@ -51,7 +51,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
                                          sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,
                                          sf::Color::White};
     // generating 100 random octogons and adding them to the shapes layer
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 200; ++i) {
         auto shape = std::make_shared<sf::CircleShape>(20.0f);
         shape->setPointCount(8);
         shape->setFillColor(colors.at(i%colors.size()));
@@ -117,7 +117,7 @@ ns::App("NasNas++ demo", 1080, 720, 1080/2, 720/2, 60, 60) {
 
     /////////////////////////////////////////////////////////////////////////////////////
     //////////////// Creating a Camera //////////////////////////////////////////////////
-    this->game_camera = this->createCamera("game_camera", 0, ns::IntRect(0, 0, 1080/2, 720/2));
+    this->game_camera = this->createCamera("game_camera", 0, ns::IntRect(0, 0, 640, 360));
     // telling the Camera to look at the scene
     this->game_camera->lookAt(this->scene);
     // telling the Camera to follow our entity

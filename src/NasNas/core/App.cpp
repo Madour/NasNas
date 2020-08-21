@@ -139,14 +139,53 @@ void App::render() {
         }
     }
 
-    // drawing debug texts on DefaultView
+    // drawing debug texts and rectangles on ScreenView
     m_window.setView(m_window.getScreenView());
 
-    if (Config::debug)
-        for(auto& dbg_txt: m_debug_texts) {
+    auto drawDebugRectangle = [&](const ns::FloatRect& global_bounds, const Camera* view) {
+        auto topleft = global_bounds.topleft() - view->getPosition();
+        auto botright = global_bounds.bottomright() - view->getPosition();
+        auto pos = getWindow().mapCoordsToPixel(topleft, getWindow().getAppView());
+        auto pos2 = getWindow().mapCoordsToPixel(botright, getWindow().getAppView());
+        auto size = pos2-pos;
+        sf::RectangleShape dbg_bounds{sf::Vector2f(size)};
+        dbg_bounds.setOutlineThickness(1);
+        dbg_bounds.setOutlineColor(sf::Color::Red);
+        dbg_bounds.setFillColor(sf::Color::Transparent);
+        dbg_bounds.setPosition((float)pos.x, (float)pos.y);
+        getWindow().draw(dbg_bounds);
+    };
+    if (Config::debug) {
+        for (Camera*& cam: m_cameras) {
+            if (cam->hasScene() && cam->isVisible()) {
+                auto render_bounds = cam->getGlobalBounds();
+                for (const auto& drawable_variant: cam->m_scene->m_default_layer->getDrawables()) {
+                    if (std::visit([&](auto&& drawable) {
+                        return render_bounds.intersects(drawable->getGlobalBounds());
+                    }, drawable_variant)) {
+                        ns::FloatRect drawable_bounds;
+                        std::visit([&](auto&& drawable) { drawable_bounds = drawable->getGlobalBounds(); }, drawable_variant);
+                        drawDebugRectangle(drawable_bounds, cam);
+                    }
+                }
+                for (const auto&[key, layer]: cam->m_scene->m_layers) {
+                    for (const auto& drawable_variant: layer->getDrawables()) {
+                        if (std::visit([&](auto&& drawable) {
+                            return render_bounds.intersects(drawable->getGlobalBounds());
+                        }, drawable_variant)) {
+                            ns::FloatRect drawable_bounds;
+                            std::visit([&](auto&& drawable) { drawable_bounds = drawable->getGlobalBounds(); }, drawable_variant);
+                            drawDebugRectangle(drawable_bounds, cam);
+                        }
+                    }
+                }
+            }
+        }
+        for (auto& dbg_txt: m_debug_texts) {
             dbg_txt->update();
             m_window.draw(*dbg_txt);
         }
+    }
 }
 
 void App::run() {
