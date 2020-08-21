@@ -26,9 +26,6 @@ Camera::Camera(const std::string& name, int render_order) {
     if (ns::Config::Window::view_width && ns::Config::Window::view_height)
         m_render_texture.create(ns::Config::Window::view_width, ns::Config::Window::view_height);
 
-    m_debug_border.setOutlineThickness(1.f);
-    m_debug_border.setOutlineColor(sf::Color::Red);
-    m_debug_border.setFillColor(sf::Color::Transparent);
 }
 
 void Camera::setName(const std::string& name) {
@@ -43,8 +40,6 @@ void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
 }
 void Camera::reset(const ns::FloatRect& rectangle) {
     m_base_view = ns::IntRect((int)rectangle.left, (int)rectangle.top, (int)rectangle.width, (int)rectangle.height);
-    m_debug_border.setSize({rectangle.width - 2, rectangle.height - 2});
-    m_debug_border.setPosition(rectangle.left + 1, rectangle.top + 1);
     sf::View::reset(rectangle);
 }
 
@@ -147,8 +142,6 @@ void Camera::update() {
             if (getRight() > (float)m_limits.right()) setRight((float)m_limits.right());
             if (getBottom() > (float)m_limits.bottom()) setBottom((float)m_limits.bottom());
         }
-
-        m_debug_border.setPosition(getPosition() + sf::Vector2f(1, 1));
     }
 }
 
@@ -158,9 +151,6 @@ void Camera::render(sf::RenderTarget& target) {
 
     m_scene->temporaryLinkCamera(this);
     m_render_texture.draw(*m_scene);
-
-    if (Config::debug)
-        m_render_texture.draw(m_debug_border);
 
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());

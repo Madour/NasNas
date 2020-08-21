@@ -11,9 +11,6 @@ using namespace ns;
 
 BaseEntity::BaseEntity(const std::string& name) {
     m_name = name;
-    m_debug_global_bounds.setFillColor(sf::Color::Transparent);
-    m_debug_global_bounds.setOutlineColor(sf::Color::Red);
-    m_debug_global_bounds.setOutlineThickness(1.f);
 }
 
 BaseEntity::~BaseEntity() = default;
@@ -70,8 +67,6 @@ auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
     else
         result = ns::FloatRect(0, 0, 0, 0);
 
-    m_debug_global_bounds.setPosition(result.topleft());
-    m_debug_global_bounds.setSize(result.size());
     return result;
 }
 
@@ -94,7 +89,6 @@ void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         target.draw(*comp, states);
     }
     if (Config::debug) {
-        target.draw(m_debug_global_bounds);
         if (m_collider_component)
             target.draw(m_collider_component->getCollision().getShape());
     }

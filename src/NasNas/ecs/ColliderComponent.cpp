@@ -19,7 +19,7 @@ template <>
 auto ns::ecs::checkCollision(RectangleCollision& col1, CircleCollision& col2) -> bool {
     auto& rect = *dynamic_cast<sf::RectangleShape*>(&col1.getShape());
     auto& circle = *dynamic_cast<sf::CircleShape*>(&col2.getShape());
-    for (int i=0; i < rect.getPointCount(); i++) {
+    for (unsigned int i=0; i < rect.getPointCount(); i++) {
 
         auto vec = rect.getTransform().transformPoint(rect.getPoint(i)) -
                (circle.getPosition() - circle.getOrigin() + sf::Vector2f(col2.getRadius(), col2.getRadius()));

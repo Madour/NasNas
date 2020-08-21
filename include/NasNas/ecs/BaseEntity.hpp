@@ -53,8 +53,6 @@ namespace ns {
         int m_gx = 0, m_gy = 0;
         float m_rx = 0, m_ry = 0;
 
-        sf::RectangleShape m_debug_global_bounds;
-
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         friend ecs::InputsComponent;

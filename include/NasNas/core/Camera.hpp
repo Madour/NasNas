@@ -251,7 +251,7 @@ namespace ns {
         int m_render_order;                 ///< Camera render order
         bool m_visible;                     ///< Is the Camera content visible ?
         Scene* m_scene;                     ///< Scene looked at (content of the Camera)
-        sf::Shader* m_shader;               ///< Shader to be applied when rendering
+        sf::Shader* m_shader = nullptr;     ///< Shader to be applied when rendering
 
         Drawable* m_reference;              ///< Entity followed by the Camera
         unsigned int m_frames_delay;        ///< Delay when following an entity
@@ -263,7 +263,6 @@ namespace ns {
         sf::RenderTexture m_render_texture; ///< Render texture where the view will be drawn
         sf::Sprite m_sprite;                ///< Sprite containing the render_texture's texture
 
-        sf::RectangleShape m_debug_border;  ///< Red borders around Camera global bounds
         /**
          * \brief Camera default constructor
          */
