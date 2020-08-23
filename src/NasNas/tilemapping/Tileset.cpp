@@ -32,6 +32,7 @@ auto SharedTilesetManager::get(const std::string& tsx_file_name) -> const std::s
 
 
 SharedTileset::SharedTileset(const pugi::xml_node& xml_node, const std::string& path) :
+PropertiesContainer(xml_node.child("properties")),
 name(xml_node.attribute("name").as_string()),
 tilewidth(xml_node.attribute("tilewidth").as_uint()),
 tileheight(xml_node.attribute("tileheight").as_uint()),
@@ -48,15 +49,10 @@ spacing(xml_node.attribute("spacing").as_uint()) {
     m_texture->loadFromFile(path + m_image_source);
 #endif
 
-    // parsing tileset properties
-    for (const auto& xmlnode_prop : xml_node.child("properties").children()) {
-        addProperty(xmlnode_prop);
-    }
     // parsing tileset tiles properties and animations
     for (const auto& xmlnode_tile : xml_node.children("tile")) {
         std::uint32_t tile_id =  xmlnode_tile.attribute("id").as_uint();
-        for (const auto& xmlnode_tile_prop : xmlnode_tile.child("properties").children())
-            m_tile_properties[tile_id].addProperty(xmlnode_tile);
+        m_tile_properties[tile_id].parseProperties(xmlnode_tile.child("properties"));
 
         for (const auto& xmlnode_tile_animframe : xmlnode_tile.child("animation").children()) {
             std::uint32_t id = xmlnode_tile_animframe.attribute("tileid").as_uint();

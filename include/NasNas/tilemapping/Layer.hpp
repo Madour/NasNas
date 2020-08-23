@@ -18,12 +18,16 @@ namespace ns::tm {
         auto getId() const -> unsigned int;
         auto getName() -> std::string&;
         auto getPosition() -> sf::Vector2f override;
+        void setPosition(float x, float y);
+        void setPosition(sf::Vector2f position);
+        void move(float x, float y);
         auto isVisible() const -> bool;
         void setVisible(bool value);
 
     protected:
         TiledMap* m_tiledmap = nullptr;
         sf::Transformable m_transformable;
+        sf::Color m_tintcolor = sf::Color::White;
 
     private:
         unsigned int m_id;

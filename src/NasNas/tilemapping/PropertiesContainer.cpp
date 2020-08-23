@@ -9,42 +9,56 @@
 using namespace ns;
 using namespace ns::tm;
 
-void PropertiesContainer::addProperty(const pugi::xml_node& xml_prop) {
-    std::string prop_name = xml_prop.attribute("name").as_string();
-    std::string prop_type = xml_prop.attribute("type").as_string();
-    PropertyTypes prop_value;
+auto ns::tm::toColor(const std::string& color_string) -> sf::Color {
+    sf::Color color = sf::Color::White;
+    if (color_string.length() == 9)  // with alpha
+        color = sf::Color(
+                std::stoul(color_string.substr(3, 2), nullptr, 16),
+                std::stoul(color_string.substr(5, 2), nullptr, 16),
+                std::stoul(color_string.substr(7, 2), nullptr, 16),
+                std::stoul(color_string.substr(1, 2), nullptr, 16)
+        );
+    else   // no alpha
+        color = sf::Color(
+                std::stoul(color_string.substr(1, 2), nullptr, 16),
+                std::stoul(color_string.substr(3, 2), nullptr, 16),
+                std::stoul(color_string.substr(5, 2), nullptr, 16)
+        );
+    return color;
+}
 
-    if (prop_type == "int") {
-        prop_value = xml_prop.attribute("value").as_int();
-    }
-    else if (prop_type == "float") {
-        prop_value = xml_prop.attribute("value").as_float();
-    }
-    else if (prop_type == "bool") {
-        prop_value = xml_prop.attribute("value").as_bool();
-    }
-    else if (prop_type == "color") {
-        const auto& c = std::string(xml_prop.attribute("value").as_string());
-        sf::Color color = sf::Color::White;
-        if (c.length() == 9)  // with alpha
-            color = sf::Color(
-                std::stoul(c.substr(3, 2), nullptr, 16),
-                std::stoul(c.substr(5, 2), nullptr, 16),
-                std::stoul(c.substr(7, 2), nullptr, 16),
-                std::stoul(c.substr(1, 2), nullptr, 16)
-            );
-        else   // no alpha
-            color = sf::Color(
-                std::stoul(c.substr(1, 2), nullptr, 16),
-                std::stoul(c.substr(3, 2), nullptr, 16),
-                std::stoul(c.substr(5, 2), nullptr, 16)
-            );
-        prop_value = color;
-    }
-    else
-        prop_value = xml_prop.attribute("value").as_string();
+PropertiesContainer::PropertiesContainer() = default;
 
-    m_properties[prop_name] = prop_value;
+PropertiesContainer::PropertiesContainer(const pugi::xml_node& xmlnode_props) {
+    parseProperties(xmlnode_props);
+}
+
+void PropertiesContainer::parseProperties(const pugi::xml_node& xmlnode_props) {
+    m_properties.clear();
+    for (const auto& xml_prop : xmlnode_props) {
+        std::string prop_name = xml_prop.attribute("name").as_string();
+        std::string prop_type = xml_prop.attribute("type").as_string();
+        PropertyTypes prop_value;
+
+        if (prop_type == "int") {
+            prop_value = xml_prop.attribute("value").as_int();
+        }
+        else if (prop_type == "float") {
+            prop_value = xml_prop.attribute("value").as_float();
+        }
+        else if (prop_type == "bool") {
+            prop_value = xml_prop.attribute("value").as_bool();
+        }
+        else if (prop_type == "color") {
+            const auto& c = std::string(xml_prop.attribute("value").as_string());
+            auto color = toColor(c);
+            prop_value = color;
+        }
+        else
+            prop_value = std::string(xml_prop.attribute("value").as_string());
+
+        m_properties[prop_name] = prop_value;
+    }
 }
 
 

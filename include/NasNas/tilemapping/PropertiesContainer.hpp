@@ -14,11 +14,17 @@
 namespace ns::tm {
     class SharedTileset;
     class TileLayer;
+    class ObjectLayer;
 
     using PropertyTypes = std::variant<int, float, std::string, bool, sf::Color>;
 
+    auto toColor(const std::string& color_string) -> sf::Color;
+
     class PropertiesContainer {
     public:
+        PropertiesContainer();
+        explicit PropertiesContainer(const pugi::xml_node& xmlnode_props);
+
         template <typename T>
         auto getProperty(const std::string& name) const -> T;
 
@@ -28,7 +34,7 @@ namespace ns::tm {
         void printProperties() const;
 
     protected:
-        void addProperty(const pugi::xml_node& xml_prop);
+        void parseProperties(const pugi::xml_node& xmlnode_props);
 
     private:
         friend SharedTileset;

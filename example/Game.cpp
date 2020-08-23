@@ -45,13 +45,14 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     // adding its layers to the scene
     this->scene->getLayer(0)->add(this->tiled_map.getTileLayer("bg"));
     this->scene->getLayer(0)->add(this->tiled_map.getTileLayer("front"));
+    this->scene->getLayer(0)->add(this->tiled_map.getObjectLayer("objectsLayer"));
 
     /////// Adding Shapes //////////////////////////////////////
     auto colors = std::vector<sf::Color>{sf::Color::Blue, sf::Color::Red, sf::Color::Green,
                                          sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,
                                          sf::Color::White};
     // generating 100 random octogons and adding them to the shapes layer
-    for (int i = 0; i < 200; ++i) {
+    for (int i = 0; i < 10; ++i) {
         auto shape = std::make_shared<sf::CircleShape>(20.0f);
         shape->setPointCount(8);
         shape->setFillColor(colors.at(i%colors.size()));
