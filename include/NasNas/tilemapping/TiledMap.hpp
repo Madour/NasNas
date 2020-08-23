@@ -29,7 +29,7 @@ namespace ns::tm {
         auto allTilesets() -> const std::vector<std::unique_ptr<Tileset>>&;
 
         auto getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>&;
-
+        auto getObjectLayer(const std::string& name) -> const std::shared_ptr<ObjectLayer>&;
     private:
         pugi::xml_node m_xmlnode_map;
         std::string m_file_name;
@@ -40,6 +40,7 @@ namespace ns::tm {
 
         std::vector<std::unique_ptr<Tileset>> m_tilesets;
         std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_layers;
+        std::map<std::pair<int, std::string>, std::shared_ptr<ObjectLayer>> m_objectlayers;
 
         void load(const pugi::xml_document& xml);
     };

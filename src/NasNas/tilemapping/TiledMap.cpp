@@ -5,6 +5,7 @@
 #include "NasNas/data/Config.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/TileLayer.hpp"
+#include "NasNas/tilemapping/ObjectLayer.hpp"
 
 using namespace ns;
 using namespace ns::tm;
@@ -44,10 +45,8 @@ void TiledMap::load(const pugi::xml_document& xml) {
     m_tilesize.x = m_xmlnode_map.attribute("tilewidth").as_uint();
     m_tilesize.y = m_xmlnode_map.attribute("tileheight").as_uint();
 
-    // parsing properties
-    for (const auto& xmlnode_prop : m_xmlnode_map.child("properties").children()) {
-        addProperty(xmlnode_prop);
-    }
+    parseProperties(m_xmlnode_map.child("properties"));
+
     // parsing tilesets
     for (const auto& xmlnode_tileset : m_xmlnode_map.children("tileset")) {
         unsigned int firstgid = xmlnode_tileset.attribute("firstgid").as_uint();
@@ -65,6 +64,11 @@ void TiledMap::load(const pugi::xml_document& xml) {
     for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
         auto new_layer = std::make_shared<TileLayer>(xmlnode_layer, this);
         m_layers[{new_layer->getId(), new_layer->getName()}] = new_layer;
+    }
+    // parsing object layers
+    for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
+        auto new_layer = std::make_shared<ObjectLayer>(xmlnode_layer, this);
+        m_objectlayers[{new_layer->getId(), new_layer->getName()}] = new_layer;
     }
 }
 
@@ -99,6 +103,16 @@ auto TiledMap::getTileLayer(const std::string& name) -> const std::shared_ptr<Ti
             return m_layers[key];
         }
     }
-    std::cout << "TiledMap «" << m_file_name << "» has not TileLayer names «" << name << "»." << std::endl;
+    std::cout << "TiledMap «" << m_file_name << "» has not TileLayer named «" << name << "»." << std::endl;
+    exit(-1);
+}
+
+auto TiledMap::getObjectLayer(const std::string& name) -> const std::shared_ptr<ObjectLayer>& {
+    for (const auto& [key, layer_ptr] : m_objectlayers) {
+        if (key.second == name) {
+            return m_objectlayers[key];
+        }
+    }
+    std::cout << "TiledMap «" << m_file_name << "» has not ObjectLayer named «" << name << "»." << std::endl;
     exit(-1);
 }

@@ -12,6 +12,7 @@
 
 #ifdef NS_TILEMAPPING
 #include "NasNas/tilemapping/TileLayer.hpp"
+#include "NasNas/tilemapping/ObjectLayer.hpp"
 #endif
 
 namespace ns {

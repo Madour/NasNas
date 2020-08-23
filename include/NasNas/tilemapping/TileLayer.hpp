@@ -25,8 +25,6 @@ namespace ns::tm {
     };
 
 
-
-
     class TileLayer : public Layer {
 
         struct Tile {
@@ -48,7 +46,6 @@ namespace ns::tm {
         TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
         auto getGlobalBounds() -> ns::FloatRect override;
-        void move(float offsetx, float offsety);
 
         void update();
 
@@ -59,6 +56,8 @@ namespace ns::tm {
         std::vector<Tile> m_tiles;
         std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
         std::map<std::uint32_t, AnimatedTileInfo> m_animated_tiles_pos;
+        sf::RenderTexture m_render_texture;
+        sf::Sprite m_sprite;
 
         void addTile(std::uint32_t gid, unsigned int tile_count);
         auto getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) -> std::vector<sf::Vector2f>;

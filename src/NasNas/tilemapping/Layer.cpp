@@ -8,7 +8,8 @@
 using namespace ns;
 using namespace ns::tm;
 
-Layer::Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap) {
+Layer::Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
+PropertiesContainer(xml_node.child("properties")) {
     m_tiledmap = tiledmap;
 
     m_id = xml_node.attribute("id").as_uint();
@@ -21,6 +22,8 @@ Layer::Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap) {
         m_transformable.setPosition(xml_node.attribute("offsetx").as_float(), m_transformable.getPosition().y);
     if (xml_node.attribute("offsety"))
         m_transformable.setPosition(m_transformable.getPosition().x, xml_node.attribute("offsety").as_float());
+    if (xml_node.attribute("tintcolor"))
+        m_tintcolor = toColor(std::string(xml_node.attribute("tintcolor").as_string()));
 }
 
 auto Layer::getId() const -> unsigned int {
@@ -33,6 +36,18 @@ auto Layer::getName() -> std::string& {
 
 auto Layer::getPosition() -> sf::Vector2f {
     return m_transformable.getPosition();
+}
+
+void Layer::setPosition(float x, float y) {
+    m_transformable.setPosition(x, y);
+}
+
+void Layer::setPosition(sf::Vector2f position) {
+    m_transformable.setPosition(position);
+}
+
+void Layer::move(float x, float y) {
+    m_transformable.move(x, y);
 }
 
 auto Layer::isVisible() const -> bool {

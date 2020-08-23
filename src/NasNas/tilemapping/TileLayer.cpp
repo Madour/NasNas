@@ -12,16 +12,14 @@ TileLayer::TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
 Layer(xml_node, tiledmap) {
     m_width = xml_node.attribute("width").as_uint();
     m_height = xml_node.attribute("height").as_uint();
+
+    m_render_texture.create(m_width*m_tiledmap->getTileSize().x, m_height*m_tiledmap->getTileSize().y);
     m_tiles.reserve((size_t)m_width * (size_t)m_height);
     for (const auto& tileset : m_tiledmap->allTilesets()) {
         m_vertices[tileset.get()].resize(4u * (size_t)m_width * (size_t)m_height);
         m_vertices[tileset.get()].setPrimitiveType(sf::PrimitiveType::Quads);
     }
 
-    // parsing properties
-    for (const auto& xml_prop : xml_node.child("properties").children()) {
-        addProperty(xml_prop);
-    }
     // parsing data
     auto xml_data = xml_node.child("data");
     auto encoding = std::string(xml_data.attribute("encoding").as_string());
@@ -51,14 +49,19 @@ Layer(xml_node, tiledmap) {
         std::cout << "Encoding «" << encoding << "» is not supported, please use CSV instead." << std::endl;
         exit(-1);
     }
+
+    m_render_texture.clear(sf::Color::Transparent);
+    for (const auto& [tileset, vertices] : m_vertices) {
+        m_render_texture.draw(vertices, sf::RenderStates(&tileset->getTexture()));
+    }
+    m_render_texture.display();
+    m_sprite.setTexture(m_render_texture.getTexture());
+    m_sprite.setColor(m_tintcolor);
+
 }
 
 auto TileLayer::getGlobalBounds() -> ns::FloatRect {
     return ns::FloatRect(getPosition().x, getPosition().y, m_width * m_tiledmap->getTileSize().x, m_height * m_tiledmap->getTileSize().y);
-}
-
-void TileLayer::move(float offsetx, float offsety) {
-    m_transformable.move(offsetx, offsety);
 }
 
 void TileLayer::update() {
@@ -86,6 +89,14 @@ void TileLayer::update() {
             }
         }
     }
+
+    m_render_texture.clear(sf::Color::Transparent);
+    for (const auto& [tileset, vertices] : m_vertices) {
+        m_render_texture.draw(vertices, sf::RenderStates(&tileset->getTexture()));
+    }
+    m_render_texture.display();
+    m_sprite.setTexture(m_render_texture.getTexture());
+    m_sprite.setColor(m_tintcolor);
 }
 
 void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
@@ -163,10 +174,7 @@ auto TileLayer::getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) ->
     return res;
 }
 
-void TileLayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void TileLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= m_transformable.getTransform();
-    for (const auto& [tileset, vertices] : m_vertices) {
-        states.texture = &tileset->getTexture();
-        target.draw(vertices, states);
-    }
+    target.draw(m_sprite, states);
 }
