@@ -174,7 +174,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#00ff26" id="11" name="objectsLayer" tintcolor="#0026ff">
+ <objectgroup color="#00ff26" id="11" name="objects" tintcolor="#0026ff">
   <object id="12" x="34.7852" y="272.996" width="256" height="32" rotation="6.78206">
    <properties>
     <property name="prop" type="int" value="5"/>
