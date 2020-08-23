@@ -9,8 +9,7 @@
 
 Game::Game() :
 ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////// Game Config /////////////////////////////////////////////////////////
+    //------------ Game Config ----------------------------------------------------------
     // mapping keys inputs
     ns::Config::Inputs::setButtonKey("left", sf::Keyboard::Left);
     ns::Config::Inputs::setButtonKey("right", sf::Keyboard::Right);
@@ -19,39 +18,17 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     ns::Config::Inputs::setButtonKey("fullscreen", sf::Keyboard::F);
     // configuring physics constants
     ns::Config::Physics::gravity = 0;
-    /////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------
 
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////// Creating a Scene /////////////////////////////////////////////////////
-    this->scene = this->createScene("main");
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////// Creating Layers //////////////////////////////////////////////////////
-    // creating new Layer named "background" (using raw pointers)
-    this->scene->addLayer(new ns::Layer("background"), 0);
-    // creating new Layer named "shapes" (using smart pointer)
-    this->scene->addLayer(std::make_shared<ns::Layer>("shapes"), 1);
-    // creating new Layer name "entities" (using smart pointer)
-    auto entities_layer = std::make_shared<ns::Layer>("entities");
-    this->scene->addLayer(entities_layer, 2);
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    ////////////// Adding Drawables to the Layers ///////////////////////////////////////
-    /////// Adding TiledMap ////////////////////////////////////
+    //------------ Creating Game Objects ------------------------------------------------
     // loading tiled map from file
     this->tiled_map.loadFromFile("assets/test_map.tmx");
-    // adding its layers to the scene
-    this->scene->getLayer(0)->add(this->tiled_map.getTileLayer("bg"));
-    this->scene->getLayer(0)->add(this->tiled_map.getTileLayer("front"));
-    this->scene->getLayer(0)->add(this->tiled_map.getObjectLayer("objectsLayer"));
 
-    /////// Adding Shapes //////////////////////////////////////
-    auto colors = std::vector<sf::Color>{sf::Color::Blue, sf::Color::Red, sf::Color::Green,
-                                         sf::Color::Yellow, sf::Color::Cyan, sf::Color::Magenta,
-                                         sf::Color::White};
-    // generating 100 random octogons and adding them to the shapes layer
+    // generating 100 random octogons
+    auto colors = std::vector<sf::Color>{
+        sf::Color::Blue, sf::Color::Red, sf::Color::Green, sf::Color::Yellow,
+        sf::Color::Cyan, sf::Color::Magenta, sf::Color::White
+    };
     for (int i = 0; i < 10; ++i) {
         auto shape = std::make_shared<sf::CircleShape>(20.0f);
         shape->setPointCount(8);
@@ -61,41 +38,67 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
         shape->setOrigin(20, 20);
         shape->setPosition((float)(std::rand()%2500), (float)(std::rand()%2000));
         this->shapes.push_back(shape);
-        this->scene->getLayer(1)->add(shape);
     }
 
-    ////// Adding an Entity /////////////////////////////////////
-    // creating an entity and setting its position
-    // (see class Player for more information on Entity creation)
+    // creating Player entity (see class Player for more information)
     this->player = std::make_shared<Player>();
     this->player->setPosition({100, 100});
     this->entities.push_back(this->player);
-    // adding the entity to the layer
-    this->scene->getLayer("entities")->add(this->player);
 
+    // creating Wall entity
     auto wall = std::make_shared<Wall>(200.f, 200.f);
     this->entities.push_back(wall);
-    this->scene->getLayer("entities")->add(wall);
 
-    ////// Adding a BitmapText //////////////////////////////////
-    // creating BitmapFont
+    // creating a BitmapFont
     auto bmp_font = std::make_shared<ns::BitmapFont>(
-        ns::Res::get().getTexture("font.png"),
-        sf::Vector2u(8, 8),
-        " ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        std::unordered_map<char, int>({{'I', 7}, {'L', 7}})
+            ns::Res::get().getTexture("font.png"),
+            sf::Vector2u(8, 8),
+            " ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            std::unordered_map<char, int>({{'I', 7}, {'L', 7}})
     );
     // creating a BitmapText using the font created above
     auto bmp_text = std::make_shared<ns::BitmapText>("THIS IS A BITMAP TEXT CREATED FROM PNG FONT", bmp_font);
-    // setting the position of the BitmapText (center of the view)
-    bmp_text->setPosition(sf::Vector2f(270, 180) - bmp_text->getSize()/2.f);
+    bmp_text->setPosition(sf::Vector2f(200, 50));
+    //-----------------------------------------------------------------------------------
+
+    //------------ Creating a Scene and its Layers --------------------------------------
+    this->scene = this->createScene("main");
+    this->scene->addLayer("shapes", 0); // creating new Layer using layer name (recommanded)
+    this->scene->addLayer(new ns::Layer("entities"), 1);  // creating new Layer using raw pointer
+    this->scene->addLayer(std::make_shared<ns::Layer>("texts"), 2);  // creating new Layer using smart pointer
+
+    //////////////// Creating a Camera //////////////////////////////////////////////////
+    this->game_camera = this->createCamera("game_camera", 0, ns::IntRect(0, 0, 640, 360));
+    this->game_camera->lookAt(this->scene);     // telling the Camera to look at the scene
+    this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
+    this->game_camera->setFramesDelay(10);      // the Camera will have 10 frames delay over the player
+    // setting Camera limits
+    this->game_camera->setLimitsRectangle(ns::IntRect(
+            {0, 0},
+            {(int)(tiled_map.getSize().x*tiled_map.getTileSize().x), (int)(tiled_map.getSize().y*tiled_map.getTileSize().y)}
+    ));
+    //-----------------------------------------------------------------------------------
+
+    //------------ Adding Drawables to the Scene  ---------------------------------------
+    // adding tiledmap layers to the scene
+    this->scene->getDefaultLayer()->add(this->tiled_map.getTileLayer("bg"));
+    this->scene->getDefaultLayer()->add(this->tiled_map.getTileLayer("front"));
+    this->scene->getDefaultLayer()->add(this->tiled_map.getObjectLayer("objects"));
+
+    // adding shapes
+    for (auto& shape : this->shapes) {
+        this->scene->getLayer("shapes")->add(shape);
+    }
+
+    // adding entities
+    this->scene->getLayer("entities")->add(this->player);
+    this->scene->getLayer("entities")->add(wall);
+
     // adding the BitmapText to the layer
-    this->scene->getLayer("entities")->add(bmp_text);
-    /////////////////////////////////////////////////////////////////////////////////////
+    this->scene->getLayer("texts")->add(bmp_text);
+    //-----------------------------------------------------------------------------------
 
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////// Adding DebugTexts //////////////////////////////////////////////////
-
+    //------------ Adding DebugTexts to the App -----------------------------------------
     // adding a DebugText by using addDebugText method
     this->addDebugText<int>(&this->frame_counter, "frame counter:", {10, 10});
     this->addDebugText<sf::Vector2f>([&](){return player->getPosition();}, "position:", {10, 50}, sf::Color::Green);
@@ -114,23 +117,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     dbg_txt->setOutlineThickness(1);
     dbg_txt->setOutlineColor(sf::Color::White);
     this->addDebugText(dbg_txt);
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    //////////////// Creating a Camera //////////////////////////////////////////////////
-    this->game_camera = this->createCamera("game_camera", 0, ns::IntRect(0, 0, 640, 360));
-    // telling the Camera to look at the scene
-    this->game_camera->lookAt(this->scene);
-    // telling the Camera to follow our entity
-    this->game_camera->follow(*this->player);
-    // the Camera will have 10 frames delay over the player
-    this->game_camera->setFramesDelay(10);
-    // setting Camera limits
-    this->game_camera->setLimitsRectangle(ns::IntRect(
-        {0, 0},
-        {(int)(tiled_map.getSize().x*tiled_map.getTileSize().x), (int)(tiled_map.getSize().y*tiled_map.getTileSize().y)}
-    ));
-    /////////////////////////////////////////////////////////////////////////////////////
+    //-----------------------------------------------------------------------------------
 }
 
 void Game::onEvent(sf::Event event) {

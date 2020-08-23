@@ -17,6 +17,10 @@ void Scene::addLayer(Layer* layer, int order) {
     m_layers[std::pair<int, std::string>(order, layer->getName())] = std::shared_ptr<Layer>(layer);
 }
 
+void Scene::addLayer(const std::string& name, int order) {
+    m_layers[std::pair<int, std::string>(order, name)] = std::make_shared<Layer>(name);
+}
+
 void Scene::addLayer(const std::shared_ptr<Layer>& layer, int order) {
     m_layers[std::pair<int, std::string>(order, layer->getName())] = layer;
 }

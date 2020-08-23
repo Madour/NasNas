@@ -26,10 +26,17 @@ namespace ns {
         explicit Scene(const std::string& name);
 
         /**
+         * \brief Adds a new layer to the scene
+         * \param layer_name Layer name
+         * \param order The order of render of the layer
+         */
+        void addLayer(const std::string& name, int order);
+
+        /**
          * \brief Adds a given layer to the scene
          *
          * \param layer Raw pointer to the Layer to add
-         * \param order The order of render of the layer on the scene
+         * \param order The order of render of the layer
          *
          * \see getLayer
          */
@@ -39,7 +46,7 @@ namespace ns {
          * \brief Adds a given layer to the scene
          *
          * \param layer Shared pointer to the Layer to add
-         * \param order The order of render of the layer on the scene
+         * \param order The order of render of the layer
          *
          * \see getLayer
          */
