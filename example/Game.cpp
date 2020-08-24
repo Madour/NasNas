@@ -29,7 +29,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
         sf::Color::Blue, sf::Color::Red, sf::Color::Green, sf::Color::Yellow,
         sf::Color::Cyan, sf::Color::Magenta, sf::Color::White
     };
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 100; ++i) {
         auto shape = std::make_shared<sf::CircleShape>(20.0f);
         shape->setPointCount(8);
         shape->setFillColor(colors.at(i%colors.size()));
@@ -58,7 +58,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     );
     // creating a BitmapText using the font created above
     auto bmp_text = std::make_shared<ns::BitmapText>("THIS IS A BITMAP TEXT CREATED FROM PNG FONT", bmp_font);
-    bmp_text->setPosition(sf::Vector2f(200, 50));
+    bmp_text->setPosition(200, 50);
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Scene and its Layers --------------------------------------
@@ -66,8 +66,9 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     this->scene->addLayer("shapes", 0); // creating new Layer using layer name (recommanded)
     this->scene->addLayer(new ns::Layer("entities"), 1);  // creating new Layer using raw pointer
     this->scene->addLayer(std::make_shared<ns::Layer>("texts"), 2);  // creating new Layer using smart pointer
+    //-----------------------------------------------------------------------------------
 
-    //////////////// Creating a Camera //////////////////////////////////////////////////
+    //------------ Creating a Camera ----------------------------------------------------
     this->game_camera = this->createCamera("game_camera", 0, ns::IntRect(0, 0, 640, 360));
     this->game_camera->lookAt(this->scene);     // telling the Camera to look at the scene
     this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
