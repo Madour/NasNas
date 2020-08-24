@@ -171,16 +171,23 @@ namespace ns {
         void move(float offsetx, float offsety);
 
         /**
-         * \brief Get BitmapText position in world's coordinates
+         * \brief Get BitmapText position
          * \return Position
          */
         auto getPosition() -> sf::Vector2f override;
 
         /**
-         * \brief Set BitmapText position in world's coordinates
+         * \brief Set BitmapText position
          * \param position New position
          */
         void setPosition(const sf::Vector2f& position);
+
+        /**
+         * \brief St BitmapText Position
+         * \param x X coordinate
+         * \param y Y coordinate
+         */
+        void setPosition(float x, float y);
 
         /**
          * \brief Get BitmapText global bounds
