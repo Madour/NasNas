@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NasNas: ns::tm::TileLayer Class Reference</title>
+<title>NasNas: ns::tm::ObjectLayer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,24 +38,24 @@ $(function() {
 <div id="main-nav"></div>
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacens.html">ns</a></li><li class="navelem"><a class="el" href="namespacens_1_1tm.html">tm</a></li><li class="navelem"><a class="el" href="classns_1_1tm_1_1TileLayer.html">TileLayer</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacens.html">ns</a></li><li class="navelem"><a class="el" href="namespacens_1_1tm.html">tm</a></li><li class="navelem"><a class="el" href="classns_1_1tm_1_1ObjectLayer.html">ObjectLayer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classns_1_1tm_1_1TileLayer-members.html">List of all members</a>  </div>
+<a href="classns_1_1tm_1_1ObjectLayer-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">ns::tm::TileLayer Class Reference</div>  </div>
+<div class="title">ns::tm::ObjectLayer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for ns::tm::TileLayer:</div>
+Inheritance diagram for ns::tm::ObjectLayer:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classns_1_1tm_1_1TileLayer.png" usemap="#ns::tm::TileLayer_map" alt=""/>
-  <map id="ns::tm::TileLayer_map" name="ns::tm::TileLayer_map">
+  <img src="classns_1_1tm_1_1ObjectLayer.png" usemap="#ns::tm::ObjectLayer_map" alt=""/>
+  <map id="ns::tm::ObjectLayer_map" name="ns::tm::ObjectLayer_map">
 <area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="86,112,248,136"/>
 <area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="0,56,162,80"/>
 <area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="172,56,334,80"/>
@@ -64,15 +64,21 @@ Inheritance diagram for ns::tm::TileLayer:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8a76aa0f94c2a405a764514bc828cde8"><td class="memItemLeft" align="right" valign="top"><a id="a8a76aa0f94c2a405a764514bc828cde8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TileLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
-<tr class="separator:a8a76aa0f94c2a405a764514bc828cde8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add1738a62be2ae38407d7d42b031dd93"><td class="memItemLeft" align="right" valign="top"><a id="add1738a62be2ae38407d7d42b031dd93"></a>
+<tr class="memitem:af14f2f0fbe320c4774014023574a4075"><td class="memItemLeft" align="right" valign="top"><a id="af14f2f0fbe320c4774014023574a4075"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ObjectLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
+<tr class="separator:af14f2f0fbe320c4774014023574a4075"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2fcaa925bf601e326bcfef9770afd26"><td class="memItemLeft" align="right" valign="top"><a id="aa2fcaa925bf601e326bcfef9770afd26"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getRectangles</b> () -&gt; std::vector&lt; Object&lt; sf::RectangleShape &gt;&gt; &amp;</td></tr>
+<tr class="separator:aa2fcaa925bf601e326bcfef9770afd26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e0c5ac76cb5993ae0cae9510ba22568"><td class="memItemLeft" align="right" valign="top"><a id="a6e0c5ac76cb5993ae0cae9510ba22568"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPoints</b> () -&gt; std::vector&lt; Object&lt; sf::RectangleShape &gt;&gt; &amp;</td></tr>
+<tr class="separator:a6e0c5ac76cb5993ae0cae9510ba22568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56dc1acfcf64b1705a41d8b94e9fbe99"><td class="memItemLeft" align="right" valign="top"><a id="a56dc1acfcf64b1705a41d8b94e9fbe99"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPolygons</b> () -&gt; std::vector&lt; Object&lt; sf::ConvexShape &gt;&gt; &amp;</td></tr>
+<tr class="separator:a56dc1acfcf64b1705a41d8b94e9fbe99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4e8b33dbc9ab0170b5660f65f1ea0d"><td class="memItemLeft" align="right" valign="top"><a id="a4d4e8b33dbc9ab0170b5660f65f1ea0d"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGlobalBounds</b> () -&gt; <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> override</td></tr>
-<tr class="separator:add1738a62be2ae38407d7d42b031dd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1722e7cda2ce6bb5404a4ef62c98b9e"><td class="memItemLeft" align="right" valign="top"><a id="ae1722e7cda2ce6bb5404a4ef62c98b9e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
-<tr class="separator:ae1722e7cda2ce6bb5404a4ef62c98b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a4d4e8b33dbc9ab0170b5660f65f1ea0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classns_1_1tm_1_1Layer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classns_1_1tm_1_1Layer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classns_1_1tm_1_1Layer.html">ns::tm::Layer</a></td></tr>
 <tr class="memitem:a8d8fb832be9f5aaad78cde6f22401168 inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a8d8fb832be9f5aaad78cde6f22401168"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
@@ -136,9 +142,9 @@ sf::Color&#160;</td><td class="memItemRight" valign="bottom"><b>m_tintcolor</b> 
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="TileLayer_8hpp_source.html#l00028">28</a> of file <a class="el" href="TileLayer_8hpp_source.html">TileLayer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ObjectLayer_8hpp_source.html#l00013">13</a> of file <a class="el" href="ObjectLayer_8hpp_source.html">ObjectLayer.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="TileLayer_8hpp_source.html">TileLayer.hpp</a></li>
+<li><a class="el" href="ObjectLayer_8hpp_source.html">ObjectLayer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
