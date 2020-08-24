@@ -8,6 +8,7 @@ set(
         ../src/NasNas/data/Config.cpp
         ../src/NasNas/data/Arial.cpp
         ../src/NasNas/data/Maths.cpp
+        ../src/NasNas/data/Shapes.cpp
 
 )
 
@@ -22,5 +23,6 @@ set(
         ../include/NasNas/data/Drawable.hpp
         ../include/NasNas/data/Rect.hpp
         ../include/NasNas/data/Maths.hpp
+        ../include/NasNas/data/Shapes.hpp
 
 )

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "NasNas/data/Shapes.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
 #include "NasNas/core/Logger.hpp"
@@ -11,10 +12,12 @@
 namespace ns::tm {
 
     class ObjectLayer : public Layer {
+
         template <typename T>
         class Object : public PropertiesContainer {
         public:
             explicit Object(const pugi::xml_node& xml_node, const sf::Color& color);
+            auto getId() const -> unsigned int;
             auto getShape() const -> const T&;
 
         private:
@@ -23,13 +26,18 @@ namespace ns::tm {
             T m_shape;
         };
 
-
     public:
         ObjectLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
         auto getRectangles() -> std::vector<Object<sf::RectangleShape>>&;
         auto getPoints() -> std::vector<Object<sf::RectangleShape>>&;
         auto getPolygons() -> std::vector<Object<sf::ConvexShape>>&;
+        auto getEllipses() -> std::vector<Object<sf::EllipseShape>>&;
+
+        auto getRectangle(unsigned int id) -> const Object<sf::RectangleShape>&;
+        auto getPoint(unsigned int id) -> const Object<sf::RectangleShape>&;
+        auto getPolygon(unsigned int id) -> const Object<sf::ConvexShape>&;
+        auto getEllipse(unsigned int id) -> const Object<sf::EllipseShape>&;
 
         auto getGlobalBounds() -> ns::FloatRect override;
 
@@ -37,9 +45,10 @@ namespace ns::tm {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         sf::Color m_color = sf::Color(180, 180, 180);
+
         std::vector<Object<sf::RectangleShape>> m_rectangles;
         std::vector<Object<sf::RectangleShape>> m_points;
-        std::vector<Object<sf::CircleShape>> m_ellipses;
+        std::vector<Object<sf::EllipseShape>> m_ellipses;
         std::vector<Object<sf::ConvexShape>> m_polygons;
     };
 
@@ -48,6 +57,13 @@ namespace ns::tm {
     PropertiesContainer(){
         m_id = id;
         m_shape.setPosition(x, y);
+        m_shape.setFillColor(sf::Color::Transparent);
+        m_shape.setOutlineThickness(1);
+    }
+
+    template <typename T>
+    auto ns::tm::ObjectLayer::Object<T>::getId() const -> unsigned int {
+        return m_id;
     }
 
     template <typename T>

@@ -6,6 +6,7 @@
 
 #include "NasNas/data/Config.hpp"
 #include "NasNas/data/Maths.hpp"
+#include "NasNas/data/Shapes.hpp"
 
 #ifdef NS_ECS
 #include "NasNas/ecs/BaseEntity.hpp"
