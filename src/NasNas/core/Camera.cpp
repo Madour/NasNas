@@ -158,5 +158,5 @@ void Camera::render(sf::RenderTarget& target) {
     sf::RenderStates states;
     states.texture = &m_render_texture.getTexture();
     states.shader = m_shader;
-    target.draw(m_sprite);
+    target.draw(m_sprite, states);
 }
