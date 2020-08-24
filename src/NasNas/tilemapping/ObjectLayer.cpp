@@ -18,14 +18,24 @@ ObjectLayer::Object<sf::RectangleShape>(
     if (xml_node.attribute("width")) { // rectangle
         m_shape.setSize({xml_node.attribute("width").as_float(), xml_node.attribute("height").as_float()});
         m_shape.setRotation(xml_node.attribute("rotation").as_float());
-        m_shape.setFillColor(sf::Color::Transparent);
-        m_shape.setOutlineThickness(1);
         m_shape.setOutlineColor(color);
     }
     else { // point
         m_shape.setSize({1, 1});
         m_shape.setFillColor(color);
     }
+}
+
+template <>
+ns::tm::ObjectLayer::Object<sf::EllipseShape>::Object(const pugi::xml_node& xml_node, const sf::Color& color) :
+ObjectLayer::Object<sf::EllipseShape>(
+    xml_node.attribute("id").as_uint(),
+    xml_node.attribute("x").as_float(),
+    xml_node.attribute("y").as_float()
+) {
+    m_shape.setRadius({xml_node.attribute("width").as_float()/2.f, xml_node.attribute("height").as_float()/2.f});
+    m_shape.setRotation(xml_node.attribute("rotation").as_float());
+    m_shape.setOutlineColor(color);
 }
 
 template <>
@@ -66,8 +76,6 @@ ObjectLayer::Object<sf::ConvexShape>(
     for (unsigned int i = 0; i < points.size(); i++)
         m_shape.setPoint(i, points[i]);
     m_shape.setRotation(xml_node.attribute("rotation").as_float());
-    m_shape.setFillColor(sf::Color::Transparent);
-    m_shape.setOutlineThickness(1);
     m_shape.setOutlineColor(color);
 }
 
@@ -77,7 +85,8 @@ Layer(xml_node, tiledmap) {
         m_color = toColor(std::string(xml_node.attribute("color").as_string()));
     for (const auto& object : xml_node.children("object")) {
         if(object.child("ellipse")) {
-            ns_LOG("ellipse");
+            Object<sf::EllipseShape> r{object, m_color};
+            m_ellipses.push_back(r);
         }
         else if(object.child("polyline")) {
             ns_LOG("polyline");
@@ -112,6 +121,42 @@ auto ObjectLayer::getPolygons() -> std::vector<Object<sf::ConvexShape>>& {
     return m_polygons;
 }
 
+auto ObjectLayer::getEllipses() -> std::vector<Object<sf::EllipseShape>>& {
+    return m_ellipses;
+}
+
+auto ObjectLayer::getRectangle(unsigned int id) -> const Object<sf::RectangleShape>& {
+    for (auto& object : m_rectangles) {
+        if (object.getId() == id) return object;
+    }
+    std::cout << "ObjectLayer «" << getName() << "» does not have a Rectangle object id " << id << "." << std::endl;
+    std::exit(-1);
+}
+
+auto ObjectLayer::getPoint(unsigned int id) -> const Object<sf::RectangleShape>& {
+    for (auto& object : m_points) {
+        if (object.getId() == id) return object;
+    }
+    std::cout << "ObjectLayer «" << getName() << "» does not have a Point object id " << id << "." << std::endl;
+    std::exit(-1);
+}
+
+auto ObjectLayer::getEllipse(unsigned int id) -> const Object<sf::EllipseShape>& {
+    for (auto& object : m_ellipses) {
+        if (object.getId() == id) return object;
+    }
+    std::cout << "ObjectLayer «" << getName() << "» does not have a Ellipse object id " << id << "." << std::endl;
+    std::exit(-1);
+}
+
+auto ObjectLayer::getPolygon(unsigned int id) -> const Object<sf::ConvexShape>& {
+    for (auto& object : m_polygons) {
+        if (object.getId() == id) return object;
+    }
+    std::cout << "ObjectLayer «" << getName() << "» does not have a Polygon object id " << id << "." << std::endl;
+    std::exit(-1);
+}
+
 auto ObjectLayer::getGlobalBounds() -> ns::FloatRect {
     return ns::FloatRect(
         m_transformable.getPosition(),
@@ -125,6 +170,9 @@ void ObjectLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 
     for (const auto& point : m_points)
         target.draw(point.getShape());
+
+    for (const auto& ellipse : m_ellipses)
+        target.draw(ellipse.getShape());
 
     for (const auto& polygon : m_polygons)
         target.draw(polygon.getShape());
