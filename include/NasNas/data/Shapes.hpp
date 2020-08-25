@@ -29,6 +29,7 @@ namespace sf {
         std::size_t m_point_cout = 30;
         Vector2f m_radius;
     };
+
     class LineShape : public ns::Drawable, public Transformable {
     public:
         LineShape();
