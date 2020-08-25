@@ -115,8 +115,19 @@ m_pos_offset(pos_offset) {
     m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
 }
 
+ColliderComponent::~ColliderComponent() {
+    switch (m_collision_box->type) {
+        case Collision::CollisionType::Rectangle:
+            delete(dynamic_cast<RectangleCollision*>(m_collision_box));
+        case Collision::CollisionType::Circle:
+            delete(dynamic_cast<CircleCollision*>(m_collision_box));
+        default:
+            delete(m_collision_box);
+    }
+}
+
 auto ColliderComponent::isDynamic() const -> bool {
-    return m_dynamic;
+    return m_entity->physics() != nullptr;
 }
 
 auto ColliderComponent::getCollision() -> Collision& {
