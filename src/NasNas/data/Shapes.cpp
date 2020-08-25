@@ -40,3 +40,58 @@ auto EllipseShape::getPoint(std::size_t index) const -> sf::Vector2f {
 
     return sf::Vector2f(m_radius.x + x, m_radius.y + y);
 }
+
+
+LineShape::LineShape() = default;
+
+void LineShape::addPoint(float x, float y) {
+    m_vertices.emplace_back(sf::Vector2f(x, y));
+}
+
+void LineShape::addPoint(const Vector2f& point) {
+    m_vertices.emplace_back(point);
+}
+
+void LineShape::removePoint(unsigned int index) {
+    if (index < m_vertices.size()) {
+        m_vertices.erase(m_vertices.begin() + index);
+    }
+    else {
+        std::cout << "Can't remove point " << index << ". "
+                  << "LineShape has only " << m_vertices.size() << " points."
+                  << std::endl;
+    }
+}
+
+void LineShape::setColor(const sf::Color& color) {
+    for (auto& vert : m_vertices)
+        vert.color = color;
+}
+
+void LineShape::setColor(unsigned int index, const Color& color) {
+    if (index < m_vertices.size())
+        m_vertices[index].color = color;
+    else {
+        std::cout << "Can't set color of point " << index << ". "
+                  << "LineShape has only " << m_vertices.size() << " points."
+                  << std::endl;
+    }
+}
+
+auto LineShape::getPosition() -> Vector2f {
+    return Transformable::getPosition();
+}
+
+auto LineShape::getGlobalBounds() -> ns::FloatRect {
+    VertexArray va;
+    va.resize(m_vertices.size());
+    for (const auto& vert : m_vertices) {
+        va.append(vert);
+    }
+    return ns::FloatRect(getTransform().transformRect(va.getBounds()));
+}
+
+void LineShape::draw(RenderTarget& target, RenderStates states) const {
+    states.transform *= getTransform();
+    target.draw(m_vertices.data(), m_vertices.size(), PrimitiveType::LineStrip, states);
+}

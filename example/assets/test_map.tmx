@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="19">
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="42">
  <properties>
   <property name="col" type="color" value="#ff55aa7f"/>
   <property name="prop" type="bool" value="true"/>
@@ -175,24 +175,22 @@
 </data>
  </layer>
  <objectgroup color="#00ff26" id="11" name="objects" tintcolor="#0026ff">
-  <object id="12" x="34.7852" y="272.996" width="256" height="32" rotation="6.78206">
+  <object id="37" x="192" y="176" width="32" height="16">
    <properties>
-    <property name="prop" type="int" value="5"/>
+    <property name="duration" type="float" value="78.5"/>
    </properties>
   </object>
-  <object id="13" x="192" y="256">
+  <object id="38" x="176" y="160">
    <point/>
   </object>
-  <object id="14" x="224" y="256" width="48" height="32" rotation="316.637">
+  <object id="39" x="48" y="144" width="16" height="32">
    <ellipse/>
   </object>
-  <object id="15" x="315.285" y="168.531" rotation="22.9992">
-   <polyline points="0,0 44.7674,93.402"/>
+  <object id="40" x="96" y="208">
+   <polygon points="0,0 48,0 64,32 32,64 -32,32"/>
   </object>
-  <object id="16" x="392.413" y="293.005" rotation="203.172">
-   <polygon points="0,0 16,32 30.7089,9.70414 18.1171,-19.7143"/>
+  <object id="41" x="208" y="208">
+   <polyline points="0,0 64,0 80,16 112,32 112,16 144,32 128,64 160,80 176,48"/>
   </object>
-  <object id="17" gid="3" x="224" y="224" width="16" height="16"/>
-  <object id="18" x="96" y="192" width="176" height="32" rotation="343.874"/>
  </objectgroup>
 </map>

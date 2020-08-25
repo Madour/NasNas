@@ -31,17 +31,20 @@ namespace ns::tm {
 
         auto getRectangles() -> std::vector<Object<sf::RectangleShape>>&;
         auto getPoints() -> std::vector<Object<sf::RectangleShape>>&;
-        auto getPolygons() -> std::vector<Object<sf::ConvexShape>>&;
         auto getEllipses() -> std::vector<Object<sf::EllipseShape>>&;
+        auto getPolygons() -> std::vector<Object<sf::ConvexShape>>&;
+        auto getPolylines() -> std::vector<Object<sf::LineShape>>&;
 
         auto getRectangle(unsigned int id) -> const Object<sf::RectangleShape>&;
         auto getPoint(unsigned int id) -> const Object<sf::RectangleShape>&;
-        auto getPolygon(unsigned int id) -> const Object<sf::ConvexShape>&;
         auto getEllipse(unsigned int id) -> const Object<sf::EllipseShape>&;
+        auto getPolygon(unsigned int id) -> const Object<sf::ConvexShape>&;
+        auto getPolyline(unsigned int id) -> const Object<sf::LineShape>&;
 
         auto getGlobalBounds() -> ns::FloatRect override;
 
     private:
+        static auto stringToPoints(const char*) -> std::vector<sf::Vector2f>;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         sf::Color m_color = sf::Color(180, 180, 180);
@@ -50,6 +53,7 @@ namespace ns::tm {
         std::vector<Object<sf::RectangleShape>> m_points;
         std::vector<Object<sf::EllipseShape>> m_ellipses;
         std::vector<Object<sf::ConvexShape>> m_polygons;
+        std::vector<Object<sf::LineShape>> m_polylines;
     };
 
     template <typename T>
@@ -57,8 +61,6 @@ namespace ns::tm {
     PropertiesContainer(){
         m_id = id;
         m_shape.setPosition(x, y);
-        m_shape.setFillColor(sf::Color::Transparent);
-        m_shape.setOutlineThickness(1);
     }
 
     template <typename T>
