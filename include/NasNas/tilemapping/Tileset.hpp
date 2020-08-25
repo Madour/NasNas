@@ -10,6 +10,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "NasNas/thirdparty/pugixml.hpp"
+#include "NasNas/data/Rect.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 
 namespace ns::tm {
@@ -38,7 +39,9 @@ namespace ns::tm {
         ~SharedTileset();
 
         auto getTexture() const -> const sf::Texture&;
+        auto getTileProperties(std::uint32_t id) -> const PropertiesContainer*;
         auto getTileAnim(std::uint32_t id) -> const TileAnim*;
+        auto getTileTextureRect(unsigned int id) const -> ns::FloatRect;
 
         const std::string name;
         const unsigned int tilewidth;

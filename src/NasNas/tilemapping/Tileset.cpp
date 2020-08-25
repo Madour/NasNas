@@ -78,10 +78,22 @@ auto SharedTileset::getTexture() const -> const sf::Texture & {
     return *m_texture;
 }
 
+auto SharedTileset::getTileProperties(std::uint32_t id) -> const PropertiesContainer* {
+    if (m_tile_properties.count(id) > 0)
+        return &m_tile_properties[id];
+    return nullptr;
+}
+
 auto SharedTileset::getTileAnim(std::uint32_t id) -> const TileAnim* {
     if (m_tile_animations.count(id) > 0)
         return &m_tile_animations[id];
     return nullptr;
+}
+
+auto SharedTileset::getTileTextureRect(unsigned int id) const -> ns::FloatRect {
+    auto tx = (id % columns) * (tilewidth + spacing) + margin;
+    auto ty = (id / columns) * (tileheight + spacing) + margin;
+    return {sf::Vector2f(tx, ty), sf::Vector2f(tilewidth, tileheight)};
 }
 
 
