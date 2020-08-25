@@ -57,11 +57,18 @@ Layer(xml_node, tiledmap) {
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
     m_sprite.setColor(m_tintcolor);
+}
 
+auto TileLayer::getTile(int x, int y) -> const Tile&{
+    return m_tiles[x + y*m_width];
+}
+
+auto TileLayer::getTile(sf::Vector2i pos) -> const Tile& {
+    return m_tiles[pos.x + pos.y*m_width];
 }
 
 auto TileLayer::getGlobalBounds() -> ns::FloatRect {
-    return ns::FloatRect(getPosition().x, getPosition().y, m_width * m_tiledmap->getTileSize().x, m_height * m_tiledmap->getTileSize().y);
+    return ns::FloatRect(m_sprite.getGlobalBounds());
 }
 
 void TileLayer::update() {
@@ -79,7 +86,7 @@ void TileLayer::update() {
             auto new_id = anim_frames[anim_index].tileid;
             for (const auto& pos : anim_info.positions) {
                 // calculating tile index
-                auto tile_index = pos.x/m_tiledmap->getTileSize().x + (pos.y/m_tiledmap->getTileSize().y)*m_width;
+                auto tile_index = pos.x + pos.y*m_width;
                 // calculating new texture coordinates and updating the VertexArray
                 const auto& tex_coordinates = getTileTexCoo(new_id+tileset->firstgid, m_tiles[tile_index].flip);
                 m_vertices[tileset.get()][tile_index*4 + 0].texCoords = tex_coordinates[0];
@@ -101,7 +108,7 @@ void TileLayer::update() {
 
 void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     if (gid == 0) {
-        m_tiles.emplace_back(0, 0);
+        m_tiles.emplace_back(0, 0, nullptr);
         return;
     }
     // getting tile transformation bits and removing them from the gid
@@ -122,10 +129,10 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     if (tileset->getTileAnim(id)) {
         m_animated_tiles_pos[gid&mask].index = 0;
         m_animated_tiles_pos[gid&mask].clock.restart();
-        m_animated_tiles_pos[gid&mask].positions.emplace_back(x, y);
+        m_animated_tiles_pos[gid&mask].positions.emplace_back(x/m_tiledmap->getTileSize().x, y/m_tiledmap->getTileSize().y);
     }
     // adding tile data to tiles vector
-    m_tiles.emplace_back(gid , tile_transform);
+    m_tiles.emplace_back(gid , tile_transform, tileset->getTileProperties(id));
     // calculating texture coordnates and creating the quad for drawing
     const auto& tex_coordinates = getTileTexCoo(m_tiles[tile_count]);
     m_vertices[tileset.get()][tile_count*4 + 0] = sf::Vertex(sf::Vector2f(x, y), tex_coordinates[0]);
@@ -141,14 +148,13 @@ auto TileLayer::getTileTexCoo(const TileLayer::Tile& tile) -> std::vector<sf::Ve
 auto TileLayer::getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) -> std::vector<sf::Vector2f> {
     const auto& tileset = m_tiledmap->getTileTileset(gid);
     auto id = gid - tileset->firstgid;
-    auto tx = (id % tileset->columns) * (tileset->tilewidth + tileset->spacing) + tileset->margin;
-    auto ty = (id / tileset->columns) * (tileset->tileheight + tileset->spacing) + tileset->margin;
+    auto texture_rect = tileset->getTileTextureRect(id);
 
     auto res = std::vector<sf::Vector2f>(4);
-    res[0] = sf::Vector2f(tx, ty);
-    res[1] = sf::Vector2f(tx + tileset->tilewidth, ty);
-    res[2] = sf::Vector2f(tx + tileset->tilewidth, ty + tileset->tileheight);
-    res[3] = sf::Vector2f(tx, ty + tileset->tileheight);
+    res[0] = texture_rect.topleft();
+    res[1] = texture_rect.topright();
+    res[2] = texture_rect.bottomright();
+    res[3] = texture_rect.bottomleft();
 
     if (transformation & (std::uint8_t)TileTransformation::VerticalFlip) {
         auto temp = res[0];
@@ -156,7 +162,6 @@ auto TileLayer::getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) ->
         res[3].y = temp.y; res[2].y = temp.y;
     }
     if (transformation & (std::uint8_t)TileTransformation::HorizontalFlip) {
-
         auto temp = res[0];
         res[0].x = res[1].x; res[1].x = temp.x;
         res[3].x = res[0].x; res[2].x = res[1].x;

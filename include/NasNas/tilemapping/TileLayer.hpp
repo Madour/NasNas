@@ -15,25 +15,26 @@
 namespace ns::tm {
 
     enum class TileTransformation : std::uint8_t {
+        None = 0x0,
         HorizontalFlip = 0x8,
         VerticalFlip = 0x4,
         DiagonalFlip = 0x2,
         Rotation90 = HorizontalFlip | DiagonalFlip,
         Rotation180 = HorizontalFlip | VerticalFlip,
-        Rotation270 = VerticalFlip | DiagonalFlip,
-        None = 0x0
+        Rotation270 = VerticalFlip | DiagonalFlip
     };
 
 
     class TileLayer : public Layer {
 
         struct Tile {
-            Tile(std::uint32_t tile_gid, std::uint8_t tile_flip) {
-                gid = tile_gid;
-                flip = tile_flip;
-            }
-            std::uint32_t gid;
-            std::uint8_t flip;
+        public:
+            Tile(std::uint32_t tile_gid, std::uint8_t tile_flip, const PropertiesContainer* props) :
+            gid(tile_gid), flip(tile_flip), properties(props)
+            {}
+            const PropertiesContainer* properties;
+            const std::uint32_t gid;
+            const std::uint8_t flip;
         };
 
         struct AnimatedTileInfo {
@@ -45,6 +46,8 @@ namespace ns::tm {
     public:
         TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
+        auto getTile(int x, int y) -> const Tile&;
+        auto getTile(sf::Vector2i pos) -> const Tile&;
         auto getGlobalBounds() -> ns::FloatRect override;
 
         void update();

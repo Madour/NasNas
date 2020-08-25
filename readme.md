@@ -46,16 +46,14 @@ as a third party tiled map loader.
  - [x] Convenient console Logger
  - [x] Global app configuration settings
  - [x] Text and bitmap fonts
- 
-##### In progress :
  - [x] Tiled map loader (.tmx)
 
 ##### To do :
  - [ ] Transitions
  - [ ] Menus and UI
+ - [ ] Particles system
  
 ##### Future :
- - [ ] Particles system
  - [ ] Splash screens
  - [ ] Levels and game events management
  - [ ] In-game command line for debugging
