@@ -174,7 +174,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup color="#00ff26" id="11" name="objects" tintcolor="#0026ff">
+ <objectgroup color="#00ff26" id="11" name="objects">
   <object id="37" x="192" y="176" width="32" height="16">
    <properties>
     <property name="duration" type="float" value="78.5"/>
