@@ -6,6 +6,7 @@
 #pragma once
 
 #include "NasNas/data/Config.hpp"
+#include "NasNas/data/ShaderHolder.hpp"
 
 #include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Layers.hpp"
@@ -16,7 +17,7 @@
 
 namespace ns {
 
-    class App {
+    class App : public ShaderHolder {
     public:
         /**
          * \brief Contructs an App from ns::Config configuration
@@ -208,12 +209,12 @@ namespace ns {
         /**
          * \brief Handles SFML events
          *
-         * Pure virtual method, has to be defined by the user.
-         * `onEvent` will be called each time an SFML event occured.
+         * Virtual method, can be defined by the user.
+         * `onEvent` will be called each time a window event occures.
          *
          * \param event The sf::Event that happened
          */
-        virtual void onEvent(sf::Event event) = 0;
+        virtual void onEvent(sf::Event event);
 
         /**
          * \brief App update method

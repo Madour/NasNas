@@ -81,14 +81,6 @@ void Camera::setLimitsRectangle(const ns::IntRect& rectangle) {
     m_limits = rectangle;
 }
 
-void Camera::setShader(sf::Shader* shader) {
-    m_shader = shader;
-}
-
-void Camera::clearShader() {
-    setShader(nullptr);
-}
-
 auto Camera::getPosition() const -> sf::Vector2f {
     return sf::Vector2f(getLeft(), getTop());
 }
@@ -155,8 +147,5 @@ void Camera::render(sf::RenderTarget& target) {
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
 
-    sf::RenderStates states;
-    states.texture = &m_render_texture.getTexture();
-    states.shader = m_shader;
-    target.draw(m_sprite, states);
+    target.draw(m_sprite, m_shader);
 }

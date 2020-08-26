@@ -120,6 +120,22 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     dbg_txt->setOutlineColor(sf::Color::White);
     this->addDebugText(dbg_txt);
     //-----------------------------------------------------------------------------------
+
+    // setting a shader for fun
+    auto* inverse_shader = new sf::Shader();
+    inverse_shader->loadFromMemory(
+        "uniform sampler2D texture;"
+        "void main()"
+        "{"
+            "vec2 pos = gl_TexCoord[0].xy;"
+            "vec4 col = texture2D(texture, pos);"
+            "vec4 new_col = vec4(1.0-col.r, 1.0-col.g, 1.0-col.b, col.a);"
+            "gl_FragColor = new_col;"
+        "}",
+        sf::Shader::Fragment
+    );
+    this->setShader(inverse_shader);
+    this->toggleShader();
 }
 
 void Game::onEvent(sf::Event event) {
@@ -138,7 +154,7 @@ void Game::onEvent(sf::Event event) {
             if (event.key.code == sf::Keyboard::A) {
                 auto* tr = new ns::CircleOpenTransition(getWindow());
                 tr->start();
-                tr->setOnEndCallback([](){ ns_LOG("Transition ended"); });
+                tr->setOnEndCallback([&](){ toggleShader(); });
             }
             break;
 

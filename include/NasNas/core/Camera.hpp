@@ -6,13 +6,14 @@
 #pragma once
 
 #include "NasNas/data/Rect.hpp"
+#include "NasNas/data/ShaderHolder.hpp"
 #include "NasNas/core/Scene.hpp"
 
 namespace ns {
 
     class AppWindow;
 
-    class Camera : public sf::View {
+    class Camera : public sf::View, public ShaderHolder {
     public:
         /**
          * \brief Construct a Camera object
@@ -156,20 +157,6 @@ namespace ns {
         void setLimitsRectangle(const ns::IntRect& rectangle);
 
         /**
-         * \brief Set the shader to be applied to the Camera when rendering
-         *
-         * \param shader The shader
-         */
-        void setShader(sf::Shader* shader);
-
-        /**
-         * \brief Remove the shader
-         *
-         * Is the same as calling setShader(nullptr)
-         */
-        void clearShader();
-
-        /**
          * \brief Get Camera position in world's coordinates
          *
          * \return Camera position
@@ -251,7 +238,6 @@ namespace ns {
         int m_render_order;                 ///< Camera render order
         bool m_visible;                     ///< Is the Camera content visible ?
         Scene* m_scene;                     ///< Scene looked at (content of the Camera)
-        sf::Shader* m_shader = nullptr;     ///< Shader to be applied when rendering
 
         Drawable* m_reference;              ///< Entity followed by the Camera
         unsigned int m_frames_delay;        ///< Delay when following an entity
