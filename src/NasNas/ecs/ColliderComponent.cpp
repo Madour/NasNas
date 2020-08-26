@@ -119,10 +119,13 @@ ColliderComponent::~ColliderComponent() {
     switch (m_collision_box->type) {
         case Collision::CollisionType::Rectangle:
             delete(dynamic_cast<RectangleCollision*>(m_collision_box));
+            break;
         case Collision::CollisionType::Circle:
             delete(dynamic_cast<CircleCollision*>(m_collision_box));
+            break;
         default:
             delete(m_collision_box);
+            break;
     }
 }
 
