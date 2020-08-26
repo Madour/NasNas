@@ -11,6 +11,7 @@
 #include "NasNas/core/Layers.hpp"
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Window.hpp"
+#include "NasNas/core/Transition.hpp"
 #include "NasNas/core/Debug.hpp"
 
 namespace ns {
