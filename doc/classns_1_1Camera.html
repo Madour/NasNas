@@ -55,6 +55,7 @@ Inheritance diagram for ns::Camera:</div>
  <div class="center">
   <img src="classns_1_1Camera.png" usemap="#ns::Camera_map" alt=""/>
   <map id="ns::Camera_map" name="ns::Camera_map">
+<area href="classns_1_1ShaderHolder.html" alt="ns::ShaderHolder" shape="rect" coords="120,0,230,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -110,12 +111,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const st
 <tr class="memitem:a1a2a46fafafa0c8e266d996e2961daf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#a1a2a46fafafa0c8e266d996e2961daf7">setLimitsRectangle</a> (const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;rectangle)</td></tr>
 <tr class="memdesc:a1a2a46fafafa0c8e266d996e2961daf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets <a class="el" href="classns_1_1Camera.html">Camera</a> move limits.  <a href="#a1a2a46fafafa0c8e266d996e2961daf7">More...</a><br /></td></tr>
 <tr class="separator:a1a2a46fafafa0c8e266d996e2961daf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85e7d1249bf6436809f51ae991cdf2c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#a85e7d1249bf6436809f51ae991cdf2c2">setShader</a> (sf::Shader *shader)</td></tr>
-<tr class="memdesc:a85e7d1249bf6436809f51ae991cdf2c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the shader to be applied to the <a class="el" href="classns_1_1Camera.html">Camera</a> when rendering.  <a href="#a85e7d1249bf6436809f51ae991cdf2c2">More...</a><br /></td></tr>
-<tr class="separator:a85e7d1249bf6436809f51ae991cdf2c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a484e1aa3372ef0deb9efa6e8ff701439"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#a484e1aa3372ef0deb9efa6e8ff701439">clearShader</a> ()</td></tr>
-<tr class="memdesc:a484e1aa3372ef0deb9efa6e8ff701439"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the shader.  <a href="#a484e1aa3372ef0deb9efa6e8ff701439">More...</a><br /></td></tr>
-<tr class="separator:a484e1aa3372ef0deb9efa6e8ff701439"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d03a20d84e02e25f8b046249e49d15"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#af6d03a20d84e02e25f8b046249e49d15">getPosition</a> () const -&gt; sf::Vector2f</td></tr>
 <tr class="memdesc:af6d03a20d84e02e25f8b046249e49d15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1Camera.html">Camera</a> position in world's coordinates.  <a href="#af6d03a20d84e02e25f8b046249e49d15">More...</a><br /></td></tr>
 <tr class="separator:af6d03a20d84e02e25f8b046249e49d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,10 +145,28 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const st
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#ad839d6bc34a00fd12304911b34089247">update</a> ()</td></tr>
 <tr class="memdesc:ad839d6bc34a00fd12304911b34089247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates <a class="el" href="classns_1_1Camera.html">Camera</a> position if following an entity. <br /></td></tr>
 <tr class="separator:ad839d6bc34a00fd12304911b34089247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classns_1_1ShaderHolder"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classns_1_1ShaderHolder')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classns_1_1ShaderHolder.html">ns::ShaderHolder</a></td></tr>
+<tr class="memitem:ac6de954b1a391a424ed8e857a3af22f7 inherit pub_methods_classns_1_1ShaderHolder"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1ShaderHolder.html#ac6de954b1a391a424ed8e857a3af22f7">setShader</a> (sf::Shader *shader)</td></tr>
+<tr class="memdesc:ac6de954b1a391a424ed8e857a3af22f7 inherit pub_methods_classns_1_1ShaderHolder"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the shader to be applied when rendering.  <a href="classns_1_1ShaderHolder.html#ac6de954b1a391a424ed8e857a3af22f7">More...</a><br /></td></tr>
+<tr class="separator:ac6de954b1a391a424ed8e857a3af22f7 inherit pub_methods_classns_1_1ShaderHolder"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a717be9bd27443201ec76e6335ebeda6c inherit pub_methods_classns_1_1ShaderHolder"><td class="memItemLeft" align="right" valign="top"><a id="a717be9bd27443201ec76e6335ebeda6c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1ShaderHolder.html#a717be9bd27443201ec76e6335ebeda6c">toggleShader</a> ()</td></tr>
+<tr class="memdesc:a717be9bd27443201ec76e6335ebeda6c inherit pub_methods_classns_1_1ShaderHolder"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle shader. <br /></td></tr>
+<tr class="separator:a717be9bd27443201ec76e6335ebeda6c inherit pub_methods_classns_1_1ShaderHolder"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af87f3a3b14b7d419fa5d6fb1d8c7be26 inherit pub_methods_classns_1_1ShaderHolder"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1ShaderHolder.html#af87f3a3b14b7d419fa5d6fb1d8c7be26">clearShader</a> ()</td></tr>
+<tr class="memdesc:af87f3a3b14b7d419fa5d6fb1d8c7be26 inherit pub_methods_classns_1_1ShaderHolder"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the shader.  <a href="classns_1_1ShaderHolder.html#af87f3a3b14b7d419fa5d6fb1d8c7be26">More...</a><br /></td></tr>
+<tr class="separator:af87f3a3b14b7d419fa5d6fb1d8c7be26 inherit pub_methods_classns_1_1ShaderHolder"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classns_1_1ShaderHolder"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classns_1_1ShaderHolder')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classns_1_1ShaderHolder.html">ns::ShaderHolder</a></td></tr>
+<tr class="memitem:a03ff44d297867ece4617f11b72c2e31c inherit pro_attribs_classns_1_1ShaderHolder"><td class="memItemLeft" align="right" valign="top"><a id="a03ff44d297867ece4617f11b72c2e31c"></a>
+sf::Shader *&#160;</td><td class="memItemRight" valign="bottom"><b>m_shader</b> = nullptr</td></tr>
+<tr class="separator:a03ff44d297867ece4617f11b72c2e31c inherit pro_attribs_classns_1_1ShaderHolder"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00015">15</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00016">16</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adf797a6e2169d461167d9d3587b292d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adf797a6e2169d461167d9d3587b292d7">&#9670;&nbsp;</a></span>Camera()</h2>
@@ -193,26 +206,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a484e1aa3372ef0deb9efa6e8ff701439"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a484e1aa3372ef0deb9efa6e8ff701439">&#9670;&nbsp;</a></span>clearShader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ns::Camera::clearShader </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Remove the shader. </p>
-<p>Is the same as calling setShader(nullptr) </p>
-
-</div>
-</div>
 <a id="ad63a9c3fae1cbb9ff3cd392df0c0437a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad63a9c3fae1cbb9ff3cd392df0c0437a">&#9670;&nbsp;</a></span>follow()</h2>
 
@@ -814,32 +807,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>New right boundary position </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a85e7d1249bf6436809f51ae991cdf2c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85e7d1249bf6436809f51ae991cdf2c2">&#9670;&nbsp;</a></span>setShader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ns::Camera::setShader </td>
-          <td>(</td>
-          <td class="paramtype">sf::Shader *&#160;</td>
-          <td class="paramname"><em>shader</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the shader to be applied to the <a class="el" href="classns_1_1Camera.html">Camera</a> when rendering. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shader</td><td>The shader </td></tr>
   </table>
   </dd>
 </dl>
