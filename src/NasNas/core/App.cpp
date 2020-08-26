@@ -54,6 +54,8 @@ App::~App() {
     for (auto& dbg_txt: m_debug_texts) {
         delete(dbg_txt);
     }
+    for (auto& transition: Transition::list)
+        delete(transition);
 }
 
 auto App::getTitle() -> std::string& {
@@ -146,7 +148,7 @@ void App::render() {
             cam->render(renderer);
         }
     }
-    for (unsigned int i = 0; i < Transition::list.size(); i++) {
+    for (unsigned int i = 0; i < Transition::list.size(); ++i) {
         auto& tr = Transition::list[i];
         if (tr->hasStarted())
             renderer.draw(*tr);
@@ -227,8 +229,8 @@ void App::run() {
             update();
             for (const auto& cam : m_cameras)
                 cam->update();
-            for (const auto& trans : Transition::list)
-                trans->update();
+            for (unsigned int i = 0; i < Transition::list.size(); ++i)
+                Transition::list[i]->update();
         }
         // rendering drawables and displaying window
         m_window.clear(m_window.getClearColor());
