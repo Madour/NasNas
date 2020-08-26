@@ -126,12 +126,17 @@ void App::storeInputs(sf::Event event) {
     if (event.type == sf::Event::KeyReleased)
         if (std::find(m_inputs.begin(), m_inputs.end(), event.key.code) != m_inputs.end())
             m_inputs.erase(std::find(m_inputs.begin(), m_inputs.end(), event.key.code));
+}
 
+void App::onEvent(sf::Event event) {
+    if (event.type == sf::Event::Closed)
+        m_window.close();
 }
 
 void App::render() {
     // drawing Camera contents on App view
     m_window.setView(m_window.getAppView());
+
     sf::RenderTexture renderer;
     renderer.create((unsigned int)m_window.getAppView().getSize().x, (unsigned int)m_window.getAppView().getSize().y);
     renderer.clear(sf::Color::Transparent);
@@ -141,16 +146,15 @@ void App::render() {
             cam->render(renderer);
         }
     }
-    renderer.display();
-    m_window.draw(sf::Sprite(renderer.getTexture()));
-
     for (unsigned int i = 0; i < Transition::list.size(); i++) {
         auto& tr = Transition::list[i];
         if (tr->hasStarted())
-            m_window.draw(*tr);
+            renderer.draw(*tr);
         if (tr->hasEnded())
             Transition::list.erase(Transition::list.begin() + i--);
     }
+    renderer.display();
+    m_window.draw(sf::Sprite(renderer.getTexture()), m_shader);
 
     // drawing debug texts and rectangles on ScreenView
     m_window.setView(m_window.getScreenView());
