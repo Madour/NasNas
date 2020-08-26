@@ -69,7 +69,8 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Camera ----------------------------------------------------
-    this->game_camera = this->createCamera("game_camera", 0, ns::IntRect(0, 0, 640, 360));
+    auto camera_view = ns::IntRect(0, 0, ns::Config::Window::view_width, ns::Config::Window::view_height);
+    this->game_camera = this->createCamera("game_camera", 0, camera_view);
     this->game_camera->lookAt(this->scene);     // telling the Camera to look at the scene
     this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
     this->game_camera->setFramesDelay(10);      // the Camera will have 10 frames delay over the player
@@ -134,6 +135,11 @@ void Game::onEvent(sf::Event event) {
                 this->getWindow().close();
             if (event.key.code == sf::Keyboard::F1)
                 ns::Config::debug = !ns::Config::debug;
+            if (event.key.code == sf::Keyboard::A) {
+                auto* tr = new ns::CircleOpenTransition(getWindow());
+                tr->start();
+                tr->setOnEndCallback([](){ ns_LOG("Transition ended"); });
+            }
             break;
 
         default:

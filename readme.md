@@ -47,9 +47,11 @@ as a third party tiled map loader.
  - [x] Global app configuration settings
  - [x] Text and bitmap fonts
  - [x] Tiled map loader (.tmx)
+ 
+##### In progress :
+ - [ ] Transitions
 
 ##### To do :
- - [ ] Transitions
  - [ ] Menus and UI
  - [ ] Particles system
  
@@ -99,7 +101,7 @@ int main() {
 }
 ```
 
-Please check the [example game](https://github.com/Madour/NasNas/tree/master/example) source code
+Please check the [example](https://github.com/Madour/NasNas/tree/master/example) source code
 for a more complete overview of what you can do with the framework.
 
 Documentation (work in progress) can be found [here](https://madour.github.io/NasNas/doc).

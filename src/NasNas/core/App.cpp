@@ -132,11 +132,24 @@ void App::storeInputs(sf::Event event) {
 void App::render() {
     // drawing Camera contents on App view
     m_window.setView(m_window.getAppView());
+    sf::RenderTexture renderer;
+    renderer.create((unsigned int)m_window.getAppView().getSize().x, (unsigned int)m_window.getAppView().getSize().y);
+    renderer.clear(sf::Color::Transparent);
     // for each camera, if it has a scene and is visible, render the content
     for (Camera*& cam: m_cameras) {
         if (cam->hasScene() && cam->isVisible()) {
-            cam->render(m_window);
+            cam->render(renderer);
         }
+    }
+    renderer.display();
+    m_window.draw(sf::Sprite(renderer.getTexture()));
+
+    for (unsigned int i = 0; i < Transition::list.size(); i++) {
+        auto& tr = Transition::list[i];
+        if (tr->hasStarted())
+            m_window.draw(*tr);
+        if (tr->hasEnded())
+            Transition::list.erase(Transition::list.begin() + i--);
     }
 
     // drawing debug texts and rectangles on ScreenView
@@ -208,8 +221,10 @@ void App::run() {
         while (current_slice >= slice_time) {
             current_slice -= slice_time;
             update();
-            for (Camera*& cam: m_cameras)
+            for (const auto& cam : m_cameras)
                 cam->update();
+            for (const auto& trans : Transition::list)
+                trans->update();
         }
         // rendering drawables and displaying window
         m_window.clear(m_window.getClearColor());
