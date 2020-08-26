@@ -103,7 +103,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     //------------ Adding DebugTexts to the App -----------------------------------------
     // adding a DebugText by using addDebugText method
     this->addDebugText<int>(&this->frame_counter, "frame counter:", {10, 10});
-    this->addDebugText<sf::Vector2f>([&](){return player->getPosition();}, "position:", {10, 50}, sf::Color::Green);
+    this->addDebugText<int>([&](){return ns::Transition::list.size();}, "nb of transitions:", {10, 50}, sf::Color::Green);
 
     // you can change debug text global properties by using DebugTextInterface
     // (will be applied to ALL debug texts created afterwards)
@@ -114,7 +114,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
 
     // add DebugText by creating manually a DebugText object, changing its properties and adding it to the app;
     // the app will delete automatically the debug texts, so don't worry about memory
-    auto* dbg_txt = new ns::DebugText<float, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getY, "Y position:", {500, 10});
+    auto* dbg_txt = new ns::DebugText<sf::Vector2f, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {500, 10});
     dbg_txt->setFillColor(sf::Color::Black);
     dbg_txt->setOutlineThickness(1);
     dbg_txt->setOutlineColor(sf::Color::White);
@@ -154,7 +154,15 @@ void Game::onEvent(sf::Event event) {
             if (event.key.code == sf::Keyboard::A) {
                 auto* tr = new ns::CircleOpenTransition(getWindow());
                 tr->start();
-                tr->setOnEndCallback([&](){ toggleShader(); });
+            }
+            if (event.key.code == sf::Keyboard::Z) {
+                auto* tr = new ns::CircleCloseTransition(getWindow());
+                tr->start();
+                tr->setOnEndCallback([&](){
+                    auto* next = new ns::CircleOpenTransition(getWindow());
+                    next->start();
+                    toggleShader();
+                });
             }
             break;
 

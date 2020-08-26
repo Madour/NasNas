@@ -6,12 +6,12 @@
 
 using namespace ns;
 
-std::vector<std::unique_ptr<Transition>> Transition::list;
+std::vector<Transition*> Transition::list;
 
 Transition::Transition(AppWindow& window) :
 m_window(&window),
 m_end_callback([](){}) {
-    Transition::list.push_back(std::unique_ptr<Transition>(this));
+    Transition::list.push_back(this);
     m_render_texture.create(
         (unsigned int)m_window->getAppView().getSize().x,
         (unsigned int)m_window->getAppView().getSize().y
@@ -46,7 +46,6 @@ void Transition::update() {
     onUpdate();
     if (m_ended)
         m_end_callback();
-
     m_render_texture.clear(sf::Color::Transparent);
     for (const auto& drawable : m_drawables)
         m_render_texture.draw(*drawable, sf::BlendNone);
@@ -59,16 +58,39 @@ void Transition::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 
 CircleOpenTransition::CircleOpenTransition(AppWindow& window) : Transition(window) {
+    m_rectangle.setSize(window.getAppView().getSize());
+    m_rectangle.setFillColor(sf::Color::Black);
+    addShape(m_rectangle);
+
     m_circle.setRadius(1);
     m_circle.setOrigin(1, 1);
     m_circle.setPosition(window.getAppView().getCenter().x, window.getAppView().getCenter().y);
-    m_circle.setFillColor(sf::Color::Black);
+    m_circle.setFillColor(sf::Color::Transparent);
     addShape(m_circle);
 }
 
 void CircleOpenTransition::onUpdate() {
+    m_circle.scale(1.1f, 1.1f);
     if (m_circle.getGlobalBounds().left < -50 && m_circle.getGlobalBounds().top < -50)
         end();
-    else
-        m_circle.scale(1.1f, 1.1f);
+}
+
+
+CircleCloseTransition::CircleCloseTransition(AppWindow& window) : Transition(window) {
+    m_rectangle.setSize(window.getAppView().getSize());
+    m_rectangle.setFillColor(sf::Color::Black);
+    addShape(m_rectangle);
+
+    m_circle.setRadius(1);
+    m_circle.setOrigin(1, 1);
+    m_circle.setScale({window.getAppView().getSize().x + 50, window.getAppView().getSize().x + 50});
+    m_circle.setPosition(window.getAppView().getCenter().x, window.getAppView().getCenter().y);
+    m_circle.setFillColor(sf::Color::Transparent);
+    addShape(m_circle);
+}
+
+void CircleCloseTransition::onUpdate() {
+    m_circle.scale(0.9f, 0.9f);
+    if (m_circle.getGlobalBounds().width <= 2)
+        end();
 }

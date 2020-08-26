@@ -12,7 +12,7 @@ namespace ns {
 
     class Transition : public sf::Drawable {
     public:
-        static std::vector<std::unique_ptr<Transition>> list;
+        static std::vector<Transition*> list;
 
         explicit Transition(AppWindow& window);
         void start();
@@ -47,6 +47,16 @@ namespace ns {
         void onUpdate() override;
     private:
         sf::CircleShape m_circle;
+        sf::RectangleShape m_rectangle;
+    };
+
+    class CircleCloseTransition : public Transition {
+    public:
+        explicit CircleCloseTransition(AppWindow& window);
+        void onUpdate() override;
+    private:
+        sf::CircleShape m_circle;
+        sf::RectangleShape m_rectangle;
     };
 
 }
