@@ -110,6 +110,8 @@ namespace ns {
          */
         auto getGlyph(char character) -> const BitmapGlyph&;
 
+        auto computeStringSize(const std::string& string) -> sf::Vector2i;
+
     private:
         const sf::Texture* m_texture;
         const sf::Vector2u m_glyph_size;
@@ -134,19 +136,13 @@ namespace ns {
         explicit BitmapText(const std::string& text);
 
         /**
-         * \brief Creates a BitmapText
-         *
-         * \param text String to display
-         * \param font Shared pointer to BitmapFont to use
-         */
-        BitmapText(const std::string& text, const std::shared_ptr<BitmapFont>& font);
-
-        /**
          * \brief Set a the string to be displayed
          *
          * \param string String to write
          */
         void setString(const std::string& string);
+
+        auto getFont() -> std::shared_ptr<BitmapFont>&;
 
         /**
          * \brief Set the BitmapFont to use

@@ -69,20 +69,27 @@ auto BitmapFont::getGlyph(char character) -> const BitmapGlyph& {
     exit(-1);
 }
 
+auto BitmapFont::computeStringSize(const std::string& string) -> sf::Vector2i {
+    sf::Vector2i result = {0, (int)m_glyph_size.y};
+    for (const auto character : string) {
+        result.x += getGlyph(character).advance;
+    }
+    return result;
+}
+
 
 BitmapText::BitmapText(const std::string& text) {
     m_string = text;
     m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
 }
 
-BitmapText::BitmapText(const std::string& text, const std::shared_ptr<BitmapFont>& font) :
-BitmapText(text) {
-    setFont(font);
-}
-
 void BitmapText::setString(const std::string &string) {
     m_string = string;
     refresh();
+}
+
+auto BitmapText::getFont() -> std::shared_ptr<BitmapFont>& {
+    return m_font;
 }
 
 void BitmapText::setFont(const std::shared_ptr<BitmapFont>& font) {

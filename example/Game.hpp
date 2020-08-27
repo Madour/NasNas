@@ -24,6 +24,7 @@ private:
     ns::tm::TiledMap tiled_map;
     int frame_counter = 0;
 
+    std::shared_ptr<ns::TextBox> textbox;
     sf::Shader* black_white_shader;
     sf::Shader* palette_shader;
 };

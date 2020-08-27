@@ -48,8 +48,10 @@ for tile based games. Just like the other modules, this one is optional too.
  - [x] Debug text display in-game
  - [x] Convenient console Logger
 
-##### To do :
+##### In Progress:
  - [ ] Menus and UI
+
+##### To do :
  - [ ] Particles system
  
 ##### Future :

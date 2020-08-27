@@ -61,6 +61,10 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     auto bmp_text = std::make_shared<ns::BitmapText>("PRESS E TO TOGGLE SHADER \nPRESS R TO RUN SHADER TRANSITION\nPRESS T TO RUN CIRCLE TRANSITION");
     bmp_text->setFont(bmp_font);
     bmp_text->setPosition(200, 50);
+    textbox = std::make_shared<ns::TextBox>("TEXTBOX CAN DYNAMICALLY GENERATE LINE BREAKS DEPENDING ON ITS WIDTH");
+    textbox->setFont(bmp_font);
+    textbox->setMaxWidth(100);
+    textbox->setPosition(220, 100);
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Scene and its Layers --------------------------------------
@@ -100,6 +104,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
 
     // adding the BitmapText to the layer
     this->scene->getLayer("texts")->add(bmp_text);
+    this->scene->getLayer("texts")->add(textbox);
     //-----------------------------------------------------------------------------------
 
     //------------ Adding DebugTexts to the App -----------------------------------------
@@ -217,7 +222,7 @@ void Game::onEvent(sf::Event event) {
 
 void Game::update() {
     this->frame_counter++;
-
+    textbox->update();
     // moving the octogons randomly
     for (const auto& shape: this->shapes) {
         shape->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
