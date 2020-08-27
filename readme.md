@@ -38,7 +38,7 @@ for tile based games. Just like the other modules, this one is optional too.
 
 ##### Implemented :
  - [x] Scene and Layers system
- - [x] Cameras
+ - [x] Cameras and Shaders
  - [x] Automatic resource loader and  manager system
  - [x] Entities and components (animated sprites, shapes, physics, inputs, collider) 
  - [x] Tiled map loader (.tmx)

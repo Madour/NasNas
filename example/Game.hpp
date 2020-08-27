@@ -23,4 +23,7 @@ private:
     std::vector<std::shared_ptr<sf::Shape>> shapes;
     ns::tm::TiledMap tiled_map;
     int frame_counter = 0;
+
+    sf::Shader* black_white_shader;
+    sf::Shader* palette_shader;
 };

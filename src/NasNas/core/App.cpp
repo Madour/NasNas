@@ -149,11 +149,13 @@ void App::render() {
         }
     }
     for (unsigned int i = 0; i < Transition::list.size(); ++i) {
-        auto& tr = Transition::list[i];
+        auto tr = Transition::list[i];
         if (tr->hasStarted())
             renderer.draw(*tr);
-        if (tr->hasEnded())
+        if (tr->hasEnded()) {
             Transition::list.erase(Transition::list.begin() + i--);
+            delete(tr);
+        }
     }
     renderer.display();
     m_window.draw(sf::Sprite(renderer.getTexture()), getShader());

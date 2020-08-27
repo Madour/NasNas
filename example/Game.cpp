@@ -124,7 +124,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     // setting a shader for fun
-    auto* black_white_shader = new sf::Shader();
+    black_white_shader = new sf::Shader();
     black_white_shader->loadFromMemory(
         "uniform sampler2D texture;"
         "void main()"
@@ -148,8 +148,8 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     this->game_camera->setShader(black_white_shader);
     this->game_camera->toggleShader();
 
-    auto* pallete_shader = new sf::Shader();
-    pallete_shader->loadFromMemory(
+    palette_shader = new sf::Shader();
+    palette_shader->loadFromMemory(
         "uniform sampler2D texture;"
         "uniform float treshold;"
         "void main()"
@@ -169,8 +169,8 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
         "}",
         sf::Shader::Fragment
     );
-    pallete_shader->setUniform("treshold", 0.25f);
-    this->setShader(pallete_shader);
+    palette_shader->setUniform("treshold", 0.25f);
+    this->setShader(palette_shader);
     toggleShader();
 }
 
@@ -240,4 +240,7 @@ void Game::update() {
     // this->scene->getLayer("shapes")->ySort();
 }
 
-Game::~Game() = default;
+Game::~Game() {
+    delete(black_white_shader);
+    delete(palette_shader);
+};

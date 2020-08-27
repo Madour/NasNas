@@ -22,6 +22,7 @@ endif()
 set(NASNAS_BUILD_ECS            TRUE)
 set(NASNAS_BUILD_RESLIB         TRUE)
 set(NASNAS_BUILD_TILEMAPPING    TRUE)
+set(NASNAS_BUILD_UI             TRUE)
 
 include(cmake/NasNas.cmake)
 
