@@ -33,6 +33,7 @@ add_executable( NasNas_demo
     example/Game.cpp example/Game.hpp
     example/Wall.cpp example/Wall.hpp
     example/Player.cpp example/Player.hpp
+    example/ShaderTransition.cpp example/ShaderTransition.hpp
 )
 add_library(NasNas_static STATIC ${NasNas_Src} ${NasNas_Inc})
 add_library(NasNas_shared SHARED ${NasNas_Src} ${NasNas_Inc})

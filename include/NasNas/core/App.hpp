@@ -80,14 +80,14 @@ namespace ns {
          */
         void run();
 
-    protected:
-
         /**
-         * \brief Get the AppWindow
-         *
-         * \return Reference to the AppWindow
-         */
+             * \brief Get the AppWindow
+             *
+             * \return Reference to the AppWindow
+             */
         auto getWindow() -> AppWindow&;
+
+    protected:
 
         /**
          * \brief Creates a Scene object and returns a pointer to it

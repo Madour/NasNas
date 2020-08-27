@@ -29,8 +29,7 @@ a very elegant way. This module is optional, you can use your own resource manag
 - ***ECS*** is a basic and easy to use Entity Component System created for NasNas. You can also use a third party
  ECS if you want.
 - ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
-for tile based games. Just like the other modules, this one is optional too, you can use tmxlite for example
-as a third party tiled map loader.
+for tile based games. Just like the other modules, this one is optional too.
 - More modules will be developed in the future !
 
 # 
@@ -38,18 +37,16 @@ as a third party tiled map loader.
 ### Features
 
 ##### Implemented :
- - [x] Automatic resource loader and  manager system
  - [x] Scene and Layers system
  - [x] Cameras
- - [x] Entities and components (animated sprites, shapes, physics, inputs) 
+ - [x] Automatic resource loader and  manager system
+ - [x] Entities and components (animated sprites, shapes, physics, inputs, collider) 
+ - [x] Tiled map loader (.tmx)
+ - [x] Text and bitmap fonts
+ - [x] Transitions
+ - [x] Global app configuration settings
  - [x] Debug text display in-game
  - [x] Convenient console Logger
- - [x] Global app configuration settings
- - [x] Text and bitmap fonts
- - [x] Tiled map loader (.tmx)
- 
-##### In progress :
- - [ ] Transitions
 
 ##### To do :
  - [ ] Menus and UI

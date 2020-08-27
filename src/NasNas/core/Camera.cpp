@@ -147,5 +147,5 @@ void Camera::render(sf::RenderTarget& target) {
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
 
-    target.draw(m_sprite, m_shader);
+    target.draw(m_sprite, getShader());
 }

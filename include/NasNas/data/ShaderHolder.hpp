@@ -18,6 +18,12 @@ namespace ns {
         void setShader(sf::Shader* shader);
 
         /**
+         * \brief Get the current Shader
+         * \return Pointer to the current Shader
+         */
+        auto getShader() -> sf::Shader*;
+
+        /**
          * \brief Toggle shader
          */
         void toggleShader();
@@ -29,10 +35,8 @@ namespace ns {
          */
         void clearShader();
 
-    protected:
-        sf::Shader* m_shader = nullptr;
-
     private:
+        sf::Shader* m_shader = nullptr;
         sf::Shader* m_saved_shared = nullptr;
     };
 

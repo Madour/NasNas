@@ -9,7 +9,7 @@ set(
         ../src/NasNas/data/Arial.cpp
         ../src/NasNas/data/Maths.cpp
         ../src/NasNas/data/Shapes.cpp
-        ../src/NasNas/data/Shaderholder.cpp
+        ../src/NasNas/data/ShaderHolder.cpp
 
 )
 
@@ -25,6 +25,6 @@ set(
         ../include/NasNas/data/Rect.hpp
         ../include/NasNas/data/Maths.hpp
         ../include/NasNas/data/Shapes.hpp
-        ../include/NasNas/data/Shaderholder.hpp
+        ../include/NasNas/data/ShaderHolder.hpp
 
 )
