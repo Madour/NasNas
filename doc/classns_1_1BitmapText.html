@@ -61,6 +61,7 @@ Inheritance diagram for ns::BitmapText:</div>
   <img src="classns_1_1BitmapText.png" usemap="#ns::BitmapText_map" alt=""/>
   <map id="ns::BitmapText_map" name="ns::BitmapText_map">
 <area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="0,56,91,80"/>
+<area href="classns_1_1TextBox.html" alt="ns::TextBox" shape="rect" coords="0,168,91,192"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -69,12 +70,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8473ac001b8b682abb3f38c865288dc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a8473ac001b8b682abb3f38c865288dc2">BitmapText</a> (const std::string &amp;text)</td></tr>
 <tr class="memdesc:a8473ac001b8b682abb3f38c865288dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a>.  <a href="#a8473ac001b8b682abb3f38c865288dc2">More...</a><br /></td></tr>
 <tr class="separator:a8473ac001b8b682abb3f38c865288dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a897e7bce8211536556b28046de483485"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a897e7bce8211536556b28046de483485">BitmapText</a> (const std::string &amp;text, const std::shared_ptr&lt; <a class="el" href="classns_1_1BitmapFont.html">BitmapFont</a> &gt; &amp;font)</td></tr>
-<tr class="memdesc:a897e7bce8211536556b28046de483485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a>.  <a href="#a897e7bce8211536556b28046de483485">More...</a><br /></td></tr>
-<tr class="separator:a897e7bce8211536556b28046de483485"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425782dd1e817d93eb024b700d90d5cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a425782dd1e817d93eb024b700d90d5cd">setString</a> (const std::string &amp;string)</td></tr>
 <tr class="memdesc:a425782dd1e817d93eb024b700d90d5cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a the string to be displayed.  <a href="#a425782dd1e817d93eb024b700d90d5cd">More...</a><br /></td></tr>
 <tr class="separator:a425782dd1e817d93eb024b700d90d5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26528ab72b0582ea44e5c53da03ef7e5"><td class="memItemLeft" align="right" valign="top"><a id="a26528ab72b0582ea44e5c53da03ef7e5"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getFont</b> () -&gt; std::shared_ptr&lt; <a class="el" href="classns_1_1BitmapFont.html">BitmapFont</a> &gt; &amp;</td></tr>
+<tr class="separator:a26528ab72b0582ea44e5c53da03ef7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57082dd002513d43695d6d6759d40a01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a57082dd002513d43695d6d6759d40a01">setFont</a> (const std::shared_ptr&lt; <a class="el" href="classns_1_1BitmapFont.html">BitmapFont</a> &gt; &amp;font)</td></tr>
 <tr class="memdesc:a57082dd002513d43695d6d6759d40a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> to use.  <a href="#a57082dd002513d43695d6d6759d40a01">More...</a><br /></td></tr>
 <tr class="separator:a57082dd002513d43695d6d6759d40a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,10 +110,10 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a> is a <a class="el" href="classns_1_1Drawable.html">Drawable</a> that uses a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> to display text. </p>
 
-<p class="definition">Definition at line <a class="el" href="BitmapText_8hpp_source.html#l00124">124</a> of file <a class="el" href="BitmapText_8hpp_source.html">BitmapText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BitmapText_8hpp_source.html#l00126">126</a> of file <a class="el" href="BitmapText_8hpp_source.html">BitmapText.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8473ac001b8b682abb3f38c865288dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8473ac001b8b682abb3f38c865288dc2">&#9670;&nbsp;</a></span>BitmapText() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8473ac001b8b682abb3f38c865288dc2">&#9670;&nbsp;</a></span>BitmapText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,43 +141,6 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">text</td><td>String to display </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a897e7bce8211536556b28046de483485"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a897e7bce8211536556b28046de483485">&#9670;&nbsp;</a></span>BitmapText() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ns::BitmapText::BitmapText </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classns_1_1BitmapFont.html">BitmapFont</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>font</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>String to display </td></tr>
-    <tr><td class="paramname">font</td><td><a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> to use </td></tr>
   </table>
   </dd>
 </dl>
