@@ -137,7 +137,7 @@ namespace ns {
          * \brief Creates a BitmapText
          *
          * \param text String to display
-         * \param font BitmapFont to use
+         * \param font Shared pointer to BitmapFont to use
          */
         BitmapText(const std::string& text, const std::shared_ptr<BitmapFont>& font);
 

@@ -22,6 +22,10 @@
 #include "NasNas/reslib/ResourceManager.hpp"
 #endif
 
+#ifdef NS_UI
+#include "NasNas/ui/TextBox.hpp"
+#endif
+
 #include "NasNas/core/App.hpp"
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Scene.hpp"
