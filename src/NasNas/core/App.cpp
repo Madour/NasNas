@@ -156,7 +156,7 @@ void App::render() {
             Transition::list.erase(Transition::list.begin() + i--);
     }
     renderer.display();
-    m_window.draw(sf::Sprite(renderer.getTexture()), m_shader);
+    m_window.draw(sf::Sprite(renderer.getTexture()), getShader());
 
     // drawing debug texts and rectangles on ScreenView
     m_window.setView(m_window.getScreenView());

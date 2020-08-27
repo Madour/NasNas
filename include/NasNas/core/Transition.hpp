@@ -6,15 +6,16 @@
 
 #include <functional>
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/Window.hpp"
+#include "NasNas/data/Maths.hpp"
+#include "NasNas/data/AppComponent.hpp"
 
 namespace ns {
 
-    class Transition : public sf::Drawable {
+    class Transition : public AppComponent, public sf::Drawable {
     public:
         static std::vector<Transition*> list;
 
-        explicit Transition(AppWindow& window);
+        Transition();
         void start();
         void end();
 
@@ -37,26 +38,35 @@ namespace ns {
         std::vector<const sf::Drawable*> m_drawables;
         std::function<void()> m_end_callback;
 
-        AppWindow* m_window;
         sf::RenderTexture m_render_texture;
     };
 
-    class CircleOpenTransition : public Transition {
-    public:
-        explicit CircleOpenTransition(AppWindow& window);
-        void onUpdate() override;
-    private:
-        sf::CircleShape m_circle;
-        sf::RectangleShape m_rectangle;
-    };
+    namespace transition {
+        class CircleOpen : public Transition {
+        public:
+            explicit CircleOpen(int duration_ms=1000);
+            void setDuration(int duration_ms);
+            void onUpdate() override;
+        private:
+            int m_duration_ms;
+            float m_limit;
+            float m_scale_factor;
+            sf::CircleShape m_circle;
+            sf::RectangleShape m_rectangle;
+        };
 
-    class CircleCloseTransition : public Transition {
-    public:
-        explicit CircleCloseTransition(AppWindow& window);
-        void onUpdate() override;
-    private:
-        sf::CircleShape m_circle;
-        sf::RectangleShape m_rectangle;
-    };
+        class CircleClose : public Transition {
+        public:
+            explicit CircleClose(int duration_ms=1000);
+            void setDuration(int duration_ms);
+            void onUpdate() override;
+        private:
+            int m_duration_ms;
+            float m_scale_factor;
+            sf::CircleShape m_circle;
+            sf::RectangleShape m_rectangle;
+        };
+    }
+
 
 }

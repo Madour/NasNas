@@ -6,6 +6,7 @@
 
 #include "Player.hpp"
 #include "Wall.hpp"
+#include "ShaderTransition.hpp"
 
 Game::Game() :
 ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
@@ -57,7 +58,8 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
             std::unordered_map<char, int>({{'I', 7}, {'L', 7}})
     );
     // creating a BitmapText using the font created above
-    auto bmp_text = std::make_shared<ns::BitmapText>("THIS IS A BITMAP TEXT CREATED FROM PNG FONT", bmp_font);
+    auto bmp_text = std::make_shared<ns::BitmapText>("PRESS E TO TOGGLE SHADER \nPRESS R TO RUN SHADER TRANSITION\nPRESS T TO RUN CIRCLE TRANSITION");
+    bmp_text->setFont(bmp_font);
     bmp_text->setPosition(200, 50);
     //-----------------------------------------------------------------------------------
 
@@ -122,20 +124,54 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     // setting a shader for fun
-    auto* inverse_shader = new sf::Shader();
-    inverse_shader->loadFromMemory(
+    auto* black_white_shader = new sf::Shader();
+    black_white_shader->loadFromMemory(
         "uniform sampler2D texture;"
         "void main()"
         "{"
             "vec2 pos = gl_TexCoord[0].xy;"
             "vec4 col = texture2D(texture, pos);"
+            "float l = col.r*0.33f + col.g*0.33f + col.b*0.33f;"
             "vec4 new_col = vec4(1.0-col.r, 1.0-col.g, 1.0-col.b, col.a);"
+            "if (l < 0.25f)"
+                "new_col = vec4(0.15, 0.15, 0.15, 1.);"
+            "else if (l < 0.5f)"
+                "new_col = vec4(0.4, 0.4, 0.4, 1.);"
+            "else if (l < 0.75f)"
+                "new_col = vec4(0.7, 0.7, 0.7, 1.);"
+            "else if (l <= 1.f)"
+                "new_col = vec4(0.99, 0.99, 0.99, 1.);"
             "gl_FragColor = new_col;"
         "}",
         sf::Shader::Fragment
     );
-    this->setShader(inverse_shader);
-    this->toggleShader();
+    this->game_camera->setShader(black_white_shader);
+    this->game_camera->toggleShader();
+
+    auto* pallete_shader = new sf::Shader();
+    pallete_shader->loadFromMemory(
+        "uniform sampler2D texture;"
+        "uniform float treshold;"
+        "void main()"
+        "{"
+            "vec2 pos = gl_TexCoord[0].xy;"
+            "vec4 col = texture2D(texture, pos);"
+            "vec4 new_col = col;"
+            "if (col.r <= treshold)"
+                "new_col = vec4(0.20, 0.35, 0.1, 1.);"
+            "else if (col.r <= treshold + 0.25f)"
+                "new_col = vec4(0.4, 0.7, 0.3, 1.);"
+            "else if (col.r <= treshold + 0.5f)"
+                "new_col = vec4(0.6, 0.8, 0.6, 1.);"
+            "else if (col.r <= treshold + 0.75f)"
+                "new_col = vec4(0.90, 0.99, 0.90, 1.);"
+            "gl_FragColor = new_col;"
+        "}",
+        sf::Shader::Fragment
+    );
+    pallete_shader->setUniform("treshold", 0.25f);
+    this->setShader(pallete_shader);
+    toggleShader();
 }
 
 void Game::onEvent(sf::Event event) {
@@ -151,17 +187,25 @@ void Game::onEvent(sf::Event event) {
                 this->getWindow().close();
             if (event.key.code == sf::Keyboard::F1)
                 ns::Config::debug = !ns::Config::debug;
-            if (event.key.code == sf::Keyboard::A) {
-                auto* tr = new ns::CircleOpenTransition(getWindow());
-                tr->start();
+
+            if (event.key.code == sf::Keyboard::E) {
+                this->game_camera->toggleShader();
+                this->toggleShader();
             }
-            if (event.key.code == sf::Keyboard::Z) {
-                auto* tr = new ns::CircleCloseTransition(getWindow());
+            if (event.key.code == sf::Keyboard::R) {
+                auto* tr = new ShaderOutTransition("treshold");
                 tr->start();
-                tr->setOnEndCallback([&](){
-                    auto* next = new ns::CircleOpenTransition(getWindow());
+                tr->setOnEndCallback([](){
+                    auto* next = new ShaderInTransition("treshold");
                     next->start();
-                    toggleShader();
+                });
+            }
+            if (event.key.code == sf::Keyboard::T) {
+                auto* tr = new ns::transition::CircleClose();
+                tr->start();
+                tr->setOnEndCallback([](){
+                    auto* next = new ns::transition::CircleOpen();
+                    next->start();
                 });
             }
             break;

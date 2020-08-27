@@ -7,7 +7,6 @@
 #include "NasNas/data/Shapes.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
-#include "NasNas/core/Logger.hpp"
 
 namespace ns::tm {
 

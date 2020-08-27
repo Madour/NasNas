@@ -3,22 +3,23 @@
 **/
 
 #include "NasNas/core/Transition.hpp"
+#include "NasNas/core/App.hpp"
+#include "NasNas/data/Config.hpp"
 
 using namespace ns;
 
 std::vector<Transition*> Transition::list;
 
-Transition::Transition(AppWindow& window) :
-m_window(&window),
+Transition::Transition() :
 m_end_callback([](){}) {
-    Transition::list.push_back(this);
     m_render_texture.create(
-        (unsigned int)m_window->getAppView().getSize().x,
-        (unsigned int)m_window->getAppView().getSize().y
+        (unsigned int)app->getWindow().getAppView().getSize().x,
+        (unsigned int)app->getWindow().getAppView().getSize().y
     );
 }
 
 void Transition::start() {
+    Transition::list.push_back(this);
     m_started = true;
 }
 
@@ -56,41 +57,69 @@ void Transition::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sf::Sprite(m_render_texture.getTexture()));
 }
 
+using namespace ns::transition;
 
-CircleOpenTransition::CircleOpenTransition(AppWindow& window) : Transition(window) {
-    m_rectangle.setSize(window.getAppView().getSize());
+CircleOpen::CircleOpen(int duration_ms) :
+m_duration_ms(duration_ms),
+m_scale_factor(1.f) {
+    auto& c = app->getWindow().getAppView().getCenter();
+    auto& s = app->getWindow().getAppView().getSize();
+
+    m_rectangle.setSize(s);
     m_rectangle.setFillColor(sf::Color::Black);
     addShape(m_rectangle);
 
     m_circle.setRadius(1);
     m_circle.setOrigin(1, 1);
-    m_circle.setPosition(window.getAppView().getCenter().x, window.getAppView().getCenter().y);
+    m_circle.setPosition(c.x, c.y);
     m_circle.setFillColor(sf::Color::Transparent);
     addShape(m_circle);
+
+    m_limit = distance(c, sf::Vector2f(c.x - s.x/2, c.y + s.y/2));
+
+    setDuration(m_duration_ms);
 }
 
-void CircleOpenTransition::onUpdate() {
-    m_circle.scale(1.1f, 1.1f);
-    if (m_circle.getGlobalBounds().left < -50 && m_circle.getGlobalBounds().top < -50)
+void CircleOpen::setDuration(int duration_ms) {
+    m_duration_ms = duration_ms;
+    m_scale_factor = std::pow(m_limit, 1./(ns::Config::Window::update_rate * m_duration_ms / 1000.));
+}
+
+void CircleOpen::onUpdate() {
+    m_circle.scale(m_scale_factor, m_scale_factor);
+    if (m_circle.getScale().x > m_limit)
         end();
 }
 
 
-CircleCloseTransition::CircleCloseTransition(AppWindow& window) : Transition(window) {
-    m_rectangle.setSize(window.getAppView().getSize());
+CircleClose::CircleClose(int duration_ms) :
+m_duration_ms(duration_ms),
+m_scale_factor(1.f) {
+    auto& c = app->getWindow().getAppView().getCenter();
+    auto& s = app->getWindow().getAppView().getSize();
+
+    m_rectangle.setSize(s);
     m_rectangle.setFillColor(sf::Color::Black);
     addShape(m_rectangle);
 
     m_circle.setRadius(1);
     m_circle.setOrigin(1, 1);
-    m_circle.setScale({window.getAppView().getSize().x + 50, window.getAppView().getSize().x + 50});
-    m_circle.setPosition(window.getAppView().getCenter().x, window.getAppView().getCenter().y);
+    m_circle.setScale({distance(c, sf::Vector2f(c.x - s.x/2, c.y + s.y/2)),
+                       distance(c, sf::Vector2f(c.x - s.x/2, c.y + s.y/2))});
+    m_circle.setPosition(c.x, c.y);
     m_circle.setFillColor(sf::Color::Transparent);
     addShape(m_circle);
+
+    setDuration(m_duration_ms);
 }
 
-void CircleCloseTransition::onUpdate() {
-    m_circle.scale(0.9f, 0.9f);
-    if (m_circle.getGlobalBounds().width <= 2)
+void CircleClose::setDuration(int duration_ms) {
+    m_duration_ms = duration_ms;
+    m_scale_factor = 2.f - (float)std::pow(m_circle.getScale().x, 1./(ns::Config::Window::update_rate * m_duration_ms / 1000.));
+}
+
+void CircleClose::onUpdate() {
+    m_circle.scale(m_scale_factor, m_scale_factor);
+    if (m_circle.getGlobalBounds().width <= 1)
         end();
 }

@@ -10,6 +10,10 @@ void ShaderHolder::setShader(sf::Shader* shader) {
     m_shader = shader;
 }
 
+auto ShaderHolder::getShader() -> sf::Shader* {
+    return m_shader;
+}
+
 void ShaderHolder::toggleShader() {
     if (m_shader) {
         m_saved_shared = m_shader;
