@@ -62,8 +62,8 @@ using namespace ns::transition;
 CircleOpen::CircleOpen(int duration_ms) :
 m_duration_ms(duration_ms),
 m_scale_factor(1.f) {
-    auto& c = app->getWindow().getAppView().getCenter();
-    auto& s = app->getWindow().getAppView().getSize();
+    const auto& c = app->getWindow().getAppView().getCenter();
+    const auto& s = app->getWindow().getAppView().getSize();
 
     m_rectangle.setSize(s);
     m_rectangle.setFillColor(sf::Color::Black);
@@ -82,7 +82,7 @@ m_scale_factor(1.f) {
 
 void CircleOpen::setDuration(int duration_ms) {
     m_duration_ms = duration_ms;
-    m_scale_factor = std::pow(m_limit, 1./(ns::Config::Window::update_rate * m_duration_ms / 1000.));
+    m_scale_factor = (float)std::pow(m_limit, 1./(ns::Config::Window::update_rate * m_duration_ms / 1000.));
 }
 
 void CircleOpen::onUpdate() {
@@ -95,8 +95,8 @@ void CircleOpen::onUpdate() {
 CircleClose::CircleClose(int duration_ms) :
 m_duration_ms(duration_ms),
 m_scale_factor(1.f) {
-    auto& c = app->getWindow().getAppView().getCenter();
-    auto& s = app->getWindow().getAppView().getSize();
+    const auto& c = app->getWindow().getAppView().getCenter();
+    const auto& s = app->getWindow().getAppView().getSize();
 
     m_rectangle.setSize(s);
     m_rectangle.setFillColor(sf::Color::Black);

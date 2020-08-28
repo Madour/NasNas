@@ -135,6 +135,8 @@ namespace ns {
          */
         explicit BitmapText(const std::string& text);
 
+        auto getString() -> const std::string&;
+
         /**
          * \brief Set a the string to be displayed
          *
@@ -192,6 +194,13 @@ namespace ns {
         auto getGlobalBounds() -> ns::FloatRect override;
 
         /**
+         * \brief Set the maximum width of the Text.
+         * Line breaks will be inserted to respect the max width value
+         * \param max_width
+         */
+        virtual void setMaxWidth(int max_width);
+
+        /**
          * \brief Get BitmapText width
          * \return Width
          */
@@ -207,13 +216,19 @@ namespace ns {
          */
         auto getSize() const -> sf::Vector2f;
 
+    protected:
+        auto getProcessedString() -> const std::string&;
+        void processString();
+
     private:
-        void refresh();
+        void updateVertices();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         std::string m_string;
+        std::string m_processed_string;
         std::shared_ptr<BitmapFont> m_font = nullptr;
         sf::Color m_color = sf::Color::White;
 
+        int m_max_width = 0;
         int m_width = 0;
         int m_height = 0;
 
