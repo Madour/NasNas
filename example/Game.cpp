@@ -60,11 +60,14 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     // creating a BitmapText using the font created above
     auto bmp_text = std::make_shared<ns::BitmapText>("PRESS E TO TOGGLE SHADER \nPRESS R TO RUN SHADER TRANSITION\nPRESS T TO RUN CIRCLE TRANSITION");
     bmp_text->setFont(bmp_font);
-    bmp_text->setPosition(200, 50);
-    textbox = std::make_shared<ns::TextBox>("TEXTBOX CAN DYNAMICALLY GENERATE LINE BREAKS DEPENDING ON ITS WIDTH");
+    bmp_text->setPosition(250, 80);
+
+    textbox = std::make_shared<ns::ui::TypedText>("TYPEDTEXT CAN DYNAMICALLY GENERATE LINE BREAKS AND MULTIPLE PAGES DEPENDING ON ITS MAX WIDTH AND MAX LINES");
     textbox->setFont(bmp_font);
-    textbox->setMaxWidth(100);
-    textbox->setPosition(220, 100);
+    textbox->setMaxWidth(200);
+    textbox->setMaxLines(2);
+    textbox->setTypingDelay(5);
+    textbox->setPosition(250, 125);
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Scene and its Layers --------------------------------------
@@ -180,6 +183,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
 }
 
 void Game::onEvent(sf::Event event) {
+    textbox->onEvent(event);
     switch (event.type) {
         case sf::Event::Closed:
             this->getWindow().close();

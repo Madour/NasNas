@@ -40,7 +40,8 @@ m_glyph_size(glyph_size) {
                 int spacing = m_glyph_size.x;
                 if (m_advance_map.count(character) > 0)
                     spacing = m_advance_map[character];
-                m_glyphs[character] = new BitmapGlyph({{x, y}, {(int)m_glyph_size.x, (int)m_glyph_size.y}}, character, spacing);
+                if (m_glyphs.count(character) == 0)
+                    m_glyphs[character] = new BitmapGlyph({{x, y}, {(int)m_glyph_size.x, (int)m_glyph_size.y}}, character, spacing);
             }
             i += 1;
         }
@@ -70,22 +71,35 @@ auto BitmapFont::getGlyph(char character) -> const BitmapGlyph& {
 }
 
 auto BitmapFont::computeStringSize(const std::string& string) -> sf::Vector2i {
-    sf::Vector2i result = {0, (int)m_glyph_size.y};
+    int h = getGlyphSize().y;
+    int w = 0, max_width = 0;
     for (const auto character : string) {
-        result.x += getGlyph(character).advance;
+        if (character == '\n') {
+            h += getGlyphSize().y;
+            max_width = std::max(w, max_width);
+            w = 0;
+            continue;
+        }
+        w += getGlyph(character).advance;
     }
-    return result;
+    max_width = std::max(w, max_width);
+    return {max_width, h};
 }
 
 
 BitmapText::BitmapText(const std::string& text) {
-    m_string = text;
     m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
+    setString(text);
+}
+
+auto BitmapText::getString() -> const std::string& {
+    return m_string;
 }
 
 void BitmapText::setString(const std::string &string) {
     m_string = string;
-    refresh();
+    processString();
+    updateVertices();
 }
 
 auto BitmapText::getFont() -> std::shared_ptr<BitmapFont>& {
@@ -94,12 +108,13 @@ auto BitmapText::getFont() -> std::shared_ptr<BitmapFont>& {
 
 void BitmapText::setFont(const std::shared_ptr<BitmapFont>& font) {
     m_font = font;
-    refresh();
+    processString();
+    updateVertices();
 }
 
 void BitmapText::setColor(const sf::Color &color) {
     m_color = color;
-    refresh();
+    updateVertices();
 }
 
 auto BitmapText::getPosition() -> sf::Vector2f {
@@ -118,6 +133,12 @@ auto BitmapText::getGlobalBounds() -> ns::FloatRect {
     return ns::FloatRect(m_transformable.getPosition(), getSize());
 }
 
+void BitmapText::setMaxWidth(int max_width) {
+    m_max_width = max_width;
+    processString();
+    updateVertices();
+}
+
 auto BitmapText::getWidth() const -> int {
     return m_width;
 }
@@ -134,13 +155,50 @@ void BitmapText::move(float offsetx, float offsety) {
     m_transformable.move(offsetx, offsety);
 }
 
-void BitmapText::refresh() {
+auto BitmapText::getProcessedString() -> const std::string& {
+    return m_processed_string;
+}
+
+void BitmapText::processString() {
+    m_processed_string = m_string;
+    if (m_max_width > 0 && m_font != nullptr) {
+        // splitting string into words
+        std::vector<std::string> words;
+        auto str = m_string;
+        auto* word = std::strtok(str.data(), " ");
+        while (word != nullptr) {
+            words.emplace_back(word);
+            word = std::strtok(nullptr, " ");
+        }
+        // inserting new line character when the width exceeds the max width
+        int current_width = 0;
+        for (auto& w : words) {
+            if (current_width + getFont()->computeStringSize(w).x > m_max_width) {
+                current_width = 0;
+                if (w[0] != '\n')
+                    w = std::string("\n").append(w);
+            }
+            current_width += getFont()->computeStringSize(w+" ").x;
+        }
+        // joining the words into the final processed string
+        m_processed_string.clear();
+        for (int i = 0; i < words.size(); ++i) {
+            if ((i+1 < words.size() && words[i+1][0] == '\n') || i+1 == words.size()) {
+                m_processed_string += words[i];
+                continue;
+            }
+            m_processed_string += words[i] + " ";
+        }
+    }
+}
+
+void BitmapText::updateVertices() {
     m_vertices.clear();
     if (m_font != nullptr) {
         float x = 0, y = 0;
         int w = 0, h = m_font->getGlyphSize().y;
         int max_w = 0;
-        for(const auto& character : m_string) {
+        for(const auto& character : m_processed_string) {
             if (character == '\n') {
                 x = 0;
                 y += (float)m_font->getGlyphSize().y;

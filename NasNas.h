@@ -23,7 +23,7 @@
 #endif
 
 #ifdef NS_UI
-#include "NasNas/ui/TextBox.hpp"
+#include "NasNas/ui/TypedText.hpp"
 #endif
 
 #include "NasNas/core/App.hpp"
