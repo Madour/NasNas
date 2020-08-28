@@ -24,6 +24,14 @@ namespace ns {
          */
         App();
 
+        /**
+         * \brief Constructs an App from constructor arguments
+         * \param title App title
+         * \param resolution Resolution of you application
+         * \param scale Resolution * scale = WindowSize
+         * \param fps Desired framerate limit
+         * \param ups Update per second
+         */
         App(const std::string& title, sf::Vector2u resolution,
             unsigned int scale=1,
             int fps=ns::Config::Window::framerate_limit,
