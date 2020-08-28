@@ -24,6 +24,12 @@ namespace ns {
          */
         App();
 
+        App(const std::string& title, sf::Vector2u resolution,
+            unsigned int scale=1,
+            int fps=ns::Config::Window::framerate_limit,
+            int ups=ns::Config::Window::update_rate
+        );
+
         /**
          * \brief Contructs an App from constructor arguments
          *

@@ -9,7 +9,7 @@
 #include "ShaderTransition.hpp"
 
 Game::Game() :
-ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
+ns::App("NasNas++ demo", {640, 360}, 2, 60, 60) {
     //------------ Game Config ----------------------------------------------------------
     // mapping keys inputs
     ns::Config::Inputs::setButtonKey("left", sf::Keyboard::Left);
