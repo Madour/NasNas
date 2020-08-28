@@ -19,18 +19,20 @@ App::App()
 )
 {}
 
+App::App(const std::string &title, sf::Vector2u resolution, unsigned int scale, int fps, int ups) :
+App(title, resolution.x*scale, resolution.y*scale, resolution.x, resolution.y, fps, ups)
+{}
+
 App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps, int ups) {
+    AppComponent::app = this;
+
     ns::Config::Window::title = title;
     ns::Config::Window::width = w_width;
     ns::Config::Window::height = w_height;
+    ns::Config::Window::view_width = v_width == 0 ? w_width : v_width;
+    ns::Config::Window::view_height = v_height == 0 ? w_height : v_height;
     ns::Config::Window::framerate_limit = fps;
     ns::Config::Window::update_rate = ups;
-
-    AppComponent::app = this;
-    if (!v_width) v_width = w_width;
-    if (!v_height) v_height = w_height;
-    ns::Config::Window::view_width = v_width;
-    ns::Config::Window::view_height = v_height;
 
     m_title = title;
     m_desired_fps = fps;
@@ -45,16 +47,13 @@ App::App(const std::string& title, int w_width, int w_height, int v_width, int v
 }
 
 App::~App() {
-    for (auto& scn: m_scenes) {
+    for (auto& scn : m_scenes)
         delete(scn);
-    }
-    for (auto& cam: m_cameras) {
+    for (auto& cam : m_cameras)
         delete(cam);
-    }
-    for (auto& dbg_txt: m_debug_texts) {
+    for (auto& dbg_txt : m_debug_texts)
         delete(dbg_txt);
-    }
-    for (auto& transition: Transition::list)
+    for (auto& transition : Transition::list)
         delete(transition);
 }
 
