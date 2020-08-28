@@ -86,7 +86,7 @@ public:
     Game() : ns::App("My game", 720, 480) {
         ns_LOG("Created a NasNas app !");
     }
-    void onEvent(sf::Event event) override {
+    void onEvent(const sf::Event& event) override {
         if (event.type == sf::Event::Closed)
             getWindow().close();
     }

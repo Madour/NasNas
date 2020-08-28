@@ -182,7 +182,7 @@ ns::App("NasNas++ demo", 1280, 720, 640, 360, 60, 60) {
     toggleShader();
 }
 
-void Game::onEvent(sf::Event event) {
+void Game::onEvent(const sf::Event& event) {
     textbox->onEvent(event);
     switch (event.type) {
         case sf::Event::Closed:
