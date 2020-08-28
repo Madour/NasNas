@@ -44,6 +44,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classns_1_1BitmapText-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ns::BitmapText Class Reference</div>  </div>
@@ -60,8 +61,8 @@ Inheritance diagram for ns::BitmapText:</div>
  <div class="center">
   <img src="classns_1_1BitmapText.png" usemap="#ns::BitmapText_map" alt=""/>
   <map id="ns::BitmapText_map" name="ns::BitmapText_map">
-<area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="0,56,91,80"/>
-<area href="classns_1_1TextBox.html" alt="ns::TextBox" shape="rect" coords="0,168,91,192"/>
+<area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="0,56,105,80"/>
+<area href="classns_1_1ui_1_1TypedText.html" alt="ns::ui::TypedText" shape="rect" coords="0,168,105,192"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -70,6 +71,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8473ac001b8b682abb3f38c865288dc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a8473ac001b8b682abb3f38c865288dc2">BitmapText</a> (const std::string &amp;text)</td></tr>
 <tr class="memdesc:a8473ac001b8b682abb3f38c865288dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a>.  <a href="#a8473ac001b8b682abb3f38c865288dc2">More...</a><br /></td></tr>
 <tr class="separator:a8473ac001b8b682abb3f38c865288dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86f7d38c04892ebaf67e3d5ddfd5866a"><td class="memItemLeft" align="right" valign="top"><a id="a86f7d38c04892ebaf67e3d5ddfd5866a"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getString</b> () -&gt; const std::string &amp;</td></tr>
+<tr class="separator:a86f7d38c04892ebaf67e3d5ddfd5866a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425782dd1e817d93eb024b700d90d5cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a425782dd1e817d93eb024b700d90d5cd">setString</a> (const std::string &amp;string)</td></tr>
 <tr class="memdesc:a425782dd1e817d93eb024b700d90d5cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a the string to be displayed.  <a href="#a425782dd1e817d93eb024b700d90d5cd">More...</a><br /></td></tr>
 <tr class="separator:a425782dd1e817d93eb024b700d90d5cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -97,6 +101,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getFont</b> () -&gt; 
 <tr class="memitem:a7b54e71d8b2dd72bbbba291f21101e59"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a7b54e71d8b2dd72bbbba291f21101e59">getGlobalBounds</a> () -&gt; <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> override</td></tr>
 <tr class="memdesc:a7b54e71d8b2dd72bbbba291f21101e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a> global bounds.  <a href="#a7b54e71d8b2dd72bbbba291f21101e59">More...</a><br /></td></tr>
 <tr class="separator:a7b54e71d8b2dd72bbbba291f21101e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b79a65c491d810e0d4e6d6a2ec07ee6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a5b79a65c491d810e0d4e6d6a2ec07ee6">setMaxWidth</a> (int max_width)</td></tr>
+<tr class="memdesc:a5b79a65c491d810e0d4e6d6a2ec07ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum width of the Text. Line breaks will be inserted to respect the max width value.  <a href="#a5b79a65c491d810e0d4e6d6a2ec07ee6">More...</a><br /></td></tr>
+<tr class="separator:a5b79a65c491d810e0d4e6d6a2ec07ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af23e12900537a3b2d428f0396c455db6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#af23e12900537a3b2d428f0396c455db6">getWidth</a> () const -&gt; int</td></tr>
 <tr class="memdesc:af23e12900537a3b2d428f0396c455db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a> width.  <a href="#af23e12900537a3b2d428f0396c455db6">More...</a><br /></td></tr>
 <tr class="separator:af23e12900537a3b2d428f0396c455db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,6 +113,15 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getFont</b> () -&gt; 
 <tr class="memitem:a6886455f642fbbc33ee0a634b6003790"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a6886455f642fbbc33ee0a634b6003790">getSize</a> () const -&gt; sf::Vector2f</td></tr>
 <tr class="memdesc:a6886455f642fbbc33ee0a634b6003790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a> size.  <a href="#a6886455f642fbbc33ee0a634b6003790">More...</a><br /></td></tr>
 <tr class="separator:a6886455f642fbbc33ee0a634b6003790"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:adc527db4e9e62d2f04186f929b6a0512"><td class="memItemLeft" align="right" valign="top"><a id="adc527db4e9e62d2f04186f929b6a0512"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getProcessedString</b> () -&gt; const std::string &amp;</td></tr>
+<tr class="separator:adc527db4e9e62d2f04186f929b6a0512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a445f34020a5a78d3a430f01b44541477"><td class="memItemLeft" align="right" valign="top"><a id="a445f34020a5a78d3a430f01b44541477"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>processString</b> ()</td></tr>
+<tr class="separator:a445f34020a5a78d3a430f01b44541477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a> is a <a class="el" href="classns_1_1Drawable.html">Drawable</a> that uses a <a class="el" href="classns_1_1BitmapFont.html" title="A font that can be created from a texture. ">BitmapFont</a> to display text. </p>
@@ -354,6 +370,42 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getFont</b> () -&gt; 
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a5b79a65c491d810e0d4e6d6a2ec07ee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b79a65c491d810e0d4e6d6a2ec07ee6">&#9670;&nbsp;</a></span>setMaxWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void ns::BitmapText::setMaxWidth </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_width</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the maximum width of the Text. Line breaks will be inserted to respect the max width value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max_width</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classns_1_1ui_1_1TypedText.html#abce91347434d4abd3a6a35bbc6fcb3ef">ns::ui::TypedText</a>.</p>
 
 </div>
 </div>

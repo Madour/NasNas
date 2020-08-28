@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NasNas: ns::TextBox Class Reference</title>
+<title>NasNas: ns::ui::TypedText Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,46 +38,62 @@ $(function() {
 <div id="main-nav"></div>
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacens.html">ns</a></li><li class="navelem"><a class="el" href="classns_1_1TextBox.html">TextBox</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacens.html">ns</a></li><li class="navelem"><a class="el" href="namespacens_1_1ui.html">ui</a></li><li class="navelem"><a class="el" href="classns_1_1ui_1_1TypedText.html">TypedText</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classns_1_1TextBox-members.html">List of all members</a>  </div>
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="classns_1_1ui_1_1TypedText-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">ns::TextBox Class Reference</div>  </div>
+<div class="title">ns::ui::TypedText Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for ns::TextBox:</div>
+Inheritance diagram for ns::ui::TypedText:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classns_1_1TextBox.png" usemap="#ns::TextBox_map" alt=""/>
-  <map id="ns::TextBox_map" name="ns::TextBox_map">
-<area href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. " alt="ns::BitmapText" shape="rect" coords="0,112,91,136"/>
-<area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="0,56,91,80"/>
+  <img src="classns_1_1ui_1_1TypedText.png" usemap="#ns::ui::TypedText_map" alt=""/>
+  <map id="ns::ui::TypedText_map" name="ns::ui::TypedText_map">
+<area href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. " alt="ns::BitmapText" shape="rect" coords="0,112,105,136"/>
+<area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="0,56,105,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa784507330d4ddef220cc29bcbc50804"><td class="memItemLeft" align="right" valign="top"><a id="aa784507330d4ddef220cc29bcbc50804"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TextBox</b> (const std::string &amp;string)</td></tr>
-<tr class="separator:aa784507330d4ddef220cc29bcbc50804"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b849cfb92d1f340794bd2dc67ec7abe"><td class="memItemLeft" align="right" valign="top"><a id="a5b849cfb92d1f340794bd2dc67ec7abe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setMaxWidth</b> (int width)</td></tr>
-<tr class="separator:a5b849cfb92d1f340794bd2dc67ec7abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92185cd0febe0ab1780f5413947c21ac"><td class="memItemLeft" align="right" valign="top"><a id="a92185cd0febe0ab1780f5413947c21ac"></a>
+<tr class="memitem:ac668621bbc4bb423ef141caff950cff9"><td class="memItemLeft" align="right" valign="top"><a id="ac668621bbc4bb423ef141caff950cff9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TypedText</b> (const std::string &amp;string)</td></tr>
+<tr class="separator:ac668621bbc4bb423ef141caff950cff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abce91347434d4abd3a6a35bbc6fcb3ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1ui_1_1TypedText.html#abce91347434d4abd3a6a35bbc6fcb3ef">setMaxWidth</a> (int max_width) override</td></tr>
+<tr class="memdesc:abce91347434d4abd3a6a35bbc6fcb3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the maximum width of the Text. Line breaks will be inserted to respect the max width value.  <a href="#abce91347434d4abd3a6a35bbc6fcb3ef">More...</a><br /></td></tr>
+<tr class="separator:abce91347434d4abd3a6a35bbc6fcb3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab70be2a0aac24a3d3ce61e37a2fceda2"><td class="memItemLeft" align="right" valign="top"><a id="ab70be2a0aac24a3d3ce61e37a2fceda2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setMaxLines</b> (int lines_nb)</td></tr>
-<tr class="separator:a92185cd0febe0ab1780f5413947c21ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf533b8da67787c00a2a7ba94c6bc403"><td class="memItemLeft" align="right" valign="top"><a id="acf533b8da67787c00a2a7ba94c6bc403"></a>
+<tr class="separator:ab70be2a0aac24a3d3ce61e37a2fceda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbfdbd56d47770e21b1d3b5661ffe091"><td class="memItemLeft" align="right" valign="top"><a id="afbfdbd56d47770e21b1d3b5661ffe091"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTypingDelay</b> (int delay)</td></tr>
+<tr class="separator:afbfdbd56d47770e21b1d3b5661ffe091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf0d4f19404576c1d0c29bd15556170"><td class="memItemLeft" align="right" valign="top"><a id="a1bf0d4f19404576c1d0c29bd15556170"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isWaiting</b> ()</td></tr>
+<tr class="separator:a1bf0d4f19404576c1d0c29bd15556170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae533f60115e3915f0044b08a1c566ade"><td class="memItemLeft" align="right" valign="top"><a id="ae533f60115e3915f0044b08a1c566ade"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasEnded</b> ()</td></tr>
+<tr class="separator:ae533f60115e3915f0044b08a1c566ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf303d30bb978d992f3c406348148f98"><td class="memItemLeft" align="right" valign="top"><a id="adf303d30bb978d992f3c406348148f98"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>onEvent</b> (const sf::Event &amp;event)</td></tr>
+<tr class="separator:adf303d30bb978d992f3c406348148f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93fa19fc6a49b614ae5389f8c7fa01a5"><td class="memItemLeft" align="right" valign="top"><a id="a93fa19fc6a49b614ae5389f8c7fa01a5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
-<tr class="separator:acf533b8da67787c00a2a7ba94c6bc403"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a93fa19fc6a49b614ae5389f8c7fa01a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classns_1_1BitmapText"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classns_1_1BitmapText')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classns_1_1BitmapText.html">ns::BitmapText</a></td></tr>
 <tr class="memitem:a8473ac001b8b682abb3f38c865288dc2 inherit pub_methods_classns_1_1BitmapText"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a8473ac001b8b682abb3f38c865288dc2">BitmapText</a> (const std::string &amp;text)</td></tr>
 <tr class="memdesc:a8473ac001b8b682abb3f38c865288dc2 inherit pub_methods_classns_1_1BitmapText"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a>.  <a href="classns_1_1BitmapText.html#a8473ac001b8b682abb3f38c865288dc2">More...</a><br /></td></tr>
 <tr class="separator:a8473ac001b8b682abb3f38c865288dc2 inherit pub_methods_classns_1_1BitmapText"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86f7d38c04892ebaf67e3d5ddfd5866a inherit pub_methods_classns_1_1BitmapText"><td class="memItemLeft" align="right" valign="top"><a id="a86f7d38c04892ebaf67e3d5ddfd5866a"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getString</b> () -&gt; const std::string &amp;</td></tr>
+<tr class="separator:a86f7d38c04892ebaf67e3d5ddfd5866a inherit pub_methods_classns_1_1BitmapText"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425782dd1e817d93eb024b700d90d5cd inherit pub_methods_classns_1_1BitmapText"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a425782dd1e817d93eb024b700d90d5cd">setString</a> (const std::string &amp;string)</td></tr>
 <tr class="memdesc:a425782dd1e817d93eb024b700d90d5cd inherit pub_methods_classns_1_1BitmapText"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a the string to be displayed.  <a href="classns_1_1BitmapText.html#a425782dd1e817d93eb024b700d90d5cd">More...</a><br /></td></tr>
 <tr class="separator:a425782dd1e817d93eb024b700d90d5cd inherit pub_methods_classns_1_1BitmapText"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,12 +130,62 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getFont</b> () -&gt; 
 <tr class="memitem:a6886455f642fbbc33ee0a634b6003790 inherit pub_methods_classns_1_1BitmapText"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapText.html#a6886455f642fbbc33ee0a634b6003790">getSize</a> () const -&gt; sf::Vector2f</td></tr>
 <tr class="memdesc:a6886455f642fbbc33ee0a634b6003790 inherit pub_methods_classns_1_1BitmapText"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get <a class="el" href="classns_1_1BitmapText.html" title="A BitmapText is a Drawable that uses a BitmapFont to display text. ">BitmapText</a> size.  <a href="classns_1_1BitmapText.html#a6886455f642fbbc33ee0a634b6003790">More...</a><br /></td></tr>
 <tr class="separator:a6886455f642fbbc33ee0a634b6003790 inherit pub_methods_classns_1_1BitmapText"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a855e0e1034584a124018a2deeeb2b55f"><td class="memItemLeft" align="right" valign="top"><a id="a855e0e1034584a124018a2deeeb2b55f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nextPage</b> ()</td></tr>
+<tr class="separator:a855e0e1034584a124018a2deeeb2b55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classns_1_1BitmapText"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classns_1_1BitmapText')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classns_1_1BitmapText.html">ns::BitmapText</a></td></tr>
+<tr class="memitem:adc527db4e9e62d2f04186f929b6a0512 inherit pro_methods_classns_1_1BitmapText"><td class="memItemLeft" align="right" valign="top"><a id="adc527db4e9e62d2f04186f929b6a0512"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getProcessedString</b> () -&gt; const std::string &amp;</td></tr>
+<tr class="separator:adc527db4e9e62d2f04186f929b6a0512 inherit pro_methods_classns_1_1BitmapText"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a445f34020a5a78d3a430f01b44541477 inherit pro_methods_classns_1_1BitmapText"><td class="memItemLeft" align="right" valign="top"><a id="a445f34020a5a78d3a430f01b44541477"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>processString</b> ()</td></tr>
+<tr class="separator:a445f34020a5a78d3a430f01b44541477 inherit pro_methods_classns_1_1BitmapText"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="TextBox_8hpp_source.html#l00012">12</a> of file <a class="el" href="TextBox_8hpp_source.html">TextBox.hpp</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="TextBox_8hpp_source.html">TextBox.hpp</a></li>
+<p class="definition">Definition at line <a class="el" href="TypedText_8hpp_source.html#l00012">12</a> of file <a class="el" href="TypedText_8hpp_source.html">TypedText.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="abce91347434d4abd3a6a35bbc6fcb3ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce91347434d4abd3a6a35bbc6fcb3ef">&#9670;&nbsp;</a></span>setMaxWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ns::ui::TypedText::setMaxWidth </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_width</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the maximum width of the Text. Line breaks will be inserted to respect the max width value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max_width</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classns_1_1BitmapText.html#a5b79a65c491d810e0d4e6d6a2ec07ee6">ns::BitmapText</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li><a class="el" href="TypedText_8hpp_source.html">TypedText.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
