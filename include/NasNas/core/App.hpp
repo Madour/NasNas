@@ -214,7 +214,7 @@ namespace ns {
          *
          * \param event The sf::Event that happened
          */
-        virtual void onEvent(sf::Event event);
+        virtual void onEvent(const sf::Event& event);
 
         /**
          * \brief App update method

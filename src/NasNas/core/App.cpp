@@ -130,7 +130,7 @@ void App::storeInputs(sf::Event event) {
             m_inputs.erase(std::find(m_inputs.begin(), m_inputs.end(), event.key.code));
 }
 
-void App::onEvent(sf::Event event) {
+void App::onEvent(const sf::Event& event) {
     if (event.type == sf::Event::Closed)
         m_window.close();
 }
