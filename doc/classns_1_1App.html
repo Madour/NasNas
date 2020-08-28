@@ -66,6 +66,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a6cab3ce4cb417afbd82f4ad96f1aa4fa">App</a> ()</td></tr>
 <tr class="memdesc:a6cab3ce4cb417afbd82f4ad96f1aa4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructs an <a class="el" href="classns_1_1App.html">App</a> from <a class="el" href="classns_1_1Config.html">ns::Config</a> configuration. <br /></td></tr>
 <tr class="separator:a6cab3ce4cb417afbd82f4ad96f1aa4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b4aee8a2a32359501df326af750c6ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a5b4aee8a2a32359501df326af750c6ec">App</a> (const std::string &amp;title, sf::Vector2u resolution, unsigned int scale=1, int fps=ns::Config::Window::framerate_limit, int ups=ns::Config::Window::update_rate)</td></tr>
+<tr class="memdesc:a5b4aee8a2a32359501df326af750c6ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#a5b4aee8a2a32359501df326af750c6ec">More...</a><br /></td></tr>
+<tr class="separator:a5b4aee8a2a32359501df326af750c6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cef793b5eb2dc3574cf74d912b37ed5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a8cef793b5eb2dc3574cf74d912b37ed5">App</a> (const std::string &amp;title, int w_width, int w_height, int v_width=ns::Config::Window::view_width, int v_height=ns::Config::Window::view_height, int fps=ns::Config::Window::framerate_limit, int ups=ns::Config::Window::update_rate)</td></tr>
 <tr class="memdesc:a8cef793b5eb2dc3574cf74d912b37ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#a8cef793b5eb2dc3574cf74d912b37ed5">More...</a><br /></td></tr>
 <tr class="separator:a8cef793b5eb2dc3574cf74d912b37ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,8 +156,66 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00020">20</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5b4aee8a2a32359501df326af750c6ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b4aee8a2a32359501df326af750c6ec">&#9670;&nbsp;</a></span>App() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ns::App::App </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Vector2u&#160;</td>
+          <td class="paramname"><em>resolution</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>scale</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fps</em> = <code>ns::Config::Window::framerate_limit</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ups</em> = <code>ns::Config::Window::update_rate</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">title</td><td><a class="el" href="classns_1_1App.html">App</a> title </td></tr>
+    <tr><td class="paramname">resolution</td><td>Resolution of you application </td></tr>
+    <tr><td class="paramname">scale</td><td>Resolution * scale = WindowSize </td></tr>
+    <tr><td class="paramname">fps</td><td>Desired framerate limit </td></tr>
+    <tr><td class="paramname">ups</td><td>Update per second </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a8cef793b5eb2dc3574cf74d912b37ed5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cef793b5eb2dc3574cf74d912b37ed5">&#9670;&nbsp;</a></span>App()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cef793b5eb2dc3574cf74d912b37ed5">&#9670;&nbsp;</a></span>App() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,7 +353,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00258">258</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00272">272</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -362,7 +423,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00265">265</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00279">279</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -431,7 +492,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00272">272</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00286">286</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +569,7 @@ template&lt;typename T , typename ObjT &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00279">279</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00293">293</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -553,7 +614,7 @@ template&lt;typename T , typename ObjT &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00286">286</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00300">300</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
