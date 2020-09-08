@@ -79,7 +79,7 @@ ObjectLayer::Object<sf::LineShape>(
 ns::tm::ObjectLayer::ObjectLayer(const pugi::xml_node& xml_node, tm::TiledMap* tiledmap) :
 Layer(xml_node, tiledmap) {
     if (xml_node.attribute("color"))
-        m_color = toColor(std::string(xml_node.attribute("color").as_string()));
+        m_color = hexToColor(std::string(xml_node.attribute("color").as_string()));
     for (const auto& object : xml_node.children("object")) {
         if(object.child("ellipse")) {
             Object<sf::EllipseShape> r{object, m_color};

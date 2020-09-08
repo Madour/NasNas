@@ -26,15 +26,15 @@ void Anim::add(const AnimFrame& frame) {
     m_frames.push_back(frame);
 }
 
-auto Anim::getName() -> const std::string& {
+auto Anim::getName() const -> const std::string& {
     return m_name;
 }
 
-auto Anim::getFrame(int index) -> const AnimFrame& {
+auto Anim::getFrame(int index) const -> const AnimFrame& {
     return m_frames[index];
 }
 
-auto Anim::frameCount() -> int {
+auto Anim::size() const -> int {
     return m_frames.size();
 }
 
@@ -46,6 +46,23 @@ void AnimPlayer::play(const Anim& animation) {
     m_index = 0;
     m_playing = true;
     m_clock = sf::Clock();
+}
+
+void AnimPlayer::resume() {
+    m_playing = true;
+}
+
+void AnimPlayer::pause() {
+    m_playing = false;
+}
+
+void AnimPlayer::stop() {
+    m_index = 0;
+    m_playing = false;
+}
+
+auto AnimPlayer::isPlaying() const -> bool {
+    return m_playing;
 }
 
 auto AnimPlayer::getAnim() -> Anim* {
@@ -71,7 +88,6 @@ void AnimPlayer::setPlaySpeed(float speed) {
         std::cout << "Warning : AnimPlayer speed must be a positive value. Using absolute value." << std::endl;
         m_play_speed = std::abs(speed);
     }
-
 }
 
 void AnimPlayer::update() {
@@ -79,7 +95,7 @@ void AnimPlayer::update() {
         if (m_clock.getElapsedTime().asMilliseconds() > (float)m_anim->getFrame(m_index).duration / m_play_speed) {
             m_index++;
             m_clock.restart();
-            if (m_index >= m_anim->frameCount()) {
+            if (m_index >= m_anim->size()) {
                 if (m_anim->loop) {
                     m_index = 0;
                 }

@@ -66,7 +66,15 @@ namespace ns {
          *
          * \return Title of the App
          */
-        auto getTitle() -> std::string&;
+        auto getTitle() const -> const std::string&;
+
+
+        /**
+         * \brief Get the AppWindow
+         *
+         * \return Reference to the AppWindow
+         */
+        auto getWindow() -> AppWindow&;
 
         /**
          * \brief Get all the Scene objects created within the App
@@ -93,13 +101,6 @@ namespace ns {
          * \brief Starts the game loop.
          */
         void run();
-
-        /**
-             * \brief Get the AppWindow
-             *
-             * \return Reference to the AppWindow
-             */
-        auto getWindow() -> AppWindow&;
 
     protected:
 

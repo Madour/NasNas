@@ -63,7 +63,7 @@ void TiledMap::load(const pugi::xml_document& xml) {
     // parsing layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
         auto new_layer = std::make_shared<TileLayer>(xmlnode_layer, this);
-        m_layers[{new_layer->getId(), new_layer->getName()}] = new_layer;
+        m_tilelayers[{new_layer->getId(), new_layer->getName()}] = new_layer;
     }
     // parsing object layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
@@ -72,8 +72,12 @@ void TiledMap::load(const pugi::xml_document& xml) {
     }
 }
 
-auto TiledMap::getSize() -> const sf::Vector2u& {
+auto TiledMap::getDimension() -> const sf::Vector2u& {
     return m_size;
+}
+
+auto TiledMap::getSize() -> sf::Vector2u {
+    return {m_size.x * m_tilesize.x, m_size.y * m_tilesize.y};
 }
 
 auto TiledMap::getTileSize() -> const sf::Vector2u& {
@@ -97,10 +101,20 @@ auto TiledMap::allTilesets() -> const std::vector<std::unique_ptr<Tileset>>& {
     return m_tilesets;
 }
 
+auto TiledMap::hasLayer(const std::string& name) -> bool{
+    for (const auto& [key, layer_ptr] : m_tilelayers)
+        if (key.second == name)
+            return true;
+    for (const auto& [key, layer_ptr] : m_objectlayers)
+        if (key.second == name)
+            return true;
+    return false;
+}
+
 auto TiledMap::getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>& {
-    for (const auto& [key, layer_ptr] : m_layers) {
+    for (const auto& [key, layer_ptr] : m_tilelayers) {
         if (key.second == name) {
-            return m_layers[key];
+            return m_tilelayers[key];
         }
     }
     std::cout << "TiledMap «" << m_file_name << "» has not TileLayer named «" << name << "»." << std::endl;

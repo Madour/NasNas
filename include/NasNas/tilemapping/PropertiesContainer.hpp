@@ -18,12 +18,14 @@ namespace ns::tm {
 
     using PropertyTypes = std::variant<int, float, std::string, bool, sf::Color>;
 
-    auto toColor(const std::string& color_string) -> sf::Color;
+    auto hexToColor(const std::string& color_string) -> sf::Color;
 
     class PropertiesContainer {
     public:
         PropertiesContainer();
         explicit PropertiesContainer(const pugi::xml_node& xmlnode_props);
+
+        auto hasProperty(const std::string& name) const -> bool;
 
         template <typename T>
         auto getProperty(const std::string& name) const -> T;

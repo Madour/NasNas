@@ -22,15 +22,20 @@ namespace ns::tm {
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
-        auto getSize() -> const sf::Vector2u&;
+        auto getDimension() -> const sf::Vector2u&;
+        auto getSize() -> sf::Vector2u;
         auto getTileSize() -> const sf::Vector2u&;
         auto getTileTileset(unsigned int gid) -> const std::unique_ptr<Tileset>&;
 
         auto allTilesets() -> const std::vector<std::unique_ptr<Tileset>>&;
 
+        auto hasLayer(const std::string& name) -> bool;
         auto getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>&;
         auto getObjectLayer(const std::string& name) -> const std::shared_ptr<ObjectLayer>&;
+
     private:
+        void load(const pugi::xml_document& xml);
+
         pugi::xml_node m_xmlnode_map;
         std::string m_file_name;
         std::filesystem::path m_file_relative_path;
@@ -39,10 +44,8 @@ namespace ns::tm {
         sf::Vector2u m_tilesize;
 
         std::vector<std::unique_ptr<Tileset>> m_tilesets;
-        std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_layers;
+        std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_tilelayers;
         std::map<std::pair<int, std::string>, std::shared_ptr<ObjectLayer>> m_objectlayers;
-
-        void load(const pugi::xml_document& xml);
     };
 
 }
