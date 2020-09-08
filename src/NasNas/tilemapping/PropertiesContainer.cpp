@@ -58,13 +58,16 @@ void PropertiesContainer::parseProperties(const pugi::xml_node& xmlnode_props) {
             auto color = hexToColor(c);
             prop_value = color;
         }
-        else
-            prop_value = std::string(xml_prop.attribute("value").as_string());
+        else {
+            auto str = std::string(xml_prop.attribute("value").as_string());
+            if (str.empty())
+                str = std::string(xml_prop.text().as_string());
+            prop_value = str;
+        }
 
         m_properties[prop_name] = prop_value;
     }
 }
-
 
 void PropertiesContainer::printProperties() const {
     for (const auto& [prop_name, prop_value] : m_properties) {
