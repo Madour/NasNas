@@ -15,49 +15,17 @@ void Layer::clear() {
     m_drawables.clear();
 }
 
-void Layer::add(const std::shared_ptr<ns::Drawable>& drawable) {
-    m_drawables.emplace_back(drawable);
+void Layer::add(const LayerDrawablesTypes& drawable) {
+    m_drawables.push_back(drawable);
 }
 
-void Layer::add(const std::shared_ptr<sf::Shape>& drawable) {
-    m_drawables.emplace_back(drawable);
-}
-
-void Layer::add(const std::shared_ptr<sf::Text>& drawable) {
-    m_drawables.emplace_back(drawable);
-}
-
-void Layer::remove(const std::shared_ptr<ns::Drawable>& drawable) {
-    for (unsigned int i = 0; i < m_drawables.size(); i++) {
-        auto& variant = m_drawables[i];
-        if (std::holds_alternative<std::shared_ptr<ns::Drawable>>(variant))
-            if (std::get<std::shared_ptr<ns::Drawable>>(variant).get() == drawable.get()) {
-                m_drawables.erase(m_drawables.begin() + i);
-                break;
-            }
-    }
-}
-
-void Layer::remove(const std::shared_ptr<sf::Shape>& drawable) {
-    for (unsigned int i = 0; i < m_drawables.size(); i++) {
-        auto& variant = m_drawables[i];
-        if (std::holds_alternative<std::shared_ptr<sf::Shape>>(variant))
-            if (std::get<std::shared_ptr<sf::Shape>>(variant).get() == drawable.get()) {
-                m_drawables.erase(m_drawables.begin() + i);
-                break;
-            }
-    }
-}
-
-void Layer::remove(const std::shared_ptr<sf::Text>& drawable) {
-    for (unsigned int i = 0; i < m_drawables.size(); i++) {
-        auto& variant = m_drawables[i];
-        if (std::holds_alternative<std::shared_ptr<sf::Text>>(variant))
-            if (std::get<std::shared_ptr<sf::Text>>(variant).get() == drawable.get()) {
-                m_drawables.erase(m_drawables.begin() + i);
-                break;
-            }
-    }
+void Layer::remove(const LayerDrawablesTypes& drawable) {
+    auto it = std::find(m_drawables.begin(), m_drawables.end(), drawable);
+    if (it != m_drawables.end())
+        m_drawables.erase(it);
+    else
+        std::cout << "Warning : trying to remove a non existant drawable (type index "
+                  << drawable.index() << ") from Layer " << m_name << ".\n";
 }
 
 void Layer::ySort() {

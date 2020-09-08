@@ -17,7 +17,12 @@
 
 namespace ns {
 
-    using LayerDrawablesTypes = std::variant<std::shared_ptr<ns::Drawable>, std::shared_ptr<sf::Shape>, std::shared_ptr<sf::Text>>;
+    using LayerDrawablesTypes = std::variant<
+        std::shared_ptr<ns::Drawable>,
+        std::shared_ptr<sf::Shape>,
+        std::shared_ptr<sf::Text>,
+        std::shared_ptr<sf::Sprite>
+    >;
 
     class Layer {
     public:
@@ -37,46 +42,18 @@ namespace ns {
         void clear();
 
         /**
-         * \brief Add a ns::Drawable object to the Layer
+         * \brief Add a drawable to the Layer
          *
-         * \param drawable Shared pointer to the ns::Drawable object to add
+         * \param drawable Drawable to add
          */
-        void add(const std::shared_ptr<ns::Drawable>& drawable);
+        void add(const LayerDrawablesTypes& drawable);
 
         /**
-         * \brief Add a sf::Shape object to the Layer
-         *
-         * \param drawable Shared pointer to the sf::Shape object to add
-         */
-        void add(const std::shared_ptr<sf::Shape>& drawable);
-
-        /**
-         * \brief Add a sf::Text object to the Layer
-         *
-         * \param drawable Shared pointer to the sf::Text object to add
-         */
-        void add(const std::shared_ptr<sf::Text>& drawable);
-
-        /**
-         * \brief Remove a ns::Drawable object from the Layer
+         * \brief Remove a drawable from the Layer
          *
          * \param drawable Drawable to remove
          */
-        void remove(const std::shared_ptr<ns::Drawable>& drawable);
-
-        /**
-         * \brief Remove a sf::Shape object from the Layer
-         *
-         * \param drawable Drawable to remove
-         */
-        void remove(const std::shared_ptr<sf::Shape>& drawable);
-
-        /**
-         * \brief Remove a sf::Text object from the Layer
-         *
-         * \param drawable Drawable to remove
-         */
-        void remove(const std::shared_ptr<sf::Text>& drawable);
+        void remove(const LayerDrawablesTypes& drawable);
 
         /**
          * \brief Get a vector of all drawables added to the Layer
