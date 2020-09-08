@@ -68,6 +68,7 @@ ns::App("NasNas++ demo", {640, 360}, 2, 60, 60) {
     textbox->setMaxLines(2);
     textbox->setTypingDelay(5);
     textbox->setPosition(250, 125);
+
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Scene and its Layers --------------------------------------
@@ -86,7 +87,7 @@ ns::App("NasNas++ demo", {640, 360}, 2, 60, 60) {
     // setting Camera limits
     this->game_camera->setLimitsRectangle(ns::IntRect(
             {0, 0},
-            {(int)(tiled_map.getSize().x*tiled_map.getTileSize().x), (int)(tiled_map.getSize().y*tiled_map.getTileSize().y)}
+            sf::Vector2i(tiled_map.getSize())
     ));
     //-----------------------------------------------------------------------------------
 
