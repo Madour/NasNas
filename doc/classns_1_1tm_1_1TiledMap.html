@@ -67,9 +67,12 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>loadFromFile</b> (con
 <tr class="memitem:a5366de3c47fd3c5f3b68bf52b634836b"><td class="memItemLeft" align="right" valign="top"><a id="a5366de3c47fd3c5f3b68bf52b634836b"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>loadFromString</b> (const std::string &amp;data) -&gt; bool</td></tr>
 <tr class="separator:a5366de3c47fd3c5f3b68bf52b634836b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b27047dbe34ac7f08db5135f785f88e"><td class="memItemLeft" align="right" valign="top"><a id="a7b27047dbe34ac7f08db5135f785f88e"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getSize</b> () -&gt; const sf::Vector2u &amp;</td></tr>
-<tr class="separator:a7b27047dbe34ac7f08db5135f785f88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74976c2dc6557b322176449fa21892c9"><td class="memItemLeft" align="right" valign="top"><a id="a74976c2dc6557b322176449fa21892c9"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDimension</b> () -&gt; const sf::Vector2u &amp;</td></tr>
+<tr class="separator:a74976c2dc6557b322176449fa21892c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac743c72100fc5aead1320dc56a55bbe1"><td class="memItemLeft" align="right" valign="top"><a id="ac743c72100fc5aead1320dc56a55bbe1"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getSize</b> () -&gt; sf::Vector2u</td></tr>
+<tr class="separator:ac743c72100fc5aead1320dc56a55bbe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69e274028e6d3ea7e416f14f5e4bbe9d"><td class="memItemLeft" align="right" valign="top"><a id="a69e274028e6d3ea7e416f14f5e4bbe9d"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileSize</b> () -&gt; const sf::Vector2u &amp;</td></tr>
 <tr class="separator:a69e274028e6d3ea7e416f14f5e4bbe9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -79,6 +82,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileTileset</b> (u
 <tr class="memitem:a620672e03cf2f92410680650e7fbd4ad"><td class="memItemLeft" align="right" valign="top"><a id="a620672e03cf2f92410680650e7fbd4ad"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>allTilesets</b> () -&gt; const std::vector&lt; std::unique_ptr&lt; <a class="el" href="classns_1_1tm_1_1Tileset.html">Tileset</a> &gt;&gt; &amp;</td></tr>
 <tr class="separator:a620672e03cf2f92410680650e7fbd4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0add8b9f72f564983f53bd5e329b721f"><td class="memItemLeft" align="right" valign="top"><a id="a0add8b9f72f564983f53bd5e329b721f"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>hasLayer</b> (const std::string &amp;name) -&gt; bool</td></tr>
+<tr class="separator:a0add8b9f72f564983f53bd5e329b721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af61809351ac201f167dc135b8335d2f6"><td class="memItemLeft" align="right" valign="top"><a id="af61809351ac201f167dc135b8335d2f6"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileLayer</b> (const std::string &amp;name) -&gt; const std::shared_ptr&lt; <a class="el" href="classns_1_1tm_1_1TileLayer.html">TileLayer</a> &gt; &amp;</td></tr>
 <tr class="separator:af61809351ac201f167dc135b8335d2f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -89,6 +95,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectLayer</b> (c
 <tr class="memitem:af62c9a50f4d5f822ebba65554011f486 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="af62c9a50f4d5f822ebba65554011f486"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>PropertiesContainer</b> (const pugi::xml_node &amp;xmlnode_props)</td></tr>
 <tr class="separator:af62c9a50f4d5f822ebba65554011f486 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6820dcfa8c93ccff7ea25e32e2df7818 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="a6820dcfa8c93ccff7ea25e32e2df7818"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>hasProperty</b> (const std::string &amp;name) const -&gt; bool</td></tr>
+<tr class="separator:a6820dcfa8c93ccff7ea25e32e2df7818 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfb89a7569262682c53f8b4c15e828e1 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplParams" colspan="2"><a id="adfb89a7569262682c53f8b4c15e828e1"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:adfb89a7569262682c53f8b4c15e828e1 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getProperty</b> (const std::string &amp;name) const -&gt; T</td></tr>
