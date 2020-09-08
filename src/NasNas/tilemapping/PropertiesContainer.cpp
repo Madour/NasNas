@@ -9,7 +9,7 @@
 using namespace ns;
 using namespace ns::tm;
 
-auto ns::tm::toColor(const std::string& color_string) -> sf::Color {
+auto ns::tm::hexToColor(const std::string& color_string) -> sf::Color {
     sf::Color color = sf::Color::White;
     if (color_string.length() == 9)  // with alpha
         color = sf::Color(
@@ -33,6 +33,10 @@ PropertiesContainer::PropertiesContainer(const pugi::xml_node& xmlnode_props) {
     parseProperties(xmlnode_props);
 }
 
+auto PropertiesContainer::hasProperty(const std::string& name) const -> bool {
+    return m_properties.count(name) > 0;
+}
+
 void PropertiesContainer::parseProperties(const pugi::xml_node& xmlnode_props) {
     m_properties.clear();
     for (const auto& xml_prop : xmlnode_props) {
@@ -51,7 +55,7 @@ void PropertiesContainer::parseProperties(const pugi::xml_node& xmlnode_props) {
         }
         else if (prop_type == "color") {
             const auto& c = std::string(xml_prop.attribute("value").as_string());
-            auto color = toColor(c);
+            auto color = hexToColor(c);
             prop_value = color;
         }
         else

@@ -18,8 +18,8 @@ namespace ns::ui {
 
         void setTypingDelay(int delay);
 
-        bool isWaiting();
-        bool hasEnded();
+        auto isWaiting() const -> bool;
+        auto hasEnded() const -> bool;
 
         virtual void onEvent(const sf::Event& event);
         void update();

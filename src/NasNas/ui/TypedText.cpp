@@ -46,11 +46,11 @@ void TypedText::setTypingDelay(int delay) {
     else m_typing_delay = delay;
 }
 
-bool TypedText::isWaiting() {
+auto TypedText::isWaiting() const -> bool {
     return m_current_letter_index == m_pages[m_current_page].size();
 }
 
-bool TypedText::hasEnded() {
+auto TypedText::hasEnded() const -> bool {
     return m_current_page == m_pages.size()-1;
 }
 

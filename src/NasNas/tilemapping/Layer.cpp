@@ -23,7 +23,7 @@ PropertiesContainer(xml_node.child("properties")) {
     if (xml_node.attribute("offsety"))
         m_transformable.setPosition(m_transformable.getPosition().x, xml_node.attribute("offsety").as_float());
     if (xml_node.attribute("tintcolor"))
-        m_tintcolor = toColor(std::string(xml_node.attribute("tintcolor").as_string()));
+        m_tintcolor = hexToColor(std::string(xml_node.attribute("tintcolor").as_string()));
 }
 
 auto Layer::getId() const -> unsigned int {

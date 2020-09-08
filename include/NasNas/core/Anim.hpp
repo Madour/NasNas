@@ -55,7 +55,7 @@ namespace ns {
          *
          * \return Anim name
          */
-        auto getName() -> const std::string&;
+        auto getName() const -> const std::string&;
 
         /**
          * \brief Get a specific frame in the Anim
@@ -63,13 +63,13 @@ namespace ns {
          * \param index Index of the AnimFrame to get
          * \return AnimFrame object at the given index
          */
-        auto getFrame(int index) -> const AnimFrame&;
+        auto getFrame(int index) const -> const AnimFrame&;
 
         /**
          * \brief Get the number of AnimFrame objects in the Anim
          * \return Number of AnimFrame in the Anim
          */
-        auto frameCount() -> int;
+        auto size() const -> int;
 
         bool loop = true;   ///< Should the Anim loop when it ends ?
 
@@ -92,6 +92,14 @@ namespace ns {
          * \param animation The Anim to play
          */
         void play(const Anim& animation);
+
+        void resume();
+
+        void pause();
+
+        void stop();
+
+        auto isPlaying() const -> bool;
 
         /**
          * \brief Get the currentlty played Anim

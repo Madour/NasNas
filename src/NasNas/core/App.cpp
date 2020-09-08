@@ -57,7 +57,7 @@ App::~App() {
         delete(transition);
 }
 
-auto App::getTitle() -> std::string& {
+auto App::getTitle() const -> const std::string& {
     return m_title;
 }
 
@@ -173,7 +173,7 @@ void App::render() {
         dbg_bounds.setOutlineColor(sf::Color::Red);
         dbg_bounds.setFillColor(sf::Color::Transparent);
         dbg_bounds.setPosition((float)pos.x, (float)pos.y);
-        getWindow().draw(dbg_bounds);
+        m_window.draw(dbg_bounds);
     };
     if (Config::debug) {
         for (Camera*& cam: m_cameras) {
