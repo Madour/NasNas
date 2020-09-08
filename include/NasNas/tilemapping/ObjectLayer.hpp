@@ -28,11 +28,11 @@ namespace ns::tm {
     public:
         ObjectLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
-        auto getRectangles() -> std::vector<Object<sf::RectangleShape>>&;
-        auto getPoints() -> std::vector<Object<sf::RectangleShape>>&;
-        auto getEllipses() -> std::vector<Object<sf::EllipseShape>>&;
-        auto getPolygons() -> std::vector<Object<sf::ConvexShape>>&;
-        auto getPolylines() -> std::vector<Object<sf::LineShape>>&;
+        auto allRectangles() -> std::vector<Object<sf::RectangleShape>>&;
+        auto allPoints() -> std::vector<Object<sf::RectangleShape>>&;
+        auto allEllipses() -> std::vector<Object<sf::EllipseShape>>&;
+        auto allPolygons() -> std::vector<Object<sf::ConvexShape>>&;
+        auto allPolylines() -> std::vector<Object<sf::LineShape>>&;
 
         auto getRectangle(unsigned int id) -> const Object<sf::RectangleShape>&;
         auto getPoint(unsigned int id) -> const Object<sf::RectangleShape>&;
@@ -56,8 +56,7 @@ namespace ns::tm {
     };
 
     template <typename T>
-    ns::tm::ObjectLayer::Object<T>::Object(unsigned int id, float x, float y) :
-    PropertiesContainer(){
+    ns::tm::ObjectLayer::Object<T>::Object(unsigned int id, float x, float y) {
         m_id = id;
         m_shape.setPosition(x, y);
     }

@@ -9,7 +9,7 @@ using namespace ns::tm;
 
 template <>
 ns::tm::ObjectLayer::Object<sf::RectangleShape>::Object(const pugi::xml_node& xml_node, const sf::Color& color) :
-ObjectLayer::Object<sf::RectangleShape>(
+ObjectLayer::Object<sf::RectangleShape> (
     xml_node.attribute("id").as_uint(),
     xml_node.attribute("x").as_float(),
     xml_node.attribute("y").as_float()
@@ -19,7 +19,7 @@ ObjectLayer::Object<sf::RectangleShape>(
         m_shape.setSize({xml_node.attribute("width").as_float(), xml_node.attribute("height").as_float()});
         m_shape.setRotation(xml_node.attribute("rotation").as_float());
         m_shape.setFillColor(sf::Color(color.r, color.g, color.b, 40));
-        m_shape.setOutlineThickness(1);
+        m_shape.setOutlineThickness(-1);
         m_shape.setOutlineColor(color);
     }
     else { // point
@@ -38,7 +38,7 @@ ObjectLayer::Object<sf::EllipseShape>(
     m_shape.setRadius({xml_node.attribute("width").as_float()/2.f, xml_node.attribute("height").as_float()/2.f});
     m_shape.setRotation(xml_node.attribute("rotation").as_float());
     m_shape.setFillColor(sf::Color(color.r, color.g, color.b, 40));
-    m_shape.setOutlineThickness(1);
+    m_shape.setOutlineThickness(-1);
     m_shape.setOutlineColor(color);
 }
 
@@ -56,7 +56,7 @@ ObjectLayer::Object<sf::ConvexShape>(
         m_shape.setPoint(i, points[i]);
     m_shape.setRotation(xml_node.attribute("rotation").as_float());
     m_shape.setFillColor(sf::Color(color.r, color.g, color.b, 40));
-    m_shape.setOutlineThickness(1);
+    m_shape.setOutlineThickness(-1);
     m_shape.setOutlineColor(color);
 }
 
@@ -96,7 +96,7 @@ Layer(xml_node, tiledmap) {
         else if(object.attribute("gid")) {
             // not yet implemented
         }
-        else if (object.attribute("point")) {
+        else if (object.child("point")) {
             Object<sf::RectangleShape> r{object, m_color};
             m_points.push_back(r);
         }
@@ -107,23 +107,23 @@ Layer(xml_node, tiledmap) {
     }
 }
 
-auto ObjectLayer::getRectangles() -> std::vector<Object<sf::RectangleShape>>& {
+auto ObjectLayer::allRectangles() -> std::vector<Object < sf::RectangleShape>>& {
     return m_rectangles;
 }
 
-auto ObjectLayer::getPoints() -> std::vector<Object<sf::RectangleShape>>& {
+auto ObjectLayer::allPoints() -> std::vector<Object < sf::RectangleShape>>& {
     return m_points;
 }
 
-auto ObjectLayer::getEllipses() -> std::vector<Object<sf::EllipseShape>>& {
+auto ObjectLayer::allEllipses() -> std::vector<Object < sf::EllipseShape>>& {
 return m_ellipses;
 }
 
-auto ObjectLayer::getPolygons() -> std::vector<Object<sf::ConvexShape>>& {
+auto ObjectLayer::allPolygons() -> std::vector<Object < sf::ConvexShape>>& {
     return m_polygons;
 }
 
-auto ObjectLayer::getPolylines() -> std::vector<Object<sf::LineShape>>& {
+auto ObjectLayer::allPolylines() -> std::vector<Object < sf::LineShape>>& {
     return m_polylines;
 }
 
@@ -170,7 +170,7 @@ auto ObjectLayer::getPolyline(unsigned int id) -> const ObjectLayer::Object<sf::
 auto ObjectLayer::getGlobalBounds() -> ns::FloatRect {
     return ns::FloatRect(
         m_transformable.getPosition(),
-        {(float)(m_tiledmap->getSize().x*m_tiledmap->getTileSize().x), (float)(m_tiledmap->getSize().y*m_tiledmap->getTileSize().y)}
+        sf::Vector2f(m_tiledmap->getSize())
     );
 }
 
