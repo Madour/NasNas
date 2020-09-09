@@ -41,7 +41,7 @@ namespace ns {
          * \param frames Vector of AnimFrame objects
          * \param loop Should the Anim loop when it ends ?
          */
-        Anim(const std::string& name, std::vector<AnimFrame> frames, bool loop=true);
+        Anim(std::string name, std::vector<AnimFrame> frames, bool loop=true);
 
         /**
          * \brief Adds an AnimFrame to the Anim
