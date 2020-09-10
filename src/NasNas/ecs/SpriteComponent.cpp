@@ -9,23 +9,32 @@
 using namespace ns;
 using namespace ns::ecs;
 
-SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state) :
-GraphicsComponent(entity)
-{
-    setSpritesheet(spritesheet);
-    m_anim_player = AnimPlayer();
-    setAnimState(anim_state);
+SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
+SpriteComponent(entity, spritesheet, "", pos_offset) {
 }
 
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
-SpriteComponent(entity, spritesheet, anim_state)
-{
+GraphicsComponent(entity) {
     m_pos_offset = pos_offset;
+    m_anim_player = AnimPlayer();
+    setSpritesheet(spritesheet);
+    if (!anim_state.empty())
+        setAnimState(anim_state);
+    else {
+        for (const auto& [name, anim] : spritesheet->getAnimsMap()) {
+            setAnimState(name);
+            break;
+        }
+    }
 }
 
 void SpriteComponent::setSpritesheet(Spritesheet* spritesheet) {
     m_spritesheet = spritesheet;
     m_drawable = sf::Sprite(*spritesheet->texture);
+}
+
+auto SpriteComponent::getAnimState() const -> const std::string& {
+    return m_anim_player.getAnim()->getName();
 }
 
 void SpriteComponent::setAnimState(const std::string& anim_state) {
@@ -42,6 +51,10 @@ void SpriteComponent::setAnimState(const std::string& anim_state) {
             }
         }
     }
+}
+
+auto SpriteComponent::getAnimPlayer() -> AnimPlayer& {
+    return m_anim_player;
 }
 
 auto SpriteComponent::getDrawable() -> sf::Sprite& {

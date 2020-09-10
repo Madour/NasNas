@@ -33,35 +33,34 @@ Player::Player()
             )
         }
     );*/
-
     // using a grid
     m_spritesheet = new ns::Spritesheet("adventurer", ns::Res::getTexture("adventurer.png"));
     m_spritesheet->setGrid({50, 37}, 7);
     m_spritesheet->addAnim("idle", 0, 4, 200, sf::Vector2i(25, 37));
     m_spritesheet->addAnim("walk", 9, 5, 150, sf::Vector2i(25, 37));
     // adding sprite component to player (from spritesheet defined above)
-    addComponent<ns::ecs::SpriteComponent>(this, m_spritesheet, "idle");
+    addComponent<ns::ecs::SpriteComponent>(m_spritesheet);
 
     // adding physics component to player
-    addComponent<ns::ecs::PhysicsComponent>(this, 1.f, sf::Vector2f(10, 10),sf::Vector2f(0.5f, 0.5f), sf::Vector2f(0.1f, 0.1f));
+    addComponent<ns::ecs::PhysicsComponent>(1.f, sf::Vector2f(10, 10),sf::Vector2f(0.5f, 0.5f), sf::Vector2f(0.1f, 0.1f));
 
     // adding shape component to player (red triangle)
-    auto shape_component = std::make_shared<ns::ecs::ShapeComponent<sf::ConvexShape>>(this, 4, sf::Vector2f(0, -15));
+    auto* shape_component = new ns::ecs::ShapeComponent<sf::ConvexShape>(this, 4, sf::Vector2f(0, -15));
     shape_component->getDrawable().setFillColor(sf::Color::Blue);
     shape_component->getDrawable().setPoint(0, {-5, -5});
     shape_component->getDrawable().setPoint(1, {5, -5});
     shape_component->getDrawable().setPoint(2, {5, 5});
     shape_component->getDrawable().setPoint(3, {-5, 5});
-    addComponent<ns::ecs::ShapeComponent<sf::ConvexShape>>(shape_component);
+    addComponent<>(shape_component);
 
     // adding inputs component to player and binding buttons to Player methods
-    addComponent<ns::ecs::InputsComponent>(this);
+    addComponent<ns::ecs::InputsComponent>();
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("left"), &Player::moveLeft);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("right"), &Player::moveRight);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("up"), &Player::moveUp);
     inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("down"), &Player::moveDown);
 
-    addComponent<ns::ecs::ColliderComponent>(this, new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
+    addComponent<ns::ecs::ColliderComponent>(new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
 
 }
 Player::~Player() {

@@ -25,6 +25,9 @@ namespace ns {
         template<typename T>
         void addComponent(std::shared_ptr<T> new_component);
 
+        template<typename T>
+        void addComponent(T* new_component);
+
         virtual void update();
 
         auto getPosition() -> sf::Vector2f override;
@@ -70,7 +73,7 @@ namespace ns {
     template<class T, typename... TArgs>
     void BaseEntity::addComponent(TArgs... component_args) {
         static_assert(std::is_base_of_v<ecs::BaseComponent, T>, "New component type must be derived from BaseComponent.");
-        auto new_component = std::make_shared<T>(std::forward<TArgs>(component_args)...);
+        auto new_component = std::make_shared<T>(this, std::forward<TArgs>(component_args)...);
         m_components_list.push_back(new_component);
     }
 
@@ -78,6 +81,12 @@ namespace ns {
     void BaseEntity::addComponent(std::shared_ptr<T> new_component) {
         static_assert(std::is_base_of_v<ecs::BaseComponent, T>, "New component type must be derived from BaseComponent.");
         m_components_list.push_back(new_component);
+    }
+
+    template<typename T>
+    void BaseEntity::addComponent(T* new_component) {
+        static_assert(std::is_base_of_v<ecs::BaseComponent, T>, "New component type must be derived from BaseComponent.");
+        m_components_list.emplace_back(new_component);
     }
 
     template <typename T>

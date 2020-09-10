@@ -106,7 +106,7 @@ namespace ns {
          *
          * \return Pointer to Anim object
          */
-        auto getAnim() -> Anim*;
+        auto getAnim() const -> Anim*;
 
         /**
          * \brief Get the active frame of the player
