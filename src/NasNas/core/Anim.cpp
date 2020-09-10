@@ -65,7 +65,7 @@ auto AnimPlayer::isPlaying() const -> bool {
     return m_playing;
 }
 
-auto AnimPlayer::getAnim() -> Anim* {
+auto AnimPlayer::getAnim() const -> Anim* {
     return m_anim;
 }
 

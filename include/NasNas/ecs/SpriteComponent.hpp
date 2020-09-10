@@ -13,10 +13,12 @@ namespace ns::ecs {
 
     class SpriteComponent : public  GraphicsComponent {
     public:
-        SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state);
-        SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset);
+        SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const sf::Vector2f& pos_offset);
+        SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state="", const sf::Vector2f& pos_offset={0, 0});
         void setSpritesheet(Spritesheet* spritesheet);
+        auto getAnimState() const -> const std::string&;
         void setAnimState(const std::string& anim_state);
+        auto getAnimPlayer() -> AnimPlayer&;
         auto getDrawable() -> sf::Sprite& override;
         auto getGlobalBounds() -> ns::FloatRect override;
         void update() override;
