@@ -62,18 +62,24 @@ Inheritance diagram for ns::ecs::SpriteComponent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1f319d85b0845076e629c630b33237d5"><td class="memItemLeft" align="right" valign="top"><a id="a1f319d85b0845076e629c630b33237d5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SpriteComponent</b> (<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *entity, <a class="el" href="classns_1_1Spritesheet.html">Spritesheet</a> *spritesheet, const std::string &amp;anim_state)</td></tr>
-<tr class="separator:a1f319d85b0845076e629c630b33237d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a336301f734c60d27c62a1c3cbb661c84"><td class="memItemLeft" align="right" valign="top"><a id="a336301f734c60d27c62a1c3cbb661c84"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SpriteComponent</b> (<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *entity, <a class="el" href="classns_1_1Spritesheet.html">Spritesheet</a> *spritesheet, const std::string &amp;anim_state, const sf::Vector2f &amp;pos_offset)</td></tr>
-<tr class="separator:a336301f734c60d27c62a1c3cbb661c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86a9f2f533339c45d4917ac3f15fd871"><td class="memItemLeft" align="right" valign="top"><a id="a86a9f2f533339c45d4917ac3f15fd871"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SpriteComponent</b> (<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *entity, <a class="el" href="classns_1_1Spritesheet.html">Spritesheet</a> *spritesheet, const sf::Vector2f &amp;pos_offset)</td></tr>
+<tr class="separator:a86a9f2f533339c45d4917ac3f15fd871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6c8afde88717d87634df6e715480922"><td class="memItemLeft" align="right" valign="top"><a id="af6c8afde88717d87634df6e715480922"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SpriteComponent</b> (<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *entity, <a class="el" href="classns_1_1Spritesheet.html">Spritesheet</a> *spritesheet, const std::string &amp;anim_state=&quot;&quot;, const sf::Vector2f &amp;pos_offset={0, 0})</td></tr>
+<tr class="separator:af6c8afde88717d87634df6e715480922"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb19f3d383e940a5a636cfe930137255"><td class="memItemLeft" align="right" valign="top"><a id="acb19f3d383e940a5a636cfe930137255"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSpritesheet</b> (<a class="el" href="classns_1_1Spritesheet.html">Spritesheet</a> *spritesheet)</td></tr>
 <tr class="separator:acb19f3d383e940a5a636cfe930137255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf6ccb90d7db4257c36a2ec3d5e5a5dd"><td class="memItemLeft" align="right" valign="top"><a id="adf6ccb90d7db4257c36a2ec3d5e5a5dd"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimState</b> () const -&gt; const std::string &amp;</td></tr>
+<tr class="separator:adf6ccb90d7db4257c36a2ec3d5e5a5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22a9dfb9e5e411b85cc784edb3c3bb56"><td class="memItemLeft" align="right" valign="top"><a id="a22a9dfb9e5e411b85cc784edb3c3bb56"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setAnimState</b> (const std::string &amp;anim_state)</td></tr>
 <tr class="separator:a22a9dfb9e5e411b85cc784edb3c3bb56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe218d600dbfaaebc44266f39ae79e0d"><td class="memItemLeft" align="right" valign="top"><a id="abe218d600dbfaaebc44266f39ae79e0d"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getAnimPlayer</b> () -&gt; <a class="el" href="classns_1_1AnimPlayer.html">AnimPlayer</a> &amp;</td></tr>
+<tr class="separator:abe218d600dbfaaebc44266f39ae79e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92e4da6920bf21b439e14caf230b5b01"><td class="memItemLeft" align="right" valign="top"><a id="a92e4da6920bf21b439e14caf230b5b01"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDrawable</b> () -&gt; sf::Sprite &amp;override</td></tr>
 <tr class="separator:a92e4da6920bf21b439e14caf230b5b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
