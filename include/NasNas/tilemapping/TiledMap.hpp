@@ -33,6 +33,8 @@ namespace ns::tm {
         auto getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>&;
         auto getObjectLayer(const std::string& name) -> const std::shared_ptr<ObjectLayer>&;
 
+        void update();
+
     private:
         void load(const pugi::xml_document& xml);
 
