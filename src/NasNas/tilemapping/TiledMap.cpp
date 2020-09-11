@@ -130,3 +130,8 @@ auto TiledMap::getObjectLayer(const std::string& name) -> const std::shared_ptr<
     std::cout << "TiledMap «" << m_file_name << "» has not ObjectLayer named «" << name << "»." << std::endl;
     exit(-1);
 }
+
+void TiledMap::update() {
+    for (auto& [name, layer] : m_tilelayers)
+        layer->update();
+}
