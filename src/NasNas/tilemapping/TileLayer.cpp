@@ -16,8 +16,8 @@ Layer(xml_node, tiledmap) {
     m_render_texture.create(m_width*m_tiledmap->getTileSize().x, m_height*m_tiledmap->getTileSize().y);
     m_tiles.reserve((size_t)m_width * (size_t)m_height);
     for (const auto& tileset : m_tiledmap->allTilesets()) {
-        m_vertices[tileset.get()].resize(4u * (size_t)m_width * (size_t)m_height);
-        m_vertices[tileset.get()].setPrimitiveType(sf::PrimitiveType::Quads);
+        m_vertices[tileset.get()].resize(6u * (size_t)m_width * (size_t)m_height);
+        m_vertices[tileset.get()].setPrimitiveType(sf::PrimitiveType::Triangles);
     }
 
     // parsing data
@@ -89,10 +89,12 @@ void TileLayer::update() {
                 auto tile_index = pos.x + pos.y*m_width;
                 // calculating new texture coordinates and updating the VertexArray
                 const auto& tex_coordinates = getTileTexCoo(new_id+tileset->firstgid, m_tiles[tile_index].flip);
-                m_vertices[tileset.get()][tile_index*4 + 0].texCoords = tex_coordinates[0];
-                m_vertices[tileset.get()][tile_index*4 + 1].texCoords = tex_coordinates[1];
-                m_vertices[tileset.get()][tile_index*4 + 2].texCoords = tex_coordinates[2];
-                m_vertices[tileset.get()][tile_index*4 + 3].texCoords = tex_coordinates[3];
+                m_vertices[tileset.get()][tile_index*6 + 0].texCoords = tex_coordinates[0];
+                m_vertices[tileset.get()][tile_index*6 + 1].texCoords = tex_coordinates[2];
+                m_vertices[tileset.get()][tile_index*6 + 2].texCoords = tex_coordinates[3];
+                m_vertices[tileset.get()][tile_index*6 + 3].texCoords = tex_coordinates[0];
+                m_vertices[tileset.get()][tile_index*6 + 4].texCoords = tex_coordinates[1];
+                m_vertices[tileset.get()][tile_index*6 + 5].texCoords = tex_coordinates[2];
             }
         }
     }
@@ -135,10 +137,12 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     m_tiles.emplace_back(gid , tile_transform, tileset->getTileProperties(id));
     // calculating texture coordnates and creating the quad for drawing
     const auto& tex_coordinates = getTileTexCoo(m_tiles[tile_count]);
-    m_vertices[tileset.get()][tile_count*4 + 0] = sf::Vertex(sf::Vector2f(x, y), tex_coordinates[0]);
-    m_vertices[tileset.get()][tile_count*4 + 1] = sf::Vertex(sf::Vector2f(x + tilewidth, y), tex_coordinates[1]);
-    m_vertices[tileset.get()][tile_count*4 + 2] = sf::Vertex(sf::Vector2f(x + tilewidth, y + tileheight), tex_coordinates[2]);
-    m_vertices[tileset.get()][tile_count*4 + 3] = sf::Vertex(sf::Vector2f(x, y + tileheight), tex_coordinates[3]);
+    m_vertices[tileset.get()][tile_count*6 + 0] = sf::Vertex(sf::Vector2f(x, y), tex_coordinates[0]);
+    m_vertices[tileset.get()][tile_count*6 + 1] = sf::Vertex(sf::Vector2f(x+tilewidth, y+tileheight), tex_coordinates[2]);
+    m_vertices[tileset.get()][tile_count*6 + 2] = sf::Vertex(sf::Vector2f(x, y+tileheight), tex_coordinates[3]);
+    m_vertices[tileset.get()][tile_count*6 + 3] = sf::Vertex(sf::Vector2f(x, y), tex_coordinates[0]);
+    m_vertices[tileset.get()][tile_count*6 + 4] = sf::Vertex(sf::Vector2f(x+tilewidth, y), tex_coordinates[1]);
+    m_vertices[tileset.get()][tile_count*6 + 5] = sf::Vertex(sf::Vector2f(x+tilewidth, y+tileheight), tex_coordinates[2]);
 }
 
 auto TileLayer::getTileTexCoo(const TileLayer::Tile& tile) -> std::vector<sf::Vector2f> {
