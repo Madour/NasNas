@@ -85,12 +85,15 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:ac399ebefe149fa42fc7f6922df0e804c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#ac399ebefe149fa42fc7f6922df0e804c">allScenes</a> () -&gt; std::vector&lt; <a class="el" href="classns_1_1Scene.html">Scene</a> *&gt; &amp;</td></tr>
 <tr class="memdesc:ac399ebefe149fa42fc7f6922df0e804c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the <a class="el" href="classns_1_1Scene.html">Scene</a> objects created within the <a class="el" href="classns_1_1App.html">App</a>.  <a href="#ac399ebefe149fa42fc7f6922df0e804c">More...</a><br /></td></tr>
 <tr class="separator:ac399ebefe149fa42fc7f6922df0e804c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6032df5571433d47378caf84a74ffc2f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a6032df5571433d47378caf84a74ffc2f">getScene</a> (const std::string &amp;name) -&gt; <a class="el" href="classns_1_1Scene.html">Scene</a> *</td></tr>
+<tr class="memdesc:a6032df5571433d47378caf84a74ffc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="classns_1_1Scene.html">Scene</a> by name.  <a href="#a6032df5571433d47378caf84a74ffc2f">More...</a><br /></td></tr>
+<tr class="separator:a6032df5571433d47378caf84a74ffc2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a188ba4fe87095ef33e9912e0eb32dba2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a188ba4fe87095ef33e9912e0eb32dba2">allCameras</a> () -&gt; std::vector&lt; <a class="el" href="classns_1_1Camera.html">Camera</a> *&gt; &amp;</td></tr>
 <tr class="memdesc:a188ba4fe87095ef33e9912e0eb32dba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the <a class="el" href="classns_1_1Camera.html">Camera</a> objects created within the <a class="el" href="classns_1_1App.html">App</a>.  <a href="#a188ba4fe87095ef33e9912e0eb32dba2">More...</a><br /></td></tr>
 <tr class="separator:a188ba4fe87095ef33e9912e0eb32dba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af518c1fe646f46f2a933df9803e0b830"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#af518c1fe646f46f2a933df9803e0b830">getInputs</a> () -&gt; std::vector&lt; sf::Keyboard::Key &gt; &amp;</td></tr>
-<tr class="memdesc:af518c1fe646f46f2a933df9803e0b830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the pressed sf::Keyboard::Keys.  <a href="#af518c1fe646f46f2a933df9803e0b830">More...</a><br /></td></tr>
-<tr class="separator:af518c1fe646f46f2a933df9803e0b830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07301f8ae5591faeb43085a2edb05643"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a07301f8ae5591faeb43085a2edb05643">getCamera</a> (const std::string &amp;name) -&gt; <a class="el" href="classns_1_1Camera.html">Camera</a> *</td></tr>
+<tr class="memdesc:a07301f8ae5591faeb43085a2edb05643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a <a class="el" href="classns_1_1Camera.html">Camera</a> by name.  <a href="#a07301f8ae5591faeb43085a2edb05643">More...</a><br /></td></tr>
+<tr class="separator:a07301f8ae5591faeb43085a2edb05643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9c98c90e66b57a5e72bbab6e0190308"><td class="memItemLeft" align="right" valign="top"><a id="ae9c98c90e66b57a5e72bbab6e0190308"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#ae9c98c90e66b57a5e72bbab6e0190308">run</a> ()</td></tr>
 <tr class="memdesc:ae9c98c90e66b57a5e72bbab6e0190308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the game loop. <br /></td></tr>
@@ -353,7 +356,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00273">273</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00280">280</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -423,7 +426,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00280">280</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00287">287</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -492,7 +495,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00287">287</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00294">294</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -569,7 +572,7 @@ template&lt;typename T , typename ObjT &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00294">294</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00301">301</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -614,7 +617,7 @@ template&lt;typename T , typename ObjT &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00301">301</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00308">308</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -807,23 +810,57 @@ template&lt;typename T , typename ObjT &gt; </div>
 
 </div>
 </div>
-<a id="af518c1fe646f46f2a933df9803e0b830"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af518c1fe646f46f2a933df9803e0b830">&#9670;&nbsp;</a></span>getInputs()</h2>
+<a id="a07301f8ae5591faeb43085a2edb05643"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07301f8ae5591faeb43085a2edb05643">&#9670;&nbsp;</a></span>getCamera()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">auto ns::App::getInputs </td>
+          <td class="memname">auto ns::App::getCamera </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> -&gt;  std::vector&lt; sf::Keyboard::Key &gt; &amp;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="classns_1_1Camera.html">Camera</a> *</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Get all the pressed sf::Keyboard::Keys. </p>
-<dl class="section return"><dt>Returns</dt><dd>Vector of sf::Keyboard::Key </dd></dl>
+<p>Get a <a class="el" href="classns_1_1Camera.html">Camera</a> by name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Name of the <a class="el" href="classns_1_1Camera.html">Camera</a> to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the requested <a class="el" href="classns_1_1Camera.html">Camera</a> </dd></dl>
+
+</div>
+</div>
+<a id="a6032df5571433d47378caf84a74ffc2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6032df5571433d47378caf84a74ffc2f">&#9670;&nbsp;</a></span>getScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ns::App::getScene </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> -&gt;  <a class="el" href="classns_1_1Scene.html">Scene</a> *</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a <a class="el" href="classns_1_1Scene.html">Scene</a> by name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Name of the <a class="el" href="classns_1_1Scene.html">Scene</a> to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the requested <a class="el" href="classns_1_1Scene.html">Scene</a> </dd></dl>
 
 </div>
 </div>

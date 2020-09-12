@@ -59,15 +59,21 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a5cc3c6d1208e09c27ceec60b4d2d5305">clear</a> ()</td></tr>
 <tr class="memdesc:a5cc3c6d1208e09c27ceec60b4d2d5305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all the drawable. <br /></td></tr>
 <tr class="separator:a5cc3c6d1208e09c27ceec60b4d2d5305"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d870d7de707a1c3bc73401dec983a7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a5d870d7de707a1c3bc73401dec983a7b">add</a> (const LayerDrawablesTypes &amp;drawable)</td></tr>
-<tr class="memdesc:a5d870d7de707a1c3bc73401dec983a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a drawable to the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a5d870d7de707a1c3bc73401dec983a7b">More...</a><br /></td></tr>
-<tr class="separator:a5d870d7de707a1c3bc73401dec983a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3eab9e69f63e2fa99753d41e21e542c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a3eab9e69f63e2fa99753d41e21e542c1">remove</a> (const LayerDrawablesTypes &amp;drawable)</td></tr>
-<tr class="memdesc:a3eab9e69f63e2fa99753d41e21e542c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a drawable from the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a3eab9e69f63e2fa99753d41e21e542c1">More...</a><br /></td></tr>
-<tr class="separator:a3eab9e69f63e2fa99753d41e21e542c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d259e77f4f4b5dc2b32fbc6e8278a80"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a3d259e77f4f4b5dc2b32fbc6e8278a80">getDrawables</a> () -&gt; std::vector&lt; LayerDrawablesTypes &gt; &amp;</td></tr>
-<tr class="memdesc:a3d259e77f4f4b5dc2b32fbc6e8278a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a vector of all drawables added to the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a3d259e77f4f4b5dc2b32fbc6e8278a80">More...</a><br /></td></tr>
-<tr class="separator:a3d259e77f4f4b5dc2b32fbc6e8278a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60a603797ea88c7e3f287d9785e8d623"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a60a603797ea88c7e3f287d9785e8d623">add</a> (const DrawablesSharedTypes &amp;drawable)</td></tr>
+<tr class="memdesc:a60a603797ea88c7e3f287d9785e8d623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a drawable to the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a60a603797ea88c7e3f287d9785e8d623">More...</a><br /></td></tr>
+<tr class="separator:a60a603797ea88c7e3f287d9785e8d623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb33d369c4b3e56c23c7dd148ca7efcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#adb33d369c4b3e56c23c7dd148ca7efcd">add</a> (const DrawablesRawTypes &amp;drawable)</td></tr>
+<tr class="memdesc:adb33d369c4b3e56c23c7dd148ca7efcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a drawable to the <a class="el" href="classns_1_1Layer.html">Layer</a> The pointer is managed by the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#adb33d369c4b3e56c23c7dd148ca7efcd">More...</a><br /></td></tr>
+<tr class="separator:adb33d369c4b3e56c23c7dd148ca7efcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2159ea5fdc52e8d9a9d29d7a399e0d67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a2159ea5fdc52e8d9a9d29d7a399e0d67">addRaw</a> (const DrawablesRawTypes &amp;drawable)</td></tr>
+<tr class="memdesc:a2159ea5fdc52e8d9a9d29d7a399e0d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a drawable to the layer The pointer is not managed by the <a class="el" href="classns_1_1Layer.html">Layer</a>, and you have to delete it manually when it is no more used.  <a href="#a2159ea5fdc52e8d9a9d29d7a399e0d67">More...</a><br /></td></tr>
+<tr class="separator:a2159ea5fdc52e8d9a9d29d7a399e0d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbf8f961873a09a1f9aed1823ce3bcf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#adbf8f961873a09a1f9aed1823ce3bcf3">remove</a> (const DrawablesTypes &amp;drawable)</td></tr>
+<tr class="memdesc:adbf8f961873a09a1f9aed1823ce3bcf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a drawable from the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#adbf8f961873a09a1f9aed1823ce3bcf3">More...</a><br /></td></tr>
+<tr class="separator:adbf8f961873a09a1f9aed1823ce3bcf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02468aebc2c8d0fe0cfc47cde3d33ddd"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a02468aebc2c8d0fe0cfc47cde3d33ddd">getDrawables</a> () -&gt; std::vector&lt; DrawablesTypes &gt; &amp;</td></tr>
+<tr class="memdesc:a02468aebc2c8d0fe0cfc47cde3d33ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a vector of all drawables added to the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a02468aebc2c8d0fe0cfc47cde3d33ddd">More...</a><br /></td></tr>
+<tr class="separator:a02468aebc2c8d0fe0cfc47cde3d33ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afce9bec2003d68ef5a7d7b7ff2daa7ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#afce9bec2003d68ef5a7d7b7ff2daa7ca">ySort</a> ()</td></tr>
 <tr class="memdesc:afce9bec2003d68ef5a7d7b7ff2daa7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts <a class="el" href="classns_1_1Layer.html">Layer</a> drawables by their Y coordinate.  <a href="#afce9bec2003d68ef5a7d7b7ff2daa7ca">More...</a><br /></td></tr>
 <tr class="separator:afce9bec2003d68ef5a7d7b7ff2daa7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -77,7 +83,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Layers_8hpp_source.html#l00031">31</a> of file <a class="el" href="Layers_8hpp_source.html">Layers.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="core_2Layer_8hpp_source.html#l00022">22</a> of file <a class="el" href="core_2Layer_8hpp_source.html">core/Layer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a70aa6fc6be9694654a7166a23c036cd9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a70aa6fc6be9694654a7166a23c036cd9">&#9670;&nbsp;</a></span>Layer()</h2>
@@ -115,8 +121,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5d870d7de707a1c3bc73401dec983a7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d870d7de707a1c3bc73401dec983a7b">&#9670;&nbsp;</a></span>add()</h2>
+<a id="a60a603797ea88c7e3f287d9785e8d623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60a603797ea88c7e3f287d9785e8d623">&#9670;&nbsp;</a></span>add() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -124,7 +130,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void ns::Layer::add </td>
           <td>(</td>
-          <td class="paramtype">const LayerDrawablesTypes &amp;&#160;</td>
+          <td class="paramtype">const DrawablesSharedTypes &amp;&#160;</td>
           <td class="paramname"><em>drawable</em></td><td>)</td>
           <td></td>
         </tr>
@@ -134,15 +140,67 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Add a drawable to the <a class="el" href="classns_1_1Layer.html">Layer</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">drawable</td><td><a class="el" href="classns_1_1Drawable.html">Drawable</a> to add </td></tr>
+    <tr><td class="paramname">drawable</td><td>Shared pointer to the drawable to add </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a3d259e77f4f4b5dc2b32fbc6e8278a80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d259e77f4f4b5dc2b32fbc6e8278a80">&#9670;&nbsp;</a></span>getDrawables()</h2>
+<a id="adb33d369c4b3e56c23c7dd148ca7efcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb33d369c4b3e56c23c7dd148ca7efcd">&#9670;&nbsp;</a></span>add() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ns::Layer::add </td>
+          <td>(</td>
+          <td class="paramtype">const DrawablesRawTypes &amp;&#160;</td>
+          <td class="paramname"><em>drawable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a drawable to the <a class="el" href="classns_1_1Layer.html">Layer</a> The pointer is managed by the <a class="el" href="classns_1_1Layer.html">Layer</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">drawable</td><td>Pointer to the drawable to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2159ea5fdc52e8d9a9d29d7a399e0d67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2159ea5fdc52e8d9a9d29d7a399e0d67">&#9670;&nbsp;</a></span>addRaw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ns::Layer::addRaw </td>
+          <td>(</td>
+          <td class="paramtype">const DrawablesRawTypes &amp;&#160;</td>
+          <td class="paramname"><em>drawable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a drawable to the layer The pointer is not managed by the <a class="el" href="classns_1_1Layer.html">Layer</a>, and you have to delete it manually when it is no more used. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">drawable</td><td>Pointer to the drawable to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a02468aebc2c8d0fe0cfc47cde3d33ddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02468aebc2c8d0fe0cfc47cde3d33ddd">&#9670;&nbsp;</a></span>getDrawables()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +209,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="memname">auto ns::Layer::getDrawables </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> -&gt;  std::vector&lt; LayerDrawablesTypes &gt; &amp;</td>
+          <td> -&gt;  std::vector&lt; DrawablesTypes &gt; &amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -181,8 +239,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a3eab9e69f63e2fa99753d41e21e542c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3eab9e69f63e2fa99753d41e21e542c1">&#9670;&nbsp;</a></span>remove()</h2>
+<a id="adbf8f961873a09a1f9aed1823ce3bcf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbf8f961873a09a1f9aed1823ce3bcf3">&#9670;&nbsp;</a></span>remove()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +248,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void ns::Layer::remove </td>
           <td>(</td>
-          <td class="paramtype">const LayerDrawablesTypes &amp;&#160;</td>
+          <td class="paramtype">const DrawablesTypes &amp;&#160;</td>
           <td class="paramname"><em>drawable</em></td><td>)</td>
           <td></td>
         </tr>
@@ -228,7 +286,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="Layers_8hpp_source.html">Layers.hpp</a></li>
+<li><a class="el" href="core_2Layer_8hpp_source.html">core/Layer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
