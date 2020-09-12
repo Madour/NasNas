@@ -69,8 +69,28 @@ auto App::allScenes() -> std::vector<Scene*>& {
     return m_scenes;
 }
 
+auto App::getScene(const std::string& name) -> Scene* {
+    for (const auto& scene : m_scenes)
+        if (scene->m_name == name)
+            return scene;
+
+    std::cout << "Error (App::getScene) : No Scene named " << name
+              << " was found. Make sure the Scene you are requesting was created.";
+    std::exit(-1);
+}
+
 auto App::allCameras() -> std::vector<Camera*>& {
     return m_cameras;
+}
+
+auto App::getCamera(const std::string& name) -> Camera* {
+    for (const auto& camera : m_cameras)
+        if (camera->m_name == name)
+            return camera;
+
+    std::cout << "Error (App::getCamera) : No Camera named " << name
+              << " was found. Make sure the Camera you are requesting was created.";
+    std::exit(-1);
 }
 
 auto App::createScene(const std::string& name) -> Scene* {
