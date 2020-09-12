@@ -9,7 +9,7 @@
 #include "NasNas/data/ShaderHolder.hpp"
 
 #include "NasNas/core/Scene.hpp"
-#include "NasNas/core/Layers.hpp"
+#include "NasNas/core/Layer.hpp"
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Window.hpp"
 #include "NasNas/core/Transition.hpp"
@@ -84,11 +84,27 @@ namespace ns {
         auto allScenes() -> std::vector<Scene*>&;
 
         /**
+         * \brief Get a Scene by name
+         *
+         * \param name Name of the Scene to get
+         * \return Pointer to the requested Scene
+         */
+        auto getScene(const std::string& name) -> Scene*;
+
+        /**
          * \brief Get all the Camera objects created within the App
          *
          * \return Vector of pointers to Camera objects
          */
         auto allCameras() -> std::vector<Camera*>&;
+
+        /**
+         * \brief Get a Camera by name
+         *
+         * \param name Name of the Camera to get
+         * \return Pointer to the requested Camera
+         */
+        auto getCamera(const std::string& name) -> Camera*;
 
         /**
          * \brief Starts the game loop.

@@ -6,7 +6,7 @@ set(
 
         ../src/NasNas/core/App.cpp
         ../src/NasNas/core/Scene.cpp
-        ../src/NasNas/core/Layers.cpp
+        ../src/NasNas/core/Layer.cpp
         ../src/NasNas/core/Camera.cpp
         ../src/NasNas/core/Window.cpp
 
@@ -27,7 +27,7 @@ set(
 
         ../include/NasNas/core/App.hpp
         ../include/NasNas/core/Scene.hpp
-        ../include/NasNas/core/Layers.hpp
+        ../include/NasNas/core/Layer.hpp
         ../include/NasNas/core/Camera.hpp
         ../include/NasNas/core/Window.hpp
 
