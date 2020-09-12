@@ -73,10 +73,6 @@ auto App::allCameras() -> std::vector<Camera*>& {
     return m_cameras;
 }
 
-auto App::getInputs() -> std::vector<sf::Keyboard::Key>& {
-    return m_inputs;
-}
-
 auto App::createScene(const std::string& name) -> Scene* {
     auto* new_scene = new Scene(name);
     m_scenes.push_back(new_scene);
@@ -115,18 +111,18 @@ void App::toggleFullscreen() {
     }
     m_window.setClearColor(clear_color);
     m_window.setFramerateLimit(m_desired_fps);
-    m_inputs.clear();
     m_fullscreen = !m_fullscreen;
 }
 
 void App::storeInputs(sf::Event event) {
+    auto& pressed_keys = Config::Inputs::pressed_keys;
     if (event.type == sf::Event::KeyPressed)
-        if (std::find(m_inputs.begin(), m_inputs.end(), event.key.code) == m_inputs.end())
-            m_inputs.insert(m_inputs.begin(), event.key.code);
+        if (std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code) == pressed_keys.end())
+            pressed_keys.insert(pressed_keys.begin(), event.key.code);
 
     if (event.type == sf::Event::KeyReleased)
-        if (std::find(m_inputs.begin(), m_inputs.end(), event.key.code) != m_inputs.end())
-            m_inputs.erase(std::find(m_inputs.begin(), m_inputs.end(), event.key.code));
+        if (std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code) != pressed_keys.end())
+            pressed_keys.erase(std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code));
 }
 
 void App::onEvent(const sf::Event& event) {
@@ -148,7 +144,7 @@ void App::render() {
         }
     }
     for (unsigned int i = 0; i < Transition::list.size(); ++i) {
-        auto tr = Transition::list[i];
+        auto*& tr = Transition::list[i];
         if (tr->hasStarted())
             renderer.draw(*tr);
         if (tr->hasEnded()) {
@@ -176,6 +172,7 @@ void App::render() {
         m_window.draw(dbg_bounds);
     };
     if (Config::debug) {
+        // drawing drawables global bounds
         for (Camera*& cam: m_cameras) {
             if (cam->hasScene() && cam->isVisible()) {
                 auto render_bounds = cam->getGlobalBounds();
@@ -201,6 +198,7 @@ void App::render() {
                 }
             }
         }
+        // drawing debug texts
         for (auto& dbg_txt: m_debug_texts) {
             dbg_txt->update();
             m_window.draw(*dbg_txt);
@@ -217,6 +215,8 @@ void App::run() {
 
         if (ns::Config::debug)
             m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
+        else
+            m_window.setTitle(m_title);
 
         // getting and storing inputs
         sf::Event event{};

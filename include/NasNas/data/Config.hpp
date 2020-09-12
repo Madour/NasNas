@@ -34,6 +34,7 @@ namespace ns {
 
         class Inputs {
         public:
+            static std::vector<sf::Keyboard::Key> pressed_keys;        ///< Vector of pressed keys
             static void setButtonKey(const std::string& btn_name, sf::Keyboard::Key key);
             static auto getButtonKey(const std::string& btn_name) -> sf::Keyboard::Key;
         private:

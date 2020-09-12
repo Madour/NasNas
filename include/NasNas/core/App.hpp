@@ -91,13 +91,6 @@ namespace ns {
         auto allCameras() -> std::vector<Camera*>&;
 
         /**
-         * \brief Get all the pressed sf::Keyboard::Keys
-         *
-         * \return Vector of sf::Keyboard::Key
-         */
-        auto getInputs() -> std::vector<sf::Keyboard::Key>&;
-
-        /**
          * \brief Starts the game loop.
          */
         void run();
@@ -246,13 +239,11 @@ namespace ns {
         int m_ups;              ///< Update per second
         int m_desired_fps;      ///< Frame per second
         sf::Clock m_fps_clock;  ///< Clock to compute real FPS
-        double m_dt;            ///< Delta time, time between two frames
+        float m_dt;             ///< Delta time, time between two frames
 
         std::vector<Camera*> m_cameras;                 ///< Vector of Camera pointers
         std::vector<Scene*> m_scenes;                   ///< Vector of Scene pointers
         std::vector<DebugTextInterface*> m_debug_texts; ///< Vector of DebugText pointers
-
-        std::vector<sf::Keyboard::Key> m_inputs;        ///< Vector of pressed keys
 
         /**
          * \brief Updates m_inputs everytime a key event occurs
