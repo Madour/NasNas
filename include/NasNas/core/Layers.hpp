@@ -17,18 +17,31 @@
 
 namespace ns {
 
-    using LayerDrawablesTypes = std::variant<
-            std::shared_ptr<ns::Drawable>,
-            std::shared_ptr<sf::Shape>,
-            std::shared_ptr<sf::Text>,
-            std::shared_ptr<sf::Sprite>,
-            ns::Drawable*,
-            sf::Shape*,
-            sf::Text*,
-            sf::Sprite*
-    >;
+
 
     class Layer {
+        using DrawablesTypes = std::variant<
+                std::shared_ptr<ns::Drawable>,
+                std::shared_ptr<sf::Shape>,
+                std::shared_ptr<sf::Text>,
+                std::shared_ptr<sf::Sprite>,
+                ns::Drawable*,
+                sf::Shape*,
+                sf::Text*,
+                sf::Sprite*
+        >;
+        using DrawablesSharedTypes = std::variant<
+                std::shared_ptr<ns::Drawable>,
+                std::shared_ptr<sf::Shape>,
+                std::shared_ptr<sf::Text>,
+                std::shared_ptr<sf::Sprite>
+        >;
+        using DrawablesRawTypes = std::variant<
+                ns::Drawable*,
+                sf::Shape*,
+                sf::Text*,
+                sf::Sprite*
+        >;
     public:
         /**
          * \brief Construct a Layer object
@@ -48,23 +61,40 @@ namespace ns {
         /**
          * \brief Add a drawable to the Layer
          *
-         * \param drawable Drawable to add
+         * \param drawable Shared pointer to the drawable to add
          */
-        void add(const LayerDrawablesTypes& drawable);
+        void add(const DrawablesSharedTypes& drawable);
+
+        /**
+         * \brief Add a drawable to the Layer
+         * The pointer is managed by the Layer
+         *
+         * \param drawable Pointer to the drawable to add
+         */
+        void add(const DrawablesRawTypes& drawable);
+
+        /**
+         * \brief Add a drawable to the layer
+         * The pointer is not managed by the Layer,
+         * and you have to delete it manually when it is no more used
+         *
+         * \param drawable Pointer to the drawable to add
+         */
+        void addRaw(const DrawablesRawTypes& drawable);
 
         /**
          * \brief Remove a drawable from the Layer
          *
          * \param drawable Drawable to remove
          */
-        void remove(const LayerDrawablesTypes& drawable);
+        void remove(const DrawablesTypes& drawable);
 
         /**
          * \brief Get a vector of all drawables added to the Layer
          *
          * \return Vector of variant drawables (ns::Drawable, sf::Shape, sf::Text)
          */
-        auto getDrawables() -> std::vector<LayerDrawablesTypes>&;
+        auto getDrawables() -> std::vector<DrawablesTypes>&;
 
         /**
          * \brief Sorts Layer drawables by their Y coordinate
@@ -82,7 +112,7 @@ namespace ns {
 
     private:
         std::string m_name;                          ///< Name of the Layer
-        std::vector<LayerDrawablesTypes> m_drawables;///< Vector of all drawables of the Layer
+        std::vector<DrawablesTypes> m_drawables;///< Vector of all drawables of the Layer
     };
 
 }
