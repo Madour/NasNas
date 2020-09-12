@@ -4,7 +4,6 @@
 
 #include "NasNas/core/Transition.hpp"
 #include "NasNas/core/App.hpp"
-#include "NasNas/data/Config.hpp"
 
 using namespace ns;
 
