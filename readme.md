@@ -1,5 +1,5 @@
 <h1 align=center>NasNas</h1>
-<h3 align=center> A simple game framework to get started quickly with C++ SFML game development. </h3>
+<h3 align=center> An intuitive and user friendly 2D game framework for C++. </h3>
 <p align=center>
  <a href=https://travis-ci.com/Madour/NasNas><img src=https://travis-ci.com/Madour/NasNas.svg?branch=master></a>
  <a href=https://www.codacy.com/manual/Madour/NasNas><img src=https://app.codacy.com/project/badge/Grade/23bdd1079c3f4274a712f42851a276d8></a>
@@ -10,6 +10,7 @@
  <a href=#features>Features</a> •
  <a href=#build>How to build</a> •
  <a href=#get-started>Get Started</a> •
+ <a href=#showcase>Showcase</a> •
  <a href=#support>Support</a>
 </p>
 
@@ -103,9 +104,17 @@ int main() {
 Please check the [example](https://github.com/Madour/NasNas/tree/master/example) source code
 for a more complete overview of what you can do with the framework.
 
-Documentation (work in progress) can be found [here](https://madour.github.io/NasNas/doc).
+Documentation can be found [here](https://madour.github.io/NasNas/doc).
 
-A step by step tutorial to learn how to use the features will be written soon™ . 
+A tutorial to learn how to use the framework can be found on the [wiki](https://github.com/Madour/NasNas/wiki). 
+
+### Showcase
+
+The following games were made in less than 10 days for game jams :
+- Warp Runner on [itch](https://madour.itch.io/warp-runner) - source code not available (yet)
+- History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020) 
+
+If you are using NasNas, or want to try it, please let me know :)
 
 ### Support
 
