@@ -85,10 +85,7 @@ ns::App("NasNas++ demo", {640, 360}, 2, 60, 60) {
     this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
     this->game_camera->setFramesDelay(10);      // the Camera will have 10 frames delay over the player
     // setting Camera limits
-    this->game_camera->setLimitsRectangle(ns::IntRect(
-            {0, 0},
-            sf::Vector2i(tiled_map.getSize())
-    ));
+    this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
     //-----------------------------------------------------------------------------------
 
     //------------ Adding Drawables to the Scene  ---------------------------------------
