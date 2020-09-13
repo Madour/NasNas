@@ -93,12 +93,26 @@ namespace ns {
          */
         void play(const Anim& animation);
 
+        /**
+         * \brief Resume a paused or stoped animation
+         */
         void resume();
 
+        /**
+         * \brief Pause the animation, the current active frame is not changed
+         */
         void pause();
 
+        /**
+         * \brief Stop the animation and go back to first frame
+         */
         void stop();
 
+        /**
+         * \brief Does what you expect it to do
+         *
+         * \return Returns if the animation is being played or not
+         */
         auto isPlaying() const -> bool;
 
         /**
