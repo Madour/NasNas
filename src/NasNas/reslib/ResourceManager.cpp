@@ -40,13 +40,13 @@ void ResourceManager::checkReady() {
     exit(-1);
 }
 
-auto ResourceManager::get() -> Dir& {
-    checkReady();
-    return *m_data;
-}
-
 auto ResourceManager::getName() -> const std::string & {
     return m_root_dir;
+}
+
+auto ResourceManager::in(const std::string& dir_name) -> Dir& {
+    checkReady();
+    return m_data->in(dir_name);
 }
 
 auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture& {

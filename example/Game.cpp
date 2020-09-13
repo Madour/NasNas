@@ -52,7 +52,7 @@ ns::App("NasNas++ demo", {640, 360}, 2, 60, 60) {
 
     // creating a BitmapFont
     auto bmp_font = std::make_shared<ns::BitmapFont>(
-            ns::Res::get().getTexture("font.png"),
+            ns::Res::getTexture("font.png"),
             sf::Vector2u(8, 8),
             " ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             std::unordered_map<char, int>({{'I', 7}, {'L', 7}})
