@@ -110,7 +110,7 @@ A tutorial to learn how to use the framework can be found on the [wiki](https://
 
 ### Showcase
 
-The following games were made in less than 10 days for game jams :
+The following games were made with NasNas in less than 10 days for game jams :
 - Warp Runner on [itch](https://madour.itch.io/warp-runner) - source code not available (yet)
 - History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020) 
 
