@@ -77,7 +77,7 @@ auto Camera::getFramesDelay() const -> unsigned int {
 }
 void Camera::setFramesDelay(unsigned int value) { m_frames_delay = value; }
 
-void Camera::setLimitsRectangle(const ns::IntRect& rectangle) {
+void Camera::setLimitsRect(const ns::IntRect& rectangle) {
     m_limits = rectangle;
 }
 

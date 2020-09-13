@@ -154,7 +154,7 @@ namespace ns {
          *
          * \param rectangle Limits rectangle
          */
-        void setLimitsRectangle(const ns::IntRect& rectangle);
+        void setLimitsRect(const ns::IntRect& rectangle);
 
         /**
          * \brief Get Camera position in world's coordinates
