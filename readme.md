@@ -27,10 +27,10 @@ The framework is separated in multiple independent modules :
 They contain core classes and data needed by the framework.
 - ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
 a very elegant way. This module is optional, you can use your own resource manager and loader if you have specific needs.
-- ***ECS*** is a basic and easy to use Entity Component System created for NasNas. You can also use a third party
- ECS if you want.
+- ***ECS*** contains the BaseEntity and Components classes. You can add Components to your BaseEntity derived classes 
+to add more functionalities to them, like graphics, basic physics, collider, inputs.
 - ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
-for tile based games. Just like the other modules, this one is optional too.
+for tile based games.
 - More modules will be developed in the future !
 
 # 
