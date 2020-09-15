@@ -3,6 +3,7 @@
 **/
 
 
+#include <cstring>
 #include "NasNas/core/BitmapText.hpp"
 
 using namespace ns;
