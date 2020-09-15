@@ -15,13 +15,17 @@ namespace ns::ecs {
         PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration);
         PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration, const sf::Vector2f& friction);
 
-        auto getVelocity() -> sf::Vector2f;
+        auto getVelocity() const -> const sf::Vector2f&;
         void setVelocity(const sf::Vector2f& velocity);
         void setVelocity(float velocity_x, float velocity_y);
+        void setVelocityX(float velocity_x);
+        void setVelocityY(float velocity_y);
 
-        auto getDirection() -> sf::Vector2i;
+        auto getDirection() const -> const sf::Vector2i&;
         void setDirection(const sf::Vector2i& direction);
         void setDirection(int direction_x, int direction_y);
+        void setDirectionX(int direction_x);
+        void setDirectionY(int direction_y);
 
         void update() override;
 
