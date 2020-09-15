@@ -164,7 +164,7 @@ void App::render() {
         }
     }
     for (unsigned int i = 0; i < Transition::list.size(); ++i) {
-        auto*& tr = Transition::list[i];
+        auto* tr = Transition::list[i];
         if (tr->hasStarted())
             renderer.draw(*tr);
         if (tr->hasEnded()) {
