@@ -26,7 +26,7 @@ PhysicsComponent::PhysicsComponent(BaseEntity* entity, float mass, const sf::Vec
     m_friction = friction;
 }
 
-auto PhysicsComponent::getVelocity() -> sf::Vector2f {
+auto PhysicsComponent::getVelocity() const -> const sf::Vector2f& {
     return m_velocity;
 }
 
@@ -39,7 +39,11 @@ void PhysicsComponent::setVelocity(float velocity_x, float velocity_y) {
     m_velocity.y = velocity_y;
 }
 
-auto PhysicsComponent::getDirection() -> sf::Vector2i {
+void PhysicsComponent::setVelocityX(float velocity_x) { m_velocity.x = velocity_x; }
+
+void PhysicsComponent::setVelocityY(float velocity_y) { m_velocity.y = velocity_y; }
+
+auto PhysicsComponent::getDirection() const -> const sf::Vector2i& {
     return m_direction;
 }
 
@@ -51,6 +55,10 @@ void PhysicsComponent::setDirection(int direction_x, int direction_y) {
     m_direction.x = direction_x;
     m_direction.y = direction_y;
 }
+
+void PhysicsComponent::setDirectionX(int direction_x) { m_direction.x = direction_x; }
+
+void PhysicsComponent::setDirectionY(int direction_y) { m_direction.y = direction_y; }
 
 void PhysicsComponent::update() {
 
