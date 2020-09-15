@@ -55,7 +55,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
             ns::Res::getTexture("font.png"),
             sf::Vector2u(8, 8),
             " ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-            std::unordered_map<char, int>({{'I', 7}, {'L', 7}})
+            7
     );
     // creating a BitmapText using the font created above
     auto bmp_text = std::make_shared<ns::BitmapText>("PRESS E TO TOGGLE SHADER \nPRESS R TO RUN SHADER TRANSITION\nPRESS T TO RUN CIRCLE TRANSITION");

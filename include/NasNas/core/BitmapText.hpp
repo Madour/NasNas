@@ -49,7 +49,7 @@ namespace ns {
          * \param texture Font texture
          * \param glyph_size Glyphs size in pixels
          */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size);
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, int default_advance=0);
 
         /**
          * \brief Creates a BitmapFont from a Texture
@@ -60,7 +60,7 @@ namespace ns {
          * \param glyph_size Glyphs size in pixels
          * \param chars_map Character map, defines the order of the characters on the texture
          */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map);
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, int default_advance=0);
 
         /**
         * \brief Creates a BitmapFont from a Texture
@@ -73,7 +73,7 @@ namespace ns {
         * \param glyph_size Glyphs size in pixels
         * \param advance_map Advance map, defines the space after each character
         */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<char, int>& advance_map);
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<std::string, int>& advance_map, int default_advance=0);
 
         /**
          * \brief Creates a BitmapFont from a Texture
@@ -83,7 +83,7 @@ namespace ns {
          * \param chars_map Character map, defines the order of the characters on the texture
          * \param advance_map Advance map, defines the space after each character
          */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<char, int>& advance_map);
+        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<std::string, int>& advance_map, int default_advance=0);
 
         ~BitmapFont();
 
