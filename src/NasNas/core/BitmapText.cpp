@@ -3,6 +3,7 @@
 **/
 
 
+#include <cstring>
 #include "NasNas/core/BitmapText.hpp"
 
 using namespace ns;
@@ -14,30 +15,34 @@ advance(spacing)
 {}
 
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size) :
-BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", {})
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, int default_advance) :
+BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", {}, default_advance)
 {}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map) :
-BitmapFont(texture, glyph_size, chars_map, {})
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, int default_advance) :
+BitmapFont(texture, glyph_size, chars_map, {}, default_advance)
 {}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<char, int>& spacings_map) :
-BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", spacings_map)
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<std::string, int>& spacings_map, int default_advance) :
+BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", spacings_map, default_advance)
 {}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<char, int>& spacings_map) :
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<std::string, int>& spacings_map, int default_advance) :
 m_texture(&texture),
 m_glyph_size(glyph_size) {
     m_chars_map = chars_map;
-    m_advance_map = spacings_map;
+    if (default_advance <= 0)
+        default_advance = glyph_size.x;
+    for (const auto& [string, advance] : spacings_map)
+        for (const auto& letter : string)
+            m_advance_map[letter] = advance;
 
     unsigned int i = 0;
     for (int y = 0; y < (int)m_texture->getSize().y; y += m_glyph_size.y) {
         for (int x = 0; x < (int)m_texture->getSize().x; x += m_glyph_size.x) {
             if (i < m_chars_map.size()) {
                 char character = m_chars_map[i];
-                int spacing = m_glyph_size.x;
+                int spacing = default_advance;
                 if (m_advance_map.count(character) > 0)
                     spacing = m_advance_map[character];
                 if (m_glyphs.count(character) == 0)
