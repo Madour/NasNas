@@ -69,9 +69,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b4aee8a2a32359501df326af750c6ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a5b4aee8a2a32359501df326af750c6ec">App</a> (const std::string &amp;title, sf::Vector2u resolution, unsigned int scale=1, int fps=ns::Config::Window::framerate_limit, int ups=ns::Config::Window::update_rate)</td></tr>
 <tr class="memdesc:a5b4aee8a2a32359501df326af750c6ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#a5b4aee8a2a32359501df326af750c6ec">More...</a><br /></td></tr>
 <tr class="separator:a5b4aee8a2a32359501df326af750c6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cef793b5eb2dc3574cf74d912b37ed5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a8cef793b5eb2dc3574cf74d912b37ed5">App</a> (const std::string &amp;title, int w_width, int w_height, int v_width=ns::Config::Window::view_width, int v_height=ns::Config::Window::view_height, int fps=ns::Config::Window::framerate_limit, int ups=ns::Config::Window::update_rate)</td></tr>
-<tr class="memdesc:a8cef793b5eb2dc3574cf74d912b37ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#a8cef793b5eb2dc3574cf74d912b37ed5">More...</a><br /></td></tr>
-<tr class="separator:a8cef793b5eb2dc3574cf74d912b37ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c9a36661cb5df25e7db96fdc39118e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#ac5c9a36661cb5df25e7db96fdc39118e">App</a> (const std::string &amp;title, int w_width, int w_height, int v_width=ns::Config::Window::view_size.x, int v_height=ns::Config::Window::view_size.y, int fps=ns::Config::Window::framerate_limit, int ups=ns::Config::Window::update_rate)</td></tr>
+<tr class="memdesc:ac5c9a36661cb5df25e7db96fdc39118e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#ac5c9a36661cb5df25e7db96fdc39118e">More...</a><br /></td></tr>
+<tr class="separator:ac5c9a36661cb5df25e7db96fdc39118e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfc11923eb52e6e81ac4eb0067a54fa4"><td class="memItemLeft" align="right" valign="top"><a id="acfc11923eb52e6e81ac4eb0067a54fa4"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#acfc11923eb52e6e81ac4eb0067a54fa4">~App</a> ()</td></tr>
 <tr class="memdesc:acfc11923eb52e6e81ac4eb0067a54fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete all <a class="el" href="classns_1_1Scene.html">Scene</a>, <a class="el" href="classns_1_1Camera.html">Camera</a> and <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> objects and free loaded resources. <br /></td></tr>
@@ -121,9 +121,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a6a44e549a8067029f799d5de3ddeb933"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a6a44e549a8067029f799d5de3ddeb933">createCamera</a> (const std::string &amp;name, int order, const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;view, const <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> &amp;viewport) -&gt; <a class="el" href="classns_1_1Camera.html">Camera</a> *</td></tr>
 <tr class="memdesc:a6a44e549a8067029f799d5de3ddeb933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1Camera.html">Camera</a> object and returns a pointer to it.  <a href="#a6a44e549a8067029f799d5de3ddeb933">More...</a><br /></td></tr>
 <tr class="separator:a6a44e549a8067029f799d5de3ddeb933"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9c6775a976833fba64af45cb10e2871"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#ad9c6775a976833fba64af45cb10e2871">createCamera</a> (const std::string &amp;name, int order, const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;view) -&gt; <a class="el" href="classns_1_1Camera.html">Camera</a> *</td></tr>
-<tr class="memdesc:ad9c6775a976833fba64af45cb10e2871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1Camera.html">Camera</a> object and returns a pointer to it.  <a href="#ad9c6775a976833fba64af45cb10e2871">More...</a><br /></td></tr>
-<tr class="separator:ad9c6775a976833fba64af45cb10e2871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00a379fbb9b6067a49e8ec93909adc66"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a00a379fbb9b6067a49e8ec93909adc66">createCamera</a> (const std::string &amp;name, int order, const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;view={{0, 0}, Config::Window::view_size}) -&gt; <a class="el" href="classns_1_1Camera.html">Camera</a> *</td></tr>
+<tr class="memdesc:a00a379fbb9b6067a49e8ec93909adc66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1Camera.html">Camera</a> object and returns a pointer to it.  <a href="#a00a379fbb9b6067a49e8ec93909adc66">More...</a><br /></td></tr>
+<tr class="separator:a00a379fbb9b6067a49e8ec93909adc66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bdf1b944b623cfcde8aeba433636bdd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a9bdf1b944b623cfcde8aeba433636bdd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a9bdf1b944b623cfcde8aeba433636bdd">addDebugText</a> (T *var_address, const std::string &amp;label, const sf::Vector2f &amp;position, const sf::Color &amp;color=<a class="el" href="classns_1_1DebugTextInterface.html#a012e4e535372dd37493431a02f8ffe7e">ns::DebugTextInterface::color</a>)</td></tr>
 <tr class="memdesc:a9bdf1b944b623cfcde8aeba433636bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> object and render it on the <a class="el" href="classns_1_1AppWindow.html">AppWindow</a> directly.  <a href="#a9bdf1b944b623cfcde8aeba433636bdd">More...</a><br /></td></tr>
@@ -217,8 +217,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a8cef793b5eb2dc3574cf74d912b37ed5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cef793b5eb2dc3574cf74d912b37ed5">&#9670;&nbsp;</a></span>App() <span class="overload">[2/2]</span></h2>
+<a id="ac5c9a36661cb5df25e7db96fdc39118e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5c9a36661cb5df25e7db96fdc39118e">&#9670;&nbsp;</a></span>App() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,13 +245,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>v_width</em> = <code>ns::Config::Window::view_width</code>, </td>
+          <td class="paramname"><em>v_width</em> = <code>ns::Config::Window::view_size.x</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>v_height</em> = <code>ns::Config::Window::view_height</code>, </td>
+          <td class="paramname"><em>v_height</em> = <code>ns::Config::Window::view_size.y</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -721,8 +721,8 @@ template&lt;typename T , typename ObjT &gt; </div>
 
 </div>
 </div>
-<a id="ad9c6775a976833fba64af45cb10e2871"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9c6775a976833fba64af45cb10e2871">&#9670;&nbsp;</a></span>createCamera() <span class="overload">[2/2]</span></h2>
+<a id="a00a379fbb9b6067a49e8ec93909adc66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00a379fbb9b6067a49e8ec93909adc66">&#9670;&nbsp;</a></span>createCamera() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -746,7 +746,7 @@ template&lt;typename T , typename ObjT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;&#160;</td>
-          <td class="paramname"><em>view</em>&#160;</td>
+          <td class="paramname"><em>view</em> = <code>{{0,&#160;0},&#160;Config::Window::view_size}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
