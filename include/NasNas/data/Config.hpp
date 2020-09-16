@@ -19,10 +19,8 @@ namespace ns {
         class Window {
         public:
             static std::string title;
-            static int width;
-            static int height;
-            static int view_width;
-            static int view_height;
+            static sf::Vector2i size;
+            static sf::Vector2i view_size;
             static int style;
             static int framerate_limit;
             static int update_rate;

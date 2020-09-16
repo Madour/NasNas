@@ -9,13 +9,13 @@ using namespace ns;
 
 App::App()
 : App(
-    ns::Config::Window::title,
-    ns::Config::Window::width,
-    ns::Config::Window::height,
-    ns::Config::Window::view_width,
-    ns::Config::Window::view_height,
-    ns::Config::Window::framerate_limit,
-    ns::Config::Window::update_rate
+    Config::Window::title,
+    Config::Window::size.x,
+    Config::Window::size.y,
+    Config::Window::view_size.x,
+    Config::Window::view_size.y,
+    Config::Window::framerate_limit,
+    Config::Window::update_rate
 )
 {}
 
@@ -26,20 +26,20 @@ App(title, resolution.x*scale, resolution.y*scale, resolution.x, resolution.y, f
 App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps, int ups) {
     AppComponent::app = this;
 
-    ns::Config::Window::title = title;
-    ns::Config::Window::width = w_width;
-    ns::Config::Window::height = w_height;
-    ns::Config::Window::view_width = v_width == 0 ? w_width : v_width;
-    ns::Config::Window::view_height = v_height == 0 ? w_height : v_height;
-    ns::Config::Window::framerate_limit = fps;
-    ns::Config::Window::update_rate = ups;
+    Config::Window::title = title;
+    Config::Window::size.x = w_width;
+    Config::Window::size.y = w_height;
+    Config::Window::view_size.x = v_width == 0 ? w_width : v_width;
+    Config::Window::view_size.y = v_height == 0 ? w_height : v_height;
+    Config::Window::framerate_limit = fps;
+    Config::Window::update_rate = ups;
 
     m_title = title;
     m_desired_fps = fps;
     m_ups = ups;
     m_fullscreen = false;
 
-    m_window.create(sf::VideoMode(w_width, w_height), title, ns::Config::Window::style);
+    m_window.create(sf::VideoMode(w_width, w_height), title, Config::Window::style);
     m_window.setFramerateLimit(fps);
 
     m_dt = 0.0;
@@ -127,7 +127,7 @@ void App::toggleFullscreen() {
         m_window.setMouseCursorVisible(false);
     }
     else {
-        m_window.create(sf::VideoMode(ns::Config::Window::width, ns::Config::Window::height), m_title, ns::Config::Window::style);
+        m_window.create(sf::VideoMode(Config::Window::size.x, Config::Window::size.y), m_title, Config::Window::style);
     }
     m_window.setClearColor(clear_color);
     m_window.setFramerateLimit(m_desired_fps);
@@ -233,7 +233,7 @@ void App::run() {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
 
-        if (ns::Config::debug)
+        if (Config::debug)
             m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
         else
             m_window.setTitle(m_title);

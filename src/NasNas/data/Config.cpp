@@ -11,11 +11,9 @@ using namespace ns;
 const std::filesystem::path Config::base_path = std::filesystem::current_path();
 bool Config::debug = true;
 
-std::string Config::Window::title;
-int Config::Window::width = 960;
-int Config::Window::height = 540;
-int Config::Window::view_width = 0;
-int Config::Window::view_height = 0;
+std::string Config::Window::title = "NasNas app";
+sf::Vector2i Config::Window::size = {720, 480};
+sf::Vector2i Config::Window::view_size = {0, 0};
 int Config::Window::style = sf::Style::Default;
 int Config::Window::framerate_limit = 60;
 int Config::Window::update_rate = 60;
