@@ -9,7 +9,7 @@
 #include "ShaderTransition.hpp"
 
 Game::Game() :
-ns::App("NasNas++ demo", {640, 360}, 2, 60, 60) {
+ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //------------ Game Config ----------------------------------------------------------
     // mapping keys inputs
     ns::Config::Inputs::setButtonKey("left", sf::Keyboard::Left);
@@ -73,13 +73,13 @@ ns::App("NasNas++ demo", {640, 360}, 2, 60, 60) {
 
     //------------ Creating a Scene and its Layers --------------------------------------
     this->scene = this->createScene("main");
-    this->scene->addLayer("shapes", 0); // creating new Layer using layer name (recommanded)
+    this->scene->addLayer("shapes", 0); // creating new Layer using layer name (recommended)
     this->scene->addLayer(new ns::Layer("entities"), 1);  // creating new Layer using raw pointer
     this->scene->addLayer(std::make_shared<ns::Layer>("texts"), 2);  // creating new Layer using smart pointer
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Camera ----------------------------------------------------
-    auto camera_view = ns::IntRect(0, 0, ns::Config::Window::view_width, ns::Config::Window::view_height);
+    auto camera_view = ns::IntRect({0, 0}, ns::Config::Window::view_size);
     this->game_camera = this->createCamera("game_camera", 0, camera_view);
     this->game_camera->lookAt(this->scene);     // telling the Camera to look at the scene
     this->game_camera->follow(*this->player);   // telling the Camera to follow our entity

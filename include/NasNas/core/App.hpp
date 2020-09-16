@@ -50,8 +50,8 @@ namespace ns {
          * \param ups Update per second
          */
         App(const std::string& title, int w_width, int w_height,
-            int v_width=ns::Config::Window::view_width,
-            int v_height=ns::Config::Window::view_height,
+            int v_width=ns::Config::Window::view_size.x,
+            int v_height=ns::Config::Window::view_size.y,
             int fps=ns::Config::Window::framerate_limit,
             int ups=ns::Config::Window::update_rate
         );
@@ -144,7 +144,7 @@ namespace ns {
          *
          * \return Pointer to the created Camera object *
          */
-        auto createCamera(const std::string& name, int order, const ns::IntRect& view) -> Camera*;
+        auto createCamera(const std::string& name, int order, const ns::IntRect& view={{0, 0}, Config::Window::view_size}) -> Camera*;
 
         /**
          * \brief Creates a DebugText object and render it on the AppWindow directly

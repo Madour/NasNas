@@ -23,8 +23,8 @@ Camera::Camera(const std::string& name, int render_order) {
     m_base_view = ns::IntRect(0, 0, 1000, 1000);
     m_base_viewport = ns::FloatRect(0, 0, 1, 1);
 
-    if (ns::Config::Window::view_width && ns::Config::Window::view_height)
-        m_render_texture.create(ns::Config::Window::view_width, ns::Config::Window::view_height);
+    if (ns::Config::Window::view_size != sf::Vector2i(0, 0))
+        m_render_texture.create(ns::Config::Window::view_size.x, ns::Config::Window::view_size.y);
 
 }
 

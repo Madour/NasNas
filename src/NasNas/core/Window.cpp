@@ -16,7 +16,7 @@ void AppWindow::onCreate() {
     setMouseCursorVisible(ns::Config::Window::cursor_visible);
     setMouseCursorGrabbed(ns::Config::Window::cursor_grabbed);
 
-    m_app_view.reset({0, 0, (float)ns::Config::Window::view_width, (float)ns::Config::Window::view_height});
+    m_app_view.reset({0, 0, (float)ns::Config::Window::view_size.x, (float)ns::Config::Window::view_size.y});
     m_screen_view.reset({0, 0, (float)getSize().x, (float)getSize().y});
 
     m_clear_color = sf::Color::Black;
@@ -39,7 +39,7 @@ void AppWindow::scaleView(){
     // wider than base window
     float vp_w, vp_h, vp_x, vp_y;
     float win_w = (float)getSize().x, win_h = (float)getSize().y;
-    float screen_ratio = (float)ns::Config::Window::width / (float)ns::Config::Window::height;
+    float screen_ratio = (float)ns::Config::Window::size.x / (float)ns::Config::Window::size.y;
     if (win_w / win_h > screen_ratio) {
         vp_w = win_h * screen_ratio / win_w;
         vp_x = (1 - vp_w) / 2;
