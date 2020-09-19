@@ -169,30 +169,43 @@ void BitmapText::processString() {
     if (m_max_width > 0 && m_font != nullptr) {
         // splitting string into words
         std::vector<std::string> words;
-        auto str = m_string;
-        auto* word = std::strtok(str.data(), " ");
-        while (word != nullptr) {
-            words.emplace_back(word);
-            word = std::strtok(nullptr, " ");
+        auto* str = m_string.data();
+        std::string current_word;
+        while(*str != '\0') {
+            if (*str == ' ' || *str == '\n') {
+                if (!current_word.empty())
+                    words.push_back(current_word);
+                words.emplace_back(1, *str);
+                current_word = "";
+            }
+            else
+                current_word += *str;
+            str++;
         }
+        words.push_back(current_word);
+
         // inserting new line character when the width exceeds the max width
         int current_width = 0;
         for (auto& w : words) {
-            if (current_width + getFont()->computeStringSize(w).x > m_max_width) {
+            const auto& word_width = getFont()->computeStringSize(w).x;
+            if (w == "\n")
+                current_width = 0;
+            else if (current_width + word_width > m_max_width) {
                 current_width = 0;
                 if (w[0] != '\n')
                     w = std::string("\n").append(w);
             }
-            current_width += getFont()->computeStringSize(w+" ").x;
+            current_width += word_width;
         }
+
         // joining the words into the final processed string
         m_processed_string.clear();
         for (int i = 0; i < words.size(); ++i) {
-            if ((i+1 < words.size() && words[i+1][0] == '\n') || i+1 == words.size()) {
-                m_processed_string += words[i];
-                continue;
-            }
-            m_processed_string += words[i] + " ";
+            auto& word = words[i];
+            if (word == " ")
+                if ((i+1 < words.size() && words[i+1][0] == '\n') || i+1 == words.size())
+                    continue;
+            m_processed_string += words[i];
         }
     }
 }
@@ -214,10 +227,10 @@ void BitmapText::updateVertices() {
             }
             auto glyph = m_font->getGlyph(character);
             auto glyph_size = (sf::Vector2f)m_font->getGlyphSize();
-            auto vertex_tl = sf::Vertex({x, y}, m_color, (sf::Vector2f)glyph.texture_rect.topleft());
-            auto vertex_tr = sf::Vertex({x + glyph_size.x, y}, m_color, (sf::Vector2f)glyph.texture_rect.topright());
-            auto vertex_br = sf::Vertex({x + glyph_size.x, y + glyph_size.y}, m_color, (sf::Vector2f)glyph.texture_rect.bottomright());
-            auto vertex_bl = sf::Vertex({x, y + glyph_size.y}, m_color, (sf::Vector2f)glyph.texture_rect.bottomleft());
+            auto vertex_tl = sf::Vertex({x, y}, m_color, sf::Vector2f(glyph.texture_rect.topleft()));
+            auto vertex_tr = sf::Vertex({x + glyph_size.x, y}, m_color, sf::Vector2f(glyph.texture_rect.topright()));
+            auto vertex_br = sf::Vertex({x + glyph_size.x, y + glyph_size.y}, m_color, sf::Vector2f(glyph.texture_rect.bottomright()));
+            auto vertex_bl = sf::Vertex({x, y + glyph_size.y}, m_color, sf::Vector2f(glyph.texture_rect.bottomleft()));
             m_vertices.append(vertex_tl);
             m_vertices.append(vertex_tr);
             m_vertices.append(vertex_br);
