@@ -44,21 +44,21 @@ Player::Player()
     // adding physics component to player
     addComponent<ns::ecs::PhysicsComponent>(1.f, sf::Vector2f(5, 5),sf::Vector2f(0.5f, 0.5f), sf::Vector2f(0.1f, 0.1f));
 
-    // adding shape component to player (red triangle)
-    auto* shape_component = new ns::ecs::ShapeComponent<sf::ConvexShape>(this, 4, sf::Vector2f(0, -15));
+    // adding shape component to player (blue square)
+    auto* shape_component = new ns::ecs::ConvexShapeComponent(this, 4, sf::Vector2f(0, -15));
     shape_component->getDrawable().setFillColor(sf::Color::Blue);
     shape_component->getDrawable().setPoint(0, {-5, -5});
     shape_component->getDrawable().setPoint(1, {5, -5});
     shape_component->getDrawable().setPoint(2, {5, 5});
     shape_component->getDrawable().setPoint(3, {-5, 5});
-    addComponent<>(shape_component);
+    addComponent(shape_component);
 
     // adding inputs component to player and binding buttons to Player methods
     addComponent<ns::ecs::InputsComponent>();
-    inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("left"), &Player::moveLeft);
-    inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("right"), &Player::moveRight);
-    inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("up"), &Player::moveUp);
-    inputs()->bind<Player>(ns::Config::Inputs::getButtonKey("down"), &Player::moveDown);
+    inputs()->bind(ns::Config::Inputs::getButtonKey("left"), [&](){ moveLeft(); });
+    inputs()->bind(ns::Config::Inputs::getButtonKey("right"), [&](){ moveRight(); });
+    inputs()->bind(ns::Config::Inputs::getButtonKey("up"), [&](){ moveUp(); });
+    inputs()->bind(ns::Config::Inputs::getButtonKey("down"), [&](){ moveDown(); });
 
     addComponent<ns::ecs::ColliderComponent>(new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
 
@@ -89,7 +89,7 @@ void Player::update() {
     physics()->setDirection(0, 0);
 
     // update Player inputs component
-    inputs()->update<Player>();
+    inputs()->update();
 
     // updating physics component
     physics()->update();
