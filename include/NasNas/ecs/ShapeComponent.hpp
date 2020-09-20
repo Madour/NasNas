@@ -14,7 +14,7 @@ namespace ns::ecs {
     template <typename T>
     class ShapeComponent : public GraphicsComponent{
     public:
-        ShapeComponent(BaseEntity* entity, float radius, int point_count=30, const sf::Vector2f& pos_offset={0,0});
+        ShapeComponent(BaseEntity* entity, float radius, int point_count, const sf::Vector2f& pos_offset={0,0});
         ShapeComponent(BaseEntity* entity, float radius, const sf::Vector2f& pos_offset={0,0});
         ShapeComponent(BaseEntity* entity, const sf::Vector2f& size, const sf::Vector2f& pos_offset={0,0});
         ShapeComponent(BaseEntity* entity, int point_count, const sf::Vector2f& pos_offset={0,0});
@@ -49,5 +49,9 @@ namespace ns::ecs {
     void ShapeComponent<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         target.draw(m_drawable, states);
     }
+
+    typedef ShapeComponent<sf::CircleShape> CircleShapeComponent;
+    typedef ShapeComponent<sf::RectangleShape> RectangleShapeComponent;
+    typedef ShapeComponent<sf::ConvexShape> ConvexShapeComponent;
 
 }
