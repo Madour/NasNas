@@ -9,17 +9,15 @@
 using namespace ns;
 using namespace ns::ecs;
 
-PhysicsComponent::PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration):
+PhysicsComponent::PhysicsComponent(BaseEntity* entity, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration, const sf::Vector2f& friction, float mass) :
 BaseComponent(entity) {
+
     m_entity->m_physics_component = this;
     m_mass = mass;
     m_max_velocity = max_velocity;
     m_acceleration = acceleration;
-}
 
-PhysicsComponent::PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration, const sf::Vector2f& friction) :
-        PhysicsComponent(entity, mass, max_velocity, acceleration) {
-    if (friction.x > 1.0 || friction.y > 1.0) {
+    if (friction.x > 1.f || friction.y > 1.f || friction.x < 0.f || friction.y < 0.f) {
         std::cout << "Friction parameter of PhysicsComponent should be a vector between (0, 0) and (1, 1)." << std::endl;
         exit(-1);
     }

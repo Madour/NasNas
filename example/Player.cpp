@@ -42,7 +42,7 @@ Player::Player()
     addComponent<ns::ecs::SpriteComponent>(m_spritesheet);
 
     // adding physics component to player
-    addComponent<ns::ecs::PhysicsComponent>(1.f, sf::Vector2f(5, 5),sf::Vector2f(0.5f, 0.5f), sf::Vector2f(0.1f, 0.1f));
+    addComponent<ns::ecs::PhysicsComponent>(sf::Vector2f(5, 5),sf::Vector2f(0.5f, 0.5f), sf::Vector2f(0.1f, 0.1f), 1.f);
 
     // adding shape component to player (blue square)
     auto* shape_component = new ns::ecs::ConvexShapeComponent(this, 4, sf::Vector2f(0, -15));
