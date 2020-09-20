@@ -12,8 +12,7 @@ namespace ns::ecs {
 
     class PhysicsComponent : public BaseComponent {
     public:
-        PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration);
-        PhysicsComponent(BaseEntity* entity, float mass, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration, const sf::Vector2f& friction);
+        PhysicsComponent(BaseEntity* entity, const sf::Vector2f& max_velocity, const sf::Vector2f& acceleration, const sf::Vector2f& friction={1, 1}, float mass=1.f);
 
         auto getVelocity() const -> const sf::Vector2f&;
         void setVelocity(const sf::Vector2f& velocity);
@@ -35,7 +34,7 @@ namespace ns::ecs {
         sf::Vector2f m_velocity = {0, 0};
         sf::Vector2f m_max_velocity;
         sf::Vector2f m_acceleration;
-        sf::Vector2f m_friction = {0, 0};
+        sf::Vector2f m_friction;
     };
 
 }
