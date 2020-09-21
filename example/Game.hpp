@@ -19,7 +19,10 @@ private:
     ns::Scene* scene;
     ns::Camera* game_camera;
 
+    ns::BitmapFont* font;
+
     ns::tm::TiledMap tiled_map;
+
     std::shared_ptr<ns::BaseEntity> player;
     std::shared_ptr<ns::ui::TypedText> textbox;
 

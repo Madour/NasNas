@@ -51,23 +51,23 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->entities.push_back(wall);
 
     // creating a BitmapFont
-    auto bmp_font = std::make_shared<ns::BitmapFont>(
+    this->font = new ns::BitmapFont(
             ns::Res::getTexture("font.png"),
             sf::Vector2u(8, 8),
             " ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-            7
+            6
     );
     // creating a BitmapText using the font created above
     auto bmp_text = std::make_shared<ns::BitmapText>("PRESS E TO TOGGLE SHADER \nPRESS R TO RUN SHADER TRANSITION\nPRESS T TO RUN CIRCLE TRANSITION");
-    bmp_text->setFont(bmp_font);
+    bmp_text->setFont(this->font);
     bmp_text->setPosition(250, 80);
 
-    textbox = std::make_shared<ns::ui::TypedText>("TYPEDTEXT CAN DYNAMICALLY GENERATE LINE BREAKS AND MULTIPLE PAGES DEPENDING ON ITS MAX WIDTH AND MAX LINES");
-    textbox->setFont(bmp_font);
-    textbox->setMaxWidth(200);
-    textbox->setMaxLines(2);
-    textbox->setTypingDelay(5);
-    textbox->setPosition(250, 125);
+    this->textbox = std::make_shared<ns::ui::TypedText>("TYPEDTEXT CAN DYNAMICALLY GENERATE LINE BREAKS AND MULTIPLE PAGES DEPENDING ON ITS MAX WIDTH AND MAX LINES");
+    this->textbox->setFont(this->font);
+    this->textbox->setMaxWidth(200);
+    this->textbox->setMaxLines(2);
+    this->textbox->setTypingDelay(5);
+    this->textbox->setPosition(250, 125);
 
     //-----------------------------------------------------------------------------------
 
@@ -130,8 +130,8 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     // setting a shader for fun
-    black_white_shader = new sf::Shader();
-    black_white_shader->loadFromMemory(
+    this->black_white_shader = new sf::Shader();
+    this->black_white_shader->loadFromMemory(
         "uniform sampler2D texture;"
         "void main()"
         "{"
@@ -154,8 +154,8 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->game_camera->setShader(black_white_shader);
     this->game_camera->toggleShader();
 
-    palette_shader = new sf::Shader();
-    palette_shader->loadFromMemory(
+    this->palette_shader = new sf::Shader();
+    this->palette_shader->loadFromMemory(
         "uniform sampler2D texture;"
         "uniform float treshold;"
         "void main()"
@@ -175,9 +175,9 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
         "}",
         sf::Shader::Fragment
     );
-    palette_shader->setUniform("treshold", 0.25f);
+    this->palette_shader->setUniform("treshold", 0.25f);
     this->setShader(palette_shader);
-    toggleShader();
+    this->toggleShader();
 }
 
 void Game::onEvent(const sf::Event& event) {
@@ -224,7 +224,7 @@ void Game::onEvent(const sf::Event& event) {
 
 void Game::update() {
     this->frame_counter++;
-    textbox->update();
+    this->textbox->update();
     // moving the octogons randomly
     for (const auto& shape: this->shapes) {
         shape->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
@@ -248,6 +248,7 @@ void Game::update() {
 }
 
 Game::~Game() {
-    delete(black_white_shader);
-    delete(palette_shader);
+    delete(this->black_white_shader);
+    delete(this->palette_shader);
+    delete(this->font);
 };
