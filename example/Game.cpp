@@ -52,17 +52,18 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     // creating a BitmapFont
     this->font = new ns::BitmapFont(
-            ns::Res::getTexture("font.png"),
-            sf::Vector2u(8, 8),
-            " ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-            6
+        ns::Res::getTexture("font.png"),
+        {8, 8},
+        " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+=",
+        {{"ABCDEFGHIJKMNOPQRSTUVWXYZ?=-", 7}, {"ijlntsofpqrux", 5}},
+        6
     );
     // creating a BitmapText using the font created above
-    auto bmp_text = std::make_shared<ns::BitmapText>("PRESS E TO TOGGLE SHADER \nPRESS R TO RUN SHADER TRANSITION\nPRESS T TO RUN CIRCLE TRANSITION");
+    auto bmp_text = std::make_shared<ns::BitmapText>("Press E to toggle Shader \nPress R to run Shader Transition\nPress T to run Circle Transition");
     bmp_text->setFont(this->font);
     bmp_text->setPosition(250, 80);
 
-    this->textbox = std::make_shared<ns::ui::TypedText>("TYPEDTEXT CAN DYNAMICALLY GENERATE LINE BREAKS AND MULTIPLE PAGES DEPENDING ON ITS MAX WIDTH AND MAX LINES");
+    this->textbox = std::make_shared<ns::ui::TypedText>("TypedText is useful in RPG games ! It creates a typing animation and can be configured to display text on multiple pages.");
     this->textbox->setFont(this->font);
     this->textbox->setMaxWidth(200);
     this->textbox->setMaxLines(2);
