@@ -3,15 +3,14 @@
 **/
 
 
-#include <cstring>
 #include "NasNas/core/BitmapText.hpp"
 
 using namespace ns;
 
-BitmapGlyph::BitmapGlyph(const ns::IntRect& texture_rect, char character, int spacing) :
+BitmapGlyph::BitmapGlyph(const ns::IntRect& texture_rect, char character, int default_advance) :
 texture_rect(texture_rect),
 character(character),
-advance(spacing)
+advance(default_advance)
 {}
 
 
@@ -107,11 +106,14 @@ void BitmapText::setString(const std::string &string) {
     updateVertices();
 }
 
-auto BitmapText::getFont() -> std::shared_ptr<BitmapFont>& {
+auto BitmapText::getFont() -> BitmapFont* {
     return m_font;
 }
 
 void BitmapText::setFont(const std::shared_ptr<BitmapFont>& font) {
+    setFont(font.get());
+}
+void BitmapText::setFont(BitmapFont* font) {
     m_font = font;
     processString();
     updateVertices();

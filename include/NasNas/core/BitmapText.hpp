@@ -144,7 +144,7 @@ namespace ns {
          */
         void setString(const std::string& string);
 
-        auto getFont() -> std::shared_ptr<BitmapFont>&;
+        auto getFont() -> BitmapFont*;
 
         /**
          * \brief Set the BitmapFont to use
@@ -152,6 +152,13 @@ namespace ns {
          * \param font BitmapFont to use
          */
         void setFont(const std::shared_ptr<BitmapFont>& font);
+
+        /**
+         * \brief Set the BitmapFont to use
+
+         * \param font BitmapFont to use
+         */
+         void setFont(BitmapFont* font);
 
         /**
          * \brief Set the font color
@@ -223,9 +230,10 @@ namespace ns {
     private:
         void updateVertices();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
         std::string m_string;
         std::string m_processed_string;
-        std::shared_ptr<BitmapFont> m_font = nullptr;
+        BitmapFont* m_font = nullptr;
         sf::Color m_color = sf::Color::White;
 
         int m_max_width = 0;
