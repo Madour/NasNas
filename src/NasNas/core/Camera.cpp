@@ -40,6 +40,7 @@ void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
 }
 void Camera::reset(const ns::FloatRect& rectangle) {
     m_base_view = ns::IntRect((int)rectangle.left, (int)rectangle.top, (int)rectangle.width, (int)rectangle.height);
+    m_render_texture.create(rectangle.width, rectangle.height);
     sf::View::reset(rectangle);
 }
 
@@ -135,6 +136,10 @@ void Camera::update() {
             if (getBottom() > (float)m_limits.bottom()) setBottom((float)m_limits.bottom());
         }
     }
+    m_sprite.setScale(
+        (ns::Config::Window::view_size.x/getSize().x) ,
+        (ns::Config::Window::view_size.y/getSize().y)
+    );
 }
 
 void Camera::render(sf::RenderTarget& target) {
