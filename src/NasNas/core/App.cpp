@@ -179,16 +179,21 @@ void App::render() {
     m_window.setView(m_window.getScreenView());
 
     auto drawDebugRectangle = [&](const ns::FloatRect& global_bounds, const Camera* view) {
-        auto topleft = global_bounds.topleft() - view->getPosition();
-        auto botright = global_bounds.bottomright() - view->getPosition();
-        auto pos = getWindow().mapCoordsToPixel(topleft, getWindow().getAppView());
-        auto pos2 = getWindow().mapCoordsToPixel(botright, getWindow().getAppView());
-        auto size = pos2-pos;
-        sf::RectangleShape dbg_bounds{sf::Vector2f(size)};
+        auto view_center = sf::Vector2f(getWindow().mapCoordsToPixel(view->getCenter() - view->getPosition(), getWindow().getAppView()));
+        auto topleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topleft() - view->getPosition(), getWindow().getAppView()));
+        auto bottomright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomright() - view->getPosition(), getWindow().getAppView()));
+        auto viewport = view->getViewport();
+        auto pos = sf::Vector2f(topleft.x*viewport.width, topleft.y*viewport.height);
+        auto pos2 = sf::Vector2f(bottomright.x*viewport.width, bottomright.y*viewport.height);
+        auto size = sf::Vector2f(pos2-pos);
+        auto center = sf::Vector2f(view_center.x*viewport.width, view_center.y*viewport.height);
+        sf::RectangleShape dbg_bounds{sf::Vector2f(size.x, size.y)};
+        dbg_bounds.setOrigin(center-pos);
+        dbg_bounds.setPosition(pos+dbg_bounds.getOrigin());
         dbg_bounds.setOutlineThickness(1);
         dbg_bounds.setOutlineColor(sf::Color::Red);
         dbg_bounds.setFillColor(sf::Color::Transparent);
-        dbg_bounds.setPosition((float)pos.x, (float)pos.y);
+        dbg_bounds.rotate(-view->getRotation());
         m_window.draw(dbg_bounds);
     };
     if (Config::debug) {
