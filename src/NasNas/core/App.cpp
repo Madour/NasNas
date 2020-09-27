@@ -190,11 +190,12 @@ void App::render() {
         auto view_center = sf::Vector2f(getWindow().mapCoordsToPixel(view->getCenter() - view->getPosition(), getWindow().getAppView()));
         auto topleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topleft() - view->getPosition(), getWindow().getAppView()));
         auto bottomright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomright() - view->getPosition(), getWindow().getAppView()));
+        auto& viewsize = view->getSize();
         auto& viewport = view->getViewport();
-        auto pos = sf::Vector2f(topleft.x*viewport.width, topleft.y*viewport.height);
-        auto pos2 = sf::Vector2f(bottomright.x*viewport.width, bottomright.y*viewport.height);
+        auto pos = sf::Vector2f(2*viewsize.x*viewport.left+topleft.x*viewport.width, 2*viewsize.y*viewport.top+topleft.y*viewport.height);
+        auto pos2 = sf::Vector2f(2*viewsize.x*viewport.left+bottomright.x*viewport.width, 2*viewsize.y*viewport.top+bottomright.y*viewport.height);
         auto size = sf::Vector2f(pos2-pos);
-        auto center = sf::Vector2f(view_center.x*viewport.width, view_center.y*viewport.height);
+        auto center = sf::Vector2f(2*viewsize.x*viewport.left+view_center.x*viewport.width, 2*viewsize.y*viewport.top+view_center.y*viewport.height);
         sf::RectangleShape dbg_bounds{sf::Vector2f(size.x, size.y)};
         dbg_bounds.setOrigin(center-pos);
         dbg_bounds.setPosition(pos+dbg_bounds.getOrigin());
