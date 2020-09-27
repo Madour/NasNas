@@ -226,6 +226,18 @@ namespace ns {
         void addDebugText(DebugText<T, ObjT>* debug_text);
 
         /**
+         * \brief The App enters sleep mode, the App will not update.
+         * Used for Android when application runs in background
+         */
+        void sleep();
+
+        /**
+         * \brief The App awakes from sleep mode.
+         * Used for Android when application run as main process.
+         */
+        void awake();
+
+        /**
          * \brief Toggle fullscreen display.
          */
         void toggleFullscreen();
@@ -256,6 +268,7 @@ namespace ns {
         int m_desired_fps;      ///< Frame per second
         sf::Clock m_fps_clock;  ///< Clock to compute real FPS
         float m_dt;             ///< Delta time, time between two frames
+        bool m_sleeping = false;
 
         std::vector<Camera*> m_cameras;                 ///< Vector of Camera pointers
         std::vector<Scene*> m_scenes;                   ///< Vector of Scene pointers

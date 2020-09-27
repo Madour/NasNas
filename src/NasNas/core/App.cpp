@@ -120,6 +120,14 @@ auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect
     return createCamera(cam_name, order, view, ns::FloatRect(0, 0, 1, 1));
 }
 
+void App::sleep() {
+    m_sleeping = true;
+}
+
+void App::awake() {
+    m_sleeping = false;
+}
+
 void App::toggleFullscreen() {
     auto clear_color = m_window.getClearColor();
     if(!m_fullscreen) {
@@ -182,7 +190,7 @@ void App::render() {
         auto view_center = sf::Vector2f(getWindow().mapCoordsToPixel(view->getCenter() - view->getPosition(), getWindow().getAppView()));
         auto topleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topleft() - view->getPosition(), getWindow().getAppView()));
         auto bottomright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomright() - view->getPosition(), getWindow().getAppView()));
-        auto viewport = view->getViewport();
+        auto& viewport = view->getViewport();
         auto pos = sf::Vector2f(topleft.x*viewport.width, topleft.y*viewport.height);
         auto pos2 = sf::Vector2f(bottomright.x*viewport.width, bottomright.y*viewport.height);
         auto size = sf::Vector2f(pos2-pos);
@@ -252,15 +260,18 @@ void App::run() {
         // updating app
         while (current_slice >= slice_time) {
             current_slice -= slice_time;
-            update();
-            for (const auto& cam : m_cameras)
-                cam->update();
-            for (unsigned int i = 0; i < Transition::list.size(); ++i)
-                Transition::list[i]->update();
+            if (!m_sleeping) {
+                update();
+                for (const auto& cam : m_cameras)
+                    cam->update();
+                for (unsigned int i = 0; i < Transition::list.size(); ++i)
+                    Transition::list[i]->update();
+            }
         }
         // rendering drawables and displaying window
         m_window.clear(m_window.getClearColor());
-        render();
+        if (!m_sleeping)
+            render();
         m_window.display();
     }
 }
