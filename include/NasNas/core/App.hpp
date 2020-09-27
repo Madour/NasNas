@@ -14,6 +14,7 @@
 #include "NasNas/core/Window.hpp"
 #include "NasNas/core/Transition.hpp"
 #include "NasNas/core/Debug.hpp"
+#include "NasNas/core/Logger.hpp"
 
 namespace ns {
 

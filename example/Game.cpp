@@ -80,8 +80,8 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Camera ----------------------------------------------------
-    auto camera_view = ns::IntRect({0, 0}, ns::Config::Window::view_size);
-    this->game_camera = this->createCamera("game_camera", 0, camera_view);
+    auto game_view = sf::Vector2i(640, 360);
+    this->game_camera = this->createCamera("game_camera", 0, {{0, 0}, game_view});
     this->game_camera->lookAt(this->scene);     // telling the Camera to look at the scene
     this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
     this->game_camera->setFramesDelay(10);      // the Camera will have 10 frames delay over the player
@@ -225,6 +225,12 @@ void Game::onEvent(const sf::Event& event) {
 
 void Game::update() {
     this->frame_counter++;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        game_camera->rotate(1);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        game_camera->rotate(-1);
+
     this->textbox->update();
     // moving the octogons randomly
     for (const auto& shape: this->shapes) {
