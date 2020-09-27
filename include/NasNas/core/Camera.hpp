@@ -82,6 +82,8 @@ namespace ns {
          */
         void resetViewport(float x, float y, float w, float h);
 
+        auto getViewport() const -> const ns::FloatRect& ;
+
         /**
          * \brief Is the Camera looking at a Scene ?
          *

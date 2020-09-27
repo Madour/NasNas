@@ -46,11 +46,14 @@ void Camera::reset(const ns::FloatRect& rectangle) {
 
 void Camera::resetViewport(float x, float y, float w, float h) {
     m_base_viewport = ns::FloatRect(x, y, w, h);
-    setViewport(ns::FloatRect(x, y, w, h));
+    sf::View::setViewport({0, 0, 1, 1});
 }
 void Camera::resetViewport(sf::Vector2f position, sf::Vector2f size) {
     m_base_viewport = ns::FloatRect(position, size);
-    setViewport(ns::FloatRect(position, size));
+    sf::View::setViewport({0, 0, 1, 1});
+}
+auto Camera::getViewport() const -> const ns::FloatRect& {
+    return m_base_viewport;
 }
 
 auto Camera::getScene() -> Scene& {
@@ -136,10 +139,6 @@ void Camera::update() {
             if (getBottom() > (float)m_limits.bottom()) setBottom((float)m_limits.bottom());
         }
     }
-    m_sprite.setScale(
-        (ns::Config::Window::view_size.x/getSize().x) ,
-        (ns::Config::Window::view_size.y/getSize().y)
-    );
 }
 
 void Camera::render(sf::RenderTarget& target) {
@@ -151,6 +150,11 @@ void Camera::render(sf::RenderTarget& target) {
 
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
+    m_sprite.setScale(
+        (Config::Window::view_size.x*m_base_viewport.width/getSize().x),
+        (Config::Window::view_size.y*m_base_viewport.height/getSize().y)
+    );
+    m_sprite.setPosition(m_base_viewport.left*Config::Window::view_size.x, m_base_viewport.top*Config::Window::view_size.y);
 
     target.draw(m_sprite, getShader());
 }

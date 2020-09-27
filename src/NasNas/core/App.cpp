@@ -102,7 +102,15 @@ auto App::createScene(const std::string& name) -> Scene* {
 auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect& view, const ns::FloatRect& viewport) -> Camera* {
     auto* new_cam = new Camera(cam_name, order);
     new_cam->reset(view.topleft(), view.size());
-    new_cam->resetViewport(viewport.topleft(), viewport.size());
+    if (viewport.left <= 1 && viewport.top <= 1 && viewport.width <= 1 && viewport.height <= 1)
+        new_cam->resetViewport(viewport.topleft(), viewport.size());
+    else {
+        auto x = viewport.left/float(ns::Config::Window::size.x);
+        auto width = viewport.width/float(ns::Config::Window::size.x);
+        auto y = viewport.top/float(ns::Config::Window::size.y);
+        auto height = viewport.height/float(ns::Config::Window::size.y);
+        new_cam->resetViewport(x, y, width, height);
+    }
     m_cameras.push_back(new_cam);
 
     // sorting cameras by their render order, order 0 being always drawn first
@@ -185,25 +193,29 @@ void App::render() {
 
     // drawing debug texts and rectangles on ScreenView
     m_window.setView(m_window.getScreenView());
-
-    auto drawDebugRectangle = [&](const ns::FloatRect& global_bounds, const Camera* view) {
-        auto view_center = sf::Vector2f(getWindow().mapCoordsToPixel(view->getCenter() - view->getPosition(), getWindow().getAppView()));
-        auto topleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topleft() - view->getPosition(), getWindow().getAppView()));
-        auto bottomright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomright() - view->getPosition(), getWindow().getAppView()));
-        auto& viewsize = view->getSize();
+    std::vector<sf::Vertex> dbg_bounds_list;
+    auto storeDebugRect = [&](const ns::FloatRect& global_bounds, const Camera* view) {
         auto& viewport = view->getViewport();
-        auto pos = sf::Vector2f(2*viewsize.x*viewport.left+topleft.x*viewport.width, 2*viewsize.y*viewport.top+topleft.y*viewport.height);
-        auto pos2 = sf::Vector2f(2*viewsize.x*viewport.left+bottomright.x*viewport.width, 2*viewsize.y*viewport.top+bottomright.y*viewport.height);
-        auto size = sf::Vector2f(pos2-pos);
-        auto center = sf::Vector2f(2*viewsize.x*viewport.left+view_center.x*viewport.width, 2*viewsize.y*viewport.top+view_center.y*viewport.height);
-        sf::RectangleShape dbg_bounds{sf::Vector2f(size.x, size.y)};
-        dbg_bounds.setOrigin(center-pos);
-        dbg_bounds.setPosition(pos+dbg_bounds.getOrigin());
-        dbg_bounds.setOutlineThickness(1);
-        dbg_bounds.setOutlineColor(sf::Color::Red);
-        dbg_bounds.setFillColor(sf::Color::Transparent);
-        dbg_bounds.rotate(-view->getRotation());
-        m_window.draw(dbg_bounds);
+        auto topleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topleft(), *view));
+        auto topright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topright(), *view));
+        auto bottomright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomright(), *view));
+        auto bottomleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomleft(), *view));
+        auto offset = sf::Vector2f(getWindow().mapCoordsToPixel(
+            sf::Vector2f(getWindow().getAppView().getSize().x*viewport.left, getWindow().getAppView().getSize().y*viewport.top),
+            getWindow().getAppView())
+        );
+        auto pos0 = sf::Vector2f(offset.x + topleft.x*viewport.width, offset.y + topleft.y*viewport.height);
+        auto pos1 = sf::Vector2f(offset.x + topright.x*viewport.width, offset.y + topright.y*viewport.height);
+        auto pos2 = sf::Vector2f(offset.x + bottomright.x*viewport.width, offset.y + bottomright.y*viewport.height);
+        auto pos3 = sf::Vector2f(offset.x + bottomleft.x*viewport.width, offset.y + bottomleft.y*viewport.height);
+        dbg_bounds_list.emplace_back(pos0, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos1, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos1, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos2, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos2, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos3, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos3, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos0, sf::Color::Red);
     };
     if (Config::debug) {
         // drawing drawables global bounds
@@ -216,7 +228,7 @@ void App::render() {
                     }, drawable_variant)) {
                         ns::FloatRect drawable_bounds;
                         std::visit([&](auto&& drawable) { drawable_bounds = drawable->getGlobalBounds(); }, drawable_variant);
-                        drawDebugRectangle(drawable_bounds, cam);
+                        storeDebugRect(drawable_bounds, cam);
                     }
                 }
                 for (const auto&[key, layer]: cam->m_scene->m_layers) {
@@ -226,12 +238,13 @@ void App::render() {
                         }, drawable_variant)) {
                             ns::FloatRect drawable_bounds;
                             std::visit([&](auto&& drawable) { drawable_bounds = drawable->getGlobalBounds(); }, drawable_variant);
-                            drawDebugRectangle(drawable_bounds, cam);
+                            storeDebugRect(drawable_bounds, cam);
                         }
                     }
                 }
             }
         }
+        m_window.draw(dbg_bounds_list.data(), dbg_bounds_list.size(), sf::PrimitiveType::Lines);
         // drawing debug texts
         for (auto& dbg_txt: m_debug_texts) {
             dbg_txt->update();
