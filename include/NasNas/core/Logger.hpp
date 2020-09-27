@@ -18,8 +18,7 @@
  */
 #define ns_LOG(...) ns::Logger::log(__FILE__, __LINE__, __VA_ARGS__)
 
-namespace ns {
-
+namespace sf {
     auto operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream&;
     auto operator<<(std::ostream& os, const sf::Vector2i& vect) -> std::ostream&;
     auto operator<<(std::ostream& os, const sf::Vector2u& vect) -> std::ostream&;
@@ -28,7 +27,9 @@ namespace ns {
     auto operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream&;
     auto operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream&;
     auto operator<<(std::ostream& os, const sf::Color& color) -> std::ostream&;
+}
 
+namespace ns {
     /**
      * \brief Console Logger can log a variable number of variables to the console.
      *
