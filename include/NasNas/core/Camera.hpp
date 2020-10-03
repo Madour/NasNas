@@ -262,6 +262,8 @@ namespace ns {
          */
         void render(sf::RenderTarget& target);
 
+        auto getSprite() const -> const sf::Sprite&;
+
     };
 
 }

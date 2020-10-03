@@ -105,10 +105,10 @@ auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect
     if (viewport.left <= 1 && viewport.top <= 1 && viewport.width <= 1 && viewport.height <= 1)
         new_cam->resetViewport(viewport.topleft(), viewport.size());
     else {
-        auto x = viewport.left/float(ns::Config::Window::size.x);
-        auto width = viewport.width/float(ns::Config::Window::size.x);
-        auto y = viewport.top/float(ns::Config::Window::size.y);
-        auto height = viewport.height/float(ns::Config::Window::size.y);
+        auto x = viewport.left/float(ns::Config::Window::view_size.x);
+        auto width = viewport.width/float(ns::Config::Window::view_size.x);
+        auto y = viewport.top/float(ns::Config::Window::view_size.y);
+        auto height = viewport.height/float(ns::Config::Window::view_size.y);
         new_cam->resetViewport(x, y, width, height);
     }
     m_cameras.push_back(new_cam);
@@ -195,29 +195,41 @@ void App::render() {
     m_window.setView(m_window.getScreenView());
     std::vector<sf::Vertex> dbg_bounds_list;
     auto storeDebugRect = [&](const ns::FloatRect& global_bounds, const Camera* view) {
-        auto& viewport = view->getViewport();
-        auto topleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topleft(), *view));
-        auto topright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.topright(), *view));
-        auto bottomright = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomright(), *view));
-        auto bottomleft = sf::Vector2f(getWindow().mapCoordsToPixel(global_bounds.bottomleft(), *view));
-        auto offset = sf::Vector2f(getWindow().mapCoordsToPixel(
-            sf::Vector2f(getWindow().getAppView().getSize().x*viewport.left, getWindow().getAppView().getSize().y*viewport.top),
-            getWindow().getAppView())
-        );
-        auto pos0 = sf::Vector2f(offset.x + topleft.x*viewport.width, offset.y + topleft.y*viewport.height);
-        auto pos1 = sf::Vector2f(offset.x + topright.x*viewport.width, offset.y + topright.y*viewport.height);
-        auto pos2 = sf::Vector2f(offset.x + bottomright.x*viewport.width, offset.y + bottomright.y*viewport.height);
-        auto pos3 = sf::Vector2f(offset.x + bottomleft.x*viewport.width, offset.y + bottomleft.y*viewport.height);
-        dbg_bounds_list.emplace_back(pos0, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos1, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos1, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos2, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos2, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos3, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos3, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos0, sf::Color::Red);
+        const auto& global_vport = m_window.getAppView().getViewport();
+        const auto& local_vport = view->getViewport();
+        sf::Vector2 offset{m_window.mapCoordsToPixel(view->getSprite().getPosition(), m_window.getAppView())};
+
+        // local view transformation
+        sf::Vector2f topleft{m_window.mapCoordsToPixel(global_bounds.topleft(), *view)};
+        topleft = {topleft.x*local_vport.width, topleft.y*local_vport.height};
+        sf::Vector2f topright{m_window.mapCoordsToPixel(global_bounds.topright(), *view)};
+        topright = {topright.x*local_vport.width, topright.y*local_vport.height};
+        sf::Vector2f bottomright{m_window.mapCoordsToPixel(global_bounds.bottomright(), *view)};
+        bottomright = {bottomright.x*local_vport.width, bottomright.y*local_vport.height};
+        sf::Vector2f bottomleft{m_window.mapCoordsToPixel(global_bounds.bottomleft(), *view)};
+        bottomleft = {bottomleft.x*local_vport.width, bottomleft.y*local_vport.height};
+
+        // app view transformation
+        sf::Vector2f pos0{offset.x + topleft.x*global_vport.width, offset.y + topleft.y*global_vport.height};
+        sf::Vector2f pos1{offset.x + topright.x*global_vport.width, offset.y + topright.y*global_vport.height};
+        sf::Vector2f pos2{offset.x + bottomright.x*global_vport.width, offset.y + bottomright.y*global_vport.height};
+        sf::Vector2f pos3{offset.x + bottomleft.x*global_vport.width, offset.y + bottomleft.y*global_vport.height};
+        dbg_bounds_list.emplace_back(pos0, sf::Color::Red); dbg_bounds_list.emplace_back(pos1, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos1, sf::Color::Red); dbg_bounds_list.emplace_back(pos2, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos2, sf::Color::Red); dbg_bounds_list.emplace_back(pos3, sf::Color::Red);
+        dbg_bounds_list.emplace_back(pos3, sf::Color::Red); dbg_bounds_list.emplace_back(pos0, sf::Color::Red);
     };
     if (Config::debug) {
+        sf::Vector2f s{m_window.getAppView().getViewport().width*m_window.getSize().x,
+                       m_window.getAppView().getViewport().height*m_window.getSize().y};
+        sf::Vector2f p{m_window.getAppView().getViewport().left*m_window.getSize().x,
+                       m_window.getAppView().getViewport().top*m_window.getSize().y};
+        sf::RectangleShape r{s};
+        r.setPosition(p);
+        r.setFillColor(sf::Color::Transparent);
+        r.setOutlineColor(sf::Color::Red);
+        r.setOutlineThickness(-1);
+        m_window.draw(r);
         // drawing drawables global bounds
         for (Camera*& cam: m_cameras) {
             if (cam->hasScene() && cam->isVisible()) {

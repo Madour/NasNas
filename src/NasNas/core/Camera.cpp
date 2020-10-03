@@ -151,10 +151,13 @@ void Camera::render(sf::RenderTarget& target) {
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
     m_sprite.setScale(
-        (Config::Window::view_size.x*m_base_viewport.width/getSize().x),
-        (Config::Window::view_size.y*m_base_viewport.height/getSize().y)
+        Config::Window::view_size.x*m_base_viewport.width/m_render_texture.getSize().x,
+        Config::Window::view_size.y*m_base_viewport.height/m_render_texture.getSize().y
     );
     m_sprite.setPosition(m_base_viewport.left*Config::Window::view_size.x, m_base_viewport.top*Config::Window::view_size.y);
-
     target.draw(m_sprite, getShader());
+}
+
+auto Camera::getSprite() const -> const sf::Sprite& {
+    return m_sprite;
 }
