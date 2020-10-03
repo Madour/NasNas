@@ -119,7 +119,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     ns::DebugTextInterface::color = sf::Color::Cyan;
     ns::DebugTextInterface::outline_thickness = 1;
     ns::DebugTextInterface::outline_color = sf::Color::Blue;
-    this->addDebugText<sf::Vector2f>([&](){return player->physics()->getVelocity();}, "velocity:", {10, 90});
+    this->addDebugText<sf::Vector2i>([&](){return sf::Mouse::getPosition(getWindow());}, "mouse pos:", {10, 90});
 
     // add DebugText by creating manually a DebugText object, changing its properties and adding it to the app;
     // the app will delete automatically the debug texts, so don't worry about memory
@@ -230,6 +230,10 @@ void Game::update() {
         game_camera->rotate(1);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         game_camera->rotate(-1);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+        game_camera->zoom(1.01);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+        game_camera->zoom(0.99);
 
     this->textbox->update();
     // moving the octogons randomly
