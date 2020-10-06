@@ -4,6 +4,7 @@
 
 
 #include "NasNas/core/App.hpp"
+#include "NasNas/data/SpriteBatch.hpp"
 
 using namespace ns;
 
@@ -173,6 +174,11 @@ void App::render() {
     sf::RenderTexture renderer;
     renderer.create((unsigned int)m_window.getAppView().getSize().x, (unsigned int)m_window.getAppView().getSize().y);
     renderer.clear(sf::Color::Transparent);
+
+    // updating SpriteBatches vertices
+    for (auto& batch : SpriteBatch::list) {
+        batch->render();
+    }
     // for each camera, if it has a scene and is visible, render the content
     for (Camera*& cam: m_cameras) {
         if (cam->hasScene() && cam->isVisible()) {

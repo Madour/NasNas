@@ -10,6 +10,7 @@ set(
         ../src/NasNas/data/Maths.cpp
         ../src/NasNas/data/Shapes.cpp
         ../src/NasNas/data/ShaderHolder.cpp
+        ../src/NasNas/data/SpriteBatch.cpp
 
 )
 
@@ -26,5 +27,6 @@ set(
         ../include/NasNas/data/Maths.hpp
         ../include/NasNas/data/Shapes.hpp
         ../include/NasNas/data/ShaderHolder.hpp
+        ../include/NasNas/data/SpriteBatch.hpp
 
 )

@@ -86,7 +86,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
     this->game_camera->setFramesDelay(10);      // the Camera will have 10 frames delay over the player
     // setting Camera limits
-    this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
+    //this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
     //-----------------------------------------------------------------------------------
 
     //------------ Adding Drawables to the Scene  ---------------------------------------
@@ -130,55 +130,57 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->addDebugText(dbg_txt);
     //-----------------------------------------------------------------------------------
 
-    // setting a shader for fun
-    this->black_white_shader = new sf::Shader();
-    this->black_white_shader->loadFromMemory(
-        "uniform sampler2D texture;"
-        "void main()"
-        "{"
-            "vec2 pos = gl_TexCoord[0].xy;"
-            "vec4 col = texture2D(texture, pos);"
-            "float l = col.r*0.33f + col.g*0.33f + col.b*0.33f;"
-            "vec4 new_col = vec4(1.0-col.r, 1.0-col.g, 1.0-col.b, col.a);"
-            "if (l < 0.25f)"
-                "new_col = vec4(0.15, 0.15, 0.15, 1.);"
-            "else if (l < 0.5f)"
-                "new_col = vec4(0.4, 0.4, 0.4, 1.);"
-            "else if (l < 0.75f)"
-                "new_col = vec4(0.7, 0.7, 0.7, 1.);"
-            "else if (l <= 1.f)"
-                "new_col = vec4(0.99, 0.99, 0.99, 1.);"
-            "gl_FragColor = new_col;"
-        "}",
-        sf::Shader::Fragment
-    );
-    this->game_camera->setShader(black_white_shader);
-    this->game_camera->toggleShader();
-
     this->palette_shader = new sf::Shader();
     this->palette_shader->loadFromMemory(
         "uniform sampler2D texture;"
-        "uniform float treshold;"
+        "uniform float threshold;"
         "void main()"
         "{"
             "vec2 pos = gl_TexCoord[0].xy;"
             "vec4 col = texture2D(texture, pos);"
             "vec4 new_col = col;"
-            "if (col.r <= treshold)"
+            "if (col.r <= threshold)"
                 "new_col = vec4(0.20, 0.35, 0.1, 1.);"
-            "else if (col.r <= treshold + 0.25f)"
+            "else if (col.r <= threshold + 0.25f)"
                 "new_col = vec4(0.4, 0.7, 0.3, 1.);"
-            "else if (col.r <= treshold + 0.5f)"
+            "else if (col.r <= threshold + 0.5f)"
                 "new_col = vec4(0.6, 0.8, 0.6, 1.);"
-            "else if (col.r <= treshold + 0.75f)"
+            "else if (col.r <= threshold + 0.75f)"
+                "new_col = vec4(0.90, 0.99, 0.90, 1.);"
+            "else "
                 "new_col = vec4(0.90, 0.99, 0.90, 1.);"
             "gl_FragColor = new_col;"
         "}",
         sf::Shader::Fragment
     );
-    this->palette_shader->setUniform("treshold", 0.25f);
+    this->palette_shader->setUniform("threshold", 0.25f);
     this->setShader(palette_shader);
     this->toggleShader();
+
+
+    sf::Sprite chara_spr{ns::Res::getTexture("adventurer.png")};
+    chara_spr.setTextureRect({0, 0, 50, 37});
+    sf::Sprite tile_spr{ns::Res::getTexture("tileset.png")};
+    tile_spr.setTextureRect({32, 0, 16, 16});
+    std::vector<sf::Sprite*> sprs{&chara_spr, &tile_spr};
+
+    auto* batch = new ns::SpriteBatch("test");
+    for (int i = 0; i < 18000; ++i) {
+        auto j = std::rand()%2;
+        auto* spr = new sf::Sprite(*sprs[j]->getTexture());
+        spr->setTextureRect(sprs[j]->getTextureRect());
+        spr->setPosition(std::rand()%3000, std::rand()%3000);
+        spr->rotate(std::rand()%180);
+        float scale = std::rand()%5 + 1;
+        spr->setScale(scale, scale);
+        spr->setOrigin(std::rand()%spr->getTextureRect().width, std::rand()%spr->getTextureRect().height);
+        batch->draw(spr);
+        this->sprites.push_back(spr);
+    }
+    batch->end();
+
+    this->scene->getLayer("entities")->add(batch);
+
 }
 
 void Game::onEvent(const sf::Event& event) {
@@ -197,14 +199,13 @@ void Game::onEvent(const sf::Event& event) {
                 ns::Config::debug = !ns::Config::debug;
 
             if (event.key.code == sf::Keyboard::E) {
-                this->game_camera->toggleShader();
                 this->toggleShader();
             }
             if (event.key.code == sf::Keyboard::R) {
-                auto* tr = new ShaderOutTransition("treshold");
+                auto* tr = new ShaderOutTransition("threshold");
                 tr->start();
                 tr->setOnEndCallback([](){
-                    auto* next = new ShaderInTransition("treshold");
+                    auto* next = new ShaderInTransition("threshold");
                     next->start();
                 });
             }
@@ -242,13 +243,16 @@ void Game::update() {
         shape->rotate(1);
     }
 
+    for (auto& spr : sprites) {
+        spr->rotate(1);
+    }
+
     // collision check
     if (this->player->collider()->getCollision().collide(this->entities[1]->collider()->getCollision()))
         ns_LOG("Collision between player and wall");
 
     // updating map layers
-    this->tiled_map.getTileLayer("bg")->update();
-    this->tiled_map.getTileLayer("front")->update();
+    this->tiled_map.update();
 
     // updating the entities
     for (const auto& entity : this->entities)
@@ -259,7 +263,8 @@ void Game::update() {
 }
 
 Game::~Game() {
-    delete(this->black_white_shader);
     delete(this->palette_shader);
     delete(this->font);
+    for (auto& spr : this->sprites)
+        delete(spr);
 };
