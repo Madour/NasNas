@@ -7,6 +7,7 @@
 #include "NasNas/data/Config.hpp"
 #include "NasNas/data/Maths.hpp"
 #include "NasNas/data/Shapes.hpp"
+#include "NasNas/data/SpriteBatch.hpp"
 
 #ifdef NS_ECS
 #include "NasNas/ecs/BaseEntity.hpp"

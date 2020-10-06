@@ -28,8 +28,8 @@ private:
 
     std::vector<std::shared_ptr<ns::BaseEntity>> entities;
     std::vector<std::shared_ptr<sf::Shape>> shapes;
+    std::vector<sf::Sprite*> sprites;
 
-    sf::Shader* black_white_shader;
     sf::Shader* palette_shader;
     int frame_counter = 0;
 };
