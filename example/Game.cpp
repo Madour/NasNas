@@ -157,30 +157,6 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->setShader(palette_shader);
     this->toggleShader();
 
-
-    sf::Sprite chara_spr{ns::Res::getTexture("adventurer.png")};
-    chara_spr.setTextureRect({0, 0, 50, 37});
-    sf::Sprite tile_spr{ns::Res::getTexture("tileset.png")};
-    tile_spr.setTextureRect({32, 0, 16, 16});
-    std::vector<sf::Sprite*> sprs{&chara_spr, &tile_spr};
-
-    auto* batch = new ns::SpriteBatch("test");
-    for (int i = 0; i < 18000; ++i) {
-        auto j = std::rand()%2;
-        auto* spr = new sf::Sprite(*sprs[j]->getTexture());
-        spr->setTextureRect(sprs[j]->getTextureRect());
-        spr->setPosition(std::rand()%3000, std::rand()%3000);
-        spr->rotate(std::rand()%180);
-        float scale = std::rand()%5 + 1;
-        spr->setScale(scale, scale);
-        spr->setOrigin(std::rand()%spr->getTextureRect().width, std::rand()%spr->getTextureRect().height);
-        batch->draw(spr);
-        this->sprites.push_back(spr);
-    }
-    batch->end();
-
-    this->scene->getLayer("entities")->add(batch);
-
 }
 
 void Game::onEvent(const sf::Event& event) {
