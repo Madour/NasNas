@@ -4,7 +4,6 @@
 
 
 #include "NasNas/core/App.hpp"
-#include "NasNas/data/SpriteBatch.hpp"
 
 using namespace ns;
 

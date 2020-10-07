@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 06/10/2020.
 **/
 
-#include "NasNas/data/SpriteBatch.hpp"
+#include "NasNas/core/SpriteBatch.hpp"
 
 using namespace ns;
 
@@ -40,8 +40,10 @@ void SpriteBatch::end() {
 }
 
 void SpriteBatch::clear() {
-    m_sprites.clear();
     m_vertices.clear();
+    m_sprites.clear();
+    for (auto& spr : m_owned_sprites)
+        delete(spr);
 }
 
 auto SpriteBatch::getPosition() -> sf::Vector2f {

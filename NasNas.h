@@ -7,7 +7,7 @@
 #include "NasNas/data/Config.hpp"
 #include "NasNas/data/Maths.hpp"
 #include "NasNas/data/Shapes.hpp"
-#include "NasNas/data/SpriteBatch.hpp"
+#include "NasNas/data/Logger.hpp"
 
 #ifdef NS_ECS
 #include "NasNas/ecs/BaseEntity.hpp"
@@ -33,5 +33,5 @@
 #include "NasNas/core/Layer.hpp"
 #include "NasNas/core/BitmapText.hpp"
 #include "NasNas/core/Window.hpp"
-#include "NasNas/core/Logger.hpp"
+#include "NasNas/core/SpriteBatch.hpp"
 #include "NasNas/core/Debug.hpp"
