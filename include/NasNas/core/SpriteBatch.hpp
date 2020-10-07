@@ -34,9 +34,9 @@ namespace ns {
         void render();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         std::string m_name;
-        std::vector<sf::Sprite*> m_sprites;
         std::vector<sf::Sprite*> m_owned_sprites;
-        std::map<const sf::Texture*, std::vector<sf::Vertex>> m_vertices;
+        std::vector<std::vector<sf::Sprite*>> m_sprites;
+        std::vector<std::pair<const sf::Texture*, std::vector<sf::Vertex>>> m_vertices;
         ns::FloatRect m_global_bounds;
 
         static std::vector<SpriteBatch*> list;
