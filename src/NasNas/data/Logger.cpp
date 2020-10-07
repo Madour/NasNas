@@ -3,7 +3,7 @@
 **/
 
 
-#include "NasNas/core/Logger.hpp"
+#include "NasNas/data/Logger.hpp"
 
 using namespace ns;
 
