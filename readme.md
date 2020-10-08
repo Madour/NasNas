@@ -16,7 +16,7 @@
 
 # 
 
-**NasNas** is a lightweight **modular 2D game framework** with a focus on pixel art style games.
+**NasNas** is a lightweight **cross platform** modular **2D game framework** with a focus on pixel art style games.
 
 It is entirely written in **modern C++17**, and doesn't have any dependency other than SFML2.
 
@@ -45,6 +45,7 @@ for tile based games.
  - [x] Tiled map loader (.tmx)
  - [x] Text and bitmap fonts
  - [x] Transitions
+ - [x] Multi texture SpriteBatching
  - [x] Global app configuration settings
  - [x] Debug text display in-game
  - [x] Convenient console Logger
@@ -63,7 +64,7 @@ for tile based games.
 
 ### Build
 
-This project uses Cmake. To build (Linux and Windows, not tested on macOS):
+This project uses Cmake. To build :
 ```bash
 mkdir build
 cd build
@@ -101,12 +102,12 @@ int main() {
 }
 ```
 
-Please check the [example](https://github.com/Madour/NasNas/tree/master/example) source code
-for a more complete overview of what you can do with the framework.
+A complete **tutorial** to learn how to use the framework can be found on the **[wiki](https://github.com/Madour/NasNas/wiki)**. 
 
-Documentation can be found [here](https://madour.github.io/NasNas/doc).
+**Documentation** can be found **[here](https://madour.github.io/NasNas/doc)**.
 
-A tutorial to learn how to use the framework can be found on the [wiki](https://github.com/Madour/NasNas/wiki). 
+You can also check the **[example](https://github.com/Madour/NasNas/tree/master/example)** source code
+for an overview of what you can do with the framework.
 
 ### Showcase
 
