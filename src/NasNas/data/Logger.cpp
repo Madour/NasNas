@@ -8,9 +8,7 @@
 using namespace ns;
 
 auto sf::operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream& {
-    char b[255];
-    sprintf(b, "Vector(%.3f, %.3f)", vect.x, vect.y);
-    os << b;
+    os << "Vector(" << std::setprecision(6) << vect.x << ", " << vect.y << ")";
     return os;
 }
 auto sf::operator<<(std::ostream& os, const sf::Vector2i& vect) -> std::ostream& {
@@ -23,9 +21,7 @@ auto sf::operator<<(std::ostream& os, const sf::Vector2u& vect) -> std::ostream&
 }
 
 auto sf::operator<<(std::ostream& os, const sf::Vector3f& vect) -> std::ostream& {
-    char b[255];
-    sprintf(b, "Vector(%.3f, %.3f, %.3f)", vect.x, vect.y, vect.z);
-    os << b;
+    os << "Vector(" << std::setprecision(6) << vect.x << ", " << vect.y << ", " << vect.z << ")";
     return os;
 }
 auto sf::operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream& {
@@ -34,9 +30,7 @@ auto sf::operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream&
 }
 
 auto sf::operator<<(std::ostream& os, const sf::FloatRect& rect) -> std::ostream& {
-    char b[255];
-    sprintf(b,  "Rect((%.3f, %.3f), (%.3f, %.3f))", rect.left, rect.top, rect.width, rect.height);
-    os << b;
+    os << "Rect((" << std::setprecision(6) << rect.left << ", " << rect.top << "), (" << rect.width << ", " << rect.height << "))";
     return os;
 }
 auto sf::operator<<(std::ostream& os, const sf::IntRect& rect) -> std::ostream& {
