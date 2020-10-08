@@ -208,19 +208,15 @@ void Game::update() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         game_camera->rotate(-1);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-        game_camera->zoom(1.01);
+        game_camera->zoom(1.01f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-        game_camera->zoom(0.99);
+        game_camera->zoom(0.99f);
 
     this->textbox->update();
     // moving the octogons randomly
     for (const auto& shape: this->shapes) {
         shape->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
         shape->rotate(1);
-    }
-
-    for (auto& spr : sprites) {
-        spr->rotate(1);
     }
 
     // collision check
@@ -241,6 +237,4 @@ void Game::update() {
 Game::~Game() {
     delete(this->palette_shader);
     delete(this->font);
-    for (auto& spr : this->sprites)
-        delete(spr);
 };
