@@ -72,9 +72,9 @@ void SpriteBatch::render() {
             m_vertices.push_back({sprites[0]->getTexture(), {}});
         for (int i = 0; i < sprites.size(); ++i) {
             auto& spr = sprites[i];
-            const ns::FloatRect& tex_rect{spr->getTextureRect()};
-            const ns::FloatRect& lb{spr->getLocalBounds()};
-            const ns::FloatRect& rect{spr->getTransform().transformRect(lb)};
+            const ns::FloatRect tex_rect{spr->getTextureRect()};
+            const ns::FloatRect lb{spr->getLocalBounds()};
+            const ns::FloatRect rect{spr->getTransform().transformRect(lb)};
             const auto& topleft = spr->getTransform().transformPoint(lb.topleft());
             const auto& topright = spr->getTransform().transformPoint(lb.topright());
             const auto& bottomright = spr->getTransform().transformPoint(lb.bottomright());
