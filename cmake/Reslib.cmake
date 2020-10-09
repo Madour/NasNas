@@ -4,8 +4,8 @@ set(
 
         ${NasNas_Src}
 
-        ../src/NasNas/reslib/ResourceLoader.cpp
-        ../src/NasNas/reslib/ResourceManager.cpp
+        ${NASNAS_PATH}/src/NasNas/reslib/ResourceLoader.cpp
+        ${NASNAS_PATH}/src/NasNas/reslib/ResourceManager.cpp
 
 )
 
@@ -14,6 +14,6 @@ set(
 
         ${NasNas_Inc}
 
-        ../include/NasNas/reslib/ResourceLoader.hpp
-        ../include/NasNas/reslib/ResourceManager.hpp
+        ${NASNAS_PATH}/include/NasNas/reslib/ResourceLoader.hpp
+        ${NASNAS_PATH}/include/NasNas/reslib/ResourceManager.hpp
 )

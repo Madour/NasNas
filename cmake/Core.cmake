@@ -4,19 +4,19 @@ set(
 
         ${NasNas_Src}
 
-        ../src/NasNas/core/App.cpp
-        ../src/NasNas/core/Scene.cpp
-        ../src/NasNas/core/Layer.cpp
-        ../src/NasNas/core/Camera.cpp
-        ../src/NasNas/core/Window.cpp
+        ${NASNAS_PATH}/src/NasNas/core/App.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Scene.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Layer.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Camera.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Window.cpp
 
-        ../src/NasNas/core/Anim.cpp
-        ../src/NasNas/core/Spritesheet.cpp
-        ../src/NasNas/core/BitmapText.cpp
-        ../src/NasNas/core/Transition.cpp
-        ../src/NasNas/core/SpriteBatch.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Anim.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Spritesheet.cpp
+        ${NASNAS_PATH}/src/NasNas/core/BitmapText.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Transition.cpp
+        ${NASNAS_PATH}/src/NasNas/core/SpriteBatch.cpp
 
-        ../src/NasNas/core/Debug.cpp
+        ${NASNAS_PATH}/src/NasNas/core/Debug.cpp
 
 )
 
@@ -25,17 +25,17 @@ set(
 
         ${NasNas_Inc}
 
-        ../include/NasNas/core/App.hpp
-        ../include/NasNas/core/Scene.hpp
-        ../include/NasNas/core/Layer.hpp
-        ../include/NasNas/core/Camera.hpp
-        ../include/NasNas/core/Window.hpp
+        ${NASNAS_PATH}/include/NasNas/core/App.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Scene.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Layer.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Camera.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Window.hpp
 
-        ../include/NasNas/core/Anim.hpp
-        ../include/NasNas/core/Spritesheet.hpp
-        ../include/NasNas/core/BitmapText.hpp
-        ../include/NasNas/core/Transition.hpp
-        ../include/NasNas/core/SpriteBatch.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Anim.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Spritesheet.hpp
+        ${NASNAS_PATH}/include/NasNas/core/BitmapText.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Transition.hpp
+        ${NASNAS_PATH}/include/NasNas/core/SpriteBatch.hpp
 
-        ../include/NasNas/core/Debug.hpp
+        ${NASNAS_PATH}/include/NasNas/core/Debug.hpp
 )

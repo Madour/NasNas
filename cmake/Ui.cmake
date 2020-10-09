@@ -4,7 +4,7 @@ set(
 
         ${NasNas_Src}
 
-        ../src/NasNas/ui/TypedText.cpp
+        ${NASNAS_PATH}/src/NasNas/ui/TypedText.cpp
 
 )
 
@@ -13,5 +13,5 @@ set(
 
         ${NasNas_Inc}
 
-        ../include/NasNas/ui/TypedText.hpp
+        ${NASNAS_PATH}/include/NasNas/ui/TypedText.hpp
 )
