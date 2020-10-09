@@ -4,14 +4,14 @@ set(
 
         ${NasNas_Src}
 
-        ../src/NasNas/ecs/BaseEntity.cpp
-        ../src/NasNas/ecs/BaseComponent.cpp
-        ../src/NasNas/ecs/GraphicsComponent.cpp
-        ../src/NasNas/ecs/SpriteComponent.cpp
-        ../src/NasNas/ecs/ShapeComponent.cpp
-        ../src/NasNas/ecs/PhysicsComponent.cpp
-        ../src/NasNas/ecs/InputsComponent.cpp
-        ../src/NasNas/ecs/ColliderComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/BaseEntity.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/BaseComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/GraphicsComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/SpriteComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/ShapeComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/PhysicsComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/InputsComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/ColliderComponent.cpp
 
 )
 
@@ -20,12 +20,12 @@ set(
 
         ${NasNas_Inc}
 
-        ../include/NasNas/ecs/BaseEntity.hpp
-        ../include/NasNas/ecs/BaseComponent.hpp
-        ../include/NasNas/ecs/GraphicsComponent.hpp
-        ../include/NasNas/ecs/SpriteComponent.hpp
-        ../include/NasNas/ecs/ShapeComponent.hpp
-        ../include/NasNas/ecs/PhysicsComponent.hpp
-        ../include/NasNas/ecs/InputsComponent.hpp
-        ../include/NasNas/ecs/ColliderComponent.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/BaseEntity.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/BaseComponent.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/GraphicsComponent.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/SpriteComponent.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/ShapeComponent.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/PhysicsComponent.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/InputsComponent.hpp
+        ${NASNAS_PATH}/include/NasNas/ecs/ColliderComponent.hpp
 )
