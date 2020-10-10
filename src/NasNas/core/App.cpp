@@ -40,7 +40,8 @@ App::App(const std::string& title, int w_width, int w_height, int v_width, int v
     m_fullscreen = false;
 
     m_window.create(sf::VideoMode(w_width, w_height), title, Config::Window::style);
-    m_window.setFramerateLimit(fps);
+    if (fps > 0)
+        m_window.setFramerateLimit(fps);
 
     m_dt = 0.0;
     m_fps_clock.restart();
