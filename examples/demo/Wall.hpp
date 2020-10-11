@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "../NasNas.h"
+#include "NasNas.h"
 
 class Wall : public ns::BaseEntity {
 public:

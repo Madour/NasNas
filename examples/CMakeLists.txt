@@ -1,0 +1,11 @@
+macro(add_example_target target)
+    cmake_parse_arguments(EX "" "RES_DIR" "SRC" ${ARGN})
+    if (EX_RES_DIR)
+        file(COPY ${EX_RES_DIR} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+    endif()
+    add_executable( ${target} ${EX_SRC} )
+    target_include_directories(${target} PRIVATE ../../include)
+    target_link_libraries(${target} PRIVATE sfml-graphics sfml-audio NasNas_static)
+endmacro()
+
+add_subdirectory(demo)

@@ -6,7 +6,7 @@
 #pragma once
 
 
-#include "../NasNas.h"
+#include "NasNas.h"
 
 class ShaderInTransition : public ns::Transition {
 public:

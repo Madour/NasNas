@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../NasNas.h"
+#include "NasNas.h"
 #include <cmath>
 
 class Player : public ns::BaseEntity {

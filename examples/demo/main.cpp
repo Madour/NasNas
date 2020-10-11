@@ -1,7 +1,7 @@
 
 #include "NasNas.h"
 
-#include "example/Game.hpp"
+#include "Game.hpp"
 
 auto main() -> int {
 
