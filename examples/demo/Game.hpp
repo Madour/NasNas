@@ -5,7 +5,7 @@
 #pragma once
 
 
-#include "../NasNas.h"
+#include "NasNas.h"
 
 class Game: public ns::App {
 public:

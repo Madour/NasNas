@@ -21,16 +21,16 @@ else()
     find_package(SFML COMPONENTS graphics audio )
 endif()
 
-# set NasNas parameters and include NasNas.cmake module
+
+# Select which optional modules to build
 set(NASNAS_BUILD_ECS            TRUE)
 set(NASNAS_BUILD_RESLIB         TRUE)
 set(NASNAS_BUILD_TILEMAPPING    TRUE)
 set(NASNAS_BUILD_UI             TRUE)
+# Set this variable to FALSE if you don't want to build examples
+set(NASNAS_BUILD_EXAMPLES       TRUE)
 
 include(cmake/NasNas.cmake)
-
-# copy example assets to bin
-file(COPY example/assets DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # Static lib target
 add_library(NasNas_static STATIC ${NasNas_Src} ${NasNas_Inc})
@@ -42,14 +42,6 @@ add_library(NasNas_shared SHARED ${NasNas_Src} ${NasNas_Inc})
 target_include_directories(NasNas_shared PRIVATE include)
 target_link_libraries(NasNas_shared sfml-graphics sfml-audio)
 
-# Demo game target
-add_executable( NasNas_demo
-    main.cpp
-    example/Game.cpp example/Game.hpp
-    example/Wall.cpp example/Wall.hpp
-    example/Player.cpp example/Player.hpp
-    example/ShaderTransition.cpp example/ShaderTransition.hpp
-)
-target_include_directories(NasNas_demo PRIVATE include)
-target_link_libraries(NasNas_demo sfml-graphics sfml-audio NasNas_static)
-
+if (NASNAS_BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
