@@ -71,7 +71,10 @@ cd build
 cmake ..
 cmake --build . -j4
 ```
-This will generate a shared library, a static library and the demo application.
+This will generate a static library and a shared library.
+
+If you want to build the examples, edit CMakeLists.txt and set 
+the NASNAS_BUILD_EXAMPLES variable to true.
 
 If Cmake is unable to find your SFML install location, configure CMakeLists.txt by
 setting SFML_ROOT variable. 
