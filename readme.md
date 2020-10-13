@@ -109,7 +109,7 @@ A complete **tutorial** to learn how to use the framework can be found on the **
 
 **Documentation** can be found **[here](https://madour.github.io/NasNas/doc)**.
 
-You can also check the **[example](https://github.com/Madour/NasNas/tree/master/example)** source code
+You can also check **[examples](https://github.com/Madour/NasNas/tree/master/examples)** source code
 for an overview of what you can do with the framework.
 
 ### Showcase
