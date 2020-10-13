@@ -9,7 +9,7 @@
 using namespace ns;
 
 const std::filesystem::path Config::base_path = std::filesystem::current_path();
-bool Config::debug = true;
+bool Config::debug = false;
 
 std::string Config::Window::title = "NasNas app";
 sf::Vector2i Config::Window::size = {720, 480};

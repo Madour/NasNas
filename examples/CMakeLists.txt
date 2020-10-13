@@ -9,3 +9,4 @@ macro(add_example_target target)
 endmacro()
 
 add_subdirectory(demo)
+add_subdirectory(split_view)

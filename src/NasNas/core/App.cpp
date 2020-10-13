@@ -165,6 +165,12 @@ void App::storeInputs(sf::Event event) {
 void App::onEvent(const sf::Event& event) {
     if (event.type == sf::Event::Closed)
         m_window.close();
+    if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::Escape)
+            m_window.close();
+        if (event.key.code == sf::Keyboard::F1)
+            Config::debug = !Config::debug;
+    }
 }
 
 void App::render() {
