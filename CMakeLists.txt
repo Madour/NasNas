@@ -28,7 +28,7 @@ set(NASNAS_BUILD_RESLIB         TRUE)
 set(NASNAS_BUILD_TILEMAPPING    TRUE)
 set(NASNAS_BUILD_UI             TRUE)
 # Set this variable to FALSE if you don't want to build examples
-set(NASNAS_BUILD_EXAMPLES       FALSE)
+set(NASNAS_BUILD_EXAMPLES       True)
 
 include(cmake/NasNas.cmake)
 

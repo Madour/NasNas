@@ -16,31 +16,19 @@ BaseEntity::BaseEntity(const std::string& name) {
 BaseEntity::~BaseEntity() = default;
 
 auto BaseEntity::getPosition() -> sf::Vector2f {
-    return sf::Vector2f(getX(), getY());
-}
-void BaseEntity::setPosition(const sf::Vector2f& pos) {
-    setX(pos.x);
-    setY(pos.y);
-}
-void BaseEntity::setPosition(float x, float y) {
-    setX(x);
-    setY(y);
+    return m_transformable.getPosition();
 }
 
-auto BaseEntity::getX() -> float {
-    return ((float)m_gx + m_rx) * 16;
-}
 void BaseEntity::setX(float value) {
     m_gx = (int)value / 16;
     m_rx = (value - (float)m_gx * 16) / 16;
+    m_transformable.setPosition(value, m_transformable.getPosition().y);
 }
 
-auto BaseEntity::getY() -> float {
-    return ((float)m_gy + m_ry) * 16;
-}
 void BaseEntity::setY(float value) {
     m_gy = (int)value / 16;
     m_ry = (value - (float)m_gy * 16) / 16;
+    m_transformable.setPosition(m_transformable.getPosition().x, value);
 }
 
 auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
@@ -48,18 +36,20 @@ auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
     ns::FloatRect result;
     bool first = true;
     for (const auto& graphic_comp : m_graphics_components_list) {
+        auto topleft = transform()->getTransform().transformPoint(graphic_comp->getGlobalBounds().topleft());
+        auto bottomright = transform()->getTransform().transformPoint(graphic_comp->getGlobalBounds().bottomright());
         if (first) {
-            left = graphic_comp->getGlobalBounds().left;
-            top = graphic_comp->getGlobalBounds().top;
-            right = graphic_comp->getGlobalBounds().right();
-            bottom = graphic_comp->getGlobalBounds().bottom();
+            left = topleft.x;
+            top = topleft.y;
+            right = bottomright.x;
+            bottom = bottomright.y;
             first = false;
         }
         else {
-            left = std::min(left, graphic_comp->getGlobalBounds().left);
-            top = std::min(top, graphic_comp->getGlobalBounds().top);
-            right = std::max(right, graphic_comp->getGlobalBounds().right());
-            bottom = std::max(bottom, graphic_comp->getGlobalBounds().bottom());
+            left = std::min(left, topleft.x);
+            top = std::min(top, topleft.y);
+            right = std::max(right, bottomright.x);
+            bottom = std::max(bottom, bottomright.y);
         }
     }
     if (!first)
@@ -68,11 +58,6 @@ auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
         result = ns::FloatRect(0, 0, 0, 0);
 
     return result;
-}
-
-void BaseEntity::move(float offsetx, float offsety) {
-    setX(getX() + offsetx);
-    setY(getY() + offsety);
 }
 
 void BaseEntity::update() {
@@ -85,6 +70,7 @@ void BaseEntity::update() {
 }
 
 void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    states.transform *= m_transformable.getTransform();
     for (const auto& comp: m_graphics_components_list) {
         target.draw(*comp, states);
     }
@@ -93,6 +79,10 @@ void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
             target.draw(m_collider_component->getCollision().getShape());
     }
 
+}
+
+auto BaseEntity::transform() -> sf::Transformable* {
+    return &m_transformable;
 }
 
 auto BaseEntity::inputs() -> ecs::InputsComponent* {

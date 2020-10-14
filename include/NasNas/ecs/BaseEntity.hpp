@@ -31,18 +31,14 @@ namespace ns {
         virtual void update();
 
         auto getPosition() -> sf::Vector2f override;
-        void setPosition(const sf::Vector2f& pos);
-        void setPosition(float x, float y);
 
-        auto getX() -> float;
         void setX(float value);
-
-        auto getY() -> float;
         void setY(float value);
 
         auto getGlobalBounds() -> ns::FloatRect override;
         void move(float offsetx, float offsety);
 
+        auto transform() -> sf::Transformable*;
         auto inputs() -> ecs::InputsComponent*;
         auto physics() -> ecs::PhysicsComponent*;
         auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
@@ -55,6 +51,7 @@ namespace ns {
 
         int m_gx = 0, m_gy = 0;
         float m_rx = 0, m_ry = 0;
+        sf::Transformable m_transformable;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

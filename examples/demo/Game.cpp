@@ -43,7 +43,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     // creating Player entity (see class Player for more information)
     this->player = std::make_shared<Player>();
-    this->player->setPosition({100, 100});
+    this->player->transform()->setPosition({100, 100});
     this->entities.push_back(this->player);
 
     // creating Wall entity

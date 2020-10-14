@@ -42,7 +42,7 @@ namespace ns::ecs {
 
     template<typename T>
     void ShapeComponent<T>::update() {
-        m_drawable.setPosition(m_entity->getPosition() + m_pos_offset);
+        m_drawable.setPosition(m_pos_offset);
     }
 
     template<typename T>
