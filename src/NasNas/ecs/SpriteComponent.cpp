@@ -69,7 +69,7 @@ void SpriteComponent::update() {
     m_anim_player.update();
     m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
     m_drawable.setOrigin((float)m_anim_player.getActiveFrame().origin.x, (float)m_anim_player.getActiveFrame().origin.y);
-    m_drawable.setPosition(m_entity->getPosition() + m_pos_offset);
+    m_drawable.setPosition(m_pos_offset);
 }
 
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const {

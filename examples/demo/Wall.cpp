@@ -5,7 +5,7 @@
 #include "Wall.hpp"
 
 Wall::Wall(float x, float y) : ns::BaseEntity("Wall") {
-    setPosition(x, y);
+    transform()->setPosition(x, y);
     addComponent<ns::ecs::ColliderComponent>(new ns::ecs::RectangleCollision(100, 200), sf::Vector2f(50, 100));
 
     auto shape_comp = std::make_shared<ns::ecs::ShapeComponent<sf::RectangleShape>>(this, sf::Vector2f(100, 200));

@@ -82,6 +82,6 @@ void PhysicsComponent::update() {
             m_velocity.y *= 1 - m_friction.y;
     }
     m_velocity.y += m_mass * Config::Physics::gravity;
-    m_entity->setX(m_entity->getX()  + m_velocity.x);
-    m_entity->setY(m_entity->getY()  + m_velocity.y);
+    m_entity->setX(m_entity->transform()->getPosition().x  + m_velocity.x);
+    m_entity->setY(m_entity->transform()->getPosition().y  + m_velocity.y);
 }
