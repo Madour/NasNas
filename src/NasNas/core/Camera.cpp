@@ -39,8 +39,8 @@ void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
     reset(ns::FloatRect((float)position.x, (float)position.y, (float)size.x, (float)size.y));
 }
 void Camera::reset(const ns::FloatRect& rectangle) {
-    m_base_view = ns::IntRect((int)rectangle.left, (int)rectangle.top, (int)rectangle.width, (int)rectangle.height);
-    m_render_texture.create(rectangle.width, rectangle.height);
+    m_base_view = ns::IntRect(int(rectangle.left), int(rectangle.top), int(rectangle.width), int(rectangle.height));
+    m_render_texture.create(static_cast<unsigned int>(rectangle.width), static_cast<unsigned int>(rectangle.height));
     sf::View::reset(rectangle);
 }
 
