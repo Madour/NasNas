@@ -46,6 +46,14 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->player->transform()->setPosition({100, 100});
     this->entities.push_back(this->player);
 
+    this->dir_vector.setPosition(player->getPosition());
+    this->dir_vector.addPoint(0, 0);
+    this->dir_vector.addPoint(0, 0);
+
+    this->vel_vector.setPosition(player->getPosition());
+    this->vel_vector.addPoint(0, 0);
+    this->vel_vector.addPoint(0, 0);
+
     // creating Wall entity
     auto wall = std::make_shared<Wall>(200.f, 200.f);
     this->entities.push_back(wall);
@@ -84,7 +92,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->game_camera = this->createCamera("game_camera", 0, {{0, 0}, game_view});
     this->game_camera->lookAt(this->scene);     // telling the Camera to look at the scene
     this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
-    this->game_camera->setFramesDelay(10);      // the Camera will have 10 frames delay over the player
+    this->game_camera->setFramesDelay(2);       // the Camera will have 10 frames delay over the player
     // setting Camera limits
     //this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
     //-----------------------------------------------------------------------------------
@@ -107,6 +115,8 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     // adding the BitmapText to the layer
     this->scene->getLayer("texts")->add(bmp_text);
     this->scene->getLayer("texts")->add(textbox);
+    this->scene->getLayer("texts")->addRaw(&dir_vector);
+    this->scene->getLayer("texts")->addRaw(&vel_vector);
     //-----------------------------------------------------------------------------------
 
     //------------ Adding DebugTexts to the App -----------------------------------------
@@ -229,6 +239,12 @@ void Game::update() {
     // updating the entities
     for (const auto& entity : this->entities)
         entity->update();
+
+    this->dir_vector.setPosition(player->getPosition());
+    this->dir_vector.setPoint(1, player->physics()->getDirection()*20.f*player->physics()->getDirectionMagnitude());
+
+    this->vel_vector.setPosition(player->getPosition());
+    this->vel_vector.setPoint(1, player->physics()->getVelocity()*10.f);
 
     // sorting the shapes layer by the y position
     // this->scene->getLayer("shapes")->ySort();
