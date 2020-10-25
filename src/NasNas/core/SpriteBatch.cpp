@@ -39,7 +39,7 @@ void SpriteBatch::draw(sf::Texture* texture, sf::Vector2f pos, sf::IntRect rect)
 }
 
 void SpriteBatch::end() {
-    for (int i = 0; i < m_sprites.size(); ++i) {
+    for (unsigned int i = 0; i < m_sprites.size(); ++i) {
         m_vertices.emplace_back();
         m_vertices[i].second.reserve(m_sprites[i].size()*6);
     }
@@ -66,11 +66,11 @@ void SpriteBatch::render() {
         vector.clear();
     m_vertices.clear();
 
-    for (int order = 0; order < m_sprites.size() ; ++order) {
+    for (unsigned int order = 0; order < m_sprites.size() ; ++order) {
         auto& sprites = m_sprites[order];
         if (!sprites.empty())
             m_vertices.push_back({sprites[0]->getTexture(), {}});
-        for (int i = 0; i < sprites.size(); ++i) {
+        for (unsigned int i = 0; i < sprites.size(); ++i) {
             auto& spr = sprites[i];
             const ns::FloatRect tex_rect{spr->getTextureRect()};
             const ns::FloatRect lb{spr->getLocalBounds()};
