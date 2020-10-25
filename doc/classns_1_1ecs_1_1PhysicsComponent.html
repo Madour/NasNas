@@ -61,9 +61,15 @@ Inheritance diagram for ns::ecs::PhysicsComponent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aecb67925bff2ad20e86a2b095b601b26"><td class="memItemLeft" align="right" valign="top"><a id="aecb67925bff2ad20e86a2b095b601b26"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>PhysicsComponent</b> (<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *entity, const sf::Vector2f &amp;max_velocity, const sf::Vector2f &amp;acceleration, const sf::Vector2f &amp;friction={1, 1}, float mass=1.f)</td></tr>
-<tr class="separator:aecb67925bff2ad20e86a2b095b601b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b9732d9cec55892699555b016f49c8e"><td class="memItemLeft" align="right" valign="top"><a id="a4b9732d9cec55892699555b016f49c8e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>PhysicsComponent</b> (<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *entity, const sf::Vector2f &amp;acceleration, float mass=1.f, const sf::Vector2f &amp;friction={1.f, 1.f})</td></tr>
+<tr class="separator:a4b9732d9cec55892699555b016f49c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21a6685badc416ed4c39397a1a303feb"><td class="memItemLeft" align="right" valign="top"><a id="a21a6685badc416ed4c39397a1a303feb"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getMass</b> () -&gt; float</td></tr>
+<tr class="separator:a21a6685badc416ed4c39397a1a303feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d6cd66a482fdbbe9df286a265d88360"><td class="memItemLeft" align="right" valign="top"><a id="a7d6cd66a482fdbbe9df286a265d88360"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setMass</b> (float mass)</td></tr>
+<tr class="separator:a7d6cd66a482fdbbe9df286a265d88360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42a42f4756f25c9773dd3b5339c77c95"><td class="memItemLeft" align="right" valign="top"><a id="a42a42f4756f25c9773dd3b5339c77c95"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getVelocity</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
 <tr class="separator:a42a42f4756f25c9773dd3b5339c77c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -79,21 +85,51 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setVelocityX</b> (flo
 <tr class="memitem:afe5fb44830bdafcc8133b629fe27f591"><td class="memItemLeft" align="right" valign="top"><a id="afe5fb44830bdafcc8133b629fe27f591"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setVelocityY</b> (float velocity_y)</td></tr>
 <tr class="separator:afe5fb44830bdafcc8133b629fe27f591"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4454c7c845d46841d25718ef2b010d20"><td class="memItemLeft" align="right" valign="top"><a id="a4454c7c845d46841d25718ef2b010d20"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDirection</b> () const -&gt; const sf::Vector2i &amp;</td></tr>
-<tr class="separator:a4454c7c845d46841d25718ef2b010d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b6ff7344d1e34073bf25af85f9e4ad4"><td class="memItemLeft" align="right" valign="top"><a id="a1b6ff7344d1e34073bf25af85f9e4ad4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirection</b> (const sf::Vector2i &amp;direction)</td></tr>
-<tr class="separator:a1b6ff7344d1e34073bf25af85f9e4ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b0b0d1c9d992615d3475a45b0cbd242"><td class="memItemLeft" align="right" valign="top"><a id="a3b0b0d1c9d992615d3475a45b0cbd242"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirection</b> (int direction_x, int direction_y)</td></tr>
-<tr class="separator:a3b0b0d1c9d992615d3475a45b0cbd242"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10843673f8e9fcbaaf7bb3730058556b"><td class="memItemLeft" align="right" valign="top"><a id="a10843673f8e9fcbaaf7bb3730058556b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirectionX</b> (int direction_x)</td></tr>
-<tr class="separator:a10843673f8e9fcbaaf7bb3730058556b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c815b3dad120b4a4c96329eac6bcc5b"><td class="memItemLeft" align="right" valign="top"><a id="a9c815b3dad120b4a4c96329eac6bcc5b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirectionY</b> (int direction_y)</td></tr>
-<tr class="separator:a9c815b3dad120b4a4c96329eac6bcc5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08a41ba149cf35ce40a36c3d5fa513e8"><td class="memItemLeft" align="right" valign="top"><a id="a08a41ba149cf35ce40a36c3d5fa513e8"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getAcceleration</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
+<tr class="separator:a08a41ba149cf35ce40a36c3d5fa513e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce6d4539f3081f3bf3484b9e214227d"><td class="memItemLeft" align="right" valign="top"><a id="adce6d4539f3081f3bf3484b9e214227d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAcceleration</b> (const sf::Vector2f &amp;acceleration)</td></tr>
+<tr class="separator:adce6d4539f3081f3bf3484b9e214227d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a744ab22a56c18c744fe3d1880d1e5177"><td class="memItemLeft" align="right" valign="top"><a id="a744ab22a56c18c744fe3d1880d1e5177"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAcceleration</b> (float acceleration_x, float acceleration_y)</td></tr>
+<tr class="separator:a744ab22a56c18c744fe3d1880d1e5177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6445e7f588f15bbba86938db6d1cfc5b"><td class="memItemLeft" align="right" valign="top"><a id="a6445e7f588f15bbba86938db6d1cfc5b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAccelerationX</b> (float acceleration_x)</td></tr>
+<tr class="separator:a6445e7f588f15bbba86938db6d1cfc5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f2f80fb63ad7631d7788c23743d0914"><td class="memItemLeft" align="right" valign="top"><a id="a1f2f80fb63ad7631d7788c23743d0914"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setAccelerationY</b> (float acceleration_y)</td></tr>
+<tr class="separator:a1f2f80fb63ad7631d7788c23743d0914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a519f8b3da28c1ddca2d9d692947a624a"><td class="memItemLeft" align="right" valign="top"><a id="a519f8b3da28c1ddca2d9d692947a624a"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDirection</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
+<tr class="separator:a519f8b3da28c1ddca2d9d692947a624a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a106feb5843693215842cb8ddc3d9ff2d"><td class="memItemLeft" align="right" valign="top"><a id="a106feb5843693215842cb8ddc3d9ff2d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirection</b> (const sf::Vector2f &amp;direction)</td></tr>
+<tr class="separator:a106feb5843693215842cb8ddc3d9ff2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54811b535fc0ddbe035a4d20b834c37e"><td class="memItemLeft" align="right" valign="top"><a id="a54811b535fc0ddbe035a4d20b834c37e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirection</b> (float direction_x, float direction_y)</td></tr>
+<tr class="separator:a54811b535fc0ddbe035a4d20b834c37e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f8cf3abaf14c2bc96b77611df481b1"><td class="memItemLeft" align="right" valign="top"><a id="a05f8cf3abaf14c2bc96b77611df481b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirectionX</b> (float direction_x)</td></tr>
+<tr class="separator:a05f8cf3abaf14c2bc96b77611df481b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db9de7b2852d38c81545ed24460d4b1"><td class="memItemLeft" align="right" valign="top"><a id="a2db9de7b2852d38c81545ed24460d4b1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirectionY</b> (float direction_y)</td></tr>
+<tr class="separator:a2db9de7b2852d38c81545ed24460d4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a256cfbdce2ebba51442fa9999b6f5081"><td class="memItemLeft" align="right" valign="top"><a id="a256cfbdce2ebba51442fa9999b6f5081"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDirectionAngle</b> () const -&gt; float</td></tr>
+<tr class="separator:a256cfbdce2ebba51442fa9999b6f5081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e8e2023130f8c65f15af518a18f3497"><td class="memItemLeft" align="right" valign="top"><a id="a6e8e2023130f8c65f15af518a18f3497"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirectionAngle</b> (float angle)</td></tr>
+<tr class="separator:a6e8e2023130f8c65f15af518a18f3497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60454cba9503a28e0e00d640b6c80376"><td class="memItemLeft" align="right" valign="top"><a id="a60454cba9503a28e0e00d640b6c80376"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDirectionMagnitude</b> () const -&gt; float</td></tr>
+<tr class="separator:a60454cba9503a28e0e00d640b6c80376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d4ab520cad1f647e60a5924a598d5be"><td class="memItemLeft" align="right" valign="top"><a id="a4d4ab520cad1f647e60a5924a598d5be"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDirectionMagnitude</b> (float magnitude)</td></tr>
+<tr class="separator:a4d4ab520cad1f647e60a5924a598d5be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b7c2e0f424d52f5b662270e504e6cd7"><td class="memItemLeft" align="right" valign="top"><a id="a9b7c2e0f424d52f5b662270e504e6cd7"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getMomentum</b> () const -&gt; sf::Vector2f</td></tr>
+<tr class="separator:a9b7c2e0f424d52f5b662270e504e6cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bbf60321ce178b89419a2054a30c95f"><td class="memItemLeft" align="right" valign="top"><a id="a4bbf60321ce178b89419a2054a30c95f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> () override</td></tr>
 <tr class="separator:a4bbf60321ce178b89419a2054a30c95f"><td class="memSeparator" colspan="2">&#160;</td></tr>
