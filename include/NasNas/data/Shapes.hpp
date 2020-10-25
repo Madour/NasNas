@@ -34,7 +34,9 @@ namespace sf {
     public:
         LineShape();
         void addPoint(float x, float y);
-        void addPoint(const Vector2f& point);
+        void addPoint(const Vector2f& position);
+        void setPoint(unsigned int index, const sf::Vector2f& position);
+        void setPoint(unsigned int index, float x, float y);
         void removePoint(unsigned int index);
 
         void setColor(const Color& color);

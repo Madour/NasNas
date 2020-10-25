@@ -52,6 +52,16 @@ void LineShape::addPoint(const Vector2f& point) {
     m_vertices.emplace_back(point);
 }
 
+void LineShape::setPoint(unsigned int index, const sf::Vector2f& position) {
+    if (index < m_vertices.size())
+        m_vertices[index].position = position;
+}
+
+void LineShape::setPoint(unsigned int index, float x, float y) {
+    if (index < m_vertices.size())
+        m_vertices[index].position = {x, y};
+}
+
 void LineShape::removePoint(unsigned int index) {
     if (index < m_vertices.size()) {
         m_vertices.erase(m_vertices.begin() + index);
