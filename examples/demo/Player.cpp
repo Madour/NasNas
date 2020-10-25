@@ -42,7 +42,7 @@ Player::Player()
     addComponent<ns::ecs::SpriteComponent>(m_spritesheet);
 
     // adding physics component to player
-    addComponent<ns::ecs::PhysicsComponent>(sf::Vector2f(5, 5),sf::Vector2f(0.5f, 0.5f), sf::Vector2f(0.1f, 0.1f), 1.f);
+    addComponent<ns::ecs::PhysicsComponent>(sf::Vector2f(0.5f, 0.5f),  5.f, sf::Vector2f(0.1f, 0.1f));
 
     // adding shape component to player (blue square)
     auto* shape_component = new ns::ecs::ConvexShapeComponent(this, 4, sf::Vector2f(0, -15));
@@ -68,20 +68,20 @@ Player::~Player() {
 }
 
 void Player::moveLeft() {
-    physics()->setDirection(-1, physics()->getDirection().y);
+    physics()->setDirectionX(-1);
     graphics<ns::ecs::SpriteComponent>(0)->getDrawable().setScale(-1, 1);
     graphics<ns::ecs::SpriteComponent>(0)->setAnimState("walk");
 }
 void Player::moveRight() {
-    physics()->setDirection(1, physics()->getDirection().y);
+    physics()->setDirectionX(1.f);
     graphics<ns::ecs::SpriteComponent>(0)->getDrawable().setScale(1, 1);
     graphics<ns::ecs::SpriteComponent>(0)->setAnimState("walk");
 }
 void Player::moveUp() {
-    physics()->setDirection(physics()->getDirection().x, -1);
+    physics()->setDirectionY(-1.f);
 }
 void Player::moveDown() {
-    physics()->setDirection(physics()->getDirection().x, 1);
+    physics()->setDirectionY(1.f);
 }
 
 void Player::update() {
