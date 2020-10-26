@@ -10,7 +10,6 @@ using namespace ns::ecs;
 
 InputsComponent::InputsComponent(BaseEntity* entity) :
 BaseComponent(entity) {
-    m_entity->m_inputs_component = this;
     m_capture_input = true;
 }
 

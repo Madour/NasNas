@@ -14,6 +14,7 @@ namespace ns::ecs {
     class GraphicsComponent : public BaseComponent, public sf::Drawable {
     public:
         explicit GraphicsComponent(BaseEntity* entity);
+        ~GraphicsComponent() override = default;
         virtual auto getDrawable() -> sf::Drawable& = 0;
         virtual auto getGlobalBounds() -> ns::FloatRect = 0;
     };

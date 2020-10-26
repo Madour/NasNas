@@ -15,7 +15,6 @@ using namespace ns::ecs;
 PhysicsComponent::PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
 BaseComponent(entity) {
 
-    m_entity->m_physics_component = this;
     m_mass = mass;
     m_acceleration = acceleration;
 
@@ -26,7 +25,7 @@ BaseComponent(entity) {
     m_friction = friction;
 }
 
-auto PhysicsComponent::getMass() -> float {
+auto PhysicsComponent::getMass() const -> float {
     return m_mass;
 }
 

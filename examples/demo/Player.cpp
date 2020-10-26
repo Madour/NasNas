@@ -102,7 +102,7 @@ void Player::update() {
     }
 
     // moving and rotating the shape around the sprite
-    auto& shape = graphics<ns::ecs::ShapeComponent<sf::ConvexShape>>(1)->getDrawable();
+    auto& shape = graphics<ns::ecs::ConvexShapeComponent>(1)->getDrawable();
 
     m_rotation += 5;
     shape.setRotation(m_rotation);
