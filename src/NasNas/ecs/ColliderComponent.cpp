@@ -111,7 +111,6 @@ ColliderComponent::ColliderComponent(BaseEntity* entity, Collision* collision, s
 BaseComponent(entity),
 m_collision_box(collision),
 m_pos_offset(pos_offset) {
-    m_entity->m_collider_component = this;
     m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
 }
 

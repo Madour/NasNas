@@ -9,6 +9,5 @@ using namespace ns;
 using namespace ns::ecs;
 
 GraphicsComponent::GraphicsComponent(BaseEntity* entity) :
-BaseComponent(entity) {
-    m_entity->m_graphics_components_list.push_back(this);
-}
+BaseComponent(entity)
+{}

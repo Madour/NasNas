@@ -36,27 +36,30 @@ auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
     ns::FloatRect result;
     bool first = true;
     for (const auto& graphic_comp : m_graphics_components_list) {
-        auto topleft = transform()->getTransform().transformPoint(graphic_comp->getGlobalBounds().topleft());
-        auto bottomright = transform()->getTransform().transformPoint(graphic_comp->getGlobalBounds().bottomright());
+        auto rect = ns::FloatRect(transform()->getTransform().transformRect(graphic_comp->getGlobalBounds()));
+        auto topleft = rect.topleft();
+        auto topright = rect.topright();
+        auto bottomleft = rect.bottomleft();
+        auto bottomright = rect.bottomright();
+
         if (first) {
-            left = topleft.x;
-            top = topleft.y;
-            right = bottomright.x;
-            bottom = bottomright.y;
+            left = std::min(topleft.x, bottomleft.x);
+            top = std::min(topleft.y, topright.y);
+            right = std::max(topright.x, bottomright.x);
+            bottom = std::max(bottomleft.y, bottomright.y);
             first = false;
         }
         else {
-            left = std::min(left, topleft.x);
-            top = std::min(top, topleft.y);
-            right = std::max(right, bottomright.x);
-            bottom = std::max(bottom, bottomright.y);
+            left = std::min(left, std::min(topleft.x, bottomleft.x));
+            top = std::min(top, std::min(topleft.y, topright.y));
+            right = std::max(right, std::max(topright.x, bottomright.x));
+            bottom = std::max(bottom, std::max(bottomleft.y, bottomright.y));
         }
     }
     if (!first)
-        result = ns::FloatRect(left, top, right - left, bottom - top);
+        result = ns::FloatRect(left, top, right-left, bottom-top);
     else
         result = ns::FloatRect(0, 0, 0, 0);
-
     return result;
 }
 
