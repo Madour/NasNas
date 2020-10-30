@@ -16,16 +16,15 @@ Camera::Camera()
 Camera::Camera(const std::string& name, int render_order) {
     m_name = name;
     m_render_order = render_order;
-    m_reference = nullptr;
+    m_followee = nullptr;
     m_frames_delay = 0;
     m_visible = true;
     m_scene = nullptr;
     m_base_view = ns::IntRect(0, 0, 1000, 1000);
     m_base_viewport = ns::FloatRect(0, 0, 1, 1);
-
     if (ns::Config::Window::view_size != sf::Vector2i(0, 0))
         m_render_texture.create(ns::Config::Window::view_size.x, ns::Config::Window::view_size.y);
-
+    m_render_texture.setRepeated(true);
 }
 
 void Camera::setName(const std::string& name) {
@@ -69,7 +68,7 @@ void Camera::lookAt(Scene* target_scene) {
 }
 
 void Camera::follow(Drawable& entity) {
-    m_reference = &entity;
+    m_followee = &entity;
 }
 
 auto Camera::getRenderOrder() const -> int {
@@ -122,22 +121,21 @@ auto Camera::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void Camera::update() {
-    if (m_reference != nullptr) {
+    if (m_followee != nullptr) {
         if (m_frames_delay == 0) {
-            setCenter({(float)(round(m_reference->getPosition().x)), (float)(round(m_reference->getPosition().y))});
+            setCenter({(float)(round(m_followee->getPosition().x)), (float)(round(m_followee->getPosition().y))});
         }
         else {
-            sf::Vector2f diff = m_reference->getPosition() - getCenter();
+            sf::Vector2f diff = m_followee->getPosition() - getCenter();
             auto offset = diff/(float)m_frames_delay;
             move({(float)round(offset.x), (float)round(offset.y)});
         }
-
-        if (m_limits != ns::IntRect(0, 0, 0, 0)) {
-            if (getLeft() < (float)m_limits.left) setLeft((float)m_limits.left);
-            if (getTop() < (float)m_limits.top) setTop((float)m_limits.top);
-            if (getRight() > (float)m_limits.right()) setRight((float)m_limits.right());
-            if (getBottom() > (float)m_limits.bottom()) setBottom((float)m_limits.bottom());
-        }
+    }
+    if (m_limits != ns::IntRect(0, 0, 0, 0)) {
+        if (getLeft() < (float)m_limits.left) setLeft((float)m_limits.left);
+        if (getTop() < (float)m_limits.top) setTop((float)m_limits.top);
+        if (getRight() > (float)m_limits.right()) setRight((float)m_limits.right());
+        if (getBottom() > (float)m_limits.bottom()) setBottom((float)m_limits.bottom());
     }
 }
 
