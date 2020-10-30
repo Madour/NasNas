@@ -123,7 +123,7 @@ namespace ns {
     /**
      * \brief A BitmapText is a Drawable that uses a BitmapFont to display text.
      */
-    class BitmapText : public ns::Drawable {
+    class BitmapText : public ns::Drawable, public sf::Transformable {
     public:
         /**
          * \brief Creates a BitmapText
@@ -133,7 +133,7 @@ namespace ns {
          *
          * \param text String to display
          */
-        explicit BitmapText(const std::string& text);
+        explicit BitmapText(const std::string& text, ns::BitmapFont* font=nullptr);
 
         auto getString() -> const std::string&;
 
@@ -168,31 +168,10 @@ namespace ns {
         void setColor(const sf::Color& color);
 
         /**
-         * \brief Move the BitmapText
-         *
-         * \param offsetx X position offset
-         * \param offsety Y position offset
-         */
-        void move(float offsetx, float offsety);
-
-        /**
          * \brief Get BitmapText position
          * \return Position
          */
         auto getPosition() -> sf::Vector2f override;
-
-        /**
-         * \brief Set BitmapText position
-         * \param position New position
-         */
-        void setPosition(const sf::Vector2f& position);
-
-        /**
-         * \brief St BitmapText Position
-         * \param x X coordinate
-         * \param y Y coordinate
-         */
-        void setPosition(float x, float y);
 
         /**
          * \brief Get BitmapText global bounds
@@ -207,16 +186,6 @@ namespace ns {
          */
         virtual void setMaxWidth(int max_width);
 
-        /**
-         * \brief Get BitmapText width
-         * \return Width
-         */
-        auto getWidth() const -> int;
-        /**
-         * \brief Get BitmapText height
-         * \return Height
-         */
-        auto getHeight() const -> int;
         /**
          * \brief Get BitmapText size
          * \return Size
