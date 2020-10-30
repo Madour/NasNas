@@ -45,13 +45,18 @@ Player::Player()
     addComponent<ns::ecs::PhysicsComponent>(sf::Vector2f(0.5f, 0.5f),  5.f, sf::Vector2f(0.1f, 0.1f));
 
     // adding shape component to player (blue square)
-    auto* shape_component = new ns::ecs::ConvexShapeComponent(this, 4, sf::Vector2f(0, -15));
-    shape_component->getDrawable().setFillColor(sf::Color::Blue);
-    shape_component->getDrawable().setPoint(0, {-5, -5});
-    shape_component->getDrawable().setPoint(1, {5, -5});
-    shape_component->getDrawable().setPoint(2, {5, 5});
-    shape_component->getDrawable().setPoint(3, {-5, 5});
-    addComponent(shape_component);
+    auto convexshape = sf::ConvexShape(4);
+    convexshape.setFillColor(sf::Color::Blue);
+    convexshape.setPoint(0, {-5, -5});
+    convexshape.setPoint(1, {5, -5});
+    convexshape.setPoint(2, {5, 5});
+    convexshape.setPoint(3, {-5, 5});
+    addComponent<ns::ecs::ConvexShapeComponent>(convexshape, sf::Vector2f(0, -15));
+
+    auto velocity_vector = sf::LineShape();
+    velocity_vector.addPoint(0, 0);
+    velocity_vector.addPoint(0, 0);
+    addComponent<ns::ecs::ShapeComponent<sf::LineShape>>(velocity_vector);
 
     // adding inputs component to player and binding buttons to Player methods
     addComponent<ns::ecs::InputsComponent>();
@@ -101,9 +106,12 @@ void Player::update() {
         graphic_comp->update();
     }
 
+    // updating velocity vector
+    auto& vel_vec = graphics<ns::ecs::ShapeComponent<sf::LineShape>>(2)->getDrawable();
+    vel_vec.setPoint(1, physics()->getVelocity()*10.f);
+
     // moving and rotating the shape around the sprite
     auto& shape = graphics<ns::ecs::ConvexShapeComponent>(1)->getDrawable();
-
     m_rotation += 5;
     shape.setRotation(m_rotation);
     shape.move({ std::cos(ns::to_radian(m_rotation/2))*40, std::sin(ns::to_radian(m_rotation/2))*40 });

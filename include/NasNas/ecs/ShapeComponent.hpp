@@ -14,10 +14,7 @@ namespace ns::ecs {
     template <typename T>
     class ShapeComponent : public GraphicsComponent{
     public:
-        ShapeComponent(BaseEntity* entity, float radius, int point_count, const sf::Vector2f& pos_offset={0,0});
-        ShapeComponent(BaseEntity* entity, float radius, const sf::Vector2f& pos_offset={0,0});
-        ShapeComponent(BaseEntity* entity, const sf::Vector2f& size, const sf::Vector2f& pos_offset={0,0});
-        ShapeComponent(BaseEntity* entity, int point_count, const sf::Vector2f& pos_offset={0,0});
+        ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset={0, 0});
 
         auto getDrawable() -> T& override;
         auto getGlobalBounds() -> ns::FloatRect override;
@@ -29,6 +26,13 @@ namespace ns::ecs {
         T m_drawable;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
+
+    template<typename T>
+    ShapeComponent<T>::ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset) :
+    GraphicsComponent(entity),
+    m_drawable(shape),
+    m_pos_offset(pos_offset)
+    {}
 
     template<typename T>
     auto ShapeComponent<T>::getDrawable() -> T& {
@@ -51,6 +55,8 @@ namespace ns::ecs {
     }
 
     typedef ShapeComponent<sf::CircleShape> CircleShapeComponent;
+    typedef ShapeComponent<sf::EllipseShape> EllipseShapeComponent;
+    typedef ShapeComponent<sf::LineShape> LineShapeComponent;
     typedef ShapeComponent<sf::RectangleShape> RectangleShapeComponent;
     typedef ShapeComponent<sf::ConvexShape> ConvexShapeComponent;
 

@@ -29,9 +29,6 @@ private:
     std::vector<std::shared_ptr<ns::BaseEntity>> entities;
     std::vector<std::shared_ptr<sf::Shape>> shapes;
 
-    sf::LineShape dir_vector;
-    sf::LineShape vel_vector;
-
     sf::Shader* palette_shader;
     int frame_counter = 0;
 };
