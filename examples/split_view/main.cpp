@@ -39,6 +39,15 @@ public:
 
         auto* camera_right = createCamera("right", 0, {0, 0, 1080/2, 720}, {0.5, 0, 0.5, 1});
         camera_right->lookAt(scene);
+
+        // help text on separate scene
+        createCamera("ui", 1)->lookAt(createScene("ui"));
+
+        auto* txt = new sf::Text("Press WASD to move left camera or arrow keys to move right camera.", ns::Arial::getFont());
+        txt->setCharacterSize(25);
+        txt->setFillColor(sf::Color::Blue);
+        txt->move(10, 10);
+        getScene("ui")->getDefaultLayer()->add(txt);
     }
 
     void update() override {
