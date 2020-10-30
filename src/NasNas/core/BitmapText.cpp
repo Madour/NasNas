@@ -91,7 +91,8 @@ auto BitmapFont::computeStringSize(const std::string& string) -> sf::Vector2i {
 }
 
 
-BitmapText::BitmapText(const std::string& text) {
+BitmapText::BitmapText(const std::string& text, ns::BitmapFont* font) {
+    setFont(font);
     m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
     setString(text);
 }
@@ -114,9 +115,11 @@ void BitmapText::setFont(const std::shared_ptr<BitmapFont>& font) {
     setFont(font.get());
 }
 void BitmapText::setFont(BitmapFont* font) {
-    m_font = font;
-    processString();
-    updateVertices();
+    if (font != nullptr) {
+        m_font = font;
+        processString();
+        updateVertices();
+    }
 }
 
 void BitmapText::setColor(const sf::Color &color) {
@@ -125,19 +128,11 @@ void BitmapText::setColor(const sf::Color &color) {
 }
 
 auto BitmapText::getPosition() -> sf::Vector2f {
-    return m_transformable.getPosition();
-}
-
-void BitmapText::setPosition(const sf::Vector2f& position) {
-    m_transformable.setPosition(position);
-}
-
-void BitmapText::setPosition(float x, float y) {
-    m_transformable.setPosition(x, y);
+    return sf::Transformable::getPosition();
 }
 
 auto BitmapText::getGlobalBounds() -> ns::FloatRect {
-    return ns::FloatRect(m_transformable.getPosition(), getSize());
+    return ns::FloatRect(getTransform().transformRect({{0, 0}, getSize()}));
 }
 
 void BitmapText::setMaxWidth(int max_width) {
@@ -146,20 +141,8 @@ void BitmapText::setMaxWidth(int max_width) {
     updateVertices();
 }
 
-auto BitmapText::getWidth() const -> int {
-    return m_width;
-}
-
-auto BitmapText::getHeight() const -> int {
-    return m_height;
-}
-
 auto BitmapText::getSize() const -> sf::Vector2f {
-    return sf::Vector2f((float)getWidth(), (float)getHeight());
-}
-
-void BitmapText::move(float offsetx, float offsety) {
-    m_transformable.move(offsetx, offsety);
+    return sf::Vector2f(m_width, m_height);
 }
 
 auto BitmapText::getProcessedString() -> const std::string& {
@@ -194,8 +177,12 @@ void BitmapText::processString() {
                 current_width = 0;
             else if (current_width + word_width > m_max_width) {
                 current_width = 0;
-                if (w[0] != '\n')
-                    w = std::string("\n").append(w);
+                if (w[0] != '\n') {
+                    if (w != " ")
+                        w = std::string("\n").append(w);
+                    else
+                        w = "\n";
+                }
             }
             current_width += word_width;
         }
@@ -248,7 +235,7 @@ void BitmapText::updateVertices() {
 void BitmapText::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     if (m_font != nullptr) {
         states.texture = m_font->getTexture();
-        states.transform *= m_transformable.getTransform();
+        states.transform *= getTransform();
         target.draw(m_vertices, states);
     }
 }
