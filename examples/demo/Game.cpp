@@ -5,7 +5,6 @@
 #include "Game.hpp"
 
 #include "Player.hpp"
-#include "Wall.hpp"
 #include "ShaderTransition.hpp"
 
 Game::Game() :
@@ -45,18 +44,6 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->player = std::make_shared<Player>();
     this->player->transform()->setPosition({100, 100});
     this->entities.push_back(this->player);
-
-    this->dir_vector.setPosition(player->getPosition());
-    this->dir_vector.addPoint(0, 0);
-    this->dir_vector.addPoint(0, 0);
-
-    this->vel_vector.setPosition(player->getPosition());
-    this->vel_vector.addPoint(0, 0);
-    this->vel_vector.addPoint(0, 0);
-
-    // creating Wall entity
-    auto wall = std::make_shared<Wall>(200.f, 200.f);
-    this->entities.push_back(wall);
 
     // creating a BitmapFont
     this->font = new ns::BitmapFont(
@@ -110,13 +97,10 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     // adding entities
     this->scene->getLayer("entities")->add(this->player);
-    this->scene->getLayer("entities")->add(wall);
 
     // adding the BitmapText to the layer
     this->scene->getLayer("texts")->add(bmp_text);
     this->scene->getLayer("texts")->add(textbox);
-    this->scene->getLayer("texts")->addRaw(&dir_vector);
-    this->scene->getLayer("texts")->addRaw(&vel_vector);
     //-----------------------------------------------------------------------------------
 
     //------------ Adding DebugTexts to the App -----------------------------------------
@@ -229,22 +213,12 @@ void Game::update() {
         shape->rotate(1);
     }
 
-    // collision check
-    if (this->player->collider()->getCollision().collide(this->entities[1]->collider()->getCollision()))
-        ns_LOG("Collision between player and wall");
-
     // updating map layers
     this->tiled_map.update();
 
     // updating the entities
     for (const auto& entity : this->entities)
         entity->update();
-
-    this->dir_vector.setPosition(player->getPosition());
-    this->dir_vector.setPoint(1, player->physics()->getDirection()*20.f*player->physics()->getDirectionMagnitude());
-
-    this->vel_vector.setPosition(player->getPosition());
-    this->vel_vector.setPoint(1, player->physics()->getVelocity()*10.f);
 
     // sorting the shapes layer by the y position
     // this->scene->getLayer("shapes")->ySort();
