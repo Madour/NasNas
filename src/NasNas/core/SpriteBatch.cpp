@@ -53,11 +53,11 @@ void SpriteBatch::clear() {
     m_global_bounds = {0, 0, 0, 0};
 }
 
-auto SpriteBatch::getPosition() -> sf::Vector2f {
+auto SpriteBatch::getPosition() const -> sf::Vector2f {
     return m_global_bounds.topleft();
 }
 
-auto SpriteBatch::getGlobalBounds() -> ns::FloatRect {
+auto SpriteBatch::getGlobalBounds() const -> ns::FloatRect {
     return m_global_bounds;
 }
 

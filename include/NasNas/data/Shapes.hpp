@@ -42,8 +42,8 @@ namespace sf {
         void setColor(const Color& color);
         void setColor(unsigned int index, const Color& color);
 
-        auto getPosition() -> Vector2f override;
-        auto getGlobalBounds() -> ns::FloatRect override;
+        auto getPosition() const -> Vector2f override;
+        auto getGlobalBounds() const -> ns::FloatRect override;
 
     private:
         void draw(RenderTarget& target, RenderStates states) const override;

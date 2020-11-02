@@ -88,11 +88,11 @@ void LineShape::setColor(unsigned int index, const Color& color) {
     }
 }
 
-auto LineShape::getPosition() -> Vector2f {
+auto LineShape::getPosition() const -> Vector2f {
     return Transformable::getPosition();
 }
 
-auto LineShape::getGlobalBounds() -> ns::FloatRect {
+auto LineShape::getGlobalBounds() const -> ns::FloatRect {
     VertexArray va;
     va.resize(m_vertices.size());
     for (const auto& vert : m_vertices) {

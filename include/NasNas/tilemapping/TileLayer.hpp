@@ -48,7 +48,7 @@ namespace ns::tm {
 
         auto getTile(int x, int y) -> const Tile&;
         auto getTile(sf::Vector2i pos) -> const Tile&;
-        auto getGlobalBounds() -> ns::FloatRect override;
+        auto getGlobalBounds() const -> ns::FloatRect override;
 
         void update();
 

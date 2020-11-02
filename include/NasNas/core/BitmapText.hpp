@@ -171,13 +171,13 @@ namespace ns {
          * \brief Get BitmapText position
          * \return Position
          */
-        auto getPosition() -> sf::Vector2f override;
+        auto getPosition() const -> sf::Vector2f override;
 
         /**
          * \brief Get BitmapText global bounds
          * \return Global bounds rectangle
          */
-        auto getGlobalBounds() -> ns::FloatRect override;
+        auto getGlobalBounds() const -> ns::FloatRect override;
 
         /**
          * \brief Set the maximum width of the Text.

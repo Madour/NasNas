@@ -34,7 +34,7 @@ auto Layer::getName() -> std::string& {
     return m_name;
 }
 
-auto Layer::getPosition() -> sf::Vector2f {
+auto Layer::getPosition() const -> sf::Vector2f {
     return m_transformable.getPosition();
 }
 

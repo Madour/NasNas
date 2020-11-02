@@ -17,7 +17,7 @@ namespace ns::tm {
         Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
         auto getId() const -> unsigned int;
         auto getName() -> std::string&;
-        auto getPosition() -> sf::Vector2f override;
+        auto getPosition() const -> sf::Vector2f override;
         void setPosition(float x, float y);
         void setPosition(sf::Vector2f position);
         void move(float x, float y);

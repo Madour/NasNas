@@ -30,12 +30,12 @@ namespace ns {
 
         virtual void update();
 
-        auto getPosition() -> sf::Vector2f override;
+        auto getPosition() const -> sf::Vector2f override;
 
         void setX(float value);
         void setY(float value);
 
-        auto getGlobalBounds() -> ns::FloatRect override;
+        auto getGlobalBounds() const -> ns::FloatRect override;
 
         auto transform() -> sf::Transformable*;
         auto inputs() -> ecs::InputsComponent*;

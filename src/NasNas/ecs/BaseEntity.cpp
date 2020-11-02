@@ -15,7 +15,7 @@ BaseEntity::BaseEntity(const std::string& name) {
 
 BaseEntity::~BaseEntity() = default;
 
-auto BaseEntity::getPosition() -> sf::Vector2f {
+auto BaseEntity::getPosition() const -> sf::Vector2f {
     return m_transformable.getPosition();
 }
 
@@ -31,12 +31,12 @@ void BaseEntity::setY(float value) {
     m_transformable.setPosition(m_transformable.getPosition().x, value);
 }
 
-auto BaseEntity::getGlobalBounds() -> ns::FloatRect {
+auto BaseEntity::getGlobalBounds() const -> ns::FloatRect {
     float left, top, right, bottom;
     ns::FloatRect result;
     bool first = true;
     for (const auto& graphic_comp : m_graphics_components_list) {
-        auto rect = ns::FloatRect(transform()->getTransform().transformRect(graphic_comp->getGlobalBounds()));
+        auto rect = ns::FloatRect(m_transformable.getTransform().transformRect(graphic_comp->getGlobalBounds()));
         auto topleft = rect.topleft();
         auto topright = rect.topright();
         auto bottomleft = rect.bottomleft();
