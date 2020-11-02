@@ -127,11 +127,11 @@ void BitmapText::setColor(const sf::Color &color) {
     updateVertices();
 }
 
-auto BitmapText::getPosition() -> sf::Vector2f {
+auto BitmapText::getPosition() const -> sf::Vector2f {
     return sf::Transformable::getPosition();
 }
 
-auto BitmapText::getGlobalBounds() -> ns::FloatRect {
+auto BitmapText::getGlobalBounds() const -> ns::FloatRect {
     return ns::FloatRect(getTransform().transformRect({{0, 0}, getSize()}));
 }
 

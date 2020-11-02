@@ -40,7 +40,7 @@ namespace ns::tm {
         auto getPolygon(unsigned int id) -> const Object<sf::ConvexShape>&;
         auto getPolyline(unsigned int id) -> const Object<sf::LineShape>&;
 
-        auto getGlobalBounds() -> ns::FloatRect override;
+        auto getGlobalBounds() const -> ns::FloatRect override;
 
     private:
         static auto stringToPoints(const char*) -> std::vector<sf::Vector2f>;

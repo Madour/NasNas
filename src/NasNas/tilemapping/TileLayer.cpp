@@ -67,7 +67,7 @@ auto TileLayer::getTile(sf::Vector2i pos) -> const Tile& {
     return m_tiles[pos.x + pos.y*m_width];
 }
 
-auto TileLayer::getGlobalBounds() -> ns::FloatRect {
+auto TileLayer::getGlobalBounds() const -> ns::FloatRect {
     return ns::FloatRect(m_sprite.getGlobalBounds());
 }
 

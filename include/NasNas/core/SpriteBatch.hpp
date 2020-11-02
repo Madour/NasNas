@@ -26,8 +26,8 @@ namespace ns {
 
         void end();
 
-        auto getPosition() -> sf::Vector2f override;
-        auto getGlobalBounds() -> ns::FloatRect override;
+        auto getPosition() const -> sf::Vector2f override;
+        auto getGlobalBounds() const -> ns::FloatRect override;
 
     private:
         friend App;

@@ -167,7 +167,7 @@ auto ObjectLayer::getPolyline(unsigned int id) -> const ObjectLayer::Object<sf::
     std::exit(-1);
 }
 
-auto ObjectLayer::getGlobalBounds() -> ns::FloatRect {
+auto ObjectLayer::getGlobalBounds() const -> ns::FloatRect {
     return ns::FloatRect(
         m_transformable.getPosition(),
         sf::Vector2f(m_tiledmap->getSize())

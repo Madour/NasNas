@@ -15,8 +15,8 @@ namespace ns {
      */
     class Drawable : public sf::Drawable {
     public:
-        virtual auto getPosition() -> sf::Vector2f = 0;
-        virtual auto getGlobalBounds() -> ns::FloatRect = 0;
+        virtual auto getPosition() const -> sf::Vector2f = 0;
+        virtual auto getGlobalBounds() const -> ns::FloatRect = 0;
     };
 
 }
