@@ -79,7 +79,7 @@ void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
     if (Config::debug) {
         if (m_collider_component)
-            target.draw(m_collider_component->getCollision().getShape(), states);
+            target.draw(m_collider_component->getCollision().getShape());
     }
 
 }

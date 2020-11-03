@@ -136,4 +136,6 @@ auto ColliderComponent::getCollision() -> Collision& {
     return *m_collision_box;
 }
 
-void ColliderComponent::update() {}
+void ColliderComponent::update() {
+    m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
+}
