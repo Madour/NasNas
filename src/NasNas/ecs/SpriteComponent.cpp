@@ -14,23 +14,15 @@ SpriteComponent(entity, spritesheet, "", pos_offset) {
 }
 
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
-GraphicsComponent(entity) {
-    m_pos_offset = pos_offset;
-    m_anim_player = AnimPlayer();
+GraphicsComponent(entity),
+m_pos_offset(pos_offset) {
     setSpritesheet(spritesheet);
-    if (!anim_state.empty())
-        setAnimState(anim_state);
-    else {
-        for (const auto& [name, anim] : spritesheet->getAnimsMap()) {
-            setAnimState(name);
-            break;
-        }
-    }
+    anim_state.empty() ? setAnimState(spritesheet->getAnimsMap().begin()->first) : setAnimState(anim_state);
 }
 
 void SpriteComponent::setSpritesheet(Spritesheet* spritesheet) {
     m_spritesheet = spritesheet;
-    m_drawable = sf::Sprite(*spritesheet->texture);
+    m_drawable.setTexture(*spritesheet->texture);
 }
 
 auto SpriteComponent::getAnimState() const -> const std::string& {
