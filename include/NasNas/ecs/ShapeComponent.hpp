@@ -41,16 +41,15 @@ namespace ns::ecs {
 
     template<typename T>
     auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
-        return ns::FloatRect(m_drawable.getGlobalBounds());
+        return ns::FloatRect(m_entity->transform()->getTransform().transformRect(m_drawable.getGlobalBounds()));
     }
 
     template<typename T>
-    void ShapeComponent<T>::update() {
-        m_drawable.setPosition(m_pos_offset);
-    }
+    void ShapeComponent<T>::update() {}
 
     template<typename T>
     void ShapeComponent<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+        states.transform.translate(m_pos_offset);
         target.draw(m_drawable, states);
     }
 

@@ -33,33 +33,33 @@ void BaseEntity::setY(float value) {
 
 auto BaseEntity::getGlobalBounds() const -> ns::FloatRect {
     float left, top, right, bottom;
-    ns::FloatRect result;
+    ns::FloatRect result{0, 0, 0, 0};
     bool first = true;
     for (const auto& graphic_comp : m_graphics_components_list) {
-        auto rect = ns::FloatRect(m_transformable.getTransform().transformRect(graphic_comp->getGlobalBounds()));
+        auto rect = graphic_comp->getGlobalBounds();
         auto topleft = rect.topleft();
         auto topright = rect.topright();
         auto bottomleft = rect.bottomleft();
         auto bottomright = rect.bottomright();
-
         if (first) {
             left = std::min(topleft.x, bottomleft.x);
             top = std::min(topleft.y, topright.y);
             right = std::max(topright.x, bottomright.x);
             bottom = std::max(bottomleft.y, bottomright.y);
             first = false;
-        }
-        else {
+        } else {
             left = std::min(left, std::min(topleft.x, bottomleft.x));
             top = std::min(top, std::min(topleft.y, topright.y));
             right = std::max(right, std::max(topright.x, bottomright.x));
             bottom = std::max(bottom, std::max(bottomleft.y, bottomright.y));
         }
     }
-    if (!first)
-        result = ns::FloatRect(left, top, right-left, bottom-top);
-    else
-        result = ns::FloatRect(0, 0, 0, 0);
+    if (!first) {
+        result.left = left;
+        result.top = top;
+        result.width = right - left;
+        result.height = bottom - top;
+    }
     return result;
 }
 
