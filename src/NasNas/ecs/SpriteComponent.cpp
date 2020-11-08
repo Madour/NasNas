@@ -62,16 +62,17 @@ auto SpriteComponent::getDrawable() -> sf::Sprite& {
 }
 
 auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
-    return ns::FloatRect(m_drawable.getGlobalBounds());
+    return ns::FloatRect(m_entity->transform()->getTransform().transformRect(m_drawable.getGlobalBounds()));
 }
 
 void SpriteComponent::update() {
     m_anim_player.update();
-    m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
-    m_drawable.setOrigin((float)m_anim_player.getActiveFrame().origin.x, (float)m_anim_player.getActiveFrame().origin.y);
-    m_drawable.setPosition(m_pos_offset);
+    auto& active_frame = m_anim_player.getActiveFrame();
+    m_drawable.setTextureRect(active_frame.rectangle);
+    m_drawable.setOrigin(float(active_frame.origin.x), float(active_frame.origin.y));
 }
 
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    states.transform.translate(m_pos_offset);
     target.draw(m_drawable, states);
 }
