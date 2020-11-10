@@ -76,7 +76,7 @@ auto TiledMap::getDimension() -> const sf::Vector2u& {
     return m_size;
 }
 
-auto TiledMap::getSize() -> sf::Vector2u {
+auto TiledMap::getSize() const -> sf::Vector2u {
     return {m_size.x * m_tilesize.x, m_size.y * m_tilesize.y};
 }
 
