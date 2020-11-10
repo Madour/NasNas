@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <memory>
 #include <filesystem>
 #include <SFML/Graphics.hpp>
@@ -46,8 +46,8 @@ namespace ns::tm {
         sf::Vector2u m_tilesize;
 
         std::vector<std::unique_ptr<Tileset>> m_tilesets;
-        std::map<std::pair<int, std::string>, std::shared_ptr<TileLayer>> m_tilelayers;
-        std::map<std::pair<int, std::string>, std::shared_ptr<ObjectLayer>> m_objectlayers;
+        std::unordered_map<std::string, std::shared_ptr<TileLayer>> m_tilelayers;
+        std::unordered_map<std::string, std::shared_ptr<ObjectLayer>> m_objectlayers;
     };
 
 }

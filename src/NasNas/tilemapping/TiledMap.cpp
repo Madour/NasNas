@@ -63,12 +63,12 @@ void TiledMap::load(const pugi::xml_document& xml) {
     // parsing layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
         auto new_layer = std::make_shared<TileLayer>(xmlnode_layer, this);
-        m_tilelayers[{new_layer->getId(), new_layer->getName()}] = new_layer;
+        m_tilelayers[new_layer->getName()] = new_layer;
     }
     // parsing object layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
         auto new_layer = std::make_shared<ObjectLayer>(xmlnode_layer, this);
-        m_objectlayers[{new_layer->getId(), new_layer->getName()}] = new_layer;
+        m_objectlayers[new_layer->getName()] = new_layer;
     }
 }
 
@@ -98,31 +98,19 @@ auto TiledMap::allTilesets() -> const std::vector<std::unique_ptr<Tileset>>& {
 }
 
 auto TiledMap::hasLayer(const std::string& name) -> bool {
-    for (const auto& [key, layer_ptr] : m_tilelayers)
-        if (key.second == name)
-            return true;
-    for (const auto& [key, layer_ptr] : m_objectlayers)
-        if (key.second == name)
-            return true;
-    return false;
+    return (m_tilelayers.count(name) > 0 || m_objectlayers.count(name) > 0);
 }
 
 auto TiledMap::getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>& {
-    for (const auto& [key, layer_ptr] : m_tilelayers) {
-        if (key.second == name) {
-            return m_tilelayers[key];
-        }
-    }
+    if (m_tilelayers.count(name) > 0)
+        return m_tilelayers.at(name);
     std::cout << "TiledMap «" << m_file_name << "» has not TileLayer named «" << name << "»." << std::endl;
     exit(-1);
 }
 
 auto TiledMap::getObjectLayer(const std::string& name) -> const std::shared_ptr<ObjectLayer>& {
-    for (const auto& [key, layer_ptr] : m_objectlayers) {
-        if (key.second == name) {
-            return m_objectlayers[key];
-        }
-    }
+    if (m_objectlayers.count(name) > 0)
+        return m_objectlayers.at(name);
     std::cout << "TiledMap «" << m_file_name << "» has not ObjectLayer named «" << name << "»." << std::endl;
     exit(-1);
 }
