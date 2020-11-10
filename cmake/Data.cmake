@@ -11,6 +11,7 @@ set(
         ${NASNAS_PATH}/src/NasNas/data/Shapes.cpp
         ${NASNAS_PATH}/src/NasNas/data/ShaderHolder.cpp
         ${NASNAS_PATH}/src/NasNas/data/Logger.cpp
+        ${NASNAS_PATH}/src/NasNas/data/Utils.cpp
 
 )
 
@@ -28,5 +29,6 @@ set(
         ${NASNAS_PATH}/include/NasNas/data/Shapes.hpp
         ${NASNAS_PATH}/include/NasNas/data/ShaderHolder.hpp
         ${NASNAS_PATH}/include/NasNas/data/Logger.hpp
+        ${NASNAS_PATH}/include/NasNas/data/Utils.hpp
 
 )
