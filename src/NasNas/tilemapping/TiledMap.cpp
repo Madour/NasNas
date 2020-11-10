@@ -85,16 +85,12 @@ auto TiledMap::getTileSize() -> const sf::Vector2u& {
 }
 
 auto TiledMap::getTileTileset(unsigned int gid) -> const std::unique_ptr<Tileset>& {
-    int return_index = 0; int i = 0;
     for (const auto& tileset : m_tilesets) {
-        if (gid >= tileset->firstgid) {
-            return_index = i;
-            i++;
-        }
-        else
-            continue;
+        if (tileset->firstgid <= gid && gid < tileset->firstgid + tileset->tilecount)
+            return tileset;
     }
-    return m_tilesets[return_index];
+    std::cout << "Error (TiledMap::getTileTileset) : Tile gid " << gid << " not found in any tileset" << std::endl;
+    exit(-1);
 }
 
 auto TiledMap::allTilesets() -> const std::vector<std::unique_ptr<Tileset>>& {
