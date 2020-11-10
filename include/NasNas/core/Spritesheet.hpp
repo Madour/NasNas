@@ -35,13 +35,15 @@ namespace ns {
 
         void addAnim(Anim* new_anim);
 
-        void addAnim(const std::string& anim_name, int first_frame, int nb_of_frames,
-                     const std::variant<int, std::vector<int>>& duration,
-                     const std::variant<sf::Vector2i, std::vector<sf::Vector2i>>& origin=sf::Vector2i(0,0));
+        void addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, int duration, const sf::Vector2i& origin={0,0});
+        void addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, int duration, const std::vector<sf::Vector2i>& origins);
+        void addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, const std::vector<int>& durations, const sf::Vector2i& origin={0,0});
+        void addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, const std::vector<int>& durations, const std::vector<sf::Vector2i>& origins);
 
-        void addAnim(const std::string& anim_name, const std::vector<int>& frames,
-                     const std::variant<int, std::vector<int>>& duration,
-                     const std::variant<sf::Vector2i, std::vector<sf::Vector2i>>& origin=sf::Vector2i(0,0));
+        void addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, int duration, const sf::Vector2i& origin={0,0});
+        void addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, int duration, const std::vector<sf::Vector2i>& origins);
+        void addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, const std::vector<int>& durations, const sf::Vector2i& origin={0,0});
+        void addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, const std::vector<int>& durations, const std::vector<sf::Vector2i>& origins);
 
         /**
          * \brief Get a map containing all the Anim objects
@@ -56,17 +58,17 @@ namespace ns {
          */
         auto getAnim(const std::string& anim_name) -> const Anim&;
 
-        const std::string name;     ///< Anim name
-        const sf::Texture* texture; ///< Anim texture
+        const std::string name;     ///< Spritesheet name
+        const sf::Texture* texture; ///< Spritesheet texture
 
     private:
-        /// Anim map containing all the Anim objects in the spritesheet
         std::unordered_map<std::string, Anim*> m_anims_map;
-        // grid parameters
         sf::Vector2i m_cell_size;
         int m_margin = 0;
         int m_spacing = 0;
         int m_columns = 1;
+
+        auto getFrameTexCoords(unsigned int frame_index) const -> sf::Vector2i;
     };
 
 }
