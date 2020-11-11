@@ -18,7 +18,12 @@ if (WIN32)
     set(SFML_DIR C:/SFML)
     find_package(SFML COMPONENTS graphics audio PATHS ${SFML_DIR}/lib/cmake/ )
 else()
-    find_package(SFML COMPONENTS graphics audio )
+    if (CMAKE_ANDROID_NDK)
+        message("Building with Android NDK !")
+        find_package(SFML COMPONENTS graphics audio PATHS ${CMAKE_ANDROID_NDK}/sources/third_party/sfml/lib/armeabi-v7a/cmake/)
+    else()
+        find_package(SFML COMPONENTS graphics audio)
+    endif()
 endif()
 
 
@@ -27,8 +32,13 @@ set(NASNAS_BUILD_ECS            TRUE)
 set(NASNAS_BUILD_RESLIB         TRUE)
 set(NASNAS_BUILD_TILEMAPPING    TRUE)
 set(NASNAS_BUILD_UI             TRUE)
-# Set this variable to FALSE if you don't want to build examples
-set(NASNAS_BUILD_EXAMPLES       True)
+
+if(CMAKE_ANDROID_NDK)
+    set(NASNAS_BUILD_RESLIB FALSE)    # Reslib not supported on Android yet
+else()
+    # Set this variable to FALSE if you don't want to build examples
+    set(NASNAS_BUILD_EXAMPLES       TRUE)
+endif()
 
 include(cmake/NasNas.cmake)
 
