@@ -12,5 +12,7 @@ namespace ns::utils {
         auto getFilename(const std::string& path) -> std::string;
         auto getStem(const std::string& path) -> std::string;
         auto getExtension(const std::string& path) -> std::string;
+        auto getPath(const std::string& path) -> std::string;
+        void removeFilename(std::string& path);
     }
 }

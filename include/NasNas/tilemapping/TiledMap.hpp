@@ -7,7 +7,6 @@
 
 #include <unordered_map>
 #include <memory>
-#include <filesystem>
 #include <SFML/Graphics.hpp>
 #include "NasNas/thirdparty/pugixml.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
@@ -40,7 +39,7 @@ namespace ns::tm {
 
         pugi::xml_node m_xmlnode_map;
         std::string m_file_name;
-        std::filesystem::path m_file_relative_path;
+        std::string m_file_relative_path;
 
         sf::Vector2u m_size;
         sf::Vector2u m_tilesize;

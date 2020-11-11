@@ -8,7 +8,6 @@
 
 using namespace ns;
 
-const std::filesystem::path Config::base_path = std::filesystem::current_path();
 bool Config::debug = false;
 
 std::string Config::Window::title = "NasNas app";

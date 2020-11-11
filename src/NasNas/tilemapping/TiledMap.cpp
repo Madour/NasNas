@@ -3,6 +3,7 @@
 **/
 
 #include "NasNas/data/Config.hpp"
+#include "NasNas/data/Utils.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/TileLayer.hpp"
 #include "NasNas/tilemapping/ObjectLayer.hpp"
@@ -19,8 +20,8 @@ auto TiledMap::loadFromFile(const std::string& file_name) -> bool {
         std::cout << "Error parsing TMX file «" << file_name << "» : " << result.description() << std::endl;
         return false;
     }
-    m_file_name = std::filesystem::path(file_name).filename().string();
-    m_file_relative_path = std::filesystem::path(file_name).remove_filename();
+    m_file_name = ns::utils::path::getFilename(file_name);
+    m_file_relative_path = ns::utils::path::getPath(file_name);
     load(xml);
     return true;
 }
@@ -33,7 +34,7 @@ auto TiledMap::loadFromString(const std::string& data) -> bool {
         return false;
     }
     m_file_name = "";
-    m_file_relative_path = Config::base_path;
+    m_file_relative_path = "";
     load(xml);
     return true;
 }
@@ -52,12 +53,12 @@ void TiledMap::load(const pugi::xml_document& xml) {
         unsigned int firstgid = xmlnode_tileset.attribute("firstgid").as_uint();
         // external tileset
         if (xmlnode_tileset.attribute("source")){
-            const auto& tsx_tileset = SharedTilesetManager::get((m_file_relative_path / xmlnode_tileset.attribute("source").as_string()).string());
+            const auto& tsx_tileset = SharedTilesetManager::get(m_file_relative_path + xmlnode_tileset.attribute("source").as_string());
             m_tilesets.push_back(std::make_unique<Tileset>(tsx_tileset, firstgid));
         }
         // embedded tileset
         else
-            m_tilesets.push_back(std::make_unique<Tileset>(xmlnode_tileset, m_file_relative_path.string()));
+            m_tilesets.push_back(std::make_unique<Tileset>(xmlnode_tileset, m_file_relative_path));
     }
 
     // parsing layers

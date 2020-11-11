@@ -19,7 +19,7 @@ auto path::getStem(const std::string& path) -> std::string {
     }
     if (end == beg)
         end = path.size();
-    return std::string(path.begin()+beg, path.begin()+end);
+    return path.substr(beg, end-beg);
 }
 
 auto path::getFilename(const std::string& path) -> std::string {
@@ -30,7 +30,7 @@ auto path::getFilename(const std::string& path) -> std::string {
             break;
         }
     }
-    return std::string(path.begin()+beg, path.end());
+    return path.substr(beg, path.size()-beg);
 }
 
 auto path::getExtension(const std::string& path) -> std::string {
@@ -43,6 +43,34 @@ auto path::getExtension(const std::string& path) -> std::string {
     }
     if (beg == 0 || path[beg-1] == '/')
         beg = path.size();
-    return std::string(path.begin()+beg, path.end());
+    return path.substr(beg, path.size()-beg);
 }
 
+auto path::getPath(const std::string& path) -> std::string {
+    int end = path.size();
+    for (int i = path.size(); i > 0; --i) {
+        if (path[i] == '/') {
+            end = i+1;
+            break;
+        }
+    }
+    if (end == path.size() && path == path::getFilename(path)) {
+        end = 0;
+    }
+    return path.substr(0, end);
+}
+
+void path::removeFilename(std::string& path) {
+    int end = path.size();
+    for (int i = path.size(); i > 0; --i) {
+        if (path[i] == '/') {
+            end = i+1;
+            break;
+        }
+    }
+    if (end == path.size() && path == path::getFilename(path)) {
+        path = "";
+        return;
+    }
+    path = std::string(path.begin(), path.begin()+end);
+}

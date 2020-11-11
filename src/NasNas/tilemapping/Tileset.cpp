@@ -2,8 +2,7 @@
 * Created by Modar Nasser on 14/07/2020.
 **/
 
-
-#include <filesystem>
+#include "NasNas/data/Utils.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
 #ifdef NS_RESLIB
 #include "NasNas/reslib/ResourceManager.hpp"
@@ -25,7 +24,7 @@ auto SharedTilesetManager::get(const std::string& tsx_file_name) -> const std::s
             std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
             std::exit(-1);
         }
-        instance.m_shared_tilesets[tsx_file_name] =  std::make_shared<SharedTileset>(xml.child("tileset"), std::filesystem::path(tsx_file_name).remove_filename().string());
+        instance.m_shared_tilesets[tsx_file_name] =  std::make_shared<SharedTileset>(xml.child("tileset"), utils::path::getPath(tsx_file_name));
         return instance.m_shared_tilesets[tsx_file_name];
     }
 }
