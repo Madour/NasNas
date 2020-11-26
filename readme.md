@@ -66,18 +66,24 @@ for tile based games.
 
 This project uses Cmake. To build :
 ```bash
-mkdir build
-cd build
+mkdir build && cd build
 cmake ..
 cmake --build . -j4
 ```
 This will generate a static library and a shared library.
 
-If you want to build the examples, edit CMakeLists.txt and set 
-the NASNAS_BUILD_EXAMPLES variable to true.
+Additional CMake options you can pass : 
 
-If Cmake is unable to find your SFML install location, configure CMakeLists.txt by
-setting SFML_ROOT variable. 
+- `-DNASNAS_BUILD_EXAMPLES=ON` to build the example applications
+- `-DSFML_ROOT=path/to/SFML/` to specify the location of SFML if CMake is unable to find it
+- `-DSFML_STATIC_LIBRARIES=TRUE` to link SFML static libraries 
+
+You can also select which modules you want to **not** build by setting these options to OFF :
+
+- `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
+- `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
+- `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
+- `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
 
 ### Get Started
 
@@ -123,10 +129,6 @@ If you are using NasNas, or want to try it, please let me know :)
 ### Support
 
 If you like the project, please consider starring this repository.
-
-### Other
-
-NasNas also exists for python, check it out [here](https://github.com/Madour/pyNasNas).
 
 ### Author
 
