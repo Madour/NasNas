@@ -26,7 +26,6 @@ namespace ns::ecs {
     private:
         Spritesheet* m_spritesheet = nullptr;
         AnimPlayer m_anim_player;
-        sf::Vector2f m_pos_offset = {0, 0};
         sf::Sprite m_drawable;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

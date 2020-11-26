@@ -22,7 +22,6 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        sf::Vector2f m_pos_offset = {0, 0};
         T m_drawable;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
@@ -30,9 +29,9 @@ namespace ns::ecs {
     template<typename T>
     ShapeComponent<T>::ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset) :
     GraphicsComponent(entity),
-    m_drawable(shape),
-    m_pos_offset(pos_offset)
-    {}
+    m_drawable(shape) {
+        m_transform.translate(pos_offset);
+    }
 
     template<typename T>
     auto ShapeComponent<T>::getDrawable() -> T& {
@@ -41,7 +40,9 @@ namespace ns::ecs {
 
     template<typename T>
     auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
-        return ns::FloatRect(m_entity->transform()->getTransform().transformRect(m_drawable.getGlobalBounds()));
+        return ns::FloatRect(m_entity->transform()->getTransform().transformRect(
+                m_transform.transformRect(m_drawable.getGlobalBounds())
+        ));
     }
 
     template<typename T>
@@ -49,7 +50,7 @@ namespace ns::ecs {
 
     template<typename T>
     void ShapeComponent<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        states.transform.translate(m_pos_offset);
+        states.transform *= m_transform;
         target.draw(m_drawable, states);
     }
 
