@@ -43,6 +43,8 @@ App::App(const std::string& title, int w_width, int w_height, int v_width, int v
     if (fps > 0)
         m_window.setFramerateLimit(fps);
 
+    m_renderer.create((unsigned int)m_window.getAppView().getSize().x, (unsigned int)m_window.getAppView().getSize().y);
+
     m_dt = 0.0;
     m_fps_clock.restart();
 }
@@ -177,10 +179,7 @@ void App::render() {
     // drawing Camera contents on App view
     m_window.setView(m_window.getAppView());
 
-    sf::RenderTexture renderer;
-    renderer.create((unsigned int)m_window.getAppView().getSize().x, (unsigned int)m_window.getAppView().getSize().y);
-    renderer.clear(sf::Color::Transparent);
-
+    m_renderer.clear(sf::Color::Transparent);
     // updating SpriteBatches vertices
     for (auto& batch : SpriteBatch::list) {
         batch->render();
@@ -188,50 +187,53 @@ void App::render() {
     // for each camera, if it has a scene and is visible, render the content
     for (Camera*& cam: m_cameras) {
         if (cam->hasScene() && cam->isVisible()) {
-            cam->render(renderer);
+            cam->render(m_renderer);
         }
     }
+    // render transitions, delete it when it has ended
     for (unsigned int i = 0; i < Transition::list.size(); ++i) {
         auto* tr = Transition::list[i];
         if (tr->hasStarted())
-            renderer.draw(*tr);
+            m_renderer.draw(*tr);
         if (tr->hasEnded()) {
             Transition::list.erase(Transition::list.begin() + i--);
             delete(tr);
         }
     }
-    renderer.display();
-    m_window.draw(sf::Sprite(renderer.getTexture()), getShader());
+    m_renderer.display();
+    m_window.draw(sf::Sprite(m_renderer.getTexture()), getShader());
 
     // drawing debug texts and rectangles on ScreenView
-    m_window.setView(m_window.getScreenView());
-    std::vector<sf::Vertex> dbg_bounds_list;
-    auto storeDebugRect = [&](const ns::FloatRect& global_bounds, const Camera* view) {
-        const auto& global_vport = m_window.getAppView().getViewport();
-        const auto& local_vport = view->getViewport();
-        sf::Vector2 offset{m_window.mapCoordsToPixel(view->getSprite().getPosition(), m_window.getAppView())};
-
-        // local view transformation
-        sf::Vector2f topleft{m_window.mapCoordsToPixel(global_bounds.topleft(), *view)};
-        topleft = {topleft.x*local_vport.width, topleft.y*local_vport.height};
-        sf::Vector2f topright{m_window.mapCoordsToPixel(global_bounds.topright(), *view)};
-        topright = {topright.x*local_vport.width, topright.y*local_vport.height};
-        sf::Vector2f bottomright{m_window.mapCoordsToPixel(global_bounds.bottomright(), *view)};
-        bottomright = {bottomright.x*local_vport.width, bottomright.y*local_vport.height};
-        sf::Vector2f bottomleft{m_window.mapCoordsToPixel(global_bounds.bottomleft(), *view)};
-        bottomleft = {bottomleft.x*local_vport.width, bottomleft.y*local_vport.height};
-
-        // app view transformation
-        sf::Vector2f pos0{offset.x + topleft.x*global_vport.width, offset.y + topleft.y*global_vport.height};
-        sf::Vector2f pos1{offset.x + topright.x*global_vport.width, offset.y + topright.y*global_vport.height};
-        sf::Vector2f pos2{offset.x + bottomright.x*global_vport.width, offset.y + bottomright.y*global_vport.height};
-        sf::Vector2f pos3{offset.x + bottomleft.x*global_vport.width, offset.y + bottomleft.y*global_vport.height};
-        dbg_bounds_list.emplace_back(pos0, sf::Color::Red); dbg_bounds_list.emplace_back(pos1, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos1, sf::Color::Red); dbg_bounds_list.emplace_back(pos2, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos2, sf::Color::Red); dbg_bounds_list.emplace_back(pos3, sf::Color::Red);
-        dbg_bounds_list.emplace_back(pos3, sf::Color::Red); dbg_bounds_list.emplace_back(pos0, sf::Color::Red);
-    };
     if (Config::debug) {
+        m_window.setView(m_window.getScreenView());
+        std::vector<sf::Vertex> dbg_bounds_list;
+        // one fat lambda, handles view transformations to draw correctly the global bounds
+        auto storeDebugRect = [&](const ns::FloatRect& global_bounds, const Camera* view) {
+            const auto& global_vport = m_window.getAppView().getViewport();
+            const auto& local_vport = view->getViewport();
+            sf::Vector2 offset{m_window.mapCoordsToPixel(view->getSprite().getPosition(), m_window.getAppView())};
+
+            // local view transformation
+            sf::Vector2f topleft{m_window.mapCoordsToPixel(global_bounds.topleft(), *view)};
+            topleft = {topleft.x*local_vport.width, topleft.y*local_vport.height};
+            sf::Vector2f topright{m_window.mapCoordsToPixel(global_bounds.topright(), *view)};
+            topright = {topright.x*local_vport.width, topright.y*local_vport.height};
+            sf::Vector2f bottomright{m_window.mapCoordsToPixel(global_bounds.bottomright(), *view)};
+            bottomright = {bottomright.x*local_vport.width, bottomright.y*local_vport.height};
+            sf::Vector2f bottomleft{m_window.mapCoordsToPixel(global_bounds.bottomleft(), *view)};
+            bottomleft = {bottomleft.x*local_vport.width, bottomleft.y*local_vport.height};
+
+            // app view transformation
+            sf::Vector2f pos0{offset.x + topleft.x*global_vport.width, offset.y + topleft.y*global_vport.height};
+            sf::Vector2f pos1{offset.x + topright.x*global_vport.width+1, offset.y + topright.y*global_vport.height};
+            sf::Vector2f pos2{offset.x + bottomright.x*global_vport.width+1, offset.y + bottomright.y*global_vport.height+1};
+            sf::Vector2f pos3{offset.x + bottomleft.x*global_vport.width, offset.y + bottomleft.y*global_vport.height+1};
+            dbg_bounds_list.emplace_back(pos0, sf::Color::Red); dbg_bounds_list.emplace_back(pos1, sf::Color::Red);
+            dbg_bounds_list.emplace_back(pos1, sf::Color::Red); dbg_bounds_list.emplace_back(pos2, sf::Color::Red);
+            dbg_bounds_list.emplace_back(pos2, sf::Color::Red); dbg_bounds_list.emplace_back(pos3, sf::Color::Red);
+            dbg_bounds_list.emplace_back(pos3, sf::Color::Red); dbg_bounds_list.emplace_back(pos0, sf::Color::Red);
+        };
+
         sf::Vector2f s{m_window.getAppView().getViewport().width*m_window.getSize().x,
                        m_window.getAppView().getViewport().height*m_window.getSize().y};
         sf::Vector2f p{m_window.getAppView().getViewport().left*m_window.getSize().x,

@@ -263,6 +263,7 @@ namespace ns {
 
     private:
         AppWindow m_window;     ///< AppWindow
+        sf::RenderTexture m_renderer;
         std::string m_title;    ///< Title of the App
         bool m_fullscreen;      ///< Is the AppWindow fullscreen ?
         int m_ups;              ///< Update per second
