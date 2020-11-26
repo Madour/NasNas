@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
+if (POLICY CMP0074)
+    cmake_policy(SET CMP0074 NEW)
+endif()
 
 project(NasNas)
 
@@ -13,22 +16,16 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
 
 # find SFML
-if (WIN32)
-    set(SFML_STATIC_LIBRARIES TRUE)
-    set(SFML_DIR C:/SFML)
-    find_package(SFML COMPONENTS graphics audio PATHS ${SFML_DIR}/lib/cmake/ )
-else()
-    find_package(SFML COMPONENTS graphics audio )
-endif()
+find_package(SFML COMPONENTS graphics audio)
 
 
 # Select which optional modules to build
-set(NASNAS_BUILD_ECS            TRUE)
-set(NASNAS_BUILD_RESLIB         TRUE)
-set(NASNAS_BUILD_TILEMAPPING    TRUE)
-set(NASNAS_BUILD_UI             TRUE)
-# Set this variable to FALSE if you don't want to build examples
-set(NASNAS_BUILD_EXAMPLES       True)
+option(NASNAS_BUILD_RESLIB       "Build the RESLIB module"      ON)
+option(NASNAS_BUILD_ECS          "Build the ECS module"         ON)
+option(NASNAS_BUILD_TILEMAPPING  "Build the TILEMAPPING module" ON)
+option(NASNAS_BUILD_UI           "Build the UI module"          ON)
+
+option(NASNAS_BUILD_EXAMPLES  "Build the example applications" OFF)
 
 include(cmake/NasNas.cmake)
 
@@ -43,5 +40,6 @@ target_include_directories(NasNas_shared PRIVATE include)
 target_link_libraries(NasNas_shared sfml-graphics sfml-audio)
 
 if (NASNAS_BUILD_EXAMPLES)
+    message("-- NasNas : Will build example applications")
     add_subdirectory(examples)
 endif()
