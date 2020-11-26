@@ -14,8 +14,8 @@ SpriteComponent(entity, spritesheet, "", pos_offset) {
 }
 
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
-GraphicsComponent(entity),
-m_pos_offset(pos_offset) {
+GraphicsComponent(entity) {
+    m_transform.translate(pos_offset);
     setSpritesheet(spritesheet);
     anim_state.empty() ? setAnimState(spritesheet->getAnimsMap().begin()->first) : setAnimState(anim_state);
 }
@@ -54,17 +54,19 @@ auto SpriteComponent::getDrawable() -> sf::Sprite& {
 }
 
 auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
-    return ns::FloatRect(m_entity->transform()->getTransform().transformRect(m_drawable.getGlobalBounds()));
+    return ns::FloatRect(m_entity->transform()->getTransform().transformRect(
+            m_transform.transformRect(m_drawable.getGlobalBounds())
+    ));
 }
 
 void SpriteComponent::update() {
     m_anim_player.update();
-    auto& active_frame = m_anim_player.getActiveFrame();
+    const auto& active_frame = m_anim_player.getActiveFrame();
     m_drawable.setTextureRect(active_frame.rectangle);
     m_drawable.setOrigin(float(active_frame.origin.x), float(active_frame.origin.y));
 }
 
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    states.transform.translate(m_pos_offset);
+    states.transform *= m_transform;
     target.draw(m_drawable, states);
 }
