@@ -70,20 +70,23 @@ mkdir build && cd build
 cmake ..
 cmake --build . -j4
 ```
-This will generate a static library and a shared library.
+This will build the static library libNasNas.a (NasNas.lib on windows).
 
 Additional CMake options you can pass : 
 
-- `-DNASNAS_BUILD_EXAMPLES=ON` to build the example applications
-- `-DSFML_ROOT=path/to/SFML/` to specify the location of SFML if CMake is unable to find it
-- `-DSFML_STATIC_LIBRARIES=TRUE` to link SFML static libraries 
+- NasNas related
+  - `-DNASNAS_SHARED=ON` to create the shared library target
+  - `-DNASNAS_EXAMPLES=ON` to create the example applications target
 
-You can also select which modules you want to **not** build by setting these options to OFF :
+  - `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
+  - `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
+  - `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
+  - `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
 
-- `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
-- `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
-- `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
-- `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
+-SFML related
+  - `-DSFML_ROOT=path/to/SFML/` to specify the location of SFML if CMake is unable to find it
+  - `-DSFML_STATIC_LIBRARIES=TRUE` to link SFML statically
+
 
 ### Get Started
 
