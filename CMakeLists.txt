@@ -24,7 +24,7 @@ include(cmake/NasNas.cmake)
 
 
 # Static lib target
-set(NASNAS_TGT_STATIC "NasNas_static")
+set(NASNAS_TGT_STATIC "NasNas")
 add_library(${NASNAS_TGT_STATIC} STATIC ${NasNas_Src} ${NasNas_Inc})
 target_include_directories(${NASNAS_TGT_STATIC} PRIVATE include)
 target_link_libraries(${NASNAS_TGT_STATIC} sfml-graphics sfml-audio)
