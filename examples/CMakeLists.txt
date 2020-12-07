@@ -1,12 +1,21 @@
 macro(add_example_target target)
     cmake_parse_arguments(EX "" "RES_DIR" "SRC" ${ARGN})
-    if (EX_RES_DIR)
-        file(COPY ${EX_RES_DIR} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    endif()
+
     add_executable( ${target} ${EX_SRC} )
     target_include_directories(${target} PRIVATE ../../include)
-    target_link_libraries(${target} PRIVATE sfml-graphics sfml-audio NasNas_static)
+    target_link_libraries(${target} PRIVATE NasNas_static sfml-graphics sfml-audio )
+    set_property(TARGET ${target} PROPERTY CXX_STANDARD 17)
+    set_property(TARGET ${target} PROPERTY RUNTIME_OUTPUT_DIRECTORY bin)
+
+    if (EX_RES_DIR)
+        get_target_property(BIN_DIR ${target} RUNTIME_OUTPUT_DIRECTORY)
+        file(COPY ${EX_RES_DIR} DESTINATION ${BIN_DIR})
+    endif()
+
+    add_dependencies(NasNas_examples ${target})
 endmacro()
+
+add_custom_target(NasNas_examples)
 
 add_subdirectory(demo)
 add_subdirectory(split_view)
