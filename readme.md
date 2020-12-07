@@ -83,7 +83,7 @@ Additional CMake options you can pass :
   - `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
   - `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
 
--SFML related
+- SFML related
   - `-DSFML_ROOT=path/to/SFML/` to specify the location of SFML if CMake is unable to find it
   - `-DSFML_STATIC_LIBRARIES=TRUE` to link SFML statically
 
@@ -123,11 +123,11 @@ for an overview of what you can do with the framework.
 
 ### Showcase
 
-The following games were made with NasNas in less than 10 days for game jams :
+The following games were made with NasNas during game jams :
+
 - Warp Runner on [itch](https://madour.itch.io/warp-runner) - source code not available (yet)
 - History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020) 
 
-If you are using NasNas, or want to try it, please let me know :)
 
 ### Support
 
