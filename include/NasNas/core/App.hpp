@@ -261,6 +261,14 @@ namespace ns {
          */
         virtual void update() = 0;
 
+        /**
+         * \brief Optional method called just before rendering
+         *
+         * Virtual method, can be defined by the use
+         * It can be used to execute code before rendering outside of the `update`
+         */
+        virtual void preRender() {};
+
     private:
         AppWindow m_window;     ///< AppWindow
         sf::RenderTexture m_renderer;
