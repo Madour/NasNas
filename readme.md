@@ -70,27 +70,30 @@ mkdir build && cd build
 cmake ..
 cmake --build . -j4
 ```
-This will generate a static library and a shared library.
+This will build the static library libNasNas.a (NasNas.lib on windows).
 
 Additional CMake options you can pass : 
 
-- `-DNASNAS_BUILD_EXAMPLES=ON` to build the example applications
-- `-DSFML_ROOT=path/to/SFML/` to specify the location of SFML if CMake is unable to find it
-- `-DSFML_STATIC_LIBRARIES=TRUE` to link SFML static libraries 
+- NasNas related
+  - `-DNASNAS_SHARED=ON` to create the shared library target
+  - `-DNASNAS_EXAMPLES=ON` to create the example applications target
 
-You can also select which modules you want to **not** build by setting these options to OFF :
+  - `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
+  - `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
+  - `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
+  - `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
 
-- `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
-- `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
-- `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
-- `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
+- SFML related
+  - `-DSFML_ROOT=path/to/SFML/` to specify the location of SFML if CMake is unable to find it
+  - `-DSFML_STATIC_LIBRARIES=TRUE` to link SFML statically
+
 
 ### Get Started
 
 Here is a sample code using NasNas framework, this will create a 720x480 window and log a string to the console : 
 
 ```c++
-#include "NasNas.h"
+#include <NasNas.h>
 
 class Game : public ns::App {
 public:
@@ -120,11 +123,11 @@ for an overview of what you can do with the framework.
 
 ### Showcase
 
-The following games were made with NasNas in less than 10 days for game jams :
+The following games were made with NasNas during game jams :
+
 - Warp Runner on [itch](https://madour.itch.io/warp-runner) - source code not available (yet)
 - History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020) 
 
-If you are using NasNas, or want to try it, please let me know :)
 
 ### Support
 

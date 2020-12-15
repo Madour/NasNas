@@ -5,41 +5,60 @@ endif()
 
 project(NasNas)
 
-# set compiler related settings
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-# set output files directories
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
-
 # find SFML
 find_package(SFML COMPONENTS graphics audio)
 
 
-# Select which optional modules to build
-option(NASNAS_BUILD_RESLIB       "Build the RESLIB module"      ON)
-option(NASNAS_BUILD_ECS          "Build the ECS module"         ON)
-option(NASNAS_BUILD_TILEMAPPING  "Build the TILEMAPPING module" ON)
-option(NASNAS_BUILD_UI           "Build the UI module"          ON)
+# Select optional modules
+option(NASNAS_BUILD_RESLIB      "Build the RESLIB module"           ON)
+option(NASNAS_BUILD_ECS         "Build the ECS module"              ON)
+option(NASNAS_BUILD_TILEMAPPING "Build the TILEMAPPING module"      ON)
+option(NASNAS_BUILD_UI          "Build the UI module"               ON)
 
-option(NASNAS_BUILD_EXAMPLES  "Build the example applications" OFF)
+# Select optional targets
+option(NASNAS_EXAMPLES          "Build the example applications"    OFF)
+option(NASNAS_SHARED            "Build the shared library"          OFF)
+
 
 include(cmake/NasNas.cmake)
 
+
 # Static lib target
-add_library(NasNas_static STATIC ${NasNas_Src} ${NasNas_Inc})
-target_include_directories(NasNas_static PRIVATE include)
-target_link_libraries(NasNas_static sfml-graphics sfml-audio)
+set(NASNAS_TGT_STATIC "NasNas")
+add_library(${NASNAS_TGT_STATIC} STATIC ${NasNas_Src} ${NasNas_Inc})
+target_include_directories(${NASNAS_TGT_STATIC} PRIVATE include)
+target_link_libraries(${NASNAS_TGT_STATIC} sfml-graphics sfml-audio)
+
 
 # Shared lib target
-add_library(NasNas_shared SHARED ${NasNas_Src} ${NasNas_Inc})
-target_include_directories(NasNas_shared PRIVATE include)
-target_link_libraries(NasNas_shared sfml-graphics sfml-audio)
+set(NASNAS_TGT_SHARED "")
+if (NASNAS_SHARED)
+    set(NASNAS_TGT_SHARED "NasNas_shared")
+    add_library(${NASNAS_TGT_SHARED} SHARED ${NasNas_Src} ${NasNas_Inc})
+    target_include_directories(${NASNAS_TGT_SHARED} PRIVATE include)
+    target_link_libraries(${NASNAS_TGT_SHARED} sfml-graphics sfml-audio)
+endif()
+
+
+# Examples target
+set(NASNAS_TGT_EXAMPLES "")
+if (NASNAS_BUILD_EXAMPLES)
+    set(NASNAS_TGT_EXAMPLES "NasNas_examples")
+endif()
+
+set_target_properties(
+    ${NASNAS_TGT_STATIC} ${NASNAS_TGT_SHARED}
+    PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS ON
+    RUNTIME_OUTPUT_DIRECTORY bin
+    ARCHIVE_OUTPUT_DIRECTORY lib
+    LIBRARY_OUTPUT_DIRECTORY lib
+)
 
 if (NASNAS_BUILD_EXAMPLES)
-    message("-- NasNas : Will build example applications")
     add_subdirectory(examples)
 endif()
+
+message(STATUS "NasNas : Targets available to build : ${NASNAS_TGT_STATIC} ${NASNAS_TGT_SHARED} ${NASNAS_TGT_EXAMPLES}")
