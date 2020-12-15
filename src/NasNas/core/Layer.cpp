@@ -2,14 +2,14 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
+#include <utility>
 
 #include "NasNas/core/Layer.hpp"
 
 using namespace ns;
 
-Layer::Layer(const std::string& name) {
-    m_name = name;
-}
+Layer::Layer(std::string name) : m_name(std::move(name))
+{}
 
 void Layer::clear() {
     m_drawables.clear();
