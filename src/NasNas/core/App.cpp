@@ -310,8 +310,10 @@ void App::run() {
         }
         // rendering drawables and displaying window
         m_window.clear(m_window.getClearColor());
-        if (!m_sleeping)
+        if (!m_sleeping) {
+            preRender();
             render();
+        }
         m_window.display();
     }
 }
