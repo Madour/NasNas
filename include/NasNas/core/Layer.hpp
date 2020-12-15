@@ -17,8 +17,6 @@
 
 namespace ns {
 
-
-
     class Layer {
         using DrawablesTypes = std::variant<
                 std::shared_ptr<ns::Drawable>,
@@ -51,7 +49,7 @@ namespace ns {
          *
          * \param name Layer name
          */
-        explicit Layer(const std::string& name);
+        explicit Layer(std::string name);
 
         /**
          * \brief Removes all the drawable
