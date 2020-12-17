@@ -3,7 +3,7 @@ macro(add_example_target target)
 
     add_executable( ${target} ${EX_SRC} )
     target_include_directories(${target} PRIVATE ../../include)
-    target_link_libraries(${target} PRIVATE NasNas_static sfml-graphics sfml-audio )
+    target_link_libraries(${target} PRIVATE NasNas sfml-graphics sfml-audio )
     set_property(TARGET ${target} PROPERTY CXX_STANDARD 17)
     set_property(TARGET ${target} PROPERTY RUNTIME_OUTPUT_DIRECTORY bin)
 
