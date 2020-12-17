@@ -11,7 +11,7 @@
 namespace ns::ui {
     class TypedText : public BitmapText {
     public:
-        explicit TypedText(const std::string& string);
+        explicit TypedText(std::string string);
 
         void setMaxWidth(int max_width) override;
         void setMaxLines(int lines_nb);

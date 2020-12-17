@@ -13,11 +13,10 @@ using namespace ns;
 using namespace ns::ecs;
 
 PhysicsComponent::PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
-BaseComponent(entity) {
-
-    m_mass = mass;
-    m_acceleration = acceleration;
-
+BaseComponent(entity),
+m_mass(mass),
+m_acceleration(acceleration)
+{
     if (friction.x > 1.f || friction.y > 1.f || friction.x < 0.f || friction.y < 0.f) {
         std::cout << "Friction parameter of PhysicsComponent should be a vector between (0, 0) and (1, 1)." << std::endl;
         exit(-1);

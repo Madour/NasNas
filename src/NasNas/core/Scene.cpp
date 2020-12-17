@@ -8,10 +8,10 @@
 
 using namespace ns;
 
-Scene::Scene(const std::string& name) {
-    m_name = name;
-    m_default_layer = std::make_unique<Layer>("");
-}
+Scene::Scene(std::string name) :
+m_name(std::move(name)),
+m_default_layer(new Layer(""))
+{}
 
 void Scene::addLayer(Layer* layer, int order) {
     m_layers[std::pair<int, std::string>(order, layer->getName())] = std::shared_ptr<Layer>(layer);

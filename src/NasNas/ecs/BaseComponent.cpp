@@ -8,6 +8,6 @@
 using namespace ns;
 using namespace ns::ecs;
 
-BaseComponent::BaseComponent(BaseEntity* entity) {
-    m_entity = entity;
-}
+BaseComponent::BaseComponent(BaseEntity* entity) :
+m_entity(entity)
+{}

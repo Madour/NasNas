@@ -10,8 +10,8 @@ using namespace ns;
 using namespace ns::ecs;
 
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
-SpriteComponent(entity, spritesheet, "", pos_offset) {
-}
+SpriteComponent(entity, spritesheet, "", pos_offset)
+{}
 
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
 GraphicsComponent(entity) {

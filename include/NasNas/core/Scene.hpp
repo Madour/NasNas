@@ -23,7 +23,7 @@ namespace ns {
          * \param width Width of the Scene
          * \param height Height of the Scene
          */
-        explicit Scene(const std::string& name);
+        explicit Scene(std::string name);
 
         /**
          * \brief Adds a new layer to the scene

@@ -9,9 +9,9 @@ using namespace ns;
 using namespace ns::ecs;
 
 InputsComponent::InputsComponent(BaseEntity* entity) :
-BaseComponent(entity) {
-    m_capture_input = true;
-}
+BaseComponent(entity),
+m_capture_input(true)
+{}
 
 void InputsComponent::bind(sf::Keyboard::Key key, const std::function<void()>& function) {
     m_inputs[key] = function;

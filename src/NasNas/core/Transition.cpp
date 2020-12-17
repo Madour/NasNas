@@ -10,10 +10,11 @@ using namespace ns;
 std::vector<Transition*> Transition::list;
 
 Transition::Transition() :
-m_end_callback([](){}) {
+m_end_callback([](){})
+{
     m_render_texture.create(
-        (unsigned int)app->getWindow().getAppView().getSize().x,
-        (unsigned int)app->getWindow().getAppView().getSize().y
+        static_cast<unsigned int>(app->getWindow().getAppView().getSize().x),
+        static_cast<unsigned int>(app->getWindow().getAppView().getSize().y)
     );
 }
 

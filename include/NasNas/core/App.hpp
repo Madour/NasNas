@@ -50,7 +50,7 @@ namespace ns {
          * \param fps Desired framerate limit
          * \param ups Update per second
          */
-        App(const std::string& title, int w_width, int w_height,
+        App(std::string title, int w_width, int w_height,
             int v_width=ns::Config::Window::view_size.x,
             int v_height=ns::Config::Window::view_size.y,
             int fps=ns::Config::Window::framerate_limit,

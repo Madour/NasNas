@@ -9,9 +9,9 @@ using namespace ns;
 using namespace ns::tm;
 
 Layer::Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
-PropertiesContainer(xml_node.child("properties")) {
-    m_tiledmap = tiledmap;
-
+PropertiesContainer(xml_node.child("properties")),
+m_tiledmap(tiledmap)
+{
     m_id = xml_node.attribute("id").as_uint();
     m_name = xml_node.attribute("name").as_string();
     if (xml_node.attribute("visible"))
