@@ -16,7 +16,7 @@ Camera::Camera()
 Camera::Camera(const std::string& name, int render_order) {
     m_name = name;
     m_render_order = render_order;
-    m_followee = nullptr;
+    m_followee = std::nullopt;
     m_frames_delay = 0;
     m_visible = true;
     m_scene = nullptr;
@@ -67,8 +67,16 @@ void Camera::lookAt(Scene* target_scene) {
     m_scene = target_scene;
 }
 
-void Camera::follow(Drawable& entity) {
-    m_followee = &entity;
+void Camera::follow(Drawable& drawable) {
+    m_followee = &drawable;
+}
+
+void Camera::follow(sf::Transformable& transformable) {
+    m_followee = &transformable;
+}
+
+void Camera::unfollow() {
+    m_followee.reset();
 }
 
 auto Camera::getRenderOrder() const -> int {
@@ -121,12 +129,13 @@ auto Camera::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void Camera::update() {
-    if (m_followee != nullptr) {
+    if (m_followee) {
+        auto&& followee_pos = std::visit([](auto& d){ return d->getPosition(); }, m_followee.value());
         if (m_frames_delay == 0) {
-            setCenter({(float)(round(m_followee->getPosition().x)), (float)(round(m_followee->getPosition().y))});
+            setCenter({(float)(round(followee_pos.x)), (float)(round(followee_pos.y))});
         }
         else {
-            sf::Vector2f diff = m_followee->getPosition() - getCenter();
+            sf::Vector2f diff = followee_pos - getCenter();
             auto offset = diff/(float)m_frames_delay;
             move({(float)round(offset.x), (float)round(offset.y)});
         }

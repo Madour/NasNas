@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <optional>
 #include "NasNas/data/Rect.hpp"
 #include "NasNas/data/ShaderHolder.hpp"
 #include "NasNas/core/Scene.hpp"
@@ -123,7 +124,10 @@ namespace ns {
          *
          * \param entity BaseEntity to be followed
          */
-        void follow(Drawable& entity);
+        void follow(Drawable& drawable);
+        void follow(sf::Transformable& transformable);
+
+        void unfollow();
 
         /**
          * \brief Get render order of the Camera
@@ -241,7 +245,7 @@ namespace ns {
         bool m_visible;                     ///< Is the Camera content visible ?
         Scene* m_scene;                     ///< Scene looked at (content of the Camera)
 
-        Drawable* m_followee;               ///< Entity followed by the Camera
+        std::optional<std::variant<Drawable*, sf::Transformable*>> m_followee; ///< Entity followed by the Camera
         unsigned int m_frames_delay;        ///< Delay when following an entity
 
         ns::IntRect m_base_view;            ///< Camera size on creation or on reset
