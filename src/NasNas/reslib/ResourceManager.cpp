@@ -101,6 +101,7 @@ auto ResourceManager::getFont(const std::string& font_path) -> sf::Font& {
 
 void ResourceManager::printTree() {
     checkReady();
-    std::cout << std::endl << m_data->getName() << std::endl;
+    std::cout << '\n' << m_data->getName() << '\n';
     m_data->print_tree();
+    std::cout << std::endl;
 }

@@ -9,9 +9,9 @@
 
 using namespace ns;
 
-BaseEntity::BaseEntity(const std::string& name) {
-    m_name = name;
-}
+BaseEntity::BaseEntity(std::string name) :
+m_name(std::move(name))
+{}
 
 BaseEntity::~BaseEntity() = default;
 

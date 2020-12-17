@@ -6,14 +6,14 @@
 
 using namespace sf;
 
+EllipseShape::EllipseShape(float radius_x, float radius_y) :
+EllipseShape(sf::Vector2f(radius_x, radius_y))
+{}
+
 EllipseShape::EllipseShape(const sf::Vector2f& radius) :
 m_radius(radius) {
     update();
 }
-
-EllipseShape::EllipseShape(float radius_x, float radius_y) :
-EllipseShape(sf::Vector2f(radius_x, radius_y))
-{}
 
 void EllipseShape::setRadius(const sf::Vector2f& radius) {
     m_radius = radius;

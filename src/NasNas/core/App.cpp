@@ -23,7 +23,12 @@ App::App(const std::string &title, sf::Vector2u resolution, unsigned int scale, 
 App(title, resolution.x*scale, resolution.y*scale, resolution.x, resolution.y, fps, ups)
 {}
 
-App::App(const std::string& title, int w_width, int w_height, int v_width, int v_height, int fps, int ups) {
+App::App(std::string title, int w_width, int w_height, int v_width, int v_height, int fps, int ups) :
+m_title(std::move(title)),
+m_fullscreen(false),
+m_ups(ups),
+m_desired_fps(fps)
+{
     AppComponent::app = this;
 
     Config::Window::title = title;
@@ -33,11 +38,6 @@ App::App(const std::string& title, int w_width, int w_height, int v_width, int v
     Config::Window::view_size.y = v_height == 0 ? w_height : v_height;
     Config::Window::framerate_limit = fps;
     Config::Window::update_rate = ups;
-
-    m_title = title;
-    m_desired_fps = fps;
-    m_ups = ups;
-    m_fullscreen = false;
 
     m_window.create(sf::VideoMode(w_width, w_height), title, Config::Window::style);
     if (fps > 0)

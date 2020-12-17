@@ -12,7 +12,8 @@ namespace sf {
     class EllipseShape : public Shape {
     public :
 
-        explicit EllipseShape(const Vector2f& radius = Vector2f(0, 0));
+        EllipseShape() = default;
+        explicit EllipseShape(const Vector2f& radius);
         EllipseShape(float radius_x, float radius_y);
 
         void setRadius(const Vector2f& radius)  ;

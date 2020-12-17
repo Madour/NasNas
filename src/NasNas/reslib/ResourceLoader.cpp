@@ -101,17 +101,17 @@ void Dir::print_tree(int indent) {
 
     for(auto& [dir_name, dir_ptr]: m_dirs) {
         print_indent(indent);
-        std::cout << "|_ " << dir_name << " : Dir" << std::endl;
+        std::cout << "|_ " << dir_name << " : Dir" << '\n';
         dir_ptr->print_tree(indent + 1);
     }
 
     for(auto& [texture_name, _]: m_textures) {
         print_indent(indent);
-        std::cout<< "|_ " << texture_name << " : Texture" << std::endl;
+        std::cout<< "|_ " << texture_name << " : Texture" << '\n';
     }
 
     for(auto& [font_name, _]: m_fonts) {
         print_indent(indent);
-        std::cout<< "|_ " << font_name << " : Font" << std::endl;
+        std::cout<< "|_ " << font_name << " : Font" << '\n';
     }
 }

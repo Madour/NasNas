@@ -9,26 +9,22 @@
 
 using namespace ns;
 
-Camera::Camera()
-: Camera("", 0)
+Camera::Camera() : Camera("", 0)
 {}
 
-Camera::Camera(const std::string& name, int render_order) {
-    m_name = name;
-    m_render_order = render_order;
-    m_followee = std::nullopt;
-    m_frames_delay = 0;
-    m_visible = true;
-    m_scene = nullptr;
+Camera::Camera(std::string name, int render_order) :
+m_name(std::move(name)),
+m_render_order(render_order),
+m_visible(true),
+m_scene(nullptr),
+m_followee(std::nullopt),
+m_frames_delay(0)
+{
     m_base_view = ns::IntRect(0, 0, 1000, 1000);
     m_base_viewport = ns::FloatRect(0, 0, 1, 1);
     if (ns::Config::Window::view_size != sf::Vector2i(0, 0))
         m_render_texture.create(ns::Config::Window::view_size.x, ns::Config::Window::view_size.y);
     m_render_texture.setRepeated(true);
-}
-
-void Camera::setName(const std::string& name) {
-    m_name = name;
 }
 
 void Camera::reset(int x, int y, int w, int h) {

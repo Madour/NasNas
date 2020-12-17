@@ -22,9 +22,7 @@ namespace ns {
          * \param name Name of the Camera object
          * \param render_order Render order of the Camera object
          */
-        Camera(const std::string& name, int render_order);
-
-        void setName(const std::string& name);
+        Camera(std::string name, int render_order);
 
         /**
          * \brief Reset Camera size and position

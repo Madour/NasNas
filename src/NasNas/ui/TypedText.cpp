@@ -8,10 +8,10 @@
 using namespace ns;
 using namespace ns::ui;
 
-TypedText::TypedText(const std::string& string) :
-BitmapText(string) {
-    m_string = string;
-}
+TypedText::TypedText(std::string string) :
+BitmapText(string),
+m_string(std::move(string))
+{}
 
 void TypedText::setMaxWidth(int max_width) {
     BitmapText::setMaxWidth(max_width);

@@ -16,7 +16,7 @@ namespace ns {
 
     class BaseEntity : public ns::Drawable {
     public:
-        explicit BaseEntity(const std::string& name);
+        explicit BaseEntity(std::string name);
         ~BaseEntity() override;
 
         template<class T, typename... TArgs>

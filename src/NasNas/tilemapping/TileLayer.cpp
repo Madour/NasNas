@@ -9,10 +9,10 @@ using namespace ns;
 using namespace ns::tm;
 
 TileLayer::TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
-Layer(xml_node, tiledmap) {
-    m_width = xml_node.attribute("width").as_uint();
-    m_height = xml_node.attribute("height").as_uint();
-
+Layer(xml_node, tiledmap),
+m_width(xml_node.attribute("width").as_uint()),
+m_height(xml_node.attribute("height").as_uint())
+{
     m_render_texture.create(m_width*m_tiledmap->getTileSize().x, m_height*m_tiledmap->getTileSize().y);
     m_tiles.reserve((size_t)m_width * (size_t)m_height);
     for (const auto& tileset : m_tiledmap->allTilesets()) {
