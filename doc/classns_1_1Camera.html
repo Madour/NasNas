@@ -61,12 +61,9 @@ Inheritance diagram for ns::Camera:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adf797a6e2169d461167d9d3587b292d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#adf797a6e2169d461167d9d3587b292d7">Camera</a> (const std::string &amp;name, int render_order)</td></tr>
-<tr class="memdesc:adf797a6e2169d461167d9d3587b292d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classns_1_1Camera.html">Camera</a> object.  <a href="#adf797a6e2169d461167d9d3587b292d7">More...</a><br /></td></tr>
-<tr class="separator:adf797a6e2169d461167d9d3587b292d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbe268a274d6d940731fd6ad3c935612"><td class="memItemLeft" align="right" valign="top"><a id="acbe268a274d6d940731fd6ad3c935612"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const std::string &amp;name)</td></tr>
-<tr class="separator:acbe268a274d6d940731fd6ad3c935612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cb03ef9054956a7515b2cf2f6ec2a8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#a0cb03ef9054956a7515b2cf2f6ec2a8f">Camera</a> (std::string name, int render_order)</td></tr>
+<tr class="memdesc:a0cb03ef9054956a7515b2cf2f6ec2a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classns_1_1Camera.html">Camera</a> object.  <a href="#a0cb03ef9054956a7515b2cf2f6ec2a8f">More...</a><br /></td></tr>
+<tr class="separator:a0cb03ef9054956a7515b2cf2f6ec2a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2677a8467f75b06341399197a9c08e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#ad2677a8467f75b06341399197a9c08e7">reset</a> (sf::Vector2i position, sf::Vector2i size)</td></tr>
 <tr class="memdesc:ad2677a8467f75b06341399197a9c08e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset <a class="el" href="classns_1_1Camera.html">Camera</a> size and position.  <a href="#ad2677a8467f75b06341399197a9c08e7">More...</a><br /></td></tr>
 <tr class="separator:ad2677a8467f75b06341399197a9c08e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -100,9 +97,15 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getViewport</b> () co
 <tr class="memitem:ac02e386f2a08911b46d088f5293febeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#ac02e386f2a08911b46d088f5293febeb">setVisible</a> (bool value)</td></tr>
 <tr class="memdesc:ac02e386f2a08911b46d088f5293febeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show or hide the <a class="el" href="classns_1_1Camera.html">Camera</a> content.  <a href="#ac02e386f2a08911b46d088f5293febeb">More...</a><br /></td></tr>
 <tr class="separator:ac02e386f2a08911b46d088f5293febeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad63a9c3fae1cbb9ff3cd392df0c0437a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#ad63a9c3fae1cbb9ff3cd392df0c0437a">follow</a> (<a class="el" href="classns_1_1Drawable.html">Drawable</a> &amp;entity)</td></tr>
-<tr class="memdesc:ad63a9c3fae1cbb9ff3cd392df0c0437a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Follow an entity, <a class="el" href="classns_1_1Camera.html">Camera</a> position will be updated accordingly automatically.  <a href="#ad63a9c3fae1cbb9ff3cd392df0c0437a">More...</a><br /></td></tr>
-<tr class="separator:ad63a9c3fae1cbb9ff3cd392df0c0437a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee61ef85b0625d06748b91909e148cb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#aee61ef85b0625d06748b91909e148cb1">follow</a> (<a class="el" href="classns_1_1Drawable.html">Drawable</a> &amp;drawable)</td></tr>
+<tr class="memdesc:aee61ef85b0625d06748b91909e148cb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Follow an entity, <a class="el" href="classns_1_1Camera.html">Camera</a> position will be updated accordingly automatically.  <a href="#aee61ef85b0625d06748b91909e148cb1">More...</a><br /></td></tr>
+<tr class="separator:aee61ef85b0625d06748b91909e148cb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad838fa8c40520b18ec3ce95ead276fad"><td class="memItemLeft" align="right" valign="top"><a id="ad838fa8c40520b18ec3ce95ead276fad"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>follow</b> (sf::Transformable &amp;transformable)</td></tr>
+<tr class="separator:ad838fa8c40520b18ec3ce95ead276fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ba5bf1a20387edefc4ce4f5c46de694"><td class="memItemLeft" align="right" valign="top"><a id="a3ba5bf1a20387edefc4ce4f5c46de694"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>unfollow</b> ()</td></tr>
+<tr class="separator:a3ba5bf1a20387edefc4ce4f5c46de694"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8517920b3c41026bf999be4950d8757"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Camera.html#aa8517920b3c41026bf999be4950d8757">getRenderOrder</a> () const -&gt; int</td></tr>
 <tr class="memdesc:aa8517920b3c41026bf999be4950d8757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get render order of the <a class="el" href="classns_1_1Camera.html">Camera</a>.  <a href="#aa8517920b3c41026bf999be4950d8757">More...</a><br /></td></tr>
 <tr class="separator:aa8517920b3c41026bf999be4950d8757"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,10 +168,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00016">16</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Camera_8hpp_source.html#l00017">17</a> of file <a class="el" href="Camera_8hpp_source.html">Camera.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adf797a6e2169d461167d9d3587b292d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf797a6e2169d461167d9d3587b292d7">&#9670;&nbsp;</a></span>Camera()</h2>
+<a id="a0cb03ef9054956a7515b2cf2f6ec2a8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cb03ef9054956a7515b2cf2f6ec2a8f">&#9670;&nbsp;</a></span>Camera()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +179,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">ns::Camera::Camera </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
@@ -205,8 +208,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad63a9c3fae1cbb9ff3cd392df0c0437a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad63a9c3fae1cbb9ff3cd392df0c0437a">&#9670;&nbsp;</a></span>follow()</h2>
+<a id="aee61ef85b0625d06748b91909e148cb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee61ef85b0625d06748b91909e148cb1">&#9670;&nbsp;</a></span>follow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +218,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="memname">void ns::Camera::follow </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classns_1_1Drawable.html">Drawable</a> &amp;&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td class="paramname"><em>drawable</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
