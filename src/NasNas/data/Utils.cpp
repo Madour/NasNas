@@ -74,3 +74,18 @@ void path::removeFilename(std::string& path) {
     }
     path = std::string(path.begin(), path.begin()+end);
 }
+
+
+bool_switch::bool_switch(const std::function<void()>& on_true, const std::function<void()>& on_false) :
+m_val(false), m_on_true(on_true), m_on_false(on_false)
+{}
+
+auto bool_switch::operator=(bool value) -> bool {
+    value ? m_on_true() : m_on_false();
+    m_val = value;
+    return m_val;
+}
+
+bool_switch::operator bool() const {
+    return m_val;
+}
