@@ -31,6 +31,8 @@ m_desired_fps(fps)
 {
     AppComponent::app = this;
 
+    Config::debug = false;
+
     Config::Window::title = title;
     Config::Window::size.x = w_width;
     Config::Window::size.y = w_height;
@@ -204,8 +206,8 @@ void App::render() {
     m_window.draw(sf::Sprite(m_renderer.getTexture()), getShader());
 
     // drawing debug texts and rectangles on ScreenView
-    if (Config::debug) {
-        m_window.setView(m_window.getScreenView());
+    m_window.setView(m_window.getScreenView());
+    if (Config::debug.show_bounds) {
         std::vector<sf::Vertex> dbg_bounds_list;
         // one fat lambda, handles view transformations to draw correctly the global bounds
         auto storeDebugRect = [&](const ns::FloatRect& global_bounds, const Camera* view) {
@@ -271,12 +273,15 @@ void App::render() {
             }
         }
         m_window.draw(dbg_bounds_list.data(), dbg_bounds_list.size(), sf::PrimitiveType::Lines);
-        // drawing debug texts
+    }
+    // drawing debug texts
+    if (Config::debug.show_text) {
         for (auto& dbg_txt: m_debug_texts) {
             dbg_txt->update();
             m_window.draw(*dbg_txt);
         }
     }
+
 }
 
 void App::run() {
@@ -286,10 +291,8 @@ void App::run() {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
 
-        if (Config::debug)
+        if (Config::debug.show_fps)
             m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
-        else
-            m_window.setTitle(m_title);
 
         // getting and storing inputs
         sf::Event event{};

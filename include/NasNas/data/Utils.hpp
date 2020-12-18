@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 namespace ns::utils {
 
@@ -15,4 +16,15 @@ namespace ns::utils {
         auto getPath(const std::string& path) -> std::string;
         void removeFilename(std::string& path);
     }
+
+    struct bool_switch {
+        bool_switch(const std::function<void()>& on_true, const std::function<void()>& on_false);
+        virtual auto operator=(bool value) -> bool;
+        virtual explicit operator bool() const;
+    private:
+        bool m_val;
+        std::function<void()> m_on_true;
+        std::function<void()> m_on_false;
+
+    };
 }

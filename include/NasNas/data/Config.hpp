@@ -6,13 +6,29 @@
 #pragma once
 
 #include <unordered_map>
-#include "SFML/Window.hpp"
+#include <SFML/Window.hpp>
+#include "NasNas/data/AppComponent.hpp."
+#include "NasNas/data/Utils.hpp."
 
 namespace ns {
 
-    class Config {
+
+    class Config : AppComponent {
+
+        struct debug_info : public utils::bool_switch {
+            debug_info(const debug_info&) = delete;
+            utils::bool_switch show_fps;
+            utils::bool_switch show_text;
+            utils::bool_switch show_bounds;
+            auto operator=(bool value) -> bool override;
+        private:
+            friend Config;
+            debug_info();
+            unsigned int m_state;
+        };
+
     public:
-        static bool debug;
+        static debug_info debug;
 
         class Window {
         public:
