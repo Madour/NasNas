@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <optional>
 #include <SFML/Graphics.hpp>
 #include "NasNas/data/Maths.hpp"
 #include "NasNas/data/Drawable.hpp"
@@ -34,8 +35,8 @@ namespace ns {
     class LineShape : public DrawableTransformable {
     public:
         LineShape();
-        void addPoint(float x, float y);
-        void addPoint(const sf::Vector2f& position);
+        void addPoint(float x, float y, const std::optional<sf::Color>& color=std::nullopt);
+        void addPoint(const sf::Vector2f& position, const std::optional<sf::Color>& color=std::nullopt);
         void setPoint(unsigned int index, const sf::Vector2f& position);
         void setPoint(unsigned int index, float x, float y);
 
@@ -49,6 +50,7 @@ namespace ns {
 
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        sf::Color m_color;
         sf::VertexArray m_vertices;
     };
 }
