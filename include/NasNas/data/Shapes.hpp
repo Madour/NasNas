@@ -8,46 +8,47 @@
 #include "NasNas/data/Maths.hpp"
 #include "NasNas/data/Drawable.hpp"
 
-namespace sf {
-    class EllipseShape : public Shape {
+namespace ns {
+    class EllipseShape : public sf::Shape {
     public :
 
         EllipseShape() = default;
-        explicit EllipseShape(const Vector2f& radius);
+        explicit EllipseShape(const sf::Vector2f& radius);
         EllipseShape(float radius_x, float radius_y);
 
-        void setRadius(const Vector2f& radius)  ;
+        void setRadius(const sf::Vector2f& radius)  ;
 
-        auto getRadius() const -> const Vector2f&;
+        auto getRadius() const -> const sf::Vector2f&;
 
         void setPointCount(std::size_t point_count);
 
         auto getPointCount() const -> std::size_t override;
 
-        auto getPoint(std::size_t index) const -> Vector2f override;
+        auto getPoint(std::size_t index) const -> sf::Vector2f override;
 
     private :
         std::size_t m_point_cout = 30;
-        Vector2f m_radius;
+        sf::Vector2f m_radius;
     };
 
-    class LineShape : public ns::Drawable, public Transformable {
+    class LineShape : public DrawableTransformable {
     public:
         LineShape();
         void addPoint(float x, float y);
-        void addPoint(const Vector2f& position);
+        void addPoint(const sf::Vector2f& position);
         void setPoint(unsigned int index, const sf::Vector2f& position);
         void setPoint(unsigned int index, float x, float y);
-        void removePoint(unsigned int index);
 
-        void setColor(const Color& color);
-        void setColor(unsigned int index, const Color& color);
+        //void removePoint(unsigned int index);
 
-        auto getPosition() const -> Vector2f override;
+        void setColor(const sf::Color& color);
+        void setColor(unsigned int index, const sf::Color& color);
+
+        auto getLocalBounds() const -> sf::FloatRect;
         auto getGlobalBounds() const -> ns::FloatRect override;
 
     private:
-        void draw(RenderTarget& target, RenderStates states) const override;
-        std::vector<Vertex> m_vertices;
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        sf::VertexArray m_vertices;
     };
 }

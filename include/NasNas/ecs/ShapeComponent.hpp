@@ -55,8 +55,8 @@ namespace ns::ecs {
     }
 
     typedef ShapeComponent<sf::CircleShape> CircleShapeComponent;
-    typedef ShapeComponent<sf::EllipseShape> EllipseShapeComponent;
-    typedef ShapeComponent<sf::LineShape> LineShapeComponent;
+    typedef ShapeComponent<ns::EllipseShape> EllipseShapeComponent;
+    typedef ShapeComponent<ns::LineShape> LineShapeComponent;
     typedef ShapeComponent<sf::RectangleShape> RectangleShapeComponent;
     typedef ShapeComponent<sf::ConvexShape> ConvexShapeComponent;
 

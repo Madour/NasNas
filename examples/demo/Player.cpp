@@ -36,8 +36,8 @@ Player::Player()
     // using a grid
     m_spritesheet = new ns::Spritesheet("adventurer", ns::Res::getTexture("adventurer.png"));
     m_spritesheet->setGrid({50, 37}, 7);
-    m_spritesheet->addAnim("idle", 0, 4, 200, sf::Vector2i(25, 37));
-    m_spritesheet->addAnim("walk", 8, 6, 150, sf::Vector2i(25, 37));
+    m_spritesheet->addAnim("idle", 0, 4, 200, {25, 37});
+    m_spritesheet->addAnim("walk", 8, 6, 150, {25, 37});
     // adding sprite component to player (from spritesheet defined above)
     addComponent<ns::ecs::SpriteComponent>(m_spritesheet);
 
@@ -53,10 +53,10 @@ Player::Player()
     convexshape.setPoint(3, {-5, 5});
     addComponent<ns::ecs::ConvexShapeComponent>(convexshape, sf::Vector2f(0, -15));
 
-    auto velocity_vector = sf::LineShape();
+    auto velocity_vector = ns::LineShape();
     velocity_vector.addPoint(0, 0);
     velocity_vector.addPoint(0, 0);
-    addComponent<ns::ecs::ShapeComponent<sf::LineShape>>(velocity_vector);
+    addComponent<ns::ecs::LineShapeComponent>(velocity_vector);
 
     // adding inputs component to player and binding buttons to Player methods
     addComponent<ns::ecs::InputsComponent>();
@@ -107,7 +107,7 @@ void Player::update() {
     }
 
     // updating velocity vector
-    auto& vel_vec = graphics<ns::ecs::ShapeComponent<sf::LineShape>>(2)->getDrawable();
+    auto& vel_vec = graphics<ns::ecs::LineShapeComponent>(2)->getDrawable();
     vel_vec.setPoint(1, physics()->getVelocity()*10.f);
 
     // moving and rotating the shape around the sprite

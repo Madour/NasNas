@@ -29,8 +29,8 @@ ObjectLayer::Object<sf::RectangleShape> (
 }
 
 template <>
-ns::tm::ObjectLayer::Object<sf::EllipseShape>::Object(const pugi::xml_node& xml_node, const sf::Color& color) :
-ObjectLayer::Object<sf::EllipseShape>(
+ns::tm::ObjectLayer::Object<ns::EllipseShape>::Object(const pugi::xml_node& xml_node, const sf::Color& color) :
+ObjectLayer::Object<ns::EllipseShape>(
     xml_node.attribute("id").as_uint(),
     xml_node.attribute("x").as_float(),
     xml_node.attribute("y").as_float()
@@ -61,8 +61,8 @@ ObjectLayer::Object<sf::ConvexShape>(
 }
 
 template <>
-ns::tm::ObjectLayer::Object<sf::LineShape>::Object(const pugi::xml_node& xml_node, const sf::Color& color) :
-ObjectLayer::Object<sf::LineShape>(
+ns::tm::ObjectLayer::Object<ns::LineShape>::Object(const pugi::xml_node& xml_node, const sf::Color& color) :
+ObjectLayer::Object<ns::LineShape>(
     xml_node.attribute("id").as_uint(),
     xml_node.attribute("x").as_float(),
     xml_node.attribute("y").as_float()
@@ -82,11 +82,11 @@ Layer(xml_node, tiledmap) {
         m_color = hexToColor(std::string(xml_node.attribute("color").as_string()));
     for (const auto& object : xml_node.children("object")) {
         if(object.child("ellipse")) {
-            Object<sf::EllipseShape> r{object, m_color};
+            Object<ns::EllipseShape> r{object, m_color};
             m_ellipses.push_back(r);
         }
         else if(object.child("polyline")) {
-            Object<sf::LineShape> r{object, m_color};
+            Object<ns::LineShape> r{object, m_color};
             m_polylines.push_back(r);
         }
         else if(object.child("polygon")) {
@@ -107,23 +107,23 @@ Layer(xml_node, tiledmap) {
     }
 }
 
-auto ObjectLayer::allRectangles() -> std::vector<Object < sf::RectangleShape>>& {
+auto ObjectLayer::allRectangles() -> std::vector<Object<sf::RectangleShape>>& {
     return m_rectangles;
 }
 
-auto ObjectLayer::allPoints() -> std::vector<Object < sf::RectangleShape>>& {
+auto ObjectLayer::allPoints() -> std::vector<Object<sf::RectangleShape>>& {
     return m_points;
 }
 
-auto ObjectLayer::allEllipses() -> std::vector<Object < sf::EllipseShape>>& {
+auto ObjectLayer::allEllipses() -> std::vector<Object<ns::EllipseShape>>& {
 return m_ellipses;
 }
 
-auto ObjectLayer::allPolygons() -> std::vector<Object < sf::ConvexShape>>& {
+auto ObjectLayer::allPolygons() -> std::vector<Object<sf::ConvexShape>>& {
     return m_polygons;
 }
 
-auto ObjectLayer::allPolylines() -> std::vector<Object < sf::LineShape>>& {
+auto ObjectLayer::allPolylines() -> std::vector<Object<ns::LineShape>>& {
     return m_polylines;
 }
 
@@ -143,7 +143,7 @@ auto ObjectLayer::getPoint(unsigned int id) -> const Object<sf::RectangleShape>&
     std::exit(-1);
 }
 
-auto ObjectLayer::getEllipse(unsigned int id) -> const Object<sf::EllipseShape>& {
+auto ObjectLayer::getEllipse(unsigned int id) -> const Object<ns::EllipseShape>& {
     for (auto& object : m_ellipses) {
         if (object.getId() == id) return object;
     }
@@ -159,7 +159,7 @@ auto ObjectLayer::getPolygon(unsigned int id) -> const Object<sf::ConvexShape>& 
     std::exit(-1);
 }
 
-auto ObjectLayer::getPolyline(unsigned int id) -> const ObjectLayer::Object<sf::LineShape>& {
+auto ObjectLayer::getPolyline(unsigned int id) -> const ObjectLayer::Object<ns::LineShape>& {
     for (auto& object : m_polylines) {
         if (object.getId() == id) return object;
     }

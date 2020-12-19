@@ -23,6 +23,9 @@ void Layer::add(const DrawablesRawTypes& drawable) {
     if (std::holds_alternative<ns::Drawable*>(drawable)) {
         m_drawables.emplace_back(std::shared_ptr<ns::Drawable>(std::get<ns::Drawable*>(drawable)));
     }
+    else if (std::holds_alternative<ns::DrawableTransformable*>(drawable)) {
+        m_drawables.emplace_back(std::shared_ptr<ns::Drawable>(std::get<ns::Drawable*>(drawable)));
+    }
     else if (std::holds_alternative<sf::Shape*>(drawable)) {
         m_drawables.emplace_back(std::shared_ptr<sf::Shape>(std::get<sf::Shape*>(drawable)));
     }
