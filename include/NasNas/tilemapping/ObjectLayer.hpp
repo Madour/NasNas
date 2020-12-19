@@ -30,15 +30,15 @@ namespace ns::tm {
 
         auto allRectangles() -> std::vector<Object<sf::RectangleShape>>&;
         auto allPoints() -> std::vector<Object<sf::RectangleShape>>&;
-        auto allEllipses() -> std::vector<Object<sf::EllipseShape>>&;
+        auto allEllipses() -> std::vector<Object<ns::EllipseShape>>&;
         auto allPolygons() -> std::vector<Object<sf::ConvexShape>>&;
-        auto allPolylines() -> std::vector<Object<sf::LineShape>>&;
+        auto allPolylines() -> std::vector<Object<ns::LineShape>>&;
 
         auto getRectangle(unsigned int id) -> const Object<sf::RectangleShape>&;
         auto getPoint(unsigned int id) -> const Object<sf::RectangleShape>&;
-        auto getEllipse(unsigned int id) -> const Object<sf::EllipseShape>&;
+        auto getEllipse(unsigned int id) -> const Object<ns::EllipseShape>&;
         auto getPolygon(unsigned int id) -> const Object<sf::ConvexShape>&;
-        auto getPolyline(unsigned int id) -> const Object<sf::LineShape>&;
+        auto getPolyline(unsigned int id) -> const Object<ns::LineShape>&;
 
         auto getGlobalBounds() const -> ns::FloatRect override;
 
@@ -50,9 +50,9 @@ namespace ns::tm {
 
         std::vector<Object<sf::RectangleShape>> m_rectangles;
         std::vector<Object<sf::RectangleShape>> m_points;
-        std::vector<Object<sf::EllipseShape>> m_ellipses;
+        std::vector<Object<ns::EllipseShape>> m_ellipses;
         std::vector<Object<sf::ConvexShape>> m_polygons;
-        std::vector<Object<sf::LineShape>> m_polylines;
+        std::vector<Object<ns::LineShape>> m_polylines;
     };
 
     template <typename T>

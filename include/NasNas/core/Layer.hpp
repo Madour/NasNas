@@ -20,22 +20,26 @@ namespace ns {
     class Layer {
         using DrawablesTypes = std::variant<
                 std::shared_ptr<ns::Drawable>,
+                std::shared_ptr<ns::DrawableTransformable>,
                 std::shared_ptr<sf::Shape>,
                 std::shared_ptr<sf::Text>,
                 std::shared_ptr<sf::Sprite>,
                 ns::Drawable*,
+                ns::DrawableTransformable*,
                 sf::Shape*,
                 sf::Text*,
                 sf::Sprite*
         >;
         using DrawablesSharedTypes = std::variant<
                 std::shared_ptr<ns::Drawable>,
+                std::shared_ptr<ns::DrawableTransformable>,
                 std::shared_ptr<sf::Shape>,
                 std::shared_ptr<sf::Text>,
                 std::shared_ptr<sf::Sprite>
         >;
         using DrawablesRawTypes = std::variant<
                 ns::Drawable*,
+                ns::DrawableTransformable*,
                 sf::Shape*,
                 sf::Text*,
                 sf::Sprite*
