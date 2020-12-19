@@ -64,10 +64,11 @@ void LineShape::setPoint(unsigned int index, float x, float y) {
         m_vertices[index].position = {x, y};
 }
 
-/*
 void LineShape::removePoint(unsigned int index) {
     if (index < m_vertices.getVertexCount()) {
-        m_vertices.erase(m_vertices.begin() + index);
+        for (unsigned int i = index; i < m_vertices.getVertexCount()-1; ++i)
+            m_vertices[i] = m_vertices[i+1];
+        m_vertices.resize(m_vertices.getVertexCount()-1);
     }
     else {
         std::cerr << "Can't remove point " << index << ". "
@@ -75,10 +76,9 @@ void LineShape::removePoint(unsigned int index) {
                   << std::endl;
     }
 }
-*/
 
 void LineShape::setColor(const sf::Color& color) {
-    for (int i = 0; i < m_vertices.getVertexCount(); ++i)
+    for (unsigned int i = 0; i < m_vertices.getVertexCount(); ++i)
         m_vertices[i].color = color;
 }
 
