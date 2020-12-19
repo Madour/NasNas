@@ -9,6 +9,7 @@
 #include "NasNas/data/Shapes.hpp"
 #include "NasNas/data/Logger.hpp"
 #include "NasNas/data/Utils.hpp"
+#include "NasNas/data/VertexArray.hpp"
 
 #ifdef NS_ECS
 #include "NasNas/ecs/BaseEntity.hpp"
