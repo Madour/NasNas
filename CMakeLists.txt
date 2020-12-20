@@ -42,7 +42,7 @@ endif()
 
 # Examples target
 set(NASNAS_TGT_EXAMPLES "")
-if (NASNAS_BUILD_EXAMPLES)
+if (NASNAS_EXAMPLES)
     set(NASNAS_TGT_EXAMPLES "NasNas_examples")
 endif()
 
@@ -57,7 +57,7 @@ set_target_properties(
     LIBRARY_OUTPUT_DIRECTORY lib
 )
 
-if (NASNAS_BUILD_EXAMPLES)
+if (NASNAS_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
