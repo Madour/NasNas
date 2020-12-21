@@ -73,7 +73,7 @@ auto AnimPlayer::getActiveFrame() -> const AnimFrame& {
     if(m_anim != nullptr)
         return m_anim->getFrame(m_index);
     else {
-        std::cout << "AnimPlayer doesn't have an Anim. Use AnimPlayer::play(Anim) first." << std::endl;
+        std::cerr << "AnimPlayer doesn't have an Anim. Use AnimPlayer::play(Anim) first." << std::endl;
         exit(-1);
     }
 }
@@ -106,4 +106,11 @@ void AnimPlayer::update() {
             }
         }
     }
+}
+
+void AnimPlayer::update(sf::Sprite& spr) {
+    update();
+    const auto& active_frame = getActiveFrame();
+    spr.setTextureRect(active_frame.rectangle);
+    spr.setOrigin(float(active_frame.origin.x), float(active_frame.origin.y));
 }
