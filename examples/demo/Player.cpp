@@ -115,7 +115,7 @@ void Player::update() {
     auto& shape = graphics<ns::ecs::ConvexShapeComponent>(1)->getDrawable();
     m_rotation += 5;
     shape.setRotation(m_rotation);
-    shape.setPosition({ std::cos(ns::to_radian(m_rotation/2))*40, std::sin(ns::to_radian(m_rotation/2))*40 });
+    shape.setPosition({ std::cos(ns::to_radian(m_rotation/2.f))*40, std::sin(ns::to_radian(m_rotation/2.f))*40 });
 
     // if Player is not moving (drection x == 0), set anim state to idle
     if (physics()->getDirection().x == 0)

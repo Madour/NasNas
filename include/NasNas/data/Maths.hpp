@@ -26,15 +26,16 @@ namespace ns {
     auto to_radian(float value) -> float;
 
     /**
-     * \brief Calculates the dot product between two vectors
-     * \tparam T First vector type (int, float or unsigned)
-     * \tparam S Second vector type (int, float or unsigned)
-     * \param vector1
-     * \param vector2
-     * \return Dot product between the two vectors
+     * \brief Does element wise multiplication between two vectors
+     * \tparam T Vector type (int, float or unsigned)
+     * \param v1
+     * \param v2
+     * \return Returns {v1.x * v2.x, v1.y * v2.y}
      */
-    template <typename T, typename S>
-    float operator*(const sf::Vector2<T>& vector1, const sf::Vector2<S>& vector2);
+    template <typename T>
+    inline auto operator*(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> sf::Vector2<T> {
+        return {v1.x*v2.x, v1.y*v2.y};
+    }
 
     /**
      * \brief Calculates the norm of a vector (its length)
@@ -69,5 +70,39 @@ namespace ns {
     template <typename T, typename S>
     inline auto distance(const sf::Vector2<T>& point1, const sf::Vector2<S>& point2) -> float {
         return std::hypot(point2.x - point1.x, point2.y - point1.y);
+    }
+
+    template <typename T>
+    inline auto dot_product(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> T {
+        return v1.x * v2.x + v1.y * v2.y;
+    }
+
+    template <typename T>
+    inline auto cross_product(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> T {
+        return v1.x * v2.y - v1.y * v2.x;
+    }
+
+    /**
+     * \brief Returns the clockwise positive angle of a vector
+     * \tparam T Vector type
+     * \param vector
+     * \return The angle between (-PI; PI]
+     */
+    template <typename T>
+    inline auto angle(const sf::Vector2<T>& vector) -> float {
+        return std::atan2(vector.y, vector.x);
+    }
+
+    /**
+     * \brief Returns the clockwise positive angle between two vectors
+     * \tparam T Vector type
+     * \param v1
+     * \param v2
+     * \return The angle between (-PI; PI]
+     */
+    template <typename T>
+    inline auto angle(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> float {
+        auto&& r = std::atan2(v2.y, v2.x) - std::atan2(v1.y, v1.x);
+        return (std::abs(r) > PI ? r - 2*PI*r/std::abs(r) : r);
     }
 }

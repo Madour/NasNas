@@ -19,9 +19,4 @@ namespace ns {
         return value*(PI/180.f);
     }
 
-    template <typename T, typename S>
-    float operator*(const sf::Vector2<T>& vector1, const sf::Vector2<S>& vector2) {
-        return vector1.x * vector2.x + vector1.y * vector2.y;
-    }
-
 }
