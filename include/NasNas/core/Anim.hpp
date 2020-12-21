@@ -140,6 +140,8 @@ namespace ns {
          */
         void update();
 
+        void update(sf::Sprite& spr);
+
     private:
         Anim* m_anim = nullptr;     ///< Anim object currently played
         int m_index = 0;            ///< Current frame index

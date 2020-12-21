@@ -60,10 +60,7 @@ auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
 }
 
 void SpriteComponent::update() {
-    m_anim_player.update();
-    const auto& active_frame = m_anim_player.getActiveFrame();
-    m_drawable.setTextureRect(active_frame.rectangle);
-    m_drawable.setOrigin(float(active_frame.origin.x), float(active_frame.origin.y));
+    m_anim_player.update(m_drawable);
 }
 
 void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const {
