@@ -149,10 +149,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a4ddef9eaf280961ca1ac020c2944e5e7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacens.html#a4ddef9eaf280961ca1ac020c2944e5e7">to_radian</a> (float value) -&gt; float</td></tr>
 <tr class="memdesc:a4ddef9eaf280961ca1ac020c2944e5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a degree angle to radian.  <a href="#a4ddef9eaf280961ca1ac020c2944e5e7">More...</a><br /></td></tr>
 <tr class="separator:a4ddef9eaf280961ca1ac020c2944e5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cefe3190acc8a0c0a5c248d3b48902a"><td class="memTemplParams" colspan="2">template&lt;typename T , typename S &gt; </td></tr>
-<tr class="memitem:a9cefe3190acc8a0c0a5c248d3b48902a"><td class="memTemplItemLeft" align="right" valign="top">float&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#a9cefe3190acc8a0c0a5c248d3b48902a">operator*</a> (const sf::Vector2&lt; T &gt; &amp;vector1, const sf::Vector2&lt; S &gt; &amp;vector2)</td></tr>
-<tr class="memdesc:a9cefe3190acc8a0c0a5c248d3b48902a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the dot product between two vectors.  <a href="#a9cefe3190acc8a0c0a5c248d3b48902a">More...</a><br /></td></tr>
-<tr class="separator:a9cefe3190acc8a0c0a5c248d3b48902a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae76141dd782e04aa88a237e3c02bbc24"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae76141dd782e04aa88a237e3c02bbc24"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#ae76141dd782e04aa88a237e3c02bbc24">operator*</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2) -&gt; sf::Vector2&lt; T &gt;</td></tr>
+<tr class="memdesc:ae76141dd782e04aa88a237e3c02bbc24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does element wise multiplication between two vectors.  <a href="#ae76141dd782e04aa88a237e3c02bbc24">More...</a><br /></td></tr>
+<tr class="separator:ae76141dd782e04aa88a237e3c02bbc24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa856b165a9fcc9924ade48c5fa4e07f1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa856b165a9fcc9924ade48c5fa4e07f1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#aa856b165a9fcc9924ade48c5fa4e07f1">norm</a> (const sf::Vector2&lt; T &gt; &amp;vector) -&gt; float</td></tr>
 <tr class="memdesc:aa856b165a9fcc9924ade48c5fa4e07f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the norm of a vector (its length)  <a href="#aa856b165a9fcc9924ade48c5fa4e07f1">More...</a><br /></td></tr>
@@ -165,6 +165,22 @@ Functions</h2></td></tr>
 <tr class="memitem:a3dd4ec89fbb2516f1b25b8239627b944"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#a3dd4ec89fbb2516f1b25b8239627b944">distance</a> (const sf::Vector2&lt; T &gt; &amp;point1, const sf::Vector2&lt; S &gt; &amp;point2) -&gt; float</td></tr>
 <tr class="memdesc:a3dd4ec89fbb2516f1b25b8239627b944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distance between two points.  <a href="#a3dd4ec89fbb2516f1b25b8239627b944">More...</a><br /></td></tr>
 <tr class="separator:a3dd4ec89fbb2516f1b25b8239627b944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86a0890db43aa162d66a28b6187a0fae"><td class="memTemplParams" colspan="2"><a id="a86a0890db43aa162d66a28b6187a0fae"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a86a0890db43aa162d66a28b6187a0fae"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>dot_product</b> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2) -&gt; T</td></tr>
+<tr class="separator:a86a0890db43aa162d66a28b6187a0fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2f5d95653875bb6caea67e6e3534ce"><td class="memTemplParams" colspan="2"><a id="afd2f5d95653875bb6caea67e6e3534ce"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:afd2f5d95653875bb6caea67e6e3534ce"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>cross_product</b> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2) -&gt; T</td></tr>
+<tr class="separator:afd2f5d95653875bb6caea67e6e3534ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1ca7a521aa80f1b2555fbd32d29a98a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae1ca7a521aa80f1b2555fbd32d29a98a"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#ae1ca7a521aa80f1b2555fbd32d29a98a">angle</a> (const sf::Vector2&lt; T &gt; &amp;vector) -&gt; float</td></tr>
+<tr class="memdesc:ae1ca7a521aa80f1b2555fbd32d29a98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the clockwise positive angle of a vector.  <a href="#ae1ca7a521aa80f1b2555fbd32d29a98a">More...</a><br /></td></tr>
+<tr class="separator:ae1ca7a521aa80f1b2555fbd32d29a98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44885293361ff939b241005342d69788"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a44885293361ff939b241005342d69788"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#a44885293361ff939b241005342d69788">angle</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2) -&gt; float</td></tr>
+<tr class="memdesc:a44885293361ff939b241005342d69788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the clockwise positive angle between two vectors.  <a href="#a44885293361ff939b241005342d69788">More...</a><br /></td></tr>
+<tr class="separator:a44885293361ff939b241005342d69788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -191,6 +207,107 @@ const float&#160;</td><td class="memItemRight" valign="bottom"><b>PI</b> = std::
 <p>Created by Modar Nasser on 09/06/2020.</p>
 <p>Created by Modar Nasser on 23/04/2020. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="ae1ca7a521aa80f1b2555fbd32d29a98a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1ca7a521aa80f1b2555fbd32d29a98a">&#9670;&nbsp;</a></span>angle() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ns::angle </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vector</em></td><td>)</td>
+          <td> -&gt; float </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the clockwise positive angle of a vector. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Vector type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The angle between (-PI; PI] </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00092">92</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a44885293361ff939b241005342d69788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44885293361ff939b241005342d69788">&#9670;&nbsp;</a></span>angle() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto ns::angle </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; float </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the clockwise positive angle between two vectors. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Vector type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v1</td><td></td></tr>
+    <tr><td class="paramname">v2</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The angle between (-PI; PI] </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00104">104</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a3dd4ec89fbb2516f1b25b8239627b944"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3dd4ec89fbb2516f1b25b8239627b944">&#9670;&nbsp;</a></span>distance()</h2>
 
@@ -244,7 +361,7 @@ template&lt;typename T , typename S &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The distance between the two points </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00070">70</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00071">71</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -289,7 +406,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Norm of the vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00046">46</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00047">47</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -334,54 +451,63 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The normal of the vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00057">57</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00058">58</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9cefe3190acc8a0c0a5c248d3b48902a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cefe3190acc8a0c0a5c248d3b48902a">&#9670;&nbsp;</a></span>operator*()</h2>
+<a id="ae76141dd782e04aa88a237e3c02bbc24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae76141dd782e04aa88a237e3c02bbc24">&#9670;&nbsp;</a></span>operator*()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename S &gt; </div>
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float ns::operator* </td>
+          <td class="memname">auto ns::operator* </td>
           <td>(</td>
           <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vector1</em>, </td>
+          <td class="paramname"><em>v1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const sf::Vector2&lt; S &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vector2</em>&#160;</td>
+          <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> -&gt; sf::Vector2&lt;T&gt; </td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Calculates the dot product between two vectors. </p>
+<p>Does element wise multiplication between two vectors. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>First vector type (int, float or unsigned) </td></tr>
-    <tr><td class="paramname">S</td><td>Second vector type (int, float or unsigned) </td></tr>
+    <tr><td class="paramname">T</td><td>Vector type (int, float or unsigned) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vector1</td><td></td></tr>
-    <tr><td class="paramname">vector2</td><td></td></tr>
+    <tr><td class="paramname">v1</td><td></td></tr>
+    <tr><td class="paramname">v2</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Dot product between the two vectors </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns {v1.x * v2.x, v1.y * v2.y} </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00036">36</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
