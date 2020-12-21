@@ -42,6 +42,7 @@ m_desired_fps(fps)
     Config::Window::update_rate = ups;
 
     m_window.create(sf::VideoMode(w_width, w_height), title, Config::Window::style);
+    m_window.setTitle(m_title);
     if (fps > 0)
         m_window.setFramerateLimit(fps);
 
