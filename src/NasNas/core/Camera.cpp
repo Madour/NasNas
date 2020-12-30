@@ -22,8 +22,6 @@ m_frames_delay(0)
 {
     m_base_view = ns::IntRect(0, 0, 1000, 1000);
     m_base_viewport = ns::FloatRect(0, 0, 1, 1);
-    if (ns::Config::Window::view_size != sf::Vector2i(0, 0))
-        m_render_texture.create(ns::Config::Window::view_size.x, ns::Config::Window::view_size.y);
     m_render_texture.setRepeated(true);
 }
 
@@ -34,8 +32,10 @@ void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
     reset(ns::FloatRect((float)position.x, (float)position.y, (float)size.x, (float)size.y));
 }
 void Camera::reset(const ns::FloatRect& rectangle) {
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = ns::Config::Window::antialiasing;
     m_base_view = ns::IntRect(int(rectangle.left), int(rectangle.top), int(rectangle.width), int(rectangle.height));
-    m_render_texture.create(static_cast<unsigned int>(rectangle.width), static_cast<unsigned int>(rectangle.height));
+    m_render_texture.create(static_cast<unsigned int>(rectangle.width), static_cast<unsigned int>(rectangle.height), settings);
     sf::View::reset(rectangle);
 }
 
