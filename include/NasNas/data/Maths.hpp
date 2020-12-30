@@ -56,7 +56,7 @@ namespace ns {
      */
     template <typename T>
     inline auto normal(const sf::Vector2<T>& vector) -> sf::Vector2f {
-        return { -vector.x, vector.y };
+        return { -vector.y, vector.x };
     }
 
     /**
