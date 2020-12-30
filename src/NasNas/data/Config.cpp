@@ -41,6 +41,7 @@ std::string Config::Window::title = "NasNas app";
 sf::Vector2i Config::Window::size = {720, 480};
 sf::Vector2i Config::Window::view_size = {0, 0};
 int Config::Window::style = sf::Style::Default;
+unsigned Config::Window::antialiasing = 0.f;
 int Config::Window::framerate_limit = 60;
 int Config::Window::update_rate = 60;
 bool Config::Window::vertical_sync = false;

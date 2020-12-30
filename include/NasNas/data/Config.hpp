@@ -36,6 +36,7 @@ namespace ns {
             static sf::Vector2i size;
             static sf::Vector2i view_size;
             static int style;
+            static unsigned antialiasing;
             static int framerate_limit;
             static int update_rate;
             static bool vertical_sync;
