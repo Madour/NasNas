@@ -45,7 +45,7 @@ namespace ns {
      */
     template <typename T>
     inline auto norm(const sf::Vector2<T>& vector) -> float {
-        return std::hypot(vector.x, vector.y);
+        return std::sqrt(vector.x*vector.x + vector.y*vector.y);
     }
 
     /**
@@ -69,7 +69,7 @@ namespace ns {
      */
     template <typename T, typename S>
     inline auto distance(const sf::Vector2<T>& point1, const sf::Vector2<S>& point2) -> float {
-        return std::hypot(point2.x - point1.x, point2.y - point1.y);
+        return std::sqrt((point2.x-point1.x)*(point2.x-point1.x) + (point2.y-point1.y)*(point2.y-point1.y));
     }
 
     template <typename T>
