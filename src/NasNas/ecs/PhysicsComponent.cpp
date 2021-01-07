@@ -123,8 +123,8 @@ auto PhysicsComponent::getMomentum() const -> sf::Vector2f {
 
 void PhysicsComponent::update() {
     // friction
-    m_velocity.x = (std::abs(m_velocity.x) > 0.001f) ? m_velocity.x*(1-m_friction.x) : 0.f;
-    m_velocity.y = (std::abs(m_velocity.y) > 0.001f) ? m_velocity.y*(1-m_friction.y) : 0.f;
+    m_velocity.x = (std::abs(m_velocity.x) > 0.000001f) ? m_velocity.x*(1-m_friction.x) : 0.f;
+    m_velocity.y = (std::abs(m_velocity.y) > 0.000001f) ? m_velocity.y*(1-m_friction.y) : 0.f;
 
     // acceleration
     m_velocity.x += m_acceleration.x*m_direction.x*m_direction_magnitude;
@@ -134,6 +134,5 @@ void PhysicsComponent::update() {
     m_velocity.y += m_mass * Config::Physics::gravity;
 
     // position
-    m_entity->setX(m_entity->transform()->getPosition().x  + m_velocity.x);
-    m_entity->setY(m_entity->transform()->getPosition().y  + m_velocity.y);
+    m_entity->transform()->move(m_velocity);
 }
