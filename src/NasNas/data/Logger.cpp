@@ -8,24 +8,24 @@
 using namespace ns;
 
 auto sf::operator<<(std::ostream& os, const sf::Vector2f& vect) -> std::ostream& {
-    os << "Vector(" << std::setprecision(6) << vect.x << ", " << vect.y << ")";
+    os << "Vec2d(" << std::setprecision(6) << vect.x << ", " << vect.y << ")";
     return os;
 }
 auto sf::operator<<(std::ostream& os, const sf::Vector2i& vect) -> std::ostream& {
-    os << "Vector(" << vect.x << ", " << vect.y << ")";
+    os << "Vec2d(" << vect.x << ", " << vect.y << ")";
     return os;
 }
 auto sf::operator<<(std::ostream& os, const sf::Vector2u& vect) -> std::ostream& {
-    os << "Vector(" << vect.x << ", " << vect.y << ")";
+    os << "Vec2d(" << vect.x << ", " << vect.y << ")";
     return os;
 }
 
 auto sf::operator<<(std::ostream& os, const sf::Vector3f& vect) -> std::ostream& {
-    os << "Vector(" << std::setprecision(6) << vect.x << ", " << vect.y << ", " << vect.z << ")";
+    os << "Vec3d(" << std::setprecision(6) << vect.x << ", " << vect.y << ", " << vect.z << ")";
     return os;
 }
 auto sf::operator<<(std::ostream& os, const sf::Vector3i& vect) -> std::ostream& {
-    os << "Vector(" << vect.x << ", " << vect.y << ", " << vect.z << ")";
+    os << "Vec3d(" << vect.x << ", " << vect.y << ", " << vect.z << ")";
     return os;
 }
 
