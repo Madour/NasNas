@@ -20,14 +20,10 @@ auto BaseEntity::getPosition() const -> sf::Vector2f {
 }
 
 void BaseEntity::setX(float value) {
-    m_gx = (int)value / 16;
-    m_rx = (value - (float)m_gx * 16) / 16;
     m_transformable.setPosition(value, m_transformable.getPosition().y);
 }
 
 void BaseEntity::setY(float value) {
-    m_gy = (int)value / 16;
-    m_ry = (value - (float)m_gy * 16) / 16;
     m_transformable.setPosition(m_transformable.getPosition().x, value);
 }
 
