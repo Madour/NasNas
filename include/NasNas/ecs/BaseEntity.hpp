@@ -47,9 +47,6 @@ namespace ns {
 
     private:
         std::string m_name;
-
-        int m_gx = 0, m_gy = 0;
-        float m_rx = 0, m_ry = 0;
         sf::Transformable m_transformable;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
