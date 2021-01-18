@@ -19,3 +19,4 @@ add_custom_target(NasNas_examples)
 
 add_subdirectory(demo)
 add_subdirectory(split_view)
+add_subdirectory(spritebatch)
