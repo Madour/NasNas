@@ -185,7 +185,8 @@ void App::render() {
     m_renderer.clear(sf::Color::Transparent);
     // updating SpriteBatches vertices
     for (auto& batch : SpriteBatch::list) {
-        batch->render();
+        if (batch->getUsage() != sf::VertexBuffer::Usage::Static)
+            batch->render();
     }
     // for each camera, if it has a scene and is visible, render the content
     for (Camera*& cam: m_cameras) {
