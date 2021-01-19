@@ -16,7 +16,7 @@
 
 # 
 
-**NasNas** is a lightweight **cross platform** modular **2D game framework** with a focus on pixel art style games.
+**NasNas** is a lightweight **cross platform** modular **2D game framework**.
 
 It is entirely written in **modern C++17**, and doesn't have any dependency other than SFML2.
 
@@ -28,7 +28,7 @@ They contain core classes and data needed by the framework.
 - ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
 a very elegant way. This module is optional, you can use your own resource manager and loader if you have specific needs.
 - ***ECS*** contains the BaseEntity and Components classes. You can add Components to your BaseEntity derived classes 
-to add more functionalities to them, like graphics, basic physics, collider, inputs.
+to add more functionalities to them, like graphics, physics, collider, inputs.
 - ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
 for tile based games.
 - More modules will be developed in the future !
@@ -38,17 +38,17 @@ for tile based games.
 ### Features
 
 ##### Implemented :
- - [x] Scene and Layers system
- - [x] Cameras and Shaders
- - [x] Automatic resource loader and  manager system
- - [x] Entities and components (animated sprites, shapes, physics, inputs, collider) 
- - [x] Tiled map loader (.tmx)
- - [x] Text and bitmap fonts
- - [x] Transitions
- - [x] Multi texture SpriteBatching
+ - [x] **Scene** and Layers system
+ - [x] **Cameras** and Shaders
+ - [x] Automatic **resource loader and  manager** system
+ - [x] **Entities** and **components** (animated sprites, shapes, physics, inputs, collider) 
+ - [x] **Tiled map loader** (.tmx)
+ - [x] Text and **bitmap fonts**
+ - [x] **Transitions**
+ - [x] Multi texture **SpriteBatching**
  - [x] Global app configuration settings
  - [x] Debug text display in-game
- - [x] Convenient console Logger
+ - [x] Convenient console **Logger**
 
 ##### In Progress:
  - [ ] Menus and UI
