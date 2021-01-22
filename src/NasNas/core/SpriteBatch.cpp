@@ -22,7 +22,7 @@ m_usage(sf::VertexBuffer::Usage::Stream) {
 
 SpriteBatch::~SpriteBatch() {
     SpriteBatch::list.erase(std::find(SpriteBatch::list.begin(), SpriteBatch::list.end(), this));
-    for (auto* spr : m_owned_sprites)
+    for (const auto* spr : m_owned_sprites)
         delete(spr);
 }
 
@@ -30,17 +30,27 @@ void SpriteBatch::start(sf::VertexBuffer::Usage usage) {
     m_usage = usage;
 }
 
-void SpriteBatch::draw(sf::Sprite* sprite) {
+void SpriteBatch::draw(const sf::Sprite* sprite) {
     if (m_layers.empty() || m_layers.back().texture != sprite->getTexture()) {
         m_layers.emplace_back(sprite->getTexture());
     }
     m_layers.back().sprites.push_back(sprite);
 }
 
-void SpriteBatch::draw(sf::Texture* texture, sf::Vector2f pos, sf::IntRect rect) {
+void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect) {
     auto* spr = new sf::Sprite(*texture);
     spr->setTextureRect(rect);
     spr->setPosition(pos);
+    m_owned_sprites.push_back(spr);
+    draw(spr);
+}
+
+void SpriteBatch::draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr) {
+    auto* spr = new sf::Sprite(*texture);
+    spr->setTextureRect(rect);
+    spr->setPosition(tr.getPosition());
+    spr->setRotation(tr.getRotation());
+    spr->setScale(tr.getScale());
     m_owned_sprites.push_back(spr);
     draw(spr);
 }
@@ -56,7 +66,7 @@ void SpriteBatch::end() {
 }
 
 void SpriteBatch::clear() {
-    for (auto* spr : m_owned_sprites)
+    for (const auto* spr : m_owned_sprites)
         delete(spr);
     m_owned_sprites.clear();
     m_layers.clear();

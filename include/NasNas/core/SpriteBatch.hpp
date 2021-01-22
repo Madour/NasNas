@@ -18,7 +18,7 @@ namespace ns {
             explicit SpriteBatchLayer(const sf::Texture* tex);
             const sf::Texture* texture;
             sf::VertexBuffer buffer;
-            std::vector<sf::Sprite*> sprites;
+            std::vector<const sf::Sprite*> sprites;
             std::vector<sf::Vertex> vertices;
         };
 
@@ -30,8 +30,9 @@ namespace ns {
 
         void start(sf::VertexBuffer::Usage usage);
 
-        void draw(sf::Sprite* sprite);
-        void draw(sf::Texture* texture, sf::Vector2f pos, sf::IntRect rect);
+        void draw(const sf::Sprite* sprite);
+        void draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect);
+        void draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr);
 
         void end();
 
@@ -50,7 +51,7 @@ namespace ns {
         sf::VertexBuffer::Usage m_usage;
 
         std::vector<SpriteBatchLayer> m_layers;
-        std::vector<sf::Sprite*> m_owned_sprites;
+        std::vector<const sf::Sprite*> m_owned_sprites;
 
         static std::vector<SpriteBatch*> list;
     };
