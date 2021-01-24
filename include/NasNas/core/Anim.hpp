@@ -71,7 +71,7 @@ namespace ns {
          */
         auto size() const -> int;
 
-        bool loop = true;   ///< Should the Anim loop when it ends ?
+        mutable bool loop = true;   ///< Should the Anim loop when it ends ?
 
     private:
         std::string m_name;             ///< Anim name
