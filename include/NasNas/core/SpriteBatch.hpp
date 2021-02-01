@@ -23,7 +23,7 @@ namespace ns {
         };
 
     public:
-        explicit SpriteBatch(std::string name);
+        SpriteBatch();
         ~SpriteBatch() override;
 
         void clear();
@@ -31,8 +31,8 @@ namespace ns {
         void start(sf::VertexBuffer::Usage usage);
 
         void draw(const sf::Sprite* sprite);
-        void draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect);
-        void draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr);
+        void draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect, const sf::Color& color = sf::Color::White);
+        void draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr, const sf::Color& color = sf::Color::White);
 
         void end();
 
@@ -46,7 +46,6 @@ namespace ns {
         void render();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        std::string m_name;
         ns::FloatRect m_global_bounds;
         sf::VertexBuffer::Usage m_usage;
 

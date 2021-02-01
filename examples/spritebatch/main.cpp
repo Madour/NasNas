@@ -12,7 +12,7 @@
 class Game : public ns::App {
 
     std::vector<std::unique_ptr<sf::Sprite>> m_sprites;
-    ns::SpriteBatch* m_spritebatch;
+    ns::SpriteBatch m_spritebatch;
 
 public:
     Game() : ns::App("Spritebatch", 1080, 720) {
@@ -21,27 +21,23 @@ public:
         // get the texture
         auto& texture = ns::Res::getTexture("adventurer.png");
 
-        // create 1k sprites to start with
-        m_sprites.resize(1000);
-
-        // create a spritebatch
-        m_spritebatch = new ns::SpriteBatch("my_batch");
-
-        // start the batch, a SpriteBatch uses a VertexBuffer, can be either Stream, Dynamic or Static.
+        // start the batch. SpriteBatch uses a VertexBuffer, can be either Stream, Dynamic or Static.
         // Stream is for sprites that change every frame (default)
         // Dynamic is for sprites that change sometimes
         // Static is for sprites that never change.
-        m_spritebatch->start(sf::VertexBuffer::Stream);
+        m_spritebatch.start(sf::VertexBuffer::Stream);
 
-        // loop over all the sprites, randomize their position and color, and draw them in the batch
-        for (auto& sprite : m_sprites) {
+        // create 1000 random sprites, and draw them in the batch
+        for (int i = 0; i < 1000; ++i) {
+            auto sprite = std::make_unique<sf::Sprite>(texture);
             sprite = std::make_unique<sf::Sprite>(texture);
             sprite->setTextureRect({0, 0, 50, 37});
             sprite->setOrigin(25, 18.5);
             sprite->setPosition(rand()%1080, rand()%720);
             sprite->setColor(sf::Color(rand()%255, rand()%255, rand()%255));
             sprite->setScale(1.5f, 1.5f);
-            m_spritebatch->draw(sprite.get());
+            m_spritebatch.draw(sprite.get());
+            m_sprites.push_back(std::move(sprite));
         }
         // alternatively, you can draw sprites in the batch directly like this
         /*
@@ -49,13 +45,13 @@ public:
             m_spritebatch->draw(&texture, sf::Vector2f(rand()%1080, rand()%720), {0, 0, 50, 37});
         */
 
-        // very important, don't forget to end the batch !
-        m_spritebatch->end();
+        // don't forget to end the batch when finished drawing in the batch !
+        m_spritebatch.end();
 
         // create a scene
         auto* scene = createScene("main");
         // add the batch to the scene
-        scene->getDefaultLayer()->add(m_spritebatch);
+        scene->getDefaultLayer()->addRaw(&m_spritebatch);
         // setup camera
         createCamera("main", 0)->lookAt(scene);
 
@@ -63,7 +59,7 @@ public:
         ns::DebugTextInterface::outline_color = sf::Color::Black;
         ns::DebugTextInterface::outline_thickness = 1.f;
         addDebugText<unsigned>([&]{return m_sprites.size();}, "Sprites number : ", {10, 10});
-        addDebugText<int>([&]{return m_spritebatch->getDepth();}, "Draw calls : ", {10, 40});
+        addDebugText<int>([&]{return m_spritebatch.getDepth();}, "Draw calls : ", {10, 40});
         addDebugText<std::string>([]{return "";}, "Left Click to add 100 additional sprites to the batch", {300, 10});
         addDebugText<std::string>([]{return "";}, "Right Click to clear sprite batch", {300, 40});
     }
@@ -84,15 +80,15 @@ public:
                     float scale = (rand()%100)/100.f;
                     spr->setScale(1.f + scale, 1.f + scale);
 
-                    m_spritebatch->draw(spr.get());
+                    m_spritebatch.draw(spr.get());
                     m_sprites.push_back(std::move(spr));
                 }
-                m_spritebatch->end();
+                m_spritebatch.end();
             }
             // on user right click
             else if (event.mouseButton.button == sf::Mouse::Button::Right) {
                 // delete all sprites
-                m_spritebatch->clear();
+                m_spritebatch.clear();
                 m_sprites.clear();
             }
 

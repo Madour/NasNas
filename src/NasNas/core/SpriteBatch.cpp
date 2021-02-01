@@ -13,9 +13,7 @@ texture(tex)
 
 std::vector<SpriteBatch*> SpriteBatch::list;
 
-SpriteBatch::SpriteBatch(std::string name) :
-m_name(std::move(name)),
-m_usage(sf::VertexBuffer::Usage::Stream) {
+SpriteBatch::SpriteBatch() : m_usage(sf::VertexBuffer::Usage::Stream) {
     SpriteBatch::list.push_back(this);
     clear();
 }
@@ -37,20 +35,22 @@ void SpriteBatch::draw(const sf::Sprite* sprite) {
     m_layers.back().sprites.push_back(sprite);
 }
 
-void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect) {
+void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect, const sf::Color& color) {
     auto* spr = new sf::Sprite(*texture);
     spr->setTextureRect(rect);
     spr->setPosition(pos);
+    spr->setColor(color);
     m_owned_sprites.push_back(spr);
     draw(spr);
 }
 
-void SpriteBatch::draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr) {
+void SpriteBatch::draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr, const sf::Color& color) {
     auto* spr = new sf::Sprite(*texture);
     spr->setTextureRect(rect);
     spr->setPosition(tr.getPosition());
     spr->setRotation(tr.getRotation());
     spr->setScale(tr.getScale());
+    spr->setColor(color);
     m_owned_sprites.push_back(spr);
     draw(spr);
 }
