@@ -69,7 +69,6 @@ namespace ns {
          */
         auto getTitle() const -> const std::string&;
 
-
         /**
          * \brief Get the AppWindow
          *
@@ -106,6 +105,11 @@ namespace ns {
          * \return Pointer to the requested Camera
          */
         auto getCamera(const std::string& name) -> Camera*;
+
+        /**
+        * \brief Toggle fullscreen display.
+        */
+        void toggleFullscreen();
 
         /**
          * \brief Starts the game loop.
@@ -147,22 +151,11 @@ namespace ns {
          */
         auto createCamera(const std::string& name, int order, const ns::IntRect& view={{0, 0}, Config::Window::view_size}) -> Camera*;
 
+
         /**
-         * \brief Creates a DebugText object and render it on the AppWindow directly
-         *
-         * DebugText takes the address of a variable and will display its value on the AppWindow
-         * at the given position. The label is displayed near the value. DebugText let you visualize
-         * the variable's value changing in real time.
-         *
-         * \tparam T Type of the variable to be displayed
-         *
-         * \param var_address Address of the variable
-         * \param label Label of the DebugText
-         * \param position Position of the DebugText on the AppWindow
-         * \param color Fill color of the DebugText
+         * \brief Creates a label only DebugText object and render it on the AppWindow directly
          */
-        template<typename T>
-        void addDebugText(T* var_address, const std::string& label,const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
+        void addDebugText(const std::string& label, const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
 
         /**
          * \brief Creates a DebugText object and render it on the AppWindow directly
@@ -173,47 +166,43 @@ namespace ns {
          *
          * \tparam T Type of the variable to be displayed
          *
-         * \param var_address Address of the variable (const)
          * \param label Label of the DebugText
+         * \param var_address Address of the variable
          * \param position Position of the DebugText on the AppWindow
          * \param color Fill color of the DebugText
          */
         template<typename T>
-        void addDebugText(const T* var_address, const std::string& label,const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
+        void addDebugText(const std::string& label, T* var_address, const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
+
+        /**
+         * \brief Creates a DebugText object and render it on the AppWindow directly
+         *
+         * DebugText takes the address of a variable and will display its value on the AppWindow
+         * at the given position. The label is displayed near the value. DebugText let you visualize
+         * the variable's value changing in real time.
+         *
+         * \tparam T Type of the variable to be displayed
+         *
+         * \param label Label of the DebugText
+         * \param var_address Address of the variable (const)
+         * \param position Position of the DebugText on the AppWindow
+         * \param color Fill color of the DebugText
+         */
+        template<typename T>
+        void addDebugText(const std::string& label, const T* var_address,const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
 
         /**
          * \brief Creates a DebugText object and render it on the AppWindow directly
          *
          * \tparam T Type of the value returned by the lambda function
          *
-         * \param fn Lambda function to be evaluated
          * \param label Label of the DebugText
+         * \param fn Lambda function to be evaluated
          * \param position Position of the DebugText on the AppWindow
          * \param color Fill color of the DebugText
          */
         template<typename T>
-        void addDebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
-
-        /**
-         * \brief Creates a DebugText object and render it on the AppWindow directly
-         *
-         * \tparam T Return type of the method to be evaluated
-         * \tparam ObjT Type of the method's object
-         *
-         * \param object_address Address of the object
-         * \param method_address Address of the method
-         * \param label Label of the DebugText
-         * \param position Position of the DebugText on the AppWindow
-         * \param color Fill color of the DebugText
-         */
-        template<typename T, typename ObjT>
-        void addDebugText(
-                ObjT* object_address,
-                std::function<T(ObjT &)> method_address,
-                const std::string& label,
-                const sf::Vector2f& position,
-                const sf::Color& color = ns::DebugTextInterface::color
-        );
+        void addDebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
 
         /**
          * \brief Adds a DebugText to the App from a DebugText pointer
@@ -223,8 +212,8 @@ namespace ns {
          *
          * \param debug_text Pointer to a DebugText object
          */
-        template<typename T, typename ObjT>
-        void addDebugText(DebugText<T, ObjT>* debug_text);
+        template<typename T>
+        void addDebugText(DebugText<T>* debug_text);
 
         /**
          * \brief The App enters sleep mode, the App will not update.
@@ -237,11 +226,6 @@ namespace ns {
          * Used for Android when application run as main process.
          */
         void awake();
-
-        /**
-         * \brief Toggle fullscreen display.
-         */
-        void toggleFullscreen();
 
         /**
          * \brief Handles SFML events
@@ -300,35 +284,25 @@ namespace ns {
     };
 
     template<typename T>
-    void App::addDebugText(T* var_address, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
-        sf::Color old_color = ns::DebugTextInterface::color;
-        ns::DebugTextInterface::color = color;
-        m_debug_texts.push_back(new DebugText<T, char>(var_address, label, position));
-        ns::DebugTextInterface::color = old_color;
+    void App::addDebugText(const std::string& label, T* var_address, const sf::Vector2f& position, const sf::Color& color) {
+        auto* dbg_txt = new DebugText<T>(label, var_address, position);
+        dbg_txt->setFillColor(color);
+        m_debug_texts.push_back(dbg_txt);
     }
     template<typename T>
-    void App::addDebugText(const T* var_address, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
-        sf::Color old_color = ns::DebugTextInterface::color;
-        ns::DebugTextInterface::color = color;
-        m_debug_texts.push_back(new DebugText<T, char>(var_address, label, position));
-        ns::DebugTextInterface::color = old_color;
+    void App::addDebugText(const std::string& label, const T* var_address, const sf::Vector2f& position, const sf::Color& color) {
+        auto* dbg_txt = new DebugText<T>(label, var_address, position);
+        dbg_txt->setFillColor(color);
+        m_debug_texts.push_back(dbg_txt);
     }
     template<typename T>
-    void App::addDebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
-        sf::Color old_color = ns::DebugTextInterface::color;
-        ns::DebugTextInterface::color = color;
-        m_debug_texts.push_back(new DebugText<T, char>(fn, label, position));
-        ns::DebugTextInterface::color = old_color;
+    void App::addDebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position, const sf::Color& color) {
+        auto* dbg_txt = new DebugText<T>(label, fn, position);
+        dbg_txt->setFillColor(color);
+        m_debug_texts.push_back(dbg_txt);
     }
-    template<typename T, typename ObjT>
-    void App::addDebugText(ObjT* object_address, std::function<T(ObjT &)> method_address, const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
-        sf::Color old_color = ns::DebugTextInterface::color;
-        ns::DebugTextInterface::color = color;
-        m_debug_texts.push_back(new DebugText<T, ObjT>(object_address, method_address, label, position));
-        ns::DebugTextInterface::color = old_color;
-    }
-    template<typename T, typename ObjT>
-    void App::addDebugText(ns::DebugText<T, ObjT>* debug_text) {
+    template<typename T>
+    void App::addDebugText(ns::DebugText<T>* debug_text) {
         m_debug_texts.push_back(debug_text);
     }
 

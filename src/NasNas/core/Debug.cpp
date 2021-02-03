@@ -8,4 +8,4 @@
 int ns::DebugTextInterface::font_size = 20;
 sf::Color ns::DebugTextInterface::color = sf::Color(255, 255, 255);
 sf::Color ns::DebugTextInterface::outline_color = sf::Color(0, 0, 0);
-float ns::DebugTextInterface::outline_thickness = 0;
+float ns::DebugTextInterface::outline_thickness = 1.f;

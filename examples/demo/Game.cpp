@@ -105,19 +105,19 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     //------------ Adding DebugTexts to the App -----------------------------------------
     // adding a DebugText by using addDebugText method
-    this->addDebugText<int>(&this->frame_counter, "frame counter:", {10, 10});
-    this->addDebugText<int>([&](){return ns::Transition::list.size();}, "nb of transitions:", {10, 50}, sf::Color::Green);
+    this->addDebugText<int>("frame counter:", &this->frame_counter, {10, 10});
+    this->addDebugText<int>("nb of transitions:", [&]{return ns::Transition::list.size();}, {10, 50}, sf::Color::Green);
 
     // you can change debug text global properties by using DebugTextInterface
     // (will be applied to ALL debug texts created afterwards)
     ns::DebugTextInterface::color = sf::Color::Cyan;
     ns::DebugTextInterface::outline_thickness = 1;
     ns::DebugTextInterface::outline_color = sf::Color::Blue;
-    this->addDebugText<sf::Vector2i>([&](){return sf::Mouse::getPosition(getWindow());}, "mouse pos:", {10, 90});
+    this->addDebugText<sf::Vector2i>("mouse pos:", [&]{return sf::Mouse::getPosition(getWindow());}, {10, 90});
 
     // add DebugText by creating manually a DebugText object, changing its properties and adding it to the app;
     // the app will delete automatically the debug texts, so don't worry about memory
-    auto* dbg_txt = new ns::DebugText<sf::Vector2f, ns::BaseEntity>(this->player.get(), &ns::BaseEntity::getPosition, "position:", {500, 10});
+    auto* dbg_txt = new ns::DebugText<sf::Vector2f>("position:", [&]{return player->getPosition();}, {500, 10});
     dbg_txt->setFillColor(sf::Color::Black);
     dbg_txt->setOutlineThickness(1);
     dbg_txt->setOutlineColor(sf::Color::White);

@@ -156,6 +156,12 @@ void App::toggleFullscreen() {
     m_fullscreen = !m_fullscreen;
 }
 
+void App::addDebugText(const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
+    auto* dbg_txt = new DebugText<char>(label, position);
+    dbg_txt->setFillColor(color);
+    m_debug_texts.push_back(dbg_txt);
+}
+
 void App::storeInputs(sf::Event event) {
     auto& pressed_keys = Config::Inputs::pressed_keys;
     if (event.type == sf::Event::KeyPressed)
