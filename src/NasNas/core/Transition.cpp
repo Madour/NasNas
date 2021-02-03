@@ -54,7 +54,7 @@ void Transition::update() {
 }
 
 void Transition::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(sf::Sprite(m_render_texture.getTexture()));
+    target.draw(sf::Sprite(m_render_texture.getTexture()), states);
 }
 
 using namespace ns::transition;
