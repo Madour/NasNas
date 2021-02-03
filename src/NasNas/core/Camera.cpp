@@ -121,7 +121,7 @@ void Camera::setBottom(float value) {
 }
 
 auto Camera::getGlobalBounds() const -> ns::FloatRect {
-    return ns::FloatRect(getPosition(), getSize());
+    return {getPosition(), getSize()};
 }
 
 void Camera::update() {

@@ -98,7 +98,7 @@ auto LineShape::getLocalBounds() const -> sf::FloatRect {
 }
 
 auto LineShape::getGlobalBounds() const -> ns::FloatRect {
-    return ns::FloatRect(getTransform().transformRect(m_vertices.getBounds()));
+    return getTransform().transformRect(m_vertices.getBounds());
 }
 
 void LineShape::draw(sf::RenderTarget& target, sf::RenderStates states) const {

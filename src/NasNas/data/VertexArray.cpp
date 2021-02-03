@@ -11,5 +11,5 @@ auto ns::VertexArray::getPosition() const -> sf::Vector2f {
 }
 
 auto ns::VertexArray::getGlobalBounds() const -> ns::FloatRect {
-    return ns::FloatRect(getBounds());
+    return getBounds();
 }
