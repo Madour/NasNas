@@ -42,10 +42,12 @@ auto Anim::size() const -> int {
 AnimPlayer::AnimPlayer() = default;
 
 void AnimPlayer::play(const Anim& animation) {
-    m_anim = const_cast<Anim*>(&animation);
-    m_index = 0;
-    m_playing = true;
-    m_clock = sf::Clock();
+    if (!m_anim || m_anim->getName() != animation.getName()) {
+            m_anim = &animation;
+            m_index = 0;
+            m_playing = true;
+            m_clock = sf::Clock();
+    }
 }
 
 void AnimPlayer::resume() {
@@ -65,11 +67,11 @@ auto AnimPlayer::isPlaying() const -> bool {
     return m_playing;
 }
 
-auto AnimPlayer::getAnim() const -> Anim* {
+auto AnimPlayer::getAnim() const -> const Anim* {
     return m_anim;
 }
 
-auto AnimPlayer::getActiveFrame() -> const AnimFrame& {
+auto AnimPlayer::getActiveFrame() const -> const AnimFrame& {
     if(m_anim != nullptr)
         return m_anim->getFrame(m_index);
     else {
