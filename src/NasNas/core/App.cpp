@@ -53,13 +53,13 @@ m_desired_fps(fps)
 }
 
 App::~App() {
-    for (auto& scn : m_scenes)
+    for (auto* scn : m_scenes)
         delete(scn);
-    for (auto& cam : m_cameras)
+    for (auto* cam : m_cameras)
         delete(cam);
-    for (auto& dbg_txt : m_debug_texts)
+    for (auto* dbg_txt : m_debug_texts)
         delete(dbg_txt);
-    for (auto& transition : Transition::list)
+    for (auto* transition : Transition::list)
         delete(transition);
 }
 
