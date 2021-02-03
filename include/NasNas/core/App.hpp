@@ -34,7 +34,7 @@ namespace ns {
          * \param ups Update per second
          */
         App(const std::string& title, sf::Vector2u resolution,
-            unsigned int scale=1,
+            float scale=1.f,
             int fps=ns::Config::Window::framerate_limit,
             int ups=ns::Config::Window::update_rate
         );

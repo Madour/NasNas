@@ -19,8 +19,13 @@ App::App()
 )
 {}
 
-App::App(const std::string &title, sf::Vector2u resolution, unsigned int scale, int fps, int ups) :
-App(title, resolution.x*scale, resolution.y*scale, resolution.x, resolution.y, fps, ups)
+App::App(const std::string &title, sf::Vector2u resolution, float scale, int fps, int ups) :
+App(
+    title,
+    static_cast<int>(resolution.x*scale), static_cast<int>(resolution.y*scale),
+    resolution.x, resolution.y,
+    fps, ups
+)
 {}
 
 App::App(std::string title, int w_width, int w_height, int v_width, int v_height, int fps, int ups) :
