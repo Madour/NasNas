@@ -28,7 +28,7 @@ namespace ns::tm {
 
         struct TileAnimFrame {
             std::uint32_t tileid;
-            unsigned int duration;
+            int duration;
         };
         struct TileAnim {
             std::vector<TileAnimFrame> frames;

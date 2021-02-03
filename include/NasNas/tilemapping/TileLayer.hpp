@@ -30,7 +30,7 @@ namespace ns::tm {
         struct Tile {
         public:
             Tile(std::uint32_t tile_gid, std::uint8_t tile_flip, const PropertiesContainer* props) :
-            gid(tile_gid), flip(tile_flip), properties(props)
+            properties(props), gid(tile_gid), flip(tile_flip)
             {}
             const PropertiesContainer* properties;
             const std::uint32_t gid;

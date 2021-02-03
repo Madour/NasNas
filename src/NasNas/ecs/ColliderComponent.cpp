@@ -109,8 +109,8 @@ auto CircleCollision::getRadius() -> float { return m_shape.getRadius(); }
 
 ColliderComponent::ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset) :
 BaseComponent(entity),
-m_collision_box(collision),
-m_pos_offset(pos_offset) {
+m_pos_offset(pos_offset),
+m_collision_box(collision) {
     m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
 }
 

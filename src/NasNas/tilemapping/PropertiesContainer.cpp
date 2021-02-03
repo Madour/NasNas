@@ -13,16 +13,16 @@ auto ns::tm::hexToColor(const std::string& color_string) -> sf::Color {
     sf::Color color = sf::Color::White;
     if (color_string.length() == 9)  // with alpha
         color = sf::Color(
-                std::stoul(color_string.substr(3, 2), nullptr, 16),
-                std::stoul(color_string.substr(5, 2), nullptr, 16),
-                std::stoul(color_string.substr(7, 2), nullptr, 16),
-                std::stoul(color_string.substr(1, 2), nullptr, 16)
+                std::stoul(color_string.substr(3, 2), nullptr, 16)&0xffu,
+                std::stoul(color_string.substr(5, 2), nullptr, 16)&0xffu,
+                std::stoul(color_string.substr(7, 2), nullptr, 16)&0xffu,
+                std::stoul(color_string.substr(1, 2), nullptr, 16)&0xffu
         );
     else   // no alpha
         color = sf::Color(
-                std::stoul(color_string.substr(1, 2), nullptr, 16),
-                std::stoul(color_string.substr(3, 2), nullptr, 16),
-                std::stoul(color_string.substr(5, 2), nullptr, 16)
+                std::stoul(color_string.substr(1, 2), nullptr, 16)&0xffu,
+                std::stoul(color_string.substr(3, 2), nullptr, 16)&0xffu,
+                std::stoul(color_string.substr(5, 2), nullptr, 16)&0xffu
         );
     return color;
 }

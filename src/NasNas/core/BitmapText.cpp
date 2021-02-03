@@ -142,7 +142,7 @@ void BitmapText::setMaxWidth(int max_width) {
 }
 
 auto BitmapText::getSize() const -> sf::Vector2f {
-    return sf::Vector2f(m_width, m_height);
+    return {static_cast<float>(m_width), static_cast<float>(m_height)};
 }
 
 auto BitmapText::getProcessedString() -> const std::string& {
@@ -189,7 +189,7 @@ void BitmapText::processString() {
 
         // joining the words into the final processed string
         m_processed_string.clear();
-        for (int i = 0; i < words.size(); ++i) {
+        for (unsigned i = 0; i < words.size(); ++i) {
             auto& word = words[i];
             if (word == " ")
                 if ((i+1 < words.size() && words[i+1][0] == '\n') || i+1 == words.size())

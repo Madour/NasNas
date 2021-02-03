@@ -33,8 +33,8 @@ namespace ns::ui {
         int m_max_lines = 0;
         int m_counter = 0;
         int m_typing_delay = 0;
-        int m_current_page = 0;
-        int m_current_letter_index = 0;
+        unsigned m_current_page = 0;
+        unsigned m_current_letter_index = 0;
     };
 
 }
