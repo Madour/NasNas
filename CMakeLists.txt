@@ -5,20 +5,21 @@ endif()
 
 project(NasNas)
 
+# SFML static libs option
+option(SFML_STATIC_LIBRARIES   "Build with the SFML static libraries" OFF)
 # find SFML
 find_package(SFML COMPONENTS graphics audio)
 
 
+## NasNas options
 # Select optional modules
 option(NASNAS_BUILD_RESLIB      "Build the RESLIB module"           ON)
 option(NASNAS_BUILD_ECS         "Build the ECS module"              ON)
 option(NASNAS_BUILD_TILEMAPPING "Build the TILEMAPPING module"      ON)
 option(NASNAS_BUILD_UI          "Build the UI module"               ON)
-
 # Select optional targets
 option(NASNAS_EXAMPLES          "Build the example applications"    OFF)
 option(NASNAS_SHARED            "Build the shared library"          OFF)
-
 
 include(cmake/NasNas.cmake)
 
@@ -29,7 +30,6 @@ add_library(${NASNAS_TGT_STATIC} STATIC ${NasNas_Src} ${NasNas_Inc})
 target_include_directories(${NASNAS_TGT_STATIC} PRIVATE include)
 target_link_libraries(${NASNAS_TGT_STATIC} sfml-graphics sfml-audio)
 
-
 # Shared lib target
 set(NASNAS_TGT_SHARED "")
 if (NASNAS_SHARED)
@@ -38,7 +38,6 @@ if (NASNAS_SHARED)
     target_include_directories(${NASNAS_TGT_SHARED} PRIVATE include)
     target_link_libraries(${NASNAS_TGT_SHARED} sfml-graphics sfml-audio)
 endif()
-
 
 # Examples target
 set(NASNAS_TGT_EXAMPLES "")
@@ -52,6 +51,7 @@ set_target_properties(
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS ON
+    DEBUG_POSTFIX -d
     RUNTIME_OUTPUT_DIRECTORY bin
     ARCHIVE_OUTPUT_DIRECTORY lib
     LIBRARY_OUTPUT_DIRECTORY lib
