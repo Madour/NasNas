@@ -47,11 +47,15 @@ namespace ns {
      * It lets you see methods or variables values changing in real time.
      *
      * \tparam T Type of the value to display on the AppWindow
-     * \tparam ObjT Object type if creating a DebugText from method address, void otherwise
      */
-    template<typename T, typename  ObjT>
+    template<typename T>
     class DebugText : public DebugTextInterface {
     public:
+        /*
+         * \brief Create a DebugText with only a label, and no value
+         */
+        DebugText(std::string  label, const sf::Vector2f& position);
+
         /**
          * \brief Create a DebugText from variable address
          *
@@ -59,7 +63,7 @@ namespace ns {
          * \param label Label of the DebugText
          * \param position Position of the DebugText on the AppWindow
          */
-        DebugText(T* var_address, const std::string& label, const sf::Vector2f& position);
+        DebugText(const std::string& label, T* var_address, const sf::Vector2f& position);
 
         /**
          * \brief Create a DebugText from variable address
@@ -68,7 +72,7 @@ namespace ns {
          * \param label Label of the DebugText
          * \param position Position of the DebugText on the AppWindow
          */
-        DebugText(const T* var_address, const std::string& label, const sf::Vector2f& position);
+        DebugText(const std::string& label, const T* var_address, const sf::Vector2f& position);
 
         /**
          * \brief Create a DebugText from a lambda function
@@ -77,22 +81,7 @@ namespace ns {
          * \param label Label of the DebugText
          * \param position Position of the DebugText on the AppWindow
          */
-        DebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position);
-
-        /**
-         * \brief Create a DebugText from object and method address
-         *
-         * \param object_address Address of the object that will evaluate the method
-         * \param method_address Address of the method to evaluate
-         * \param label Label of the DebugText
-         * \param position Position of the DebugText on the AppWindow
-         */
-        DebugText(
-            ObjT* object_address,
-            std::function<T(ObjT &)> method_address,
-            const std::string& label,
-            const sf::Vector2f& position
-        );
+        DebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position);
 
         /**
          * \brief Updates DebugText value
@@ -103,14 +92,10 @@ namespace ns {
         std::string m_label;
         T* m_variable_address = nullptr;
         std::function<T()> m_lambda = nullptr;
-        ObjT* m_object_address = nullptr;
-        std::function<T(ObjT &)> m_method_address = nullptr;
-
-        DebugText(std::string  label, const sf::Vector2f& position);
     };
 
-    template<typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(std::string label, const sf::Vector2f& position) :
+    template <typename T>
+    DebugText<T>::DebugText(std::string label, const sf::Vector2f& position) :
     m_label(std::move(label)) {
         setFont(Arial::getFont());
         setCharacterSize(DebugTextInterface::font_size);
@@ -120,45 +105,32 @@ namespace ns {
         setPosition(position);
     }
 
-    template<typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(T* var_address, const std::string& label, const sf::Vector2f& position) :
+    template <typename T>
+    DebugText<T>::DebugText(const std::string& label, T* var_address, const sf::Vector2f& position) :
     DebugText(label, position) {
         m_variable_address = var_address;
     }
 
-    template<typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(const T* var_address, const std::string& label, const sf::Vector2f& position) :
+    template <typename T>
+    DebugText<T>::DebugText(const std::string& label, const T* var_address, const sf::Vector2f& position) :
     DebugText(label, position) {
         m_variable_address = (T*) var_address;
     }
 
-    template <typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(std::function<T()> fn, const std::string& label, const sf::Vector2f& position) :
+    template <typename T>
+    DebugText<T>::DebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position) :
             DebugText(label, position) {
         m_lambda = fn;
     }
 
-    template<typename T, typename ObjT>
-    DebugText<T, ObjT>::DebugText(
-            ObjT* object_address,
-            std::function<T(ObjT &)> method_address,
-            const std::string& label,
-            const sf::Vector2f& position
-    ) : DebugText(label, position) {
-        m_method_address = method_address;
-        m_object_address = object_address;
-    }
-
-    template<typename T, typename ObjT>
-    void DebugText<T, ObjT>::update() {
+    template<typename T>
+    void DebugText<T>::update() {
         std::ostringstream stream;
         stream << m_label << " ";
         if (m_variable_address != nullptr)
             stream << *m_variable_address;
         else if (m_lambda != nullptr)
             stream << m_lambda();
-        else
-            stream << (m_method_address)(*m_object_address);
         setString(stream.str());
     }
 

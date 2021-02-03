@@ -57,11 +57,10 @@ public:
 
         // add some debug texts
         ns::DebugTextInterface::outline_color = sf::Color::Black;
-        ns::DebugTextInterface::outline_thickness = 1.f;
-        addDebugText<unsigned>([&]{return m_sprites.size();}, "Sprites number : ", {10, 10});
-        addDebugText<int>([&]{return m_spritebatch.getDepth();}, "Draw calls : ", {10, 40});
-        addDebugText<std::string>([]{return "";}, "Left Click to add 100 additional sprites to the batch", {300, 10});
-        addDebugText<std::string>([]{return "";}, "Right Click to clear sprite batch", {300, 40});
+        addDebugText<unsigned>("Sprites number : ", [&]{return m_sprites.size();}, {10, 10});
+        addDebugText<int>("Draw calls : ", [&]{return m_spritebatch.getDepth();}, {10, 40});
+        addDebugText("Left Click to add 100 additional sprites to the batch", {300, 10});
+        addDebugText("Right Click to clear sprite batch", {300, 40});
     }
 
     void onEvent(const sf::Event& event) override {
