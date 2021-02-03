@@ -120,14 +120,14 @@ namespace ns {
          *
          * \return Pointer to Anim object
          */
-        auto getAnim() const -> Anim*;
+        auto getAnim() const -> const Anim*;
 
         /**
          * \brief Get the active frame of the player
          *
          * \return The currently played frame
          */
-        auto getActiveFrame() -> const AnimFrame&;
+        auto getActiveFrame() const -> const AnimFrame&;
 
         /**
          * \brief Set the play speed
@@ -143,7 +143,7 @@ namespace ns {
         void update(sf::Sprite& spr);
 
     private:
-        Anim* m_anim = nullptr;     ///< Anim object currently played
+        const Anim* m_anim = nullptr;     ///< Anim object currently played
         int m_index = 0;            ///< Current frame index
         bool m_playing = false;     ///< Is the AnimPlayer playing an Anim ?
         float m_play_speed = 1;     ///< Play speed of the player
