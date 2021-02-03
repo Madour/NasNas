@@ -31,8 +31,6 @@ m_desired_fps(fps)
 {
     AppComponent::app = this;
 
-    Config::debug = false;
-
     Config::Window::title = title;
     Config::Window::size.x = w_width;
     Config::Window::size.y = w_height;

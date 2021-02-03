@@ -33,11 +33,11 @@ public:
             scene->getDefaultLayer()->add(shape);
         }
 
-        // creating 2 cameras each taking half the screen (viewport width of 0.5)
-        auto* camera_left = createCamera("left", 0, {0, 0, 1080/2, 720}, {0, 0, 0.5, 1});
+        // creating 2 cameras each taking half the screen (viewport width of 0.499 to let a black line separator)
+        auto* camera_left = createCamera("left", 0, {0, 0, 1080/2, 720}, {0, 0, 0.499, 1});
         camera_left->lookAt(scene);
 
-        auto* camera_right = createCamera("right", 0, {0, 0, 1080/2, 720}, {0.5, 0, 0.5, 1});
+        auto* camera_right = createCamera("right", 0, {0, 0, 1080/2, 720}, {0.501, 0, 0.499, 1});
         camera_right->lookAt(scene);
 
         addDebugText("Press WASD to move left camera or arrow keys to move right camera.", {50, 10});
