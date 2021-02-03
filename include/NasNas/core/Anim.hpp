@@ -87,11 +87,19 @@ namespace ns {
         explicit AnimPlayer();
 
         /**
-         * \brief Tells the AnimPlayer to play an Anim
-         *
-         * \param animation The Anim to play
+         * \brief Plays an Anim if it is different from the current Anim
          */
         void play(const Anim& animation);
+
+        /**
+         * \brief Plays an Anim from start even if it is the same as the currently running Anim
+         */
+        void replay(const Anim& animation);
+
+        /**
+         * \brief Replays the current Anim
+         */
+        void replay();
 
         /**
          * \brief Resume a paused or stoped animation

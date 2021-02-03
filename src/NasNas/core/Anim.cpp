@@ -43,15 +43,29 @@ AnimPlayer::AnimPlayer() = default;
 
 void AnimPlayer::play(const Anim& animation) {
     if (!m_anim || m_anim->getName() != animation.getName()) {
-            m_anim = &animation;
-            m_index = 0;
-            m_playing = true;
-            m_clock = sf::Clock();
+        m_anim = &animation;
+        m_index = 0;
+        m_playing = true;
+        m_clock.restart();
     }
+}
+
+void AnimPlayer::replay(const Anim& animation) {
+    m_anim = &animation;
+    m_index = 0;
+    m_playing = true;
+    m_clock.restart();
+}
+
+void AnimPlayer::replay() {
+    m_index = 0;
+    m_playing = true;
+    m_clock.restart();
 }
 
 void AnimPlayer::resume() {
     m_playing = true;
+    m_clock.restart();
 }
 
 void AnimPlayer::pause() {
