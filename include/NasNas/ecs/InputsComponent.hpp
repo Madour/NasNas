@@ -15,6 +15,7 @@ namespace ns::ecs {
 
     class InputsComponent : public BaseComponent{
     public:
+        static int uid;
         explicit InputsComponent(BaseEntity* entity);
 
         void bind(sf::Keyboard::Key key, const std::function<void()>& function);

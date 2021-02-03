@@ -55,7 +55,7 @@ spacing(xml_node.attribute("spacing").as_uint()) {
 
         for (const auto& xmlnode_tile_animframe : xmlnode_tile.child("animation").children()) {
             std::uint32_t id = xmlnode_tile_animframe.attribute("tileid").as_uint();
-            unsigned int duration = xmlnode_tile_animframe.attribute("duration").as_uint();
+            int duration = xmlnode_tile_animframe.attribute("duration").as_int();
             m_tile_animations[tile_id].frames.push_back({id, duration});
         }
     }
@@ -90,9 +90,9 @@ auto SharedTileset::getTileAnim(std::uint32_t id) -> const TileAnim* {
 }
 
 auto SharedTileset::getTileTextureRect(unsigned int id) const -> ns::FloatRect {
-    auto tx = (id % columns) * (tilewidth + spacing) + margin;
-    auto ty = (id / columns) * (tileheight + spacing) + margin;
-    return {sf::Vector2f(tx, ty), sf::Vector2f(tilewidth, tileheight)};
+    auto tx = static_cast<float>((id % columns) * (tilewidth + spacing) + margin);
+    auto ty = static_cast<float>((id / columns) * (tileheight + spacing) + margin);
+    return {sf::Vector2f(tx, ty), sf::Vector2f(static_cast<float>(tilewidth), static_cast<float>(tileheight))};
 }
 
 

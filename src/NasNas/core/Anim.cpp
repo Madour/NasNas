@@ -17,9 +17,9 @@ origin(origin)
 Anim::Anim() = default;
 
 Anim::Anim(std::string name, std::vector<AnimFrame>  frames, bool loop) :
+loop(loop),
 m_name(std::move(name)),
-m_frames(std::move(frames)),
-loop(loop)
+m_frames(std::move(frames))
 {}
 
 void Anim::add(const AnimFrame& frame) {

@@ -25,7 +25,7 @@ void TypedText::setMaxLines(int lines_nb) {
     if (m_max_lines > 0) {
         int last_index = 0;
         int new_line_count = 0;
-        for (int i = 0; i < m_string.size(); ++i) {
+        for (unsigned i = 0; i < m_string.size(); ++i) {
             if (m_string[i] == '\n')
                 new_line_count++;
             if (new_line_count == m_max_lines) {

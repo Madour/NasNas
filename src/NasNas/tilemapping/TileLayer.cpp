@@ -126,6 +126,8 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     auto tileheight = tileset->tileheight;
     auto x = (tile_count % m_width) * m_tiledmap->getTileSize().x;
     auto y = (tile_count / m_width) * m_tiledmap->getTileSize().y;
+    auto xf = static_cast<float>(x);
+    auto yf = static_cast<float>(y);
 
     // storing animated tiles position for efficient iteration in update
     if (tileset->getTileAnim(id)) {
@@ -137,12 +139,12 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     m_tiles.emplace_back(gid , tile_transform, tileset->getTileProperties(id));
     // calculating texture coordnates and creating the quad for drawing
     const auto& tex_coordinates = getTileTexCoo(m_tiles[tile_count]);
-    m_vertices[tileset.get()][tile_count*6 + 0] = sf::Vertex(sf::Vector2f(x, y), tex_coordinates[0]);
-    m_vertices[tileset.get()][tile_count*6 + 1] = sf::Vertex(sf::Vector2f(x+tilewidth, y+tileheight), tex_coordinates[2]);
-    m_vertices[tileset.get()][tile_count*6 + 2] = sf::Vertex(sf::Vector2f(x, y+tileheight), tex_coordinates[3]);
-    m_vertices[tileset.get()][tile_count*6 + 3] = sf::Vertex(sf::Vector2f(x, y), tex_coordinates[0]);
-    m_vertices[tileset.get()][tile_count*6 + 4] = sf::Vertex(sf::Vector2f(x+tilewidth, y), tex_coordinates[1]);
-    m_vertices[tileset.get()][tile_count*6 + 5] = sf::Vertex(sf::Vector2f(x+tilewidth, y+tileheight), tex_coordinates[2]);
+    m_vertices[tileset.get()][tile_count*6 + 0] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
+    m_vertices[tileset.get()][tile_count*6 + 1] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
+    m_vertices[tileset.get()][tile_count*6 + 2] = {sf::Vector2f(xf,           yf+tileheight), tex_coordinates[3]};
+    m_vertices[tileset.get()][tile_count*6 + 3] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
+    m_vertices[tileset.get()][tile_count*6 + 4] = {sf::Vector2f(xf+tilewidth, yf),            tex_coordinates[1]};
+    m_vertices[tileset.get()][tile_count*6 + 5] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
 }
 
 auto TileLayer::getTileTexCoo(const TileLayer::Tile& tile) -> std::vector<sf::Vector2f> {
