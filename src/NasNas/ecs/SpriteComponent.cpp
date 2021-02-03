@@ -31,16 +31,14 @@ auto SpriteComponent::getAnimState() const -> const std::string& {
 
 void SpriteComponent::setAnimState(const std::string& anim_state) {
     if (m_spritesheet) {
-        if (!m_anim_player.getAnim() || anim_state != m_anim_player.getAnim()->getName()) {
-            try {
-                m_anim_player.play(m_spritesheet->getAnim(anim_state));
-                m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
-                m_drawable.setOrigin((float)m_anim_player.getActiveFrame().origin.x, (float)m_anim_player.getActiveFrame().origin.y);
-            }
-            catch (std::invalid_argument& exception) {
-                std::cout << exception.what() << std::endl;
-                exit(-1);
-            }
+        try {
+            m_anim_player.play(m_spritesheet->getAnim(anim_state));
+            m_drawable.setTextureRect(m_anim_player.getActiveFrame().rectangle);
+            m_drawable.setOrigin((float)m_anim_player.getActiveFrame().origin.x, (float)m_anim_player.getActiveFrame().origin.y);
+        }
+        catch (std::invalid_argument& exception) {
+            std::cout << exception.what() << std::endl;
+            exit(-1);
         }
     }
 }
