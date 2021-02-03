@@ -22,6 +22,8 @@ namespace ns::ecs  {
 
     public:
         explicit Collision(CollisionType col_type);
+        virtual ~Collision() = default;
+
         auto collide(Collision& other) -> bool;
 
         virtual auto getShape() -> sf::Shape&;
