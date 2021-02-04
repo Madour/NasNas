@@ -72,7 +72,7 @@ public:
 int main() {
     ns::Config::debug = true;
     ns::Config::debug.show_bounds = false;
-    ns::Config::Window::antialiasing = 0;
+    ns::Config::Window::antialiasing = 8;
     Game g;
     g.run();
     return 0;
