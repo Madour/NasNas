@@ -184,9 +184,9 @@ template&lt;typename T &gt; </td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aeee41de53c358b0478ec06df7759d9e6"><td class="memItemLeft" align="right" valign="top"><a id="aeee41de53c358b0478ec06df7759d9e6"></a>
-const float&#160;</td><td class="memItemRight" valign="bottom"><b>PI</b> = std::acos(-1.f)</td></tr>
-<tr class="separator:aeee41de53c358b0478ec06df7759d9e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85ecd3b5aa2a3ff481a08a55c0dbd34d"><td class="memItemLeft" align="right" valign="top"><a id="a85ecd3b5aa2a3ff481a08a55c0dbd34d"></a>
+constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>PI</b> = 3.14159265359</td></tr>
+<tr class="separator:a85ecd3b5aa2a3ff481a08a55c0dbd34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Created by Modar Nasser on 25/04/2020.</p>
@@ -248,7 +248,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The angle between (-PI; PI] </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00092">92</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00096">96</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -304,7 +304,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The angle between (-PI; PI] </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00104">104</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00108">108</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -361,7 +361,7 @@ template&lt;typename T , typename S &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The distance between the two points </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00071">71</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00075">75</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -406,7 +406,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Norm of the vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00047">47</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00051">51</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -451,7 +451,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The normal of the vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00058">58</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00062">62</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -507,7 +507,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns {v1.x * v2.x, v1.y * v2.y} </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00036">36</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00040">40</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -516,15 +516,23 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">auto ns::to_degree </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
-          <td> -&gt;  float</td>
+          <td> -&gt; float </td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Converts a radian angle to degree. </p>
@@ -536,6 +544,8 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Equivalent degree angle </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00019">19</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+
 </div>
 </div>
 <a id="a4ddef9eaf280961ca1ac020c2944e5e7"></a>
@@ -543,15 +553,23 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">auto ns::to_radian </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
-          <td> -&gt;  float</td>
+          <td> -&gt; float </td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Converts a degree angle to radian. </p>
@@ -562,6 +580,8 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Equivalent radian angle </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00028">28</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
