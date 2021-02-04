@@ -7,7 +7,6 @@ set(
         ${NASNAS_PATH}/src/NasNas/data/AppComponent.cpp
         ${NASNAS_PATH}/src/NasNas/data/Config.cpp
         ${NASNAS_PATH}/src/NasNas/data/Arial.cpp
-        ${NASNAS_PATH}/src/NasNas/data/Maths.cpp
         ${NASNAS_PATH}/src/NasNas/data/Shapes.cpp
         ${NASNAS_PATH}/src/NasNas/data/ShaderHolder.cpp
         ${NASNAS_PATH}/src/NasNas/data/Logger.cpp
