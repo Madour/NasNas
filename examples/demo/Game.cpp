@@ -165,9 +165,15 @@ void Game::onEvent(const sf::Event& event) {
                 this->toggleFullscreen();
             if (event.key.code == sf::Keyboard::Escape)
                 this->getWindow().close();
-            if (event.key.code == sf::Keyboard::F1) {
+
+            if (event.key.code == sf::Keyboard::F1)
                 ns::Config::debug = !ns::Config::debug;
-            }
+            if (event.key.code == sf::Keyboard::F2)
+                ns::Config::debug.show_fps = !ns::Config::debug.show_fps;
+            if (event.key.code == sf::Keyboard::F3)
+                ns::Config::debug.show_text = !ns::Config::debug.show_text;
+            if (event.key.code == sf::Keyboard::F4)
+                ns::Config::debug.show_bounds = !ns::Config::debug.show_bounds;
 
             if (event.key.code == sf::Keyboard::E) {
                 this->toggleShader();
