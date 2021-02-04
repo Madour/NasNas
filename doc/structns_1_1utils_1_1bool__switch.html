@@ -44,6 +44,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="structns_1_1utils_1_1bool__switch-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ns::utils::bool_switch Struct Reference</div>  </div>
@@ -55,12 +56,27 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0a69b77760f9eaeca3351111700e7ae2"><td class="memItemLeft" align="right" valign="top"><a id="a0a69b77760f9eaeca3351111700e7ae2"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>bool_switch</b> (std::function&lt; void()&gt; on_true, std::function&lt; void()&gt; on_false)</td></tr>
 <tr class="separator:a0a69b77760f9eaeca3351111700e7ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0f385124fd900688fa5e7e9e12367f3"><td class="memItemLeft" align="right" valign="top"><a id="ab0f385124fd900688fa5e7e9e12367f3"></a>
-virtual auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (bool value) -&gt; bool</td></tr>
-<tr class="separator:ab0f385124fd900688fa5e7e9e12367f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e8aeb82135050c2c683afff893d0e8a"><td class="memItemLeft" align="right" valign="top"><a id="a1e8aeb82135050c2c683afff893d0e8a"></a>
+virtual auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (bool value) -&gt; <a class="el" href="structns_1_1utils_1_1bool__switch.html">bool_switch</a> &amp;</td></tr>
+<tr class="separator:a1e8aeb82135050c2c683afff893d0e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e38cb0dd71c1e882182d0f0b1376867"><td class="memItemLeft" align="right" valign="top"><a id="a4e38cb0dd71c1e882182d0f0b1376867"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="structns_1_1utils_1_1bool__switch.html">bool_switch</a> &amp;other) -&gt; <a class="el" href="structns_1_1utils_1_1bool__switch.html">bool_switch</a> &amp;</td></tr>
+<tr class="separator:a4e38cb0dd71c1e882182d0f0b1376867"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2ba80e45ce00fef17c02927af63ac4c"><td class="memItemLeft" align="right" valign="top"><a id="ab2ba80e45ce00fef17c02927af63ac4c"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><b>operator bool</b> () const</td></tr>
 <tr class="separator:ab2ba80e45ce00fef17c02927af63ac4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a262561ffe8134e307768e6063b87844c"><td class="memItemLeft" align="right" valign="top"><a id="a262561ffe8134e307768e6063b87844c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_val</b></td></tr>
+<tr class="separator:a262561ffe8134e307768e6063b87844c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d7d58a7e3c7042d2cc5b26af2fc8f7"><td class="memItemLeft" align="right" valign="top"><a id="a57d7d58a7e3c7042d2cc5b26af2fc8f7"></a>
+std::function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_on_true</b></td></tr>
+<tr class="separator:a57d7d58a7e3c7042d2cc5b26af2fc8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1559cd61f637f6779438422a0042b366"><td class="memItemLeft" align="right" valign="top"><a id="a1559cd61f637f6779438422a0042b366"></a>
+std::function&lt; void()&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_on_false</b></td></tr>
+<tr class="separator:a1559cd61f637f6779438422a0042b366"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
