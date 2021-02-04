@@ -91,8 +91,7 @@ namespace ns {
             auto ptr = dynamic_cast<T*>(m_graphics_components_list[index]);
             if (ptr != nullptr)
                 return ptr;
-            std::cout << "Entity «" << m_name << "»'s graphic component number " << index << " is of type "
-                      << typeid(*m_graphics_components_list[index]).name() << " and not of type "
+            std::cout << "Entity «" << m_name << "»'s graphic component number " << index << " is not of type "
                       << typeid(T).name() << std::endl;
             exit(-1);
         }
