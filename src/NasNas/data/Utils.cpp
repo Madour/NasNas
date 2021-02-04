@@ -54,10 +54,16 @@ m_on_true(std::move(on_true)),
 m_on_false(std::move(on_false))
 {}
 
-auto bool_switch::operator=(bool value) -> bool {
+auto bool_switch::operator=(bool value) -> bool_switch& {
     value ? m_on_true() : m_on_false();
     m_val = value;
-    return m_val;
+    return *this;
+}
+
+auto bool_switch::operator=(const bool_switch& other) -> bool_switch& {
+    other.m_val ? m_on_true() : m_on_false();
+    m_val = other.m_val;
+    return *this;
 }
 
 bool_switch::operator bool() const {
