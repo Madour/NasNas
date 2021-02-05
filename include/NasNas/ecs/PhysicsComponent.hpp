@@ -48,7 +48,7 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        static unsigned long uid;
+        static const unsigned long uid;
 
         float m_mass;
         sf::Vector2f m_direction = {0.f, 0.f};

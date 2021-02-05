@@ -24,7 +24,7 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        static unsigned long uid;
+        static const unsigned long uid;
 
         T m_drawable;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

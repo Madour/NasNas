@@ -26,7 +26,7 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        static unsigned long uid;
+        static const unsigned long uid;
 
         Spritesheet* m_spritesheet = nullptr;
         AnimPlayer m_anim_player;

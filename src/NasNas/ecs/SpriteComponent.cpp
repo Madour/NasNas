@@ -9,7 +9,7 @@
 using namespace ns;
 using namespace ns::ecs;
 
-unsigned long SpriteComponent::uid = BaseComponent::getNextId();
+const unsigned long SpriteComponent::uid = BaseComponent::getNextId();
 
 auto SpriteComponent::getId() -> unsigned long {
     return SpriteComponent::uid;

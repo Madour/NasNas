@@ -82,7 +82,7 @@ namespace ns::ecs  {
         void update() override;
 
     private:
-        static unsigned long uid;
+        static const unsigned long uid;
 
         sf::Vector2f m_pos_offset;
         Collision* m_collision_box;

@@ -9,7 +9,7 @@
 using namespace ns;
 using namespace ns::ecs;
 
-unsigned long InputsComponent::uid = BaseComponent::getNextId();
+const unsigned long InputsComponent::uid = BaseComponent::getNextId();
 
 auto InputsComponent::getId() -> unsigned long {
     return InputsComponent::uid;
