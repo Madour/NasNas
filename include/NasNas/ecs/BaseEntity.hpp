@@ -51,12 +51,13 @@ namespace ns {
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        std::vector<std::shared_ptr<ecs::BaseComponent>> m_components_list;
         std::vector<ecs::GraphicsComponent*> m_graphics_components_list;
         ecs::PhysicsComponent* m_physics_component = nullptr;
         ecs::InputsComponent* m_inputs_component = nullptr;
         ecs::ColliderComponent* m_collider_component = nullptr;
 
+    protected:
+        std::vector<std::shared_ptr<ecs::BaseComponent>> m_components_list;
     };
 
     template<class T, typename... TArgs>

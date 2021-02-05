@@ -15,7 +15,8 @@ namespace ns::ecs {
 
     class InputsComponent : public BaseComponent{
     public:
-        static int uid;
+        static auto getId() -> unsigned long;
+
         explicit InputsComponent(BaseEntity* entity);
 
         void bind(sf::Keyboard::Key key, const std::function<void()>& function);
@@ -25,8 +26,9 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        std::unordered_map<sf::Keyboard::Key, std::function<void()>> m_inputs;
+        static unsigned long uid;
 
+        std::unordered_map<sf::Keyboard::Key, std::function<void()>> m_inputs;
         bool m_capture_input;
     };
 

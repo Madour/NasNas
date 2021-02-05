@@ -3,10 +3,17 @@
 **/
 
 
+#include "NasNas/ecs/InputsComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 
 using namespace ns;
 using namespace ns::ecs;
+
+unsigned long InputsComponent::uid = BaseComponent::getNextId();
+
+auto InputsComponent::getId() -> unsigned long {
+    return InputsComponent::uid;
+}
 
 InputsComponent::InputsComponent(BaseEntity* entity) :
 BaseComponent(entity),

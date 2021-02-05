@@ -12,6 +12,8 @@ namespace ns::ecs {
 
     class PhysicsComponent : public BaseComponent {
     public:
+        static auto getId() -> unsigned long;
+
         PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
 
         auto getMass() const -> float;
@@ -46,6 +48,8 @@ namespace ns::ecs {
         void update() override;
 
     private:
+        static unsigned long uid;
+
         float m_mass;
         sf::Vector2f m_direction = {0.f, 0.f};
         float m_direction_angle = 0.f;

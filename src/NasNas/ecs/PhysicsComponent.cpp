@@ -3,7 +3,7 @@
 **/
 
 
-#include <NasNas/ecs/PhysicsComponent.hpp>
+#include "NasNas/ecs/PhysicsComponent.hpp"
 
 #include "NasNas/data/Config.hpp"
 #include "NasNas/data/Maths.hpp"
@@ -11,6 +11,12 @@
 
 using namespace ns;
 using namespace ns::ecs;
+
+unsigned long PhysicsComponent::uid = BaseComponent::getNextId();
+
+auto PhysicsComponent::getId() -> unsigned long {
+    return PhysicsComponent::uid;
+}
 
 PhysicsComponent::PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
 BaseComponent(entity),

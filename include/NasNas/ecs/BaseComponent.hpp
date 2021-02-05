@@ -5,12 +5,19 @@
 
 #pragma once
 
+#include "NasNas/data/Shapes.hpp"
+
 namespace ns {
-
     class BaseEntity;
-
 }
+
 namespace ns::ecs {
+    class PhysicsComponent;
+    class SpriteComponent;
+    class InputsComponent;
+    class ColliderComponent;
+    template <class T>
+    class ShapeComponent;
 
     class BaseComponent {
     public:
@@ -19,6 +26,21 @@ namespace ns::ecs {
 
     protected:
         BaseEntity* m_entity;
+
+    private:
+        friend PhysicsComponent;
+        friend InputsComponent;
+        friend ColliderComponent;
+        friend SpriteComponent;
+        friend ShapeComponent<sf::CircleShape>;
+        friend ShapeComponent<ns::EllipseShape>;
+        friend ShapeComponent<ns::LineShape>;
+        friend ShapeComponent<sf::RectangleShape>;
+        friend ShapeComponent<sf::ConvexShape>;
+
+        static auto getNextId() -> unsigned long;
+        static unsigned long next_id;
+
     };
 
 }
