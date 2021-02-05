@@ -9,6 +9,12 @@
 using namespace ns;
 using namespace ns::ecs;
 
+unsigned long SpriteComponent::uid = BaseComponent::getNextId();
+
+auto SpriteComponent::getId() -> unsigned long {
+    return SpriteComponent::uid;
+}
+
 SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
 SpriteComponent(entity, spritesheet, "", pos_offset)
 {}

@@ -8,6 +8,7 @@ set(
         ${NASNAS_PATH}/src/NasNas/ecs/BaseComponent.cpp
         ${NASNAS_PATH}/src/NasNas/ecs/GraphicsComponent.cpp
         ${NASNAS_PATH}/src/NasNas/ecs/SpriteComponent.cpp
+        ${NASNAS_PATH}/src/NasNas/ecs/ShapeComponent.cpp
         ${NASNAS_PATH}/src/NasNas/ecs/PhysicsComponent.cpp
         ${NASNAS_PATH}/src/NasNas/ecs/InputsComponent.cpp
         ${NASNAS_PATH}/src/NasNas/ecs/ColliderComponent.cpp

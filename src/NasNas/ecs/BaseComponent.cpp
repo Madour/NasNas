@@ -11,3 +11,9 @@ using namespace ns::ecs;
 BaseComponent::BaseComponent(BaseEntity* entity) :
 m_entity(entity)
 {}
+
+unsigned long BaseComponent::next_id = 0;
+
+auto BaseComponent::getNextId() -> unsigned long {
+    return BaseComponent::next_id++;
+}

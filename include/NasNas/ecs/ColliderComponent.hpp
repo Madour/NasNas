@@ -70,6 +70,8 @@ namespace ns::ecs  {
 
     class ColliderComponent : public BaseComponent {
     public:
+        static auto getId() -> unsigned long;
+
         explicit ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset={0, 0});
         ~ColliderComponent();
 
@@ -80,6 +82,8 @@ namespace ns::ecs  {
         void update() override;
 
     private:
+        static unsigned long uid;
+
         sf::Vector2f m_pos_offset;
         Collision* m_collision_box;
 

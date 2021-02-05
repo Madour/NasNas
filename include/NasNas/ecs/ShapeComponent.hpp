@@ -14,6 +14,8 @@ namespace ns::ecs {
     template <typename T>
     class ShapeComponent : public GraphicsComponent{
     public:
+        static auto getId() -> unsigned long;
+
         ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset={0, 0});
 
         auto getDrawable() -> T& override;
@@ -22,6 +24,8 @@ namespace ns::ecs {
         void update() override;
 
     private:
+        static unsigned long uid;
+
         T m_drawable;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
@@ -60,4 +64,8 @@ namespace ns::ecs {
     typedef ShapeComponent<sf::RectangleShape> RectangleShapeComponent;
     typedef ShapeComponent<sf::ConvexShape> ConvexShapeComponent;
 
+    template <typename T>
+    auto ShapeComponent<T>::getId() -> unsigned long {
+        return ShapeComponent<T>::uid;
+    }
 }
