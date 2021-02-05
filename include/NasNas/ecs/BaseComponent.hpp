@@ -12,34 +12,36 @@ namespace ns {
 }
 
 namespace ns::ecs {
-    class PhysicsComponent;
-    class SpriteComponent;
-    class InputsComponent;
-    class ColliderComponent;
+    class Physics;
+    class Sprite;
+    class Inputs;
+    class Collider;
     template <class T>
-    class ShapeComponent;
+    class Shape;
 
     class BaseComponent {
     public:
         explicit BaseComponent(BaseEntity* entity);
+        virtual ~BaseComponent() = default;
         virtual void update() = 0;
 
     protected:
         BaseEntity* m_entity;
 
     private:
-        friend PhysicsComponent;
-        friend InputsComponent;
-        friend ColliderComponent;
-        friend SpriteComponent;
-        friend ShapeComponent<sf::CircleShape>;
-        friend ShapeComponent<ns::EllipseShape>;
-        friend ShapeComponent<ns::LineShape>;
-        friend ShapeComponent<sf::RectangleShape>;
-        friend ShapeComponent<sf::ConvexShape>;
+        friend BaseEntity;
+        friend Physics;
+        friend Inputs;
+        friend Collider;
+        friend Sprite;
+        friend Shape<sf::CircleShape>;
+        friend Shape<ns::EllipseShape>;
+        friend Shape<ns::LineShape>;
+        friend Shape<sf::RectangleShape>;
+        friend Shape<sf::ConvexShape>;
 
         static auto getNextId() -> unsigned long;
-        static unsigned long next_id;
+        static unsigned long id_counter;
 
     };
 
