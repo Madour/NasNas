@@ -8,16 +8,16 @@ using namespace ns;
 using namespace ns::ecs;
 
 template <>
-const unsigned long ShapeComponent<sf::CircleShape>::uid = BaseComponent::getNextId();
+const unsigned long Shape<sf::CircleShape>::uid = BaseComponent::getNextId();
 
 template <>
-const unsigned long ShapeComponent<ns::EllipseShape>::uid = BaseComponent::getNextId();
+const unsigned long Shape<ns::EllipseShape>::uid = BaseComponent::getNextId();
 
 template <>
-const unsigned long ShapeComponent<ns::LineShape>::uid = BaseComponent::getNextId();
+const unsigned long Shape<ns::LineShape>::uid = BaseComponent::getNextId();
 
 template <>
-const unsigned long ShapeComponent<sf::RectangleShape>::uid = BaseComponent::getNextId();
+const unsigned long Shape<sf::RectangleShape>::uid = BaseComponent::getNextId();
 
 template <>
-const unsigned long ShapeComponent<sf::ConvexShape>::uid = BaseComponent::getNextId();
+const unsigned long Shape<sf::ConvexShape>::uid = BaseComponent::getNextId();

@@ -9,33 +9,33 @@
 using namespace ns;
 using namespace ns::ecs;
 
-const unsigned long SpriteComponent::uid = BaseComponent::getNextId();
+const unsigned long Sprite::uid = BaseComponent::getNextId();
 
-auto SpriteComponent::getId() -> unsigned long {
-    return SpriteComponent::uid;
+auto Sprite::getId() -> unsigned long {
+    return Sprite::uid;
 }
 
-SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
-SpriteComponent(entity, spritesheet, "", pos_offset)
+Sprite::Sprite(BaseEntity* entity, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
+        Sprite(entity, spritesheet, "", pos_offset)
 {}
 
-SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
+Sprite::Sprite(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
 GraphicsComponent(entity) {
     m_transform.translate(pos_offset);
     setSpritesheet(spritesheet);
     anim_state.empty() ? setAnimState(spritesheet->getAnimsMap().begin()->first) : setAnimState(anim_state);
 }
 
-void SpriteComponent::setSpritesheet(Spritesheet* spritesheet) {
+void Sprite::setSpritesheet(Spritesheet* spritesheet) {
     m_spritesheet = spritesheet;
     m_drawable.setTexture(*spritesheet->texture);
 }
 
-auto SpriteComponent::getAnimState() const -> const std::string& {
+auto Sprite::getAnimState() const -> const std::string& {
     return m_anim_player.getAnim()->getName();
 }
 
-void SpriteComponent::setAnimState(const std::string& anim_state) {
+void Sprite::setAnimState(const std::string& anim_state) {
     if (m_spritesheet) {
         try {
             m_anim_player.play(m_spritesheet->getAnim(anim_state));
@@ -49,25 +49,25 @@ void SpriteComponent::setAnimState(const std::string& anim_state) {
     }
 }
 
-auto SpriteComponent::getAnimPlayer() -> AnimPlayer& {
+auto Sprite::getAnimPlayer() -> AnimPlayer& {
     return m_anim_player;
 }
 
-auto SpriteComponent::getDrawable() -> sf::Sprite& {
+auto Sprite::getDrawable() -> sf::Sprite& {
     return m_drawable;
 }
 
-auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
+auto Sprite::getGlobalBounds() -> ns::FloatRect {
     return m_entity->transform()->getTransform().transformRect(
             m_transform.transformRect(m_drawable.getGlobalBounds())
     );
 }
 
-void SpriteComponent::update() {
+void Sprite::update() {
     m_anim_player.update(m_drawable);
 }
 
-void SpriteComponent::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= m_transform;
     target.draw(m_drawable, states);
 }

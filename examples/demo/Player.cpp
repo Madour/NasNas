@@ -39,10 +39,10 @@ Player::Player()
     m_spritesheet->addAnim("idle", 0, 4, 200, {25, 37});
     m_spritesheet->addAnim("walk", 8, 6, 150, {25, 37});
     // adding sprite component to player (from spritesheet defined above)
-    addComponent<ns::ecs::SpriteComponent>(m_spritesheet);
+    add<ns::ecs::Sprite>(m_spritesheet);
 
     // adding physics component to player
-    addComponent<ns::ecs::PhysicsComponent>(sf::Vector2f(0.5f, 0.5f),  5.f, sf::Vector2f(0.1f, 0.1f));
+    add<ns::ecs::Physics>(sf::Vector2f(0.5f, 0.5f), 5.f, sf::Vector2f(0.1f, 0.1f));
 
     // adding shape component to player (blue square)
     auto convexshape = sf::ConvexShape(4);
@@ -51,22 +51,22 @@ Player::Player()
     convexshape.setPoint(1, {5, -5});
     convexshape.setPoint(2, {5, 5});
     convexshape.setPoint(3, {-5, 5});
-    addComponent<ns::ecs::ConvexShapeComponent>(convexshape, sf::Vector2f(0, -15));
+    add<ns::ecs::ConvexShape>(convexshape, sf::Vector2f(0, -15));
 
     auto velocity_vector = ns::LineShape();
     velocity_vector.setColor(sf::Color::Yellow);
     velocity_vector.addPoint(0, 0);
     velocity_vector.addPoint(0, 0, sf::Color::Red);
-    addComponent<ns::ecs::LineShapeComponent>(velocity_vector);
+    add<ns::ecs::LineShape>(velocity_vector);
 
     // adding inputs component to player and binding buttons to Player methods
-    addComponent<ns::ecs::InputsComponent>();
-    inputs()->bind(ns::Config::Inputs::getButtonKey("left"), [&](){ moveLeft(); });
-    inputs()->bind(ns::Config::Inputs::getButtonKey("right"), [&](){ moveRight(); });
-    inputs()->bind(ns::Config::Inputs::getButtonKey("up"), [&](){ moveUp(); });
-    inputs()->bind(ns::Config::Inputs::getButtonKey("down"), [&](){ moveDown(); });
+    add<ns::ecs::Inputs>();
+    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("left"), [&](){ moveLeft(); });
+    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("right"), [&](){ moveRight(); });
+    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("up"), [&](){ moveUp(); });
+    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("down"), [&](){ moveDown(); });
 
-    addComponent<ns::ecs::ColliderComponent>(new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
+    add<ns::ecs::Collider>(new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
 
 }
 Player::~Player() {
@@ -74,50 +74,48 @@ Player::~Player() {
 }
 
 void Player::moveLeft() {
-    physics()->setDirectionX(-1);
-    graphics<ns::ecs::SpriteComponent>(0)->getDrawable().setScale(-1, 1);
-    graphics<ns::ecs::SpriteComponent>(0)->setAnimState("walk");
+    get<ns::ecs::Physics>()->setDirectionX(-1);
+    get<ns::ecs::Sprite>()->getDrawable().setScale(-1, 1);
+    get<ns::ecs::Sprite>()->setAnimState("walk");
 }
 void Player::moveRight() {
-    physics()->setDirectionX(1.f);
-    graphics<ns::ecs::SpriteComponent>(0)->getDrawable().setScale(1, 1);
-    graphics<ns::ecs::SpriteComponent>(0)->setAnimState("walk");
+    get<ns::ecs::Physics>()->setDirectionX(1.f);
+    get<ns::ecs::Sprite>()->getDrawable().setScale(1, 1);
+    get<ns::ecs::Sprite>()->setAnimState("walk");
 }
 void Player::moveUp() {
-    physics()->setDirectionY(-1.f);
+    get<ns::ecs::Physics>()->setDirectionY(-1.f);
 }
 void Player::moveDown() {
-    physics()->setDirectionY(1.f);
+    get<ns::ecs::Physics>()->setDirectionY(1.f);
 }
 
 void Player::update() {
     // reset physics direction
-    physics()->setDirection(0, 0);
+    get<ns::ecs::Physics>()->setDirection(0, 0);
 
     // update Player inputs component
-    inputs()->update();
+    get<ns::ecs::Inputs>()->update();
 
     // updating physics component
-    physics()->update();
+    get<ns::ecs::Physics>()->update();
 
-    collider()->update();
+    get<ns::ecs::Collider>()->update();
 
     // updating graphics components
-    for (const auto& graphic_comp: graphics()) {
-        graphic_comp->update();
-    }
+    get<ns::ecs::Sprite>()->update();
 
     // updating velocity vector
-    auto& vel_vec = graphics<ns::ecs::LineShapeComponent>(2)->getDrawable();
-    vel_vec.setPoint(1, physics()->getVelocity()*10.f);
+    auto& vel_vec = get<ns::ecs::LineShape>()->getDrawable();
+    vel_vec.setPoint(1, get<ns::ecs::Physics>()->getVelocity()*10.f);
 
     // moving and rotating the shape around the sprite
-    auto& shape = graphics<ns::ecs::ConvexShapeComponent>(1)->getDrawable();
+    auto& shape = get<ns::ecs::ConvexShape>()->getDrawable();
     m_rotation += 5;
     shape.setRotation(m_rotation);
     shape.setPosition({ std::cos(ns::to_radian(m_rotation/2.f))*40, std::sin(ns::to_radian(m_rotation/2.f))*40 });
 
     // if Player is not moving (drection x == 0), set anim state to idle
-    if (physics()->getDirection().x == 0)
-        graphics<ns::ecs::SpriteComponent>(0)->setAnimState("idle");
+    if (get<ns::ecs::Physics>()->getDirection().x == 0)
+        get<ns::ecs::Sprite>()->setAnimState("idle");
 }

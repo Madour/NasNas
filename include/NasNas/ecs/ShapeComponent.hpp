@@ -12,11 +12,11 @@
 namespace ns::ecs {
 
     template <typename T>
-    class ShapeComponent : public GraphicsComponent{
+    class Shape : public GraphicsComponent{
     public:
         static auto getId() -> unsigned long;
 
-        ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset={0, 0});
+        Shape(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset={0, 0});
 
         auto getDrawable() -> T& override;
         auto getGlobalBounds() -> ns::FloatRect override;
@@ -31,41 +31,41 @@ namespace ns::ecs {
     };
 
     template<typename T>
-    ShapeComponent<T>::ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset) :
+    Shape<T>::Shape(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset) :
     GraphicsComponent(entity),
     m_drawable(shape) {
         m_transform.translate(pos_offset);
     }
 
     template<typename T>
-    auto ShapeComponent<T>::getDrawable() -> T& {
+    auto Shape<T>::getDrawable() -> T& {
         return m_drawable;
     }
 
     template<typename T>
-    auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
+    auto Shape<T>::getGlobalBounds() -> ns::FloatRect {
         return ns::FloatRect(m_entity->transform()->getTransform().transformRect(
                 m_transform.transformRect(m_drawable.getGlobalBounds())
         ));
     }
 
     template<typename T>
-    void ShapeComponent<T>::update() {}
+    void Shape<T>::update() {}
 
     template<typename T>
-    void ShapeComponent<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    void Shape<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= m_transform;
         target.draw(m_drawable, states);
     }
 
-    typedef ShapeComponent<sf::CircleShape> CircleShapeComponent;
-    typedef ShapeComponent<ns::EllipseShape> EllipseShapeComponent;
-    typedef ShapeComponent<ns::LineShape> LineShapeComponent;
-    typedef ShapeComponent<sf::RectangleShape> RectangleShapeComponent;
-    typedef ShapeComponent<sf::ConvexShape> ConvexShapeComponent;
+    typedef Shape<sf::CircleShape> CircleShape;
+    typedef Shape<ns::EllipseShape> EllipseShape;
+    typedef Shape<ns::LineShape> LineShape;
+    typedef Shape<sf::RectangleShape> RectangleShape;
+    typedef Shape<sf::ConvexShape> ConvexShape;
 
     template <typename T>
-    auto ShapeComponent<T>::getId() -> unsigned long {
-        return ShapeComponent<T>::uid;
+    auto Shape<T>::getId() -> unsigned long {
+        return Shape<T>::uid;
     }
 }

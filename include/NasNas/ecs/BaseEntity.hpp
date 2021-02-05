@@ -19,14 +19,14 @@ namespace ns {
         explicit BaseEntity(std::string name);
         ~BaseEntity() override;
 
-        template<class T, typename... TArgs>
-        void addComponent(TArgs... component_args);
+        template <typename T, typename... TArgs>
+        void add(TArgs... component_args);
 
-        template<typename T>
-        void addComponent(std::shared_ptr<T> new_component);
+        template <typename T>
+        void add(T* new_component);
 
-        template<typename T>
-        void addComponent(T* new_component);
+        template <typename T>
+        auto get() const -> T*;
 
         virtual void update();
 
@@ -38,67 +38,36 @@ namespace ns {
         auto getGlobalBounds() const -> ns::FloatRect override;
 
         auto transform() -> sf::Transformable*;
-        auto inputs() -> ecs::InputsComponent*;
-        auto physics() -> ecs::PhysicsComponent*;
+        auto inputs() const -> ecs::Inputs*;
+        auto physics() const -> ecs::Physics*;
+        auto collider() const -> ecs::Collider*;
         auto graphics() -> std::vector<ecs::GraphicsComponent*>&;
-        template<typename T>
-        auto graphics(unsigned int index) -> T*;
-        auto collider() -> ecs::ColliderComponent*;
 
     private:
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
         std::string m_name;
         sf::Transformable m_transformable;
 
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        std::vector<ecs::BaseComponent*> m_components;
+        std::vector<ecs::GraphicsComponent*> m_graphics;
 
-        std::vector<ecs::GraphicsComponent*> m_graphics_components_list;
-        ecs::PhysicsComponent* m_physics_component = nullptr;
-        ecs::InputsComponent* m_inputs_component = nullptr;
-        ecs::ColliderComponent* m_collider_component = nullptr;
-
-    protected:
-        std::vector<std::shared_ptr<ecs::BaseComponent>> m_components_list;
     };
 
     template<class T, typename... TArgs>
-    void BaseEntity::addComponent(TArgs... component_args) {
-        addComponent(std::make_shared<T>(this, std::forward<TArgs>(component_args)...));
+    void BaseEntity::add(TArgs... component_args) {
+        add(new T(this, std::forward<TArgs>(component_args)...));
     }
 
     template<typename T>
-    void BaseEntity::addComponent(std::shared_ptr<T> new_component) {
-        static_assert(std::is_base_of_v<ecs::BaseComponent, T>, "New component type must be derived from BaseComponent.");
-
+    void BaseEntity::add(T* new_component) {
+        m_components[T::getId()] = new_component;
         if constexpr (std::is_base_of_v<ecs::GraphicsComponent, T>)
-            m_graphics_components_list.push_back(new_component.get());
-        else if constexpr (std::is_same_v<ecs::PhysicsComponent, T>)
-            m_physics_component = new_component.get();
-        else if constexpr (std::is_same_v<ecs::InputsComponent, T>)
-            m_inputs_component = new_component.get();
-        else if constexpr (std::is_same_v<ecs::ColliderComponent, T>)
-            m_collider_component = new_component.get();
-
-        m_components_list.push_back(new_component);
-    }
-
-    template<typename T>
-    void BaseEntity::addComponent(T* new_component) {
-        addComponent(std::shared_ptr<T>(new_component));
+            m_graphics.push_back(new_component);
     }
 
     template <typename T>
-    auto BaseEntity::graphics(unsigned int index) -> T* {
-        if (index < m_graphics_components_list.size()) {
-            auto ptr = dynamic_cast<T*>(m_graphics_components_list[index]);
-            if (ptr != nullptr)
-                return ptr;
-            std::cout << "Entity «" << m_name << "»'s graphic component number " << index << " is of type "
-                      << typeid(*m_graphics_components_list[index]).name() << " and not of type "
-                      << typeid(T).name() << std::endl;
-            exit(-1);
-        }
-        std::cout << "Entity «" << m_name << "» has less than " << index << " graphics components. Index out of range." << std::endl;
-        exit(-1);
+    auto BaseEntity::get() const -> T* {
+        return static_cast<T*>(m_components[T::getId()]);
     }
-
 }

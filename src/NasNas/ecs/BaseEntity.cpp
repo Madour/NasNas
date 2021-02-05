@@ -11,9 +11,14 @@ using namespace ns;
 
 BaseEntity::BaseEntity(std::string name) :
 m_name(std::move(name))
-{}
+{
+    m_components.resize(ecs::BaseComponent::id_counter, nullptr);
+}
 
-BaseEntity::~BaseEntity() = default;
+BaseEntity::~BaseEntity() {
+    for (auto* comp : m_components)
+        delete comp;
+}
 
 auto BaseEntity::getPosition() const -> sf::Vector2f {
     return m_transformable.getPosition();
@@ -31,7 +36,7 @@ auto BaseEntity::getGlobalBounds() const -> ns::FloatRect {
     float left, top, right, bottom;
     ns::FloatRect result{0, 0, 0, 0};
     bool first = true;
-    for (const auto& graphic_comp : m_graphics_components_list) {
+    for (const auto& graphic_comp : m_graphics) {
         auto rect = graphic_comp->getGlobalBounds();
         auto topleft = rect.topleft();
         auto topright = rect.topright();
@@ -60,22 +65,22 @@ auto BaseEntity::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void BaseEntity::update() {
-    if(m_inputs_component) m_inputs_component->update();
-    if(m_physics_component) m_physics_component->update();
-    if(m_collider_component) m_collider_component->update();
-    for (const auto& graphic_comp: m_graphics_components_list) {
-        graphic_comp->update();
-    }
+    get<ns::ecs::Inputs>()->update();
+    get<ns::ecs::Physics>()->update();
+    get<ns::ecs::Collider>()->update();
+    for (auto* comp : m_graphics)
+        comp->update();
 }
 
 void BaseEntity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= m_transformable.getTransform();
-    for (const auto& comp: m_graphics_components_list) {
+
+    for (const auto& comp: m_graphics) {
         target.draw(*comp, states);
     }
     if (Config::debug) {
-        if (m_collider_component)
-            target.draw(m_collider_component->getCollision().getShape());
+        if (collider())
+            target.draw(collider()->getCollision().getShape());
     }
 
 }
@@ -84,26 +89,18 @@ auto BaseEntity::transform() -> sf::Transformable* {
     return &m_transformable;
 }
 
-auto BaseEntity::inputs() -> ecs::InputsComponent* {
-    if(m_inputs_component) {
-        return m_inputs_component;
-    }
-    std::cout << "Entity «"+m_name+"» does not have a InputsComponent. Please add one first." << std::endl;
-    exit(-1);
+auto BaseEntity::inputs() const -> ecs::Inputs* {
+    return get<ecs::Inputs>();
 }
 
-auto BaseEntity::physics() -> ecs::PhysicsComponent* {
-    if (m_physics_component) {
-        return m_physics_component;
-    }
-    std::cout << "Entity «"+m_name+"» does not have a PhysicsComponent. Please add one first." << std::endl;
-    exit(-1);
+auto BaseEntity::physics() const -> ecs::Physics* {
+    return get<ecs::Physics>();
+}
+
+auto BaseEntity::collider() const -> ecs::Collider* {
+    return get<ecs::Collider>();
 }
 
 auto BaseEntity::graphics() -> std::vector<ecs::GraphicsComponent*>& {
-    return m_graphics_components_list;
-}
-
-auto BaseEntity::collider() -> ecs::ColliderComponent* {
-    return m_collider_component;
+    return m_graphics;
 }

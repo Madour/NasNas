@@ -10,11 +10,11 @@
 
 namespace ns::ecs {
 
-    class PhysicsComponent : public BaseComponent {
+    class Physics : public BaseComponent {
     public:
         static auto getId() -> unsigned long;
 
-        PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
+        Physics(BaseEntity* entity, const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
 
         auto getMass() const -> float;
         void setMass(float mass);
