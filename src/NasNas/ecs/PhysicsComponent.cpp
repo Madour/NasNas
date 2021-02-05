@@ -12,7 +12,7 @@
 using namespace ns;
 using namespace ns::ecs;
 
-unsigned long PhysicsComponent::uid = BaseComponent::getNextId();
+const unsigned long PhysicsComponent::uid = BaseComponent::getNextId();
 
 auto PhysicsComponent::getId() -> unsigned long {
     return PhysicsComponent::uid;

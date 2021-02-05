@@ -26,7 +26,7 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        static unsigned long uid;
+        static const unsigned long uid;
 
         std::unordered_map<sf::Keyboard::Key, std::function<void()>> m_inputs;
         bool m_capture_input;

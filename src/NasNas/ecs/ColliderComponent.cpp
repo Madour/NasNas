@@ -107,7 +107,7 @@ auto CircleCollision::getShape() -> sf::Shape& {
 auto CircleCollision::getRadius() -> float { return m_shape.getRadius(); }
 
 
-unsigned long ColliderComponent::uid = BaseComponent::getNextId();
+const unsigned long ColliderComponent::uid = BaseComponent::getNextId();
 
 auto ColliderComponent::getId() -> unsigned long {
     return ColliderComponent::uid;
