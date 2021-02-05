@@ -13,11 +13,11 @@
 
 namespace ns::ecs {
 
-    class Inputs : public BaseComponent{
+    class InputsComponent : public BaseComponent{
     public:
         static auto getId() -> unsigned long;
 
-        explicit Inputs(BaseEntity* entity);
+        explicit InputsComponent(BaseEntity* entity);
 
         void bind(sf::Keyboard::Key key, const std::function<void()>& function);
 
@@ -32,4 +32,5 @@ namespace ns::ecs {
         bool m_capture_input;
     };
 
+    typedef InputsComponent Inputs;
 }
