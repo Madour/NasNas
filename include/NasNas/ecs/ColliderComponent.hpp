@@ -10,8 +10,6 @@
 
 namespace ns::ecs  {
 
-    class Collider;
-
     class Collision {
 
     protected:
@@ -31,7 +29,7 @@ namespace ns::ecs  {
         const CollisionType type;
 
     protected:
-        friend Collider;
+        friend ColliderComponent;
         virtual auto getWidth() -> float;
         virtual auto getHeight() -> float;
         virtual auto getRadius() -> float;
@@ -68,12 +66,12 @@ namespace ns::ecs  {
     };
 
 
-    class Collider : public BaseComponent {
+    class ColliderComponent : public BaseComponent {
     public:
         static auto getId() -> unsigned long;
 
-        explicit Collider(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset={0, 0});
-        ~Collider();
+        explicit ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset={0, 0});
+        ~ColliderComponent() override;
 
         auto isDynamic() const -> bool;
 
@@ -88,6 +86,8 @@ namespace ns::ecs  {
         Collision* m_collision_box;
 
     };
+
+    typedef ColliderComponent Collider;
 
     template <typename T, typename S>
     auto checkCollision(T& col1, S& col2) -> bool;

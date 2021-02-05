@@ -12,8 +12,8 @@ BaseComponent::BaseComponent(BaseEntity* entity) :
 m_entity(entity)
 {}
 
-unsigned long BaseComponent::next_id = 0;
+unsigned long BaseComponent::id_counter = 0;
 
 auto BaseComponent::getNextId() -> unsigned long {
-    return BaseComponent::next_id++;
+    return BaseComponent::id_counter++;
 }

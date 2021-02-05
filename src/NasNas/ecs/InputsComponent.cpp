@@ -9,26 +9,26 @@
 using namespace ns;
 using namespace ns::ecs;
 
-const unsigned long Inputs::uid = BaseComponent::getNextId();
+const unsigned long InputsComponent::uid = BaseComponent::getNextId();
 
-auto Inputs::getId() -> unsigned long {
-    return Inputs::uid;
+auto InputsComponent::getId() -> unsigned long {
+    return InputsComponent::uid;
 }
 
-Inputs::Inputs(BaseEntity* entity) :
+InputsComponent::InputsComponent(BaseEntity* entity) :
 BaseComponent(entity),
 m_capture_input(true)
 {}
 
-void Inputs::bind(sf::Keyboard::Key key, const std::function<void()>& function) {
+void InputsComponent::bind(sf::Keyboard::Key key, const std::function<void()>& function) {
     m_inputs[key] = function;
 }
 
-void Inputs::setCaptureInput(bool capture_input) {
+void InputsComponent::setCaptureInput(bool capture_input) {
     m_capture_input = capture_input ;
 }
 
-void Inputs::update() {
+void InputsComponent::update() {
     if (m_capture_input)
         for (auto it = Config::Inputs::pressed_keys.rbegin(); it < Config::Inputs::pressed_keys.rend(); ++it)
             for (const auto& [key, fn] : m_inputs)

@@ -107,20 +107,20 @@ auto CircleCollision::getShape() -> sf::Shape& {
 auto CircleCollision::getRadius() -> float { return m_shape.getRadius(); }
 
 
-const unsigned long Collider::uid = BaseComponent::getNextId();
+const unsigned long ColliderComponent::uid = BaseComponent::getNextId();
 
-auto Collider::getId() -> unsigned long {
-    return Collider::uid;
+auto ColliderComponent::getId() -> unsigned long {
+    return ColliderComponent::uid;
 }
 
-Collider::Collider(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset) :
+ColliderComponent::ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset) :
 BaseComponent(entity),
 m_pos_offset(pos_offset),
 m_collision_box(collision) {
     m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
 }
 
-Collider::~Collider() {
+ColliderComponent::~ColliderComponent() {
     switch (m_collision_box->type) {
         case Collision::CollisionType::Rectangle:
             delete(dynamic_cast<RectangleCollision*>(m_collision_box));
@@ -134,14 +134,14 @@ Collider::~Collider() {
     }
 }
 
-auto Collider::isDynamic() const -> bool {
+auto ColliderComponent::isDynamic() const -> bool {
     return m_entity->physics() != nullptr;
 }
 
-auto Collider::getCollision() -> Collision& {
+auto ColliderComponent::getCollision() -> Collision& {
     return *m_collision_box;
 }
 
-void Collider::update() {
+void ColliderComponent::update() {
     m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
 }
