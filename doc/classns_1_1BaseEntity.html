@@ -55,7 +55,8 @@ Inheritance diagram for ns::BaseEntity:</div>
  <div class="center">
   <img src="classns_1_1BaseEntity.png" usemap="#ns::BaseEntity_map" alt=""/>
   <map id="ns::BaseEntity_map" name="ns::BaseEntity_map">
-<area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="0,56,90,80"/>
+<area href="classns_1_1ecs_1_1ComponentGroup.html" alt="ns::ecs::ComponentGroup" shape="rect" coords="0,112,155,136"/>
+<area href="classns_1_1Drawable.html" alt="ns::Drawable" shape="rect" coords="0,56,155,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -64,56 +65,60 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa42bb78adb705c3823deb4cea90465d8"><td class="memItemLeft" align="right" valign="top"><a id="aa42bb78adb705c3823deb4cea90465d8"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BaseEntity</b> (std::string name)</td></tr>
 <tr class="separator:aa42bb78adb705c3823deb4cea90465d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa01ff650e4cc733ef5c8b0f35916693c"><td class="memTemplParams" colspan="2"><a id="aa01ff650e4cc733ef5c8b0f35916693c"></a>
-template&lt;class T , typename... TArgs&gt; </td></tr>
-<tr class="memitem:aa01ff650e4cc733ef5c8b0f35916693c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addComponent</b> (TArgs... component_args)</td></tr>
-<tr class="separator:aa01ff650e4cc733ef5c8b0f35916693c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8183404b79ad78e84e8212bc2c72c222"><td class="memTemplParams" colspan="2"><a id="a8183404b79ad78e84e8212bc2c72c222"></a>
+<tr class="memitem:a13e9f579b55bddb79ac4d5afd500a662"><td class="memItemLeft" align="right" valign="top"><a id="a13e9f579b55bddb79ac4d5afd500a662"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>transform</b> () const -&gt; <a class="el" href="classns_1_1ecs_1_1TransformComponent.html">ecs::Transform</a> *</td></tr>
+<tr class="separator:a13e9f579b55bddb79ac4d5afd500a662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01b0ec78b1466fb37cf6c7a0b1e7232f"><td class="memItemLeft" align="right" valign="top"><a id="a01b0ec78b1466fb37cf6c7a0b1e7232f"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>inputs</b> () const -&gt; <a class="el" href="classns_1_1ecs_1_1InputsComponent.html">ecs::Inputs</a> *</td></tr>
+<tr class="separator:a01b0ec78b1466fb37cf6c7a0b1e7232f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af75da1a5c96b76aa31fdcacb17f94ade"><td class="memItemLeft" align="right" valign="top"><a id="af75da1a5c96b76aa31fdcacb17f94ade"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>physics</b> () const -&gt; <a class="el" href="classns_1_1ecs_1_1PhysicsComponent.html">ecs::Physics</a> *</td></tr>
+<tr class="separator:af75da1a5c96b76aa31fdcacb17f94ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e1d9a5580f0927b31958340278b5715"><td class="memItemLeft" align="right" valign="top"><a id="a9e1d9a5580f0927b31958340278b5715"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>collider</b> () const -&gt; <a class="el" href="classns_1_1ecs_1_1ColliderComponent.html">ecs::Collider</a> *</td></tr>
+<tr class="separator:a9e1d9a5580f0927b31958340278b5715"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classns_1_1ecs_1_1ComponentGroup"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classns_1_1ecs_1_1ComponentGroup')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classns_1_1ecs_1_1ComponentGroup.html">ns::ecs::ComponentGroup</a></td></tr>
+<tr class="memitem:a92f4404786566bb1438eb31304d957f6 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memItemLeft" align="right" valign="top"><a id="a92f4404786566bb1438eb31304d957f6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ComponentGroup</b> (std::string name)</td></tr>
+<tr class="separator:a92f4404786566bb1438eb31304d957f6 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f95d8605ea3bb540799ec10dc3a95e inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memTemplParams" colspan="2"><a id="af0f95d8605ea3bb540799ec10dc3a95e"></a>
+template&lt;typename T , typename... TArgs&gt; </td></tr>
+<tr class="memitem:af0f95d8605ea3bb540799ec10dc3a95e inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>add</b> (TArgs... component_args)</td></tr>
+<tr class="separator:af0f95d8605ea3bb540799ec10dc3a95e inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecbd849023d2f55e212ab85fee20e176 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memTemplParams" colspan="2"><a id="aecbd849023d2f55e212ab85fee20e176"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a8183404b79ad78e84e8212bc2c72c222"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addComponent</b> (std::shared_ptr&lt; T &gt; new_component)</td></tr>
-<tr class="separator:a8183404b79ad78e84e8212bc2c72c222"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a980963f42b0028745b1ba742cb3ce754"><td class="memTemplParams" colspan="2"><a id="a980963f42b0028745b1ba742cb3ce754"></a>
+<tr class="memitem:aecbd849023d2f55e212ab85fee20e176 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>add</b> (T *new_component)</td></tr>
+<tr class="separator:aecbd849023d2f55e212ab85fee20e176 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4f5a61b85fb5ce56a1ee36a7e3eb04 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memTemplParams" colspan="2"><a id="ace4f5a61b85fb5ce56a1ee36a7e3eb04"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a980963f42b0028745b1ba742cb3ce754"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addComponent</b> (T *new_component)</td></tr>
-<tr class="separator:a980963f42b0028745b1ba742cb3ce754"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d2e304b7a550aedd9778d08dd57df33"><td class="memItemLeft" align="right" valign="top"><a id="a0d2e304b7a550aedd9778d08dd57df33"></a>
+<tr class="memitem:ace4f5a61b85fb5ce56a1ee36a7e3eb04 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>get</b> () const -&gt; T *</td></tr>
+<tr class="separator:ace4f5a61b85fb5ce56a1ee36a7e3eb04 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43138ecdfe34384099a424f1a0d565b9 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memItemLeft" align="right" valign="top"><a id="a43138ecdfe34384099a424f1a0d565b9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addChild</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a43138ecdfe34384099a424f1a0d565b9 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c46978e813a2d6ec2f8e6e789026dee inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memItemLeft" align="right" valign="top"><a id="a5c46978e813a2d6ec2f8e6e789026dee"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getChild</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1ecs_1_1ComponentGroup.html">ComponentGroup</a> &amp;</td></tr>
+<tr class="separator:a5c46978e813a2d6ec2f8e6e789026dee inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19de75e34ac842f8ad224c8d2c557ba1 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memItemLeft" align="right" valign="top"><a id="a19de75e34ac842f8ad224c8d2c557ba1"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
-<tr class="separator:a0d2e304b7a550aedd9778d08dd57df33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af65b54fd23641675a9d62c16adb9180a"><td class="memItemLeft" align="right" valign="top"><a id="af65b54fd23641675a9d62c16adb9180a"></a>
+<tr class="separator:a19de75e34ac842f8ad224c8d2c557ba1 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b6e68e88a6868a1d7d4ceb83640dd33 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memItemLeft" align="right" valign="top"><a id="a1b6e68e88a6868a1d7d4ceb83640dd33"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> () const -&gt; sf::Vector2f override</td></tr>
-<tr class="separator:af65b54fd23641675a9d62c16adb9180a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad275cc183aec52ea2534fd3edbada4b0"><td class="memItemLeft" align="right" valign="top"><a id="ad275cc183aec52ea2534fd3edbada4b0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setX</b> (float value)</td></tr>
-<tr class="separator:ad275cc183aec52ea2534fd3edbada4b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e7a970cbfb9a84dcf615c151080fb87"><td class="memItemLeft" align="right" valign="top"><a id="a6e7a970cbfb9a84dcf615c151080fb87"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setY</b> (float value)</td></tr>
-<tr class="separator:a6e7a970cbfb9a84dcf615c151080fb87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e764bb35e6285b8e44e1b4f7ef5e58c"><td class="memItemLeft" align="right" valign="top"><a id="a5e764bb35e6285b8e44e1b4f7ef5e58c"></a>
+<tr class="separator:a1b6e68e88a6868a1d7d4ceb83640dd33 inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a553e356f1cf3f352484fdbde2bbc61dc inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memItemLeft" align="right" valign="top"><a id="a553e356f1cf3f352484fdbde2bbc61dc"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGlobalBounds</b> () const -&gt; <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> override</td></tr>
-<tr class="separator:a5e764bb35e6285b8e44e1b4f7ef5e58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a857735541883bf5a0e1b900a014f1951"><td class="memItemLeft" align="right" valign="top"><a id="a857735541883bf5a0e1b900a014f1951"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>transform</b> () -&gt; sf::Transformable *</td></tr>
-<tr class="separator:a857735541883bf5a0e1b900a014f1951"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31f85a3e538df28c17bcefb31aa47b02"><td class="memItemLeft" align="right" valign="top"><a id="a31f85a3e538df28c17bcefb31aa47b02"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>inputs</b> () -&gt; <a class="el" href="classns_1_1ecs_1_1InputsComponent.html">ecs::InputsComponent</a> *</td></tr>
-<tr class="separator:a31f85a3e538df28c17bcefb31aa47b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace2a188064f4dc8eb4a6dba6d712fe41"><td class="memItemLeft" align="right" valign="top"><a id="ace2a188064f4dc8eb4a6dba6d712fe41"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>physics</b> () -&gt; <a class="el" href="classns_1_1ecs_1_1PhysicsComponent.html">ecs::PhysicsComponent</a> *</td></tr>
-<tr class="separator:ace2a188064f4dc8eb4a6dba6d712fe41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c770d2f82314c166e802a1ceb5105ff"><td class="memItemLeft" align="right" valign="top"><a id="a6c770d2f82314c166e802a1ceb5105ff"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>graphics</b> () -&gt; std::vector&lt; <a class="el" href="classns_1_1ecs_1_1GraphicsComponent.html">ecs::GraphicsComponent</a> *&gt; &amp;</td></tr>
-<tr class="separator:a6c770d2f82314c166e802a1ceb5105ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad07b1ccc878487148a585b75c965015e"><td class="memTemplParams" colspan="2"><a id="ad07b1ccc878487148a585b75c965015e"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ad07b1ccc878487148a585b75c965015e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>graphics</b> (unsigned int index) -&gt; T *</td></tr>
-<tr class="separator:ad07b1ccc878487148a585b75c965015e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b74a684cf12c402322cfaba3bad926f"><td class="memItemLeft" align="right" valign="top"><a id="a0b74a684cf12c402322cfaba3bad926f"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>collider</b> () -&gt; <a class="el" href="classns_1_1ecs_1_1ColliderComponent.html">ecs::ColliderComponent</a> *</td></tr>
-<tr class="separator:a0b74a684cf12c402322cfaba3bad926f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a553e356f1cf3f352484fdbde2bbc61dc inherit pub_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classns_1_1ecs_1_1ComponentGroup"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classns_1_1ecs_1_1ComponentGroup')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classns_1_1ecs_1_1ComponentGroup.html">ns::ecs::ComponentGroup</a></td></tr>
+<tr class="memitem:ab3e35028de5c044a31b368e4e80ebdc0 inherit pro_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memItemLeft" align="right" valign="top"><a id="ab3e35028de5c044a31b368e4e80ebdc0"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>graphics</b> () -&gt; const std::vector&lt; <a class="el" href="classns_1_1ecs_1_1GraphicsComponent.html">GraphicsComponent</a> *&gt; &amp;</td></tr>
+<tr class="separator:ab3e35028de5c044a31b368e4e80ebdc0 inherit pro_methods_classns_1_1ecs_1_1ComponentGroup"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="BaseEntity_8hpp_source.html#l00017">17</a> of file <a class="el" href="BaseEntity_8hpp_source.html">BaseEntity.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseEntity_8hpp_source.html#l00014">14</a> of file <a class="el" href="BaseEntity_8hpp_source.html">BaseEntity.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="BaseEntity_8hpp_source.html">BaseEntity.hpp</a></li>
 </ul>

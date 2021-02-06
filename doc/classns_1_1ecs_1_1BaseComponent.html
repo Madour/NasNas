@@ -44,6 +44,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classns_1_1ecs_1_1BaseComponent-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -56,33 +57,43 @@ Inheritance diagram for ns::ecs::BaseComponent:</div>
  <div class="center">
   <img src="classns_1_1ecs_1_1BaseComponent.png" usemap="#ns::ecs::BaseComponent_map" alt=""/>
   <map id="ns::ecs::BaseComponent_map" name="ns::ecs::BaseComponent_map">
-<area href="classns_1_1ecs_1_1ColliderComponent.html" alt="ns::ecs::ColliderComponent" shape="rect" coords="0,56,187,80"/>
-<area href="classns_1_1ecs_1_1GraphicsComponent.html" alt="ns::ecs::GraphicsComponent" shape="rect" coords="197,56,384,80"/>
-<area href="classns_1_1ecs_1_1InputsComponent.html" alt="ns::ecs::InputsComponent" shape="rect" coords="394,56,581,80"/>
-<area href="classns_1_1ecs_1_1PhysicsComponent.html" alt="ns::ecs::PhysicsComponent" shape="rect" coords="591,56,778,80"/>
-<area href="classns_1_1ecs_1_1ShapeComponent.html" alt="ns::ecs::ShapeComponent&lt; T &gt;" shape="rect" coords="98,112,285,136"/>
-<area href="classns_1_1ecs_1_1SpriteComponent.html" alt="ns::ecs::SpriteComponent" shape="rect" coords="295,112,482,136"/>
+<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; ColliderComponent &gt;" shape="rect" coords="0,56,274,80"/>
+<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; InputsComponent &gt;" shape="rect" coords="284,56,558,80"/>
+<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; PhysicsComponent &gt;" shape="rect" coords="568,56,842,80"/>
+<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; ShapeComponent&lt; T &gt; &gt;" shape="rect" coords="852,56,1126,80"/>
+<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; SpriteComponent &gt;" shape="rect" coords="1136,56,1410,80"/>
+<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; TransformComponent &gt;" shape="rect" coords="1420,56,1694,80"/>
+<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; T &gt;" shape="rect" coords="1704,56,1978,80"/>
+<area href="classns_1_1ecs_1_1ColliderComponent.html" alt="ns::ecs::ColliderComponent" shape="rect" coords="0,112,274,136"/>
+<area href="classns_1_1ecs_1_1InputsComponent.html" alt="ns::ecs::InputsComponent" shape="rect" coords="284,112,558,136"/>
+<area href="classns_1_1ecs_1_1PhysicsComponent.html" alt="ns::ecs::PhysicsComponent" shape="rect" coords="568,112,842,136"/>
+<area href="classns_1_1ecs_1_1ShapeComponent.html" alt="ns::ecs::ShapeComponent&lt; T &gt;" shape="rect" coords="852,112,1126,136"/>
+<area href="classns_1_1ecs_1_1SpriteComponent.html" alt="ns::ecs::SpriteComponent" shape="rect" coords="1136,112,1410,136"/>
+<area href="classns_1_1ecs_1_1TransformComponent.html" alt="ns::ecs::TransformComponent" shape="rect" coords="1420,112,1694,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a32648803222fdc74ec147b44cc4563ec"><td class="memItemLeft" align="right" valign="top"><a id="a32648803222fdc74ec147b44cc4563ec"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BaseComponent</b> (<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *entity)</td></tr>
-<tr class="separator:a32648803222fdc74ec147b44cc4563ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a514ab3b1455d78d5b047dc5c24f5349b"><td class="memItemLeft" align="right" valign="top"><a id="a514ab3b1455d78d5b047dc5c24f5349b"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()=0</td></tr>
 <tr class="separator:a514ab3b1455d78d5b047dc5c24f5349b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:a743569ce0b46f7ea59865685d5b6bd5c"><td class="memItemLeft" align="right" valign="top"><a id="a743569ce0b46f7ea59865685d5b6bd5c"></a>
+static auto&#160;</td><td class="memItemRight" valign="bottom"><b>getNextId</b> () -&gt; unsigned long</td></tr>
+<tr class="separator:a743569ce0b46f7ea59865685d5b6bd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a2fab88b609db50bd05d21d3bb440f2dd"><td class="memItemLeft" align="right" valign="top"><a id="a2fab88b609db50bd05d21d3bb440f2dd"></a>
-<a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_entity</b></td></tr>
-<tr class="separator:a2fab88b609db50bd05d21d3bb440f2dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cc616443b2d5ed6f4cebec17d4e538b"><td class="memItemLeft" align="right" valign="top"><a id="a0cc616443b2d5ed6f4cebec17d4e538b"></a>
+<a class="el" href="classns_1_1ecs_1_1ComponentGroup.html">ComponentGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_owner</b> = nullptr</td></tr>
+<tr class="separator:a0cc616443b2d5ed6f4cebec17d4e538b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="BaseComponent_8hpp_source.html#l00015">15</a> of file <a class="el" href="BaseComponent_8hpp_source.html">BaseComponent.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="BaseComponent_8hpp_source.html#l00024">24</a> of file <a class="el" href="BaseComponent_8hpp_source.html">BaseComponent.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="BaseComponent_8hpp_source.html">BaseComponent.hpp</a></li>
 </ul>
