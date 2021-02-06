@@ -42,7 +42,7 @@ namespace ns::ecs {
 
         std::string m_name;
 
-        std::vector<BaseComponent*> m_components;
+        std::unordered_map<int, BaseComponent*> m_components;
         std::vector<GraphicsComponent*> m_graphics;
 
         std::map<std::string, ComponentGroup*> m_childs;
@@ -63,7 +63,9 @@ namespace ns::ecs {
 
     template <typename T>
     auto ComponentGroup::get() const -> T* {
-        return static_cast<T*>(m_components[T::getId()]);
+        if (m_components.count(T::getId()))
+            return static_cast<T*>(m_components.at(T::getId()));
+        return nullptr;
     }
 
 }

@@ -7,13 +7,11 @@ using namespace ns::ecs;
 
 ComponentGroup::ComponentGroup(std::string name) :
 m_name(std::move(name))
-{
-    m_components.resize(ecs::BaseComponent::id_counter, nullptr);
-}
+{}
 
 ComponentGroup::~ComponentGroup() {
-    for (auto* comp : m_components)
-        delete comp;
+    for (auto& item : m_components)
+        delete item.second;
 
     for (auto& item : m_childs)
         delete item.second;
