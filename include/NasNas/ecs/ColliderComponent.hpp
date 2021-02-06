@@ -70,7 +70,7 @@ namespace ns::ecs  {
     public:
         static auto getId() -> unsigned long;
 
-        explicit ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset={0, 0});
+        explicit ColliderComponent(ComponentGroup* owner, Collision* collision, sf::Vector2f pos_offset={0, 0});
         ~ColliderComponent() override;
 
         auto isDynamic() const -> bool;

@@ -16,7 +16,7 @@ namespace ns::ecs {
     public:
         static auto getId() -> unsigned long;
 
-        ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset={0, 0});
+        ShapeComponent(ComponentGroup* owner, const T& shape, const sf::Vector2f& pos_offset={0, 0});
 
         auto getDrawable() -> T& override;
         auto getGlobalBounds() -> ns::FloatRect override;
@@ -31,8 +31,8 @@ namespace ns::ecs {
     };
 
     template<typename T>
-    ShapeComponent<T>::ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset) :
-    GraphicsComponent(entity),
+    ShapeComponent<T>::ShapeComponent(ComponentGroup* owner, const T& shape, const sf::Vector2f& pos_offset) :
+    GraphicsComponent(owner),
     m_drawable(shape) {
         m_transform.translate(pos_offset);
     }
@@ -44,9 +44,12 @@ namespace ns::ecs {
 
     template<typename T>
     auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
-        return ns::FloatRect(m_entity->transform()->getTransform().transformRect(
-                m_transform.transformRect(m_drawable.getGlobalBounds())
-        ));
+        if (m_owner->get<Transform>()) {
+            return m_owner->get<Transform>()->getTransform().transformRect(
+                    m_transform.transformRect(m_drawable.getGlobalBounds())
+            );
+        }
+        return m_transform.transformRect(m_drawable.getGlobalBounds());
     }
 
     template<typename T>

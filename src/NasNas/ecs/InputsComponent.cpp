@@ -15,8 +15,8 @@ auto InputsComponent::getId() -> unsigned long {
     return InputsComponent::uid;
 }
 
-InputsComponent::InputsComponent(BaseEntity* entity) :
-BaseComponent(entity),
+InputsComponent::InputsComponent(ComponentGroup* owner) :
+BaseComponent(owner),
 m_capture_input(true)
 {}
 

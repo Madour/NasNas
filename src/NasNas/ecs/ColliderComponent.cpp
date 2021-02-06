@@ -113,11 +113,11 @@ auto ColliderComponent::getId() -> unsigned long {
     return ColliderComponent::uid;
 }
 
-ColliderComponent::ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset) :
-BaseComponent(entity),
+ColliderComponent::ColliderComponent(ComponentGroup* owner, Collision* collision, sf::Vector2f pos_offset) :
+BaseComponent(owner),
 m_pos_offset(pos_offset),
 m_collision_box(collision) {
-    m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
+    m_collision_box->getShape().setPosition(m_owner->getPosition() + m_pos_offset);
 }
 
 ColliderComponent::~ColliderComponent() {
@@ -135,7 +135,7 @@ ColliderComponent::~ColliderComponent() {
 }
 
 auto ColliderComponent::isDynamic() const -> bool {
-    return m_entity->physics() != nullptr;
+    return m_owner->get<Physics>() != nullptr;
 }
 
 auto ColliderComponent::getCollision() -> Collision& {
@@ -143,5 +143,5 @@ auto ColliderComponent::getCollision() -> Collision& {
 }
 
 void ColliderComponent::update() {
-    m_collision_box->getShape().setPosition(m_entity->getPosition() + m_pos_offset);
+    m_collision_box->getShape().setPosition(m_owner->getPosition() + m_pos_offset);
 }

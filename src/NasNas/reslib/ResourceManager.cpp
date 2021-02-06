@@ -62,7 +62,7 @@ auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture
         path = texture_path.substr(first_slash_idx+1, texture_path.size());
 
     Dir* current_dir = m_data;
-    unsigned separator_index = path.find_first_of('/'), temp = 0;
+    size_t separator_index = path.find_first_of('/'), temp = 0;
 
     // resolving path
     while(separator_index != std::string::npos) {
@@ -87,7 +87,7 @@ auto ResourceManager::getFont(const std::string& font_path) -> sf::Font& {
         path = font_path.substr(first_slash_idx+1, font_path.size());
 
     Dir* current_dir = m_data;
-    unsigned separator_index = path.find_first_of('/'), temp = 0;
+    size_t separator_index = path.find_first_of('/'), temp = 0;
 
     // resolving path
     while(separator_index != std::string::npos) {
