@@ -9,18 +9,11 @@
 using namespace ns;
 using namespace ns::ecs;
 
-const unsigned long SpriteComponent::uid = BaseComponent::getNextId();
-
-auto SpriteComponent::getId() -> unsigned long {
-    return SpriteComponent::uid;
-}
-
-SpriteComponent::SpriteComponent(ComponentGroup* owner, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
-SpriteComponent(owner, spritesheet, "", pos_offset)
+SpriteComponent::SpriteComponent(Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
+SpriteComponent(spritesheet, "", pos_offset)
 {}
 
-SpriteComponent::SpriteComponent(ComponentGroup* owner, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
-GraphicsComponent(owner) {
+SpriteComponent::SpriteComponent(Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) {
     m_transform.translate(pos_offset);
     setSpritesheet(spritesheet);
     anim_state.empty() ? setAnimState(spritesheet->getAnimsMap().begin()->first) : setAnimState(anim_state);
@@ -58,7 +51,7 @@ auto SpriteComponent::getDrawable() -> sf::Sprite& {
 }
 
 auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
-    return m_owner->get<Transform>()->getTransform().transformRect(
+    return this->m_owner->get<Transform>()->getTransform().transformRect(
             m_transform.transformRect(m_drawable.getGlobalBounds())
     );
 }

@@ -12,14 +12,7 @@
 using namespace ns;
 using namespace ns::ecs;
 
-const unsigned long PhysicsComponent::uid = BaseComponent::getNextId();
-
-auto PhysicsComponent::getId() -> unsigned long {
-    return PhysicsComponent::uid;
-}
-
-PhysicsComponent::PhysicsComponent(ComponentGroup* owner, const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
-BaseComponent(owner),
+PhysicsComponent::PhysicsComponent(const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
 m_mass(mass),
 m_acceleration(acceleration)
 {

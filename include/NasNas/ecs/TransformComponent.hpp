@@ -6,11 +6,9 @@
 
 namespace ns::ecs {
 
-    class TransformComponent : public BaseComponent, public sf::Transformable{
+    class TransformComponent : public Component<TransformComponent>, public sf::Transformable{
     public:
-        static auto getId() -> unsigned long;
-
-        explicit TransformComponent(ComponentGroup* owner);
+        TransformComponent() = default;
 
         void setPositionX(float x);
         void setPositionY(float y);
@@ -20,8 +18,6 @@ namespace ns::ecs {
 
         void update() override {}
 
-    private:
-        static const unsigned long uid;
     };
 
     typedef TransformComponent Transform;

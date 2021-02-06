@@ -107,18 +107,10 @@ auto CircleCollision::getShape() -> sf::Shape& {
 auto CircleCollision::getRadius() -> float { return m_shape.getRadius(); }
 
 
-const unsigned long ColliderComponent::uid = BaseComponent::getNextId();
-
-auto ColliderComponent::getId() -> unsigned long {
-    return ColliderComponent::uid;
-}
-
-ColliderComponent::ColliderComponent(ComponentGroup* owner, Collision* collision, sf::Vector2f pos_offset) :
-BaseComponent(owner),
+ColliderComponent::ColliderComponent(Collision* collision, sf::Vector2f pos_offset) :
 m_pos_offset(pos_offset),
-m_collision_box(collision) {
-    m_collision_box->getShape().setPosition(m_owner->getPosition() + m_pos_offset);
-}
+m_collision_box(collision)
+{}
 
 ColliderComponent::~ColliderComponent() {
     switch (m_collision_box->type) {

@@ -92,7 +92,6 @@ auto ComponentGroup::getGlobalBounds() const -> ns::FloatRect {
             right = std::max(right, std::max(topright.x, bottomright.x));
             bottom = std::max(bottom, std::max(bottomleft.y, bottomright.y));
         }
-        std::cout << left << " " << top << " " << right << " " << bottom << std::endl;
     }
     if (!first) {
         result.left = left;

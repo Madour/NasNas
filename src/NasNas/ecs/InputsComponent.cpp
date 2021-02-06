@@ -9,14 +9,7 @@
 using namespace ns;
 using namespace ns::ecs;
 
-const unsigned long InputsComponent::uid = BaseComponent::getNextId();
-
-auto InputsComponent::getId() -> unsigned long {
-    return InputsComponent::uid;
-}
-
-InputsComponent::InputsComponent(ComponentGroup* owner) :
-BaseComponent(owner),
+InputsComponent::InputsComponent() :
 m_capture_input(true)
 {}
 
