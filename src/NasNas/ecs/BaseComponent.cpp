@@ -8,10 +8,6 @@
 using namespace ns;
 using namespace ns::ecs;
 
-BaseComponent::BaseComponent(ComponentGroup* owner) :
-m_owner(owner)
-{}
-
 unsigned long BaseComponent::id_counter = 0;
 
 auto BaseComponent::getNextId() -> unsigned long {

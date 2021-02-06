@@ -4,45 +4,47 @@
 
 #include <NasNas.h>
 
-struct HpComponent : ns::ecs::BaseComponent {
+struct HpComponent : ns::ecs::Component<HpComponent> {
+    // component data
     int hp;
     int max_hp;
 
-    HpComponent(ns::ecs::ComponentGroup* owner, int health, int max_health) :
-    ns::ecs::BaseComponent(owner), hp(health), max_hp(max_health)
+    // needs a constructor because of virtual method update
+    explicit HpComponent(int max_health) :
+    hp(max_health),
+    max_hp(max_health)
     {}
 
+    // custom component method
     void damage(int amount) {
         hp = std::max(0, hp-amount);
     }
 
-    void update() override {}
+    // the update method inherited from base class
+    void update() override {
+        hp = std::min(max_hp, hp+1);
+    }
 
-    static unsigned long uid;
-    static auto getId() -> unsigned long;
 };
-
-unsigned long HpComponent::uid = ns::ecs::BaseComponent::getNextId();
-auto HpComponent::getId() -> unsigned long {
-    return uid;
-}
 
 struct MyEntity : ns::BaseEntity {
     MyEntity() : ns::BaseEntity("MyEntity") {
-        add<HpComponent>(50, 50);
+        transform()->setPosition(540, 300);
 
-        sf::RectangleShape hp_bar{{500, 20}};
+        // add the custom component to MyEntity
+        add<HpComponent>(500);
+
+        sf::RectangleShape hp_bar{{0, 20}};
         hp_bar.setFillColor(sf::Color::Red);
         hp_bar.setOrigin(250, 10);
         add<ns::ecs::RectangleShape>(hp_bar);
 
-        transform()->setPosition(500, 300);
-
     }
 
     void update() override {
-        ns::BaseEntity::update();
-        get<ns::ecs::RectangleShape>()->getDrawable().setSize({get<HpComponent>()->hp*10.f, 20.f});
+        // update custom component
+        get<HpComponent>()->update();
+        get<ns::ecs::RectangleShape>()->getDrawable().setSize({static_cast<float>(get<HpComponent>()->hp), 20.f});
     }
 };
 
@@ -53,26 +55,27 @@ public:
     Game() : ns::App("Custom components", {1080, 720}) {
 
         // create a scene and a camera
-        auto* scene = createScene("main");
-        auto* camera = createCamera("left", 0);
+        auto* scene = this->createScene("main");
+        auto* camera = this->createCamera("left", 0);
         camera->lookAt(scene);
 
-        entity = new MyEntity();
-        scene->getDefaultLayer()->add(entity);
+        this->entity = new MyEntity();
+        scene->getDefaultLayer()->add(this->entity);
 
     }
 
     void onEvent(const sf::Event& event) override {
         ns::App::onEvent(event);
         if (event.type == sf::Event::KeyPressed) {
+            // when space bar is pressed, call damage method of HpComponent
             if (event.key.code == sf::Keyboard::Space) {
-                entity->get<HpComponent>()->damage(1);
+                this->entity->get<HpComponent>()->damage(50);
             }
         }
     }
 
     void update() override {
-        entity->update();
+        this->entity->update();
     }
 };
 

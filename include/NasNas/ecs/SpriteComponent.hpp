@@ -11,12 +11,10 @@
 
 namespace ns::ecs {
 
-    class SpriteComponent : public  GraphicsComponent {
+    class SpriteComponent : public Component<SpriteComponent>, public GraphicsComponent {
     public:
-        static auto getId() -> unsigned long;
-
-        SpriteComponent(ComponentGroup* owner, Spritesheet* spritesheet, const sf::Vector2f& pos_offset);
-        SpriteComponent(ComponentGroup* owner, Spritesheet* spritesheet, const std::string& anim_state="", const sf::Vector2f& pos_offset={0, 0});
+        SpriteComponent(Spritesheet* spritesheet, const sf::Vector2f& pos_offset);
+        explicit SpriteComponent(Spritesheet* spritesheet, const std::string& anim_state="", const sf::Vector2f& pos_offset={0, 0});
         void setSpritesheet(Spritesheet* spritesheet);
         auto getAnimState() const -> const std::string&;
         void setAnimState(const std::string& anim_state);
@@ -26,8 +24,6 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        static const unsigned long uid;
-
         Spritesheet* m_spritesheet = nullptr;
         AnimPlayer m_anim_player;
         sf::Sprite m_drawable;

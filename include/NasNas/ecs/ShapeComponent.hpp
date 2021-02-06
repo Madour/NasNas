@@ -12,11 +12,9 @@
 namespace ns::ecs {
 
     template <typename T>
-    class ShapeComponent : public GraphicsComponent{
+    class ShapeComponent :  public Component<ShapeComponent<T>> , public GraphicsComponent {
     public:
-        static auto getId() -> unsigned long;
-
-        ShapeComponent(ComponentGroup* owner, const T& shape, const sf::Vector2f& pos_offset={0, 0});
+        explicit ShapeComponent(const T& shape, const sf::Vector2f& pos_offset={0, 0});
 
         auto getDrawable() -> T& override;
         auto getGlobalBounds() -> ns::FloatRect override;
@@ -24,15 +22,12 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        static const unsigned long uid;
-
         T m_drawable;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
 
     template<typename T>
-    ShapeComponent<T>::ShapeComponent(ComponentGroup* owner, const T& shape, const sf::Vector2f& pos_offset) :
-    GraphicsComponent(owner),
+    ShapeComponent<T>::ShapeComponent(const T& shape, const sf::Vector2f& pos_offset) :
     m_drawable(shape) {
         m_transform.translate(pos_offset);
     }
@@ -44,8 +39,8 @@ namespace ns::ecs {
 
     template<typename T>
     auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
-        if (m_owner->get<Transform>()) {
-            return m_owner->get<Transform>()->getTransform().transformRect(
+        if (this->m_owner->template get<Transform>()) {
+            return this->m_owner->template get<Transform>()->getTransform().transformRect(
                     m_transform.transformRect(m_drawable.getGlobalBounds())
             );
         }
@@ -59,11 +54,6 @@ namespace ns::ecs {
     void ShapeComponent<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= m_transform;
         target.draw(m_drawable, states);
-    }
-
-    template <typename T>
-    auto ShapeComponent<T>::getId() -> unsigned long {
-        return ShapeComponent<T>::uid;
     }
 
     typedef ShapeComponent<sf::CircleShape> CircleShape;

@@ -22,30 +22,32 @@ namespace ns::ecs {
     class ShapeComponent;
 
     class BaseComponent {
+        friend ComponentGroup;
     public:
-        explicit BaseComponent(ComponentGroup* owner);
         virtual ~BaseComponent() = default;
         virtual void update() = 0;
-
     protected:
         static auto getNextId() -> unsigned long;
-        ComponentGroup* m_owner;
-
+        ComponentGroup* m_owner = nullptr;
     private:
-        /*friend ComponentGroup;
-        friend TransformComponent;
-        friend PhysicsComponent;
-        friend InputsComponent;
-        friend ColliderComponent;
-        friend SpriteComponent;
-        friend ShapeComponent<sf::CircleShape>;
-        friend ShapeComponent<ns::EllipseShape>;
-        friend ShapeComponent<ns::LineShape>;
-        friend ShapeComponent<sf::RectangleShape>;
-        friend ShapeComponent<sf::ConvexShape>;*/
-
         static unsigned long id_counter;
-
     };
+
+    template <typename T>
+    class Component : public BaseComponent {
+    public:
+        static auto getId() -> unsigned long;
+    protected:
+    private:
+        static unsigned long uid;
+    };
+
+    template <typename T>
+    unsigned long Component<T>::uid = BaseComponent::getNextId();
+
+    template <typename T>
+    auto Component<T>::getId() -> unsigned long {
+        return uid;
+    }
 
 }

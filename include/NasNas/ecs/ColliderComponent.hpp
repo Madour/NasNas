@@ -66,11 +66,10 @@ namespace ns::ecs  {
     };
 
 
-    class ColliderComponent : public BaseComponent {
+    class ColliderComponent : public Component<ColliderComponent> {
     public:
-        static auto getId() -> unsigned long;
 
-        explicit ColliderComponent(ComponentGroup* owner, Collision* collision, sf::Vector2f pos_offset={0, 0});
+        explicit ColliderComponent(Collision* collision, sf::Vector2f pos_offset={0, 0});
         ~ColliderComponent() override;
 
         auto isDynamic() const -> bool;
@@ -80,8 +79,6 @@ namespace ns::ecs  {
         void update() override;
 
     private:
-        static const unsigned long uid;
-
         sf::Vector2f m_pos_offset;
         Collision* m_collision_box;
 

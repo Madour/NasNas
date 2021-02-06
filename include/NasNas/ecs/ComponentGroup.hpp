@@ -51,11 +51,17 @@ namespace ns::ecs {
 
     template<class T, typename... TArgs>
     void ComponentGroup::add(TArgs... component_args) {
-        add(new T(this, std::forward<TArgs>(component_args)...));
+        try {
+            add(new T(std::forward<TArgs>(component_args)...));
+        }
+        catch (std::exception& _) {
+            add(new T{std::forward<TArgs>(component_args)...});
+        }
     }
 
     template<typename T>
     void ComponentGroup::add(T* new_component) {
+        new_component->m_owner = this;
         m_components[T::getId()] = new_component;
         if constexpr (std::is_base_of_v<GraphicsComponent, T>)
             m_graphics.push_back(new_component);
