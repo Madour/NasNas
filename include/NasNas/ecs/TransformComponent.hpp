@@ -12,6 +12,12 @@ namespace ns::ecs {
 
         explicit TransformComponent(ComponentGroup* owner);
 
+        void setPositionX(float x);
+        void setPositionY(float y);
+
+        void setScaleX(float x);
+        void setScaleY(float y);
+
         void update() override {}
 
     private:
