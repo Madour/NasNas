@@ -8,6 +8,6 @@
 using namespace ns;
 using namespace ns::ecs;
 
-GraphicsComponent::GraphicsComponent(BaseEntity* entity) :
-BaseComponent(entity)
+GraphicsComponent::GraphicsComponent(ComponentGroup* owner) :
+BaseComponent(owner)
 {}

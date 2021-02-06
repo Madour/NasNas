@@ -17,7 +17,7 @@ namespace ns::ecs {
     public:
         static auto getId() -> unsigned long;
 
-        explicit InputsComponent(BaseEntity* entity);
+        explicit InputsComponent(ComponentGroup* owner);
 
         void bind(sf::Keyboard::Key key, const std::function<void()>& function);
 

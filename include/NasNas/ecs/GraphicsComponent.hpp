@@ -13,7 +13,7 @@ namespace ns::ecs {
 
     class GraphicsComponent : public BaseComponent, public sf::Drawable {
     public:
-        explicit GraphicsComponent(BaseEntity* entity);
+        explicit GraphicsComponent(ComponentGroup* owner);
         ~GraphicsComponent() override = default;
         virtual auto getDrawable() -> sf::Drawable& = 0;
         virtual auto getGlobalBounds() -> ns::FloatRect = 0;
@@ -22,4 +22,5 @@ namespace ns::ecs {
         sf::Transform m_transform;
     };
 
+    typedef GraphicsComponent Graphics;
 }

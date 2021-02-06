@@ -15,12 +15,12 @@ auto SpriteComponent::getId() -> unsigned long {
     return SpriteComponent::uid;
 }
 
-SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
-SpriteComponent(entity, spritesheet, "", pos_offset)
+SpriteComponent::SpriteComponent(ComponentGroup* owner, Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
+SpriteComponent(owner, spritesheet, "", pos_offset)
 {}
 
-SpriteComponent::SpriteComponent(BaseEntity* entity, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
-GraphicsComponent(entity) {
+SpriteComponent::SpriteComponent(ComponentGroup* owner, Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) :
+GraphicsComponent(owner) {
     m_transform.translate(pos_offset);
     setSpritesheet(spritesheet);
     anim_state.empty() ? setAnimState(spritesheet->getAnimsMap().begin()->first) : setAnimState(anim_state);
@@ -58,7 +58,7 @@ auto SpriteComponent::getDrawable() -> sf::Sprite& {
 }
 
 auto SpriteComponent::getGlobalBounds() -> ns::FloatRect {
-    return m_entity->transform()->getTransform().transformRect(
+    return m_owner->get<Transform>()->getTransform().transformRect(
             m_transform.transformRect(m_drawable.getGlobalBounds())
     );
 }

@@ -18,8 +18,8 @@ auto PhysicsComponent::getId() -> unsigned long {
     return PhysicsComponent::uid;
 }
 
-PhysicsComponent::PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
-BaseComponent(entity),
+PhysicsComponent::PhysicsComponent(ComponentGroup* owner, const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
+BaseComponent(owner),
 m_mass(mass),
 m_acceleration(acceleration)
 {
@@ -140,5 +140,5 @@ void PhysicsComponent::update() {
     m_velocity.y += m_mass * Config::Physics::gravity;
 
     // position
-    m_entity->transform()->move(m_velocity);
+    m_owner->get<Transform>()->move(m_velocity);
 }

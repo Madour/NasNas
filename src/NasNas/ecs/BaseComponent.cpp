@@ -8,8 +8,8 @@
 using namespace ns;
 using namespace ns::ecs;
 
-BaseComponent::BaseComponent(BaseEntity* entity) :
-m_entity(entity)
+BaseComponent::BaseComponent(ComponentGroup* owner) :
+m_owner(owner)
 {}
 
 unsigned long BaseComponent::id_counter = 0;

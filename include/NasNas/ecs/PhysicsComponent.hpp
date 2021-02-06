@@ -14,7 +14,7 @@ namespace ns::ecs {
     public:
         static auto getId() -> unsigned long;
 
-        PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
+        PhysicsComponent(ComponentGroup* owner, const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
 
         auto getMass() const -> float;
         void setMass(float mass);

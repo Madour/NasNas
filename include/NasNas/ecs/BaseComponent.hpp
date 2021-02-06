@@ -12,6 +12,8 @@ namespace ns {
 }
 
 namespace ns::ecs {
+    class ComponentGroup;
+    class TransformComponent;
     class PhysicsComponent;
     class SpriteComponent;
     class InputsComponent;
@@ -21,15 +23,16 @@ namespace ns::ecs {
 
     class BaseComponent {
     public:
-        explicit BaseComponent(BaseEntity* entity);
+        explicit BaseComponent(ComponentGroup* owner);
         virtual ~BaseComponent() = default;
         virtual void update() = 0;
 
     protected:
-        BaseEntity* m_entity;
+        ComponentGroup* m_owner;
 
     private:
-        friend BaseEntity;
+        friend ComponentGroup;
+        friend TransformComponent;
         friend PhysicsComponent;
         friend InputsComponent;
         friend ColliderComponent;
