@@ -28,10 +28,11 @@ namespace ns::ecs {
         virtual void update() = 0;
 
     protected:
+        static auto getNextId() -> unsigned long;
         ComponentGroup* m_owner;
 
     private:
-        friend ComponentGroup;
+        /*friend ComponentGroup;
         friend TransformComponent;
         friend PhysicsComponent;
         friend InputsComponent;
@@ -41,9 +42,8 @@ namespace ns::ecs {
         friend ShapeComponent<ns::EllipseShape>;
         friend ShapeComponent<ns::LineShape>;
         friend ShapeComponent<sf::RectangleShape>;
-        friend ShapeComponent<sf::ConvexShape>;
+        friend ShapeComponent<sf::ConvexShape>;*/
 
-        static auto getNextId() -> unsigned long;
         static unsigned long id_counter;
 
     };
