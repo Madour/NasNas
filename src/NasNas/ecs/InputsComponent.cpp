@@ -3,13 +3,13 @@
 **/
 
 
+#include "NasNas/ecs/InputsComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 
 using namespace ns;
 using namespace ns::ecs;
 
-InputsComponent::InputsComponent(BaseEntity* entity) :
-BaseComponent(entity),
+InputsComponent::InputsComponent() :
 m_capture_input(true)
 {}
 

@@ -10,8 +10,6 @@
 
 namespace ns::ecs  {
 
-    class ColliderComponent;
-
     class Collision {
 
     protected:
@@ -68,10 +66,11 @@ namespace ns::ecs  {
     };
 
 
-    class ColliderComponent : public BaseComponent {
+    class ColliderComponent : public Component<ColliderComponent> {
     public:
-        explicit ColliderComponent(BaseEntity* entity, Collision* collision, sf::Vector2f pos_offset={0, 0});
-        ~ColliderComponent();
+
+        explicit ColliderComponent(Collision* collision, sf::Vector2f pos_offset={0, 0});
+        ~ColliderComponent() override;
 
         auto isDynamic() const -> bool;
 
@@ -84,6 +83,8 @@ namespace ns::ecs  {
         Collision* m_collision_box;
 
     };
+
+    typedef ColliderComponent Collider;
 
     template <typename T, typename S>
     auto checkCollision(T& col1, S& col2) -> bool;

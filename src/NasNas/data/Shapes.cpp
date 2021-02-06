@@ -44,7 +44,7 @@ auto EllipseShape::getPoint(std::size_t index) const -> sf::Vector2f {
 
 LineShape::LineShape() : m_color(sf::Color::White) {
     m_vertices.setPrimitiveType(sf::PrimitiveType::LineStrip);
-};
+}
 
 void LineShape::addPoint(float x, float y, const std::optional<sf::Color>& color) {
     m_vertices.append({sf::Vector2f(x, y), (color.has_value() ? color.value() : m_color)});

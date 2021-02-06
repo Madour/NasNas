@@ -5,20 +5,49 @@
 
 #pragma once
 
+#include "NasNas/data/Shapes.hpp"
+
 namespace ns {
-
     class BaseEntity;
-
 }
+
 namespace ns::ecs {
+    class ComponentGroup;
+    class TransformComponent;
+    class PhysicsComponent;
+    class SpriteComponent;
+    class InputsComponent;
+    class ColliderComponent;
+    template <class T>
+    class ShapeComponent;
 
     class BaseComponent {
+        friend ComponentGroup;
     public:
-        explicit BaseComponent(BaseEntity* entity);
+        virtual ~BaseComponent() = default;
         virtual void update() = 0;
-
     protected:
-        BaseEntity* m_entity;
+        static auto getNextId() -> unsigned long;
+        ComponentGroup* m_owner = nullptr;
+    private:
+        static unsigned long id_counter;
     };
+
+    template <typename T>
+    class Component : public BaseComponent {
+    public:
+        static auto getId() -> unsigned long;
+    protected:
+    private:
+        static unsigned long uid;
+    };
+
+    template <typename T>
+    unsigned long Component<T>::uid = BaseComponent::getNextId();
+
+    template <typename T>
+    auto Component<T>::getId() -> unsigned long {
+        return uid;
+    }
 
 }

@@ -12,9 +12,9 @@
 namespace ns::ecs {
 
     template <typename T>
-    class ShapeComponent : public GraphicsComponent{
+    class ShapeComponent :  public Component<ShapeComponent<T>> , public GraphicsComponent {
     public:
-        ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset={0, 0});
+        explicit ShapeComponent(const T& shape, const sf::Vector2f& pos_offset={0, 0});
 
         auto getDrawable() -> T& override;
         auto getGlobalBounds() -> ns::FloatRect override;
@@ -27,8 +27,7 @@ namespace ns::ecs {
     };
 
     template<typename T>
-    ShapeComponent<T>::ShapeComponent(BaseEntity* entity, const T& shape, const sf::Vector2f& pos_offset) :
-    GraphicsComponent(entity),
+    ShapeComponent<T>::ShapeComponent(const T& shape, const sf::Vector2f& pos_offset) :
     m_drawable(shape) {
         m_transform.translate(pos_offset);
     }
@@ -40,9 +39,12 @@ namespace ns::ecs {
 
     template<typename T>
     auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
-        return ns::FloatRect(m_entity->transform()->getTransform().transformRect(
-                m_transform.transformRect(m_drawable.getGlobalBounds())
-        ));
+        if (this->m_owner->template get<Transform>()) {
+            return this->m_owner->template get<Transform>()->getTransform().transformRect(
+                    m_transform.transformRect(m_drawable.getGlobalBounds())
+            );
+        }
+        return m_transform.transformRect(m_drawable.getGlobalBounds());
     }
 
     template<typename T>
@@ -54,10 +56,10 @@ namespace ns::ecs {
         target.draw(m_drawable, states);
     }
 
-    typedef ShapeComponent<sf::CircleShape> CircleShapeComponent;
-    typedef ShapeComponent<ns::EllipseShape> EllipseShapeComponent;
-    typedef ShapeComponent<ns::LineShape> LineShapeComponent;
-    typedef ShapeComponent<sf::RectangleShape> RectangleShapeComponent;
-    typedef ShapeComponent<sf::ConvexShape> ConvexShapeComponent;
+    typedef ShapeComponent<sf::CircleShape> CircleShape;
+    typedef ShapeComponent<ns::EllipseShape> EllipseShape;
+    typedef ShapeComponent<ns::LineShape> LineShape;
+    typedef ShapeComponent<sf::RectangleShape> RectangleShape;
+    typedef ShapeComponent<sf::ConvexShape> ConvexShape;
 
 }

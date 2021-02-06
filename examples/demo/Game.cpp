@@ -234,4 +234,4 @@ void Game::update() {
 Game::~Game() {
     delete(this->palette_shader);
     delete(this->font);
-};
+}

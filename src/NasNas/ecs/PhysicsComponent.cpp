@@ -3,7 +3,7 @@
 **/
 
 
-#include <NasNas/ecs/PhysicsComponent.hpp>
+#include "NasNas/ecs/PhysicsComponent.hpp"
 
 #include "NasNas/data/Config.hpp"
 #include "NasNas/data/Maths.hpp"
@@ -12,13 +12,12 @@
 using namespace ns;
 using namespace ns::ecs;
 
-PhysicsComponent::PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
-BaseComponent(entity),
+PhysicsComponent::PhysicsComponent(const sf::Vector2f& acceleration, float mass, const sf::Vector2f& friction) :
 m_mass(mass),
 m_acceleration(acceleration)
 {
     if (friction.x > 1.f || friction.y > 1.f || friction.x < 0.f || friction.y < 0.f) {
-        std::cout << "Friction parameter of PhysicsComponent should be a vector between (0, 0) and (1, 1)." << std::endl;
+        std::cout << "Friction parameter of PhysicsComponentComponent should be a vector between (0, 0) and (1, 1)." << std::endl;
         exit(-1);
     }
     m_friction = friction;
@@ -134,5 +133,5 @@ void PhysicsComponent::update() {
     m_velocity.y += m_mass * Config::Physics::gravity;
 
     // position
-    m_entity->transform()->move(m_velocity);
+    m_owner->get<Transform>()->move(m_velocity);
 }

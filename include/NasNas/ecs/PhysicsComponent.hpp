@@ -10,9 +10,9 @@
 
 namespace ns::ecs {
 
-    class PhysicsComponent : public BaseComponent {
+    class PhysicsComponent : public Component<PhysicsComponent> {
     public:
-        PhysicsComponent(BaseEntity* entity, const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
+        explicit PhysicsComponent(const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
 
         auto getMass() const -> float;
         void setMass(float mass);
@@ -54,5 +54,7 @@ namespace ns::ecs {
         sf::Vector2f m_acceleration;
         sf::Vector2f m_friction;
     };
+
+    typedef PhysicsComponent Physics;
 
 }
