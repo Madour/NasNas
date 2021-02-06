@@ -9,72 +9,42 @@
 using namespace ns::utils;
 
 auto path::getStem(const std::string& path) -> std::string {
-    unsigned beg = 0;
-    unsigned end = path.size();
-    for (unsigned i = path.size(); i > 0; --i) {
-        if(path[i] == '.' && end == path.size())
-            end = i;
-        if (path[i] == '/') {
-            beg = i+1;
-            break;
-        }
-    }
-    if (end == beg)
-        end = path.size();
-    return path.substr(beg, end-beg);
+    auto f = path::getFilename(path);
+    auto i = f.find_last_of('.');
+    if (i == std::string::npos || i == 0)
+        return f;
+    return f.substr(0, i);
+
 }
 
 auto path::getFilename(const std::string& path) -> std::string {
-    int beg = 0;
-    for (int i = path.size(); i > 0; --i) {
-        if (path[i] == '/') {
-            beg = i+1;
-            break;
-        }
-    }
-    return path.substr(beg, path.size()-beg);
+    auto i = path.find_last_of("/\\");
+    if (i == std::string::npos)
+        return path;
+    return path.substr(i+1);
 }
 
 auto path::getExtension(const std::string& path) -> std::string {
-    int beg = 0;
-    for (int i = path.size(); i > 0; --i) {
-        if (path[i] == '.') {
-            beg = i;
-            break;
-        }
-    }
-    if (beg == 0 || path[beg-1] == '/')
-        beg = path.size();
-    return path.substr(beg, path.size()-beg);
+    auto f = path::getFilename(path);
+    auto i = f.find_last_of('.');
+    if (i == std::string::npos || i == 0)
+        return "";
+    return f.substr(i+1);
 }
 
 auto path::getPath(const std::string& path) -> std::string {
-    unsigned end = path.size();
-    for (int i = path.size(); i > 0; --i) {
-        if (path[i] == '/') {
-            end = i+1;
-            break;
-        }
-    }
-    if (end == path.size() && path == path::getFilename(path)) {
-        end = 0;
-    }
-    return path.substr(0, end);
+    auto i = path.find_last_of("/\\");
+    if (i == std::string::npos)
+        return "";
+    return path.substr(0, i)+"/";
 }
 
 void path::removeFilename(std::string& path) {
-    unsigned end = path.size();
-    for (int i = path.size(); i > 0; --i) {
-        if (path[i] == '/') {
-            end = i+1;
-            break;
-        }
-    }
-    if (end == path.size() && path == path::getFilename(path)) {
-        path = "";
-        return;
-    }
-    path = std::string(path.begin(), path.begin()+end);
+    auto i = path.find_last_of("/\\");
+    if (i == std::string::npos)
+        path.clear();
+    else
+        path = std::string(path.begin(), path.begin()+i)+"/";
 }
 
 
@@ -84,10 +54,16 @@ m_on_true(std::move(on_true)),
 m_on_false(std::move(on_false))
 {}
 
-auto bool_switch::operator=(bool value) -> bool {
+auto bool_switch::operator=(bool value) -> bool_switch& {
     value ? m_on_true() : m_on_false();
     m_val = value;
-    return m_val;
+    return *this;
+}
+
+auto bool_switch::operator=(const bool_switch& other) -> bool_switch& {
+    other.m_val ? m_on_true() : m_on_false();
+    m_val = other.m_val;
+    return *this;
 }
 
 bool_switch::operator bool() const {

@@ -20,7 +20,7 @@ namespace ns {
             utils::bool_switch show_fps;
             utils::bool_switch show_text;
             utils::bool_switch show_bounds;
-            auto operator=(bool value) -> bool override;
+            auto operator=(bool value) -> debug_info& override;
         private:
             friend Config;
             debug_info();

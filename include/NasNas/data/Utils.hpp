@@ -19,9 +19,10 @@ namespace ns::utils {
 
     struct bool_switch {
         bool_switch(std::function<void()>  on_true, std::function<void()>  on_false);
-        virtual auto operator=(bool value) -> bool;
+        virtual auto operator=(bool value) -> bool_switch&;
+        auto operator=(const bool_switch& other) -> bool_switch&;
         virtual explicit operator bool() const;
-    private:
+    protected:
         bool m_val;
         std::function<void()> m_on_true;
         std::function<void()> m_on_false;

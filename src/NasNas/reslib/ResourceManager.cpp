@@ -13,12 +13,16 @@ ResourceManager::~ResourceManager() = default;
 
 bool ResourceManager::m_ready = false;
 Dir* ResourceManager::m_data = nullptr;
-std::string ResourceManager::m_root_dir;
+std::string ResourceManager::m_root_dir_name;
 
 auto ResourceManager::load(const std::string& assets_directory_name) -> bool {
+    if (m_data != nullptr) {
+        delete m_data;
+        m_data = nullptr;
+    }
     try {
         m_data = new Dir(assets_directory_name, nullptr);
-        m_root_dir = assets_directory_name;
+        m_root_dir_name = assets_directory_name;
         m_data->load(std::filesystem::current_path().append(assets_directory_name));
         m_ready = true;
         return true;
@@ -40,13 +44,13 @@ void ResourceManager::checkReady() {
     exit(-1);
 }
 
-auto ResourceManager::getName() -> const std::string & {
-    return m_root_dir;
-}
-
 auto ResourceManager::in(const std::string& dir_name) -> Dir& {
     checkReady();
     return m_data->in(dir_name);
+}
+
+auto ResourceManager::getName() -> const std::string & {
+    return m_root_dir_name;
 }
 
 auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture& {
@@ -58,11 +62,12 @@ auto ResourceManager::getTexture(const std::string& texture_path) -> sf::Texture
     if (first_slash_idx == std::string::npos)
         return m_data->getTexture(texture_path);
     // checking if absolute path and make it relative to Res root dir
-    else if (texture_path.substr(0, first_slash_idx) == m_root_dir)
+    else if (texture_path.substr(0, first_slash_idx) == m_root_dir_name)
         path = texture_path.substr(first_slash_idx+1, texture_path.size());
 
     Dir* current_dir = m_data;
-    size_t separator_index = path.find_first_of('/'), temp = 0;
+    std::size_t separator_index = path.find_first_of('/'), temp = 0;
+
 
     // resolving path
     while(separator_index != std::string::npos) {
@@ -83,11 +88,12 @@ auto ResourceManager::getFont(const std::string& font_path) -> sf::Font& {
     if (first_slash_idx == std::string::npos)
         return m_data->getFont(font_path);
         // checking if absolute path and make it relative to Res root dir
-    else if (font_path.substr(0, first_slash_idx) == m_root_dir)
+    else if (font_path.substr(0, first_slash_idx) == m_root_dir_name)
         path = font_path.substr(first_slash_idx+1, font_path.size());
 
     Dir* current_dir = m_data;
-    size_t separator_index = path.find_first_of('/'), temp = 0;
+    std::size_t separator_index = path.find_first_of('/'), temp = 0;
+
 
     // resolving path
     while(separator_index != std::string::npos) {

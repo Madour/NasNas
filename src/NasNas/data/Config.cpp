@@ -11,33 +11,27 @@ using namespace ns;
 
 Config::debug_info::debug_info() :
 utils::bool_switch([this]{
-    if (m_state == 0) {
-        show_fps = show_text = show_bounds = true;
-    } else {
-        show_fps = (m_state >> 0u) & 1u;
-        show_text = (m_state >> 1u) & 1u;
-        show_bounds = (m_state >> 2u) & 1u;
-        m_state = 0;
-    }
+    show_fps = (m_state >> 0u) & 1u;
+    show_text = (m_state >> 1u) & 1u;
+    show_bounds = (m_state >> 2u) & 1u;
 }, [this]{
-    m_state |= (unsigned(bool(show_fps)) << 0u);
-    m_state |= (unsigned(bool(show_text)) << 1u);
-    m_state |= (unsigned(bool(show_bounds)) << 2u);
-    show_fps = show_text = show_bounds = false;
+    if (app) app->getWindow().setTitle(app->getTitle());
 }),
-show_fps([]{}, []{app->getWindow().setTitle(app->getTitle());}),
-show_text([]{}, []{}),
-show_bounds([]{}, []{}),
-m_state(0)
-{}
+show_fps([&]{m_state |= 1u<<0u;}, [&]{m_state &= ~(1u<<0u); if (app) app->getWindow().setTitle(app->getTitle());}),
+show_text([&]{m_state |= 1u<<1u;}, [&]{m_state &= ~(1u<<1u);}),
+show_bounds([&]{m_state |= 1u<<2u;}, [&]{m_state &= ~(1u<<2u);}),
+m_state(7u)
+{show_fps = show_text = show_bounds = true;}
 
-auto Config::debug_info::operator=(bool value) -> bool {
-    return utils::bool_switch::operator=(value);
+auto Config::debug_info::operator=(bool value) -> debug_info& {
+    value ? m_on_true() : m_on_false();
+    m_val = value;
+    return *this;;
 }
 
 Config::debug_info Config::debug;
 
-std::string Config::Window::title = "NasNas app";
+std::string Config::Window::title = "NasNas demo app";
 sf::Vector2i Config::Window::size = {720, 480};
 sf::Vector2i Config::Window::view_size = {0, 0};
 int Config::Window::style = sf::Style::Default;

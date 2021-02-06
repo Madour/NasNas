@@ -9,21 +9,25 @@
 #include <SFML/System.hpp>
 
 namespace ns {
-    const float PI = std::acos(-1.f);
+    constexpr float PI = 3.14159265359;
 
     /**
      * \brief Converts a radian angle to degree
      * \param value Radian angle value
      * \return Equivalent degree angle
      */
-    auto to_degree(float value) -> float;
+    inline auto to_degree(float value) -> float {
+        return value*(180.f/PI);
+    }
 
     /**
      * \brief Converts a degree angle to radian
      * \param value Degree angle value
      * \return Equivalent radian angle
      */
-    auto to_radian(float value) -> float;
+    inline auto to_radian(float value) -> float {
+        return value*(PI/180.f);
+    }
 
     /**
      * \brief Does element wise multiplication between two vectors
@@ -102,7 +106,7 @@ namespace ns {
      */
     template <typename T>
     inline auto angle(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> float {
-        auto&& r = std::atan2(v2.y, v2.x) - std::atan2(v1.y, v1.x);
+        auto r = std::atan2(v2.y, v2.x) - std::atan2(v1.y, v1.x);
         return (std::abs(r) > PI ? r - 2*PI*r/std::abs(r) : r);
     }
 }
