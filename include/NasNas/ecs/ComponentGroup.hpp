@@ -51,12 +51,7 @@ namespace ns::ecs {
 
     template<class T, typename... TArgs>
     void ComponentGroup::add(TArgs... component_args) {
-        try {
-            add(new T(std::forward<TArgs>(component_args)...));
-        }
-        catch (std::exception& _) {
-            add(new T{std::forward<TArgs>(component_args)...});
-        }
+        add(new T(std::forward<TArgs>(component_args)...));
     }
 
     template<typename T>

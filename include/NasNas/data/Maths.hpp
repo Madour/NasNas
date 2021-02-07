@@ -9,7 +9,7 @@
 #include <SFML/System.hpp>
 
 namespace ns {
-    constexpr float PI = 3.14159265359;
+    constexpr float PI = 3.14159265359f;
 
     /**
      * \brief Converts a radian angle to degree
