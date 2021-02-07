@@ -4,6 +4,10 @@
 
 #include <NasNas.h>
 
+/**
+ * This example shows how to create a custom component and how
+ * to add it to an Entity
+ */
 struct HpComponent : ns::ecs::Component<HpComponent> {
     // component data
     int hp;
@@ -27,13 +31,15 @@ struct HpComponent : ns::ecs::Component<HpComponent> {
 
 };
 
-struct MyEntity : ns::BaseEntity {
+class MyEntity : public ns::BaseEntity {
+public:
     MyEntity() : ns::BaseEntity("MyEntity") {
         transform()->setPosition(540, 300);
 
         // add the custom component to MyEntity
         add<HpComponent>(500);
 
+        // add a RectangleShape component to represent the HP bar
         sf::RectangleShape hp_bar{{0, 20}};
         hp_bar.setFillColor(sf::Color::Red);
         hp_bar.setOrigin(250, 10);
@@ -56,9 +62,10 @@ public:
 
         // create a scene and a camera
         auto* scene = this->createScene("main");
-        auto* camera = this->createCamera("left", 0);
+        auto* camera = this->createCamera("main", 0);
         camera->lookAt(scene);
 
+        // create MyEntity and add it to the scene
         this->entity = new MyEntity();
         scene->getDefaultLayer()->add(this->entity);
 
