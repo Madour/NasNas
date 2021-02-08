@@ -10,6 +10,8 @@
 
 namespace ns::ecs  {
 
+    class ColliderComponent;
+
     class Collision {
 
     protected:

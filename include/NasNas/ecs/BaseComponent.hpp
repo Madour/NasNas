@@ -7,19 +7,8 @@
 
 #include "NasNas/data/Shapes.hpp"
 
-namespace ns {
-    class BaseEntity;
-}
-
 namespace ns::ecs {
     class ComponentGroup;
-    class TransformComponent;
-    class PhysicsComponent;
-    class SpriteComponent;
-    class InputsComponent;
-    class ColliderComponent;
-    template <class T>
-    class ShapeComponent;
 
     class BaseComponent {
         friend ComponentGroup;
