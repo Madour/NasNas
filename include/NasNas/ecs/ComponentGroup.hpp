@@ -27,7 +27,9 @@ namespace ns::ecs {
         auto get() const -> T*;
 
         void addChild(const std::string& name);
-        auto getChild(const std::string& name) const -> ComponentGroup&;
+        auto getChild(const std::string& name) const -> ComponentGroup*;
+
+        auto getParent() const -> ComponentGroup*;
 
         virtual void update();
 
@@ -46,6 +48,7 @@ namespace ns::ecs {
         std::vector<GraphicsComponent*> m_graphics;
 
         std::map<std::string, ComponentGroup*> m_childs;
+        ComponentGroup* m_parent = nullptr;
 
     };
 

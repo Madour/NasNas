@@ -22,14 +22,19 @@ auto ComponentGroup::graphics() -> const std::vector<GraphicsComponent*>& {
 }
 
 void ComponentGroup::addChild(const std::string& name) {
-    m_childs[name] = new ComponentGroup(name);
+    auto* child = new ComponentGroup(name);
+    child->m_parent = this;
+    m_childs[name] = child;
 }
 
-auto ComponentGroup::getChild(const std::string& name) const -> ComponentGroup& {
+auto ComponentGroup::getChild(const std::string& name) const -> ComponentGroup* {
     if (m_childs.count(name) > 0)
-        return *m_childs.at(name);
-    std::cout << "Entity " << m_name << " does not have child named " << name << "." << std::endl;
-    exit(-1);
+        return m_childs.at(name);
+    return nullptr;
+}
+
+auto ComponentGroup::getParent() const -> ComponentGroup* {
+    return m_parent;
 }
 
 void ComponentGroup::update() {
