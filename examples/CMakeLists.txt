@@ -3,9 +3,15 @@ macro(add_example_target target)
 
     add_executable( ${target} ${EX_SRC} )
     target_include_directories(${target} PRIVATE ../../include)
-    target_link_libraries(${target} PRIVATE NasNas sfml-graphics sfml-audio )
-    set_property(TARGET ${target} PROPERTY CXX_STANDARD 17)
-    set_property(TARGET ${target} PROPERTY RUNTIME_OUTPUT_DIRECTORY bin)
+    target_link_libraries(${target} PRIVATE NasNas sfml-graphics sfml-audio)
+    set_target_properties(
+            ${target}
+            PROPERTIES
+            CXX_STANDARD 17
+            RUNTIME_OUTPUT_DIRECTORY bin
+            RUNTIME_OUTPUT_DIRECTORY_DEBUG bin
+            RUNTIME_OUTPUT_DIRECTORY_RELEASE bin
+    )
 
     if (EX_RES_DIR)
         get_target_property(BIN_DIR ${target} RUNTIME_OUTPUT_DIRECTORY)
