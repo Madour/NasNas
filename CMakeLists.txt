@@ -39,6 +39,11 @@ add_library(${NASNAS_TGT_STATIC} STATIC ${NasNas_Src} ${NasNas_Inc})
 target_include_directories(${NASNAS_TGT_STATIC} PRIVATE include)
 target_link_libraries(${NASNAS_TGT_STATIC} sfml-graphics sfml-audio)
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  message(STATUS "GNU or Clang detected")
+  target_link_libraries(${NASNAS_TGT_STATIC} m stdc++fs stdc++)
+endif()
+
 set_target_properties(
         ${NASNAS_TGT_STATIC}
         PROPERTIES
