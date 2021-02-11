@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 21/04/2020.
 **/
 
-
+#include <iomanip>
 #include "NasNas/data/Logger.hpp"
 
 using namespace ns;
