@@ -1,7 +1,6 @@
-set(NasNas_Src "")
-set(NasNas_Inc "")
 if (NOT NASNAS_PATH)
-    set(NASNAS_PATH ".")
+    set(NASNAS_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+    message(STATUS "Found NasNas in ${NASNAS_PATH}")
 endif()
 
 add_definitions(-DNS_DATA)

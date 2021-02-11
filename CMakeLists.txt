@@ -5,44 +5,32 @@ endif()
 
 project(NasNas)
 
-# SFML static libs option
-set(BUILD_SHARED_LIBS FALSE)
-set(SFML_USE_STATIC_STD_LIBS TRUE)
-mark_as_advanced(BUILD_SHARED_LIBS)
-mark_as_advanced(SFML_USE_STATIC_STD_LIBS)
-add_subdirectory(SFML)
+include(cmake/Macros.cmake)
 
-if(MSVC AND SFML_USE_STATIC_STD_LIBS)
-    foreach(flag
-            CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
-            CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
-        if(${flag} MATCHES "/MD")
-            string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
-        endif()
-    endforeach()
-endif()
+check_compiler()
 
 ## NasNas options
 # Select optional modules
-option(NASNAS_BUILD_RESLIB      "Build the RESLIB module"           ON)
-option(NASNAS_BUILD_ECS         "Build the ECS module"              ON)
-option(NASNAS_BUILD_TILEMAPPING "Build the TILEMAPPING module"      ON)
-option(NASNAS_BUILD_UI          "Build the UI module"               ON)
+option(NASNAS_BUILD_RESLIB      "Build the RESLIB module"               ON)
+option(NASNAS_BUILD_ECS         "Build the ECS module"                  ON)
+option(NASNAS_BUILD_TILEMAPPING "Build the TILEMAPPING module"          ON)
+option(NASNAS_BUILD_UI          "Build the UI module"                   ON)
 # Select optional targets
-option(NASNAS_EXAMPLES          "Build the example applications"    OFF)
+option(NASNAS_EXAMPLES          "Build the example applications"        OFF)
+option(NASNAS_FIND_SFML         "Find an existing installation of SFML" ON)
 
-include(cmake/NasNas.cmake)
+# find SFML install location or SFML source files and dependencies
+find_SFML()
 
-# Static lib target
+# find NasNas source files and dependencies
+find_NasNas()
+
+# NasNas static lib target
 set(NASNAS_TGT_STATIC "NasNas")
 add_library(${NASNAS_TGT_STATIC} STATIC ${NasNas_Src} ${NasNas_Inc})
-target_include_directories(${NASNAS_TGT_STATIC} PRIVATE include)
-target_link_libraries(${NASNAS_TGT_STATIC} sfml-graphics sfml-audio)
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  message(STATUS "GNU or Clang detected")
-  target_link_libraries(${NASNAS_TGT_STATIC} m stdc++fs stdc++)
-endif()
+target_include_directories(${NASNAS_TGT_STATIC} PRIVATE include)
+target_link_libraries(${NASNAS_TGT_STATIC} ${NasNas_Libs})
 
 set_target_properties(
         ${NASNAS_TGT_STATIC}
@@ -66,9 +54,6 @@ set_target_properties(
 set(NASNAS_TGT_EXAMPLES "")
 if (NASNAS_EXAMPLES)
     set(NASNAS_TGT_EXAMPLES "NasNas_examples")
-endif()
-
-if (NASNAS_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
