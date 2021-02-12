@@ -3,7 +3,6 @@ set(NasNas_Inc "")
 set(NasNas_Libs "")
 
 macro(find_SFML)
-    set(SFML_FOUND FALSE)
     if(NASNAS_FIND_SFML)
         find_package(SFML 2 COMPONENTS graphics audio QUIET)
     endif()
