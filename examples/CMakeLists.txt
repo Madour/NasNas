@@ -1,29 +1,35 @@
-macro(add_example_target target)
-    cmake_parse_arguments(EX "" "RES_DIR" "SRC" ${ARGN})
-
-    add_executable( ${target} ${EX_SRC} )
-    target_include_directories(${target} PRIVATE ../../include)
-    target_link_libraries(${target} PRIVATE NasNas sfml-graphics sfml-audio)
-    set_target_properties(
-            ${target}
-            PROPERTIES
-            CXX_STANDARD 17
-            RUNTIME_OUTPUT_DIRECTORY bin
-            RUNTIME_OUTPUT_DIRECTORY_DEBUG bin
-            RUNTIME_OUTPUT_DIRECTORY_RELEASE bin
-    )
-
-    if (EX_RES_DIR)
-        get_target_property(BIN_DIR ${target} RUNTIME_OUTPUT_DIRECTORY)
-        file(COPY ${EX_RES_DIR} DESTINATION ${BIN_DIR})
-    endif()
-
-    add_dependencies(NasNas_examples ${target})
+macro(subdirectories result curdir)
+    file(GLOB children RELATIVE ${curdir} ${curdir}/*)
+    set(dirlist "")
+    foreach(child ${children})
+        if(IS_DIRECTORY ${curdir}/${child} AND NOT ${child} MATCHES assets)
+            list(APPEND dirlist ${child})
+        endif()
+    endforeach()
+    set(${result} ${dirlist})
 endmacro()
 
 add_custom_target(NasNas_examples)
 
-add_subdirectory(demo)
-add_subdirectory(split_view)
-add_subdirectory(spritebatch)
-add_subdirectory(custom_components)
+# loop on all the examples directories and create a target for each
+subdirectories(examples ${CMAKE_CURRENT_LIST_DIR})
+foreach(example ${examples})
+    file(GLOB_RECURSE Src ${example}/*.cpp)
+    file(GLOB_RECURSE Inc ${example}/*.hpp)
+
+    add_executable(${example} "${Src};${Inc}")
+    target_include_directories(${example} PRIVATE ../include)
+    target_link_libraries(${example} PRIVATE NasNas)
+    set_target_properties(
+            ${example}
+            PROPERTIES
+            CXX_STANDARD 17
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
+            RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}/bin
+            RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR}/bin
+    )
+
+    add_dependencies(NasNas_examples ${example})
+endforeach()
+
+file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)
