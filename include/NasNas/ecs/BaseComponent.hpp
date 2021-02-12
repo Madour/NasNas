@@ -24,19 +24,11 @@ namespace ns::ecs {
 
     template <typename T>
     class Component : public BaseComponent {
-    public:
-        static auto getId() -> unsigned long;
-    protected:
-    private:
+        friend ComponentGroup;
         static unsigned long uid;
     };
 
     template <typename T>
     unsigned long Component<T>::uid = BaseComponent::getNextId();
-
-    template <typename T>
-    auto Component<T>::getId() -> unsigned long {
-        return uid;
-    }
 
 }

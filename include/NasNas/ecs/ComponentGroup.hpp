@@ -60,15 +60,15 @@ namespace ns::ecs {
     template<typename T>
     void ComponentGroup::add(T* new_component) {
         new_component->m_owner = this;
-        m_components[T::getId()] = new_component;
+        m_components[T::uid] = new_component;
         if constexpr (std::is_base_of_v<GraphicsComponent, T>)
             m_graphics.push_back(new_component);
     }
 
     template <typename T>
     auto ComponentGroup::get() const -> T* {
-        if (m_components.count(T::getId()))
-            return static_cast<T*>(m_components.at(T::getId()));
+        if (m_components.count(T::uid))
+            return static_cast<T*>(m_components.at(T::uid));
         return nullptr;
     }
 
