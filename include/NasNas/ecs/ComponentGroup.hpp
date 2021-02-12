@@ -26,8 +26,12 @@ namespace ns::ecs {
         template <typename T>
         auto get() const -> T*;
 
+        template <typename T>
+        void remove();
+
         void addChild(const std::string& name);
         auto getChild(const std::string& name) const -> ComponentGroup*;
+        void removeChild(const std::string& name);
 
         auto getParent() const -> ComponentGroup*;
 
@@ -60,6 +64,7 @@ namespace ns::ecs {
     template<typename T>
     void ComponentGroup::add(T* new_component) {
         new_component->m_owner = this;
+        remove<T>();
         m_components[T::uid] = new_component;
         if constexpr (std::is_base_of_v<GraphicsComponent, T>)
             m_graphics.push_back(new_component);
@@ -70,6 +75,18 @@ namespace ns::ecs {
         if (m_components.count(T::uid))
             return static_cast<T*>(m_components.at(T::uid));
         return nullptr;
+    }
+
+    template <typename T>
+    void ComponentGroup::remove() {
+        const auto& it = m_components.find(T::uid);
+        if (it != m_components.end()) {
+            if constexpr (std::is_base_of_v<GraphicsComponent, T>) {
+                m_graphics.erase(std::find(m_graphics.begin(), m_graphics.end(), static_cast<T*>(it->second)));
+            }
+            delete it->second;
+            m_components.erase(it);
+        }
     }
 
 }
