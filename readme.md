@@ -65,7 +65,7 @@ for tile based games.
 
 ### Build
 
-Clone the repository (with --recurse if you don't have SFML already installed). To build :
+Clone the repository (with `--recurse` if you don't have SFML already installed on your computer). Then, you can build :
 ```bash
 mkdir build && cd build
 cmake ..
@@ -75,8 +75,8 @@ This will build the static library libNasNas.a (NasNas.lib on windows).
 
 Additional CMake options you can pass : 
 
-- `-DNASNAS_FIND_SFML=OFF` to build SFML inside the project (instead of using the installed package if it exists)
-- `-DNASNAS_EXAMPLES=ON` to create the example applications target
+- `-DNASNAS_FIND_SFML=OFF` to build SFML as a submodule inside the project (this will be OFF automatically if SFML is not found)
+- `-DNASNAS_EXAMPLES=ON` to create the example applications targets
 - `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
 - `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
 - `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
