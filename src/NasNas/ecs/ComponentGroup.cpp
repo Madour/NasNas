@@ -24,6 +24,7 @@ auto ComponentGroup::graphics() -> const std::vector<GraphicsComponent*>& {
 void ComponentGroup::addChild(const std::string& name) {
     auto* child = new ComponentGroup(name);
     child->m_parent = this;
+    removeChild(name);
     m_childs[name] = child;
 }
 
@@ -31,6 +32,14 @@ auto ComponentGroup::getChild(const std::string& name) const -> ComponentGroup* 
     if (m_childs.count(name) > 0)
         return m_childs.at(name);
     return nullptr;
+}
+
+void ComponentGroup::removeChild(const std::string& name) {
+    const auto& it = m_childs.find(name);
+    if (it != m_childs.end()) {
+        delete it->second;
+        m_childs.erase(it);
+    }
 }
 
 auto ComponentGroup::getParent() const -> ComponentGroup* {
