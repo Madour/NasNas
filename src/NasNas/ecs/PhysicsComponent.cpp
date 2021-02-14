@@ -5,8 +5,8 @@
 
 #include "NasNas/ecs/PhysicsComponent.hpp"
 
-#include "NasNas/data/Config.hpp"
-#include "NasNas/data/Maths.hpp"
+#include "NasNas/core/data/Config.hpp"
+#include "NasNas/core/data/Maths.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 
 using namespace ns;

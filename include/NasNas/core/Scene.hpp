@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "NasNas/data/AppComponent.hpp"
+#include "NasNas/core/data/AppComponent.hpp"
 #include "NasNas/core/Layer.hpp"
 
 namespace ns {

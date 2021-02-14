@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 19/12/2020.
 **/
 
-#include "NasNas/data/VertexArray.hpp"
+#include "NasNas/core/graphics/VertexArray.hpp"
 
 
 auto ns::VertexArray::getPosition() const -> sf::Vector2f {

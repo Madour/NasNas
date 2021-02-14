@@ -4,7 +4,7 @@
 
 
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/data/Logger.hpp"
+#include "NasNas/core/data/Logger.hpp"
 
 using namespace ns;
 using namespace ns::tm;

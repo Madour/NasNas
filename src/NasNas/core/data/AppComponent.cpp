@@ -3,7 +3,7 @@
 **/
 
 
-#include "NasNas/data/AppComponent.hpp"
+#include "NasNas/core/data/AppComponent.hpp"
 
 using namespace ns;
 

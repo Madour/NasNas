@@ -4,7 +4,7 @@
 
 
 #include <iostream>
-#include "NasNas/data/Config.hpp"
+#include "NasNas/core/data/Config.hpp"
 #include "NasNas/core/App.hpp"
 
 using namespace ns;

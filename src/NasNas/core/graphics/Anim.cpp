@@ -3,7 +3,7 @@
 **/
 
 
-#include "NasNas/core/Anim.hpp"
+#include "NasNas/core/graphics/Anim.hpp"
 
 using namespace ns;
 

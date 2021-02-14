@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "NasNas/data/Drawable.hpp"
-#include "NasNas/core/BitmapText.hpp"
+#include "NasNas/core/graphics/Drawable.hpp"
+#include "NasNas/core/graphics/BitmapText.hpp"
 
 namespace ns::ui {
     class TypedText : public BitmapText {

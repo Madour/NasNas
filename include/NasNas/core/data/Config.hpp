@@ -7,8 +7,8 @@
 
 #include <unordered_map>
 #include <SFML/Window.hpp>
-#include "NasNas/data/AppComponent.hpp"
-#include "NasNas/data/Utils.hpp"
+#include "AppComponent.hpp"
+#include "Utils.hpp"
 
 namespace ns {
 

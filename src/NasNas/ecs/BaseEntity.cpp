@@ -4,13 +4,13 @@
 
 
 #include <cmath>
-#include "NasNas/data/Config.hpp"
+#include "NasNas/core/data/Config.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 
 using namespace ns;
 
-BaseEntity::BaseEntity(std::string name) :
-ecs::ComponentGroup(std::move(name))
+BaseEntity::BaseEntity(const std::string& name) :
+ecs::ComponentGroup(name)
 {
     add<ecs::TransformComponent>();
 }

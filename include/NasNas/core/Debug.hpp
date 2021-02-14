@@ -10,7 +10,7 @@
 #include <functional>
 #include <SFML/Graphics.hpp>
 #include <utility>
-#include "NasNas/data/Arial.hpp"
+#include "NasNas/core/data/Arial.hpp"
 
 namespace ns {
 

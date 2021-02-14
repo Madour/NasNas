@@ -3,9 +3,6 @@ if (NOT NASNAS_PATH)
     message(STATUS "Found NasNas in ${NASNAS_PATH}")
 endif()
 
-add_definitions(-DNS_DATA)
-include(${NASNAS_PATH}/cmake/Data.cmake)
-
 add_definitions(-DNS_CORE)
 include(${NASNAS_PATH}/cmake/Core.cmake)
 

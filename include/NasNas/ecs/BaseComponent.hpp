@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "NasNas/data/Shapes.hpp"
+#include "NasNas/core/graphics/Shapes.hpp"
 
 namespace ns::ecs {
     class ComponentGroup;

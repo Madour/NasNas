@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "NasNas/ecs/BaseComponent.hpp"
-#include "NasNas/data/Rect.hpp"
+#include "NasNas/core/data/Rect.hpp"
 
 namespace ns::ecs {
 

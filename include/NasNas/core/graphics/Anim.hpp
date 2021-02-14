@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "NasNas/data/Rect.hpp"
+#include "NasNas/core/data/Rect.hpp"
 
 namespace ns {
 

@@ -6,14 +6,14 @@
 #pragma once
 
 #include <memory>
-#include "NasNas/data/Drawable.hpp"
+#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/ecs/ComponentGroup.hpp"
 
 namespace ns {
 
     class BaseEntity : public ecs::ComponentGroup {
     public:
-        explicit BaseEntity(std::string name);
+        explicit BaseEntity(const std::string& name);
 
         auto transform() const -> ecs::Transform*;
         auto inputs() const -> ecs::Inputs*;

@@ -3,7 +3,7 @@
 **/
 
 
-#include "NasNas/data/Maths.hpp"
+#include "NasNas/core/data/Maths.hpp"
 #include "NasNas/ecs/ColliderComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 

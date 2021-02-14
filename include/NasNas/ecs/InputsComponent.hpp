@@ -8,7 +8,7 @@
 #include <functional>
 #include <unordered_map>
 #include <SFML/System.hpp>
-#include "NasNas/data/Config.hpp"
+#include "NasNas/core/data/Config.hpp"
 #include "NasNas/ecs/BaseComponent.hpp"
 
 namespace ns::ecs {
