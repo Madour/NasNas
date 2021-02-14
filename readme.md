@@ -23,7 +23,7 @@ It is entirely written in **modern C++17**, and doesn't have any dependency othe
 It provides a **clean** and **easy to use** API.
 
 The framework is separated in multiple independent modules :
-- ***Core*** and ***Data*** are the only non optional modules. They are needed to create a NasNas application. 
+- ***Core*** is the only non optional modules. They are needed to create a NasNas application. 
 They contain core classes and data needed by the framework.
 - ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
 a very elegant way.
