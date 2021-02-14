@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 26/08/2020.
 **/
 
-#include "NasNas/data/ShaderHolder.hpp"
+#include "NasNas/core/data/ShaderHolder.hpp"
 
 using namespace ns;
 

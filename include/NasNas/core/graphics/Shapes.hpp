@@ -6,8 +6,8 @@
 
 #include <optional>
 #include <SFML/Graphics.hpp>
-#include "NasNas/data/Maths.hpp"
-#include "NasNas/data/Drawable.hpp"
+#include "NasNas/core/data/Maths.hpp"
+#include "NasNas/core/graphics/Drawable.hpp"
 
 namespace ns {
     class EllipseShape : public sf::Shape {

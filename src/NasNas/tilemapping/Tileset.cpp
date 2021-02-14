@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 14/07/2020.
 **/
 
-#include "NasNas/data/Utils.hpp"
+#include "NasNas/core/data/Utils.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
 #ifdef NS_RESLIB
 #include "NasNas/reslib/ResourceManager.hpp"

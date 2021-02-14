@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "NasNas/core/Anim.hpp"
-#include "NasNas/core/Spritesheet.hpp"
+#include "NasNas/core/graphics/Anim.hpp"
+#include "NasNas/core/graphics/Spritesheet.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 
 namespace ns::ecs {

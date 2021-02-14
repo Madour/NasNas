@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <variant>
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/Anim.hpp"
+#include "Anim.hpp"
 
 namespace ns {
 

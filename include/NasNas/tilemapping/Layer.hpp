@@ -6,7 +6,7 @@
 #pragma once
 
 #include "NasNas/thirdparty/pugixml.hpp"
-#include "NasNas/data/Drawable.hpp"
+#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 

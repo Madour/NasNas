@@ -4,7 +4,7 @@
 
 
 #include <cmath>
-#include "NasNas/data/Config.hpp"
+#include "NasNas/core/data/Config.hpp"
 #include "NasNas/core/Camera.hpp"
 
 using namespace ns;

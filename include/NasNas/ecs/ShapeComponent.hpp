@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "NasNas/data/Rect.hpp"
+#include "NasNas/core/data/Rect.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/BaseEntity.hpp"
 

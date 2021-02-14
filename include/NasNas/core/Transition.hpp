@@ -6,8 +6,8 @@
 
 #include <functional>
 #include <SFML/Graphics.hpp>
-#include "NasNas/data/Maths.hpp"
-#include "NasNas/data/AppComponent.hpp"
+#include "NasNas/core/data/Maths.hpp"
+#include "NasNas/core/data/AppComponent.hpp"
 
 namespace ns {
 

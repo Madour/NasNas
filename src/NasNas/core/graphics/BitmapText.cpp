@@ -3,7 +3,7 @@
 **/
 
 
-#include "NasNas/core/BitmapText.hpp"
+#include "NasNas/core/graphics/BitmapText.hpp"
 
 using namespace ns;
 

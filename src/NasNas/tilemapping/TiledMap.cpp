@@ -2,8 +2,8 @@
 * Created by Modar Nasser on 09/07/2020.
 **/
 
-#include "NasNas/data/Config.hpp"
-#include "NasNas/data/Utils.hpp"
+#include "NasNas/core/data/Config.hpp"
+#include "NasNas/core/data/Utils.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/TileLayer.hpp"
 #include "NasNas/tilemapping/ObjectLayer.hpp"

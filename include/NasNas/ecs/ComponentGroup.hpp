@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "NasNas/data/Drawable.hpp"
+#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/ecs/BaseComponent.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/TransformComponent.hpp"

@@ -10,7 +10,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "NasNas/thirdparty/pugixml.hpp"
-#include "NasNas/data/Rect.hpp"
+#include "NasNas/core/data/Rect.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 
 namespace ns::tm {

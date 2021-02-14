@@ -6,7 +6,7 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "NasNas/data/Drawable.hpp"
+#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/core/App.hpp"
 
 

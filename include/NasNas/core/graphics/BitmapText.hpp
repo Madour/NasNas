@@ -8,8 +8,8 @@
 #include <memory>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "NasNas/data/Drawable.hpp"
-#include "NasNas/data/Rect.hpp"
+#include "NasNas/core/graphics/Drawable.hpp"
+#include "NasNas/core/data/Rect.hpp"
 
 namespace ns {
 

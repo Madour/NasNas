@@ -5,15 +5,15 @@
 
 #pragma once
 
-#include "NasNas/data/Config.hpp"
-#include "NasNas/data/ShaderHolder.hpp"
+#include "NasNas/core/data/Config.hpp"
+#include "NasNas/core/data/ShaderHolder.hpp"
 
 #include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Layer.hpp"
 #include "NasNas/core/Camera.hpp"
 #include "NasNas/core/Window.hpp"
 #include "NasNas/core/Transition.hpp"
-#include "NasNas/core/SpriteBatch.hpp"
+#include "NasNas/core/graphics/SpriteBatch.hpp"
 #include "NasNas/core/Debug.hpp"
 
 namespace ns {

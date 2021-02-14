@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "NasNas/data/Shapes.hpp"
+#include "NasNas/core/graphics/Shapes.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
 

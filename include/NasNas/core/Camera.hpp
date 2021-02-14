@@ -6,8 +6,8 @@
 #pragma once
 
 #include <optional>
-#include "NasNas/data/Rect.hpp"
-#include "NasNas/data/ShaderHolder.hpp"
+#include "NasNas/core/data/Rect.hpp"
+#include "NasNas/core/data/ShaderHolder.hpp"
 #include "NasNas/core/Scene.hpp"
 
 namespace ns {

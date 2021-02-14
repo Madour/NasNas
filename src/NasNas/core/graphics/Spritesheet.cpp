@@ -3,7 +3,7 @@
 **/
 
 
-#include "NasNas/core/Spritesheet.hpp"
+#include "NasNas/core/graphics/Spritesheet.hpp"
 
 #include <utility>
 
