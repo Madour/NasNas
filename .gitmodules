@@ -1,3 +1,4 @@
 [submodule "SFML"]
 	path = SFML
 	url = https://github.com/SFML/SFML
+	update = merge
