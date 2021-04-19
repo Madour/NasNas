@@ -16,10 +16,12 @@ namespace ns {
         float scale=1.f;
         sf::Vector2f velocity={0.f,0.f};
         sf::Color color = sf::Color::White;
-        float lifetime;
+        float lifetime = 1.f;
+        auto getAge() -> float { return clock.getElapsedTime().asSeconds(); }
     private:
         friend ParticleSystem;
         bool repeat = false;
+        sf::Clock clock;
         sf::Sprite sprite;
     };
 
@@ -29,7 +31,6 @@ namespace ns {
 
         void setTexture(const sf::Texture& texture);
         void emmit(const sf::IntRect& rect, int nb, bool repeat=false);
-        auto createParticle(const sf::IntRect& rect, bool repeat=false) -> Particle&;
 
         auto getParticleCount() -> unsigned;
 
@@ -40,10 +41,8 @@ namespace ns {
 
         virtual void onParticleCreate(Particle& particle) = 0;
         virtual void onParticleUpdate(Particle& particle) = 0;
-        virtual bool isParticleDead(Particle& particle) = 0;
 
         void update();
-        static auto getRandomFloat(float min=0.f, float max=1.f) -> float;
 
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

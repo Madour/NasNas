@@ -13,20 +13,13 @@ void ParticleSystem::emmit(const sf::IntRect& rect, int nb, bool repeat) {
         m_particles.emplace_back();
         auto& particle = m_particles.back();
         onParticleCreate(particle);
+        particle.clock.restart();
         particle.repeat = repeat;
         particle.sprite.setTexture(*m_texture);
         particle.sprite.setTextureRect(rect);
         particle.sprite.setPosition(m_position);
         particle.sprite.setOrigin(rect.width/2, rect.height/2);
     }
-
-}
-
-auto ParticleSystem::createParticle(const sf::IntRect& rect, bool repeat) -> Particle& {
-    m_particles.emplace_back();
-    auto& particle = m_particles.back();
-    m_batch.draw(&particle.sprite);
-    return particle;
 }
 
 auto ParticleSystem::getParticleCount() -> unsigned {
@@ -57,9 +50,10 @@ void ParticleSystem::update() {
         particle.sprite.setScale(particle.scale, particle.scale);
         particle.sprite.setRotation(particle.rotation);
         particle.sprite.setColor(particle.color);
-        if (isParticleDead(particle)) {
+        if (particle.getAge() > particle.lifetime) {
             if (particle.repeat) {
                 particle.sprite.setPosition(m_position);
+                particle.clock.restart();
                 onParticleCreate(particle);
                 it++;
             }
@@ -78,8 +72,4 @@ void ParticleSystem::update() {
 
 void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(m_batch, states);
-}
-
-auto ParticleSystem::getRandomFloat(float min, float max) -> float {
-    return min + static_cast<float>(rand()) / static_cast<float>(RAND_MAX)*(max-min);
 }
