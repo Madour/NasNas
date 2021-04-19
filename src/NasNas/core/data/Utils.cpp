@@ -69,3 +69,11 @@ auto bool_switch::operator=(const bool_switch& other) -> bool_switch& {
 bool_switch::operator bool() const {
     return m_val;
 }
+
+auto ns::utils::getRandomFloat(float min, float max) -> float {
+    return min + static_cast<float>(rand()) / static_cast<float>(RAND_MAX)*(max-min);
+}
+
+auto ns::utils::getRandomInt(int min, int max) -> int {
+    return min + rand()%(max-min);
+}

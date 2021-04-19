@@ -26,6 +26,8 @@ namespace ns::utils {
         bool m_val;
         std::function<void()> m_on_true;
         std::function<void()> m_on_false;
-
     };
+
+    auto getRandomFloat(float min, float max) -> float;
+    auto getRandomInt(int min, int max) -> int;
 }
