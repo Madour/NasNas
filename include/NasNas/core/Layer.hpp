@@ -8,7 +8,7 @@
 #include <variant>
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/Drawable.hpp"
+#include "NasNas/core/graphics/DrawableTransformable.hpp"
 
 #ifdef NS_TILEMAPPING
 #include "NasNas/tilemapping/TileLayer.hpp"

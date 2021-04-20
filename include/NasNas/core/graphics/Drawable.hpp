@@ -9,7 +9,6 @@
 #include "NasNas/core/data/Rect.hpp"
 
 namespace ns {
-
     /** Drawable is an interface for any object
      * that can be drawn on a RenderTarget
      */
@@ -18,12 +17,4 @@ namespace ns {
         virtual auto getPosition() const -> sf::Vector2f = 0;
         virtual auto getGlobalBounds() const -> ns::FloatRect = 0;
     };
-
-    class DrawableTransformable : public ns::Drawable, public sf::Transformable {
-    public:
-        auto getPosition() const -> sf::Vector2f override {
-            return sf::Transformable::getPosition();
-        }
-    };
-
 }

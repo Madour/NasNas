@@ -78,6 +78,11 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
                target.draw(*drawable, states);
            }
         }, drawable_variant);
+        if (std::holds_alternative<ns::DrawableTransformable*>(drawable_variant)) {
+            std::get<ns::DrawableTransformable*>(drawable_variant)->changed = false;
+        } else if (std::holds_alternative<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)) {
+            std::get<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)->changed = false;
+        }
     }
     for (const auto& [key, layer]: m_layers) {
         for (const auto& drawable_variant: layer->getDrawables()) {
@@ -86,6 +91,11 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
                     target.draw(*drawable, states);
                 }
             }, drawable_variant);
+            if (std::holds_alternative<ns::DrawableTransformable*>(drawable_variant)) {
+                std::get<ns::DrawableTransformable*>(drawable_variant)->changed = false;
+            } else if (std::holds_alternative<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)) {
+                std::get<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)->changed = false;
+            }
         }
     }
 }
