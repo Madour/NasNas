@@ -14,7 +14,7 @@ public:
         particle.scale = 2.f;
         particle.rotation = a;
         particle.velocity.x = s*std::cos(ns::to_radian(a));
-        particle.velocity.y = abs(s*std::sin(ns::to_radian(a)));
+        particle.velocity.y = std::abs(s*std::sin(ns::to_radian(a)));
         particle.lifetime = ns::utils::getRandomFloat(1.f, 4.f);
     }
 
