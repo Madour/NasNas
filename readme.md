@@ -120,10 +120,11 @@ for an overview of what you can do with the framework.
 
 ### Showcase
 
-The following games were made with NasNas during game jams :
+The following games were made with NasNas :
 
 - Warp Runner on [itch](https://madour.itch.io/warp-runner) - source code not available (yet)
-- History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020) 
+- History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020)
+- Cyber Slayer on [github](https://github.com/Madour/CyberSlayer)
 
 
 ### Support
