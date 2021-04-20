@@ -231,7 +231,7 @@ namespace ns {
          * \brief Handles SFML events
          *
          * Virtual method, can be defined by the user.
-         * `onEvent` will be called each time a window event occures.
+         * `onEvent` will be called each time a window event occurs.
          *
          * \param event The sf::Event that happened
          */
@@ -248,7 +248,7 @@ namespace ns {
         /**
          * \brief Optional method called just before rendering
          *
-         * Virtual method, can be defined by the use
+         * Virtual method, can be defined by the user
          * It can be used to execute code before rendering outside of the `update`
          */
         virtual void preRender() {};
@@ -264,9 +264,10 @@ namespace ns {
         float m_dt;             ///< Delta time, time between two frames
         bool m_sleeping = false;
 
-        std::vector<Camera*> m_cameras;                 ///< Vector of Camera pointers
-        std::vector<Scene*> m_scenes;                   ///< Vector of Scene pointers
-        std::vector<DebugTextInterface*> m_debug_texts; ///< Vector of DebugText pointers
+        std::vector<Camera*> m_cameras;
+        std::vector<Scene*> m_scenes;
+        std::vector<DebugTextInterface*> m_debug_texts;
+        std::vector<sf::Vertex> m_debug_bounds;
 
         /**
          * \brief Updates m_inputs everytime a key event occurs
@@ -275,12 +276,17 @@ namespace ns {
          *
          * \param event The key event
          */
-        void storeInputs(sf::Event event);
+        static void storeInputs(sf::Event event);
 
         /**
          * \brief Render App content to the AppWindow
          */
         void render();
+
+        void renderDebugBounds();
+        void storeDrawableDebugRects(const Layer::DrawablesTypes& variant, Camera* cam,
+                                     const sf::FloatRect& render_bounds, sf::Vector2f& offset,
+                                     const sf::FloatRect& global_vport, const sf::FloatRect& local_vport);
     };
 
     template<typename T>
