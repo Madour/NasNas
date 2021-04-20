@@ -52,10 +52,11 @@ for tile based games.
  - [x] Convenient console **Logger**
 
 ##### In Progress:
- - [ ] Menus and UI
+ - [ ] Particles system
 
 ##### To do :
- - [ ] Particles system
+ - [ ] Menus and UI
+
  
 ##### Future :
  - [ ] Splash screens
