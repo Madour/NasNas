@@ -114,6 +114,7 @@ namespace ns {
          * \param states Render states
          */
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        void drawVariant(const Layer::DrawablesTypes& variant, sf::RenderTarget& target, sf::RenderStates states) const;
     };
 
 }
