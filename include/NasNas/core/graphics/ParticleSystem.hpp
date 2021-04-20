@@ -22,7 +22,7 @@ namespace ns {
         friend ParticleSystem;
         bool repeat = false;
         sf::Clock clock;
-        sf::Sprite sprite;
+        ns::Sprite sprite;
     };
 
     class ParticleSystem : public ns::Drawable {

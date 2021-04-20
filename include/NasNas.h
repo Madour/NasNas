@@ -20,6 +20,7 @@
 #include "NasNas/core/graphics/BitmapText.hpp"
 #include "NasNas/core/graphics/ParticleSystem.hpp"
 #include "NasNas/core/graphics/Shapes.hpp"
+#include "NasNas/core/graphics/Sprite.hpp"
 #include "NasNas/core/graphics/SpriteBatch.hpp"
 #include "NasNas/core/graphics/VertexArray.hpp"
 

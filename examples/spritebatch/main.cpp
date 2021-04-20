@@ -11,7 +11,7 @@
  */
 class Game : public ns::App {
 
-    std::vector<std::unique_ptr<sf::Sprite>> m_sprites;
+    std::vector<std::unique_ptr<ns::Sprite>> m_sprites;
     ns::SpriteBatch m_spritebatch;
 
 public:
@@ -29,15 +29,13 @@ public:
 
         // create 1000 random sprites, and draw them in the batch
         for (int i = 0; i < 1000; ++i) {
-            auto sprite = std::make_unique<sf::Sprite>(texture);
-            sprite = std::make_unique<sf::Sprite>(texture);
-            sprite->setTextureRect({0, 0, 50, 37});
+            m_sprites.emplace_back(new ns::Sprite(texture, {0, 0, 50, 37}));
+            auto& sprite = m_sprites.back();
             sprite->setOrigin(25, 18.5);
             sprite->setPosition(rand()%1080, rand()%720);
             sprite->setColor(sf::Color(rand()%255, rand()%255, rand()%255));
             sprite->setScale(1.5f, 1.5f);
             m_spritebatch.draw(sprite.get());
-            m_sprites.push_back(std::move(sprite));
         }
         // alternatively, you can draw sprites in the batch directly like this
         /*
@@ -71,8 +69,9 @@ public:
             if (event.mouseButton.button == sf::Mouse::Button::Left) {
                 // add 100 more randomized sprites to the batch !
                 for (unsigned i = 0; i < 100; ++i) {
-                    auto spr = std::make_unique<sf::Sprite>(ns::Res::getTexture("adventurer.png"));
-                    spr->setTextureRect({0, 0, 50, 37});
+                    auto& texture = ns::Res::getTexture("adventurer.png");
+                    m_sprites.emplace_back(new ns::Sprite(texture, {0, 0, 50, 37}));
+                    auto& spr = m_sprites.back();
                     spr->setRotation(rand()%360);
                     spr->setPosition(rand()%1080, rand()%720);
                     spr->setColor(sf::Color(rand()%255, rand()%255, rand()%255));
@@ -80,7 +79,6 @@ public:
                     spr->setScale(1.f + scale, 1.f + scale);
 
                     m_spritebatch.draw(spr.get());
-                    m_sprites.push_back(std::move(spr));
                 }
                 m_spritebatch.end();
             }
