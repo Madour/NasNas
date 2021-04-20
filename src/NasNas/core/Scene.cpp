@@ -73,29 +73,24 @@ void Scene::temporaryLinkCamera(Camera* camera) {
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& drawable_variant: m_default_layer->getDrawables()) {
-        std::visit([&](auto&& drawable){
-           if (render_bounds.intersects(drawable->getGlobalBounds())) {
-               target.draw(*drawable, states);
-           }
-        }, drawable_variant);
-        if (std::holds_alternative<ns::DrawableTransformable*>(drawable_variant)) {
-            std::get<ns::DrawableTransformable*>(drawable_variant)->changed = false;
-        } else if (std::holds_alternative<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)) {
-            std::get<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)->changed = false;
-        }
+        drawVariant(drawable_variant, target, states);
     }
     for (const auto& [key, layer]: m_layers) {
         for (const auto& drawable_variant: layer->getDrawables()) {
-            std::visit([&](auto&& drawable){
-                if (render_bounds.intersects(drawable->getGlobalBounds())) {
-                    target.draw(*drawable, states);
-                }
-            }, drawable_variant);
-            if (std::holds_alternative<ns::DrawableTransformable*>(drawable_variant)) {
-                std::get<ns::DrawableTransformable*>(drawable_variant)->changed = false;
-            } else if (std::holds_alternative<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)) {
-                std::get<std::shared_ptr<ns::DrawableTransformable>>(drawable_variant)->changed = false;
-            }
+            drawVariant(drawable_variant, target, states);
         }
+    }
+}
+
+void Scene::drawVariant(const Layer::DrawablesTypes& variant, sf::RenderTarget& target, sf::RenderStates states) const {
+    std::visit([&](auto&& drawable){
+        if (render_bounds.intersects(drawable->getGlobalBounds())) {
+            target.draw(*drawable, states);
+        }
+    }, variant);
+    if (std::holds_alternative<ns::DrawableTransformable*>(variant)) {
+        std::get<ns::DrawableTransformable*>(variant)->changed = false;
+    } else if (std::holds_alternative<std::shared_ptr<ns::DrawableTransformable>>(variant)) {
+        std::get<std::shared_ptr<ns::DrawableTransformable>>(variant)->changed = false;
     }
 }
