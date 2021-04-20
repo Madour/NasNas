@@ -28,7 +28,7 @@ void SpriteBatch::start(sf::VertexBuffer::Usage usage) {
     m_usage = usage;
 }
 
-void SpriteBatch::draw(const sf::Sprite* sprite) {
+void SpriteBatch::draw(const ns::Sprite* sprite) {
     if (m_layers.empty() || m_layers.back().texture != sprite->getTexture()) {
         m_layers.emplace_back(sprite->getTexture());
     }
@@ -36,7 +36,7 @@ void SpriteBatch::draw(const sf::Sprite* sprite) {
 }
 
 void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect, const sf::Color& color) {
-    auto* spr = new sf::Sprite(*texture);
+    auto* spr = new ns::Sprite(*texture);
     spr->setTextureRect(rect);
     spr->setPosition(pos);
     spr->setColor(color);
@@ -45,7 +45,7 @@ void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, cons
 }
 
 void SpriteBatch::draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr, const sf::Color& color) {
-    auto* spr = new sf::Sprite(*texture);
+    auto* spr = new ns::Sprite(*texture);
     spr->setTextureRect(rect);
     spr->setPosition(tr.getPosition());
     spr->setRotation(tr.getRotation());
@@ -62,7 +62,7 @@ void SpriteBatch::end() {
         layer.buffer.setUsage(m_usage);
         layer.buffer.setPrimitiveType(sf::PrimitiveType::Triangles);
     }
-    render();
+    //render();
 }
 
 void SpriteBatch::clear() {
@@ -104,25 +104,25 @@ void SpriteBatch::render() {
             const auto& bottomleft = spr->getTransform().transformPoint(lb.bottomleft());
 
             layer.vertices[i*6+0].position = topleft;
-            layer.vertices[i*6+1].position = bottomright;
-            layer.vertices[i*6+2].position = bottomleft;
+            layer.vertices[i*6+1].position = topright;
+            layer.vertices[i*6+2].position = bottomright;
             layer.vertices[i*6+3].position = topleft;
-            layer.vertices[i*6+4].position = topright;
-            layer.vertices[i*6+5].position = bottomright;
+            layer.vertices[i*6+4].position = bottomright;
+            layer.vertices[i*6+5].position = bottomleft;
 
-            layer.vertices[i*6+0].color = spr->getColor();
-            layer.vertices[i*6+1].color = spr->getColor();
-            layer.vertices[i*6+2].color = spr->getColor();
-            layer.vertices[i*6+3].color = spr->getColor();
-            layer.vertices[i*6+4].color = spr->getColor();
-            layer.vertices[i*6+5].color = spr->getColor();
+            layer.vertices[i*6+0].color = spr->getColor(0);
+            layer.vertices[i*6+1].color = spr->getColor(1);
+            layer.vertices[i*6+2].color = spr->getColor(2);
+            layer.vertices[i*6+3].color = spr->getColor(0);
+            layer.vertices[i*6+4].color = spr->getColor(2);
+            layer.vertices[i*6+5].color = spr->getColor(3);
 
             layer.vertices[i*6+0].texCoords = tex_rect.topleft();
-            layer.vertices[i*6+1].texCoords = tex_rect.bottomright();
-            layer.vertices[i*6+2].texCoords = tex_rect.bottomleft();
+            layer.vertices[i*6+1].texCoords = tex_rect.topright();
+            layer.vertices[i*6+2].texCoords = tex_rect.bottomright();
             layer.vertices[i*6+3].texCoords = tex_rect.topleft();
-            layer.vertices[i*6+4].texCoords = tex_rect.topright();
-            layer.vertices[i*6+5].texCoords = tex_rect.bottomright();
+            layer.vertices[i*6+4].texCoords = tex_rect.bottomright();
+            layer.vertices[i*6+5].texCoords = tex_rect.bottomleft();
 
             if (first) {
                 m_global_bounds = rect;
