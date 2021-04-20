@@ -3,7 +3,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/Drawable.hpp"
+#include "NasNas/core/graphics/DrawableTransformable.hpp"
 
 namespace ns {
     class Sprite : public DrawableTransformable {
@@ -31,7 +31,7 @@ namespace ns {
         auto getGlobalBounds() const -> ns::FloatRect override;
 
     private:
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         sf::Vertex m_vertices[4];
         const sf::Texture* m_texture = nullptr;

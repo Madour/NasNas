@@ -17,6 +17,7 @@ set(
         ${NASNAS_PATH}/src/NasNas/core/graphics/Sprite.cpp
         ${NASNAS_PATH}/src/NasNas/core/graphics/SpriteBatch.cpp
         ${NASNAS_PATH}/src/NasNas/core/graphics/Spritesheet.cpp
+        ${NASNAS_PATH}/src/NasNas/core/graphics/Transformable.cpp
         ${NASNAS_PATH}/src/NasNas/core/graphics/VertexArray.cpp
 
         ${NASNAS_PATH}/src/NasNas/core/App.cpp
@@ -45,11 +46,13 @@ set(
         ${NASNAS_PATH}/include/NasNas/core/graphics/Anim.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/BitmapText.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/Drawable.hpp
+        ${NASNAS_PATH}/include/NasNas/core/graphics/DrawableTransformable.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/Shapes.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/ParticleSystem.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/Sprite.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/SpriteBatch.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/Spritesheet.hpp
+        ${NASNAS_PATH}/include/NasNas/core/graphics/Transformable.hpp
         ${NASNAS_PATH}/include/NasNas/core/graphics/VertexArray.hpp
 
         ${NASNAS_PATH}/include/NasNas/core/App.hpp
