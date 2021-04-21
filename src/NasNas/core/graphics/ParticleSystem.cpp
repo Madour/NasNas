@@ -1,6 +1,7 @@
 // Created by Modar Nasser on 14/02/2021.
 
 #include "NasNas/core/graphics/ParticleSystem.hpp"
+#include "NasNas/core/data/Config.hpp"
 
 using namespace ns;
 
@@ -48,37 +49,39 @@ auto ParticleSystem::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void ParticleSystem::update() {
-    auto elapsed = m_clk.getElapsedTime().asSeconds();
-    m_to_emmit += elapsed*m_rate;
+    m_to_emmit += m_rate/ns::Config::Window::update_rate;
 
-    m_batch.clear();
     for (auto it = m_particles.begin(); it != m_particles.end();) {
         auto& particle = *it;
-        if (particle.getAge() < particle.lifetime) {
-            onParticleUpdate(particle);
-            particle.sprite.move(particle.velocity);
-            particle.sprite.setScale(particle.scale, particle.scale);
-            particle.sprite.setRotation(particle.rotation);
-            particle.sprite.setColor(particle.color);
-            m_batch.draw(&particle.sprite);
-            it++;
-            continue;
-        }
-        if (particle.repeat || particle.lifetime == 0.f) {
-            if (m_to_emmit > 1.f) {
-                m_to_emmit -= 1.f;
-                onParticleCreate(particle);
-                particle.clock.restart();
+        onParticleUpdate(particle);
+        particle.sprite.move(particle.velocity);
+        if (particle.getAge() > particle.lifetime) {
+            if (particle.repeat || particle.lifetime == 0.f) {
+                if (m_to_emmit > 1.f) {
+                    m_to_emmit -= 1.f;
+                    onParticleCreate(particle);
+                    particle.clock.restart();
+                }
+                particle.sprite.setPosition(m_position);
+                it++;
             }
-            particle.sprite.setPosition(m_position);
-            it++;
+            else {
+                it = m_particles.erase(it);
+            }
         }
-        else {
-            it = m_particles.erase(it);
-        }
+        else it++;
+    }
+}
+
+void ParticleSystem::render() {
+    m_batch.clear();
+    for (auto& particle: m_particles) {
+        particle.sprite.setScale(particle.scale, particle.scale);
+        particle.sprite.setRotation(particle.rotation);
+        particle.sprite.setColor(particle.color);
+        m_batch.draw(&particle.sprite);
     }
     m_batch.end();
-    m_clk.restart();
 }
 
 void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const {

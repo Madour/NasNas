@@ -11,15 +11,11 @@ SpriteBatch::SpriteBatchLayer::SpriteBatchLayer(const sf::Texture* tex) :
 texture(tex)
 {}
 
-std::vector<SpriteBatch*> SpriteBatch::list;
-
 SpriteBatch::SpriteBatch() : m_usage(sf::VertexBuffer::Usage::Stream) {
-    SpriteBatch::list.push_back(this);
     clear();
 }
 
 SpriteBatch::~SpriteBatch() {
-    SpriteBatch::list.erase(std::find(SpriteBatch::list.begin(), SpriteBatch::list.end(), this));
     for (const auto* spr : m_owned_sprites)
         delete(spr);
 }
@@ -90,6 +86,8 @@ auto SpriteBatch::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void SpriteBatch::render() {
+    if (m_usage == sf::VertexBuffer::Usage::Static)
+        return;
     bool first = true;
     for (auto& layer : m_layers) {
         for (unsigned int i = 0; i < layer.sprites.size(); ++i) {

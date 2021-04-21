@@ -25,7 +25,7 @@ namespace ns {
         ns::Sprite sprite;
     };
 
-    class ParticleSystem : public ns::Drawable {
+    class ParticleSystem : public ns::Drawable, Renderable {
     public:
         ParticleSystem() = default;
 
@@ -46,6 +46,7 @@ namespace ns {
         void update();
 
     private:
+        void render() override;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         const sf::Texture* m_texture = nullptr;

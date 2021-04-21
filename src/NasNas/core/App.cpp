@@ -192,11 +192,12 @@ void App::render() {
     m_window.setView(m_window.getAppView());
 
     m_renderer.clear(sf::Color::Transparent);
-    // update SpriteBatches vertices
-    for (auto* batch : SpriteBatch::list) {
-        if (batch->getUsage() != sf::VertexBuffer::Usage::Static)
-            batch->render();
+
+    // render renderables
+    for (auto* renderable : Renderable::list) {
+        renderable->render();
     }
+
     // for each camera, if it has a scene and is visible, render the content
     for (auto* cam: m_cameras) {
         if (cam->hasScene() && cam->isVisible()) {
