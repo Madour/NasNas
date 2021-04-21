@@ -6,6 +6,7 @@
 
 namespace ns {
     class SpriteBatch;
+    class Sprite;
     class Scene;
 
     class Transformable : sf::Transformable {
@@ -38,6 +39,7 @@ namespace ns {
 
     private:
         friend SpriteBatch;
+        friend Sprite;
         friend Scene;
         mutable bool changed = true;
 
