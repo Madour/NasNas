@@ -7,13 +7,12 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "NasNas/core/graphics/Drawable.hpp"
+#include "NasNas/core/graphics/Renderable.hpp"
 #include "NasNas/core/graphics/Sprite.hpp"
-#include "NasNas/core/App.hpp"
-
 
 namespace ns {
 
-    class SpriteBatch : public ns::Drawable {
+    class SpriteBatch : public ns::Drawable, Renderable {
 
         struct SpriteBatchLayer {
             explicit SpriteBatchLayer(const sf::Texture* tex);
@@ -42,9 +41,9 @@ namespace ns {
         auto getPosition() const -> sf::Vector2f override;
         auto getGlobalBounds() const -> ns::FloatRect override;
 
+
     private:
-        friend App;
-        void render();
+        void render() override;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         ns::FloatRect m_global_bounds;
@@ -53,7 +52,7 @@ namespace ns {
         std::vector<SpriteBatchLayer> m_layers;
         std::vector<const ns::Sprite*> m_owned_sprites;
 
-        static std::vector<SpriteBatch*> list;
+        //static std::vector<SpriteBatch*> list;
     };
 
 }
