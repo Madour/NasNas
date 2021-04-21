@@ -30,6 +30,7 @@ namespace ns {
         ParticleSystem() = default;
 
         void setTexture(const sf::Texture& texture);
+        void setEmmitRate(float rate);
         void emmit(const sf::IntRect& rect, int nb, bool repeat=false);
 
         auto getParticleCount() -> unsigned;
@@ -48,8 +49,11 @@ namespace ns {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         const sf::Texture* m_texture = nullptr;
+        float m_rate=999.f;
+        sf::Clock m_clk;
         sf::Vector2f m_position;
         std::vector<Particle> m_particles;
+        float m_to_emmit=0.f;
         ns::SpriteBatch m_batch;
     };
 

@@ -35,9 +35,10 @@ public:
         auto* camera = this->createCamera("main", 0);
         camera->lookAt(scene);
 
+        m_particles_system.setEmmitRate(15.f);
         m_particles_system.setTexture(ns::Res::getTexture("tileset.png"));
         m_particles_system.setPosition(500, 300);
-        m_particles_system.emmit({240, 16, 16, 16}, 500, true);
+        m_particles_system.emmit({240, 16, 16, 16}, 20, true);
         scene->getDefaultLayer()->addRaw(&m_particles_system);
 
         addDebugText<unsigned>("Particles count :", [&]{return m_particles_system.getParticleCount();}, {0, 0});
