@@ -18,8 +18,6 @@ void ParticleSystem::emmit(const sf::IntRect& rect, int nb, bool repeat) {
         m_particles.emplace_back();
         auto& particle = m_particles.back();
         onParticleCreate(particle);
-        particle.lifetime = 0.f;
-        particle.clock.restart();
         particle.repeat = repeat;
         particle.sprite.setTexture(*m_texture);
         particle.sprite.setTextureRect(rect);
@@ -28,8 +26,8 @@ void ParticleSystem::emmit(const sf::IntRect& rect, int nb, bool repeat) {
     }
 }
 
-auto ParticleSystem::getParticleCount() -> unsigned {
-    return m_particles.size();
+auto ParticleSystem::getParticleCount() const -> unsigned {
+    return m_count;
 }
 
 void ParticleSystem::setPosition(float x, float y) {
@@ -49,37 +47,55 @@ auto ParticleSystem::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void ParticleSystem::update() {
-    m_to_emmit += m_rate/ns::Config::Window::update_rate;
+    float dt = 1.f/ns::Config::Window::update_rate;
+    m_to_emmit = std::min(m_rate, m_to_emmit+m_rate*dt);
 
+    // TODO : spritebatch global bounds is bugged
     for (auto it = m_particles.begin(); it != m_particles.end();) {
         auto& particle = *it;
-        onParticleUpdate(particle);
-        particle.sprite.move(particle.velocity);
-        if (particle.getAge() > particle.lifetime) {
-            if (particle.repeat || particle.lifetime == 0.f) {
-                if (m_to_emmit > 1.f) {
-                    m_to_emmit -= 1.f;
-                    onParticleCreate(particle);
-                    particle.clock.restart();
-                }
+
+        if (particle.age >= particle.lifetime) {
+            if (particle.repeat) {
                 particle.sprite.setPosition(m_position);
+                particle.color = sf::Color::White;
+                particle.age = 0;
+                particle.active = false;
                 it++;
             }
             else {
                 it = m_particles.erase(it);
             }
+            m_count--;
         }
-        else it++;
+        else {
+            if (particle.active) {
+                particle.age = std::min(particle.lifetime, particle.age+dt);
+                onParticleUpdate(particle);
+                particle.sprite.move(particle.velocity);
+            }
+            else {
+                if (m_to_emmit > 1.f){
+                    particle.active = true;
+                    m_to_emmit -= 1.f;
+                    m_count++;
+                    onParticleCreate(particle);
+                }
+                particle.sprite.setPosition(m_position);
+            }
+            it++;
+        }
     }
 }
 
 void ParticleSystem::render() {
     m_batch.clear();
     for (auto& particle: m_particles) {
-        particle.sprite.setScale(particle.scale, particle.scale);
-        particle.sprite.setRotation(particle.rotation);
-        particle.sprite.setColor(particle.color);
-        m_batch.draw(&particle.sprite);
+        if (particle.active) {
+            particle.sprite.setScale(particle.scale, particle.scale);
+            particle.sprite.setRotation(particle.rotation);
+            particle.sprite.setColor(particle.color);
+            m_batch.draw(&particle.sprite);
+        }
     }
     m_batch.end();
 }

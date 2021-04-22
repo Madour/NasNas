@@ -14,14 +14,14 @@ public:
         particle.scale = 2.f;
         particle.rotation = a;
         particle.velocity.x = s*std::cos(ns::to_radian(a));
-        particle.velocity.y = std::abs(s*std::sin(ns::to_radian(a)));
+        particle.velocity.y = -std::abs(s*std::sin(ns::to_radian(a)));
         particle.lifetime = ns::utils::getRandomFloat(1.f, 4.f);
     }
 
     void onParticleUpdate(ns::Particle& particle) override {
         particle.rotation += 0.1f;
-        particle.color.a = (1.f-(particle.getAge()/particle.lifetime))*255;
-        particle.velocity.y += 0.02f;
+        particle.color.a = (1.f-particle.getAge()/particle.lifetime)*255;
+        particle.velocity.y -= 0.02f;
     }
 };
 
@@ -35,10 +35,10 @@ public:
         auto* camera = this->createCamera("main", 0);
         camera->lookAt(scene);
 
-        m_particles_system.setEmmitRate(15.f);
+        m_particles_system.setEmmitRate(10.f);
         m_particles_system.setTexture(ns::Res::getTexture("tileset.png"));
         m_particles_system.setPosition(500, 300);
-        m_particles_system.emmit({240, 16, 16, 16}, 20, true);
+        m_particles_system.emmit({240, 16, 16, 16}, 50, true);
         scene->getDefaultLayer()->addRaw(&m_particles_system);
 
         addDebugText<unsigned>("Particles count :", [&]{return m_particles_system.getParticleCount();}, {0, 0});
@@ -53,7 +53,7 @@ public:
                 getCamera("main")->zoom(1.05);
         }
         if (event.type == sf::Event::MouseButtonPressed) {
-            m_particles_system.emmit({240, 0, 16, 16}, 500, true);
+            m_particles_system.emmit({240, 0, 16, 16}, 500, false);
         }
     }
 

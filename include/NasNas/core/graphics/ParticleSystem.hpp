@@ -17,11 +17,12 @@ namespace ns {
         sf::Vector2f velocity={0.f,0.f};
         sf::Color color = sf::Color::White;
         float lifetime = 1.f;
-        auto getAge() -> float { return clock.getElapsedTime().asSeconds(); }
+        auto getAge() const -> float { return age; }
     private:
         friend ParticleSystem;
+        bool active = false;
         bool repeat = false;
-        sf::Clock clock;
+        float age = 0.f;
         ns::Sprite sprite;
     };
 
@@ -33,7 +34,7 @@ namespace ns {
         void setEmmitRate(float rate);
         void emmit(const sf::IntRect& rect, int nb, bool repeat=false);
 
-        auto getParticleCount() -> unsigned;
+        auto getParticleCount() const -> unsigned;
 
         void setPosition(float x, float y);
         void setPosition(const sf::Vector2f& pos);
@@ -50,11 +51,11 @@ namespace ns {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         const sf::Texture* m_texture = nullptr;
-        float m_rate=999.f;
-        sf::Clock m_clk;
         sf::Vector2f m_position;
         std::vector<Particle> m_particles;
-        float m_to_emmit=0.f;
+        float m_rate = 9999.f;
+        float m_to_emmit = 0.f;
+        unsigned m_count = 0;
         ns::SpriteBatch m_batch;
     };
 
