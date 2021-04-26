@@ -59,10 +59,10 @@ void Layer::ySort() {
     );
 }
 
-auto Layer::getName() -> const std::string& {
+auto Layer::getName() const -> const std::string& {
     return m_name;
 }
 
-auto Layer::getDrawables() -> std::vector<DrawablesTypes>& {
+auto Layer::getDrawables() const -> const std::vector<DrawablesTypes>& {
     return m_drawables;
 }
