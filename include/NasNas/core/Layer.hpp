@@ -56,6 +56,7 @@ namespace ns {
         explicit Layer(std::string name);
 
         Layer(const Layer&) = delete;
+        Layer(Layer&&) = default;
 
         /**
          * \brief Removes all the drawable
