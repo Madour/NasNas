@@ -9,9 +9,6 @@
 
 using namespace ns;
 
-Camera::Camera() : Camera("", 0)
-{}
-
 Camera::Camera(std::string name, int render_order) :
 m_name(std::move(name)),
 m_render_order(render_order),
@@ -26,33 +23,31 @@ m_frames_delay(0)
 }
 
 void Camera::reset(int x, int y, int w, int h) {
-    reset(ns::FloatRect((float)x, (float)y, (float)w, (float)h));
+    reset(ns::IntRect(x, y, w, h));
 }
-void Camera::reset(sf::Vector2i position, sf::Vector2i size) {
-    reset(ns::FloatRect((float)position.x, (float)position.y, (float)size.x, (float)size.y));
+void Camera::reset(const sf::Vector2i& position, const sf::Vector2i& size) {
+    reset(ns::IntRect(position.x, position.y, size.x, size.y));
 }
-void Camera::reset(const ns::FloatRect& rectangle) {
+void Camera::reset(const ns::IntRect& rectangle) {
     sf::ContextSettings settings;
     settings.antialiasingLevel = ns::Config::Window::antialiasing;
-    m_base_view = ns::IntRect(int(rectangle.left), int(rectangle.top), int(rectangle.width), int(rectangle.height));
-    m_render_texture.create(static_cast<unsigned int>(rectangle.width), static_cast<unsigned int>(rectangle.height), settings);
-    sf::View::reset(rectangle);
+    m_base_view = rectangle;
+    m_render_texture.create(static_cast<unsigned>(rectangle.width), static_cast<unsigned>(rectangle.height), settings);
+    sf::View::reset(sf::FloatRect(rectangle));
 }
 
 void Camera::resetViewport(float x, float y, float w, float h) {
-    m_base_viewport = ns::FloatRect(x, y, w, h);
-    sf::View::setViewport({0, 0, 1, 1});
+    m_base_viewport = {x, y, w, h};
 }
-void Camera::resetViewport(sf::Vector2f position, sf::Vector2f size) {
-    m_base_viewport = ns::FloatRect(position, size);
-    sf::View::setViewport({0, 0, 1, 1});
+void Camera::resetViewport(const sf::Vector2f& position, const sf::Vector2f& size) {
+    m_base_viewport = {position, size};
 }
-auto Camera::getViewport() const -> const ns::FloatRect& {
-    return m_base_viewport;
+void Camera::resetViewport(const sf::FloatRect& rect) {
+    m_base_viewport = rect;
 }
 
-auto Camera::getScene() -> Scene& {
-    return *m_scene;
+auto Camera::getViewport() const -> const ns::FloatRect& {
+    return m_base_viewport;
 }
 
 auto Camera::hasScene() -> bool { return m_scene != nullptr; }

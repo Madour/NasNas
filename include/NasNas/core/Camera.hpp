@@ -27,14 +27,6 @@ namespace ns {
         /**
          * \brief Reset Camera size and position
          *
-         * \param position New position
-         * \param size New size
-         */
-        void reset(sf::Vector2i position, sf::Vector2i size);
-
-        /**
-         * \brief Reset Camera size and position
-         *
          * \param x New X position
          * \param y New Y position
          * \param w New width
@@ -45,24 +37,17 @@ namespace ns {
         /**
          * \brief Reset Camera size and position
          *
-         * \param rectangle New rectangle {position, size}
+         * \param position New position
+         * \param size New size
          */
-        void reset(const ns::FloatRect& rectangle) ;
+        void reset(const sf::Vector2i& position, const sf::Vector2i& size);
 
         /**
-         * \brief Reset Camera viewport
+         * \brief Reset Camera size and position
          *
-         * Viewport defines how much space Camera content should take on the window
-         * and where it is placed. Coordinates in percentage.
-         * e.g. :
-         * 0 = 0% of the window
-         * 0.5 = 50% of the window
-         * 1 = 100% of the window
-         *
-         * \param position New viewport position
-         * \param size New viewport size
+         * \param rect New view rectangle {position, size}
          */
-        void resetViewport(sf::Vector2f position, sf::Vector2f size);
+        void reset(const ns::IntRect& rect) ;
 
         /**
          * \brief Reset Camera viewport
@@ -81,6 +66,21 @@ namespace ns {
          */
         void resetViewport(float x, float y, float w, float h);
 
+        /**
+         * \brief Reset Camera viewport
+         *
+         * \param position New viewport position
+         * \param size New viewport size
+         */
+        void resetViewport(const sf::Vector2f& position, const sf::Vector2f& size);
+
+        /**
+         * \brief Reset Camera viewport
+         *
+         * \param rect New viewport
+         */
+        void resetViewport(const sf::FloatRect& rect);
+
         auto getViewport() const -> const ns::FloatRect& ;
 
         /**
@@ -89,13 +89,6 @@ namespace ns {
          * \return True if Camera looking at a Scene
          */
         auto hasScene() -> bool;
-
-        /**
-         * \brief Get the Scene looked at
-         *
-         * \return Scene object reference
-         */
-        auto getScene() -> Scene&;
 
         /**
          * \brief Tell the Camera to look at a Scene
@@ -120,7 +113,7 @@ namespace ns {
         /**
          * \brief Follow an entity, Camera position will be updated accordingly automatically.
          *
-         * \param entity BaseEntity to be followed
+         * \param drawable Drawable object to follow
          */
         void follow(Drawable& drawable);
         void follow(sf::Transformable& transformable);
@@ -254,17 +247,15 @@ namespace ns {
         sf::Sprite m_sprite;                ///< Sprite containing the render_texture's texture
 
         /**
-         * \brief Camera default constructor
-         */
-        Camera();
-
-        /**
          * \brief Renders Camera content on the given target
          * \param target Target where content is drawn on, usualy the AppWindow
          */
         void render(sf::RenderTarget& target);
 
         auto getSprite() const -> const sf::Sprite&;
+
+        using sf::View::reset;
+        using sf::View::setViewport;
 
     };
 
