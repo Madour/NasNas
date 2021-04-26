@@ -26,6 +26,8 @@ namespace ns {
          */
         explicit Scene(std::string name);
 
+        Scene(const Scene&) = delete;
+
         /**
          * \brief Adds a new layer to the scene
          * \param layer_name Layer name
