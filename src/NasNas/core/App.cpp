@@ -74,6 +74,17 @@ auto App::getWindow() -> AppWindow& {
     return m_window;
 }
 
+auto App::getMousePosition(Camera* cam) const -> sf::Vector2f {
+    auto offset = m_window.mapCoordsToPixel(cam->getSprite().getPosition(), m_window.getAppView());
+    const auto& global_vport = m_window.getAppView().getViewport();
+    const auto& local_vport = cam->getViewport();
+    auto mouse_pos = sf::Vector2f(sf::Mouse::getPosition(m_window));
+    mouse_pos.x = (mouse_pos.x - offset.x) / (global_vport.width * local_vport.width);
+    mouse_pos.y = (mouse_pos.y - offset.y) / (global_vport.height * local_vport.height);
+    mouse_pos = m_window.mapPixelToCoords(sf::Vector2i(mouse_pos), *cam);
+    return mouse_pos;
+}
+
 auto App::allScenes() -> std::vector<Scene*>& {
     return m_scenes;
 }
