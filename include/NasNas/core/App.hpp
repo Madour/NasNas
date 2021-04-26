@@ -76,6 +76,8 @@ namespace ns {
          */
         auto getWindow() -> AppWindow&;
 
+        auto getMousePosition(Camera* cam) const -> sf::Vector2f;
+
         /**
          * \brief Get all the Scene objects created within the App
          *
