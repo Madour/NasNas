@@ -62,6 +62,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0c578cbb0d84136756922580bb6eceb8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a0c578cbb0d84136756922580bb6eceb8">Layer</a> (std::string name)</td></tr>
 <tr class="memdesc:a0c578cbb0d84136756922580bb6eceb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classns_1_1Layer.html">Layer</a> object.  <a href="#a0c578cbb0d84136756922580bb6eceb8">More...</a><br /></td></tr>
 <tr class="separator:a0c578cbb0d84136756922580bb6eceb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c93910a296d46c48b5dd1eb182df7b6"><td class="memItemLeft" align="right" valign="top"><a id="a7c93910a296d46c48b5dd1eb182df7b6"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (const <a class="el" href="classns_1_1Layer.html">Layer</a> &amp;)=delete</td></tr>
+<tr class="separator:a7c93910a296d46c48b5dd1eb182df7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c96c332bce2d846b8b9b0bf64b79777"><td class="memItemLeft" align="right" valign="top"><a id="a4c96c332bce2d846b8b9b0bf64b79777"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (<a class="el" href="classns_1_1Layer.html">Layer</a> &amp;&amp;)=default</td></tr>
+<tr class="separator:a4c96c332bce2d846b8b9b0bf64b79777"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cc3c6d1208e09c27ceec60b4d2d5305"><td class="memItemLeft" align="right" valign="top"><a id="a5cc3c6d1208e09c27ceec60b4d2d5305"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a5cc3c6d1208e09c27ceec60b4d2d5305">clear</a> ()</td></tr>
 <tr class="memdesc:a5cc3c6d1208e09c27ceec60b4d2d5305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all the drawable. <br /></td></tr>
@@ -78,15 +84,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:adbf8f961873a09a1f9aed1823ce3bcf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#adbf8f961873a09a1f9aed1823ce3bcf3">remove</a> (const DrawablesTypes &amp;drawable)</td></tr>
 <tr class="memdesc:adbf8f961873a09a1f9aed1823ce3bcf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a drawable from the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#adbf8f961873a09a1f9aed1823ce3bcf3">More...</a><br /></td></tr>
 <tr class="separator:adbf8f961873a09a1f9aed1823ce3bcf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02468aebc2c8d0fe0cfc47cde3d33ddd"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a02468aebc2c8d0fe0cfc47cde3d33ddd">getDrawables</a> () -&gt; std::vector&lt; DrawablesTypes &gt; &amp;</td></tr>
-<tr class="memdesc:a02468aebc2c8d0fe0cfc47cde3d33ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a vector of all drawables added to the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a02468aebc2c8d0fe0cfc47cde3d33ddd">More...</a><br /></td></tr>
-<tr class="separator:a02468aebc2c8d0fe0cfc47cde3d33ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e837c9392398d27e4c6fd49c5a909da"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a0e837c9392398d27e4c6fd49c5a909da">getDrawables</a> () const -&gt; const std::vector&lt; DrawablesTypes &gt; &amp;</td></tr>
+<tr class="memdesc:a0e837c9392398d27e4c6fd49c5a909da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a vector of all drawables added to the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a0e837c9392398d27e4c6fd49c5a909da">More...</a><br /></td></tr>
+<tr class="separator:a0e837c9392398d27e4c6fd49c5a909da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afce9bec2003d68ef5a7d7b7ff2daa7ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#afce9bec2003d68ef5a7d7b7ff2daa7ca">ySort</a> ()</td></tr>
 <tr class="memdesc:afce9bec2003d68ef5a7d7b7ff2daa7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts <a class="el" href="classns_1_1Layer.html">Layer</a> drawables by their Y coordinate.  <a href="#afce9bec2003d68ef5a7d7b7ff2daa7ca">More...</a><br /></td></tr>
 <tr class="separator:afce9bec2003d68ef5a7d7b7ff2daa7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64a407339ae257bb38491b87c0def4da"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a64a407339ae257bb38491b87c0def4da">getName</a> () -&gt; const std::string &amp;</td></tr>
-<tr class="memdesc:a64a407339ae257bb38491b87c0def4da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a64a407339ae257bb38491b87c0def4da">More...</a><br /></td></tr>
-<tr class="separator:a64a407339ae257bb38491b87c0def4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91bbba7b00031c6cf10b4e633f62abc8"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Layer.html#a91bbba7b00031c6cf10b4e633f62abc8">getName</a> () const -&gt; const std::string &amp;</td></tr>
+<tr class="memdesc:a91bbba7b00031c6cf10b4e633f62abc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the <a class="el" href="classns_1_1Layer.html">Layer</a>.  <a href="#a91bbba7b00031c6cf10b4e633f62abc8">More...</a><br /></td></tr>
+<tr class="separator:a91bbba7b00031c6cf10b4e633f62abc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -206,8 +212,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a02468aebc2c8d0fe0cfc47cde3d33ddd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02468aebc2c8d0fe0cfc47cde3d33ddd">&#9670;&nbsp;</a></span>getDrawables()</h2>
+<a id="a0e837c9392398d27e4c6fd49c5a909da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e837c9392398d27e4c6fd49c5a909da">&#9670;&nbsp;</a></span>getDrawables()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,7 +222,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="memname">auto ns::Layer::getDrawables </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> -&gt;  std::vector&lt; DrawablesTypes &gt; &amp;</td>
+          <td> const -&gt;  const std::vector&lt; DrawablesTypes &gt; &amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -226,8 +232,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a64a407339ae257bb38491b87c0def4da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64a407339ae257bb38491b87c0def4da">&#9670;&nbsp;</a></span>getName()</h2>
+<a id="a91bbba7b00031c6cf10b4e633f62abc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91bbba7b00031c6cf10b4e633f62abc8">&#9670;&nbsp;</a></span>getName()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +242,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="memname">auto ns::Layer::getName </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> -&gt;  const std::string &amp;</td>
+          <td> const -&gt;  const std::string &amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
