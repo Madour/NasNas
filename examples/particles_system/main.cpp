@@ -48,9 +48,9 @@ public:
         ns::App::onEvent(event);
         if (event.type == sf::Event::MouseWheelScrolled) {
             if (event.mouseWheelScroll.delta > 0)
-                getCamera("main")->zoom(0.95);
+                getCamera("main")->zoom(0.95f);
             else
-                getCamera("main")->zoom(1.05);
+                getCamera("main")->zoom(1.05f);
         }
         if (event.type == sf::Event::MouseButtonPressed) {
             m_particles_system.emmit({240, 0, 16, 16}, 500, false);

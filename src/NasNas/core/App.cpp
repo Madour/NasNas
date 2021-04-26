@@ -265,11 +265,11 @@ void App::renderDebugBounds() {
             const auto& local_vport = cam->getViewport();
             sf::Vector2f offset{m_window.mapCoordsToPixel(cam->getSprite().getPosition(), m_window.getAppView())};
 
-            for (const auto& drawable_variant: cam->m_scene->m_default_layer->getDrawables()) {
+            for (const auto& drawable_variant: cam->m_scene->m_default_layer.getDrawables()) {
                 storeDrawableDebugRects(drawable_variant, cam, render_bounds, offset, global_vport, local_vport);
             }
             for (const auto& [key, layer]: cam->m_scene->m_layers) {
-                for (const auto& drawable_variant: layer->getDrawables()) {
+                for (const auto& drawable_variant: layer.getDrawables()) {
                     storeDrawableDebugRects(drawable_variant, cam, render_bounds, offset, global_vport, local_vport);
                 }
             }

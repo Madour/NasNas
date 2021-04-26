@@ -96,7 +96,7 @@ namespace ns {
          *
          * \return Vector of variant drawables (ns::Drawable, sf::Shape, sf::Text)
          */
-        auto getDrawables() -> std::vector<DrawablesTypes>&;
+        auto getDrawables() const -> const std::vector<DrawablesTypes>&;
 
         /**
          * \brief Sorts Layer drawables by their Y coordinate
@@ -110,7 +110,7 @@ namespace ns {
          *
          * \return Name of the Layer
          */
-        auto getName() -> const std::string&;
+        auto getName() const -> const std::string&;
 
     private:
         std::string m_name;                          ///< Name of the Layer

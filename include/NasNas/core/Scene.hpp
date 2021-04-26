@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <map>
 #include "NasNas/core/data/AppComponent.hpp"
 #include "NasNas/core/Layer.hpp"
 
@@ -31,26 +32,6 @@ namespace ns {
          * \param order The order of render of the layer
          */
         void addLayer(const std::string& name, int order);
-
-        /**
-         * \brief Adds a given layer to the scene
-         *
-         * \param layer Raw pointer to the Layer to add
-         * \param order The order of render of the layer
-         *
-         * \see getLayer
-         */
-        void addLayer(Layer* layer, int order);
-
-        /**
-         * \brief Adds a given layer to the scene
-         *
-         * \param layer Shared pointer to the Layer to add
-         * \param order The order of render of the layer
-         *
-         * \see getLayer
-         */
-        void addLayer(const std::shared_ptr<Layer>& layer, int order);
 
         /**
          * \brief Removes and clears the Layer of the given order
@@ -96,8 +77,8 @@ namespace ns {
         friend App; friend Camera;
 
         std::string m_name;         ///< Scene name
-        std::map<std::pair<int, std::string>, std::shared_ptr<Layer>> m_layers;
-        std::unique_ptr<Layer> m_default_layer;
+        std::map<int, Layer> m_layers;
+        Layer m_default_layer;
         ns::FloatRect m_render_bounds;
 
         /**

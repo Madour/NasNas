@@ -69,9 +69,9 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     //------------ Creating a Scene and its Layers --------------------------------------
     this->scene = this->createScene("main");
-    this->scene->addLayer("shapes", 0); // creating new Layer using layer name (recommended)
-    this->scene->addLayer(new ns::Layer("entities"), 1);  // creating new Layer using raw pointer
-    this->scene->addLayer(std::make_shared<ns::Layer>("texts"), 2);  // creating new Layer using smart pointer
+    this->scene->addLayer("shapes", 0); // create a new Layer
+    this->scene->addLayer("entities", 1);
+    this->scene->addLayer("texts", 2);
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Camera ----------------------------------------------------
