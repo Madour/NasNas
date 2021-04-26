@@ -81,7 +81,7 @@ namespace ns {
         /**
          * \brief Get all the Scene objects created within the App
          *
-         * \return Vector of pointers to Scene objects
+         * \return Vector of Scene objects
          */
         auto allScenes() -> std::vector<Scene>&;
 
@@ -89,14 +89,14 @@ namespace ns {
          * \brief Get a Scene by name
          *
          * \param name Name of the Scene to get
-         * \return Pointer to the requested Scene
+         * \return Reference to the requested Scene object
          */
         auto getScene(const std::string& name) -> Scene&;
 
         /**
          * \brief Get all the Camera objects created within the App
          *
-         * \return Vector of pointers to Camera objects
+         * \return Vector of Camera objects
          */
         auto allCameras() -> std::vector<Camera>&;
 
@@ -104,7 +104,7 @@ namespace ns {
          * \brief Get a Camera by name
          *
          * \param name Name of the Camera to get
-         * \return Pointer to the requested Camera
+         * \return Reference to the requested Camera
          */
         auto getCamera(const std::string& name) -> Camera&;
 
@@ -121,24 +121,24 @@ namespace ns {
     protected:
 
         /**
-         * \brief Creates a Scene object and returns a pointer to it
+         * \brief Creates a Scene object and returns a reference to it
          *
          * \param width Width of the new Scene
          * \param height Height of the new Scene
          *
-         * \return Pointer to the created Scene object
+         * \return Reference to the created Scene object
          */
         auto createScene(const std::string& name) -> Scene&;
 
         /**
-         * \brief Creates a Camera object and returns a pointer to it
+         * \brief Creates a Camera object and returns a reference to it
          *
          * \param name Name of the Camera
          * \param order Order of rendering of the Camera
          * \param view Rectangle representing the position and size of the Camera
          * \param viewport Viewport of the Camera on the AppWindow
          *
-         * \return Pointer to the created Camera object
+         * \return Reference to the created Camera object
          */
         auto createCamera(
                 const std::string& name, int order,
@@ -147,13 +147,13 @@ namespace ns {
         ) -> Camera&;
 
         /**
-         * \brief Creates a Camera object and returns a pointer to it
+         * \brief Creates a Camera object and returns a reference to it
          *
          * \param name Name of the Camera
          * \param order Order of rendering of the Camera
          * \param view Rectangle representing the position and size of the Camera
          *
-         * \return Pointer to the created Camera object *
+         * \return Reference to the created Camera object *
          */
         auto createCamera(const std::string& name, int order, const ns::FloatRect& viewport) -> Camera&;
 

@@ -64,7 +64,7 @@ namespace ns {
          *
          * \param name The name of the layer to get
          *
-         * \return Pointer to Layer object
+         * \return Reference to the requested Layer object
          */
         auto getLayer(const std::string& name) -> Layer&;
 
@@ -72,7 +72,7 @@ namespace ns {
          * \brief Returns the default Scene Layer
          * Default layer will always be drawn first, before any other layer.
          *
-         * \return Pointer to Layer object
+         * \return Reference to the default Layer object
          */
          auto getDefaultLayer() -> Layer&;
 
