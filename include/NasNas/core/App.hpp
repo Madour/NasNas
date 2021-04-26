@@ -76,14 +76,14 @@ namespace ns {
          */
         auto getWindow() -> AppWindow&;
 
-        auto getMousePosition(Camera* cam) const -> sf::Vector2f;
+        auto getMousePosition(Camera& cam) const -> sf::Vector2f;
 
         /**
          * \brief Get all the Scene objects created within the App
          *
          * \return Vector of pointers to Scene objects
          */
-        auto allScenes() -> std::vector<Scene*>&;
+        auto allScenes() -> std::vector<Scene>&;
 
         /**
          * \brief Get a Scene by name
@@ -91,14 +91,14 @@ namespace ns {
          * \param name Name of the Scene to get
          * \return Pointer to the requested Scene
          */
-        auto getScene(const std::string& name) -> Scene*;
+        auto getScene(const std::string& name) -> Scene&;
 
         /**
          * \brief Get all the Camera objects created within the App
          *
          * \return Vector of pointers to Camera objects
          */
-        auto allCameras() -> std::vector<Camera*>&;
+        auto allCameras() -> std::vector<Camera>&;
 
         /**
          * \brief Get a Camera by name
@@ -106,7 +106,7 @@ namespace ns {
          * \param name Name of the Camera to get
          * \return Pointer to the requested Camera
          */
-        auto getCamera(const std::string& name) -> Camera*;
+        auto getCamera(const std::string& name) -> Camera&;
 
         /**
         * \brief Toggle fullscreen display.
@@ -128,7 +128,7 @@ namespace ns {
          *
          * \return Pointer to the created Scene object
          */
-        auto createScene(const std::string& name) -> Scene*;
+        auto createScene(const std::string& name) -> Scene&;
 
         /**
          * \brief Creates a Camera object and returns a pointer to it
@@ -140,7 +140,11 @@ namespace ns {
          *
          * \return Pointer to the created Camera object
          */
-        auto createCamera(const std::string& name, int order, const ns::IntRect& view, const ns::FloatRect& viewport) -> Camera*;
+        auto createCamera(
+                const std::string& name, int order,
+                const ns::IntRect& view={{0, 0}, Config::Window::view_size},
+                const ns::FloatRect& viewport={0, 0, 1.f, 1.f}
+        ) -> Camera&;
 
         /**
          * \brief Creates a Camera object and returns a pointer to it
@@ -151,7 +155,7 @@ namespace ns {
          *
          * \return Pointer to the created Camera object *
          */
-        auto createCamera(const std::string& name, int order, const ns::IntRect& view={{0, 0}, Config::Window::view_size}) -> Camera*;
+        auto createCamera(const std::string& name, int order, const ns::FloatRect& viewport) -> Camera&;
 
 
         /**
@@ -266,8 +270,9 @@ namespace ns {
         float m_dt;             ///< Delta time, time between two frames
         bool m_sleeping = false;
 
-        std::vector<Camera*> m_cameras;
-        std::vector<Scene*> m_scenes;
+        std::vector<Camera> m_cameras;
+        std::vector<Scene> m_scenes;
+        std::multimap<int, Camera*> m_cameras_map;
         std::vector<DebugTextInterface*> m_debug_texts;
         std::vector<sf::Vertex> m_debug_bounds;
 
@@ -286,7 +291,7 @@ namespace ns {
         void render();
 
         void renderDebugBounds();
-        void storeDrawableDebugRects(const Layer::DrawablesTypes& variant, Camera* cam,
+        void storeDrawableDebugRects(const Layer::DrawablesTypes& variant, Camera& cam,
                                      const sf::FloatRect& render_bounds, sf::Vector2f& offset,
                                      const sf::FloatRect& global_vport, const sf::FloatRect& local_vport);
     };

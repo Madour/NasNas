@@ -31,15 +31,15 @@ class Game : public ns::App {
 public:
     Game() : ns::App("Particles System", {1080, 720}) {
         // create a scene and a camera
-        auto* scene = this->createScene("main");
-        auto* camera = this->createCamera("main", 0);
-        camera->lookAt(scene);
+        auto& scene = this->createScene("main");
+        auto& camera = this->createCamera("main", 0);
+        camera.lookAt(scene);
 
         m_particles_system.setEmmitRate(10.f);
         m_particles_system.setTexture(ns::Res::getTexture("tileset.png"));
         m_particles_system.setPosition(500, 300);
         m_particles_system.emmit({240, 16, 16, 16}, 50, true);
-        scene->getDefaultLayer().addRaw(&m_particles_system);
+        scene.getDefaultLayer().addRaw(&m_particles_system);
 
         addDebugText<unsigned>("Particles count :", [&]{return m_particles_system.getParticleCount();}, {0, 0});
     }
@@ -48,9 +48,9 @@ public:
         ns::App::onEvent(event);
         if (event.type == sf::Event::MouseWheelScrolled) {
             if (event.mouseWheelScroll.delta > 0)
-                getCamera("main")->zoom(0.95f);
+                getCamera("main").zoom(0.95f);
             else
-                getCamera("main")->zoom(1.05f);
+                getCamera("main").zoom(1.05f);
         }
         if (event.type == sf::Event::MouseButtonPressed) {
             m_particles_system.emmit({240, 0, 16, 16}, 500, false);

@@ -6,6 +6,7 @@
 #pragma once
 
 #include <optional>
+#include <memory>
 #include "NasNas/core/data/Rect.hpp"
 #include "NasNas/core/data/ShaderHolder.hpp"
 #include "NasNas/core/Scene.hpp"
@@ -25,6 +26,7 @@ namespace ns {
         Camera(std::string name, int render_order);
 
         Camera(const Camera&) = delete;
+        Camera(Camera&&) = default;
         /**
          * \brief Reset Camera size and position
          *
@@ -96,7 +98,7 @@ namespace ns {
          *
          * \param scene Pointer to a Scene object
          */
-        void lookAt(Scene* scene);
+        void lookAt(Scene& scene);
 
         /**
          * \brief Is the Camera visible ?
@@ -244,7 +246,7 @@ namespace ns {
         ns::FloatRect m_base_viewport;      ///< Viewport size on creation or on viewport reset
         ns::IntRect m_limits = {0, 0, 0, 0};///< Camera move limits
 
-        sf::RenderTexture m_render_texture; ///< Render texture where the view will be drawn
+        std::unique_ptr<sf::RenderTexture> m_render_texture;///< Render texture where the view will be drawn
         sf::Sprite m_sprite;                ///< Sprite containing the render_texture's texture
 
         /**

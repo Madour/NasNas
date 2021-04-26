@@ -16,9 +16,6 @@ public:
     void update() override ;
 
 private:
-    ns::Scene* scene;
-    ns::Camera* game_camera;
-
     ns::BitmapFont* font;
 
     ns::tm::TiledMap tiled_map;

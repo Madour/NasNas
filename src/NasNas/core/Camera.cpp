@@ -19,7 +19,8 @@ m_frames_delay(0)
 {
     m_base_view = ns::IntRect(0, 0, 1000, 1000);
     m_base_viewport = ns::FloatRect(0, 0, 1, 1);
-    m_render_texture.setRepeated(true);
+    m_render_texture = std::make_unique<sf::RenderTexture>();
+    m_render_texture->setRepeated(true);
 }
 
 void Camera::reset(int x, int y, int w, int h) {
@@ -32,7 +33,7 @@ void Camera::reset(const ns::IntRect& rectangle) {
     sf::ContextSettings settings;
     settings.antialiasingLevel = ns::Config::Window::antialiasing;
     m_base_view = rectangle;
-    m_render_texture.create(static_cast<unsigned>(rectangle.width), static_cast<unsigned>(rectangle.height), settings);
+    m_render_texture->create(static_cast<unsigned>(rectangle.width), static_cast<unsigned>(rectangle.height), settings);
     sf::View::reset(sf::FloatRect(rectangle));
 }
 
@@ -54,8 +55,8 @@ auto Camera::hasScene() -> bool { return m_scene != nullptr; }
 void Camera::setVisible(bool value) { m_visible = value; }
 auto Camera::isVisible() const -> bool { return m_visible; }
 
-void Camera::lookAt(Scene* target_scene) {
-    m_scene = target_scene;
+void Camera::lookAt(Scene& target_scene) {
+    m_scene = &target_scene;
 }
 
 void Camera::follow(Drawable& drawable) {
@@ -140,17 +141,17 @@ void Camera::update() {
 }
 
 void Camera::render(sf::RenderTarget& target) {
-    m_render_texture.setView(*this);
-    m_render_texture.clear(sf::Color::Transparent);
+    m_render_texture->setView(*this);
+    m_render_texture->clear(sf::Color::Transparent);
 
     m_scene->temporaryLinkCamera(this);
-    m_render_texture.draw(*m_scene);
+    m_render_texture->draw(*m_scene);
 
-    m_render_texture.display();
-    m_sprite.setTexture(m_render_texture.getTexture());
+    m_render_texture->display();
+    m_sprite.setTexture(m_render_texture->getTexture());
     m_sprite.setScale(
-        Config::Window::view_size.x*m_base_viewport.width/m_render_texture.getSize().x,
-        Config::Window::view_size.y*m_base_viewport.height/m_render_texture.getSize().y
+        Config::Window::view_size.x*m_base_viewport.width/m_render_texture->getSize().x,
+        Config::Window::view_size.y*m_base_viewport.height/m_render_texture->getSize().y
     );
     m_sprite.setPosition(m_base_viewport.left*Config::Window::view_size.x, m_base_viewport.top*Config::Window::view_size.y);
     target.draw(m_sprite, getShader());

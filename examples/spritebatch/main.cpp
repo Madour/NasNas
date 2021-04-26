@@ -47,11 +47,11 @@ public:
         m_spritebatch.end();
 
         // create a scene
-        auto* scene = createScene("main");
+        auto& scene = createScene("main");
         // add the batch to the scene
-        scene->getDefaultLayer().addRaw(&m_spritebatch);
+        scene.getDefaultLayer().addRaw(&m_spritebatch);
         // setup camera
-        createCamera("main", 0)->lookAt(scene);
+        createCamera("main", 0).lookAt(scene);
 
         // add some debug texts
         ns::DebugTextInterface::outline_color = sf::Color::Black;

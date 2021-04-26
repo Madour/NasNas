@@ -68,39 +68,39 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Scene and its Layers --------------------------------------
-    this->scene = this->createScene("main");
-    this->scene->addLayer("shapes", 0); // create a new Layer
-    this->scene->addLayer("entities", 1);
-    this->scene->addLayer("texts", 2);
+    auto& scene = this->createScene("main");
+    scene.addLayer("shapes", 0); // create a new Layer
+    scene.addLayer("entities", 1);
+    scene.addLayer("texts", 2);
     //-----------------------------------------------------------------------------------
 
     //------------ Creating a Camera ----------------------------------------------------
     auto game_view = sf::Vector2i(640, 360);
-    this->game_camera = this->createCamera("game_camera", 0, {{0, 0}, game_view});
-    this->game_camera->lookAt(this->scene);     // telling the Camera to look at the scene
-    this->game_camera->follow(*this->player);   // telling the Camera to follow our entity
-    this->game_camera->setFramesDelay(2);       // the Camera will have 10 frames delay over the player
+    auto& game_camera = this->createCamera("main", 0, {{0, 0}, game_view});
+    game_camera.lookAt(scene);     // telling the Camera to look at the scene
+    game_camera.follow(*this->player);   // telling the Camera to follow our entity
+    game_camera.setFramesDelay(2);       // the Camera will have 10 frames delay over the player
     // setting Camera limits
     //this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
     //-----------------------------------------------------------------------------------
 
     //------------ Adding Drawables to the Scene  ---------------------------------------
     // adding tiledmap layers to the scene
-    this->scene->getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
-    this->scene->getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
-    this->scene->getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
+    scene.getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
+    scene.getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
+    scene.getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
 
     // adding shapes
     for (auto& shape : this->shapes) {
-        this->scene->getLayer("shapes").add(shape);
+        scene.getLayer("shapes").add(shape);
     }
 
     // adding entities
-    this->scene->getLayer("entities").add(this->player);
+    scene.getLayer("entities").add(this->player);
 
     // adding the BitmapText to the layer
-    this->scene->getLayer("texts").add(bmp_text);
-    this->scene->getLayer("texts").add(textbox);
+    scene.getLayer("texts").add(bmp_text);
+    scene.getLayer("texts").add(textbox);
     //-----------------------------------------------------------------------------------
 
     //------------ Adding DebugTexts to the App -----------------------------------------
@@ -205,13 +205,13 @@ void Game::update() {
     this->frame_counter++;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        game_camera->rotate(1);
+        getCamera("main").rotate(1.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        game_camera->rotate(-1);
+        getCamera("main").rotate(-1.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-        game_camera->zoom(1.01f);
+        getCamera("main").zoom(1.01f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-        game_camera->zoom(0.99f);
+        getCamera("main").zoom(0.99f);
 
     this->textbox->update();
     // moving the octogons randomly
@@ -228,7 +228,7 @@ void Game::update() {
         entity->update();
 
     // sorting the shapes layer by the y position
-    // this->scene->getLayer("shapes")->ySort();
+    getScene("main").getLayer("shapes").ySort();
 }
 
 Game::~Game() {

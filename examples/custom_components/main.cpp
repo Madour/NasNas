@@ -61,13 +61,13 @@ public:
     Game() : ns::App("Custom components", {1080, 720}) {
 
         // create a scene and a camera
-        auto* scene = this->createScene("main");
-        auto* camera = this->createCamera("main", 0);
-        camera->lookAt(scene);
+        auto& scene = this->createScene("main");
+        auto& camera = this->createCamera("main", 0);
+        camera.lookAt(scene);
 
         // create MyEntity and add it to the scene
         this->entity = new MyEntity();
-        scene->getDefaultLayer().add(this->entity);
+        scene.getDefaultLayer().add(this->entity);
 
     }
 

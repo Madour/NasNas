@@ -15,7 +15,7 @@ class Game : public ns::App {
 public:
     Game() : ns::App("Split View", {1080*2, 720*2}, 0.5f) {
         // create a scene
-        auto* scene = createScene("main");
+        auto& scene = createScene("main");
 
         sf::Vector2i resolution{getWindow().getAppView().getSize()};
         sf::Vector2i window_size{getWindow().getSize()};
@@ -23,7 +23,7 @@ public:
         // adding some shapes to the scene
         auto* bg = new sf::RectangleShape(getWindow().getAppView().getSize());
         bg->setFillColor(sf::Color::White);
-        scene->getDefaultLayer().add(bg);
+        scene.getDefaultLayer().add(bg);
 
         for (int i = 0; i < 100; ++i) {
             auto* shape = new sf::CircleShape(20);
@@ -33,15 +33,15 @@ public:
             shape->setPosition(std::rand()%resolution.x, std::rand()%resolution.y);
             shape->setOutlineColor(sf::Color::Black);
             shape->setOutlineThickness(1);
-            scene->getDefaultLayer().add(shape);
+            scene.getDefaultLayer().add(shape);
         }
 
         // creating 2 cameras each taking half the screen (viewport width of 0.499 to let a black line separator)
-        auto* camera_left = createCamera("left", 0, {0, 0, window_size.x/2, window_size.y}, {0, 0, 0.499, 1});
-        camera_left->lookAt(scene);
+        auto& camera_left = createCamera("left", 0, {0, 0, window_size.x/2, window_size.y}, {0, 0, 0.499f, 1});
+        camera_left.lookAt(scene);
 
-        auto* camera_right = createCamera("right", 0, {0, 0, window_size.x/2, window_size.y}, {0.501, 0, 0.499, 1});
-        camera_right->lookAt(scene);
+        auto& camera_right = createCamera("right", 0, {0, 0, window_size.x/2, window_size.y}, {0.501f, 0, 0.499f, 1});
+        camera_right.lookAt(scene);
 
         addDebugText("Press WASD to move left camera or arrow keys to move right camera.", {50, 10});
     }
@@ -49,23 +49,23 @@ public:
     void update() override {
         // move the left camera with WASD (or ZQSD for AZERTY keyboards)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            getCamera("left")->move(-5, 0);
+            getCamera("left").move(-5, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            getCamera("left")->move(5, 0);
+            getCamera("left").move(5, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-            getCamera("left")->move(0, -5);
+            getCamera("left").move(0, -5);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            getCamera("left")->move(0, 5);
+            getCamera("left").move(0, 5);
 
         // move the right camera with the arrows
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            getCamera("right")->move(-5, 0);
+            getCamera("right").move(-5, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            getCamera("right")->move(5, 0);
+            getCamera("right").move(5, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            getCamera("right")->move(0, -5);
+            getCamera("right").move(0, -5);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            getCamera("right")->move(0, 5);
+            getCamera("right").move(0, 5);
     }
 };
 
