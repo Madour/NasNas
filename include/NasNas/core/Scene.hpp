@@ -56,7 +56,7 @@ namespace ns {
          *
          * \return Pointer to Layer object
          */
-        auto getLayer(int order) -> Layer*;
+        auto getLayer(int order) -> Layer&;
 
         /**
          * \brief Returns the layer of the given name
@@ -65,7 +65,7 @@ namespace ns {
          *
          * \return Pointer to Layer object
          */
-        auto getLayer(const std::string& name) -> Layer*;
+        auto getLayer(const std::string& name) -> Layer&;
 
         /**
          * \brief Returns the default Scene Layer
@@ -73,7 +73,7 @@ namespace ns {
          *
          * \return Pointer to Layer object
          */
-         auto getDefaultLayer() -> Layer*;
+         auto getDefaultLayer() -> Layer&;
 
     private:
         friend App; friend Camera;

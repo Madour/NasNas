@@ -23,7 +23,7 @@ public:
         // adding some shapes to the scene
         auto* bg = new sf::RectangleShape(getWindow().getAppView().getSize());
         bg->setFillColor(sf::Color::White);
-        scene->getDefaultLayer()->add(bg);
+        scene->getDefaultLayer().add(bg);
 
         for (int i = 0; i < 100; ++i) {
             auto* shape = new sf::CircleShape(20);
@@ -33,7 +33,7 @@ public:
             shape->setPosition(std::rand()%resolution.x, std::rand()%resolution.y);
             shape->setOutlineColor(sf::Color::Black);
             shape->setOutlineThickness(1);
-            scene->getDefaultLayer()->add(shape);
+            scene->getDefaultLayer().add(shape);
         }
 
         // creating 2 cameras each taking half the screen (viewport width of 0.499 to let a black line separator)

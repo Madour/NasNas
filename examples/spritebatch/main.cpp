@@ -49,7 +49,7 @@ public:
         // create a scene
         auto* scene = createScene("main");
         // add the batch to the scene
-        scene->getDefaultLayer()->addRaw(&m_spritebatch);
+        scene->getDefaultLayer().addRaw(&m_spritebatch);
         // setup camera
         createCamera("main", 0)->lookAt(scene);
 
