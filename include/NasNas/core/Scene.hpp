@@ -98,7 +98,7 @@ namespace ns {
         std::string m_name;         ///< Scene name
         std::map<std::pair<int, std::string>, std::shared_ptr<Layer>> m_layers;
         std::unique_ptr<Layer> m_default_layer;
-        ns::FloatRect render_bounds;
+        ns::FloatRect m_render_bounds;
 
         /**
         * \brief Temporary links the Scene to a Camera for rendering
