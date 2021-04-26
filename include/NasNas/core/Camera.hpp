@@ -24,6 +24,7 @@ namespace ns {
          */
         Camera(std::string name, int render_order);
 
+        Camera(const Camera&) = delete;
         /**
          * \brief Reset Camera size and position
          *

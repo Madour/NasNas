@@ -14,7 +14,7 @@ m_default_layer("")
 {}
 
 void Scene::addLayer(const std::string& name, int order) {
-    auto ret = m_layers.insert({order, Layer(name)});
+    auto ret = m_layers.emplace(order, name);
     if (!ret.second)
         std::cout << "Warning : the Scene " << m_name << " has already a Layer " << order << std::endl;
 }
