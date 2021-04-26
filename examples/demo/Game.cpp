@@ -86,21 +86,21 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     //------------ Adding Drawables to the Scene  ---------------------------------------
     // adding tiledmap layers to the scene
-    this->scene->getDefaultLayer()->add(this->tiled_map.getTileLayer("bg"));
-    this->scene->getDefaultLayer()->add(this->tiled_map.getTileLayer("front"));
-    this->scene->getDefaultLayer()->add(this->tiled_map.getObjectLayer("objects"));
+    this->scene->getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
+    this->scene->getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
+    this->scene->getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
 
     // adding shapes
     for (auto& shape : this->shapes) {
-        this->scene->getLayer("shapes")->add(shape);
+        this->scene->getLayer("shapes").add(shape);
     }
 
     // adding entities
-    this->scene->getLayer("entities")->add(this->player);
+    this->scene->getLayer("entities").add(this->player);
 
     // adding the BitmapText to the layer
-    this->scene->getLayer("texts")->add(bmp_text);
-    this->scene->getLayer("texts")->add(textbox);
+    this->scene->getLayer("texts").add(bmp_text);
+    this->scene->getLayer("texts").add(textbox);
     //-----------------------------------------------------------------------------------
 
     //------------ Adding DebugTexts to the App -----------------------------------------

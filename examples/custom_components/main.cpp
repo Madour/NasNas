@@ -67,7 +67,7 @@ public:
 
         // create MyEntity and add it to the scene
         this->entity = new MyEntity();
-        scene->getDefaultLayer()->add(this->entity);
+        scene->getDefaultLayer().add(this->entity);
 
     }
 

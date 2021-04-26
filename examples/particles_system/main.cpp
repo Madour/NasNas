@@ -39,7 +39,7 @@ public:
         m_particles_system.setTexture(ns::Res::getTexture("tileset.png"));
         m_particles_system.setPosition(500, 300);
         m_particles_system.emmit({240, 16, 16, 16}, 50, true);
-        scene->getDefaultLayer()->addRaw(&m_particles_system);
+        scene->getDefaultLayer().addRaw(&m_particles_system);
 
         addDebugText<unsigned>("Particles count :", [&]{return m_particles_system.getParticleCount();}, {0, 0});
     }
@@ -58,8 +58,7 @@ public:
     }
 
     void update() override {
-        auto mouse_pos = getWindow().mapPixelToCoords(sf::Mouse::getPosition(getWindow()), *getCamera("main"));
-        m_particles_system.setPosition(mouse_pos);
+        m_particles_system.setPosition(getMousePosition(getCamera("main")));
         m_particles_system.update();
     }
 };

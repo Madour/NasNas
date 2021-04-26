@@ -36,24 +36,24 @@ void Scene::removeLayer(const std::string& name) {
     }
 }
 
-auto Scene::getLayer(int order) -> Layer* {
+auto Scene::getLayer(int order) -> Layer& {
     if (m_layers.count(order) > 0)
-        return &m_layers.at(order);
+        return m_layers.at(order);
     std::cout << "Your Scene has no Layer " << order << std::endl;
     exit(-1);
 }
 
-auto Scene::getLayer(const std::string& name) -> Layer* {
+auto Scene::getLayer(const std::string& name) -> Layer& {
     for (auto& [key, layer] : m_layers) {
         if (layer.getName() == name)
-            return &layer;
+            return layer;
     }
     std::cout << "Your Scene has no Layer named " << name << std::endl;
     exit(-1);
 }
 
-auto Scene::getDefaultLayer() -> Layer* {
-    return &m_default_layer;
+auto Scene::getDefaultLayer() -> Layer& {
+    return m_default_layer;
 }
 
 void Scene::temporaryLinkCamera(Camera* camera) {
