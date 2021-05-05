@@ -1,5 +1,5 @@
-<h1 align=center>NasNas</h1>
-<h3 align=center> An intuitive and user friendly 2D game framework for C++. </h3>
+<p align=center><img width=500px align=center src="https://i.ibb.co/Z1MDyP3/Nas-Nas-logo-title.png" alt="NasNas-logo"></p>
+<h3 align=center> An intuitive and begginer friendly 2D game framework for C++. </h3>
 <p align=center>
  <a href=https://travis-ci.com/Madour/NasNas><img src=https://travis-ci.com/Madour/NasNas.svg?branch=master></a>
  <a href=https://www.codacy.com/manual/Madour/NasNas><img src=https://app.codacy.com/project/badge/Grade/23bdd1079c3f4274a712f42851a276d8></a>
@@ -23,10 +23,10 @@ It is entirely written in **modern C++17**, and doesn't have any dependency othe
 It provides a **clean** and **easy to use** API.
 
 The framework is separated in multiple independent modules :
-- ***Core*** is the only non optional modules. They are needed to create a NasNas application. 
-They contain core classes and data needed by the framework.
+- ***Core*** is the only non optional module. It is needed to create a NasNas application. 
+It contains core classes and data needed by the framework.
 - ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
-a very elegant way.
+an elegant way.
 - ***ECS*** contains the BaseEntity and Components classes. Add Components to BaseEntity derived classes to add more
   functionalities to them, like graphics, physics, collider, inputs... Or create and add your own customized components.
 - ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
