@@ -91,7 +91,7 @@ void SpriteBatch::render() {
     bool first = true;
     for (auto& layer : m_layers) {
         for (unsigned int i = 0; i < layer.sprites.size(); ++i) {
-            auto& spr = layer.sprites[i];
+            auto* spr = layer.sprites[i];
             if (!spr->changed) continue;
             spr->changed = false;
             const ns::FloatRect tex_rect{spr->getTextureRect()};
@@ -129,12 +129,14 @@ void SpriteBatch::render() {
                 first = false;
             }
             else {
-                m_global_bounds.left = std::min(rect.left, m_global_bounds.left);
-                m_global_bounds.top = std::min(rect.top, m_global_bounds.top);
+                auto left = std::min(rect.left, m_global_bounds.left);
+                auto top = std::min(rect.top, m_global_bounds.top);
                 auto right = std::max(rect.right(), m_global_bounds.right());
                 auto bottom = std::max(rect.bottom(), m_global_bounds.bottom());
-                m_global_bounds.width = right - m_global_bounds.left;
-                m_global_bounds.height = bottom - m_global_bounds.top;
+                m_global_bounds.left = left;
+                m_global_bounds.top = top;
+                m_global_bounds.width = right - left;
+                m_global_bounds.height = bottom - top;
             }
         }
         layer.buffer.update(layer.vertices.data());

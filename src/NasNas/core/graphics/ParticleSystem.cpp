@@ -14,6 +14,7 @@ void ParticleSystem::setEmmitRate(float rate) {
 }
 
 void ParticleSystem::emmit(const sf::IntRect& rect, int nb, bool repeat) {
+    m_particles.reserve(m_particles.size()+nb);
     for (int i = 0; i < nb; ++i) {
         m_particles.emplace_back();
         auto& particle = m_particles.back();
@@ -50,7 +51,6 @@ void ParticleSystem::update() {
     float dt = 1.f/ns::Config::Window::update_rate;
     m_to_emmit = std::min(m_rate, m_to_emmit+m_rate*dt);
 
-    // TODO : spritebatch global bounds is bugged
     for (auto it = m_particles.begin(); it != m_particles.end();) {
         auto& particle = *it;
 
@@ -69,8 +69,8 @@ void ParticleSystem::update() {
         }
         else {
             if (particle.active) {
-                particle.age = std::min(particle.lifetime, particle.age+dt);
                 onParticleUpdate(particle);
+                particle.age = particle.age+dt;
                 particle.sprite.move(particle.velocity);
             }
             else {
