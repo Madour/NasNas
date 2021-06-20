@@ -63,13 +63,13 @@ void TiledMap::load(const pugi::xml_document& xml) {
 
     // parsing layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
-        auto new_layer = std::make_shared<TileLayer>(xmlnode_layer, this);
-        m_tilelayers[new_layer->getName()] = new_layer;
+        auto new_layer = std::make_unique<TileLayer>(xmlnode_layer, this);
+        m_tilelayers[new_layer->getName()] = std::move(new_layer);
     }
     // parsing object layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
-        auto new_layer = std::make_shared<ObjectLayer>(xmlnode_layer, this);
-        m_objectlayers[new_layer->getName()] = new_layer;
+        auto new_layer = std::make_unique<ObjectLayer>(xmlnode_layer, this);
+        m_objectlayers[new_layer->getName()] = std::move(new_layer);
     }
 }
 
