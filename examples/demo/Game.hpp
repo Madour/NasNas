@@ -4,8 +4,10 @@
 
 #pragma once
 
-
 #include "NasNas.h"
+
+#include "Player.hpp"
+#include "ShaderTransition.hpp"
 
 class Game: public ns::App {
 public:
@@ -17,14 +19,12 @@ public:
 
 private:
     ns::BitmapFont* font;
+    ns::ui::TypedText* textbox;
 
     ns::tm::TiledMap tiled_map;
 
-    std::shared_ptr<ns::BaseEntity> player;
-    std::shared_ptr<ns::ui::TypedText> textbox;
-
-    std::vector<std::shared_ptr<ns::BaseEntity>> entities;
-    std::vector<std::shared_ptr<sf::Shape>> shapes;
+    Player player;
+    std::vector<sf::CircleShape> shapes;
 
     sf::Shader* palette_shader;
     int frame_counter = 0;

@@ -11,35 +11,25 @@
 #include "NasNas/core/graphics/DrawableTransformable.hpp"
 
 namespace ns {
+    class Scene;
 
     class Layer {
-        using DrawablesSharedTypes = std::variant<
+        using DrawablesSPtrTypes = std::variant<
                 std::shared_ptr<ns::Drawable>,
                 std::shared_ptr<ns::DrawableTransformable>,
                 std::shared_ptr<sf::Shape>,
                 std::shared_ptr<sf::Text>,
                 std::shared_ptr<sf::Sprite>
         >;
-        using DrawablesRawTypes = std::variant<
-                ns::Drawable*,
-                ns::DrawableTransformable*,
-                sf::Shape*,
-                sf::Text*,
-                sf::Sprite*
-        >;
     public:
         using DrawablesTypes = std::variant<
-                std::shared_ptr<ns::Drawable>,
-                std::shared_ptr<ns::DrawableTransformable>,
-                std::shared_ptr<sf::Shape>,
-                std::shared_ptr<sf::Text>,
-                std::shared_ptr<sf::Sprite>,
-                ns::Drawable*,
-                ns::DrawableTransformable*,
-                sf::Shape*,
-                sf::Text*,
-                sf::Sprite*
+                const ns::Drawable*,
+                const ns::DrawableTransformable*,
+                const sf::Shape*,
+                const sf::Text*,
+                const sf::Sprite*
         >;
+
         /**
          * \brief Construct a Layer object
          *
@@ -61,17 +51,14 @@ namespace ns {
         /**
          * \brief Add a drawable to the Layer
          *
-         * \param drawable Shared pointer to the drawable to add
+         * \param drawable Drawable to add
          */
-        void add(const DrawablesSharedTypes& drawable);
-
-        /**
-         * \brief Add a drawable to the Layer
-         * The pointer is managed by the Layer
-         *
-         * \param drawable Pointer to the drawable to add
-         */
-        void add(const DrawablesRawTypes& drawable);
+        void add(const ns::Drawable& drawable);
+        void add(const ns::DrawableTransformable& drawable);
+        void add(const sf::Shape& drawable);
+        void add(const sf::Text& drawable);
+        void add(const sf::Sprite& drawable);
+        void add(const DrawablesTypes& drawable);
 
         /**
          * \brief Add a drawable to the layer
@@ -80,13 +67,19 @@ namespace ns {
          *
          * \param drawable Pointer to the drawable to add
          */
-        void addRaw(const DrawablesRawTypes& drawable);
+        void addRaw(const DrawablesTypes& drawable);
+
 
         /**
          * \brief Remove a drawable from the Layer
          *
          * \param drawable Drawable to remove
          */
+        void remove(const ns::Drawable& drawable);
+        void remove(const ns::DrawableTransformable& drawable);
+        void remove(const sf::Shape& drawable);
+        void remove(const sf::Text& drawable);
+        void remove(const sf::Sprite& drawable);
         void remove(const DrawablesTypes& drawable);
 
         /**
@@ -111,8 +104,11 @@ namespace ns {
         auto getName() const -> const std::string&;
 
     private:
-        std::string m_name;                          ///< Name of the Layer
-        std::vector<DrawablesTypes> m_drawables;///< Vector of all drawables of the Layer
+        friend Scene;
+
+        std::string m_name;                        ///< Name of the Layer
+        std::vector<DrawablesTypes> m_drawables;   ///< Vector of all drawables of the Layer
+        std::vector<DrawablesSPtrTypes> m_gc;
     };
 
 }

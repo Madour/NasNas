@@ -77,9 +77,7 @@ void Scene::drawVariant(const Layer::DrawablesTypes& variant, sf::RenderTarget& 
             target.draw(*drawable, states);
         }
     }, variant);
-    if (std::holds_alternative<ns::DrawableTransformable*>(variant)) {
-        std::get<ns::DrawableTransformable*>(variant)->changed = false;
-    } else if (std::holds_alternative<std::shared_ptr<ns::DrawableTransformable>>(variant)) {
-        std::get<std::shared_ptr<ns::DrawableTransformable>>(variant)->changed = false;
+    if (std::holds_alternative<const ns::DrawableTransformable*>(variant)) {
+        std::get<const ns::DrawableTransformable*>(variant)->changed = false;
     }
 }
