@@ -16,15 +16,18 @@ void ParticleSystem::setEmmitRate(float rate) {
 void ParticleSystem::emmit(const sf::IntRect& rect, int nb, bool repeat) {
     m_particles.reserve(m_particles.size()+nb);
     for (int i = 0; i < nb; ++i) {
-        m_particles.emplace_back();
+        m_particles.emplace_back(new Particle());
         auto& particle = m_particles.back();
-        onParticleCreate(particle);
-        particle.repeat = repeat;
-        particle.sprite.setTexture(*m_texture);
-        particle.sprite.setTextureRect(rect);
-        particle.sprite.setPosition(m_position);
-        particle.sprite.setOrigin(rect.width/2, rect.height/2);
+        onParticleCreate(*particle);
+        particle->repeat = repeat;
+        particle->sprite.setTexture(*m_texture);
+        particle->sprite.setTextureRect(rect);
+        particle->sprite.setPosition(m_position);
+        particle->sprite.setOrigin(rect.width/2.f, rect.height/2.f);
+        particle->sprite.setColor(sf::Color(255, 255, 255, 0));
+        m_batch.draw(&particle->sprite);
     }
+    m_batch.end();
 }
 
 auto ParticleSystem::getParticleCount() const -> unsigned {
@@ -52,52 +55,46 @@ void ParticleSystem::update() {
     m_to_emmit = std::min(m_rate, m_to_emmit+m_rate*dt);
 
     for (auto it = m_particles.begin(); it != m_particles.end();) {
-        auto& particle = *it;
+        auto& particle = **it;
 
         if (particle.age >= particle.lifetime) {
             if (particle.repeat) {
                 particle.sprite.setPosition(m_position);
-                particle.color = sf::Color::White;
+                particle.sprite.setColor(sf::Color(255, 255, 255, 0));
                 particle.age = 0;
                 particle.active = false;
                 it++;
             }
             else {
+                m_batch.erase(&particle.sprite);
                 it = m_particles.erase(it);
             }
             m_count--;
         }
         else {
             if (particle.active) {
+                // update particle data
                 onParticleUpdate(particle);
                 particle.age = particle.age+dt;
+                // update particle sprite
                 particle.sprite.move(particle.velocity);
+                particle.sprite.setScale(particle.scale, particle.scale);
+                particle.sprite.setRotation(particle.rotation);
+                particle.sprite.setColor(particle.color);
             }
             else {
                 if (m_to_emmit > 1.f){
                     particle.active = true;
+                    particle.sprite.setColor(sf::Color::White);
+                    onParticleCreate(particle);
                     m_to_emmit -= 1.f;
                     m_count++;
-                    onParticleCreate(particle);
                 }
                 particle.sprite.setPosition(m_position);
             }
             it++;
         }
     }
-}
-
-void ParticleSystem::render() {
-    m_batch.clear();
-    for (auto& particle: m_particles) {
-        if (particle.active) {
-            particle.sprite.setScale(particle.scale, particle.scale);
-            particle.sprite.setRotation(particle.rotation);
-            particle.sprite.setColor(particle.color);
-            m_batch.draw(&particle.sprite);
-        }
-    }
-    m_batch.end();
 }
 
 void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const {

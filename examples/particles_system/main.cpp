@@ -20,7 +20,7 @@ public:
 
     void onParticleUpdate(ns::Particle& particle) override {
         particle.rotation += 0.1f;
-        particle.color.a = (1.f-particle.getAge()/particle.lifetime)*255;
+        particle.color.a = static_cast<int>((1.f-particle.getAge()/particle.lifetime)*255)&0xff;
         particle.velocity.y -= 0.02f;
     }
 };

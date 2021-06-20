@@ -26,7 +26,7 @@ namespace ns {
         ns::Sprite sprite;
     };
 
-    class ParticleSystem : public ns::Drawable, Renderable {
+    class ParticleSystem : public ns::Drawable {
     public:
         ParticleSystem() = default;
 
@@ -47,12 +47,11 @@ namespace ns {
         void update();
 
     private:
-        void render() override;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         const sf::Texture* m_texture = nullptr;
         sf::Vector2f m_position;
-        std::vector<Particle> m_particles;
+        std::vector<std::unique_ptr<Particle>> m_particles;
         float m_rate = 9999.f;
         float m_to_emmit = 0.f;
         unsigned m_count = 0;

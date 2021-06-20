@@ -34,9 +34,11 @@ namespace ns {
         void draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect, const sf::Color& color = sf::Color::White);
         void draw(const sf::Texture* texture, const sf::IntRect& rect, const sf::Transformable& tr, const sf::Color& color = sf::Color::White);
 
+        void erase(const ns::Sprite* sprite);
+
         void end();
 
-        auto getDepth() const -> int;
+        auto getDepth() const -> unsigned ;
         auto getUsage() const -> sf::VertexBuffer::Usage;
         auto getPosition() const -> sf::Vector2f override;
         auto getGlobalBounds() const -> ns::FloatRect override;
@@ -51,6 +53,8 @@ namespace ns {
 
         std::vector<SpriteBatchLayer> m_layers;
         std::vector<const ns::Sprite*> m_owned_sprites;
+
+        bool m_need_end = false;
 
         //static std::vector<SpriteBatch*> list;
     };
