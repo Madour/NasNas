@@ -1,4 +1,4 @@
-<p align=center><img width=500px align=center src="https://i.ibb.co/Z1MDyP3/Nas-Nas-logo-title.png" alt="NasNas-logo"></p>
+<p align=center><img width=500px align=center src="https://i.ibb.co/r3RdmN8/Nas-Nas-title.png" alt="NasNas-logo"></p>
 <h3 align=center> An intuitive and begginer friendly 2D game framework for C++. </h3>
 <p align=center>
  <a href=https://travis-ci.com/Madour/NasNas><img src=https://travis-ci.com/Madour/NasNas.svg?branch=master></a>
