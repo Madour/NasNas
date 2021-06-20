@@ -102,16 +102,16 @@ auto TiledMap::hasLayer(const std::string& name) -> bool {
     return (m_tilelayers.count(name) > 0 || m_objectlayers.count(name) > 0);
 }
 
-auto TiledMap::getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>& {
+auto TiledMap::getTileLayer(const std::string& name) -> const TileLayer& {
     if (m_tilelayers.count(name) > 0)
-        return m_tilelayers.at(name);
+        return *m_tilelayers.at(name);
     std::cout << "TiledMap «" << m_file_name << "» has not TileLayer named «" << name << "»." << std::endl;
     exit(-1);
 }
 
-auto TiledMap::getObjectLayer(const std::string& name) -> const std::shared_ptr<ObjectLayer>& {
+auto TiledMap::getObjectLayer(const std::string& name) -> const ObjectLayer& {
     if (m_objectlayers.count(name) > 0)
-        return m_objectlayers.at(name);
+        return *m_objectlayers.at(name);
     std::cout << "TiledMap «" << m_file_name << "» has not ObjectLayer named «" << name << "»." << std::endl;
     exit(-1);
 }
