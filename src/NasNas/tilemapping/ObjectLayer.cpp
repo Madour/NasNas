@@ -107,27 +107,27 @@ Layer(xml_node, tiledmap) {
     }
 }
 
-auto ObjectLayer::allRectangles() -> std::vector<Object<sf::RectangleShape>>& {
+auto ObjectLayer::allRectangles() const -> const std::vector<Object<sf::RectangleShape>>& {
     return m_rectangles;
 }
 
-auto ObjectLayer::allPoints() -> std::vector<Object<sf::RectangleShape>>& {
+auto ObjectLayer::allPoints() const -> const std::vector<Object<sf::RectangleShape>>& {
     return m_points;
 }
 
-auto ObjectLayer::allEllipses() -> std::vector<Object<ns::EllipseShape>>& {
+auto ObjectLayer::allEllipses() const -> const std::vector<Object<ns::EllipseShape>>& {
 return m_ellipses;
 }
 
-auto ObjectLayer::allPolygons() -> std::vector<Object<sf::ConvexShape>>& {
+auto ObjectLayer::allPolygons() const -> const std::vector<Object<sf::ConvexShape>>& {
     return m_polygons;
 }
 
-auto ObjectLayer::allPolylines() -> std::vector<Object<ns::LineShape>>& {
+auto ObjectLayer::allPolylines() const -> const std::vector<Object<ns::LineShape>>& {
     return m_polylines;
 }
 
-auto ObjectLayer::getRectangle(unsigned int id) -> const Object<sf::RectangleShape>& {
+auto ObjectLayer::getRectangle(unsigned int id) const -> const Object<sf::RectangleShape>& {
     for (auto& object : m_rectangles) {
         if (object.getId() == id) return object;
     }
@@ -135,7 +135,7 @@ auto ObjectLayer::getRectangle(unsigned int id) -> const Object<sf::RectangleSha
     std::exit(-1);
 }
 
-auto ObjectLayer::getPoint(unsigned int id) -> const Object<sf::RectangleShape>& {
+auto ObjectLayer::getPoint(unsigned int id) const -> const Object<sf::RectangleShape>& {
     for (auto& object : m_points) {
         if (object.getId() == id) return object;
     }
@@ -143,7 +143,7 @@ auto ObjectLayer::getPoint(unsigned int id) -> const Object<sf::RectangleShape>&
     std::exit(-1);
 }
 
-auto ObjectLayer::getEllipse(unsigned int id) -> const Object<ns::EllipseShape>& {
+auto ObjectLayer::getEllipse(unsigned int id) const -> const Object<ns::EllipseShape>& {
     for (auto& object : m_ellipses) {
         if (object.getId() == id) return object;
     }
@@ -151,7 +151,7 @@ auto ObjectLayer::getEllipse(unsigned int id) -> const Object<ns::EllipseShape>&
     std::exit(-1);
 }
 
-auto ObjectLayer::getPolygon(unsigned int id) -> const Object<sf::ConvexShape>& {
+auto ObjectLayer::getPolygon(unsigned int id) const -> const Object<sf::ConvexShape>& {
     for (auto& object : m_polygons) {
         if (object.getId() == id) return object;
     }
@@ -159,7 +159,7 @@ auto ObjectLayer::getPolygon(unsigned int id) -> const Object<sf::ConvexShape>& 
     std::exit(-1);
 }
 
-auto ObjectLayer::getPolyline(unsigned int id) -> const ObjectLayer::Object<ns::LineShape>& {
+auto ObjectLayer::getPolyline(unsigned int id) const -> const ObjectLayer::Object<ns::LineShape>& {
     for (auto& object : m_polylines) {
         if (object.getId() == id) return object;
     }

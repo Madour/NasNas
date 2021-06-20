@@ -30,7 +30,7 @@ auto Layer::getId() const -> unsigned int {
     return m_id;
 }
 
-auto Layer::getName() -> std::string& {
+auto Layer::getName() const -> const std::string& {
     return m_name;
 }
 

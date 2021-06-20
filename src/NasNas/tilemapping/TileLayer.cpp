@@ -59,11 +59,11 @@ m_height(xml_node.attribute("height").as_uint())
     m_sprite.setColor(m_tintcolor);
 }
 
-auto TileLayer::getTile(int x, int y) -> const Tile&{
+auto TileLayer::getTile(int x, int y) const -> const Tile&{
     return m_tiles[x + y*m_width];
 }
 
-auto TileLayer::getTile(sf::Vector2i pos) -> const Tile& {
+auto TileLayer::getTile(sf::Vector2i pos) const -> const Tile& {
     return m_tiles[pos.x + pos.y*m_width];
 }
 
