@@ -20,6 +20,14 @@ SpriteBatch::~SpriteBatch() {
         delete(spr);
 }
 
+void SpriteBatch::clear() {
+    for (const auto* spr : m_owned_sprites)
+        delete(spr);
+    m_owned_sprites.clear();
+    m_layers.clear();
+    m_global_bounds = {0, 0, 0, 0};
+}
+
 void SpriteBatch::start(sf::VertexBuffer::Usage usage) {
     m_usage = usage;
 }
@@ -29,6 +37,7 @@ void SpriteBatch::draw(const ns::Sprite* sprite) {
         m_layers.emplace_back(sprite->getTexture());
     }
     m_layers.back().sprites.push_back(sprite);
+    m_need_end = true;
 }
 
 void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect, const sf::Color& color) {
@@ -51,6 +60,14 @@ void SpriteBatch::draw(const sf::Texture* texture, const sf::IntRect& rect, cons
     draw(spr);
 }
 
+void SpriteBatch::erase(const ns::Sprite* sprite) {
+    for (auto& layer : m_layers) {
+        auto& vec = layer.sprites;
+        vec.erase(std::remove(vec.begin(), vec.end(), sprite), vec.end());
+    }
+    m_need_end = true;
+}
+
 void SpriteBatch::end() {
     for (auto& layer : m_layers) {
         layer.vertices.resize(layer.sprites.size()*6);
@@ -58,18 +75,10 @@ void SpriteBatch::end() {
         layer.buffer.setUsage(m_usage);
         layer.buffer.setPrimitiveType(sf::PrimitiveType::Triangles);
     }
-    //render();
+    m_need_end = false;
 }
 
-void SpriteBatch::clear() {
-    for (const auto* spr : m_owned_sprites)
-        delete(spr);
-    m_owned_sprites.clear();
-    m_layers.clear();
-    m_global_bounds = {0, 0, 0, 0};
-}
-
-auto SpriteBatch::getDepth() const -> int {
+auto SpriteBatch::getDepth() const -> unsigned {
     return m_layers.size();
 }
 
@@ -88,6 +97,9 @@ auto SpriteBatch::getGlobalBounds() const -> ns::FloatRect {
 void SpriteBatch::render() {
     if (m_usage == sf::VertexBuffer::Usage::Static)
         return;
+    if (m_need_end)
+        end();
+
     bool first = true;
     for (auto& layer : m_layers) {
         for (unsigned int i = 0; i < layer.sprites.size(); ++i) {
