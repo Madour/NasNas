@@ -4,22 +4,9 @@
 
 #include "Game.hpp"
 
-#include "Player.hpp"
-#include "ShaderTransition.hpp"
 
 Game::Game() :
 ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
-    //------------ Game Config ----------------------------------------------------------
-    // mapping keys inputs
-    ns::Config::Inputs::setButtonKey("left", sf::Keyboard::Left);
-    ns::Config::Inputs::setButtonKey("right", sf::Keyboard::Right);
-    ns::Config::Inputs::setButtonKey("up", sf::Keyboard::Up);
-    ns::Config::Inputs::setButtonKey("down", sf::Keyboard::Down);
-    ns::Config::Inputs::setButtonKey("fullscreen", sf::Keyboard::F);
-    // configuring physics constants
-    ns::Config::Physics::gravity = 0;
-    //-----------------------------------------------------------------------------------
-
     //------------ Creating Game Objects ------------------------------------------------
     // loading tiled map from file
     this->tiled_map.loadFromFile("assets/test_map.tmx");
@@ -30,20 +17,18 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
         sf::Color::Cyan, sf::Color::Magenta, sf::Color::White
     };
     for (int i = 0; i < 100; ++i) {
-        auto shape = std::make_shared<sf::CircleShape>(20.0f);
-        shape->setPointCount(8);
-        shape->setFillColor(colors.at(i%colors.size()));
-        shape->setOutlineColor(sf::Color::Black);
-        shape->setOutlineThickness(1);
-        shape->setOrigin(20, 20);
-        shape->setPosition((float)(std::rand()%2500), (float)(std::rand()%2000));
+        auto shape = sf::CircleShape(20.0f);
+        shape.setPointCount(8);
+        shape.setFillColor(colors.at(i%colors.size()));
+        shape.setOutlineColor(sf::Color::Black);
+        shape.setOutlineThickness(1);
+        shape.setOrigin(20, 20);
+        shape.setPosition((float)(std::rand()%2500), (float)(std::rand()%2000));
         this->shapes.push_back(shape);
     }
 
     // creating Player entity (see class Player for more information)
-    this->player = std::make_shared<Player>();
-    this->player->transform()->setPosition({100, 100});
-    this->entities.push_back(this->player);
+    this->player.transform()->setPosition({100, 100});
 
     // creating a BitmapFont
     this->font = new ns::BitmapFont(
@@ -54,11 +39,11 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
         6
     );
     // creating a BitmapText using the font created above
-    auto bmp_text = std::make_shared<ns::BitmapText>("Press E to toggle Shader \nPress R to run Shader Transition\nPress T to run Circle Transition");
+    auto* bmp_text = new ns::BitmapText("Press E to toggle Shader \nPress R to run Shader Transition\nPress T to run Circle Transition");
     bmp_text->setFont(this->font);
     bmp_text->setPosition(250, 80);
 
-    this->textbox = std::make_shared<ns::ui::TypedText>("TypedText is useful in RPG games ! It creates a typing animation and can be configured to display text on multiple pages.");
+    this->textbox = new ns::ui::TypedText("TypedText is useful in RPG games ! It creates a typing animation and can be configured to display text on multiple pages.");
     this->textbox->setFont(this->font);
     this->textbox->setMaxWidth(200);
     this->textbox->setMaxLines(2);
@@ -78,7 +63,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     auto game_view = sf::Vector2i(640, 360);
     auto& game_camera = this->createCamera("main", 0, {{0, 0}, game_view});
     game_camera.lookAt(scene);     // telling the Camera to look at the scene
-    game_camera.follow(*this->player);   // telling the Camera to follow our entity
+    game_camera.follow(this->player);   // telling the Camera to follow our entity
     game_camera.setFramesDelay(2);       // the Camera will have 10 frames delay over the player
     // setting Camera limits
     //this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
@@ -86,9 +71,9 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     //------------ Adding Drawables to the Scene  ---------------------------------------
     // adding tiledmap layers to the scene
-    scene.getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
+    /*scene.getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
     scene.getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
-    scene.getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
+    scene.getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));*/
 
     // adding shapes
     for (auto& shape : this->shapes) {
@@ -117,7 +102,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     // add DebugText by creating manually a DebugText object, changing its properties and adding it to the app;
     // the app will delete automatically the debug texts, so don't worry about memory
-    auto* dbg_txt = new ns::DebugText<sf::Vector2f>("position:", [&]{return player->getPosition();}, {500, 10});
+    auto* dbg_txt = new ns::DebugText<sf::Vector2f>("position:", [&]{return player.getPosition();}, {500, 10});
     dbg_txt->setFillColor(sf::Color::Black);
     dbg_txt->setOutlineThickness(1);
     dbg_txt->setOutlineColor(sf::Color::White);
@@ -205,30 +190,29 @@ void Game::update() {
     this->frame_counter++;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        getCamera("main").rotate(1.f);
+        this->getCamera("main").rotate(1.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        getCamera("main").rotate(-1.f);
+        this->getCamera("main").rotate(-1.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-        getCamera("main").zoom(1.01f);
+        this->getCamera("main").zoom(1.01f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-        getCamera("main").zoom(0.99f);
+        this->getCamera("main").zoom(0.99f);
 
     this->textbox->update();
     // moving the octogons randomly
-    for (const auto& shape: this->shapes) {
-        shape->move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
-        shape->rotate(1);
+    for (auto& shape: this->shapes) {
+        shape.move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
+        shape.rotate(1);
     }
 
     // updating map layers
     this->tiled_map.update();
 
     // updating the entities
-    for (const auto& entity : this->entities)
-        entity->update();
+    this->player.update();
 
     // sorting the shapes layer by the y position
-    getScene("main").getLayer("shapes").ySort();
+    this->getScene("main").getLayer("shapes").ySort();
 }
 
 Game::~Game() {
