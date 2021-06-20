@@ -303,12 +303,15 @@ void App::run() {
     }
     double current_slice = 0.;
     double slice_time = 1.0/m_ups;
+    sf::Clock timer;
     while (m_window.isOpen()) {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
 
-        if (Config::debug && Config::debug.show_fps)
+        if (Config::debug && Config::debug.show_fps && timer.getElapsedTime().asMilliseconds()>200) {
             m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
+            timer.restart();
+        }
 
         // get and store inputs
         sf::Event event{};
