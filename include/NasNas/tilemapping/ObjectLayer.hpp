@@ -28,17 +28,17 @@ namespace ns::tm {
     public:
         ObjectLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
-        auto allRectangles() -> std::vector<Object<sf::RectangleShape>>&;
-        auto allPoints() -> std::vector<Object<sf::RectangleShape>>&;
-        auto allEllipses() -> std::vector<Object<ns::EllipseShape>>&;
-        auto allPolygons() -> std::vector<Object<sf::ConvexShape>>&;
-        auto allPolylines() -> std::vector<Object<ns::LineShape>>&;
+        auto allRectangles() const -> const std::vector<Object<sf::RectangleShape>>&;
+        auto allPoints() const -> const std::vector<Object<sf::RectangleShape>>&;
+        auto allEllipses() const -> const std::vector<Object<ns::EllipseShape>>&;
+        auto allPolygons() const -> const std::vector<Object<sf::ConvexShape>>&;
+        auto allPolylines() const -> const std::vector<Object<ns::LineShape>>&;
 
-        auto getRectangle(unsigned int id) -> const Object<sf::RectangleShape>&;
-        auto getPoint(unsigned int id) -> const Object<sf::RectangleShape>&;
-        auto getEllipse(unsigned int id) -> const Object<ns::EllipseShape>&;
-        auto getPolygon(unsigned int id) -> const Object<sf::ConvexShape>&;
-        auto getPolyline(unsigned int id) -> const Object<ns::LineShape>&;
+        auto getRectangle(unsigned int id) const -> const Object<sf::RectangleShape>&;
+        auto getPoint(unsigned int id) const -> const Object<sf::RectangleShape>&;
+        auto getEllipse(unsigned int id) const -> const Object<ns::EllipseShape>&;
+        auto getPolygon(unsigned int id) const -> const Object<sf::ConvexShape>&;
+        auto getPolyline(unsigned int id) const -> const Object<ns::LineShape>&;
 
         auto getGlobalBounds() const -> ns::FloatRect override;
 
