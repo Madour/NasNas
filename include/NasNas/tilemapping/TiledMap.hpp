@@ -29,8 +29,8 @@ namespace ns::tm {
         auto allTilesets() -> const std::vector<std::unique_ptr<Tileset>>&;
 
         auto hasLayer(const std::string& name) -> bool;
-        auto getTileLayer(const std::string& name) -> const std::shared_ptr<TileLayer>&;
-        auto getObjectLayer(const std::string& name) -> const std::shared_ptr<ObjectLayer>&;
+        auto getTileLayer(const std::string& name) -> const TileLayer&;
+        auto getObjectLayer(const std::string& name) -> const ObjectLayer&;
 
         void update();
 
