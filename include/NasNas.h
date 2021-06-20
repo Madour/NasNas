@@ -32,6 +32,8 @@
 
 #ifdef NS_TILEMAPPING
 #include "NasNas/tilemapping/TiledMap.hpp"
+#include "NasNas/tilemapping/TileLayer.hpp"
+#include "NasNas/tilemapping/ObjectLayer.hpp"
 #endif
 
 #ifdef NS_RESLIB
