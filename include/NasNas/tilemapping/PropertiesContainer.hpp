@@ -28,10 +28,10 @@ namespace ns::tm {
         auto hasProperty(const std::string& name) const -> bool;
 
         template <typename T>
-        auto getProperty(const std::string& name) const -> T;
+        auto getProperty(const std::string& name) const -> const T&;
 
         template <typename T>
-        void addProperty(const std::string& name, const T& value) const;
+        void addProperty(const std::string& name, const T& value);
 
         void printProperties() const;
 
@@ -45,7 +45,7 @@ namespace ns::tm {
     };
 
     template<typename T>
-    auto PropertiesContainer::getProperty(const std::string& name) const -> T {
+    auto PropertiesContainer::getProperty(const std::string& name) const -> const T& {
         if (m_properties.count(name)) {
             if (std::holds_alternative<T>(m_properties.at(name))) {
                 return std::get<T>(m_properties.at(name));
@@ -60,10 +60,10 @@ namespace ns::tm {
     }
 
     template<typename T>
-    void PropertiesContainer::addProperty(const std::string& name, const T& value) const {
+    void PropertiesContainer::addProperty(const std::string& name, const T& value) {
         if (std::is_same_v<int, T> || std::is_same_v<float, T> || std::is_same_v<bool, T> ||
             std::is_same_v<std::string, T> || std::is_same_v<sf::Color, T>) {
-            m_properties.at(name) = value;
+            m_properties[name] = value;
         }
         else {
             std::cout << "Error : Cannot add property of type " << typeid(T).name()

@@ -24,7 +24,11 @@ m_height(xml_node.attribute("height").as_uint())
     auto xml_data = xml_node.child("data");
     auto encoding = std::string(xml_data.attribute("encoding").as_string());
     if (encoding == "csv") {
-        const auto* layer_data = xml_data.text().as_string();
+        std::string layer_data_str{xml_data.text().as_string()};
+        int nb_tiles = std::count(layer_data_str.begin(), layer_data_str.end(), ',')+1;
+        m_tiles.reserve(nb_tiles);
+
+        const char* layer_data = xml_data.text().as_string();
         std::uint32_t current_gid = 0;
         int tile_counter = 0;
 
