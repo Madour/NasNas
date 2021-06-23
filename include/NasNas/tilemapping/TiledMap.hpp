@@ -24,9 +24,9 @@ namespace ns::tm {
         auto getDimension() -> const sf::Vector2u&;
         auto getSize() const -> sf::Vector2u;
         auto getTileSize() -> const sf::Vector2u&;
-        auto getTileTileset(unsigned int gid) -> const std::unique_ptr<Tileset>&;
+        auto getTileTileset(unsigned int gid) -> const Tileset&;
 
-        auto allTilesets() -> const std::vector<std::unique_ptr<Tileset>>&;
+        auto allTilesets() -> const std::vector<Tileset>&;
 
         auto hasLayer(const std::string& name) -> bool;
         auto getTileLayer(const std::string& name) -> const TileLayer&;
@@ -44,7 +44,7 @@ namespace ns::tm {
         sf::Vector2u m_size;
         sf::Vector2u m_tilesize;
 
-        std::vector<std::unique_ptr<Tileset>> m_tilesets;
+        std::vector<Tileset> m_tilesets;
         std::unordered_map<std::string, std::unique_ptr<TileLayer>> m_tilelayers;
         std::unordered_map<std::string, std::unique_ptr<ObjectLayer>> m_objectlayers;
     };

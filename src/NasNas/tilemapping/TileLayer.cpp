@@ -16,8 +16,8 @@ m_height(xml_node.attribute("height").as_uint())
     m_render_texture.create(m_width*m_tiledmap->getTileSize().x, m_height*m_tiledmap->getTileSize().y);
     m_tiles.reserve((size_t)m_width * (size_t)m_height);
     for (const auto& tileset : m_tiledmap->allTilesets()) {
-        m_vertices[tileset.get()].resize(6u * (size_t)m_width * (size_t)m_height);
-        m_vertices[tileset.get()].setPrimitiveType(sf::PrimitiveType::Triangles);
+        m_vertices[&tileset].resize(6u * (size_t)m_width * (size_t)m_height);
+        m_vertices[&tileset].setPrimitiveType(sf::PrimitiveType::Triangles);
     }
 
     // parsing data
@@ -77,7 +77,7 @@ void TileLayer::update() {
 
         // getting tile anim frames from tileset
         const auto& tileset = m_tiledmap->getTileTileset(gid);
-        const auto& anim_frames = tileset->getTileAnim(gid - tileset->firstgid)->frames;
+        const auto& anim_frames = tileset.getTileAnim(gid - tileset.firstgid)->frames;
 
         // go to next anim frame when elapsed time is more than frame duration
         if (anim_info.clock.getElapsedTime().asMilliseconds() > anim_frames[anim_index].duration) {
@@ -88,13 +88,13 @@ void TileLayer::update() {
                 // calculating tile index
                 auto tile_index = pos.x + pos.y*m_width;
                 // calculating new texture coordinates and updating the VertexArray
-                const auto& tex_coordinates = getTileTexCoo(new_id+tileset->firstgid, m_tiles[tile_index].flip);
-                m_vertices[tileset.get()][tile_index*6 + 0].texCoords = tex_coordinates[0];
-                m_vertices[tileset.get()][tile_index*6 + 1].texCoords = tex_coordinates[2];
-                m_vertices[tileset.get()][tile_index*6 + 2].texCoords = tex_coordinates[3];
-                m_vertices[tileset.get()][tile_index*6 + 3].texCoords = tex_coordinates[0];
-                m_vertices[tileset.get()][tile_index*6 + 4].texCoords = tex_coordinates[1];
-                m_vertices[tileset.get()][tile_index*6 + 5].texCoords = tex_coordinates[2];
+                const auto& tex_coordinates = getTileTexCoo(new_id+tileset.firstgid, m_tiles[tile_index].flip);
+                m_vertices[&tileset][tile_index*6 + 0].texCoords = tex_coordinates[0];
+                m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coordinates[2];
+                m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coordinates[3];
+                m_vertices[&tileset][tile_index*6 + 3].texCoords = tex_coordinates[0];
+                m_vertices[&tileset][tile_index*6 + 4].texCoords = tex_coordinates[1];
+                m_vertices[&tileset][tile_index*6 + 5].texCoords = tex_coordinates[2];
             }
         }
     }
@@ -121,30 +121,30 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     // getting the tileset of the tile
     const auto& tileset = m_tiledmap->getTileTileset(gid);
     // storing all needed variables
-    auto id = gid - tileset->firstgid;
-    auto tilewidth = tileset->tilewidth;
-    auto tileheight = tileset->tileheight;
+    auto id = gid - tileset.firstgid;
+    auto tilewidth = tileset.tilewidth;
+    auto tileheight = tileset.tileheight;
     auto x = (tile_count % m_width) * m_tiledmap->getTileSize().x;
     auto y = (tile_count / m_width) * m_tiledmap->getTileSize().y;
     auto xf = static_cast<float>(x);
     auto yf = static_cast<float>(y);
 
     // storing animated tiles position for efficient iteration in update
-    if (tileset->getTileAnim(id)) {
+    if (tileset.getTileAnim(id)) {
         m_animated_tiles_pos[gid&mask].index = 0;
         m_animated_tiles_pos[gid&mask].clock.restart();
         m_animated_tiles_pos[gid&mask].positions.emplace_back(x/m_tiledmap->getTileSize().x, y/m_tiledmap->getTileSize().y);
     }
     // adding tile data to tiles vector
-    m_tiles.emplace_back(gid , tile_transform, tileset->getTileProperties(id));
+    m_tiles.emplace_back(gid , tile_transform, tileset.getTileProperties(id));
     // calculating texture coordnates and creating the quad for drawing
     const auto& tex_coordinates = getTileTexCoo(m_tiles[tile_count]);
-    m_vertices[tileset.get()][tile_count*6 + 0] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
-    m_vertices[tileset.get()][tile_count*6 + 1] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
-    m_vertices[tileset.get()][tile_count*6 + 2] = {sf::Vector2f(xf,           yf+tileheight), tex_coordinates[3]};
-    m_vertices[tileset.get()][tile_count*6 + 3] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
-    m_vertices[tileset.get()][tile_count*6 + 4] = {sf::Vector2f(xf+tilewidth, yf),            tex_coordinates[1]};
-    m_vertices[tileset.get()][tile_count*6 + 5] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
+    m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
+    m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
+    m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(xf,           yf+tileheight), tex_coordinates[3]};
+    m_vertices[&tileset][tile_count*6 + 3] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
+    m_vertices[&tileset][tile_count*6 + 4] = {sf::Vector2f(xf+tilewidth, yf),            tex_coordinates[1]};
+    m_vertices[&tileset][tile_count*6 + 5] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
 }
 
 auto TileLayer::getTileTexCoo(const TileLayer::Tile& tile) -> std::vector<sf::Vector2f> {
@@ -153,8 +153,8 @@ auto TileLayer::getTileTexCoo(const TileLayer::Tile& tile) -> std::vector<sf::Ve
 
 auto TileLayer::getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) -> std::vector<sf::Vector2f> {
     const auto& tileset = m_tiledmap->getTileTileset(gid);
-    auto id = gid - tileset->firstgid;
-    auto texture_rect = tileset->getTileTextureRect(id);
+    auto id = gid - tileset.firstgid;
+    auto texture_rect = tileset.getTileTextureRect(id);
 
     auto res = std::vector<sf::Vector2f>(4);
     res[0] = texture_rect.topleft();
