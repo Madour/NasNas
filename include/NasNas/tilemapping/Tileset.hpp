@@ -39,8 +39,8 @@ namespace ns::tm {
         ~SharedTileset();
 
         auto getTexture() const -> const sf::Texture&;
-        auto getTileProperties(std::uint32_t id) -> const PropertiesContainer*;
-        auto getTileAnim(std::uint32_t id) -> const TileAnim*;
+        auto getTileProperties(std::uint32_t id) const -> const PropertiesContainer*;
+        auto getTileAnim(std::uint32_t id) const -> const TileAnim*;
         auto getTileTextureRect(unsigned int id) const -> ns::FloatRect;
 
         const std::string name;

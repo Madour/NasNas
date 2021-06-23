@@ -49,16 +49,17 @@ void TiledMap::load(const pugi::xml_document& xml) {
     parseProperties(m_xmlnode_map.child("properties"));
 
     // parsing tilesets
+    m_tilesets.reserve(std::distance(m_xmlnode_map.children("tileset").begin(), m_xmlnode_map.children("tileset").end()));
     for (const auto& xmlnode_tileset : m_xmlnode_map.children("tileset")) {
         unsigned int firstgid = xmlnode_tileset.attribute("firstgid").as_uint();
         // external tileset
         if (xmlnode_tileset.attribute("source")){
             const auto& tsx_tileset = SharedTilesetManager::get(m_file_relative_path + xmlnode_tileset.attribute("source").as_string());
-            m_tilesets.push_back(std::make_unique<Tileset>(tsx_tileset, firstgid));
+            m_tilesets.emplace_back(tsx_tileset, firstgid);
         }
         // embedded tileset
         else
-            m_tilesets.push_back(std::make_unique<Tileset>(xmlnode_tileset, m_file_relative_path));
+            m_tilesets.emplace_back(xmlnode_tileset, m_file_relative_path);
     }
 
     // parsing layers
@@ -85,16 +86,16 @@ auto TiledMap::getTileSize() -> const sf::Vector2u& {
     return m_tilesize;
 }
 
-auto TiledMap::getTileTileset(unsigned int gid) -> const std::unique_ptr<Tileset>& {
+auto TiledMap::getTileTileset(unsigned int gid) -> const Tileset& {
     for (const auto& tileset : m_tilesets) {
-        if (tileset->firstgid <= gid && gid < tileset->firstgid + tileset->tilecount)
+        if (tileset.firstgid <= gid && gid < tileset.firstgid + tileset.tilecount)
             return tileset;
     }
     std::cout << "Error (TiledMap::getTileTileset) : Tile gid " << gid << " not found in any tileset" << std::endl;
     exit(-1);
 }
 
-auto TiledMap::allTilesets() -> const std::vector<std::unique_ptr<Tileset>>& {
+auto TiledMap::allTilesets() -> const std::vector<Tileset>& {
     return m_tilesets;
 }
 

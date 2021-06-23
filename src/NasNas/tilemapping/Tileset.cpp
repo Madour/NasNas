@@ -77,15 +77,15 @@ auto SharedTileset::getTexture() const -> const sf::Texture & {
     return *m_texture;
 }
 
-auto SharedTileset::getTileProperties(std::uint32_t id) -> const PropertiesContainer* {
+auto SharedTileset::getTileProperties(std::uint32_t id) const -> const PropertiesContainer* {
     if (m_tile_properties.count(id) > 0)
-        return &m_tile_properties[id];
+        return &m_tile_properties.at(id);
     return nullptr;
 }
 
-auto SharedTileset::getTileAnim(std::uint32_t id) -> const TileAnim* {
+auto SharedTileset::getTileAnim(std::uint32_t id) const -> const TileAnim* {
     if (m_tile_animations.count(id) > 0)
-        return &m_tile_animations[id];
+        return &m_tile_animations.at(id);
     return nullptr;
 }
 
