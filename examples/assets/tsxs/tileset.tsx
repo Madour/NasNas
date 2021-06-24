@@ -4,6 +4,12 @@
   <property name="tileset_prop" type="float" value="5.45"/>
  </properties>
  <image source="../tileset.png" width="368" height="224"/>
+ <tile id="0">
+  <properties>
+   <property name="id" type="int" value="0"/>
+  </properties>
+ </tile>
+ <tile id="1" type="sdf"/>
  <tile id="2">
   <properties>
    <property name="tile_prop" type="bool" value="true"/>

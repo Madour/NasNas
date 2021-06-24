@@ -14,6 +14,11 @@
    <property name="tileset_prop" type="bool" value="true"/>
   </properties>
   <image source="font.png" width="64" height="72"/>
+  <tile id="0">
+   <properties>
+    <property name="test" type="int" value="0"/>
+   </properties>
+  </tile>
  </tileset>
  <layer id="6" name="bg" width="50" height="50">
   <data encoding="csv">

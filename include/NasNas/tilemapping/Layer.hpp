@@ -8,9 +8,9 @@
 #include "NasNas/thirdparty/pugixml.hpp"
 #include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
 
 namespace ns::tm {
+    class TiledMap;
 
     class Layer : public PropertiesContainer, public ns::Drawable {
     public:

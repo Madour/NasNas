@@ -4,6 +4,7 @@
 
 #include "NasNas/core/data/Utils.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
+#include "NasNas/tilemapping/Tile.hpp"
 #ifdef NS_RESLIB
 #include "NasNas/reslib/ResourceManager.hpp"
 #endif
@@ -11,10 +12,10 @@
 using namespace ns;
 using namespace ns::tm;
 
-SharedTilesetManager::SharedTilesetManager() = default;
+TsxTilesetsManager::TsxTilesetsManager() = default;
 
-auto SharedTilesetManager::get(const std::string& tsx_file_name) -> const std::shared_ptr<SharedTileset>& {
-    static SharedTilesetManager instance;
+auto TsxTilesetsManager::get(const std::string& tsx_file_name) -> const std::shared_ptr<TilesetData>& {
+    static TsxTilesetsManager instance;
     if (instance.m_shared_tilesets.count(tsx_file_name))
         return instance.m_shared_tilesets[tsx_file_name];
     else {
@@ -24,13 +25,13 @@ auto SharedTilesetManager::get(const std::string& tsx_file_name) -> const std::s
             std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
             std::exit(-1);
         }
-        instance.m_shared_tilesets[tsx_file_name] =  std::make_shared<SharedTileset>(xml.child("tileset"), utils::path::getPath(tsx_file_name));
+        instance.m_shared_tilesets[tsx_file_name] =  std::make_shared<TilesetData>(xml.child("tileset"), utils::path::getPath(tsx_file_name));
         return instance.m_shared_tilesets[tsx_file_name];
     }
 }
 
 
-SharedTileset::SharedTileset(const pugi::xml_node& xml_node, const std::string& path) :
+TilesetData::TilesetData(const pugi::xml_node& xml_node, const std::string& path) :
 PropertiesContainer(xml_node.child("properties")),
 name(xml_node.attribute("name").as_string()),
 tilewidth(xml_node.attribute("tilewidth").as_uint()),
@@ -38,8 +39,8 @@ tileheight(xml_node.attribute("tileheight").as_uint()),
 tilecount(xml_node.attribute("tilecount").as_uint()),
 columns(xml_node.attribute("columns").as_uint()),
 margin(xml_node.attribute("margin").as_uint()),
-spacing(xml_node.attribute("spacing").as_uint()) {
-
+spacing(xml_node.attribute("spacing").as_uint())
+{
     m_image_source = xml_node.child("image").attribute("source").as_string();
 #ifdef NS_RESLIB
     m_texture = &ns::Res::getTexture(path+m_image_source);
@@ -50,18 +51,12 @@ spacing(xml_node.attribute("spacing").as_uint()) {
 
     // parsing tileset tiles properties and animations
     for (const auto& xmlnode_tile : xml_node.children("tile")) {
-        std::uint32_t tile_id =  xmlnode_tile.attribute("id").as_uint();
-        m_tile_properties[tile_id].parseProperties(xmlnode_tile.child("properties"));
-
-        for (const auto& xmlnode_tile_animframe : xmlnode_tile.child("animation").children()) {
-            std::uint32_t id = xmlnode_tile_animframe.attribute("tileid").as_uint();
-            int duration = xmlnode_tile_animframe.attribute("duration").as_int();
-            m_tile_animations[tile_id].frames.push_back({id, duration});
-        }
+        std::uint32_t tile_id = xmlnode_tile.attribute("id").as_uint();
+        m_tiles.emplace(tile_id, xmlnode_tile);
     }
 }
 
-SharedTileset::~SharedTileset()
+TilesetData::~TilesetData()
 #ifdef NS_RESLIB
     = default;
 #else
@@ -73,23 +68,17 @@ SharedTileset::~SharedTileset()
 }
 #endif
 
-auto SharedTileset::getTexture() const -> const sf::Texture & {
+auto TilesetData::getTexture() const -> const sf::Texture & {
     return *m_texture;
 }
 
-auto SharedTileset::getTileProperties(std::uint32_t id) const -> const PropertiesContainer* {
-    if (m_tile_properties.count(id) > 0)
-        return &m_tile_properties.at(id);
-    return nullptr;
+auto TilesetData::getTile(std::uint32_t id) const -> const TileData& {
+    if (m_tiles.count(id) > 0) return m_tiles.at(id);
+    m_tiles.emplace(id, TileData(id));
+    return m_tiles.at(id);
 }
 
-auto SharedTileset::getTileAnim(std::uint32_t id) const -> const TileAnim* {
-    if (m_tile_animations.count(id) > 0)
-        return &m_tile_animations.at(id);
-    return nullptr;
-}
-
-auto SharedTileset::getTileTextureRect(unsigned int id) const -> ns::FloatRect {
+auto TilesetData::getTileTextureRect(unsigned int id) const -> ns::FloatRect {
     auto tx = static_cast<float>((id % columns) * (tilewidth + spacing) + margin);
     auto ty = static_cast<float>((id / columns) * (tileheight + spacing) + margin);
     return {sf::Vector2f(tx, ty), sf::Vector2f(static_cast<float>(tilewidth), static_cast<float>(tileheight))};
@@ -97,11 +86,11 @@ auto SharedTileset::getTileTextureRect(unsigned int id) const -> ns::FloatRect {
 
 
 Tileset::Tileset(const pugi::xml_node& xml_node, const std::string& base_path) :
-        SharedTileset(xml_node, base_path),
-        firstgid(xml_node.attribute("firstgid").as_uint())
+TilesetData(xml_node, base_path),
+firstgid(xml_node.attribute("firstgid").as_uint())
 {}
 
-Tileset::Tileset(const std::shared_ptr<SharedTileset>& shared_tileset, unsigned int first_gid) :
-SharedTileset(*shared_tileset),
+Tileset::Tileset(const std::shared_ptr<TilesetData>& shared_tileset, unsigned int first_gid) :
+TilesetData(*shared_tileset),
 firstgid(first_gid)
 {}

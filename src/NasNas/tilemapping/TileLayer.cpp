@@ -4,6 +4,7 @@
 
 
 #include "NasNas/tilemapping/TileLayer.hpp"
+#include "NasNas/tilemapping/TiledMap.hpp"
 
 using namespace ns;
 using namespace ns::tm;
@@ -63,11 +64,11 @@ m_height(xml_node.attribute("height").as_uint())
     m_sprite.setColor(m_tintcolor);
 }
 
-auto TileLayer::getTile(int x, int y) const -> const Tile&{
+auto TileLayer::getTile(int x, int y) const -> const std::optional<Tile>& {
     return m_tiles[x + y*m_width];
 }
 
-auto TileLayer::getTile(sf::Vector2i pos) const -> const Tile& {
+auto TileLayer::getTile(sf::Vector2i pos) const -> const std::optional<Tile>& {
     return m_tiles[pos.x + pos.y*m_width];
 }
 
@@ -81,7 +82,7 @@ void TileLayer::update() {
 
         // getting tile anim frames from tileset
         const auto& tileset = m_tiledmap->getTileTileset(gid);
-        const auto& anim_frames = tileset.getTileAnim(gid - tileset.firstgid)->frames;
+        const auto& anim_frames = tileset.getTile(gid - tileset.firstgid).animframes;
 
         // go to next anim frame when elapsed time is more than frame duration
         if (anim_info.clock.getElapsedTime().asMilliseconds() > anim_frames[anim_index].duration) {
@@ -92,7 +93,7 @@ void TileLayer::update() {
                 // calculating tile index
                 auto tile_index = pos.x + pos.y*m_width;
                 // calculating new texture coordinates and updating the VertexArray
-                const auto& tex_coordinates = getTileTexCoo(new_id+tileset.firstgid, m_tiles[tile_index].flip);
+                const auto& tex_coordinates = getTileTexCoo(new_id+tileset.firstgid, m_tiles[tile_index]->flip);
                 m_vertices[&tileset][tile_index*6 + 0].texCoords = tex_coordinates[0];
                 m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coordinates[2];
                 m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coordinates[3];
@@ -114,7 +115,7 @@ void TileLayer::update() {
 
 void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     if (gid == 0) {
-        m_tiles.emplace_back(0, 0, nullptr);
+        m_tiles.emplace_back(std::nullopt);
         return;
     }
     // getting tile transformation bits and removing them from the gid
@@ -134,15 +135,15 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     auto yf = static_cast<float>(y);
 
     // storing animated tiles position for efficient iteration in update
-    if (tileset.getTileAnim(id)) {
-        m_animated_tiles_pos[gid&mask].index = 0;
-        m_animated_tiles_pos[gid&mask].clock.restart();
-        m_animated_tiles_pos[gid&mask].positions.emplace_back(x/m_tiledmap->getTileSize().x, y/m_tiledmap->getTileSize().y);
+    if (!tileset.getTile(id).animframes.empty()) {
+        m_animated_tiles_pos[gid].index = 0;
+        m_animated_tiles_pos[gid].clock.restart();
+        m_animated_tiles_pos[gid].positions.emplace_back(x/m_tiledmap->getTileSize().x, y/m_tiledmap->getTileSize().y);
     }
     // adding tile data to tiles vector
-    m_tiles.emplace_back(gid , tile_transform, tileset.getTileProperties(id));
+    m_tiles.emplace_back(Tile(gid , tile_transform, tileset.getTile(id)));
     // calculating texture coordnates and creating the quad for drawing
-    const auto& tex_coordinates = getTileTexCoo(m_tiles[tile_count]);
+    const auto& tex_coordinates = getTileTexCoo(m_tiles[tile_count].value());
     m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
     m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
     m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(xf,           yf+tileheight), tex_coordinates[3]};

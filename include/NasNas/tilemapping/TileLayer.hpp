@@ -6,13 +6,15 @@
 #pragma once
 
 #include <unordered_map>
+#include <optional>
 #include <cstdint>
 #include <SFML/Graphics.hpp>
 #include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
+#include "NasNas/tilemapping/Tile.hpp"
 
 namespace ns::tm {
+    class TiledMap;
 
     enum class TileTransformation : std::uint8_t {
         None = 0x0,
@@ -29,10 +31,10 @@ namespace ns::tm {
 
         struct Tile {
         public:
-            Tile(std::uint32_t tile_gid, std::uint8_t tile_flip, const PropertiesContainer* props) :
-            properties(props), gid(tile_gid), flip(tile_flip)
+            Tile(std::uint32_t tile_gid, std::uint8_t tile_flip, const TileData& tile_data) :
+            gid(tile_gid), flip(tile_flip), data(tile_data)
             {}
-            const PropertiesContainer* properties;
+            const TileData& data;
             const std::uint32_t gid;
             const std::uint8_t flip;
         };
@@ -46,8 +48,8 @@ namespace ns::tm {
     public:
         TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
-        auto getTile(int x, int y) const -> const Tile&;
-        auto getTile(sf::Vector2i pos) const -> const Tile&;
+        auto getTile(int x, int y) const -> const std::optional<Tile>&;
+        auto getTile(sf::Vector2i pos) const -> const std::optional<Tile>&;
         auto getGlobalBounds() const -> ns::FloatRect override;
 
         void update();
@@ -56,7 +58,7 @@ namespace ns::tm {
         unsigned int m_width;
         unsigned int m_height;
 
-        std::vector<Tile> m_tiles;
+        std::vector<std::optional<Tile>> m_tiles;
         std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
         std::map<std::uint32_t, AnimatedTileInfo> m_animated_tiles_pos;
         sf::RenderTexture m_render_texture;

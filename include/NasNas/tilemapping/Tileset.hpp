@@ -12,19 +12,20 @@
 #include "NasNas/thirdparty/pugixml.hpp"
 #include "NasNas/core/data/Rect.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include "NasNas/tilemapping/Tile.hpp"
 
 namespace ns::tm {
 
-    class SharedTilesetManager {
+    class TsxTilesetsManager {
     public:
-        static auto get(const std::string& tsx_file_name) -> const std::shared_ptr<SharedTileset>&;
+        static auto get(const std::string& tsx_file_name) -> const std::shared_ptr<TilesetData>&;
 
     private:
-        explicit SharedTilesetManager();
-        std::unordered_map<std::string, std::shared_ptr<SharedTileset>> m_shared_tilesets;
+        explicit TsxTilesetsManager();
+        std::unordered_map<std::string, std::shared_ptr<TilesetData>> m_shared_tilesets;
     };
 
-    class SharedTileset : public PropertiesContainer{
+    class TilesetData : public PropertiesContainer{
 
         struct TileAnimFrame {
             std::uint32_t tileid;
@@ -35,12 +36,11 @@ namespace ns::tm {
         };
 
     public:
-        SharedTileset(const pugi::xml_node& xml_node, const std::string& base_path);
-        ~SharedTileset();
+        TilesetData(const pugi::xml_node& xml_node, const std::string& base_path);
+        ~TilesetData();
 
         auto getTexture() const -> const sf::Texture&;
-        auto getTileProperties(std::uint32_t id) const -> const PropertiesContainer*;
-        auto getTileAnim(std::uint32_t id) const -> const TileAnim*;
+        auto getTile(std::uint32_t id) const -> const TileData&;
         auto getTileTextureRect(unsigned int id) const -> ns::FloatRect;
 
         const std::string name;
@@ -54,14 +54,13 @@ namespace ns::tm {
     private:
         std::string m_image_source;
         sf::Texture* m_texture;
-        std::map<std::uint32_t, PropertiesContainer> m_tile_properties;
-        std::map<std::uint32_t, TileAnim> m_tile_animations;
+        mutable std::map<std::uint32_t, TileData> m_tiles;
     };
 
-    class Tileset : public SharedTileset {
+    class Tileset : public TilesetData {
     public:
         Tileset(const pugi::xml_node& xml_node, const std::string& base_path);
-        Tileset(const std::shared_ptr<SharedTileset>& shared_tileset, unsigned int first_gid);
+        Tileset(const std::shared_ptr<TilesetData>& shared_tileset, unsigned int first_gid);
         const unsigned int firstgid;
     };
 
