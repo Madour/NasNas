@@ -3,6 +3,7 @@
 **/
 
 #include "NasNas/tilemapping/ObjectLayer.hpp"
+#include "NasNas/tilemapping/TiledMap.hpp"
 
 using namespace ns;
 using namespace ns::tm;

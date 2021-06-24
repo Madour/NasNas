@@ -12,6 +12,7 @@ set(
         ${NASNAS_PATH}/src/NasNas/tilemapping/ObjectLayer.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/TiledMap.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/Tileset.cpp
+        ${NASNAS_PATH}/src/NasNas/tilemapping/Tile.cpp
 
 )
 
@@ -28,4 +29,5 @@ set(
         ${NASNAS_PATH}/include/NasNas/tilemapping/ObjectLayer.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/TiledMap.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/Tileset.hpp
+        ${NASNAS_PATH}/include/NasNas/tilemapping/Tile.hpp
 )

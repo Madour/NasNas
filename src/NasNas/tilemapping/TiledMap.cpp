@@ -54,7 +54,7 @@ void TiledMap::load(const pugi::xml_document& xml) {
         unsigned int firstgid = xmlnode_tileset.attribute("firstgid").as_uint();
         // external tileset
         if (xmlnode_tileset.attribute("source")){
-            const auto& tsx_tileset = SharedTilesetManager::get(m_file_relative_path + xmlnode_tileset.attribute("source").as_string());
+            const auto& tsx_tileset = TsxTilesetsManager::get(m_file_relative_path + xmlnode_tileset.attribute("source").as_string());
             m_tilesets.emplace_back(tsx_tileset, firstgid);
         }
         // embedded tileset

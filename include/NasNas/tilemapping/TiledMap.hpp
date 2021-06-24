@@ -11,6 +11,8 @@
 #include "NasNas/thirdparty/pugixml.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
+#include "NasNas/tilemapping/TileLayer.hpp"
+#include "NasNas/tilemapping/ObjectLayer.hpp"
 
 namespace ns::tm {
 

@@ -12,9 +12,6 @@
 #include "NasNas/thirdparty/pugixml.hpp"
 
 namespace ns::tm {
-    class SharedTileset;
-    class TileLayer;
-    class ObjectLayer;
 
     using PropertyTypes = std::variant<int, float, std::string, bool, sf::Color>;
 
@@ -39,7 +36,6 @@ namespace ns::tm {
         void parseProperties(const pugi::xml_node& xmlnode_props);
 
     private:
-        friend SharedTileset;
         std::unordered_map<std::string, PropertyTypes> m_properties;
 
     };
