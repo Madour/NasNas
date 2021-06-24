@@ -14,10 +14,10 @@ using namespace ns::tm;
 
 TsxTilesetsManager::TsxTilesetsManager() = default;
 
-auto TsxTilesetsManager::get(const std::string& tsx_file_name) -> const std::shared_ptr<TilesetData>& {
+auto TsxTilesetsManager::get(const std::string& tsx_file_name) -> const TilesetData& {
     static TsxTilesetsManager instance;
     if (instance.m_shared_tilesets.count(tsx_file_name))
-        return instance.m_shared_tilesets[tsx_file_name];
+        return instance.m_shared_tilesets.at(tsx_file_name);
     else {
         pugi::xml_document xml;
         auto result = xml.load_file(tsx_file_name.c_str());
@@ -25,8 +25,8 @@ auto TsxTilesetsManager::get(const std::string& tsx_file_name) -> const std::sha
             std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
             std::exit(-1);
         }
-        instance.m_shared_tilesets[tsx_file_name] =  std::make_shared<TilesetData>(xml.child("tileset"), utils::path::getPath(tsx_file_name));
-        return instance.m_shared_tilesets[tsx_file_name];
+        instance.m_shared_tilesets.emplace(tsx_file_name, TilesetData(xml.child("tileset"), utils::path::getPath(tsx_file_name)));
+        return instance.m_shared_tilesets.at(tsx_file_name);
     }
 }
 
@@ -90,7 +90,7 @@ TilesetData(xml_node, base_path),
 firstgid(xml_node.attribute("firstgid").as_uint())
 {}
 
-Tileset::Tileset(const std::shared_ptr<TilesetData>& shared_tileset, unsigned int first_gid) :
-TilesetData(*shared_tileset),
+Tileset::Tileset(const TilesetData& tilesetdata, unsigned int first_gid) :
+TilesetData(tilesetdata),
 firstgid(first_gid)
 {}
