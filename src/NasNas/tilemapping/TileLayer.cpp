@@ -120,7 +120,7 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     }
     // getting tile transformation bits and removing them from the gid
     std::uint32_t mask = 0x1fffffff;
-    auto tile_transform = static_cast<Tile::Transformation>((gid & ~mask) >> 28u);
+    auto tile_transform = static_cast<Tile::Flip>((gid & ~mask) >> 28u);
     gid = gid & mask;
 
     // getting the tileset of the tile
