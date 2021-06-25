@@ -78,7 +78,7 @@ auto TilesetData::getTileData(std::uint32_t id) const -> const TileData& {
     return m_tiles_data.at(id);
 }
 
-auto TilesetData::getTileTexCoo(std::uint32_t id, Tile::Transformation flip) const -> std::vector<sf::Vector2f> {
+auto TilesetData::getTileTexCoo(std::uint32_t id, Tile::Flip flip) const -> std::vector<sf::Vector2f> {
     auto texture_rect = getTileTextureRect(id);
 
     auto coords = std::vector<sf::Vector2f>(4);
@@ -87,20 +87,20 @@ auto TilesetData::getTileTexCoo(std::uint32_t id, Tile::Transformation flip) con
     coords[2] = texture_rect.bottomright();
     coords[3] = texture_rect.bottomleft();
 
-    if (flip & Tile::VerticalFlip) {
+    if ((flip & Tile::Flip::VerticalFlip) != Tile::Flip::None) {
         auto temp = coords[0];
         coords[0].y = coords[3].y;  coords[1].y = coords[2].y;
         coords[3].y = temp.y;       coords[2].y = temp.y;
     }
-    if (flip & Tile::HorizontalFlip) {
+    if ((flip & Tile::Flip::HorizontalFlip) != Tile::Flip::None) {
         auto temp = coords[0];
         coords[0].x = coords[1].x; coords[1].x = temp.x;
         coords[3].x = coords[0].x; coords[2].x = coords[1].x;
     }
-    if (flip & Tile::DiagonalFlip) {
+    if ((flip & Tile::Flip::DiagonalFlip) != Tile::Flip::None) {
         int i1 = 1, i2 = 3;
-        if (flip == Tile::Rotation90 ||
-            flip == Tile::Rotation270) {
+        if (flip == Tile::Flip::Rotation90 ||
+            flip == Tile::Flip::Rotation270) {
             i1 = 0; i2 = 2;
         }
         auto temp = coords[i1];

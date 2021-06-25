@@ -26,8 +26,8 @@ namespace ns::tm {
     };
 
     struct Tile {
-        enum Transformation : std::uint8_t {
-            NoFlip = 0x0,
+        enum class Flip : std::uint8_t {
+            None = 0x0,
             HorizontalFlip = 0x8,
             VerticalFlip = 0x4,
             DiagonalFlip = 0x2,
@@ -35,10 +35,12 @@ namespace ns::tm {
             Rotation180 = HorizontalFlip | VerticalFlip,
             Rotation270 = VerticalFlip | DiagonalFlip
         };
-        Tile(const TileData& data, std::uint32_t gid, Transformation flip);
+        Tile(const TileData& data, std::uint32_t gid, Flip flip);
         const TileData& data;
         const std::uint32_t gid;
-        const Tile::Transformation flip;
+        const Flip flip;
         static std::optional<Tile> None;
     };
+
+    auto operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip;
 }
