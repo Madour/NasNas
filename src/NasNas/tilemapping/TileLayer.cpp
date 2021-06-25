@@ -88,13 +88,13 @@ void TileLayer::update() {
         if (anim_info.clock.getElapsedTime().asMilliseconds() > anim_frames[anim_index].duration) {
             anim_index = (anim_index+1) % anim_frames.size();
             anim_info.clock.restart();
-            auto new_id = anim_frames[anim_index].tileid;
+            auto next_id = anim_frames[anim_index].tileid;
             for (const auto& pos : anim_info.positions) {
                 // calculating tile index
                 auto tile_index = pos.x + pos.y*m_width;
-                auto& next_tile = m_tiles[tile_index].value();
+                auto& base_tile = m_tiles[tile_index].value();
                 // calculating new texture coordinates and updating the VertexArray
-                const auto& tex_coordinates = tileset.getTileTexCoo(next_tile.data.id, next_tile.flip);
+                const auto& tex_coordinates = tileset.getTileTexCoo(next_id, base_tile.flip);
                 m_vertices[&tileset][tile_index*6 + 0].texCoords = tex_coordinates[0];
                 m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coordinates[2];
                 m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coordinates[3];
