@@ -1,14 +1,16 @@
 // Created by Modar Nasser on 24/06/2021.
 
 #include "NasNas/tilemapping/Tile.hpp"
+#include "NasNas/tilemapping/Tileset.hpp"
 
 using namespace ns;
 using namespace ns::tm;
 
 
-TileData::TileData(const pugi::xml_node& xml_node) :
+TileData::TileData(const pugi::xml_node& xml_node, const TilesetData* tilesetdata) :
 id(xml_node.attribute("id").as_uint()),
-type(xml_node.attribute("type").as_string())
+type(xml_node.attribute("type").as_string()),
+tileset(*tilesetdata)
 {
     parseProperties(xml_node.child("properties"));
     for (const auto& xmlnode_tile_animframe : xml_node.child("animation").children()) {
@@ -18,13 +20,15 @@ type(xml_node.attribute("type").as_string())
     }
 }
 
-TileData::TileData(std::uint32_t id) :
-id(id)
+std::optional<Tile> Tile::None = std::nullopt;
+
+TileData::TileData(std::uint32_t id, const TilesetData* tilesetdata) :
+id(id),
+tileset(*tilesetdata)
 {}
 
-Tile::Tile(const TileData& data, std::uint32_t gid, std::uint8_t flip, const Tileset& tileset) :
+Tile::Tile(const TileData& data, std::uint32_t gid, Transformation flip) :
 data(data),
 gid(gid),
-flip(flip),
-tileset(tileset)
+flip(flip)
 {}

@@ -23,16 +23,16 @@ namespace ns::tm {
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
-        auto getDimension() -> const sf::Vector2u&;
+        auto getDimension() const -> const sf::Vector2u&;
         auto getSize() const -> sf::Vector2u;
-        auto getTileSize() -> const sf::Vector2u&;
-        auto getTileTileset(unsigned int gid) -> const Tileset&;
+        auto getTileSize() const -> const sf::Vector2u&;
+        auto getTileTileset(unsigned int gid) const -> const Tileset&;
 
-        auto allTilesets() -> const std::vector<Tileset>&;
+        auto allTilesets() const -> const std::vector<Tileset>&;
 
-        auto hasLayer(const std::string& name) -> bool;
-        auto getTileLayer(const std::string& name) -> const TileLayer&;
-        auto getObjectLayer(const std::string& name) -> const ObjectLayer&;
+        auto hasLayer(const std::string& name) const -> bool;
+        auto getTileLayer(const std::string& name) const -> const TileLayer&;
+        auto getObjectLayer(const std::string& name) const -> const ObjectLayer&;
 
         void update();
 

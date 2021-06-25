@@ -31,8 +31,9 @@ namespace ns::tm {
         ~TilesetData();
 
         auto getTexture() const -> const sf::Texture&;
-        auto getTile(std::uint32_t id) const -> const TileData&;
-        auto getTileTextureRect(unsigned int id) const -> ns::FloatRect;
+        auto getTileData(std::uint32_t id) const -> const TileData&;
+        auto getTileTexCoo(std::uint32_t id, Tile::Transformation flip=Tile::NoFlip) const -> std::vector<sf::Vector2f>;
+        auto getTileTextureRect(std::uint32_t id) const -> ns::FloatRect;
 
         const std::string name;
         const unsigned int tilewidth;
@@ -45,7 +46,7 @@ namespace ns::tm {
     private:
         std::string m_image_source;
         sf::Texture* m_texture;
-        mutable std::map<std::uint32_t, TileData> m_tiles;
+        mutable std::map<std::uint32_t, TileData> m_tiles_data;
     };
 
     class Tileset : public TilesetData {

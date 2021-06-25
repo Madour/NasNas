@@ -74,7 +74,7 @@ void TiledMap::load(const pugi::xml_document& xml) {
     }
 }
 
-auto TiledMap::getDimension() -> const sf::Vector2u& {
+auto TiledMap::getDimension() const -> const sf::Vector2u& {
     return m_size;
 }
 
@@ -82,11 +82,11 @@ auto TiledMap::getSize() const -> sf::Vector2u {
     return {m_size.x * m_tilesize.x, m_size.y * m_tilesize.y};
 }
 
-auto TiledMap::getTileSize() -> const sf::Vector2u& {
+auto TiledMap::getTileSize() const -> const sf::Vector2u& {
     return m_tilesize;
 }
 
-auto TiledMap::getTileTileset(unsigned int gid) -> const Tileset& {
+auto TiledMap::getTileTileset(unsigned int gid) const -> const Tileset& {
     for (const auto& tileset : m_tilesets) {
         if (tileset.firstgid <= gid && gid < tileset.firstgid + tileset.tilecount)
             return tileset;
@@ -95,22 +95,22 @@ auto TiledMap::getTileTileset(unsigned int gid) -> const Tileset& {
     exit(-1);
 }
 
-auto TiledMap::allTilesets() -> const std::vector<Tileset>& {
+auto TiledMap::allTilesets() const -> const std::vector<Tileset>& {
     return m_tilesets;
 }
 
-auto TiledMap::hasLayer(const std::string& name) -> bool {
+auto TiledMap::hasLayer(const std::string& name) const -> bool {
     return (m_tilelayers.count(name) > 0 || m_objectlayers.count(name) > 0);
 }
 
-auto TiledMap::getTileLayer(const std::string& name) -> const TileLayer& {
+auto TiledMap::getTileLayer(const std::string& name) const -> const TileLayer& {
     if (m_tilelayers.count(name) > 0)
         return *m_tilelayers.at(name);
     std::cout << "TiledMap «" << m_file_name << "» has not TileLayer named «" << name << "»." << std::endl;
     exit(-1);
 }
 
-auto TiledMap::getObjectLayer(const std::string& name) -> const ObjectLayer& {
+auto TiledMap::getObjectLayer(const std::string& name) const -> const ObjectLayer& {
     if (m_objectlayers.count(name) > 0)
         return *m_objectlayers.at(name);
     std::cout << "TiledMap «" << m_file_name << "» has not ObjectLayer named «" << name << "»." << std::endl;
