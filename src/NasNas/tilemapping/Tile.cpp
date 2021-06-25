@@ -33,7 +33,7 @@ gid(gid),
 flip(flip)
 {}
 
-auto operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip{
+auto ns::tm::operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip{
     return static_cast<Tile::Flip>(
             static_cast<std::underlying_type<Tile::Flip>::type>(lhs) &
             static_cast<std::underlying_type<Tile::Flip>::type>(rhs)
