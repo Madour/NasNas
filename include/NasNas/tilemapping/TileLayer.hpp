@@ -16,28 +16,7 @@
 namespace ns::tm {
     class TiledMap;
 
-    enum class TileTransformation : std::uint8_t {
-        None = 0x0,
-        HorizontalFlip = 0x8,
-        VerticalFlip = 0x4,
-        DiagonalFlip = 0x2,
-        Rotation90 = HorizontalFlip | DiagonalFlip,
-        Rotation180 = HorizontalFlip | VerticalFlip,
-        Rotation270 = VerticalFlip | DiagonalFlip
-    };
-
-
     class TileLayer : public Layer {
-
-        struct Tile {
-        public:
-            Tile(std::uint32_t tile_gid, std::uint8_t tile_flip, const TileData& tile_data) :
-            gid(tile_gid), flip(tile_flip), data(tile_data)
-            {}
-            const TileData& data;
-            const std::uint32_t gid;
-            const std::uint8_t flip;
-        };
 
         struct AnimatedTileInfo {
             unsigned int index;
@@ -58,15 +37,13 @@ namespace ns::tm {
         unsigned int m_width;
         unsigned int m_height;
 
-        std::vector<std::optional<Tile>> m_tiles;
+        std::map<unsigned, std::optional<Tile>> m_tiles;
         std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
         std::map<std::uint32_t, AnimatedTileInfo> m_animated_tiles_pos;
         sf::RenderTexture m_render_texture;
         sf::Sprite m_sprite;
 
         void addTile(std::uint32_t gid, unsigned int tile_count);
-        auto getTileTexCoo(std::uint32_t gid, std::uint8_t transformation) -> std::vector<sf::Vector2f>;
-        auto getTileTexCoo(const Tile& tile) -> std::vector<sf::Vector2f>;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };

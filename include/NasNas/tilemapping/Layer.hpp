@@ -25,7 +25,7 @@ namespace ns::tm {
         void setVisible(bool value);
 
     protected:
-        TiledMap* m_tiledmap = nullptr;
+        const TiledMap& m_tiledmap;
         sf::Transformable m_transformable;
         sf::Color m_tintcolor = sf::Color::White;
 

@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <optional>
+
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 
 namespace ns::tm {
@@ -14,19 +16,29 @@ namespace ns::tm {
             std::uint32_t tileid;
             int duration;
         };
-        explicit TileData(std::uint32_t id);
+        explicit TileData(std::uint32_t id, const TilesetData* tilesetdata);
     public:
-        explicit TileData(const pugi::xml_node& xml_node);
+        explicit TileData(const pugi::xml_node& xml_node, const TilesetData* tilesetdata);
         const std::uint32_t id;
         const std::string type;
+        const TilesetData& tileset;
         std::vector<AnimFrame> animframes;
     };
 
     struct Tile {
-        Tile(const TileData& data, std::uint32_t gid, std::uint8_t flip, const Tileset& tileset);
+        enum Transformation : std::uint8_t {
+            NoFlip = 0x0,
+            HorizontalFlip = 0x8,
+            VerticalFlip = 0x4,
+            DiagonalFlip = 0x2,
+            Rotation90 = HorizontalFlip | DiagonalFlip,
+            Rotation180 = HorizontalFlip | VerticalFlip,
+            Rotation270 = VerticalFlip | DiagonalFlip
+        };
+        Tile(const TileData& data, std::uint32_t gid, Transformation flip);
         const TileData& data;
         const std::uint32_t gid;
-        const std::uint8_t flip;
-        const Tileset& tileset;
+        const Tile::Transformation flip;
+        static std::optional<Tile> None;
     };
 }
