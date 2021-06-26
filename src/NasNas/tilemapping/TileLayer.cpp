@@ -96,11 +96,11 @@ void TileLayer::update() {
                 // calculating new texture coordinates and updating the VertexArray
                 const auto& tex_coordinates = tileset.getTileTexCoo(next_id, base_tile.flip);
                 m_vertices[&tileset][tile_index*6 + 0].texCoords = tex_coordinates[0];
-                m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coordinates[2];
-                m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coordinates[3];
-                m_vertices[&tileset][tile_index*6 + 3].texCoords = tex_coordinates[0];
-                m_vertices[&tileset][tile_index*6 + 4].texCoords = tex_coordinates[1];
-                m_vertices[&tileset][tile_index*6 + 5].texCoords = tex_coordinates[2];
+                m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coordinates[1];
+                m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coordinates[2];
+                m_vertices[&tileset][tile_index*6 + 3].texCoords = tex_coordinates[2];
+                m_vertices[&tileset][tile_index*6 + 4].texCoords = tex_coordinates[3];
+                m_vertices[&tileset][tile_index*6 + 5].texCoords = tex_coordinates[0];
             }
         }
     }
@@ -146,11 +146,11 @@ void TileLayer::addTile(std::uint32_t gid, int tile_count) {
     // calculating texture coordnates and creating the quad for drawing
     const auto& tex_coordinates = tile.getTexCoo();
     m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
-    m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
-    m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(px,           py+tileheight), tex_coordinates[3]};
-    m_vertices[&tileset][tile_count*6 + 3] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
-    m_vertices[&tileset][tile_count*6 + 4] = {sf::Vector2f(px+tilewidth, py),            tex_coordinates[1]};
-    m_vertices[&tileset][tile_count*6 + 5] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
+    m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(px+tilewidth, py),            tex_coordinates[1]};
+    m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
+    m_vertices[&tileset][tile_count*6 + 3] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
+    m_vertices[&tileset][tile_count*6 + 4] = {sf::Vector2f(px,           py+tileheight), tex_coordinates[3]};
+    m_vertices[&tileset][tile_count*6 + 5] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
 }
 
 void TileLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
