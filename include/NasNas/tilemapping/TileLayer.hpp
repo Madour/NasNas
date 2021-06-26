@@ -34,8 +34,8 @@ namespace ns::tm {
         void update();
 
     private:
-        unsigned int m_width;
-        unsigned int m_height;
+        int m_width;
+        int m_height;
 
         std::map<unsigned, std::optional<Tile>> m_tiles;
         std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
@@ -43,7 +43,7 @@ namespace ns::tm {
         sf::RenderTexture m_render_texture;
         sf::Sprite m_sprite;
 
-        void addTile(std::uint32_t gid, unsigned int tile_count);
+        void addTile(std::uint32_t gid, int tile_count);
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
