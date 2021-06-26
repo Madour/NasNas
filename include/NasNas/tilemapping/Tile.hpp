@@ -35,11 +35,14 @@ namespace ns::tm {
             Rotation180 = HorizontalFlip | VerticalFlip,
             Rotation270 = VerticalFlip | DiagonalFlip
         };
-        Tile(const TileData& data, std::uint32_t gid, Flip flip);
+        static std::optional<Tile> None;
+
+        Tile(const TileData& tiledata, std::uint32_t tilegid, int posx, int posy,  Flip tileflip=Flip::None);
         const TileData& data;
         const std::uint32_t gid;
+        const int x;
+        const int y;
         const Flip flip;
-        static std::optional<Tile> None;
     };
 
     auto operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip;

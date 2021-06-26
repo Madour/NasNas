@@ -27,13 +27,15 @@ id(id),
 tileset(*tilesetdata)
 {}
 
-Tile::Tile(const TileData& data, std::uint32_t gid, Flip flip) :
-data(data),
-gid(gid),
-flip(flip)
+Tile::Tile(const TileData& tiledata, std::uint32_t tilegid, int posx, int posy, Flip tileflip) :
+data(tiledata),
+gid(tilegid),
+x(posx),
+y(posy),
+flip(tileflip)
 {}
 
-auto ns::tm::operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip{
+auto ns::tm::operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip {
     return static_cast<Tile::Flip>(
             static_cast<std::underlying_type<Tile::Flip>::type>(lhs) &
             static_cast<std::underlying_type<Tile::Flip>::type>(rhs)

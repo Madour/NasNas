@@ -11,8 +11,8 @@ using namespace ns::tm;
 
 TileLayer::TileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
 Layer(xml_node, tiledmap),
-m_width(xml_node.attribute("width").as_uint()),
-m_height(xml_node.attribute("height").as_uint())
+m_width(xml_node.attribute("width").as_int()),
+m_height(xml_node.attribute("height").as_int())
 {
     m_render_texture.create(m_width*m_tiledmap.getTileSize().x, m_height*m_tiledmap.getTileSize().y);
     for (const auto& tileset : m_tiledmap.allTilesets()) {
@@ -114,7 +114,7 @@ void TileLayer::update() {
     m_sprite.setColor(m_tintcolor);
 }
 
-void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
+void TileLayer::addTile(std::uint32_t gid, int tile_count) {
     if (gid == 0) {
         return;
     }
@@ -131,8 +131,8 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
     auto tileheight = tileset.tileheight;
     auto x = (tile_count % m_width);
     auto y = (tile_count / m_width);
-    auto xf = static_cast<float>(x * m_tiledmap.getTileSize().x);
-    auto yf = static_cast<float>(y * m_tiledmap.getTileSize().y);
+    auto px = static_cast<float>(x * m_tiledmap.getTileSize().x);
+    auto py = static_cast<float>(y * m_tiledmap.getTileSize().y);
 
     // storing animated tiles position for efficient iteration in update
     if (!tileset.getTileData(id).animframes.empty()) {
@@ -141,16 +141,16 @@ void TileLayer::addTile(std::uint32_t gid, unsigned int tile_count) {
         m_animated_tiles_pos[gid].positions.emplace_back(x, y);
     }
     // adding tile data to tiles vector
-    m_tiles.emplace(tile_count, Tile(tileset.getTileData(id), gid , tile_transform));
+    m_tiles.emplace(tile_count, Tile(tileset.getTileData(id), gid, x, y, tile_transform));
     auto& tile = m_tiles.at(tile_count).value();
     // calculating texture coordnates and creating the quad for drawing
     const auto& tex_coordinates = tileset.getTileTexCoo(tile.data.id, tile.flip);
-    m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
-    m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
-    m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(xf,           yf+tileheight), tex_coordinates[3]};
-    m_vertices[&tileset][tile_count*6 + 3] = {sf::Vector2f(xf,           yf),            tex_coordinates[0]};
-    m_vertices[&tileset][tile_count*6 + 4] = {sf::Vector2f(xf+tilewidth, yf),            tex_coordinates[1]};
-    m_vertices[&tileset][tile_count*6 + 5] = {sf::Vector2f(xf+tilewidth, yf+tileheight), tex_coordinates[2]};
+    m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
+    m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
+    m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(px,           py+tileheight), tex_coordinates[3]};
+    m_vertices[&tileset][tile_count*6 + 3] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
+    m_vertices[&tileset][tile_count*6 + 4] = {sf::Vector2f(px+tilewidth, py),            tex_coordinates[1]};
+    m_vertices[&tileset][tile_count*6 + 5] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
 }
 
 void TileLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
