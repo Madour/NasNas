@@ -4,6 +4,7 @@
 
 #include <optional>
 
+#include "NasNas/core/data/Rect.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 
 namespace ns::tm {
@@ -38,6 +39,8 @@ namespace ns::tm {
         static std::optional<Tile> None;
 
         Tile(const TileData& tiledata, std::uint32_t tilegid, int posx, int posy,  Flip tileflip=Flip::None);
+        auto getTexCoo() -> std::vector<sf::Vector2f>;
+        auto getTexRect() -> ns::FloatRect;
         const TileData& data;
         const std::uint32_t gid;
         const int x;

@@ -86,8 +86,8 @@ void TileLayer::update() {
 
         // go to next anim frame when elapsed time is more than frame duration
         if (anim_info.clock.getElapsedTime().asMilliseconds() > anim_frames[anim_index].duration) {
-            anim_index = (anim_index+1) % anim_frames.size();
             anim_info.clock.restart();
+            anim_index = (anim_index+1) % anim_frames.size();
             auto next_id = anim_frames[anim_index].tileid;
             for (const auto& pos : anim_info.positions) {
                 // calculating tile index
@@ -144,7 +144,7 @@ void TileLayer::addTile(std::uint32_t gid, int tile_count) {
     m_tiles.emplace(tile_count, Tile(tileset.getTileData(id), gid, x, y, tile_transform));
     auto& tile = m_tiles.at(tile_count).value();
     // calculating texture coordnates and creating the quad for drawing
-    const auto& tex_coordinates = tileset.getTileTexCoo(tile.data.id, tile.flip);
+    const auto& tex_coordinates = tile.getTexCoo();
     m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
     m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
     m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(px,           py+tileheight), tex_coordinates[3]};

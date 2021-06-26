@@ -35,6 +35,14 @@ y(posy),
 flip(tileflip)
 {}
 
+auto Tile::getTexCoo() -> std::vector<sf::Vector2f> {
+    return data.tileset.getTileTexCoo(data.id, flip);
+}
+
+auto Tile::getTexRect() -> ns::FloatRect {
+    return data.tileset.getTileTextureRect(data.id);
+}
+
 auto ns::tm::operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip {
     return static_cast<Tile::Flip>(
             static_cast<std::underlying_type<Tile::Flip>::type>(lhs) &
