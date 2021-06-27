@@ -14,50 +14,43 @@ Layer(xml_node, tiledmap),
 m_width(xml_node.attribute("width").as_int()),
 m_height(xml_node.attribute("height").as_int())
 {
-    m_render_texture.create(m_width*m_tiledmap.getTileSize().x, m_height*m_tiledmap.getTileSize().y);
+    // create tile vertices that will be rendered
     for (const auto& tileset : m_tiledmap.allTilesets()) {
         m_vertices[&tileset].resize(6u * (size_t)m_width * (size_t)m_height);
         m_vertices[&tileset].setPrimitiveType(sf::PrimitiveType::Triangles);
     }
-
+    // create the tiles
     m_tiles.resize(m_width*m_height, Tile::None);
-    // parsing data
+
     auto xml_data = xml_node.child("data");
     auto encoding = std::string(xml_data.attribute("encoding").as_string());
-    if (encoding == "csv") {
-        std::string layer_data_str{xml_data.text().as_string()};
-        const char* layer_data = xml_data.text().as_string();
-        std::uint32_t current_gid = 0;
-        int tile_counter = 0;
-        while (*layer_data != '\0') {
-            switch (*layer_data) {
-                case '\n':
-                    break;
-                case ',':
-                    addTile(tile_counter, current_gid);
-                    current_gid = 0;
-                    tile_counter ++;
-                    break;
-                default:
-                    current_gid *= 10;
-                    current_gid += *layer_data - '0';
-            }
-            layer_data++;
-        }
-        addTile(tile_counter, current_gid);
-    }
-    else {
+    if (encoding != "csv") {
         std::cout << "Encoding «" << encoding << "» is not supported, please use CSV instead." << std::endl;
         exit(-1);
     }
-
-    m_render_texture.clear(sf::Color::Transparent);
-    for (const auto& [tileset, vertices] : m_vertices) {
-        m_render_texture.draw(vertices, sf::RenderStates(&tileset->data.getTexture()));
+    // parse data and set the tiles
+    const char* layer_data = xml_data.text().as_string();
+    std::uint32_t current_gid = 0;
+    int tile_counter = 0;
+    while (*layer_data != '\0') {
+        switch (*layer_data) {
+            case '\n':
+                break;
+            case ',':
+                addTile(tile_counter, current_gid);
+                current_gid = 0;
+                tile_counter ++;
+                break;
+            default:
+                current_gid *= 10;
+                current_gid += *layer_data - '0';
+        }
+        layer_data++;
     }
-    m_render_texture.display();
-    m_sprite.setTexture(m_render_texture.getTexture());
-    m_sprite.setColor(m_tintcolor);
+    addTile(tile_counter, current_gid);
+
+    // create the render texture
+    m_render_texture.create(m_width*m_tiledmap.getTileSize().x, m_height*m_tiledmap.getTileSize().y);
 }
 
 auto TileLayer::getTile(int x, int y) const -> const std::optional<Tile>& {
@@ -73,18 +66,17 @@ void TileLayer::setTile(int x, int y, std::uint32_t gid) {
     if (gid == 0) {
         return;
     }
-    // getting tile transformation bits and removing them from the gid
+    // get tile transformation
     std::uint32_t mask = 0x1fffffff;
     auto tile_flip = static_cast<Tile::Flip>((gid & ~mask) >> 28u);
     gid = gid & mask;
 
-    // getting the tileset of the tile
+    // get tile tileset, id and index
     const auto& tileset = m_tiledmap.getTileTileset(gid);
-    // storing all needed variables
     auto id = gid - tileset.firstgid;
     auto tile_index = x + y*m_width;
 
-    // storing animated tiles position for efficient iteration in update
+    // if tile is animated, update animation positions
     auto old_gid = getTile(x, y)->gid;
     if (m_animated_tiles_pos.count(old_gid) > 0) {
         auto& v = m_animated_tiles_pos.at(old_gid).positions;
@@ -96,9 +88,9 @@ void TileLayer::setTile(int x, int y, std::uint32_t gid) {
         m_animated_tiles_pos[gid].positions.emplace_back(x, y);
     }
 
-    // adding tile data to tiles vector
+    // update the tile
     m_tiles[tile_index].emplace(tileset.data.getTileData(id), tileset.data, gid, x, y, tile_flip);
-    // calculating texture coordnates and creating the quad for drawing
+    // update tile texture coordinates
     const auto& tex_coordinates = m_tiles.at(tile_index)->getTileTexCoo();
     updateTileTexCoo(tileset, tile_index, tex_coordinates);
 }
@@ -111,7 +103,7 @@ void TileLayer::update() {
     for (auto& [gid, anim_info] : m_animated_tiles_pos) {
         auto& anim_index = anim_info.index;
 
-        // getting tile anim frames from tileset
+        // get tileset and animation frames
         const auto& tileset = m_tiledmap.getTileTileset(gid);
         const auto& anim_frames = tileset.data.getTileData(gid - tileset.firstgid).animframes;
 
@@ -120,12 +112,12 @@ void TileLayer::update() {
             anim_info.clock.restart();
             anim_index = (anim_index+1) % anim_frames.size();
             auto next_id = anim_frames[anim_index].tileid;
+            // for each position where this animated tile is on the map
             for (const auto& pos : anim_info.positions) {
-                // calculating tile index
                 auto tile_index = pos.x + pos.y*m_width;
-                auto& base_tile = m_tiles[tile_index].value();
-                // calculating new texture coordinates and updating the VertexArray
-                const auto& tex_coordinates = tileset.data.getTileTexCoo(next_id, base_tile.flip);
+                auto tile_flip = m_tiles[tile_index]->flip;
+                // update next frame texture coordinates
+                const auto& tex_coordinates = tileset.data.getTileTexCoo(next_id, tile_flip);
                 updateTileTexCoo(tileset, tile_index, tex_coordinates);
             }
         }

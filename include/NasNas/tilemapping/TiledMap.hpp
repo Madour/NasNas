@@ -23,7 +23,7 @@ namespace ns::tm {
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
-        auto getDimension() const -> const sf::Vector2u&;
+        auto getGridSize() const -> const sf::Vector2u&;
         auto getSize() const -> sf::Vector2u;
         auto getTileSize() const -> const sf::Vector2u&;
         auto getTileTileset(unsigned int gid) const -> const Tileset&;
