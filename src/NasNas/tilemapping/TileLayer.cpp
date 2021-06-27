@@ -101,14 +101,6 @@ void TileLayer::update() {
             }
         }
     }
-
-    m_render_texture.clear(sf::Color::Transparent);
-    for (const auto& [tileset, vertices] : m_vertices) {
-        m_render_texture.draw(vertices, sf::RenderStates(&tileset->data.getTexture()));
-    }
-    m_render_texture.display();
-    m_sprite.setTexture(m_render_texture.getTexture());
-    m_sprite.setColor(m_tintcolor);
 }
 
 void TileLayer::addTile(std::uint32_t gid, int tile_count) {
@@ -149,6 +141,16 @@ void TileLayer::addTile(std::uint32_t gid, int tile_count) {
     m_vertices[&tileset][tile_count*6 + 3] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
     m_vertices[&tileset][tile_count*6 + 4] = {sf::Vector2f(px,           py+tileheight), tex_coordinates[3]};
     m_vertices[&tileset][tile_count*6 + 5] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
+}
+
+void TileLayer::render() {
+    m_render_texture.clear(sf::Color::Transparent);
+    for (const auto& [tileset, vertices] : m_vertices) {
+        m_render_texture.draw(vertices, sf::RenderStates(&tileset->data.getTexture()));
+    }
+    m_render_texture.display();
+    m_sprite.setTexture(m_render_texture.getTexture());
+    m_sprite.setColor(m_tintcolor);
 }
 
 void TileLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
