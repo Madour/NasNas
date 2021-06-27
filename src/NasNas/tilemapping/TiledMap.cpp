@@ -48,7 +48,7 @@ void TiledMap::load(const pugi::xml_document& xml) {
 
     parseProperties(m_xmlnode_map.child("properties"));
 
-    // parsing tilesets
+    // parse tilesets
     m_tilesets.reserve(std::distance(m_xmlnode_map.children("tileset").begin(), m_xmlnode_map.children("tileset").end()));
     m_tilesets_data.reserve(5);
     for (const auto& xmlnode_tileset : m_xmlnode_map.children("tileset")) {
@@ -65,19 +65,19 @@ void TiledMap::load(const pugi::xml_document& xml) {
         }
     }
 
-    // parsing layers
+    // parse tile layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
         auto new_layer = std::make_unique<TileLayer>(xmlnode_layer, this);
         m_tilelayers[new_layer->getName()] = std::move(new_layer);
     }
-    // parsing object layers
+    // parse object layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
         auto new_layer = std::make_unique<ObjectLayer>(xmlnode_layer, this);
         m_objectlayers[new_layer->getName()] = std::move(new_layer);
     }
 }
 
-auto TiledMap::getDimension() const -> const sf::Vector2u& {
+auto TiledMap::getGridSize() const -> const sf::Vector2u& {
     return m_size;
 }
 
