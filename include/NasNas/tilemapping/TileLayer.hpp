@@ -29,6 +29,7 @@ namespace ns::tm {
 
         auto getTile(int x, int y) const -> const std::optional<Tile>&;
         auto getTile(sf::Vector2i pos) const -> const std::optional<Tile>&;
+        void setTile(int x, int y, std::uint32_t gid);
         auto getGlobalBounds() const -> ns::FloatRect override;
 
         void update();
