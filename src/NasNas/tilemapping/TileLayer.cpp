@@ -20,17 +20,15 @@ m_height(xml_node.attribute("height").as_int())
         m_vertices[&tileset].setPrimitiveType(sf::PrimitiveType::Triangles);
     }
 
+    m_tiles.resize(m_width*m_height, Tile::None);
     // parsing data
     auto xml_data = xml_node.child("data");
     auto encoding = std::string(xml_data.attribute("encoding").as_string());
     if (encoding == "csv") {
         std::string layer_data_str{xml_data.text().as_string()};
-        int nb_tiles = std::count(layer_data_str.begin(), layer_data_str.end(), ',')+1;
-
         const char* layer_data = xml_data.text().as_string();
         std::uint32_t current_gid = 0;
         int tile_counter = 0;
-        m_tiles.reserve(m_width*m_height);
         while (*layer_data != '\0') {
             switch (*layer_data) {
                 case '\n':
@@ -63,9 +61,8 @@ m_height(xml_node.attribute("height").as_int())
 }
 
 auto TileLayer::getTile(int x, int y) const -> const std::optional<Tile>& {
-    auto i = x + y*m_width;
-    if (m_tiles.count(i)  > 0) return m_tiles.at(i);
-    return Tile::None;
+    if (x > m_width || y > m_height) return Tile::None;
+    return m_tiles.at(x + y*m_width);
 }
 
 auto TileLayer::getTile(sf::Vector2i pos) const -> const std::optional<Tile>& {
@@ -141,10 +138,10 @@ void TileLayer::addTile(std::uint32_t gid, int tile_count) {
         m_animated_tiles_pos[gid].positions.emplace_back(x, y);
     }
     // adding tile data to tiles vector
-    m_tiles.emplace(tile_count, Tile(tileset.data.getTileData(id), gid, x, y, tile_transform));
+    m_tiles[tile_count].emplace(tileset.data.getTileData(id), tileset.data, gid, x, y, tile_transform);
     auto& tile = m_tiles.at(tile_count).value();
     // calculating texture coordnates and creating the quad for drawing
-    const auto& tex_coordinates = tileset.data.getTileTexCoo(id, tile_transform);
+    const auto& tex_coordinates = tile.getTileTexCoo();
 
     m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
     m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(px+tilewidth, py),            tex_coordinates[1]};
