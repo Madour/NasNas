@@ -46,13 +46,13 @@ namespace ns::tm {
     private:
         std::string m_image_source;
         sf::Texture* m_texture;
-        mutable std::map<std::uint32_t, TileData> m_tiles_data;
+        mutable std::unordered_map<std::uint32_t, TileData*> m_tiles_data;
     };
 
-    class Tileset : public TilesetData {
+    class Tileset {
     public:
-        Tileset(const pugi::xml_node& xml_node, const std::string& base_path);
         Tileset(const TilesetData& tilesetdata, unsigned int first_gid);
+        const TilesetData& data;
         const unsigned int firstgid;
     };
 

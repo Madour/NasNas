@@ -4,11 +4,6 @@
   <property name="tileset_prop" type="float" value="5.45"/>
  </properties>
  <image source="../tileset.png" width="368" height="224"/>
- <tile id="0">
-  <properties>
-   <property name="id" type="int" value="0"/>
-  </properties>
- </tile>
  <tile id="1" type="sdf"/>
  <tile id="2">
   <properties>
@@ -48,6 +43,9 @@
   </animation>
  </tile>
  <tile id="60">
+  <properties>
+   <property name="prop" value="gezt"/>
+  </properties>
   <animation>
    <frame tileid="60" duration="250"/>
    <frame tileid="83" duration="250"/>

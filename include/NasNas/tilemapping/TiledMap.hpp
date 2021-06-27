@@ -47,6 +47,7 @@ namespace ns::tm {
         sf::Vector2u m_tilesize;
 
         std::vector<Tileset> m_tilesets;
+        std::vector<TilesetData> m_tilesets_data;
         std::unordered_map<std::string, std::unique_ptr<TileLayer>> m_tilelayers;
         std::unordered_map<std::string, std::unique_ptr<ObjectLayer>> m_objectlayers;
     };

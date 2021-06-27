@@ -50,9 +50,10 @@ spacing(xml_node.attribute("spacing").as_uint())
 #endif
 
     // parsing tileset tiles properties and animations
+    m_tiles_data.reserve(tilecount*5);
     for (const auto& xmlnode_tile : xml_node.children("tile")) {
         std::uint32_t tile_id = xmlnode_tile.attribute("id").as_uint();
-        m_tiles_data.emplace(tile_id, TileData(xmlnode_tile, this));
+        m_tiles_data.emplace(tile_id, new TileData(xmlnode_tile, this));
     }
 }
 
@@ -73,9 +74,9 @@ auto TilesetData::getTexture() const -> const sf::Texture & {
 }
 
 auto TilesetData::getTileData(std::uint32_t id) const -> const TileData& {
-    if (m_tiles_data.count(id) > 0) return m_tiles_data.at(id);
-    m_tiles_data.emplace(id, TileData(id, this));
-    return m_tiles_data.at(id);
+    if (m_tiles_data.count(id) > 0) return *m_tiles_data.at(id);
+    m_tiles_data.emplace(id, new TileData(id, this));
+    return *m_tiles_data.at(id);
 }
 
 auto TilesetData::getTileTexCoo(std::uint32_t id, Tile::Flip flip) const -> std::vector<sf::Vector2f> {
@@ -118,12 +119,7 @@ auto TilesetData::getTileTextureRect(std::uint32_t id) const -> ns::FloatRect {
 }
 
 
-Tileset::Tileset(const pugi::xml_node& xml_node, const std::string& base_path) :
-TilesetData(xml_node, base_path),
-firstgid(xml_node.attribute("firstgid").as_uint())
-{}
-
 Tileset::Tileset(const TilesetData& tilesetdata, unsigned int first_gid) :
-TilesetData(tilesetdata),
+data(tilesetdata),
 firstgid(first_gid)
 {}
