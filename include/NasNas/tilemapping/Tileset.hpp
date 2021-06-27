@@ -46,7 +46,7 @@ namespace ns::tm {
     private:
         std::string m_image_source;
         sf::Texture* m_texture;
-        mutable std::unordered_map<std::uint32_t, TileData*> m_tiles_data;
+        std::vector<TileData> m_tiles_data;
     };
 
     class Tileset {
@@ -61,7 +61,7 @@ namespace ns::tm {
         static auto get(const std::string& tsx_file_name) -> const TilesetData&;
 
     private:
-        explicit TsxTilesetsManager();
+        explicit TsxTilesetsManager() = default;
         std::unordered_map<std::string, TilesetData> m_shared_tilesets;
     };
 

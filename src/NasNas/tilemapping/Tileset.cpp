@@ -4,31 +4,12 @@
 
 #include "NasNas/core/data/Utils.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
-#include "NasNas/tilemapping/Tile.hpp"
 #ifdef NS_RESLIB
 #include "NasNas/reslib/ResourceManager.hpp"
 #endif
 
 using namespace ns;
 using namespace ns::tm;
-
-TsxTilesetsManager::TsxTilesetsManager() = default;
-
-auto TsxTilesetsManager::get(const std::string& tsx_file_name) -> const TilesetData& {
-    static TsxTilesetsManager instance;
-    if (instance.m_shared_tilesets.count(tsx_file_name))
-        return instance.m_shared_tilesets.at(tsx_file_name);
-    else {
-        pugi::xml_document xml;
-        auto result = xml.load_file(tsx_file_name.c_str());
-        if (!result) {
-            std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
-            std::exit(-1);
-        }
-        instance.m_shared_tilesets.emplace(tsx_file_name, TilesetData(xml.child("tileset"), utils::path::getPath(tsx_file_name)));
-        return instance.m_shared_tilesets.at(tsx_file_name);
-    }
-}
 
 
 TilesetData::TilesetData(const pugi::xml_node& xml_node, const std::string& path) :
@@ -49,11 +30,13 @@ spacing(xml_node.attribute("spacing").as_uint())
     m_texture->loadFromFile(path + m_image_source);
 #endif
 
-    // parsing tileset tiles properties and animations
-    m_tiles_data.reserve(tilecount*5);
+    m_tiles_data.reserve(tilecount);
+    for (std::uint32_t i = 0; i < tilecount; ++i){
+        m_tiles_data.emplace_back(i);
+    }
     for (const auto& xmlnode_tile : xml_node.children("tile")) {
         std::uint32_t tile_id = xmlnode_tile.attribute("id").as_uint();
-        m_tiles_data.emplace(tile_id, new TileData(xmlnode_tile, this));
+        m_tiles_data[tile_id].fill(xmlnode_tile);
     }
 }
 
@@ -74,9 +57,7 @@ auto TilesetData::getTexture() const -> const sf::Texture & {
 }
 
 auto TilesetData::getTileData(std::uint32_t id) const -> const TileData& {
-    if (m_tiles_data.count(id) > 0) return *m_tiles_data.at(id);
-    m_tiles_data.emplace(id, new TileData(id, this));
-    return *m_tiles_data.at(id);
+    return m_tiles_data[id];
 }
 
 auto TilesetData::getTileTexCoo(std::uint32_t id, Tile::Flip flip) const -> std::vector<sf::Vector2f> {
@@ -123,3 +104,20 @@ Tileset::Tileset(const TilesetData& tilesetdata, unsigned int first_gid) :
 data(tilesetdata),
 firstgid(first_gid)
 {}
+
+
+auto TsxTilesetsManager::get(const std::string& tsx_file_name) -> const TilesetData& {
+    static TsxTilesetsManager instance;
+    if (instance.m_shared_tilesets.count(tsx_file_name))
+        return instance.m_shared_tilesets.at(tsx_file_name);
+    else {
+        pugi::xml_document xml;
+        auto result = xml.load_file(tsx_file_name.c_str());
+        if (!result) {
+            std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
+            std::exit(-1);
+        }
+        instance.m_shared_tilesets.emplace(tsx_file_name, TilesetData(xml.child("tileset"), utils::path::getPath(tsx_file_name)));
+        return instance.m_shared_tilesets.at(tsx_file_name);
+    }
+}

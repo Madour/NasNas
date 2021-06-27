@@ -6,12 +6,12 @@
 using namespace ns;
 using namespace ns::tm;
 
+TileData::TileData(std::uint32_t tile_id) :
+id(tile_id)
+{}
 
-TileData::TileData(const pugi::xml_node& xml_node, const TilesetData* tilesetdata) :
-id(xml_node.attribute("id").as_uint()),
-type(xml_node.attribute("type").as_string()),
-tileset(tilesetdata)
-{
+void TileData::fill(const pugi::xml_node& xml_node) {
+    type = xml_node.attribute("type").as_string();
     parseProperties(xml_node.child("properties"));
     for (const auto& xmlnode_tile_animframe : xml_node.child("animation").children()) {
         std::uint32_t otherid = xmlnode_tile_animframe.attribute("tileid").as_uint();
@@ -22,18 +22,22 @@ tileset(tilesetdata)
 
 std::optional<Tile> Tile::None = std::nullopt;
 
-TileData::TileData(std::uint32_t id, const TilesetData* tilesetdata) :
-id(id),
-tileset(tilesetdata)
-{}
-
-Tile::Tile(const TileData& tiledata, std::uint32_t tilegid, int posx, int posy, Flip tileflip) :
+Tile::Tile(const TileData& tiledata, const TilesetData& tilesetdata, std::uint32_t tilegid, int posx, int posy, Flip tileflip) :
 data(tiledata),
+tileset(tilesetdata),
 gid(tilegid),
 x(posx),
 y(posy),
 flip(tileflip)
 {}
+
+auto Tile::getTileTextureRect() const -> ns::FloatRect {
+    return tileset.getTileTextureRect(data.id);
+}
+
+auto Tile::getTileTexCoo() const -> std::vector<sf::Vector2f> {
+    return tileset.getTileTexCoo(data.id, flip);
+}
 
 auto ns::tm::operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip {
     return static_cast<Tile::Flip>(

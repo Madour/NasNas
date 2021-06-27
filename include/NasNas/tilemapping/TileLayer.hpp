@@ -37,9 +37,9 @@ namespace ns::tm {
         int m_width;
         int m_height;
 
-        std::unordered_map<unsigned, std::optional<Tile>> m_tiles;
-        std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
+        std::vector<std::optional<Tile>> m_tiles;
         std::map<std::uint32_t, AnimatedTileInfo> m_animated_tiles_pos;
+        std::unordered_map<const Tileset*, sf::VertexArray> m_vertices;
         sf::RenderTexture m_render_texture;
         sf::Sprite m_sprite;
 

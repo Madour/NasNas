@@ -9,7 +9,7 @@ Game::Game() :
 ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //------------ Creating Game Objects ------------------------------------------------
     // loading tiled map from file
-    this->tiled_map.loadFromFile("assets/smolmap.tmx");
+    this->tiled_map.loadFromFile("assets/test_map.tmx");
 
     // generating 100 random octogons
     auto colors = std::vector<sf::Color>{
@@ -72,8 +72,8 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //------------ Adding Drawables to the Scene  ---------------------------------------
     // adding tiledmap layers to the scene
     scene.getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
-    //scene.getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
-    //scene.getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
+    scene.getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
+    scene.getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
 
     // adding shapes
     for (auto& shape : this->shapes) {
