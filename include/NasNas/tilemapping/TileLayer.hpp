@@ -9,14 +9,14 @@
 #include <optional>
 #include <cstdint>
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/Drawable.hpp"
+#include "NasNas/core/graphics/Renderable.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
 #include "NasNas/tilemapping/Tile.hpp"
 
 namespace ns::tm {
     class TiledMap;
 
-    class TileLayer : public Layer {
+    class TileLayer : public Layer, public Renderable {
 
         struct AnimatedTileInfo {
             unsigned int index;
@@ -45,6 +45,7 @@ namespace ns::tm {
 
         void addTile(std::uint32_t gid, int tile_count);
 
+        void render() override;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
 
