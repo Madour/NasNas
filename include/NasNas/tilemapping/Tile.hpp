@@ -19,7 +19,7 @@ namespace ns::tm {
         };
         void fill(const pugi::xml_node& xml_node);
     public:
-        TileData(std::uint32_t tile_id);
+        explicit TileData(std::uint32_t tile_id);
         const std::uint32_t id;
         std::string type;
         std::vector<AnimFrame> animframes;

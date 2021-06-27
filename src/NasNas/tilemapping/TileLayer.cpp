@@ -34,7 +34,7 @@ m_height(xml_node.attribute("height").as_int())
                 case '\n':
                     break;
                 case ',':
-                    addTile(current_gid, tile_counter);
+                    addTile(tile_counter, current_gid);
                     current_gid = 0;
                     tile_counter ++;
                     break;
@@ -44,7 +44,7 @@ m_height(xml_node.attribute("height").as_int())
             }
             layer_data++;
         }
-        addTile(current_gid, tile_counter);
+        addTile(tile_counter, current_gid);
     }
     else {
         std::cout << "Encoding «" << encoding << "» is not supported, please use CSV instead." << std::endl;
@@ -65,29 +65,29 @@ auto TileLayer::getTile(int x, int y) const -> const std::optional<Tile>& {
     return m_tiles.at(x + y*m_width);
 }
 
+auto TileLayer::getTile(sf::Vector2i pos) const -> const std::optional<Tile>& {
+    return getTile(pos.x, pos.y);
+}
+
 void TileLayer::setTile(int x, int y, std::uint32_t gid) {
     if (gid == 0) {
         return;
     }
     // getting tile transformation bits and removing them from the gid
     std::uint32_t mask = 0x1fffffff;
-    auto tile_transform = static_cast<Tile::Flip>((gid & ~mask) >> 28u);
+    auto tile_flip = static_cast<Tile::Flip>((gid & ~mask) >> 28u);
     gid = gid & mask;
 
     // getting the tileset of the tile
     const auto& tileset = m_tiledmap.getTileTileset(gid);
     // storing all needed variables
     auto id = gid - tileset.firstgid;
-    auto coord_id = x + y * m_width;
-    auto tilewidth = tileset.data.tilewidth;
-    auto tileheight = tileset.data.tileheight;
-    auto px = static_cast<float>(x * m_tiledmap.getTileSize().x);
-    auto py = static_cast<float>(y * m_tiledmap.getTileSize().y);
+    auto tile_index = x + y*m_width;
 
     // storing animated tiles position for efficient iteration in update
     auto old_gid = getTile(x, y)->gid;
     if (m_animated_tiles_pos.count(old_gid) > 0) {
-        auto& v = m_animated_tiles_pos[old_gid].positions;
+        auto& v = m_animated_tiles_pos.at(old_gid).positions;
         v.erase(std::remove(v.begin(), v.end(), sf::Vector2u(x, y)), v.end());
     }
     if (!tileset.data.getTileData(id).animframes.empty()) {
@@ -97,21 +97,10 @@ void TileLayer::setTile(int x, int y, std::uint32_t gid) {
     }
 
     // adding tile data to tiles vector
-    m_tiles[coord_id].emplace(tileset.data.getTileData(id), tileset.data, gid, x, y, tile_transform);
-    auto& tile = m_tiles.at(coord_id).value();
+    m_tiles[tile_index].emplace(tileset.data.getTileData(id), tileset.data, gid, x, y, tile_flip);
     // calculating texture coordnates and creating the quad for drawing
-    const auto& tex_coordinates = tile.getTileTexCoo();
-
-    m_vertices[&tileset][coord_id*6 + 0] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
-    m_vertices[&tileset][coord_id*6 + 1] = {sf::Vector2f(px+tilewidth, py),            tex_coordinates[1]};
-    m_vertices[&tileset][coord_id*6 + 2] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
-    m_vertices[&tileset][coord_id*6 + 3] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
-    m_vertices[&tileset][coord_id*6 + 4] = {sf::Vector2f(px,           py+tileheight), tex_coordinates[3]};
-    m_vertices[&tileset][coord_id*6 + 5] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
-}
-
-auto TileLayer::getTile(sf::Vector2i pos) const -> const std::optional<Tile>& {
-    return getTile(pos.x, pos.y);
+    const auto& tex_coordinates = m_tiles.at(tile_index)->getTileTexCoo();
+    updateTileTexCoo(tileset, tile_index, tex_coordinates);
 }
 
 auto TileLayer::getGlobalBounds() const -> ns::FloatRect {
@@ -137,55 +126,41 @@ void TileLayer::update() {
                 auto& base_tile = m_tiles[tile_index].value();
                 // calculating new texture coordinates and updating the VertexArray
                 const auto& tex_coordinates = tileset.data.getTileTexCoo(next_id, base_tile.flip);
-                m_vertices[&tileset][tile_index*6 + 0].texCoords = tex_coordinates[0];
-                m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coordinates[1];
-                m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coordinates[2];
-                m_vertices[&tileset][tile_index*6 + 3].texCoords = tex_coordinates[2];
-                m_vertices[&tileset][tile_index*6 + 4].texCoords = tex_coordinates[3];
-                m_vertices[&tileset][tile_index*6 + 5].texCoords = tex_coordinates[0];
+                updateTileTexCoo(tileset, tile_index, tex_coordinates);
             }
         }
     }
 }
 
-void TileLayer::addTile(std::uint32_t gid, int tile_count) {
+void TileLayer::addTile(int tile_index, std::uint32_t gid) {
     if (gid == 0) {
         return;
     }
-    // getting tile transformation bits and removing them from the gid
-    std::uint32_t mask = 0x1fffffff;
-    auto tile_transform = static_cast<Tile::Flip>((gid & ~mask) >> 28u);
-    gid = gid & mask;
-
-    // getting the tileset of the tile
-    const auto& tileset = m_tiledmap.getTileTileset(gid);
-    // storing all needed variables
-    auto id = gid - tileset.firstgid;
-    auto tilewidth = tileset.data.tilewidth;
-    auto tileheight = tileset.data.tileheight;
-    auto x = (tile_count % m_width);
-    auto y = (tile_count / m_width);
+    const auto& tileset = m_tiledmap.getTileTileset(gid&0x1fffffff);
+    auto x = tile_index % m_width;
+    auto y = tile_index / m_width;
     auto px = static_cast<float>(x * m_tiledmap.getTileSize().x);
     auto py = static_cast<float>(y * m_tiledmap.getTileSize().y);
+    auto tilewidth = tileset.data.tilewidth;
+    auto tileheight = tileset.data.tileheight;
 
-    // storing animated tiles position for efficient iteration in update
-    if (!tileset.data.getTileData(id).animframes.empty()) {
-        m_animated_tiles_pos[gid].index = 0;
-        m_animated_tiles_pos[gid].clock.restart();
-        m_animated_tiles_pos[gid].positions.emplace_back(x, y);
-    }
-    // adding tile data to tiles vector
-    m_tiles[tile_count].emplace(tileset.data.getTileData(id), tileset.data, gid, x, y, tile_transform);
-    auto& tile = m_tiles.at(tile_count).value();
-    // calculating texture coordnates and creating the quad for drawing
-    const auto& tex_coordinates = tile.getTileTexCoo();
+    m_vertices[&tileset][tile_index*6 + 0].position = sf::Vector2f(px, py);
+    m_vertices[&tileset][tile_index*6 + 1].position = sf::Vector2f(px+tilewidth, py);
+    m_vertices[&tileset][tile_index*6 + 2].position = sf::Vector2f(px+tilewidth, py+tileheight);
+    m_vertices[&tileset][tile_index*6 + 3].position = sf::Vector2f(px+tilewidth, py+tileheight);
+    m_vertices[&tileset][tile_index*6 + 4].position = sf::Vector2f(px, py+tileheight);
+    m_vertices[&tileset][tile_index*6 + 5].position = sf::Vector2f(px, py);
 
-    m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
-    m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(px+tilewidth, py),            tex_coordinates[1]};
-    m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
-    m_vertices[&tileset][tile_count*6 + 3] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
-    m_vertices[&tileset][tile_count*6 + 4] = {sf::Vector2f(px,           py+tileheight), tex_coordinates[3]};
-    m_vertices[&tileset][tile_count*6 + 5] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
+    setTile(x, y, gid);
+}
+
+void TileLayer::updateTileTexCoo(const Tileset& tileset, unsigned tile_index, const std::vector<sf::Vector2f>& tex_coo) {
+    m_vertices[&tileset][tile_index*6 + 0].texCoords = tex_coo[0];
+    m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coo[1];
+    m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coo[2];
+    m_vertices[&tileset][tile_index*6 + 3].texCoords = tex_coo[2];
+    m_vertices[&tileset][tile_index*6 + 4].texCoords = tex_coo[3];
+    m_vertices[&tileset][tile_index*6 + 5].texCoords = tex_coo[0];
 }
 
 void TileLayer::render() {

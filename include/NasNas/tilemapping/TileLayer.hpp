@@ -44,7 +44,8 @@ namespace ns::tm {
         sf::RenderTexture m_render_texture;
         sf::Sprite m_sprite;
 
-        void addTile(std::uint32_t gid, int tile_count);
+        void addTile(int tile_index, std::uint32_t gid);
+        void updateTileTexCoo(const Tileset& tileset, unsigned tile_index, const std::vector<sf::Vector2f>& tex_coo);
 
         void render() override;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
