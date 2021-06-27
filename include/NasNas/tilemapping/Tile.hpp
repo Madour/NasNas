@@ -22,7 +22,7 @@ namespace ns::tm {
         explicit TileData(const pugi::xml_node& xml_node, const TilesetData* tilesetdata);
         const std::uint32_t id;
         const std::string type;
-        const TilesetData& tileset;
+        const TilesetData* tileset;
         std::vector<AnimFrame> animframes;
     };
 
@@ -39,8 +39,6 @@ namespace ns::tm {
         static std::optional<Tile> None;
 
         Tile(const TileData& tiledata, std::uint32_t tilegid, int posx, int posy,  Flip tileflip=Flip::None);
-        auto getTexCoo() -> std::vector<sf::Vector2f>;
-        auto getTexRect() -> ns::FloatRect;
         const TileData& data;
         const std::uint32_t gid;
         const int x;

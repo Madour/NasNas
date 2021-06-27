@@ -30,7 +30,7 @@ m_height(xml_node.attribute("height").as_int())
         const char* layer_data = xml_data.text().as_string();
         std::uint32_t current_gid = 0;
         int tile_counter = 0;
-
+        m_tiles.reserve(m_width*m_height);
         while (*layer_data != '\0') {
             switch (*layer_data) {
                 case '\n':
@@ -55,7 +55,7 @@ m_height(xml_node.attribute("height").as_int())
 
     m_render_texture.clear(sf::Color::Transparent);
     for (const auto& [tileset, vertices] : m_vertices) {
-        m_render_texture.draw(vertices, sf::RenderStates(&tileset->getTexture()));
+        m_render_texture.draw(vertices, sf::RenderStates(&tileset->data.getTexture()));
     }
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
@@ -82,7 +82,7 @@ void TileLayer::update() {
 
         // getting tile anim frames from tileset
         const auto& tileset = m_tiledmap.getTileTileset(gid);
-        const auto& anim_frames = tileset.getTileData(gid - tileset.firstgid).animframes;
+        const auto& anim_frames = tileset.data.getTileData(gid - tileset.firstgid).animframes;
 
         // go to next anim frame when elapsed time is more than frame duration
         if (anim_info.clock.getElapsedTime().asMilliseconds() > anim_frames[anim_index].duration) {
@@ -94,7 +94,7 @@ void TileLayer::update() {
                 auto tile_index = pos.x + pos.y*m_width;
                 auto& base_tile = m_tiles[tile_index].value();
                 // calculating new texture coordinates and updating the VertexArray
-                const auto& tex_coordinates = tileset.getTileTexCoo(next_id, base_tile.flip);
+                const auto& tex_coordinates = tileset.data.getTileTexCoo(next_id, base_tile.flip);
                 m_vertices[&tileset][tile_index*6 + 0].texCoords = tex_coordinates[0];
                 m_vertices[&tileset][tile_index*6 + 1].texCoords = tex_coordinates[1];
                 m_vertices[&tileset][tile_index*6 + 2].texCoords = tex_coordinates[2];
@@ -107,7 +107,7 @@ void TileLayer::update() {
 
     m_render_texture.clear(sf::Color::Transparent);
     for (const auto& [tileset, vertices] : m_vertices) {
-        m_render_texture.draw(vertices, sf::RenderStates(&tileset->getTexture()));
+        m_render_texture.draw(vertices, sf::RenderStates(&tileset->data.getTexture()));
     }
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
@@ -127,24 +127,25 @@ void TileLayer::addTile(std::uint32_t gid, int tile_count) {
     const auto& tileset = m_tiledmap.getTileTileset(gid);
     // storing all needed variables
     auto id = gid - tileset.firstgid;
-    auto tilewidth = tileset.tilewidth;
-    auto tileheight = tileset.tileheight;
+    auto tilewidth = tileset.data.tilewidth;
+    auto tileheight = tileset.data.tileheight;
     auto x = (tile_count % m_width);
     auto y = (tile_count / m_width);
     auto px = static_cast<float>(x * m_tiledmap.getTileSize().x);
     auto py = static_cast<float>(y * m_tiledmap.getTileSize().y);
 
     // storing animated tiles position for efficient iteration in update
-    if (!tileset.getTileData(id).animframes.empty()) {
+    if (!tileset.data.getTileData(id).animframes.empty()) {
         m_animated_tiles_pos[gid].index = 0;
         m_animated_tiles_pos[gid].clock.restart();
         m_animated_tiles_pos[gid].positions.emplace_back(x, y);
     }
     // adding tile data to tiles vector
-    m_tiles.emplace(tile_count, Tile(tileset.getTileData(id), gid, x, y, tile_transform));
+    m_tiles.emplace(tile_count, Tile(tileset.data.getTileData(id), gid, x, y, tile_transform));
     auto& tile = m_tiles.at(tile_count).value();
     // calculating texture coordnates and creating the quad for drawing
-    const auto& tex_coordinates = tile.getTexCoo();
+    const auto& tex_coordinates = tileset.data.getTileTexCoo(id, tile_transform);
+
     m_vertices[&tileset][tile_count*6 + 0] = {sf::Vector2f(px,           py),            tex_coordinates[0]};
     m_vertices[&tileset][tile_count*6 + 1] = {sf::Vector2f(px+tilewidth, py),            tex_coordinates[1]};
     m_vertices[&tileset][tile_count*6 + 2] = {sf::Vector2f(px+tilewidth, py+tileheight), tex_coordinates[2]};
