@@ -8,11 +8,12 @@ set(
 
         ${NASNAS_PATH}/src/NasNas/tilemapping/PropertiesContainer.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/Layer.cpp
-        ${NASNAS_PATH}/src/NasNas/tilemapping/TileLayer.cpp
+        ${NASNAS_PATH}/src/NasNas/tilemapping/Object.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/ObjectLayer.cpp
-        ${NASNAS_PATH}/src/NasNas/tilemapping/TiledMap.cpp
-        ${NASNAS_PATH}/src/NasNas/tilemapping/Tileset.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/Tile.cpp
+        ${NASNAS_PATH}/src/NasNas/tilemapping/TiledMap.cpp
+        ${NASNAS_PATH}/src/NasNas/tilemapping/TileLayer.cpp
+        ${NASNAS_PATH}/src/NasNas/tilemapping/Tileset.cpp
 
 )
 
@@ -25,9 +26,10 @@ set(
 
         ${NASNAS_PATH}/include/NasNas/tilemapping/PropertiesContainer.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/Layer.hpp
-        ${NASNAS_PATH}/include/NasNas/tilemapping/TileLayer.hpp
+        ${NASNAS_PATH}/include/NasNas/tilemapping/Object.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/ObjectLayer.hpp
-        ${NASNAS_PATH}/include/NasNas/tilemapping/TiledMap.hpp
-        ${NASNAS_PATH}/include/NasNas/tilemapping/Tileset.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/Tile.hpp
+        ${NASNAS_PATH}/include/NasNas/tilemapping/TiledMap.hpp
+        ${NASNAS_PATH}/include/NasNas/tilemapping/TileLayer.hpp
+        ${NASNAS_PATH}/include/NasNas/tilemapping/Tileset.hpp
 )

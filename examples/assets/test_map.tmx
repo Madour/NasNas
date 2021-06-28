@@ -129,7 +129,7 @@
 </data>
  </layer>
  <objectgroup color="#00ff26" id="11" name="objects">
-  <object id="37" x="192" y="176" width="32" height="16">
+  <object id="37" name="name" type="type" x="105.938" y="141.535" width="32" height="19.25" rotation="29.6955">
    <properties>
     <property name="duration" type="float" value="78.5"/>
    </properties>
@@ -137,13 +137,13 @@
   <object id="38" x="176" y="160">
    <point/>
   </object>
-  <object id="39" x="48" y="144" width="16" height="32">
+  <object id="39" x="47.0455" y="139.697" width="16" height="32">
    <ellipse/>
   </object>
   <object id="40" x="96" y="208">
    <polygon points="0,0 48,0 64,32 32,64 -32,32"/>
   </object>
-  <object id="41" x="208" y="208">
+  <object id="41" x="151.842" y="112.347" rotation="326.621">
    <polyline points="0,0 64,0 80,16 112,32 112,16 144,32 128,64 160,80 176,48"/>
   </object>
  </objectgroup>
