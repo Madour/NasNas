@@ -20,7 +20,9 @@ m_height(xml_node.attribute("height").as_int())
         m_vertices[&tileset].setPrimitiveType(sf::PrimitiveType::Triangles);
     }
     // create the tiles
-    m_tiles.resize(m_width*m_height, Tile::None);
+    m_tiles.reserve(m_width*m_height);
+    for (int i = 0; i < m_width*m_height; ++i)
+        m_tiles.emplace_back(Tile::None);
 
     auto xml_data = xml_node.child("data");
     auto encoding = std::string(xml_data.attribute("encoding").as_string());
