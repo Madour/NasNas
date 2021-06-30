@@ -137,7 +137,7 @@
   <object id="38" x="176" y="160">
    <point/>
   </object>
-  <object id="39" x="47.0455" y="139.697" width="16" height="32">
+  <object id="39" type="type" x="47.0455" y="139.697" width="16" height="32">
    <ellipse/>
   </object>
   <object id="40" x="96" y="208">

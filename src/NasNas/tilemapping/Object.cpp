@@ -7,7 +7,8 @@ using namespace ns::tm;
 
 auto stringToPoints(const char* points_str) -> std::vector<sf::Vector2f>;
 
-ObjectInterface::ObjectInterface(const pugi::xml_node& xml_node) :
+Object::Object(const pugi::xml_node& xml_node) :
+PropertiesContainer(xml_node.child("properties")),
 id(xml_node.attribute("id").as_uint()),
 name(xml_node.attribute("name").as_string()),
 type(xml_node.attribute("type").as_string()),
@@ -17,39 +18,39 @@ rotation(xml_node.attribute("rotation").as_float())
 {}
 
 RectangleObject::RectangleObject(const pugi::xml_node& xml_node, const sf::Color& color) :
-Object<sf::RectangleShape>(xml_node, color),
-width(xml_node.attribute("width").as_float()),
-height(xml_node.attribute("height").as_float())
+        ShapeObject<sf::RectangleShape>(xml_node, color),
+        width(xml_node.attribute("width").as_float()),
+        height(xml_node.attribute("height").as_float())
 {
     m_shape.setSize({width, height});
 }
 
 EllipseObject::EllipseObject(const pugi::xml_node& xml_node, const sf::Color& color) :
-Object<ns::EllipseShape>(xml_node, color),
-width(xml_node.attribute("width").as_float()),
-height(xml_node.attribute("height").as_float())
+        ShapeObject<ns::EllipseShape>(xml_node, color),
+        width(xml_node.attribute("width").as_float()),
+        height(xml_node.attribute("height").as_float())
 {
     m_shape.setRadius({width/2.f, height/2.f});
 }
 
 PointObject::PointObject(const pugi::xml_node& xml_node, const sf::Color& color) :
-Object<sf::CircleShape>(xml_node, color)
+        ShapeObject<sf::CircleShape>(xml_node, color)
 {
     m_shape.setRadius(1.f);
     m_shape.setOrigin(1.f, 1.f);
 }
 
 PolylineObject::PolylineObject(const pugi::xml_node& xml_node, const sf::Color& color) :
-Object<ns::LineShape>(xml_node, color),
-points(stringToPoints(xml_node.child("polyline").attribute("points").as_string()))
+        ShapeObject<ns::LineShape>(xml_node, color),
+        points(stringToPoints(xml_node.child("polyline").attribute("points").as_string()))
 {
     for (auto& point : points)
         m_shape.addPoint(point);
 }
 
 PolygonObject::PolygonObject(const pugi::xml_node& xml_node, const sf::Color& color) :
-Object<sf::ConvexShape>(xml_node, color),
-points(stringToPoints(xml_node.child("polygon").attribute("points").as_string()))
+        ShapeObject<sf::ConvexShape>(xml_node, color),
+        points(stringToPoints(xml_node.child("polygon").attribute("points").as_string()))
 {
     m_shape.setPointCount(points.size());
     for (unsigned i = 0; i < points.size(); ++i)

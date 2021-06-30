@@ -12,26 +12,41 @@ ns::tm::ObjectLayer::ObjectLayer(const pugi::xml_node& xml_node, tm::TiledMap* t
 Layer(xml_node, tiledmap) {
     if (xml_node.attribute("color"))
         m_color = hexToColor(std::string(xml_node.attribute("color").as_string()));
-    for (const auto& object : xml_node.children("object")) {
-        if(object.child("ellipse")) {
-            m_ellipses.emplace_back(object, m_color);
+    for (const auto& xml_object : xml_node.children("object")) {
+        if(xml_object.child("ellipse")) {
+            m_ellipses.emplace_back(xml_object, m_color);
+            m_objects.emplace_back(m_ellipses.back());
         }
-        else if(object.child("polyline")) {
-            m_polylines.emplace_back(object, m_color);
+        else if(xml_object.child("polyline")) {
+            m_polylines.emplace_back(xml_object, m_color);
+            m_objects.emplace_back(m_polylines.back());
         }
-        else if(object.child("polygon")) {
-            m_polygons.emplace_back(object, m_color);
+        else if(xml_object.child("polygon")) {
+            m_polygons.emplace_back(xml_object, m_color);
+            m_objects.emplace_back(m_polygons.back());
         }
-        else if(object.attribute("gid")) {
+        else if(xml_object.attribute("gid")) {
             // not yet implemented
         }
-        else if (object.child("point")) {
-            m_points.emplace_back(object, m_color);
+        else if (xml_object.child("point")) {
+            m_points.emplace_back(xml_object, m_color);
+            m_objects.emplace_back(m_points.back());
         }
         else {
-            m_rectangles.emplace_back(object, m_color);
+            m_rectangles.emplace_back(xml_object, m_color);
+            m_objects.emplace_back(m_rectangles.back());
         }
     }
+
+    for (Object& object : m_objects) {
+        if (!object.type.empty()) {
+            m_objects_by_type[object.type].emplace_back(object);
+        }
+    }
+}
+
+auto ObjectLayer::getObjectsByType(const std::string& type) const -> const std::vector<std::reference_wrapper<Object>>& {
+    return m_objects_by_type.at(type);
 }
 
 auto ObjectLayer::allPoints() const -> const std::vector<PointObject>& {
