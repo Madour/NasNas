@@ -49,4 +49,6 @@ namespace ns::tm {
     };
 
     auto operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip;
+    auto operator==(const std::optional<Tile>& lhs, const std::optional<Tile>& rhs) -> bool;
+    auto operator!=(const std::optional<Tile>& lhs, const std::optional<Tile>& rhs) -> bool;
 }
