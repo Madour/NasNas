@@ -15,7 +15,8 @@ namespace ns::tm {
     public:
         ObjectLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
-        auto getObjectsByType(const std::string& type) const -> const std::vector<std::reference_wrapper<Object>>&;
+        auto getObjectsWithType(const std::string& type) const -> const std::vector<std::reference_wrapper<Object>>&;
+        auto getObjectsWithName(const std::string& name) const -> const std::vector<std::reference_wrapper<Object>>&;
 
         auto allPoints() const -> const std::vector<PointObject>&;
         auto allRectangles() const -> const std::vector<RectangleObject>&;
@@ -44,6 +45,8 @@ namespace ns::tm {
 
         std::vector<std::reference_wrapper<Object>> m_objects;
         std::unordered_map<std::string, std::vector<std::reference_wrapper<Object>>> m_objects_by_type;
+        std::unordered_map<std::string, std::vector<std::reference_wrapper<Object>>> m_objects_by_name;
+        std::vector<std::reference_wrapper<Object>> m_empty_object_vector;
     };
 
 }
