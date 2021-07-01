@@ -98,7 +98,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     ns::DebugTextInterface::color = sf::Color::Cyan;
     ns::DebugTextInterface::outline_thickness = 1;
     ns::DebugTextInterface::outline_color = sf::Color::Blue;
-    this->addDebugText<sf::Vector2i>("mouse pos:", [&]{return sf::Mouse::getPosition(getWindow());}, {10, 90});
+    this->addDebugText<sf::Vector2f>("mouse pos:", [&]{return getMousePosition(getCamera("main"));}, {10, 90});
 
     // add DebugText by creating manually a DebugText object, changing its properties and adding it to the app;
     // the app will delete automatically the debug texts, so don't worry about memory
