@@ -7,6 +7,7 @@ set(
         ${NASNAS_PATH}/src/NasNas/thirdparty/pugixml.cpp
 
         ${NASNAS_PATH}/src/NasNas/tilemapping/PropertiesContainer.cpp
+        ${NASNAS_PATH}/src/NasNas/tilemapping/LayersContainer.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/Layer.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/Object.cpp
         ${NASNAS_PATH}/src/NasNas/tilemapping/ObjectLayer.cpp
@@ -25,6 +26,7 @@ set(
         ${NASNAS_PATH}/include/NasNas/thirdparty/pugixml.hpp
 
         ${NASNAS_PATH}/include/NasNas/tilemapping/PropertiesContainer.hpp
+        ${NASNAS_PATH}/include/NasNas/tilemapping/LayersContainer.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/Layer.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/Object.hpp
         ${NASNAS_PATH}/include/NasNas/tilemapping/ObjectLayer.hpp
