@@ -7,14 +7,34 @@
 
 namespace ns::tm {
 
+    class PointObject;
+    class RectangleObject;
+    class EllipseObject;
+    class PolylineObject;
+    class PolygonObject;
+
     struct Object : PropertiesContainer {
-        explicit Object(const pugi::xml_node& xml_node);
+        enum class Shape {
+            Point,
+            Rectangle,
+            Ellipse,
+            Polyline,
+            Polygon
+        };
+        explicit Object(const pugi::xml_node& xml_node, Shape shape);
+        virtual ~Object() = default;
         const unsigned id;
         const std::string name;
         const std::string type;
         const float x;
         const float y;
         const float rotation;
+        const Shape shapetype;
+        auto asPoint() -> PointObject&;
+        auto asRectangle() -> RectangleObject&;
+        auto asEllipse() -> EllipseObject&;
+        auto asPolyline() -> PolylineObject&;
+        auto asPolygon() -> PolygonObject&;
     };
 
     template <typename T>
@@ -23,6 +43,13 @@ namespace ns::tm {
         auto getShape() const -> const T&;
     protected:
         T m_shape;
+    private:
+        Shape getShapeTypeEnum();
+        using Object::asPoint;
+        using Object::asRectangle;
+        using Object::asEllipse;
+        using Object::asPolyline;
+        using Object::asPolygon;
     };
 
     struct PointObject : ShapeObject<sf::CircleShape> {
@@ -53,7 +80,7 @@ namespace ns::tm {
 
     template <typename T>
     ShapeObject<T>::ShapeObject(const pugi::xml_node& xml_node, const sf::Color& color) :
-    Object(xml_node)
+    Object(xml_node, getShapeTypeEnum())
     {
         m_shape.setPosition(x, y);
         m_shape.setRotation(rotation);
@@ -71,5 +98,19 @@ namespace ns::tm {
     template <typename T>
     auto ShapeObject<T>::getShape() const -> const T& {
         return m_shape;
+    }
+
+    template <typename T>
+    auto ShapeObject<T>::getShapeTypeEnum() -> Shape {
+        if constexpr(std::is_same_v<T, sf::CircleShape>)
+            return Object::Shape::Point;
+        else if constexpr(std::is_same_v<T, sf::RectangleShape>)
+            return Object::Shape::Rectangle;
+        else if constexpr(std::is_same_v<T, ns::EllipseShape>)
+            return Object::Shape::Ellipse;
+        else if constexpr(std::is_same_v<T, ns::LineShape>)
+            return Object::Shape::Polyline;
+        else if constexpr(std::is_same_v<T, sf::ConvexShape>)
+            return Object::Shape::Polygon;
     }
 }

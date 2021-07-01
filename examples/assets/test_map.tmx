@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="42">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="44">
  <properties>
   <property name="col" type="color" value="#ff55aa7f"/>
   <property name="prop" type="bool" value="true"/>
@@ -134,13 +134,13 @@
     <property name="duration" type="float" value="78.5"/>
    </properties>
   </object>
-  <object id="38" x="176" y="160">
+  <object id="38" name="name" x="176" y="160">
    <point/>
   </object>
   <object id="39" type="type" x="47.0455" y="139.697" width="16" height="32">
    <ellipse/>
   </object>
-  <object id="40" x="96" y="208">
+  <object id="40" name="name" x="96" y="208">
    <polygon points="0,0 48,0 64,32 32,64 -32,32"/>
   </object>
   <object id="41" x="151.842" y="112.347" rotation="326.621">
