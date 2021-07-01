@@ -67,13 +67,11 @@ void TiledMap::load(const pugi::xml_document& xml) {
 
     // parse tile layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
-        auto new_layer = std::make_unique<TileLayer>(xmlnode_layer, this);
-        m_tilelayers[new_layer->getName()] = std::move(new_layer);
+        addTileLayer(xmlnode_layer, this);
     }
     // parse object layers
     for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
-        auto new_layer = std::make_unique<ObjectLayer>(xmlnode_layer, this);
-        m_objectlayers[new_layer->getName()] = std::move(new_layer);
+        addObjectLayer(xmlnode_layer, this);
     }
 }
 
@@ -89,6 +87,10 @@ auto TiledMap::getTileSize() const -> const sf::Vector2u& {
     return m_tilesize;
 }
 
+auto TiledMap::allTilesets() const -> const std::vector<Tileset>& {
+    return m_tilesets;
+}
+
 auto TiledMap::getTileTileset(unsigned int gid) const -> const Tileset& {
     for (const auto& tileset : m_tilesets) {
         if (tileset.firstgid <= gid && gid < tileset.firstgid + tileset.data.tilecount)
@@ -98,29 +100,7 @@ auto TiledMap::getTileTileset(unsigned int gid) const -> const Tileset& {
     exit(-1);
 }
 
-auto TiledMap::allTilesets() const -> const std::vector<Tileset>& {
-    return m_tilesets;
-}
-
-auto TiledMap::hasLayer(const std::string& name) const -> bool {
-    return (m_tilelayers.count(name) > 0 || m_objectlayers.count(name) > 0);
-}
-
-auto TiledMap::getTileLayer(const std::string& name) const -> TileLayer& {
-    if (m_tilelayers.count(name) > 0)
-        return *m_tilelayers.at(name);
-    std::cout << "TiledMap «" << m_file_name << "» has not TileLayer named «" << name << "»." << std::endl;
-    exit(-1);
-}
-
-auto TiledMap::getObjectLayer(const std::string& name) const -> ObjectLayer& {
-    if (m_objectlayers.count(name) > 0)
-        return *m_objectlayers.at(name);
-    std::cout << "TiledMap «" << m_file_name << "» has not ObjectLayer named «" << name << "»." << std::endl;
-    exit(-1);
-}
-
 void TiledMap::update() {
-    for (auto& [name, layer] : m_tilelayers)
+    for (auto& [name, layer] : allTileLayers())
         layer->update();
 }

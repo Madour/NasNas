@@ -10,13 +10,14 @@
 #include <SFML/Graphics.hpp>
 #include "NasNas/thirdparty/pugixml.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include "NasNas/tilemapping/LayersContainer.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
 #include "NasNas/tilemapping/TileLayer.hpp"
 #include "NasNas/tilemapping/ObjectLayer.hpp"
 
 namespace ns::tm {
 
-    class TiledMap : public PropertiesContainer {
+    class TiledMap : public LayersContainer {
     public:
         TiledMap();
 
@@ -26,13 +27,9 @@ namespace ns::tm {
         auto getGridSize() const -> const sf::Vector2u&;
         auto getSize() const -> sf::Vector2u;
         auto getTileSize() const -> const sf::Vector2u&;
-        auto getTileTileset(unsigned int gid) const -> const Tileset&;
 
         auto allTilesets() const -> const std::vector<Tileset>&;
-
-        auto hasLayer(const std::string& name) const -> bool;
-        auto getTileLayer(const std::string& name) const -> TileLayer&;
-        auto getObjectLayer(const std::string& name) const -> ObjectLayer&;
+        auto getTileTileset(unsigned int gid) const -> const Tileset&;
 
         void update();
 
@@ -48,8 +45,6 @@ namespace ns::tm {
 
         std::vector<Tileset> m_tilesets;
         std::vector<TilesetData> m_tilesets_data;
-        std::unordered_map<std::string, std::unique_ptr<TileLayer>> m_tilelayers;
-        std::unordered_map<std::string, std::unique_ptr<ObjectLayer>> m_objectlayers;
     };
 
 }
