@@ -42,11 +42,22 @@ Layer(xml_node, tiledmap) {
         if (!object.type.empty()) {
             m_objects_by_type[object.type].emplace_back(object);
         }
+        if (!object.name.empty()) {
+            m_objects_by_name[object.name].emplace_back(object);
+        }
     }
 }
 
-auto ObjectLayer::getObjectsByType(const std::string& type) const -> const std::vector<std::reference_wrapper<Object>>& {
-    return m_objects_by_type.at(type);
+auto ObjectLayer::getObjectsWithType(const std::string& type) const -> const std::vector<std::reference_wrapper<Object>>& {
+    if (m_objects_by_type.count(type) > 0)
+        return m_objects_by_type.at(type);
+    return m_empty_object_vector;
+}
+
+auto ObjectLayer::getObjectsWithName(const std::string& name) const -> const std::vector<std::reference_wrapper<Object>>& {
+    if (m_objects_by_name.count(name) > 0)
+        return m_objects_by_name.at(name);
+    return m_empty_object_vector;
 }
 
 auto ObjectLayer::allPoints() const -> const std::vector<PointObject>& {
