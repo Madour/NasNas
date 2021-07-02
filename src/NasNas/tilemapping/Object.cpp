@@ -8,7 +8,6 @@ using namespace ns::tm;
 auto stringToPoints(const char* points_str) -> std::vector<sf::Vector2f>;
 
 Object::Object(const pugi::xml_node& xml_node, Shape shape) :
-PropertiesContainer(xml_node.child("properties")),
 id(xml_node.attribute("id").as_uint()),
 name(xml_node.attribute("name").as_string()),
 type(xml_node.attribute("type").as_string()),
@@ -16,7 +15,9 @@ x(xml_node.attribute("x").as_float()),
 y(xml_node.attribute("y").as_float()),
 rotation(xml_node.attribute("rotation").as_float()),
 shapetype(shape)
-{}
+{
+    parseProperties(xml_node.child("properties"));
+}
 
 auto Object::asPoint() -> PointObject& { return *dynamic_cast<PointObject*>(this); }
 auto Object::asRectangle() -> RectangleObject& { return *dynamic_cast<RectangleObject*>(this); }

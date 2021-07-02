@@ -29,10 +29,6 @@ auto ns::tm::hexToColor(const std::string& color_string) -> sf::Color {
 
 PropertiesContainer::PropertiesContainer() = default;
 
-PropertiesContainer::PropertiesContainer(const pugi::xml_node& xmlnode_props) {
-    parseProperties(xmlnode_props);
-}
-
 auto PropertiesContainer::hasProperty(const std::string& name) const -> bool {
     return m_properties.count(name) > 0;
 }
