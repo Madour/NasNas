@@ -51,7 +51,7 @@ void TiledMap::load(const pugi::xml_document& xml) {
 
     // parse tilesets
     m_tilesets.reserve(std::distance(m_xmlnode_map.children("tileset").begin(), m_xmlnode_map.children("tileset").end()));
-    m_tilesets_data.reserve(5);
+    m_tilesets_data.reserve(m_tilesets.capacity());
     for (const auto& xmlnode_tileset : m_xmlnode_map.children("tileset")) {
         unsigned int firstgid = xmlnode_tileset.attribute("firstgid").as_uint();
         // external tileset
@@ -66,17 +66,7 @@ void TiledMap::load(const pugi::xml_document& xml) {
         }
     }
 
-    // parse tile layers
-    for (const auto& xmlnode_layer : m_xmlnode_map.children("layer")) {
-        addTileLayer(xmlnode_layer, this);
-    }
-    // parse object layers
-    for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
-        addObjectLayer(xmlnode_layer, this);
-    }
-    for (const auto& xmlnode_layer : m_xmlnode_map.children("group")) {
-        addObjectLayer(xmlnode_layer, this);
-    }
+    parseLayers(m_xmlnode_map, this);
 }
 
 auto TiledMap::getSize() const -> const sf::Vector2f& {
@@ -102,9 +92,4 @@ auto TiledMap::getTileTileset(unsigned int gid) const -> const Tileset& {
     }
     std::cout << "Error (TiledMap::getTileTileset) : Tile gid " << gid << " not found in any tileset" << std::endl;
     exit(-1);
-}
-
-void TiledMap::update() {
-    for (auto& [name, layer] : allTileLayers())
-        layer->update();
 }

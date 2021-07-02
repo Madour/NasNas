@@ -29,8 +29,6 @@ namespace ns::tm {
         auto allTilesets() const -> const std::vector<Tileset>&;
         auto getTileTileset(unsigned int gid) const -> const Tileset&;
 
-        void update();
-
     private:
         void load(const pugi::xml_document& xml);
 

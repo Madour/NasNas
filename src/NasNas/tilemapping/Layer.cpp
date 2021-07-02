@@ -10,7 +10,6 @@ using namespace ns;
 using namespace ns::tm;
 
 Layer::Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
-PropertiesContainer(xml_node.child("properties")),
 m_tiledmap(*tiledmap)
 {
     m_id = xml_node.attribute("id").as_uint();
@@ -25,6 +24,8 @@ m_tiledmap(*tiledmap)
         m_transformable.setPosition(m_transformable.getPosition().x, xml_node.attribute("offsety").as_float());
     if (xml_node.attribute("tintcolor"))
         m_tintcolor = hexToColor(std::string(xml_node.attribute("tintcolor").as_string()));
+
+    parseProperties(xml_node.child("properties"));
 }
 
 auto Layer::getId() const -> unsigned int {

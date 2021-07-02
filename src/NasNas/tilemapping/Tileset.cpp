@@ -13,16 +13,17 @@ using namespace ns::tm;
 
 
 TilesetData::TilesetData(const pugi::xml_node& xml_node, const std::string& path) :
-PropertiesContainer(xml_node.child("properties")),
 name(xml_node.attribute("name").as_string()),
 tilewidth(xml_node.attribute("tilewidth").as_uint()),
 tileheight(xml_node.attribute("tileheight").as_uint()),
 tilecount(xml_node.attribute("tilecount").as_uint()),
 columns(xml_node.attribute("columns").as_uint()),
 margin(xml_node.attribute("margin").as_uint()),
-spacing(xml_node.attribute("spacing").as_uint())
+spacing(xml_node.attribute("spacing").as_uint()),
+m_image_source(xml_node.child("image").attribute("source").as_string())
 {
-    m_image_source = xml_node.child("image").attribute("source").as_string();
+    parseProperties(xml_node.child("properties"));
+
 #ifdef NS_RESLIB
     m_texture = &ns::Res::getTexture(path+m_image_source);
 #else

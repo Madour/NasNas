@@ -20,7 +20,6 @@ namespace ns::tm {
     class PropertiesContainer {
     public:
         PropertiesContainer();
-        explicit PropertiesContainer(const pugi::xml_node& xmlnode_props);
 
         auto hasProperty(const std::string& name) const -> bool;
 
