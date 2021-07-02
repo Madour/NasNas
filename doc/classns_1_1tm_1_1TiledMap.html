@@ -55,7 +55,8 @@ Inheritance diagram for ns::tm::TiledMap:</div>
  <div class="center">
   <img src="classns_1_1tm_1_1TiledMap.png" usemap="#ns::tm::TiledMap_map" alt=""/>
   <map id="ns::tm::TiledMap_map" name="ns::tm::TiledMap_map">
-<area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="0,0,162,24"/>
+<area href="classns_1_1tm_1_1LayersContainer.html" alt="ns::tm::LayersContainer" shape="rect" coords="0,0,162,24"/>
+<area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="172,0,334,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -67,54 +68,80 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>loadFromFile</b> (con
 <tr class="memitem:a5366de3c47fd3c5f3b68bf52b634836b"><td class="memItemLeft" align="right" valign="top"><a id="a5366de3c47fd3c5f3b68bf52b634836b"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>loadFromString</b> (const std::string &amp;data) -&gt; bool</td></tr>
 <tr class="separator:a5366de3c47fd3c5f3b68bf52b634836b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74976c2dc6557b322176449fa21892c9"><td class="memItemLeft" align="right" valign="top"><a id="a74976c2dc6557b322176449fa21892c9"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDimension</b> () -&gt; const sf::Vector2u &amp;</td></tr>
-<tr class="separator:a74976c2dc6557b322176449fa21892c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab019320c727131180ab884e18da2a22e"><td class="memItemLeft" align="right" valign="top"><a id="ab019320c727131180ab884e18da2a22e"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getSize</b> () const -&gt; sf::Vector2u</td></tr>
-<tr class="separator:ab019320c727131180ab884e18da2a22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69e274028e6d3ea7e416f14f5e4bbe9d"><td class="memItemLeft" align="right" valign="top"><a id="a69e274028e6d3ea7e416f14f5e4bbe9d"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileSize</b> () -&gt; const sf::Vector2u &amp;</td></tr>
-<tr class="separator:a69e274028e6d3ea7e416f14f5e4bbe9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad592836ee3ef087e84aa0aa3a5b8236e"><td class="memItemLeft" align="right" valign="top"><a id="ad592836ee3ef087e84aa0aa3a5b8236e"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileTileset</b> (unsigned int gid) -&gt; const std::unique_ptr&lt; <a class="el" href="classns_1_1tm_1_1Tileset.html">Tileset</a> &gt; &amp;</td></tr>
-<tr class="separator:ad592836ee3ef087e84aa0aa3a5b8236e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a620672e03cf2f92410680650e7fbd4ad"><td class="memItemLeft" align="right" valign="top"><a id="a620672e03cf2f92410680650e7fbd4ad"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>allTilesets</b> () -&gt; const std::vector&lt; std::unique_ptr&lt; <a class="el" href="classns_1_1tm_1_1Tileset.html">Tileset</a> &gt;&gt; &amp;</td></tr>
-<tr class="separator:a620672e03cf2f92410680650e7fbd4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0add8b9f72f564983f53bd5e329b721f"><td class="memItemLeft" align="right" valign="top"><a id="a0add8b9f72f564983f53bd5e329b721f"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>hasLayer</b> (const std::string &amp;name) -&gt; bool</td></tr>
-<tr class="separator:a0add8b9f72f564983f53bd5e329b721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a760517ae94dc838cf4154294015f6478"><td class="memItemLeft" align="right" valign="top"><a id="a760517ae94dc838cf4154294015f6478"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileLayer</b> (const std::string &amp;name) -&gt; const <a class="el" href="classns_1_1tm_1_1TileLayer.html">TileLayer</a> &amp;</td></tr>
-<tr class="separator:a760517ae94dc838cf4154294015f6478"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96391351a40ba57e64de0b1fd7e6724e"><td class="memItemLeft" align="right" valign="top"><a id="a96391351a40ba57e64de0b1fd7e6724e"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectLayer</b> (const std::string &amp;name) -&gt; const <a class="el" href="classns_1_1tm_1_1ObjectLayer.html">ObjectLayer</a> &amp;</td></tr>
-<tr class="separator:a96391351a40ba57e64de0b1fd7e6724e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30a82b34564f04121b280bf94e249bc3"><td class="memItemLeft" align="right" valign="top"><a id="a30a82b34564f04121b280bf94e249bc3"></a>
+<tr class="memitem:a5f1feabfc94105123aa4446da694d86c"><td class="memItemLeft" align="right" valign="top"><a id="a5f1feabfc94105123aa4446da694d86c"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getSize</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
+<tr class="separator:a5f1feabfc94105123aa4446da694d86c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15ab0607317472b6e7af84d8b991b656"><td class="memItemLeft" align="right" valign="top"><a id="a15ab0607317472b6e7af84d8b991b656"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGridSize</b> () const -&gt; const sf::Vector2u &amp;</td></tr>
+<tr class="separator:a15ab0607317472b6e7af84d8b991b656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee8fbaebd25ed90e992b31c570578223"><td class="memItemLeft" align="right" valign="top"><a id="aee8fbaebd25ed90e992b31c570578223"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileSize</b> () const -&gt; const sf::Vector2u &amp;</td></tr>
+<tr class="separator:aee8fbaebd25ed90e992b31c570578223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81e550b0c3677b3050590e23ec123d16"><td class="memItemLeft" align="right" valign="top"><a id="a81e550b0c3677b3050590e23ec123d16"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>allTilesets</b> () const -&gt; const std::vector&lt; <a class="el" href="classns_1_1tm_1_1Tileset.html">Tileset</a> &gt; &amp;</td></tr>
+<tr class="separator:a81e550b0c3677b3050590e23ec123d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f0bbafba993f972ea7211b7c5124cd"><td class="memItemLeft" align="right" valign="top"><a id="ad4f0bbafba993f972ea7211b7c5124cd"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileTileset</b> (unsigned int gid) const -&gt; const <a class="el" href="classns_1_1tm_1_1Tileset.html">Tileset</a> &amp;</td></tr>
+<tr class="separator:ad4f0bbafba993f972ea7211b7c5124cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classns_1_1tm_1_1LayersContainer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classns_1_1tm_1_1LayersContainer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classns_1_1tm_1_1LayersContainer.html">ns::tm::LayersContainer</a></td></tr>
+<tr class="memitem:afd1f5343e416eb334308191e6765d2c2 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="afd1f5343e416eb334308191e6765d2c2"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>hasLayer</b> (const std::string &amp;name) const -&gt; bool</td></tr>
+<tr class="separator:afd1f5343e416eb334308191e6765d2c2 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa39044d696ec9552f7657c06bce3c861 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="aa39044d696ec9552f7657c06bce3c861"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1TileLayer.html">TileLayer</a> &amp;</td></tr>
+<tr class="separator:aa39044d696ec9552f7657c06bce3c861 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a936c613f63f5f37b11c02c5e2bd13 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="ac5a936c613f63f5f37b11c02c5e2bd13"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1ObjectLayer.html">ObjectLayer</a> &amp;</td></tr>
+<tr class="separator:ac5a936c613f63f5f37b11c02c5e2bd13 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63d0d87be8ff2a98e1ad64708aeb49b5 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a63d0d87be8ff2a98e1ad64708aeb49b5"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGroupLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1GroupLayer.html">GroupLayer</a> &amp;</td></tr>
+<tr class="separator:a63d0d87be8ff2a98e1ad64708aeb49b5 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d9ab278703ffb1cd4fdd9d88643f5a inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="ae9d9ab278703ffb1cd4fdd9d88643f5a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
-<tr class="separator:a30a82b34564f04121b280bf94e249bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ae9d9ab278703ffb1cd4fdd9d88643f5a inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classns_1_1tm_1_1PropertiesContainer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classns_1_1tm_1_1PropertiesContainer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classns_1_1tm_1_1PropertiesContainer.html">ns::tm::PropertiesContainer</a></td></tr>
-<tr class="memitem:af62c9a50f4d5f822ebba65554011f486 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="af62c9a50f4d5f822ebba65554011f486"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>PropertiesContainer</b> (const pugi::xml_node &amp;xmlnode_props)</td></tr>
-<tr class="separator:af62c9a50f4d5f822ebba65554011f486 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6820dcfa8c93ccff7ea25e32e2df7818 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="a6820dcfa8c93ccff7ea25e32e2df7818"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>hasProperty</b> (const std::string &amp;name) const -&gt; bool</td></tr>
 <tr class="separator:a6820dcfa8c93ccff7ea25e32e2df7818 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfb89a7569262682c53f8b4c15e828e1 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplParams" colspan="2"><a id="adfb89a7569262682c53f8b4c15e828e1"></a>
+<tr class="memitem:a7bddf69328e49a1ab0c8b5c2936b5c18 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplParams" colspan="2"><a id="a7bddf69328e49a1ab0c8b5c2936b5c18"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:adfb89a7569262682c53f8b4c15e828e1 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getProperty</b> (const std::string &amp;name) const -&gt; T</td></tr>
-<tr class="separator:adfb89a7569262682c53f8b4c15e828e1 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555b8f60a97280c02e779fbda52b1b89 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplParams" colspan="2"><a id="a555b8f60a97280c02e779fbda52b1b89"></a>
+<tr class="memitem:a7bddf69328e49a1ab0c8b5c2936b5c18 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getProperty</b> (const std::string &amp;name) const -&gt; const T &amp;</td></tr>
+<tr class="separator:a7bddf69328e49a1ab0c8b5c2936b5c18 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8bb04bccdf51f087df69ba2d56298b inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplParams" colspan="2"><a id="a6f8bb04bccdf51f087df69ba2d56298b"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a555b8f60a97280c02e779fbda52b1b89 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addProperty</b> (const std::string &amp;name, const T &amp;value) const</td></tr>
-<tr class="separator:a555b8f60a97280c02e779fbda52b1b89 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8bb04bccdf51f087df69ba2d56298b inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addProperty</b> (const std::string &amp;name, const T &amp;value)</td></tr>
+<tr class="separator:a6f8bb04bccdf51f087df69ba2d56298b inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab43e330de63a0b485468108a8e3ab624 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="ab43e330de63a0b485468108a8e3ab624"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printProperties</b> () const</td></tr>
 <tr class="separator:ab43e330de63a0b485468108a8e3ab624 inherit pub_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classns_1_1tm_1_1LayersContainer"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classns_1_1tm_1_1LayersContainer')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classns_1_1tm_1_1LayersContainer.html">ns::tm::LayersContainer</a></td></tr>
+<tr class="memitem:a81025f3fa6d759ef935176f127997d9d inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a81025f3fa6d759ef935176f127997d9d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>parseLayers</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
+<tr class="separator:a81025f3fa6d759ef935176f127997d9d inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67eac02ea3b2156e14fe2867c084996e inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a67eac02ea3b2156e14fe2867c084996e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addTileLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
+<tr class="separator:a67eac02ea3b2156e14fe2867c084996e inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3953dc6f9eb327dc47baeb137ae8e46 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="ab3953dc6f9eb327dc47baeb137ae8e46"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addObjectLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
+<tr class="separator:ab3953dc6f9eb327dc47baeb137ae8e46 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4995fec4a4a4625e54f5218e9d702e00 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a4995fec4a4a4625e54f5218e9d702e00"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addGroupLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
+<tr class="separator:a4995fec4a4a4625e54f5218e9d702e00 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9e9eb63dd283164b92a55b47478e76b inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="ae9e9eb63dd283164b92a55b47478e76b"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>allTileLayers</b> () const -&gt; const decltype(m_tilelayers)&amp;</td></tr>
+<tr class="separator:ae9e9eb63dd283164b92a55b47478e76b inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee2dacbd5656faf93c54abdd7fa7d189 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="aee2dacbd5656faf93c54abdd7fa7d189"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>allObjectLayers</b> () const -&gt; const decltype(m_objectlayers)&amp;</td></tr>
+<tr class="separator:aee2dacbd5656faf93c54abdd7fa7d189 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a366b4efca383206e31346f5997106caf inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a366b4efca383206e31346f5997106caf"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>allGroupLayers</b> () const -&gt; const decltype(m_grouplayers)&amp;</td></tr>
+<tr class="separator:a366b4efca383206e31346f5997106caf inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e4921dfe58b9624b802728f3ba6373 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="ac4e4921dfe58b9624b802728f3ba6373"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>allLayers</b> () const -&gt; const decltype(m_layers)&amp;</td></tr>
+<tr class="separator:ac4e4921dfe58b9624b802728f3ba6373 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classns_1_1tm_1_1PropertiesContainer"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classns_1_1tm_1_1PropertiesContainer')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classns_1_1tm_1_1PropertiesContainer.html">ns::tm::PropertiesContainer</a></td></tr>
 <tr class="memitem:a1628252c9753ce00ce2c8472363dd0a4 inherit pro_methods_classns_1_1tm_1_1PropertiesContainer"><td class="memItemLeft" align="right" valign="top"><a id="a1628252c9753ce00ce2c8472363dd0a4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>parseProperties</b> (const pugi::xml_node &amp;xmlnode_props)</td></tr>
@@ -122,7 +149,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>parseProperties</b> (
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="TiledMap_8hpp_source.html#l00017">17</a> of file <a class="el" href="TiledMap_8hpp_source.html">TiledMap.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TiledMap_8hpp_source.html#l00018">18</a> of file <a class="el" href="TiledMap_8hpp_source.html">TiledMap.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="TiledMap_8hpp_source.html">TiledMap.hpp</a></li>
 </ul>

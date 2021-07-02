@@ -56,31 +56,36 @@ Inheritance diagram for ns::tm::PropertiesContainer:</div>
  <div class="center">
   <img src="classns_1_1tm_1_1PropertiesContainer.png" usemap="#ns::tm::PropertiesContainer_map" alt=""/>
   <map id="ns::tm::PropertiesContainer_map" name="ns::tm::PropertiesContainer_map">
-<area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="86,56,248,80"/>
-<area href="classns_1_1tm_1_1SharedTileset.html" alt="ns::tm::SharedTileset" shape="rect" coords="344,56,506,80"/>
-<area href="classns_1_1tm_1_1TiledMap.html" alt="ns::tm::TiledMap" shape="rect" coords="516,56,678,80"/>
-<area href="classns_1_1tm_1_1ObjectLayer.html" alt="ns::tm::ObjectLayer" shape="rect" coords="0,112,162,136"/>
-<area href="classns_1_1tm_1_1TileLayer.html" alt="ns::tm::TileLayer" shape="rect" coords="172,112,334,136"/>
-<area href="classns_1_1tm_1_1Tileset.html" alt="ns::tm::Tileset" shape="rect" coords="344,112,506,136"/>
+<area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="0,56,254,80"/>
+<area href="structns_1_1tm_1_1Object.html" alt="ns::tm::Object" shape="rect" coords="528,56,782,80"/>
+<area href="classns_1_1tm_1_1TileData.html" alt="ns::tm::TileData" shape="rect" coords="792,56,1046,80"/>
+<area href="classns_1_1tm_1_1TiledMap.html" alt="ns::tm::TiledMap" shape="rect" coords="1056,56,1310,80"/>
+<area href="classns_1_1tm_1_1TilesetData.html" alt="ns::tm::TilesetData" shape="rect" coords="1320,56,1574,80"/>
+<area href="classns_1_1tm_1_1GroupLayer.html" alt="ns::tm::GroupLayer" shape="rect" coords="264,112,518,136"/>
+<area href="classns_1_1tm_1_1ObjectLayer.html" alt="ns::tm::ObjectLayer" shape="rect" coords="264,168,518,192"/>
+<area href="classns_1_1tm_1_1TileLayer.html" alt="ns::tm::TileLayer" shape="rect" coords="264,224,518,248"/>
+<area href="structns_1_1tm_1_1ShapeObject.html" alt="ns::tm::ShapeObject&lt; T &gt;" shape="rect" coords="792,112,1046,136"/>
+<area href="structns_1_1tm_1_1ShapeObject.html" alt="ns::tm::ShapeObject&lt; ns::EllipseShape &gt;" shape="rect" coords="792,168,1046,192"/>
+<area href="structns_1_1tm_1_1ShapeObject.html" alt="ns::tm::ShapeObject&lt; ns::LineShape &gt;" shape="rect" coords="792,224,1046,248"/>
+<area href="structns_1_1tm_1_1ShapeObject.html" alt="ns::tm::ShapeObject&lt; sf::CircleShape &gt;" shape="rect" coords="792,280,1046,304"/>
+<area href="structns_1_1tm_1_1ShapeObject.html" alt="ns::tm::ShapeObject&lt; sf::ConvexShape &gt;" shape="rect" coords="792,336,1046,360"/>
+<area href="structns_1_1tm_1_1ShapeObject.html" alt="ns::tm::ShapeObject&lt; sf::RectangleShape &gt;" shape="rect" coords="792,392,1046,416"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af62c9a50f4d5f822ebba65554011f486"><td class="memItemLeft" align="right" valign="top"><a id="af62c9a50f4d5f822ebba65554011f486"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>PropertiesContainer</b> (const pugi::xml_node &amp;xmlnode_props)</td></tr>
-<tr class="separator:af62c9a50f4d5f822ebba65554011f486"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6820dcfa8c93ccff7ea25e32e2df7818"><td class="memItemLeft" align="right" valign="top"><a id="a6820dcfa8c93ccff7ea25e32e2df7818"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>hasProperty</b> (const std::string &amp;name) const -&gt; bool</td></tr>
 <tr class="separator:a6820dcfa8c93ccff7ea25e32e2df7818"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfb89a7569262682c53f8b4c15e828e1"><td class="memTemplParams" colspan="2"><a id="adfb89a7569262682c53f8b4c15e828e1"></a>
+<tr class="memitem:a7bddf69328e49a1ab0c8b5c2936b5c18"><td class="memTemplParams" colspan="2"><a id="a7bddf69328e49a1ab0c8b5c2936b5c18"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:adfb89a7569262682c53f8b4c15e828e1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getProperty</b> (const std::string &amp;name) const -&gt; T</td></tr>
-<tr class="separator:adfb89a7569262682c53f8b4c15e828e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555b8f60a97280c02e779fbda52b1b89"><td class="memTemplParams" colspan="2"><a id="a555b8f60a97280c02e779fbda52b1b89"></a>
+<tr class="memitem:a7bddf69328e49a1ab0c8b5c2936b5c18"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getProperty</b> (const std::string &amp;name) const -&gt; const T &amp;</td></tr>
+<tr class="separator:a7bddf69328e49a1ab0c8b5c2936b5c18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8bb04bccdf51f087df69ba2d56298b"><td class="memTemplParams" colspan="2"><a id="a6f8bb04bccdf51f087df69ba2d56298b"></a>
 template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a555b8f60a97280c02e779fbda52b1b89"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addProperty</b> (const std::string &amp;name, const T &amp;value) const</td></tr>
-<tr class="separator:a555b8f60a97280c02e779fbda52b1b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8bb04bccdf51f087df69ba2d56298b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addProperty</b> (const std::string &amp;name, const T &amp;value)</td></tr>
+<tr class="separator:a6f8bb04bccdf51f087df69ba2d56298b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab43e330de63a0b485468108a8e3ab624"><td class="memItemLeft" align="right" valign="top"><a id="ab43e330de63a0b485468108a8e3ab624"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printProperties</b> () const</td></tr>
 <tr class="separator:ab43e330de63a0b485468108a8e3ab624"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,7 +98,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>parseProperties</b> (
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="PropertiesContainer_8hpp_source.html#l00023">23</a> of file <a class="el" href="PropertiesContainer_8hpp_source.html">PropertiesContainer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PropertiesContainer_8hpp_source.html#l00020">20</a> of file <a class="el" href="PropertiesContainer_8hpp_source.html">PropertiesContainer.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="PropertiesContainer_8hpp_source.html">PropertiesContainer.hpp</a></li>
 </ul>
