@@ -61,11 +61,11 @@ void Scene::temporaryLinkCamera(Camera* camera) {
 }
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    for (const auto& drawable_variant: m_default_layer.getDrawables()) {
+    for (const auto& drawable_variant : m_default_layer.getDrawables()) {
         drawVariant(drawable_variant, target, states);
     }
-    for (const auto& [key, layer]: m_layers) {
-        for (const auto& drawable_variant: layer.getDrawables()) {
+    for (const auto& [key, layer] : m_layers) {
+        for (const auto& drawable_variant : layer.getDrawables()) {
             drawVariant(drawable_variant, target, states);
         }
     }

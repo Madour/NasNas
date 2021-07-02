@@ -199,7 +199,7 @@ void App::render() {
     }
 
     // for each camera, if it has a scene and is visible, render the content
-    for (auto& [order, cam]: m_cameras_map) {
+    for (auto& [order, cam] : m_cameras_map) {
         if (cam->hasScene() && cam->isVisible()) {
             cam->render(m_renderer);
         }
@@ -247,18 +247,18 @@ void App::renderDebugBounds() {
 
     // draw drawables debug bounds
     m_debug_bounds.clear();
-    for (auto& cam: m_cameras) {
+    for (auto& cam : m_cameras) {
         if (cam.hasScene() && cam.isVisible()) {
             auto render_bounds = cam.getGlobalBounds();
             const auto& global_vport = m_window.getAppView().getViewport();
             const auto& local_vport = cam.getViewport();
             sf::Vector2f offset{m_window.mapCoordsToPixel(cam.getSprite().getPosition(), m_window.getAppView())};
 
-            for (const auto& drawable_variant: cam.m_scene->m_default_layer.getDrawables()) {
+            for (const auto& drawable_variant : cam.m_scene->m_default_layer.getDrawables()) {
                 storeDrawableDebugRects(drawable_variant, cam, render_bounds, offset, global_vport, local_vport);
             }
-            for (const auto& [key, layer]: cam.m_scene->m_layers) {
-                for (const auto& drawable_variant: layer.getDrawables()) {
+            for (const auto& [key, layer] : cam.m_scene->m_layers) {
+                for (const auto& drawable_variant : layer.getDrawables()) {
                     storeDrawableDebugRects(drawable_variant, cam, render_bounds, offset, global_vport, local_vport);
                 }
             }

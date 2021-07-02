@@ -21,7 +21,7 @@ Dir::~Dir() = default;
 void Dir::load(const std::filesystem::path& path) {
     namespace fs = std::filesystem;
     if (fs::is_directory(fs::status(path))) {
-        for (const auto& file: fs::directory_iterator(path)) {
+        for (const auto& file : fs::directory_iterator(path)) {
             if (fs::is_regular_file(file)) {
                 if (file.path().has_extension()) {
                     if (Dir::texture_extensions.count(file.path().extension().string()) != 0) {

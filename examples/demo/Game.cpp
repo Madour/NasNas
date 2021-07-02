@@ -201,7 +201,7 @@ void Game::update() {
 
     this->textbox->update();
     // moving the octogons randomly
-    for (auto& shape: this->shapes) {
+    for (auto& shape : this->shapes) {
         shape.move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
         shape.rotate(1);
     }
