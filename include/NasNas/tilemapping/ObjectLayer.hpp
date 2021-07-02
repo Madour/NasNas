@@ -30,8 +30,6 @@ namespace ns::tm {
         auto getPolyline(unsigned int id) const -> const PolylineObject&;
         auto getPolygon(unsigned int id) const -> const PolygonObject&;
 
-        auto getGlobalBounds() const -> ns::FloatRect override;
-
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

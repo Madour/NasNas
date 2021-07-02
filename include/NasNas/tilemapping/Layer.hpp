@@ -6,6 +6,7 @@
 #pragma once
 
 #include "NasNas/thirdparty/pugixml.hpp"
+
 #include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 
@@ -23,6 +24,8 @@ namespace ns::tm {
         void move(float x, float y);
         auto isVisible() const -> bool;
         void setVisible(bool value);
+
+        auto getGlobalBounds() const -> ns::FloatRect override;
 
     protected:
         const TiledMap& m_tiledmap;

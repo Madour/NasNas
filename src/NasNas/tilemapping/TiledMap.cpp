@@ -6,7 +6,6 @@
 #include "NasNas/core/data/Utils.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/TileLayer.hpp"
-#include "NasNas/tilemapping/ObjectLayer.hpp"
 
 using namespace ns;
 using namespace ns::tm;
@@ -73,14 +72,17 @@ void TiledMap::load(const pugi::xml_document& xml) {
     for (const auto& xmlnode_layer : m_xmlnode_map.children("objectgroup")) {
         addObjectLayer(xmlnode_layer, this);
     }
+    for (const auto& xmlnode_layer : m_xmlnode_map.children("group")) {
+        addObjectLayer(xmlnode_layer, this);
+    }
+}
+
+auto TiledMap::getSize() const -> sf::Vector2f {
+    return sf::Vector2f(m_size.x * m_tilesize.x, m_size.y * m_tilesize.y);
 }
 
 auto TiledMap::getGridSize() const -> const sf::Vector2u& {
     return m_size;
-}
-
-auto TiledMap::getSize() const -> sf::Vector2u {
-    return {m_size.x * m_tilesize.x, m_size.y * m_tilesize.y};
 }
 
 auto TiledMap::getTileSize() const -> const sf::Vector2u& {

@@ -121,10 +121,6 @@ auto ObjectLayer::getPolyline(unsigned int id) const -> const PolylineObject& {
     std::exit(-1);
 }
 
-auto ObjectLayer::getGlobalBounds() const -> ns::FloatRect {
-    return {m_transformable.getPosition(), sf::Vector2f(m_tiledmap.getSize())};
-}
-
 void ObjectLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& point : m_points)
         target.draw(point.getShape(), states);

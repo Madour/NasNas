@@ -97,10 +97,6 @@ void TileLayer::setTile(int x, int y, std::uint32_t gid) {
     updateTileTexCoo(tileset, tile_index, tex_coordinates);
 }
 
-auto TileLayer::getGlobalBounds() const -> ns::FloatRect {
-    return m_sprite.getGlobalBounds();
-}
-
 void TileLayer::update() {
     for (auto& [gid, anim_info] : m_animated_tiles_pos) {
         auto& anim_index = anim_info.index;
