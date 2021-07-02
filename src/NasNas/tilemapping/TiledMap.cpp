@@ -40,10 +40,12 @@ auto TiledMap::loadFromString(const std::string& data) -> bool {
 
 void TiledMap::load(const pugi::xml_document& xml) {
     m_xmlnode_map = xml.child("map");
-    m_size.x = m_xmlnode_map.attribute("width").as_uint();
-    m_size.y = m_xmlnode_map.attribute("height").as_uint();
+    m_gridsize.x = m_xmlnode_map.attribute("width").as_uint();
+    m_gridsize.y = m_xmlnode_map.attribute("height").as_uint();
     m_tilesize.x = m_xmlnode_map.attribute("tilewidth").as_uint();
     m_tilesize.y = m_xmlnode_map.attribute("tileheight").as_uint();
+    m_size.x = static_cast<float>(m_gridsize.x * m_tilesize.x);
+    m_size.y = static_cast<float>(m_gridsize.y * m_tilesize.y);
 
     parseProperties(m_xmlnode_map.child("properties"));
 
@@ -77,12 +79,12 @@ void TiledMap::load(const pugi::xml_document& xml) {
     }
 }
 
-auto TiledMap::getSize() const -> sf::Vector2f {
-    return sf::Vector2f(m_size.x * m_tilesize.x, m_size.y * m_tilesize.y);
+auto TiledMap::getSize() const -> const sf::Vector2f& {
+    return m_size;
 }
 
 auto TiledMap::getGridSize() const -> const sf::Vector2u& {
-    return m_size;
+    return m_gridsize;
 }
 
 auto TiledMap::getTileSize() const -> const sf::Vector2u& {

@@ -22,7 +22,7 @@ namespace ns::tm {
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
-        auto getSize() const -> sf::Vector2f;
+        auto getSize() const -> const sf::Vector2f&;
         auto getGridSize() const -> const sf::Vector2u&;
         auto getTileSize() const -> const sf::Vector2u&;
 
@@ -38,8 +38,9 @@ namespace ns::tm {
         std::string m_file_name;
         std::string m_file_relative_path;
 
-        sf::Vector2u m_size;
+        sf::Vector2u m_gridsize;
         sf::Vector2u m_tilesize;
+        sf::Vector2f m_size;
 
         std::vector<Tileset> m_tilesets;
         std::vector<TilesetData> m_tilesets_data;
