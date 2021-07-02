@@ -3,6 +3,7 @@
 **/
 
 
+#include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
 
 using namespace ns;
@@ -56,4 +57,8 @@ auto Layer::isVisible() const -> bool {
 
 void Layer::setVisible(bool value) {
     m_visible = value;
+}
+
+auto Layer::getGlobalBounds() const -> ns::FloatRect {
+    return {m_transformable.getPosition(), m_tiledmap.getSize()};
 }

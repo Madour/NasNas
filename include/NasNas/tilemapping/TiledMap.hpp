@@ -12,20 +12,18 @@
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 #include "NasNas/tilemapping/LayersContainer.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
-#include "NasNas/tilemapping/TileLayer.hpp"
-#include "NasNas/tilemapping/ObjectLayer.hpp"
 
 namespace ns::tm {
 
-    class TiledMap : public LayersContainer {
+    class TiledMap : public LayersContainer, public PropertiesContainer {
     public:
         TiledMap();
 
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
+        auto getSize() const -> sf::Vector2f;
         auto getGridSize() const -> const sf::Vector2u&;
-        auto getSize() const -> sf::Vector2u;
         auto getTileSize() const -> const sf::Vector2u&;
 
         auto allTilesets() const -> const std::vector<Tileset>&;
