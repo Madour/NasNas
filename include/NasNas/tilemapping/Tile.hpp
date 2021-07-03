@@ -36,6 +36,10 @@ namespace ns::tm {
             Rotation270 = VerticalFlip | DiagonalFlip
         };
         static std::optional<Tile> None;
+        static std::uint32_t gidmask;
+        static inline auto getFlipFromGid(std::uint32_t gid) -> Flip {
+            return static_cast<Flip>((gid & ~Tile::gidmask) >> 28u);
+        }
 
         Tile(const TileData& tiledata, const TilesetData& tilesetdata, std::uint32_t tilegid, int posx, int posy,  Flip tileflip=Flip::None);
         auto getTileTexCoo() const -> std::vector<sf::Vector2f>;

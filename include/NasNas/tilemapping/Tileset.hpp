@@ -33,7 +33,7 @@ namespace ns::tm {
         auto getTexture() const -> const sf::Texture&;
         auto getTileData(std::uint32_t id) const -> const TileData&;
         auto getTileTexCoo(std::uint32_t id, Tile::Flip flip=Tile::Flip::None) const -> std::vector<sf::Vector2f>;
-        auto getTileTextureRect(std::uint32_t id) const -> ns::FloatRect;
+        auto getTileTextureRect(std::uint32_t id) const -> ns::IntRect;
 
         const std::string name;
         const unsigned int tilewidth;

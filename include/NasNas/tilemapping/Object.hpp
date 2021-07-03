@@ -4,6 +4,8 @@
 
 #include "NasNas/core/graphics/Shapes.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include "NasNas/tilemapping/TiledMap.hpp"
+#include "NasNas/tilemapping/Tile.hpp"
 
 namespace ns::tm {
 
@@ -12,6 +14,7 @@ namespace ns::tm {
     struct EllipseObject;
     struct PolylineObject;
     struct PolygonObject;
+    struct TileObject;
 
     struct Object : PropertiesContainer {
         enum class Shape {
@@ -19,7 +22,8 @@ namespace ns::tm {
             Rectangle,
             Ellipse,
             Polyline,
-            Polygon
+            Polygon,
+            Tile
         };
         explicit Object(const pugi::xml_node& xml_node, Shape shape);
         virtual ~Object() = default;
@@ -35,6 +39,7 @@ namespace ns::tm {
         auto asEllipse() -> EllipseObject&;
         auto asPolyline() -> PolylineObject&;
         auto asPolygon() -> PolygonObject&;
+        auto asTile() -> TileObject&;
     };
 
     template <typename T>
@@ -50,6 +55,7 @@ namespace ns::tm {
         using Object::asEllipse;
         using Object::asPolyline;
         using Object::asPolygon;
+        using Object::asTile;
     };
 
     struct PointObject : ShapeObject<sf::CircleShape> {
@@ -78,6 +84,14 @@ namespace ns::tm {
         const std::vector<sf::Vector2f> points;
     };
 
+    struct TileObject : ShapeObject<sf::Sprite> {
+        TileObject(const pugi::xml_node& xml_node, const sf::Color& color, TiledMap* tiledmap);
+        const float width;
+        const float height;
+        const std::uint32_t gid;
+        const Tile::Flip flip;
+    };
+
     template <typename T>
     ShapeObject<T>::ShapeObject(const pugi::xml_node& xml_node, const sf::Color& color) :
     Object(xml_node, getShapeTypeEnum())
@@ -88,7 +102,7 @@ namespace ns::tm {
         if constexpr(std::is_same_v<T, ns::LineShape>) {
             m_shape.setColor({color.r, color.g, color.b, 200});
         }
-        else {
+        else if constexpr(!std::is_same_v<T, sf::Sprite>) {
             m_shape.setFillColor({color.r, color.g, color.b, 40});
             m_shape.setOutlineColor({color.r, color.g, color.b, 200});
             m_shape.setOutlineThickness(-1);
@@ -112,5 +126,7 @@ namespace ns::tm {
             return Object::Shape::Polyline;
         else if constexpr(std::is_same_v<T, sf::ConvexShape>)
             return Object::Shape::Polygon;
+        else if constexpr(std::is_same_v<T, sf::Sprite>)
+            return Object::Shape::Tile;
     }
 }

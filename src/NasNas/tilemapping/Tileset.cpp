@@ -65,10 +65,10 @@ auto TilesetData::getTileTexCoo(std::uint32_t id, Tile::Flip flip) const -> std:
     auto texture_rect = getTileTextureRect(id);
 
     auto coords = std::vector<sf::Vector2f>(4);
-    coords[0] = texture_rect.topleft();
-    coords[1] = texture_rect.topright();
-    coords[2] = texture_rect.bottomright();
-    coords[3] = texture_rect.bottomleft();
+    coords[0] = sf::Vector2f(texture_rect.topleft());
+    coords[1] = sf::Vector2f(texture_rect.topright());
+    coords[2] = sf::Vector2f(texture_rect.bottomright());
+    coords[3] = sf::Vector2f(texture_rect.bottomleft());
 
     if ((flip & Tile::Flip::VerticalFlip) != Tile::Flip::None) {
         auto temp = coords[0];
@@ -94,10 +94,10 @@ auto TilesetData::getTileTexCoo(std::uint32_t id, Tile::Flip flip) const -> std:
 }
 
 
-auto TilesetData::getTileTextureRect(std::uint32_t id) const -> ns::FloatRect {
-    auto tx = static_cast<float>((id % columns) * (tilewidth + spacing) + margin);
-    auto ty = static_cast<float>((id / columns) * (tileheight + spacing) + margin);
-    return {sf::Vector2f(tx, ty), sf::Vector2f(static_cast<float>(tilewidth), static_cast<float>(tileheight))};
+auto TilesetData::getTileTextureRect(std::uint32_t id) const -> ns::IntRect {
+    auto tx = (id % columns) * (tilewidth + spacing) + margin;
+    auto ty = (id / columns) * (tileheight + spacing) + margin;
+    return ns::IntRect(tx, ty, tilewidth, tileheight);
 }
 
 

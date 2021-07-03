@@ -21,6 +21,7 @@ void TileData::fill(const pugi::xml_node& xml_node) {
 }
 
 std::optional<Tile> Tile::None = std::nullopt;
+std::uint32_t Tile::gidmask = 0x1fffffff;
 
 Tile::Tile(const TileData& tiledata, const TilesetData& tilesetdata, std::uint32_t tilegid, int posx, int posy, Flip tileflip) :
 data(tiledata),

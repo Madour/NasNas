@@ -69,9 +69,8 @@ void TileLayer::setTile(int x, int y, std::uint32_t gid) {
         return;
     }
     // get tile transformation
-    std::uint32_t mask = 0x1fffffff;
-    auto tile_flip = static_cast<Tile::Flip>((gid & ~mask) >> 28u);
-    gid = gid & mask;
+    auto tile_flip = Tile::getFlipFromGid(gid);
+    gid = gid & Tile::gidmask;
 
     // get tile tileset, id and index
     const auto& tileset = m_tiledmap.getTileTileset(gid);
