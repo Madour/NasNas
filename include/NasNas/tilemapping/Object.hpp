@@ -7,11 +7,11 @@
 
 namespace ns::tm {
 
-    class PointObject;
-    class RectangleObject;
-    class EllipseObject;
-    class PolylineObject;
-    class PolygonObject;
+    struct PointObject;
+    struct RectangleObject;
+    struct EllipseObject;
+    struct PolylineObject;
+    struct PolygonObject;
 
     struct Object : PropertiesContainer {
         enum class Shape {
