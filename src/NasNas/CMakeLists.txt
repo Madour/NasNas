@@ -1,0 +1,54 @@
+message(STATUS "NasNas : enabled modules :")
+
+add_definitions(-DNS_CORE)
+add_subdirectory(core)
+
+if(NASNAS_BUILD_RESLIB)
+    add_definitions(-DNS_RESLIB)
+    add_subdirectory(reslib)
+endif()
+
+if(NASNAS_BUILD_ECS)
+    add_definitions(-DNS_ECS)
+    add_subdirectory(ecs)
+endif()
+
+if(NASNAS_BUILD_TILEMAPPING)
+    add_definitions(-DNS_TILEMAPPING)
+    add_subdirectory(tilemapping)
+endif()
+
+if(NASNAS_BUILD_UI)
+    add_definitions(-DNS_UI)
+    add_subdirectory(ui)
+endif()
+
+set(NasNas_Modules_Src "")
+set(NasNas_Modules_Inc "")
+set(NasNas_Modules_Names "Core;Reslib;Ecs;Tilemapping;Ui")
+
+foreach(module ${NasNas_Modules_Names})
+    set(NasNas_Modules_Src "${NasNas_Modules_Src};${NasNas_${module}_Src}")
+    set(NasNas_Modules_Inc "${NasNas_Modules_Inc};${NasNas_${module}_Inc}")
+endforeach()
+
+set(NasNas_Src "${NasNas_Modules_Src}")
+set(NasNas_Inc "${NasNas_Modules_Inc}")
+
+add_library(NasNas STATIC ${NasNas_Src} ${NasNas_Inc})
+target_include_directories(NasNas PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+target_link_libraries(NasNas PUBLIC ${NasNas_Libs})
+set_target_properties(
+        NasNas
+        PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS ON
+        DEBUG_POSTFIX -d
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+        ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/lib
+        ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+        LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/lib
+        LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
+)

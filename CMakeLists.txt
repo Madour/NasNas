@@ -5,10 +5,6 @@ endif()
 
 project(NasNas)
 
-include(cmake/Macros.cmake)
-
-check_compiler()
-
 ## NasNas options
 # Select optional modules
 option(NASNAS_BUILD_RESLIB      "Build the RESLIB module"               ON)
@@ -19,42 +15,31 @@ option(NASNAS_BUILD_UI          "Build the UI module"                   ON)
 option(NASNAS_EXAMPLES          "Build the example applications"        OFF)
 option(NASNAS_FIND_SFML         "Find an existing installation of SFML" ON)
 
+include(cmake/NasNas.cmake)
+
+check_compiler()
+
 # find SFML install location or SFML source files and dependencies
 find_SFML()
 
-# find NasNas source files and dependencies
-find_NasNas()
-
-# NasNas static lib target
-set(NASNAS_TGT_STATIC "NasNas")
-add_library(${NASNAS_TGT_STATIC} STATIC ${NasNas_Src} ${NasNas_Inc})
-
-target_include_directories(${NASNAS_TGT_STATIC} PRIVATE include)
-target_link_libraries(${NASNAS_TGT_STATIC} ${NasNas_Libs})
-
-set_target_properties(
-        ${NASNAS_TGT_STATIC}
-        PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON
-        CXX_EXTENSIONS ON
-        DEBUG_POSTFIX -d
-        RUNTIME_OUTPUT_DIRECTORY bin
-        RUNTIME_OUTPUT_DIRECTORY_DEBUG bin
-        RUNTIME_OUTPUT_DIRECTORY_RELEASE bin
-        ARCHIVE_OUTPUT_DIRECTORY lib
-        ARCHIVE_OUTPUT_DIRECTORY_DEBUG lib
-        ARCHIVE_OUTPUT_DIRECTORY_RELEASE lib
-        LIBRARY_OUTPUT_DIRECTORY lib
-        LIBRARY_OUTPUT_DIRECTORY_DEBUG lib
-        LIBRARY_OUTPUT_DIRECTORY_RELEASE lib
+# global list that contains all NasNas targets
+define_property(GLOBAL PROPERTY NASNAS_TARGETS
+        BRIEF_DOCS "Contains all available targets defined by NasNas"
+        FULL_DOCS "Contains all available targets defined by NasNas"
 )
 
-# Examples target
-set(NASNAS_TGT_EXAMPLES "")
+# add NasNas subdirectory
+add_subdirectory(${PROJECT_SOURCE_DIR}/src/NasNas)
+
+# Examples targets
 if (NASNAS_EXAMPLES)
-    set(NASNAS_TGT_EXAMPLES "NasNas_examples")
     add_subdirectory(examples)
 endif()
 
-message(STATUS "NasNas : Targets available to build : ${NASNAS_TGT_STATIC} ${NASNAS_TGT_EXAMPLES}")
+get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
+list(PREPEND NasNas_Targets NasNas)
+
+message(STATUS "NasNas : Targets available to build :")
+foreach(target ${NasNas_Targets})
+    message("   -> ${target}")
+endforeach()
