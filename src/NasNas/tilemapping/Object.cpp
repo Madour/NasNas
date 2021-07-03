@@ -1,5 +1,6 @@
 // Created by Modar Nasser on 28/06/2021.
 
+#include <sstream>
 #include "NasNas/tilemapping/Object.hpp"
 
 using namespace ns;
@@ -74,15 +75,17 @@ gid(xml_node.attribute("gid").as_uint()&Tile::gidmask),
 flip(Tile::getFlipFromGid(xml_node.attribute("gid").as_uint()))
 {
     auto& tileset = tiledmap->getTileTileset(gid);
+    auto tilewidth = static_cast<float>(tileset.data.tilewidth);
+    auto tileheight = static_cast<float>(tileset.data.tileheight);
     m_shape.setTexture(tileset.data.getTexture());
     m_shape.setTextureRect(tileset.data.getTileTextureRect(gid - tileset.firstgid));
-    m_shape.setScale(width/float(tileset.data.tilewidth), height/float(tileset.data.tileheight));
-    m_shape.setOrigin(0, tileset.data.tileheight);
+    m_shape.setScale(width/tilewidth, height/tileheight);
+    m_shape.setOrigin(0, tileheight);
 
     // handle tile flips
     if ((flip&Tile::Flip::HorizontalFlip) != Tile::Flip::None) {
         m_shape.scale(-1, 1);
-        m_shape.setOrigin(tileset.data.tilewidth, m_shape.getOrigin().y);
+        m_shape.setOrigin(tilewidth, m_shape.getOrigin().y);
     }
     if ((flip&Tile::Flip::VerticalFlip) != Tile::Flip::None) {
         m_shape.scale(1, -1);
@@ -92,32 +95,16 @@ flip(Tile::getFlipFromGid(xml_node.attribute("gid").as_uint()))
 
 auto stringToPoints(const char* points_str) -> std::vector<sf::Vector2f> {
     std::vector<sf::Vector2f> result;
-    sf::Vector2f temp = {0, 0}; sf::Vector2f sign = {1, 1}; bool storing_x = true;
-    while (*points_str != '\0') {
-        switch (*points_str) {
-            case ',':
-                storing_x = false;
-                break;
-            case ' ':
-                result.emplace_back(temp.x*sign.x, temp.y*sign.y);
-                temp = {0, 0}; sign = {1, 1}; storing_x = true;
-                break;
-            case '-':
-                if (storing_x) sign.x *= -1;
-                else sign.y *= -1;
-                break;
-            default:
-                if (storing_x) {
-                    temp.x *= 10;
-                    temp.x += (float)(*points_str - '0');
-                } else {
-                    temp.y *= 10;
-                    temp.y += (float)(*points_str - '0');
-                }
-                break;
-        }
-        points_str++;
+    std::string tmp;
+    float x, y;
+
+    std::istringstream points_stream{points_str};
+    while (!points_stream.eof()) {
+        std::getline(points_stream, tmp, ',');
+        std::istringstream(tmp) >> x;
+        std::getline(points_stream, tmp, ' ');
+        std::istringstream(tmp) >> y;
+        result.emplace_back(x, y);
     }
-    result.emplace_back(temp.x*sign.x, temp.y*sign.y);
     return result;
 }
