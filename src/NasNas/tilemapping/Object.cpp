@@ -24,6 +24,7 @@ auto Object::asRectangle() -> RectangleObject& { return *dynamic_cast<RectangleO
 auto Object::asEllipse() -> EllipseObject& { return *dynamic_cast<EllipseObject*>(this); }
 auto Object::asPolyline() -> PolylineObject& { return *dynamic_cast<PolylineObject*>(this); }
 auto Object::asPolygon() -> PolygonObject& { return *dynamic_cast<PolygonObject*>(this); }
+auto Object::asTile() -> TileObject& { return *dynamic_cast<TileObject*>(this); }
 
 RectangleObject::RectangleObject(const pugi::xml_node& xml_node, const sf::Color& color) :
 ShapeObject<sf::RectangleShape>(xml_node, color),
@@ -63,6 +64,20 @@ points(stringToPoints(xml_node.child("polygon").attribute("points").as_string())
     m_shape.setPointCount(points.size());
     for (unsigned i = 0; i < points.size(); ++i)
         m_shape.setPoint(i, points[i]);
+}
+
+TileObject::TileObject(const pugi::xml_node& xml_node, const sf::Color& color, TiledMap* tiledmap) :
+ShapeObject<sf::Sprite>(xml_node, color),
+width(xml_node.attribute("width").as_float()),
+height(xml_node.attribute("height").as_float()),
+gid(xml_node.attribute("gid").as_uint()&Tile::gidmask),
+flip(Tile::getFlipFromGid(xml_node.attribute("gid").as_uint()))
+{
+    auto& tileset = tiledmap->getTileTileset(gid);
+    m_shape.setTexture(tileset.data.getTexture());
+    m_shape.setTextureRect(tileset.data.getTileTextureRect(gid - tileset.firstgid));
+    m_shape.setScale(width/float(tileset.data.tilewidth), height/float(tileset.data.tileheight));
+    m_shape.setOrigin(0, tileset.data.tileheight);
 }
 
 auto stringToPoints(const char* points_str) -> std::vector<sf::Vector2f> {

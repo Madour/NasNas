@@ -6,6 +6,7 @@
 
 #include "NasNas/core/graphics/Shapes.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
 #include "NasNas/tilemapping/Object.hpp"
 
@@ -40,6 +41,7 @@ namespace ns::tm {
         std::vector<EllipseObject> m_ellipses;
         std::vector<PolylineObject> m_polylines;
         std::vector<PolygonObject> m_polygons;
+        std::vector<TileObject> m_tiles;
 
         std::vector<std::reference_wrapper<Object>> m_objects;
         std::unordered_map<std::string, std::vector<std::reference_wrapper<Object>>> m_objects_by_type;

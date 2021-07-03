@@ -3,15 +3,40 @@
 **/
 
 #include "NasNas/tilemapping/ObjectLayer.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
 
 using namespace ns;
 using namespace ns::tm;
 
 ns::tm::ObjectLayer::ObjectLayer(const pugi::xml_node& xml_node, tm::TiledMap* tiledmap) :
-Layer(xml_node, tiledmap) {
+Layer(xml_node, tiledmap)
+{
     if (xml_node.attribute("color"))
         m_color = hexToColor(std::string(xml_node.attribute("color").as_string()));
+
+    int points_count = 0, rectangles_count = 0, ellipses_count = 0,
+        polylines_count = 0, polygons_count = 0, tiles_count = 0;
+    for (const auto& xml_object : xml_node.children("object")) {
+        if(xml_object.child("ellipse"))
+            ellipses_count++;
+        else if(xml_object.child("polyline"))
+            polylines_count++;
+        else if(xml_object.child("polygon"))
+            polygons_count++;
+        else if(xml_object.attribute("gid"))
+            tiles_count++;
+        else if (xml_object.child("point"))
+            points_count++;
+        else
+            rectangles_count++;
+    }
+
+    m_points.reserve(points_count);
+    m_rectangles.reserve(rectangles_count);
+    m_ellipses.reserve(ellipses_count);
+    m_polylines.reserve(polylines_count);
+    m_polygons.reserve(polygons_count);
+    m_tiles.reserve(tiles_count);
+
     for (const auto& xml_object : xml_node.children("object")) {
         if(xml_object.child("ellipse")) {
             m_ellipses.emplace_back(xml_object, m_color);
@@ -26,7 +51,8 @@ Layer(xml_node, tiledmap) {
             m_objects.emplace_back(m_polygons.back());
         }
         else if(xml_object.attribute("gid")) {
-            // not yet implemented
+            m_tiles.emplace_back(xml_object, m_color, tiledmap);
+            m_objects.emplace_back(m_tiles.back());
         }
         else if (xml_object.child("point")) {
             m_points.emplace_back(xml_object, m_color);
@@ -136,4 +162,7 @@ void ObjectLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 
     for (const auto& polygon : m_polygons)
         target.draw(polygon.getShape(), states);
+
+    for (const auto& tile : m_tiles)
+        target.draw(tile.getShape(), states);
 }

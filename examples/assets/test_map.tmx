@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="44">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="117">
  <properties>
   <property name="col" type="color" value="#ff55aa7f"/>
   <property name="prop" type="bool" value="true"/>
@@ -151,6 +151,8 @@
     <object id="41" x="151.842" y="112.347" rotation="326.621">
      <polyline points="0,0 64,0 80,16 112,32 112,16 144,32 128,64 160,80 176,48"/>
     </object>
+    <object id="113" gid="3221225592" x="224" y="208" width="16" height="16"/>
+    <object id="116" gid="20" x="137.486" y="194.864" width="63.056" height="44.1958" rotation="61.8318"/>
    </objectgroup>
   </group>
  </group>
