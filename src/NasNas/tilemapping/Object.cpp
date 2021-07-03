@@ -78,6 +78,16 @@ flip(Tile::getFlipFromGid(xml_node.attribute("gid").as_uint()))
     m_shape.setTextureRect(tileset.data.getTileTextureRect(gid - tileset.firstgid));
     m_shape.setScale(width/float(tileset.data.tilewidth), height/float(tileset.data.tileheight));
     m_shape.setOrigin(0, tileset.data.tileheight);
+
+    // handle tile flips
+    if ((flip&Tile::Flip::HorizontalFlip) != Tile::Flip::None) {
+        m_shape.scale(-1, 1);
+        m_shape.setOrigin(tileset.data.tilewidth, m_shape.getOrigin().y);
+    }
+    if ((flip&Tile::Flip::VerticalFlip) != Tile::Flip::None) {
+        m_shape.scale(1, -1);
+        m_shape.setOrigin(m_shape.getOrigin().x, 0);
+    }
 }
 
 auto stringToPoints(const char* points_str) -> std::vector<sf::Vector2f> {
