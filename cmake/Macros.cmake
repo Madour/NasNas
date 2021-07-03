@@ -1,6 +1,3 @@
-set(NasNas_Src "")
-set(NasNas_Inc "")
-set(NasNas_Libs "")
 
 macro(find_SFML)
     if(NASNAS_FIND_SFML)
@@ -29,10 +26,6 @@ macro(find_SFML)
     set(NasNas_Libs "${NasNas_Libs};sfml-graphics;sfml-audio")
 endmacro()
 
-macro(find_NasNas)
-    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/NasNas.cmake)
-endmacro()
-
 macro(check_compiler)
     if(NOT WIN32)
         if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -40,3 +33,32 @@ macro(check_compiler)
         endif()
     endif()
 endmacro()
+
+function(NasNas_add_module name src inc)
+    message("   -> ${name}")
+
+    set(target "NasNas-${name}")
+
+    add_library(${target} STATIC ${src} ${inc})
+    target_include_directories(${target} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+    target_link_libraries(${target} ${NasNas_Libs})
+
+    set_target_properties(
+            ${target}
+        PROPERTIES
+            CXX_STANDARD 17
+            CXX_STANDARD_REQUIRED ON
+            CXX_EXTENSIONS ON
+            DEBUG_POSTFIX -d
+            ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+            ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/lib
+            ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
+            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+            LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/lib
+            LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
+    )
+
+    get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
+    list(APPEND NasNas_Targets ${target})
+    set_property(GLOBAL PROPERTY NASNAS_TARGETS ${NasNas_Targets})
+endfunction()
