@@ -90,7 +90,7 @@ Additional CMake options you can pass :
 Here is a sample code using NasNas framework, this will create a 720x480 window and log a string to the console : 
 
 ```c++
-#include <NasNas.h>
+#include <NasNas/Core.hpp>
 
 class Game : public ns::App {
 public:
