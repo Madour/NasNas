@@ -58,6 +58,7 @@ function(NasNas_add_module name src inc)
             LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
     )
 
+    # update global list of targets
     get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
     list(APPEND NasNas_Targets ${target})
     set_property(GLOBAL PROPERTY NASNAS_TARGETS ${NasNas_Targets})

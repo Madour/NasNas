@@ -19,9 +19,9 @@ public:
     }
 
     void onParticleUpdate(ns::Particle& particle) override {
-        particle.rotation += 0.1f;
+        particle.rotation += 1.f;
         particle.color.a = static_cast<int>((1.f-particle.getAge()/particle.lifetime)*255)&0xff;
-        particle.velocity.y -= 0.02f;
+        particle.velocity.y -= 0.05f;
     }
 };
 
@@ -35,7 +35,7 @@ public:
         auto& camera = this->createCamera("main", 0);
         camera.lookAt(scene);
 
-        m_particles_system.setEmmitRate(10.f);
+        m_particles_system.setEmmitRate(20.f);
         m_particles_system.setTexture(ns::Res::getTexture("tileset.png"));
         m_particles_system.setPosition(500, 300);
         m_particles_system.emmit({240, 16, 16, 16}, 50, true);

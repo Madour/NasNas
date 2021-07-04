@@ -4,21 +4,8 @@
 
 #pragma once
 
-
 #include "NasNas/Core.hpp"
-
-#ifdef NS_ECS
-#include "NasNas/Ecs.hpp"
-#endif
-
-#ifdef NS_TILEMAPPING
-#include "NasNas/Tilemapping.hpp"
-#endif
-
-#ifdef NS_RESLIB
 #include "NasNas/Reslib.hpp"
-#endif
-
-#ifdef NS_UI
+#include "NasNas/Ecs.hpp"
+#include "NasNas/Tilemapping.hpp"
 #include "NasNas/Ui.hpp"
-#endif

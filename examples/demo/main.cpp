@@ -1,5 +1,6 @@
 
-#include "NasNas.h"
+#include <NasNas/Core.hpp>
+#include <NasNas/Reslib.hpp>
 
 #include "Game.hpp"
 

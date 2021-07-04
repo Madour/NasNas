@@ -2,7 +2,8 @@
 * Created by Modar Nasser on 13/10/2020.
 **/
 
-#include <NasNas.h>
+#include <NasNas/Core.hpp>
+#include <NasNas/Reslib.hpp>
 
 /**
  * This example shows how to create a spritebatch

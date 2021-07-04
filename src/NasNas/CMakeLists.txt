@@ -23,17 +23,14 @@ if(NASNAS_BUILD_UI)
     add_subdirectory(ui)
 endif()
 
-set(NasNas_Modules_Src "")
-set(NasNas_Modules_Inc "")
+set(NasNas_Src "")
+set(NasNas_Inc "")
 set(NasNas_Modules_Names "Core;Reslib;Ecs;Tilemapping;Ui")
 
 foreach(module ${NasNas_Modules_Names})
-    set(NasNas_Modules_Src "${NasNas_Modules_Src};${NasNas_${module}_Src}")
-    set(NasNas_Modules_Inc "${NasNas_Modules_Inc};${NasNas_${module}_Inc}")
+    set(NasNas_Src "${NasNas_Src};${NasNas_${module}_Src}")
+    set(NasNas_Inc "${NasNas_Inc};${NasNas_${module}_Inc}")
 endforeach()
-
-set(NasNas_Src "${NasNas_Modules_Src}")
-set(NasNas_Inc "${NasNas_Modules_Inc}")
 
 add_library(NasNas STATIC ${NasNas_Src} ${NasNas_Inc})
 target_include_directories(NasNas PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)

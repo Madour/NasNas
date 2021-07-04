@@ -9,13 +9,6 @@ macro(subdirectories result current_dir)
     set(${result} ${dirlist})
 endmacro()
 
-add_definitions(
-    -DNS_CORE
-    -DNS_RESLIB
-    -DNS_ECS
-    -DNS_TILEMAPPING
-    -DNS_UI
-)
 
 add_custom_target(NasNas_examples)
 file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/bin)
@@ -24,13 +17,13 @@ get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
 list(APPEND NasNas_Targets NasNas_examples)
 
 # loop on all the examples directories and create a target for each
-subdirectories(examples ${CMAKE_CURRENT_LIST_DIR})
-foreach(example ${examples})
-    file(GLOB_RECURSE Src ${example}/*.cpp)
-    file(GLOB_RECURSE Inc ${example}/*.hpp)
+subdirectories(NasNas_Examples ${CMAKE_CURRENT_LIST_DIR})
+foreach(example ${NasNas_Examples})
+    file(GLOB_RECURSE SRC ${example}/*.cpp)
+    file(GLOB_RECURSE INC ${example}/*.hpp)
 
-    add_executable(${example} "${Src};${Inc}")
-    target_include_directories(${example} PRIVATE ../include)
+    add_executable(${example} "${SRC};${INC}")
+    target_include_directories(${example} PUBLIC ../include)
     target_link_libraries(${example} PRIVATE NasNas)
     set_target_properties(
             ${example}
