@@ -2,7 +2,8 @@
 * Created by Modar Nasser on 06/02/2020.
 **/
 
-#include <NasNas.h>
+#include <NasNas/Core.hpp>
+#include <NasNas/Ecs.hpp>
 
 /**
  * This example shows how to create a custom component and how

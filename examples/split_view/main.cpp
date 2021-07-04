@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 13/10/2020.
 **/
 
-#include <NasNas.h>
+#include <NasNas/Core.hpp>
 
 /**
  * This example will show you how to create a split screen, which can be
@@ -72,7 +72,7 @@ public:
 int main() {
     ns::Config::debug = true;
     ns::Config::debug.show_bounds = false;
-    ns::Config::Window::antialiasing = 8;
+    ns::Config::Window::antialiasing = 0;
     Game g;
     g.run();
     return 0;

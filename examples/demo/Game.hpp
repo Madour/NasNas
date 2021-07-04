@@ -4,7 +4,11 @@
 
 #pragma once
 
-#include "NasNas.h"
+#include <NasNas/Core.hpp>
+#include <NasNas/Reslib.hpp>
+#include <NasNas/Tilemapping.hpp>
+#include <NasNas/Ecs.hpp>
+#include <NasNas/Ui.hpp>
 
 #include "Player.hpp"
 #include "ShaderTransition.hpp"

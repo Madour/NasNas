@@ -31,6 +31,35 @@ auto Config::debug_info::operator=(bool value) -> debug_info& {
 
 Config::debug_info Config::debug;
 
+const bool Config::Modules::Core = true;
+const bool Config::Modules::Reslib =
+#ifdef NS_RESLIB
+        true;
+#else
+        false;
+#endif
+
+const bool Config::Modules::Ecs =
+#ifdef NS_ECS
+        true;
+#else
+        false;
+#endif
+
+const bool Config::Modules::Tilemapping =
+#ifdef NS_TILEMAPPING
+        true;
+#else
+        false;
+#endif
+
+const bool Config::Modules::Ui =
+#ifdef NS_UI
+        true;
+#else
+        false;
+#endif
+
 std::string Config::Window::title = "NasNas demo app";
 sf::Vector2i Config::Window::size = {720, 480};
 sf::Vector2i Config::Window::view_size = {0, 0};

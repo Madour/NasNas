@@ -30,6 +30,15 @@ namespace ns {
     public:
         static debug_info debug;
 
+        class Modules {
+        public:
+            static const bool Core;
+            static const bool Reslib;
+            static const bool Ecs;
+            static const bool Tilemapping;
+            static const bool Ui;
+        };
+
         class Window {
         public:
             static std::string title;
