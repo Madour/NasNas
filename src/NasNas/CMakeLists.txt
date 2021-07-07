@@ -34,6 +34,7 @@ endforeach()
 
 add_library(NasNas STATIC ${NasNas_Src} ${NasNas_Inc})
 target_include_directories(NasNas PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+target_include_directories(NasNas PUBLIC $<INSTALL_INTERFACE:include>)
 target_link_libraries(NasNas PUBLIC ${NasNas_Libs})
 set_target_properties(
         NasNas
@@ -48,4 +49,29 @@ set_target_properties(
         LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
         LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/lib
         LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
+        EXPORT_NAME All
 )
+
+get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
+
+# build tree export
+export(TARGETS NasNas;${NasNas_Targets} FILE ${CMAKE_CURRENT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
+
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+# generate NasNasConfig.cmake
+configure_package_config_file(
+    "${PROJECT_SOURCE_DIR}/cmake/NasNasConfig.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/NasNasConfig.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas
+)
+# install NasNasConfig.cmake file
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/NasNasConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas)
+# install headers
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/NasNas DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+# export targets
+install(TARGETS NasNas;${NasNas_Targets} EXPORT NasNasTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+# install exported targets
+install(EXPORT NasNasTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas NAMESPACE NasNas::)
+# install license and readme
+install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
