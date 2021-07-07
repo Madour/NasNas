@@ -18,4 +18,4 @@ set(
 set(NasNas_Reslib_Src "${SRC}" PARENT_SCOPE)
 set(NasNas_Reslib_Inc "${INC}" PARENT_SCOPE)
 
-NasNas_add_module(reslib "${SRC}" "${INC}")
+NasNas_add_module(Reslib "${SRC}" "${INC}")

@@ -3,7 +3,13 @@ if (POLICY CMP0074)
     cmake_policy(SET CMP0074 NEW)
 endif()
 
-project(NasNas)
+project(
+    NasNas
+    VERSION 0.1.0
+    DESCRIPTION "An intuitive and begginer friendly 2D game framework"
+    LANGUAGES CXX
+    HOMEPAGE_URL "https://github.com/Madour/NasNas"
+)
 
 ## NasNas options
 # Select optional modules

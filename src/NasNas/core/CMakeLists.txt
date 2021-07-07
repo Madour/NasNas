@@ -68,4 +68,4 @@ set(
 set(NasNas_Core_Src "${SRC}" PARENT_SCOPE)
 set(NasNas_Core_Inc "${INC}" PARENT_SCOPE)
 
-NasNas_add_module(core "${SRC}" "${INC}")
+NasNas_add_module(Core "${SRC}" "${INC}")

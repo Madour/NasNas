@@ -32,4 +32,4 @@ set(
 set(NasNas_Ecs_Src "${SRC}" PARENT_SCOPE)
 set(NasNas_Ecs_Inc "${INC}" PARENT_SCOPE)
 
-NasNas_add_module(ecs "${SRC}" "${INC}")
+NasNas_add_module(Ecs "${SRC}" "${INC}")
