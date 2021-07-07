@@ -23,12 +23,13 @@ foreach(example ${NasNas_Examples})
     file(GLOB_RECURSE INC ${example}/*.hpp)
 
     add_executable(${example} "${SRC};${INC}")
-    target_include_directories(${example} PUBLIC ../include)
-    target_link_libraries(${example} PRIVATE NasNas)
+    target_include_directories(${example} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+    target_link_libraries(${example} PRIVATE NasNas::Ecs NasNas::Reslib NasNas::Tilemapping NasNas::Ui)
     set_target_properties(
             ${example}
             PROPERTIES
             CXX_STANDARD 17
+            DEBUG_POSTFIX -d
             RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
             RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_BINARY_DIR}/bin
             RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR}/bin

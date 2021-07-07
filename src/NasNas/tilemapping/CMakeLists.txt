@@ -38,4 +38,4 @@ set(
 set(NasNas_Tilemapping_Src "${SRC}" PARENT_SCOPE)
 set(NasNas_Tilemapping_Inc "${INC}" PARENT_SCOPE)
 
-NasNas_add_module(tilemapping "${SRC}" "${INC}")
+NasNas_add_module(Tilemapping "${SRC}" "${INC}")
