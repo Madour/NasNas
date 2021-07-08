@@ -51,3 +51,7 @@ set_target_properties(
         LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
         EXPORT_NAME All
 )
+
+install(TARGETS NasNas EXPORT NasNasTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+NasNas_register_target(NasNas)
