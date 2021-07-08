@@ -28,20 +28,15 @@ check_compiler()
 # find SFML install location or SFML source files and dependencies
 find_SFML()
 
-# global list that contains all NasNas targets
-define_property(GLOBAL PROPERTY NASNAS_TARGETS
-        BRIEF_DOCS "Contains all available targets defined by NasNas"
-        FULL_DOCS "Contains all available targets defined by NasNas"
-)
-
 # add NasNas subdirectory
 add_subdirectory(${PROJECT_SOURCE_DIR}/src/NasNas)
 
-# Examples targets
 if (NASNAS_EXAMPLES)
+    # add examples subdirectory
     add_subdirectory(examples)
 endif()
 
+# print available targets
 get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
 list(PREPEND NasNas_Targets NasNas)
 
@@ -49,3 +44,7 @@ message(STATUS "NasNas : Targets available to build :")
 foreach(target ${NasNas_Targets})
     message("   -> ${target}")
 endforeach()
+message("   -> NasNas_examples")
+
+# export and install targets
+NasNas_export_install()
