@@ -1,4 +1,14 @@
 message(STATUS "NasNas : enabled modules :")
+set(NasNas_Modules_Names "")
+
+macro(NasNas_create_module name src inc)
+    set(NasNas_${name}_Src "${src}" PARENT_SCOPE)
+    set(NasNas_${name}_Inc "${inc}" PARENT_SCOPE)
+    set(NasNas_Modules_Names "${NasNas_Modules_Names};${name}" PARENT_SCOPE)
+    message("   -> ${name}")
+
+    NasNas_add_module_target(${name} "${src}" "${inc}")
+endmacro()
 
 add_definitions(-DNS_CORE)
 add_subdirectory(core)
@@ -25,7 +35,6 @@ endif()
 
 set(NasNas_Src "")
 set(NasNas_Inc "")
-set(NasNas_Modules_Names "Core;Reslib;Ecs;Tilemapping;Ui")
 
 foreach(module ${NasNas_Modules_Names})
     set(NasNas_Src "${NasNas_Src};${NasNas_${module}_Src}")
@@ -33,6 +42,7 @@ foreach(module ${NasNas_Modules_Names})
 endforeach()
 
 add_library(NasNas STATIC ${NasNas_Src} ${NasNas_Inc})
+add_library(NasNas::All ALIAS NasNas)
 target_include_directories(NasNas PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 target_include_directories(NasNas PUBLIC $<INSTALL_INTERFACE:include>)
 target_link_libraries(NasNas PUBLIC ${NasNas_Libs})
@@ -51,8 +61,5 @@ set_target_properties(
         LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib
         EXPORT_NAME All
 )
-add_library(NasNas::All ALIAS NasNas)
 
-install(TARGETS NasNas EXPORT NasNasTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
-NasNas_register_target(NasNas)
+NasNas_register_target(NasNas ARCHIVE)
