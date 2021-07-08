@@ -39,30 +39,32 @@ for tile based games.
 ### Features
 
 ##### Implemented :
- - [x] **Scene** and Layers system
- - [x] **Cameras** and Shaders
- - [x] Automatic **resource loader and  manager** system
- - [x] **Entities** and **components** (animated sprites, shapes, physics, inputs, collider, customized components ...) 
- - [x] **Tiled map loader** (.tmx)
- - [x] Text and **bitmap fonts**
- - [x] **Transitions**
- - [x] Multi texture **SpriteBatching**
- - [x] Global app configuration settings
- - [x] Debug text display in-game
- - [x] Convenient console **Logger**
+- [x] **Scene** and Layers system
+- [x] **Cameras** and Shaders
+- [x] Automatic **resource loader and  manager** system
+- [x] **Entities** and **components** (animated sprites, shapes, physics, inputs, collider, customized components ...) 
+- [x] **Tiled map loader** (.tmx)
+- [x] Text and **bitmap fonts**
+- [x] **Transitions**
+- [x] Multi texture **SpriteBatching**
+- [x] Global app configuration settings
+- [x] Debug text display in-game
+- [x] Convenient console **Logger**
+- [x] And more !
 
 ##### In Progress:
- - [ ] Particles system
+- [ ] Particles system
 
 ##### To do :
- - [ ] Menus and UI
+- [ ] Menus and UI
 
  
 ##### Future :
- - [ ] Splash screens
- - [ ] Levels and game events management
- - [ ] In-game command line for debugging
+- [ ] Splash screens
+- [ ] Levels and game events management
+- [ ] In-game command line for debugging
 
+You can find a very global roadmap for the version 1.0 on the [project board](https://github.com/Madour/NasNas/projects/1) 
 
 ### Build
 
@@ -72,7 +74,12 @@ mkdir build && cd build
 cmake ..
 cmake --build . -j4
 ```
-This will build the static library libNasNas.a (NasNas.lib on windows).
+
+This will build the static libraries that you can install using :
+
+```bash
+cmake --install .
+```
 
 Additional CMake options you can pass : 
 
@@ -116,11 +123,11 @@ A complete **tutorial** to learn how to use the framework can be found on the **
 **Documentation** can be found **[here](https://madour.github.io/NasNas/doc)**.
 
 You can also check **[examples](https://github.com/Madour/NasNas/tree/master/examples)** source code
-for an overview of what you can do with the framework.
+for a small overview of what you can do with the framework.
 
 ### Showcase
 
-The following games were made with NasNas :
+The following games were created with NasNas :
 
 - Warp Runner on [itch](https://madour.itch.io/warp-runner) - source code not available (yet)
 - History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020)
@@ -133,5 +140,5 @@ If you like the project, please consider starring this repository.
 
 ### Author
 
- - Modar Nasser
+- Modar Nasser
  
