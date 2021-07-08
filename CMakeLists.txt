@@ -6,7 +6,7 @@ endif()
 project(
     NasNas
     VERSION 0.1.0
-    DESCRIPTION "An intuitive and begginer friendly 2D game framework"
+    DESCRIPTION "An intuitive and beginner friendly 2D game framework"
     LANGUAGES CXX
     HOMEPAGE_URL "https://github.com/Madour/NasNas"
 )
@@ -21,7 +21,7 @@ option(NASNAS_BUILD_UI          "Build the UI module"                   ON)
 option(NASNAS_EXAMPLES          "Build the example applications"        OFF)
 option(NASNAS_FIND_SFML         "Find an existing installation of SFML" ON)
 
-include(cmake/NasNas.cmake)
+include(cmake/NasNasUtils.cmake)
 
 check_compiler()
 
