@@ -38,13 +38,14 @@ endif()
 
 # print available targets
 get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
-list(PREPEND NasNas_Targets NasNas)
 
 message(STATUS "NasNas : Targets available to build :")
 foreach(target ${NasNas_Targets})
     message("   -> ${target}")
 endforeach()
-message("   -> NasNas_examples")
+if (NASNAS_EXAMPLES)
+    message("   -> NasNas_examples")
+endif()
 
 # export and install targets
 NasNas_export_install()
