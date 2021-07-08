@@ -19,7 +19,7 @@ foreach(example ${NasNas_Examples})
     file(GLOB_RECURSE SRC ${example}/*.cpp)
     file(GLOB_RECURSE INC ${example}/*.hpp)
 
-    NasNas_add_example(${example} "${SRC}" "${INC}")
+    NasNas_add_example_target(${example} "${SRC}" "${INC}")
     add_dependencies(NasNas_examples ${example})
 endforeach()
 
