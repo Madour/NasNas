@@ -13,7 +13,4 @@ set(
         ${INC_PATH}/TypedText.hpp
 )
 
-set(NasNas_Ui_Src "${SRC}" PARENT_SCOPE)
-set(NasNas_Ui_Inc "${INC}" PARENT_SCOPE)
-
-NasNas_add_module(Ui "${SRC}" "${INC}")
+NasNas_create_module(Ui "${SRC}" "${INC}")

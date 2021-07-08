@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 14/02/2020.
 **/
 
-#include <NasNas.h>
+#include <NasNas/NasNas>
 
 class MyCustomParticleSystem : public ns::ParticleSystem {
 public:

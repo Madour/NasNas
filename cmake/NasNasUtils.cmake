@@ -44,19 +44,26 @@ macro(check_compiler)
     endif()
 endmacro()
 
-function(NasNas_register_target name)
+function(NasNas_register_target name type)
+    # append target to the global NasNas_Targets list
     get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
     list(APPEND NasNas_Targets ${name})
     set_property(GLOBAL PROPERTY NASNAS_TARGETS ${NasNas_Targets})
+
+    # export target to NasNasTargets
+    if (${type} MATCHES ARCHIVE)
+        install(TARGETS ${name} EXPORT NasNasTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    elseif(${type} MATCHES RUNTIME)
+        install(TARGETS ${name} EXPORT NasNasTargets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/NasNas)
+    endif()
 endfunction()
 
-function(NasNas_add_module name src inc)
-    message("   -> ${name}")
-
+function(NasNas_add_module_target name src inc)
     string(TOLOWER ${name} name_lowercase)
     set(target "NasNas-${name_lowercase}")
 
     add_library(${target} STATIC ${src} ${inc})
+    add_library(NasNas::${name} ALIAS ${target})
     target_include_directories(${target} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
     target_include_directories(${target} PUBLIC $<INSTALL_INTERFACE:include>)
     target_link_libraries(${target} ${NasNas_Libs})
@@ -80,14 +87,10 @@ function(NasNas_add_module name src inc)
             EXPORT_NAME ${name}
     )
 
-    add_library(NasNas::${name} ALIAS ${target})
-
-    install(TARGETS ${target} EXPORT NasNasTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
-    NasNas_register_target(${target})
+    NasNas_register_target(${target} ARCHIVE)
 endfunction()
 
-function(NasNas_add_example name src inc)
+function(NasNas_add_example_target name src inc)
     set(target ${name})
 
     add_executable(${target} "${src};${inc}")
@@ -104,14 +107,20 @@ function(NasNas_add_example name src inc)
             RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR}/bin
     )
 
-    install(TARGETS ${target} EXPORT NasNasTargets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/NasNas)
-
-    NasNas_register_target(${target})
+    NasNas_register_target(${target} RUNTIME)
 endfunction()
 
 function(NasNas_export_install)
-    # build tree export
+    # create build-tree export
     export(TARGETS ${NasNas_Targets} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
+
+    # install license and readme
+    install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    # install headers
+    install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/NasNas DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    # install exported targets
+    install(EXPORT NasNasTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas NAMESPACE NasNas::)
 
     # generate NasNasConfig.cmake
     configure_package_config_file(
@@ -120,11 +129,4 @@ function(NasNas_export_install)
     )
     # install NasNasConfig.cmake file
     install(FILES ${PROJECT_BINARY_DIR}/NasNasConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas)
-    # install license and readme
-    install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
-    install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
-    # install headers
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/NasNas DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-    # install exported targets
-    install(EXPORT NasNasTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas NAMESPACE NasNas::)
 endfunction()

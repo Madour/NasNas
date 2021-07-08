@@ -65,7 +65,4 @@ set(
         ${INC_PATH}/Window.hpp
 )
 
-set(NasNas_Core_Src "${SRC}" PARENT_SCOPE)
-set(NasNas_Core_Inc "${INC}" PARENT_SCOPE)
-
-NasNas_add_module(Core "${SRC}" "${INC}")
+NasNas_create_module(Core "${SRC}" "${INC}")
