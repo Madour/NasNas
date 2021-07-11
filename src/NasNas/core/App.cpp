@@ -5,6 +5,10 @@
 
 #include "NasNas/core/App.hpp"
 
+#ifdef NS_ECS
+#include "NasNas/ecs/World.hpp"
+#endif
+
 using namespace ns;
 
 App::App()
@@ -320,9 +324,12 @@ void App::run() {
             onEvent(event);
         }
         // update the app
-        while (current_slice >= slice_time) {
+        if (current_slice >= slice_time) {
             current_slice -= slice_time;
             if (!m_sleeping) {
+#ifdef NS_ECS
+                ecs::World::get().step();
+#endif
                 update();
                 for (auto& cam : m_cameras)
                     cam.update();

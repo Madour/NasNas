@@ -4,6 +4,7 @@ set(INC_PATH ${PROJECT_SOURCE_DIR}/include/NasNas/ecs)
 set(
         SRC
 
+        ${SRC_PATH}/World.cpp
         ${SRC_PATH}/BaseEntity.cpp
         ${SRC_PATH}/BaseComponent.cpp
         ${SRC_PATH}/ComponentGroup.cpp
@@ -12,11 +13,13 @@ set(
         ${SRC_PATH}/PhysicsComponent.cpp
         ${SRC_PATH}/InputsComponent.cpp
         ${SRC_PATH}/ColliderComponent.cpp
+        ${SRC_PATH}/RigidBodyComponent.cpp
 )
 
 set(
         INC
 
+        ${INC_PATH}/World.hpp
         ${INC_PATH}/BaseEntity.hpp
         ${INC_PATH}/BaseComponent.hpp
         ${INC_PATH}/ComponentGroup.hpp
@@ -27,6 +30,7 @@ set(
         ${INC_PATH}/PhysicsComponent.hpp
         ${INC_PATH}/InputsComponent.hpp
         ${INC_PATH}/ColliderComponent.hpp
+        ${INC_PATH}/RigidBodyComponent.hpp
 )
 
 NasNas_create_module(Ecs "${SRC}" "${INC}")

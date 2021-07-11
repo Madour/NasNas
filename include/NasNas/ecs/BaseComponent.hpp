@@ -14,7 +14,7 @@ namespace ns::ecs {
         friend ComponentGroup;
     public:
         virtual ~BaseComponent() = default;
-        virtual void update() = 0;
+        virtual void update() {}
     protected:
         static auto getNextId() -> unsigned long;
         ComponentGroup* m_owner = nullptr;

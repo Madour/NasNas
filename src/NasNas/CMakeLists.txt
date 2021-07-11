@@ -11,25 +11,30 @@ macro(NasNas_create_module name src inc)
 endmacro()
 
 add_definitions(-DNS_CORE)
-add_subdirectory(core)
-
 if(NASNAS_BUILD_RESLIB)
     add_definitions(-DNS_RESLIB)
-    add_subdirectory(reslib)
 endif()
-
 if(NASNAS_BUILD_ECS)
     add_definitions(-DNS_ECS)
-    add_subdirectory(ecs)
 endif()
-
 if(NASNAS_BUILD_TILEMAPPING)
     add_definitions(-DNS_TILEMAPPING)
-    add_subdirectory(tilemapping)
 endif()
-
 if(NASNAS_BUILD_UI)
     add_definitions(-DNS_UI)
+endif()
+
+add_subdirectory(core)
+if(NASNAS_BUILD_RESLIB)
+    add_subdirectory(reslib)
+endif()
+if(NASNAS_BUILD_ECS)
+    add_subdirectory(ecs)
+endif()
+if(NASNAS_BUILD_TILEMAPPING)
+    add_subdirectory(tilemapping)
+endif()
+if(NASNAS_BUILD_UI)
     add_subdirectory(ui)
 endif()
 

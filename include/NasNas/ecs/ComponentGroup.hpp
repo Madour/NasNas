@@ -8,7 +8,9 @@
 #include "NasNas/ecs/TransformComponent.hpp"
 #include "NasNas/ecs/PhysicsComponent.hpp"
 #include "NasNas/ecs/InputsComponent.hpp"
+#include "NasNas/ecs/RigidBodyComponent.hpp"
 #include "NasNas/ecs/ColliderComponent.hpp"
+#include "NasNas/ecs/World.hpp"
 
 namespace ns::ecs {
 
@@ -18,10 +20,10 @@ namespace ns::ecs {
         ~ComponentGroup() override;
 
         template <typename T, typename... TArgs>
-        void add(TArgs... component_args);
+        auto add(TArgs... component_args) -> T&;
 
         template <typename T>
-        void add(T* new_component);
+        auto add(T* new_component) -> T&;
 
         template <typename T>
         auto get() const -> T*;
@@ -57,17 +59,21 @@ namespace ns::ecs {
     };
 
     template<class T, typename... TArgs>
-    void ComponentGroup::add(TArgs... component_args) {
-        add(new T(std::forward<TArgs>(component_args)...));
+    auto ComponentGroup::add(TArgs... component_args) -> T& {
+        return add(new T(std::forward<TArgs>(component_args)...));
     }
 
     template<typename T>
-    void ComponentGroup::add(T* new_component) {
+    auto ComponentGroup::add(T* new_component) -> T& {
         new_component->m_owner = this;
         remove<T>();
         m_components[T::uid] = new_component;
+        if constexpr(std::is_same_v<RigidBodyComponent, T> || std::is_same_v<ColliderGroupComponent, T>) {
+            World::get().add(this);
+        }
         if constexpr (std::is_base_of_v<GraphicsComponent, T>)
             m_graphics.push_back(new_component);
+        return *new_component;
     }
 
     template <typename T>
