@@ -5,7 +5,6 @@
 struct CircleEntity : ns::BaseEntity {
     CircleEntity() : ns::BaseEntity("circle") {
         auto& body = add<ns::ecs::RigidBodyComponent>();
-        body.force += {1.f, 0.5f};
         body.mass = 2.f;
         body.restitution = 0.5f;
         body.friction = 0.5f;
@@ -13,6 +12,10 @@ struct CircleEntity : ns::BaseEntity {
         auto& shape = add<ns::ecs::CircleShape>(sf::CircleShape(25));
         shape.getDrawable().setFillColor(sf::Color::Yellow);
         shape.getDrawable().setOrigin(25, 25);
+        if (std::rand()%3 == 0) {
+            body.mass = 0.f;
+            shape.getDrawable().setFillColor(sf::Color::Magenta);
+        }
 
         get<ns::ecs::TransformComponent>()->setPosition(100, 100);
 
@@ -66,6 +69,12 @@ public:
             circle.get<ns::ecs::TransformComponent>()->setPosition(std::rand()%1280, std::rand()%720);
             scene.getDefaultLayer().add(circle);
         }
+
+        addDebugText<sf::Vector2f>("pl pos", [&]{return player.getPosition();}, {10, 10});
+        addDebugText<sf::Vector2f>("pl vel", [&]{return player.get<ns::ecs::RigidBodyComponent>()->velocity;}, {10, 40});
+
+        addDebugText<sf::Vector2f>("circle pos", [&]{return circles[0].getPosition();}, {800, 10});
+        addDebugText<sf::Vector2f>("circle vel", [&]{return circles[0].get<ns::ecs::RigidBodyComponent>()->velocity;}, {800, 40});
     }
 
     void onEvent(const sf::Event& event) override {
@@ -113,6 +122,8 @@ public:
 
 
 int main() {
+    std::srand(std::time(nullptr));
+
     Game g;
     g.run();
 

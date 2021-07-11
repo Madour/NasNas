@@ -22,7 +22,7 @@ void World::step() {
             }
             body->force = {0, 0};
             obj->get<TransformComponent>()->move(body->velocity);
-            body->velocity *= 0.988f;
+            body->velocity *= 0.998f;
         }
     }
 
@@ -42,36 +42,34 @@ void World::step() {
                 auto normal = tr2.getPosition() - tr1.getPosition();
 
                 if (ns::norm(normal) < col1.radius + col2.radius) {
-                    auto dir = normal / ns::norm(normal);
+                    auto manifold = findManifold(&col1, &tr1, &col2, &tr2);
+
                     auto rel_vel = body2.velocity - body1.velocity;
-                    auto contact_vel = ns::dot_product(rel_vel, dir);
+                    auto contact_vel = ns::dot_product(rel_vel, manifold.normal);
+                    ns_LOG(manifold.A, manifold.B, manifold.normal, manifold.depth);
 
                     if (contact_vel > 0) continue;
 
                     auto restitution = std::min(body1.restitution, body2.restitution);
-                    auto j = -(1.f + restitution) * contact_vel;
-                    j /= (1/body1.mass + 1/body2.mass);
-                    auto impulse = dir * j;
+                    auto j = - contact_vel;
+                    auto impulse = manifold.normal * j;
 
-                    body1.velocity -= impulse;
-                    body2.velocity += impulse;
-                    ns_LOG(impulse);
+                    if (body1.mass > 0)
+                        body1.velocity -= impulse;
+                    if (body2.mass > 0)
+                        body2.velocity += impulse;
 
                     rel_vel = body2.velocity - body1.velocity;
-                    auto t = rel_vel - (dir * ns::dot_product(rel_vel, dir));
+                    auto t = rel_vel - (manifold.normal * ns::dot_product(rel_vel, manifold.normal));
                     t = t / ns::norm(t);
 
-                    auto jt = - ns::dot_product(dir, t);
-                    auto depth = col1.radius + col2.radius - ns::norm(normal);
+                    auto jt = - ns::dot_product(manifold.normal, t);
 
                     impulse = t * j * std::sqrt(body1.friction * body2.friction);
 
                     // body1.velocity -= impulse;
                     // body2.velocity += impulse;
-                    ns_LOG(impulse, "-----");
 
-                    // tr1.move(-dir*depth/2.f);
-                    // tr2.move(dir*depth/2.f);
                     //body1.force += -body1.restitution*dir*depth/2.f;
                     //body2.force += body2.restitution*dir*depth/2.f;
                 }
