@@ -26,28 +26,38 @@ namespace ns::ecs {
     struct RectangleCollider;
 
     auto findManifold(CircleCollider* a, TransformComponent* ta, CircleCollider* b, TransformComponent* tb) -> Manifold ;
+    auto findManifold(RectangleCollider* a, TransformComponent* ta, RectangleCollider* b, TransformComponent* tb) -> Manifold ;
+    auto findManifold(CircleCollider* a, TransformComponent* ta, RectangleCollider* b, TransformComponent* tb) -> Manifold ;
 
     struct BodyCollider {
         virtual auto testCollision(TransformComponent* tr, BodyCollider* collider, TransformComponent* collider_tr) -> Manifold = 0;
         virtual auto testCollision(TransformComponent* tr, CircleCollider* collider, TransformComponent* collider_tr) -> Manifold = 0;
-        //virtual auto testCollision(TransformComponent* tr, RectangleCollider* collider, TransformComponent* collider_tr) -> Manifold = 0;
+        virtual auto testCollision(TransformComponent* tr, RectangleCollider* collider, TransformComponent* collider_tr) -> Manifold = 0;
     };
 
     struct CircleCollider : BodyCollider {
         float radius = 0;
         auto testCollision(TransformComponent* tr, BodyCollider* other, TransformComponent* other_tr) -> Manifold override;
         auto testCollision(TransformComponent* tr, CircleCollider* other, TransformComponent* other_tr) -> Manifold override;
-        //auto testCollision(TransformComponent* tr, RectangleCollider* other, TransformComponent* other_tr) -> Manifold override;
+        auto testCollision(TransformComponent* tr, RectangleCollider* other, TransformComponent* other_tr) -> Manifold override;
+    };
+
+    struct RectangleCollider : BodyCollider {
+        float width = 0;
+        float height = 0;
+        auto testCollision(TransformComponent* tr, BodyCollider* other, TransformComponent* other_tr) -> Manifold override;
+        auto testCollision(TransformComponent* tr, CircleCollider* other, TransformComponent* other_tr) -> Manifold override;
+        auto testCollision(TransformComponent* tr, RectangleCollider* other, TransformComponent* other_tr) -> Manifold override;
     };
 
     class ColliderGroupComponent : public Component<ColliderGroupComponent> {
-        std::vector<std::unique_ptr<CircleCollider>> m_colliders;
+        std::vector<std::unique_ptr<BodyCollider>> m_colliders;
     public:
-        explicit ColliderGroupComponent(std::unique_ptr<CircleCollider> collider) {
+        explicit ColliderGroupComponent(std::unique_ptr<BodyCollider> collider) {
             m_colliders.push_back(std::move(collider));
         }
 
-        auto collider() -> CircleCollider& { return *m_colliders[0]; }
+        auto collider() -> BodyCollider& { return *m_colliders[0]; }
     };
 }
 

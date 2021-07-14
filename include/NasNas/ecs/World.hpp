@@ -3,6 +3,7 @@
 #pragma once
 
 #include "NasNas/core/data/Logger.hpp"
+#include "NasNas/core/graphics/Shapes.hpp"
 
 namespace ns::ecs {
     class ComponentGroup;
@@ -11,6 +12,7 @@ namespace ns::ecs {
         std::vector<ns::ecs::ComponentGroup*> m_objects;
 
     public:
+        std::vector<ns::LineShape> lines;
         static auto get() -> World& {
             static World instance;
             return instance;

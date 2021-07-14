@@ -16,7 +16,7 @@ void World::step() {
         if (obj->get<RigidBodyComponent>()){
             auto* body = obj->get<RigidBodyComponent>();
 
-            // body->force.y += body->mass * 9.8f / float(ns::Config::Window::update_rate);
+            body->force.y += body->mass * 9.8f / float(ns::Config::Window::update_rate);
             if (body->mass > 0) {
                 body->velocity += body->force / body->mass;
             }
@@ -39,43 +39,34 @@ void World::step() {
                 auto& body1 = *obj1->get<RigidBodyComponent>();
                 auto& body2 = *obj2->get<RigidBodyComponent>();
 
-                auto normal = tr2.getPosition() - tr1.getPosition();
+                auto manifold = col1.testCollision(&tr1, &col2, &tr2);
+                // ns_LOG(manifold.A, manifold.B, manifold.normal, manifold.depth);
 
-                if (ns::norm(normal) < col1.radius + col2.radius) {
-                    auto manifold = findManifold(&col1, &tr1, &col2, &tr2);
-
+                if (manifold.depth > 0) {
                     auto rel_vel = body2.velocity - body1.velocity;
                     auto contact_vel = ns::dot_product(rel_vel, manifold.normal);
-                    ns_LOG(manifold.A, manifold.B, manifold.normal, manifold.depth);
-
                     if (contact_vel > 0) continue;
 
-                    auto restitution = std::min(body1.restitution, body2.restitution);
-                    auto j = - contact_vel;
-                    auto impulse = manifold.normal * j;
+                    if (body1.mass > 0 && body2.mass > 0) {
+                        auto restitution = std::min(body1.restitution, body2.restitution);
+                        auto j = - contact_vel;
+                        auto impulse = manifold.normal * j;
 
-                    if (body1.mass > 0)
                         body1.velocity -= impulse;
-                    if (body2.mass > 0)
                         body2.velocity += impulse;
+                    }
+                    else {
+                        auto vec = contact_vel * manifold.normal;
+                        if (body1.mass == 0) {
+                            body2.force -= 1.1f*manifold.depth * vec / ns::norm(vec);
+                        }
+                        if (body2.mass == 0) {
+                            body1.force += 1.1f*manifold.depth * vec / ns::norm(vec);
+                        }
+                    }
 
-                    rel_vel = body2.velocity - body1.velocity;
-                    auto t = rel_vel - (manifold.normal * ns::dot_product(rel_vel, manifold.normal));
-                    t = t / ns::norm(t);
-
-                    auto jt = - ns::dot_product(manifold.normal, t);
-
-                    impulse = t * j * std::sqrt(body1.friction * body2.friction);
-
-                    // body1.velocity -= impulse;
-                    // body2.velocity += impulse;
-
-                    //body1.force += -body1.restitution*dir*depth/2.f;
-                    //body2.force += body2.restitution*dir*depth/2.f;
                 }
             }
         }
     }
-
-
 }
