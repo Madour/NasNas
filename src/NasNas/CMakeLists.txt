@@ -1,42 +1,29 @@
 message(STATUS "NasNas : enabled modules :")
-set(NasNas_Modules_Names "")
+set(NasNas_Selected_Modules "")
 
 macro(NasNas_create_module name src inc)
     set(NasNas_${name}_Src "${src}" PARENT_SCOPE)
     set(NasNas_${name}_Inc "${inc}" PARENT_SCOPE)
-    set(NasNas_Modules_Names "${NasNas_Modules_Names};${name}" PARENT_SCOPE)
+    set(NasNas_Selected_Modules "${NasNas_Selected_Modules};${name}" PARENT_SCOPE)
     message("   -> ${name}")
 
     NasNas_add_module_target(${name} "${src}" "${inc}")
 endmacro()
 
-add_definitions(-DNS_CORE)
-add_subdirectory(core)
+foreach(module_name ${NASNAS_MODULES})
+    string(TOUPPER ${module_name} module_name_uppercase)
+    add_definitions(-DNS_${module_name_uppercase})
+endforeach()
 
-if(NASNAS_BUILD_RESLIB)
-    add_definitions(-DNS_RESLIB)
-    add_subdirectory(reslib)
-endif()
-
-if(NASNAS_BUILD_ECS)
-    add_definitions(-DNS_ECS)
-    add_subdirectory(ecs)
-endif()
-
-if(NASNAS_BUILD_TILEMAPPING)
-    add_definitions(-DNS_TILEMAPPING)
-    add_subdirectory(tilemapping)
-endif()
-
-if(NASNAS_BUILD_UI)
-    add_definitions(-DNS_UI)
-    add_subdirectory(ui)
-endif()
+foreach(module_name ${NASNAS_MODULES})
+    string(TOLOWER ${module_name} module_name_lowercase)
+    add_subdirectory(${module_name_lowercase})
+endforeach()
 
 set(NasNas_Src "")
 set(NasNas_Inc "")
 
-foreach(module ${NasNas_Modules_Names})
+foreach(module ${NasNas_Selected_Modules})
     set(NasNas_Src "${NasNas_Src};${NasNas_${module}_Src}")
     set(NasNas_Inc "${NasNas_Inc};${NasNas_${module}_Inc}")
 endforeach()

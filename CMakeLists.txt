@@ -11,12 +11,15 @@ project(
     HOMEPAGE_URL "https://github.com/Madour/NasNas"
 )
 
-## NasNas options
+# NasNas modules names
+set(NASNAS_OPTIONAL_MODULES "RESLIB;ECS;TILEMAPPING;UI")
+set(NASNAS_MODULES "CORE;${NASNAS_OPTIONAL_MODULES}")
+
 # Select optional modules
-option(NASNAS_BUILD_RESLIB      "Build the RESLIB module"               ON)
-option(NASNAS_BUILD_ECS         "Build the ECS module"                  ON)
-option(NASNAS_BUILD_TILEMAPPING "Build the TILEMAPPING module"          ON)
-option(NASNAS_BUILD_UI          "Build the UI module"                   ON)
+foreach(module ${NASNAS_OPTIONAL_MODULES})
+    option(NASNAS_BUILD_${module} "Build the ${module} module" ON)
+endforeach()
+
 # Select optional targets
 option(NASNAS_EXAMPLES          "Build the example applications"        OFF)
 option(NASNAS_FIND_SFML         "Find an existing installation of SFML" ON)
