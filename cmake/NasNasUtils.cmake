@@ -17,10 +17,18 @@ macro(find_SFML)
     if (SFML_FOUND)
         message(STATUS "Found SFML 2 in ${SFML_DIR}")
     else ()
+        message(STATUS "Downloading SFML 2.5.1 ... (this can take some time)")
+
         set(BUILD_SHARED_LIBS FALSE)
         set(SFML_USE_STATIC_STD_LIBS FALSE)
         mark_as_advanced(BUILD_SHARED_LIBS)
-        add_subdirectory(SFML)
+
+        include(FetchContent)
+        FetchContent_Declare(SFML
+                GIT_REPOSITORY "https://github.com/SFML/SFML"
+                GIT_TAG "089f0fd8b4fb025bfb2f118c51333c77855e9413"
+        )
+        FetchContent_MakeAvailable(SFML)
 
         if(MSVC AND SFML_USE_STATIC_STD_LIBS)
             foreach(flag
@@ -31,7 +39,7 @@ macro(find_SFML)
                 endif()
             endforeach()
         endif()
-        message(STATUS "Found SFML 2.5.1 in ${CMAKE_CURRENT_SOURCE_DIR}/SFML")
+        message(STATUS "Installed SFML 2.5.1 in ${CMAKE_CURRENT_SOURCE_DIR}/SFML")
     endif()
     set(NasNas_Libs "${NasNas_Libs};sfml-graphics;sfml-audio")
 endmacro()
