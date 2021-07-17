@@ -47,13 +47,14 @@ endfunction()
 
 # Looks for an installed SFML package. If not found, downloads it as a dependency
 macro(find_SFML)
-    if(NASNAS_FIND_SFML)
+    if(NOT NASNAS_BUILD_SFML)
         find_package(SFML 2 COMPONENTS graphics audio QUIET)
     endif()
 
     if (SFML_FOUND)
         log_status("Found SFML 2 in ${SFML_DIR}")
     else ()
+        set(NASNAS_BUILD_SFML ON)
         set(BUILD_SHARED_LIBS FALSE)
         set(SFML_USE_STATIC_STD_LIBS FALSE)
         mark_as_advanced(BUILD_SHARED_LIBS)

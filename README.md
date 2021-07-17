@@ -97,7 +97,7 @@ Additional CMake options you can pass :
 
 
 - `-DNASNAS_EXAMPLES=ON` to create the example applications targets
-- `-DNASNAS_FIND_SFML=OFF` to download and build SFML inside the project (enabled automatically if SFML package is not found)
+- `-DNASNAS_BUILD_SFML=ON` to download and build SFML inside the project (enabled automatically if SFML package is not found)
 
 
 ### Get Started
