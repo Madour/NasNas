@@ -233,6 +233,8 @@ namespace ns {
          */
         void awake();
 
+        auto getDt() const -> float;
+
         /**
          * \brief Handles SFML events
          *

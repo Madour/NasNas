@@ -145,6 +145,10 @@ void App::awake() {
     m_sleeping = false;
 }
 
+auto App::getDt() const -> float {
+    return m_dt;
+}
+
 void App::toggleFullscreen() {
     auto clear_color = m_window.getClearColor();
     if(!m_fullscreen) {
@@ -304,6 +308,8 @@ void App::run() {
     double current_slice = 0.;
     double slice_time = 1.0/m_ups;
     sf::Clock timer;
+    sf::Clock update_clock;
+
     while (m_window.isOpen()) {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
@@ -320,9 +326,13 @@ void App::run() {
             onEvent(event);
         }
         // update the app
+        update_clock.restart();
         while (current_slice >= slice_time) {
             current_slice -= slice_time;
+            if (update_clock.getElapsedTime().asSeconds() > slice_time)
+                break;
             if (!m_sleeping) {
+                m_dt = slice_time;
                 update();
                 for (auto& cam : m_cameras)
                     cam.update();
