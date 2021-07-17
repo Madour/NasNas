@@ -21,8 +21,8 @@ foreach(module ${NASNAS_OPTIONAL_MODULES})
 endforeach()
 
 # Select optional targets
-option(NASNAS_EXAMPLES          "Build the example applications"        OFF)
-option(NASNAS_FIND_SFML         "Find an existing installation of SFML" ON)
+option(NASNAS_EXAMPLES     "Build the example applications"          OFF)
+option(NASNAS_BUILD_SFML   "Download and build SFML as a subproject" OFF)
 
 include(cmake/NasNasUtils.cmake)
 
