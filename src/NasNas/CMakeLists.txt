@@ -1,11 +1,11 @@
-message(STATUS "NasNas : enabled modules :")
+log_status("Enabled modules :")
 set(NasNas_Selected_Modules "")
 
 macro(NasNas_create_module name src inc)
     set(NasNas_${name}_Src "${src}" PARENT_SCOPE)
     set(NasNas_${name}_Inc "${inc}" PARENT_SCOPE)
     set(NasNas_Selected_Modules "${NasNas_Selected_Modules};${name}" PARENT_SCOPE)
-    message("   -> ${name}")
+    log_list_item("${name}")
 
     NasNas_add_module_target(${name} "${src}" "${inc}")
 endmacro()

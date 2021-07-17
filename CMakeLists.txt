@@ -28,7 +28,7 @@ include(cmake/NasNasUtils.cmake)
 
 check_compiler()
 
-# find SFML install location or SFML source files and dependencies
+# find SFML or download it if not found
 find_SFML()
 
 # add NasNas subdirectory
@@ -42,13 +42,13 @@ endif()
 # print available targets
 get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
 
-message(STATUS "NasNas : Targets available to build :")
+log_status("Targets available to build :")
 foreach(target ${NasNas_Targets})
-    message("   -> ${target}")
+    log_list_item("${target}")
 endforeach()
 if (NASNAS_EXAMPLES)
-    message("   -> NasNas_examples")
+    log_list_item("NasNas_examples")
 endif()
 
 # export and install targets
-NasNas_export_install()
+NasNas_export_install("${NasNas_Targets}")

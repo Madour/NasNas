@@ -18,12 +18,12 @@
 
 **NasNas** is a lightweight **cross platform** modular **2D game framework**.
 
-It is entirely written in **modern C++17**, and doesn't have any dependency other than SFML2.
+It is entirely written in **modern C++17**, and uses SFML2 for rendering.
 
 It provides a **clean** and **easy to use** API.
 
 The framework is separated in multiple independent modules :
-- ***Core*** is the only non optional module. It is needed to create a NasNas application. 
+- ***Core*** is the only non-optional module. It is needed to create a NasNas application. 
 It contains core classes and data needed by the framework.
 - ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
 an elegant way.
@@ -66,16 +66,23 @@ for tile based games.
 
 You can find a very global roadmap for the version 1.0 on the [project board](https://github.com/Madour/NasNas/projects/1) 
 
+
 ### Build
 
-Clone the repository (with `--recurse` if you don't have SFML already installed on your computer). Then, you can build :
+Clone the repository. 
+```bash
+git clone https://github.com/Madour/NasNas
+cd NasNas
+```
+
+Then, you can build the static libraries with :
 ```bash
 mkdir build && cd build
 cmake ..
 cmake --build . -j4
 ```
 
-This will build the static libraries that you can install using :
+Finally, you can install those libraries using :
 
 ```bash
 cmake --install .
@@ -83,13 +90,14 @@ cmake --install .
 
 Additional CMake options you can pass : 
 
-- `-DNASNAS_FIND_SFML=OFF` to build SFML as a submodule inside the project (this will be OFF automatically if SFML is not found)
-- `-DNASNAS_EXAMPLES=ON` to create the example applications targets
 - `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
 - `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
 - `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
 - `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
 
+
+- `-DNASNAS_EXAMPLES=ON` to create the example applications targets
+- `-DNASNAS_FIND_SFML=OFF` to download and build SFML inside the project (enabled automatically if SFML package is not found)
 
 
 ### Get Started
@@ -118,12 +126,13 @@ int main() {
 }
 ```
 
-A complete **tutorial** to learn how to use the framework can be found on the **[wiki](https://github.com/Madour/NasNas/wiki)**. 
+An introduction **tutorial** to learn how to use the framework can be found on the **[wiki](https://github.com/Madour/NasNas/wiki)**. 
 
 **Documentation** can be found **[here](https://madour.github.io/NasNas/doc)**.
 
 You can also check **[examples](https://github.com/Madour/NasNas/tree/master/examples)** source code
 for a small overview of what you can do with the framework.
+
 
 ### Showcase
 
