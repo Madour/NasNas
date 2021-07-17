@@ -29,7 +29,7 @@ function(download_dependency name git_url git_tag)
 
     if (EXISTS "${PROJECT_SOURCE_DIR}/_deps/${name}/CMakeLists.txt")
         add_subdirectory(${Deps_Source_Dir} ${Deps_Build_Dir})
-        log_status("Found SFML in ${PROJECT_SOURCE_DIR}/_deps/${name}")
+        log_status("Found ${name} in ${PROJECT_SOURCE_DIR}/_deps/${name}")
     else()
         log_status("Downloading ${name} in ${Deps_Source_Dir}... (this can take some time)")
         FetchContent_Declare(
