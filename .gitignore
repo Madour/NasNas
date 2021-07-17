@@ -1,0 +1,11 @@
+.vs
+.vscode
+.idea
+.git
+_deps
+build*
+build-*
+wiki
+
+*.sublime-project
+*.sublime-workspace

@@ -1,5 +1,7 @@
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
+include(FetchContent)
+
 set(NasNas_Libs "")
 
 # global list that contains all NasNas targets
@@ -9,26 +11,54 @@ define_property(GLOBAL
     FULL_DOCS "Contains all available targets defined by NasNas"
 )
 
+# Custom prints
+macro(log_status string)
+    message(STATUS "[NasNas] ${string}")
+endmacro()
+
+macro(log_list_item string)
+    message(STATUS "          -> ${string}")
+endmacro()
+
+# Downloads an external github repository as build dependency
+function(download_dependency name git_url git_tag)
+    string(TOLOWER ${name} name_lowercase)
+    set(Deps_Source_Dir ${PROJECT_SOURCE_DIR}/_deps/${name})
+    set(Deps_Build_Dir ${PROJECT_BINARY_DIR}/_deps/${name})
+    set(Deps_SubBuild_Dir ${PROJECT_BINARY_DIR}/_deps/subbuilds/${name})
+
+    if (EXISTS "${PROJECT_SOURCE_DIR}/_deps/${name}/CMakeLists.txt")
+        add_subdirectory(${Deps_Source_Dir} ${Deps_Build_Dir})
+        log_status("Found SFML in ${PROJECT_SOURCE_DIR}/_deps/${name}")
+    else()
+        log_status("Downloading ${name} in ${Deps_Source_Dir}... (this can take some time)")
+        FetchContent_Declare(
+                ${name}
+                GIT_REPOSITORY ${git_url}
+                GIT_TAG ${git_tag}
+                SOURCE_DIR ${Deps_Source_Dir}
+                BINARY_DIR ${Deps_Build_Dir}
+                SUBBUILD_DIR ${Deps_SubBuild_Dir}
+        )
+        FetchContent_MakeAvailable(${name})
+        log_status("${name} downloaded in ${${name}_SOURCE_DIR}")
+    endif()
+endfunction()
+
+# Looks for an installed SFML package. If not found, downloads it as a dependency
 macro(find_SFML)
     if(NASNAS_FIND_SFML)
         find_package(SFML 2 COMPONENTS graphics audio QUIET)
     endif()
 
     if (SFML_FOUND)
-        message(STATUS "Found SFML 2 in ${SFML_DIR}")
+        log_status("Found SFML 2 in ${SFML_DIR}")
     else ()
-        message(STATUS "Downloading SFML 2.5.1 ... (this can take some time)")
-
         set(BUILD_SHARED_LIBS FALSE)
         set(SFML_USE_STATIC_STD_LIBS FALSE)
         mark_as_advanced(BUILD_SHARED_LIBS)
 
-        include(FetchContent)
-        FetchContent_Declare(SFML
-                GIT_REPOSITORY "https://github.com/SFML/SFML"
-                GIT_TAG "089f0fd8b4fb025bfb2f118c51333c77855e9413"
-        )
-        FetchContent_MakeAvailable(SFML)
+        download_dependency(SFML "https://github.com/SFML/SFML" "089f0fd8b4fb025bfb2f118c51333c77855e9413")
 
         if(MSVC AND SFML_USE_STATIC_STD_LIBS)
             foreach(flag
@@ -39,11 +69,11 @@ macro(find_SFML)
                 endif()
             endforeach()
         endif()
-        message(STATUS "Installed SFML 2.5.1 in ${CMAKE_CURRENT_SOURCE_DIR}/SFML")
     endif()
     set(NasNas_Libs "${NasNas_Libs};sfml-graphics;sfml-audio")
 endmacro()
 
+# Checks if compiler is Clang or Gcc and link needed libraries
 macro(check_compiler)
     if(NOT WIN32)
         if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -52,6 +82,7 @@ macro(check_compiler)
     endif()
 endmacro()
 
+# Adds a target to the global NASNAS_TARGETS list and exports it
 function(NasNas_register_target name type)
     # append target to the global NasNas_Targets list
     get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
@@ -66,6 +97,7 @@ function(NasNas_register_target name type)
     endif()
 endfunction()
 
+# Creates STATIC library target for a NasNas module
 function(NasNas_add_module_target name src inc)
     string(TOLOWER ${name} name_lowercase)
     set(target "NasNas-${name_lowercase}")
@@ -98,6 +130,7 @@ function(NasNas_add_module_target name src inc)
     NasNas_register_target(${target} ARCHIVE)
 endfunction()
 
+# Creates executable for a NasNas example
 function(NasNas_add_example_target name src inc)
     set(target ${name})
 
@@ -118,9 +151,10 @@ function(NasNas_add_example_target name src inc)
     NasNas_register_target(${target} RUNTIME)
 endfunction()
 
-function(NasNas_export_install)
+# Creates export and install rules for all NasNas targets
+function(NasNas_export_install targets)
     # create build-tree export
-    export(TARGETS ${NasNas_Targets} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
+    export(TARGETS ${targets} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
 
     # install license and readme
     install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
