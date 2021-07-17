@@ -12,7 +12,7 @@ project(
 )
 
 # NasNas modules names
-set(NASNAS_OPTIONAL_MODULES "RESLIB;ECS;TILEMAPPING;UI")
+set(NASNAS_OPTIONAL_MODULES "RESLIB;ECS;TILEMAPPING;TWEEN;UI")
 set(NASNAS_MODULES "CORE;${NASNAS_OPTIONAL_MODULES}")
 
 # Select optional modules
@@ -51,4 +51,4 @@ if (NASNAS_EXAMPLES)
 endif()
 
 # export and install targets
-NasNas_export_install("${NasNas_Targets}")
+#NasNas_export_install("${NasNas_Targets}")

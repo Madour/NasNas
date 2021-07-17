@@ -8,4 +8,5 @@
 #include <NasNas/Reslib.hpp>
 #include <NasNas/Ecs.hpp>
 #include <NasNas/Tilemapping.hpp>
+#include <NasNas/Tween.hpp>
 #include <NasNas/Ui.hpp>
