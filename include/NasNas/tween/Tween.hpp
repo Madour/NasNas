@@ -14,7 +14,7 @@ namespace ns::tween {
 
     class Tween {
         std::function<void(float)> m_onstep;
-        EasingFunction m_function;
+        EasingFunction m_function = easing::linear;
         float m_duration = 1.f;
         float m_from = 0.f;
         float m_to = 0.f;
@@ -26,10 +26,10 @@ namespace ns::tween {
     public:
         explicit Tween() = default;
         auto apply(std::function<void(float)> onStep) -> Tween& { m_onstep = std::move(onStep); return *this; };
-        auto from(float f) -> Tween& { m_from = f; return *this; };
+        auto from(float f) -> Tween&;
         auto to(float t) -> Tween& { m_to = t; return *this; };
         auto during(float duration) -> Tween& { m_duration = duration; return *this; };
-        auto with(std::function<float(float)> fn) -> Tween& { m_function = std::move(fn); return *this; };
+        auto with(const std::function<float(float)>& fn) -> Tween& { m_function = fn; return *this; };
         void restart() { m_time = 0; m_first_end = true; m_clock.restart();}
         auto hasEnded() const -> bool { return m_time > m_duration; };
         auto step() -> float{

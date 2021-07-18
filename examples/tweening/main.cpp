@@ -24,20 +24,20 @@ public:
 
         m_functions = {
             ns::easing::linear,
-            //ns::easing::sinusoidalIntOut,
-            //ns::easing::quadraticInOut,
+            ns::easing::sinusoidalIntOut,
+            ns::easing::quadraticInOut,
             ns::easing::custom::backIn<30>,
-            ns::easing::custom::backIn2<3>,
+            ns::easing::custom::backIn2<30>,
             ns::easing::backInOut,
-            ns::easing::custom::backInOut2<3>,
+            ns::easing::custom::backInOut2<30>,
             ns::easing::bounceOut,
             ns::easing::elasticOut,
         };
         m_balls.resize(m_functions.size());
         m_tweens.resize(m_functions.size());
 
-        auto ball_radius = 25.f;
-        auto d = 2.f;
+        auto ball_radius = 18.f;
+        auto d = 4.f;
         auto s = 300.f;
         auto e = 1000.f;
 
@@ -45,7 +45,7 @@ public:
             m_balls[i].setRadius(ball_radius);
             m_balls[i].setFillColor(sf::Color::Red);
             m_balls[i].setOrigin(ball_radius, ball_radius);
-            m_balls[i].setPosition(50, float(80 + 100*i));
+            m_balls[i].setPosition(50, float(50 + 75*i));
             scene.getDefaultLayer().add(m_balls[i]);
 
             m_tweens[i].from(s).to(e).during(d).with(m_functions[i]).apply([this, i](float v){
