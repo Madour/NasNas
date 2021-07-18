@@ -138,7 +138,7 @@ function(NasNas_add_example_target name src inc)
     add_executable(${target} "${src};${inc}")
     target_include_directories(${target} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
     target_include_directories(${target} PUBLIC $<INSTALL_INTERFACE:include>)
-    target_link_libraries(${target} PRIVATE NasNas::Ecs NasNas::Reslib NasNas::Tilemapping NasNas::Ui)
+    target_link_libraries(${target} PRIVATE NasNas::Ecs NasNas::Reslib NasNas::Tilemapping NasNas::Tween NasNas::Ui)
     set_target_properties(
             ${target}
             PROPERTIES
