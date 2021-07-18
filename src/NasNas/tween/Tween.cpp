@@ -4,8 +4,3 @@
 
 using namespace ns;
 using namespace ns::tween;
-
-auto Tween::from(float f) -> Tween& {
-    m_from = f;
-    return *this;
-}
