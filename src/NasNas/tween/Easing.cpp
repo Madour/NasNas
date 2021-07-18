@@ -4,6 +4,7 @@
 
 #include "NasNas/tween/Easing.hpp"
 
+
 auto ns::easing::linear(float t) -> float {
     return t;
 };
