@@ -24,14 +24,14 @@ public:
 
         m_functions = {
             ns::easing::linear,
-            ns::easing::sinusoidalIntOut,
+            /*ns::easing::sinusoidalIntOut,
             ns::easing::quadraticInOut,
             ns::easing::custom::backIn<30>,
             ns::easing::custom::backIn2<30>,
             ns::easing::backInOut,
             ns::easing::custom::backInOut2<30>,
             ns::easing::bounceOut,
-            ns::easing::elasticOut,
+            ns::easing::elasticOut,*/
         };
         m_balls.resize(m_functions.size());
         m_tweens.resize(m_functions.size());
@@ -48,10 +48,19 @@ public:
             m_balls[i].setPosition(50, float(50 + 75*i));
             scene.getDefaultLayer().add(m_balls[i]);
 
-            m_tweens[i].from(s).to(e).during(d).with(m_functions[i]).apply([this, i](float v){
+            m_tweens[i].loop().delay(1.1f).from(s).to(e).during(0.1f).with(ns::easing::elasticOut).apply([this, i](float v){
+                auto& ball = this->m_balls[i];
+                ball.setPosition(v, v/2);
+            }).delay(1.2f).to(s).during(1.f).apply([this, i](float v){
                 auto& ball = this->m_balls[i];
                 ball.setPosition(v, ball.getPosition().y);
-            });
+            }).delay(1.3f);
+
+            auto& tween = m_tweens[i];
+            ns_LOG(tween.m_starts.size(), tween.m_starts[0], tween.m_starts[1]);
+            ns_LOG(tween.m_ends.size(), tween.m_ends[0], tween.m_ends[1]);
+            ns_LOG(tween.m_durations.size(), tween.m_durations[0], tween.m_durations[1]);
+            ns_LOG(tween.m_delays.size(), tween.m_delays[0], tween.m_delays[1], tween.m_delays[2]);
         }
     }
 
