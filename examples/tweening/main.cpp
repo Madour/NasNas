@@ -24,14 +24,14 @@ public:
 
         m_functions = {
             ns::easing::linear,
-            ns::easing::sinusoidalIntOut,
-            ns::easing::quadraticInOut,
-            ns::easing::custom::backIn<30>,
-            ns::easing::custom::backIn2<30>,
-            ns::easing::backInOut,
-            ns::easing::custom::backInOut2<30>,
-            ns::easing::bounceOut,
-            ns::easing::custom::elasticOut<25>,
+            ns::easing::custom::polynomialInOut<2>,
+            ns::easing::custom::polynomialInOut<3>,
+            ns::easing::custom::polynomialInOut<4>,
+            ns::easing::custom::polynomialInOut<5>,
+            ns::easing::custom::polynomialInOut<6>,
+            ns::easing::custom::polynomialInOut<7>,
+            ns::easing::custom::polynomialInOut<8>,
+            ns::easing::custom::polynomialInOut<9>,
         };
         std::vector<std::string> functions_names = {
             "Linear",
@@ -65,8 +65,8 @@ public:
             };
 
             m_tweens[i].loop()
-                .apply(move_ball_fn)
-                .from_to(280, 1000).during(2.f).with(m_functions[i]).delay(2.f)
+                .apply(move_ball_fn).with(m_functions[i])
+                .from_to(280, 1000).during(2.f).delay(2.f)
                 .to(280).during(2.f).delay(2.f);
         }
     }
