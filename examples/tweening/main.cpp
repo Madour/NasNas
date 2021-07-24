@@ -24,43 +24,50 @@ public:
 
         m_functions = {
             ns::easing::linear,
-            /*ns::easing::sinusoidalIntOut,
+            ns::easing::sinusoidalIntOut,
             ns::easing::quadraticInOut,
             ns::easing::custom::backIn<30>,
             ns::easing::custom::backIn2<30>,
             ns::easing::backInOut,
             ns::easing::custom::backInOut2<30>,
             ns::easing::bounceOut,
-            ns::easing::elasticOut,*/
+            ns::easing::elasticOut,
+        };
+        std::vector<std::string> functions_names = {
+            "Linear",
+            "SinusoidalInOut",
+            "QuadraticInOut",
+            "BackIn<30>",
+            "BackIn2<30>",
+            "BackInOut",
+            "BackInOut2<30>",
+            "BounceOut",
+            "ElasticOut",
         };
         m_balls.resize(m_functions.size());
         m_tweens.resize(m_functions.size());
 
         auto ball_radius = 18.f;
-        auto d = 4.f;
-        auto s = 300.f;
-        auto e = 1000.f;
 
         for (unsigned i = 0; i < m_functions.size(); ++i) {
+            auto* name = new sf::Text(functions_names[i], ns::Arial::getFont(), 20);
+            name->setPosition(640-name->getGlobalBounds().width/2, float(65 + 75*i));
+            scene.getDefaultLayer().add(name);
+
             m_balls[i].setRadius(ball_radius);
             m_balls[i].setFillColor(sf::Color::Red);
             m_balls[i].setOrigin(ball_radius, ball_radius);
-            m_balls[i].setPosition(50, float(50 + 75*i));
+            m_balls[i].setPosition(50, float(75 + 75*i));
             scene.getDefaultLayer().add(m_balls[i]);
 
-            m_tweens[i].loop().delay(1.1f).from(s).to(e).during(0.1f).with(ns::easing::elasticOut).apply([this, i](float v){
-                auto& ball = this->m_balls[i];
-                ball.setPosition(v, v/2);
-            }).delay(1.2f).to(s).during(1.f).apply([this, i](float v){
-                auto& ball = this->m_balls[i];
-                ball.setPosition(v, ball.getPosition().y);
-            }).delay(1.3f);
+            auto move_ball_fn = [this, i] (float v) {
+                m_balls[i].setPosition(v, m_balls[i].getPosition().y);
+            };
 
-            auto& tween = m_tweens[i];
-            ns_LOG(tween.m_starts.size(), tween.m_starts[0], tween.m_starts[1]);
-            ns_LOG(tween.m_ends.size(), tween.m_ends[0], tween.m_ends[1]);
-            ns_LOG(tween.m_durations.size(), tween.m_durations[0], tween.m_durations[1]);
-            ns_LOG(tween.m_delays.size(), tween.m_delays[0], tween.m_delays[1], tween.m_delays[2]);
+            m_tweens[i].loop()
+                .apply(move_ball_fn)
+                .from_to(280, 1000).during(2.f).with(m_functions[i]).delay(2.f)
+                .to(280).during(2.f).delay(2.f);
         }
     }
 
