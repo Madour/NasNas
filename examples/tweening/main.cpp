@@ -31,7 +31,7 @@ public:
             ns::easing::backInOut,
             ns::easing::custom::backInOut2<30>,
             ns::easing::bounceOut,
-            ns::easing::elasticOut,
+            ns::easing::custom::elasticOut<25>,
         };
         std::vector<std::string> functions_names = {
             "Linear",
