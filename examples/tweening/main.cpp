@@ -51,7 +51,7 @@ public:
 
         for (unsigned i = 0; i < m_functions.size(); ++i) {
             auto* name = new sf::Text(functions_names[i], ns::Arial::getFont(), 20);
-            name->setPosition(640-name->getGlobalBounds().width/2, float(65 + 75*i));
+            name->setPosition(640-name->getGlobalBounds().width/2, float(60 + 75*i));
             scene.getDefaultLayer().add(name);
 
             m_balls[i].setRadius(ball_radius);
@@ -73,7 +73,7 @@ public:
 
     void onEvent(const sf::Event& event) override {
         ns::App::onEvent(event);
-        if (event.type == sf::Event::KeyReleased)
+        if (event.type == sf::Event::KeyPressed)
             if (event.key.code == sf::Keyboard::R)
                 for (auto& tween : m_tweens)
                     tween.restart();
