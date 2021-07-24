@@ -19,6 +19,10 @@ auto ns::easing::sinusoidalIntOut(float t) -> float {
     return -std::cos(ns::PI * t) / 2.f + 0.5f;
 }
 
+auto ns::easing::bounceIn(float t) -> float {
+    return 1.f - bounceOut(1 - t);
+}
+
 auto ns::easing::bounceOut(float t) -> float {
     if (t < 1 / 2.75f) {
         return 7.5625f * t * t;
@@ -34,11 +38,12 @@ auto ns::easing::bounceOut(float t) -> float {
     }
 }
 
+auto ns::easing::elasticIn(float t) -> float {
+    return 1.f - elasticOut(1 - t);
+}
+
 auto ns::easing::elasticOut(float t) -> float {
-    const float c4 = (2 * ns::PI) / 4;
-    if (t == 0 || t == 1)
-        return t;
-    return std::pow(2.f, -10 * t) * std::sin((10 * t - 0.75f) * c4) + 1;
+    return custom::elasticOut<100>(t);
 }
 
 auto ns::easing::backIn(float t) -> float {
