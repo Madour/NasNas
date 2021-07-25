@@ -33,6 +33,10 @@ auto ns::ecs::findManifold(CircleCollider* a, TransformComponent* ta, RectangleC
     auto normal = nearest - ta->getPosition();
     auto u_normal = normal / ns::norm(normal);
     auto depth = a->radius - ns::norm(normal);
+    if (ns::norm(normal) == 0) {
+        u_normal = {0, 1};
+        depth = 0;
+    }
     auto A = ta->getPosition() + u_normal * a->radius;
     auto B = nearest;
     return { A, B, -u_normal, depth };

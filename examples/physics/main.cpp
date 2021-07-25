@@ -92,6 +92,8 @@ public:
 
         camera.lookAt(scene);
 
+        player.transform()->setPosition(100, 100);
+
         circles.reserve(200);
         circles.resize(10);
         scene.getDefaultLayer().add(player);

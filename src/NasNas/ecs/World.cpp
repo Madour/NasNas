@@ -18,7 +18,7 @@ void World::step() {
 
             body->force.y += body->mass * 9.8f / float(ns::Config::Window::update_rate);
             if (body->mass > 0) {
-                body->velocity += body->force / body->mass;
+                body->velocity += body->force;
             }
             body->force = {0, 0};
             obj->get<TransformComponent>()->move(body->velocity);
@@ -50,7 +50,7 @@ void World::step() {
                     if (body1.mass > 0 && body2.mass > 0) {
                         auto restitution = std::min(body1.restitution, body2.restitution);
                         auto j = - contact_vel;
-                        auto impulse = manifold.normal * j;
+                        auto impulse = 1.005f * manifold.normal * j;
 
                         body1.velocity -= impulse;
                         body2.velocity += impulse;
