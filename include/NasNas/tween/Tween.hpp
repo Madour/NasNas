@@ -7,12 +7,13 @@
 #include <SFML/Graphics.hpp>
 #include "NasNas/tween/Easing.hpp"
 
-namespace ns::tween {
-    using EasingFunction = std::function<float(float)>;
-    using CallbackFunction = std::function<void(float)>;
+namespace ns {
 
     class Tween {
     public:
+        using EasingFunction = std::function<float(float)>;
+        using CallbackFunction = std::function<void(float)>;
+
         explicit Tween() = default;
 
         void clear();
