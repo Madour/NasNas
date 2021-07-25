@@ -9,10 +9,24 @@ auto ns::easing::linear(float t) -> float {
     return t;
 };
 
+auto ns::easing::quadraticIn(float t) -> float {
+    return custom::polynomialIn<2>(t);
+};
+auto ns::easing::quadraticOut(float t) -> float {
+    return custom::polynomialOut<2>(t);
+};
 auto ns::easing::quadraticInOut(float t) -> float {
-    if (t < 0.5f)
-        return 2 * t * t;
-    return 1 - (-2*t + 2) * (-2*t + 2) / 2.f;
+    return custom::polynomialInOut<2>(t);
+};
+
+auto ns::easing::cubicIn(float t) -> float {
+    return custom::polynomialIn<3>(t);
+};
+auto ns::easing::cubicOut(float t) -> float {
+    return custom::polynomialOut<3>(t);
+};
+auto ns::easing::cubicInOut(float t) -> float {
+    return custom::polynomialInOut<3>(t);
 };
 
 auto ns::easing::sinusoidalIn(float t) -> float {
@@ -40,24 +54,41 @@ auto ns::easing::exponentialInOut(float t) -> float {
     return 1 - std::pow(2.f,-20 * t + 10) / 2.f;
 }
 
+auto ns::easing::circularIn(float t) -> float {
+    return 1 - std::sqrt(1 - std::pow(t, 2));
+}
+auto ns::easing::circularOut(float t) -> float {
+    return 1 - circularIn(1 - t);
+}
+auto ns::easing::circularInOut(float t) -> float {
+    if (t < 0.5f)
+        return 0.5f - std::sqrt(1 - std::pow(2 * t, 2)) / 2.f;
+    return 0.5f + std::sqrt(1 - std::pow(-2 * t + 2, 2)) / 2.f;
+}
+
 auto ns::easing::bounceIn(float t) -> float {
     return 1.f - bounceOut(1 - t);
 }
-
 auto ns::easing::bounceOut(float t) -> float {
     float c = 9.5625f;
     if (t < 1 / 2.75f) {
-        return (c-1.f) * t * t;
+        return (c - 2.f) * t * t;
     } else if (t < 2.0f / 2.75f) {
         t -= 1.5f / 2.75f;
-        return c * t * t + .75f;
+        return (c - 1.f) * t * t + .75f;
     } else if (t < 2.5f / 2.75f) {
         t -= 2.25f / 2.75f;
         return c * t * t + .9375f;
     } else {
         t -= 2.625f / 2.75f;
-        return (c+1.f) * t * t + .984375f;
+        return c * t * t + .984375f;
     }
+}
+auto ns::easing::bounceInOut(float t) -> float {
+    if (t < 0.5f)
+        return 0.5f - bounceOut(1 - 2*t) / 2.f;
+    else
+        return 0.5f + bounceOut(2*t - 1) / 2.f;
 }
 
 auto ns::easing::backIn(float t) -> float {
@@ -81,11 +112,11 @@ auto ns::easing::backInOut2(float t) -> float {
 }
 
 auto ns::easing::elasticIn(float t) -> float {
-    return custom::elasticIn<20>(t);
+    return custom::elasticIn<25>(t);
 }
 auto ns::easing::elasticOut(float t) -> float {
-    return custom::elasticOut<20>(t);
+    return custom::elasticOut<25>(t);
 }
 auto ns::easing::elasticInOut(float t) -> float {
-    return custom::elasticInOut<20>(t);
+    return custom::elasticInOut<25>(t);
 }

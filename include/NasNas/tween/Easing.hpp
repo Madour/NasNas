@@ -7,7 +7,13 @@ namespace ns {
     struct easing {
         static auto linear(float t) -> float;
 
+        static auto quadraticIn(float t) -> float;
+        static auto quadraticOut(float t) -> float;
         static auto quadraticInOut(float t) -> float;
+
+        static auto cubicIn(float t) -> float;
+        static auto cubicOut(float t) -> float;
+        static auto cubicInOut(float t) -> float;
 
         static auto sinusoidalIn(float t) -> float;
         static auto sinusoidalOut(float t) -> float;
@@ -17,8 +23,13 @@ namespace ns {
         static auto exponentialOut(float t) -> float;
         static auto exponentialInOut(float t) -> float;
 
+        static auto circularIn(float t) -> float;
+        static auto circularOut(float t) -> float;
+        static auto circularInOut(float t) -> float;
+
         static auto bounceIn(float t) -> float;
         static auto bounceOut(float t) -> float;
+        static auto bounceInOut(float t) -> float;
 
         static auto backIn(float t) -> float;
         static auto backOut(float t) -> float;
