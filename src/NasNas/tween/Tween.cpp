@@ -3,7 +3,6 @@
 #include "NasNas/tween/Tween.hpp"
 
 using namespace ns;
-using namespace ns::tween;
 
 void Tween::clear() {
     m_starts.clear();

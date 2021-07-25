@@ -8,8 +8,7 @@
 #include <NasNas/Tween.hpp>
 
 class Game : public ns::App {
-    std::vector<ns::tween::EasingFunction> m_functions;
-    std::vector<ns::tween::Tween> m_tweens;
+    std::vector<ns::Tween> m_tweens;
     std::vector<sf::CircleShape> m_balls;
 
 public:
@@ -22,7 +21,7 @@ public:
         text->setPosition(640-text->getGlobalBounds().width/2, 10);
         scene.getDefaultLayer().add(text);
 
-        m_functions = {
+        std::vector<ns::Tween::EasingFunction> easing_functions = {
             ns::easing::linear,
             ns::easing::quadraticInOut,
             ns::easing::cubicInOut,
@@ -44,12 +43,12 @@ public:
             "BounceOut",
             "ElasticOut",
         };
-        m_balls.resize(m_functions.size());
-        m_tweens.resize(m_functions.size());
+        m_balls.resize(easing_functions.size());
+        m_tweens.resize(easing_functions.size());
 
         auto ball_radius = 18.f;
 
-        for (unsigned i = 0; i < m_functions.size(); ++i) {
+        for (unsigned i = 0; i < easing_functions.size(); ++i) {
             auto* name = new sf::Text(functions_names[i], ns::Arial::getFont(), 20);
             name->setPosition(640-name->getGlobalBounds().width/2, float(60 + 75*i));
             scene.getDefaultLayer().add(name);
@@ -65,7 +64,7 @@ public:
             };
 
             m_tweens[i].loop()
-                .apply(move_ball_fn).with(m_functions[i])
+                .apply(move_ball_fn).with(easing_functions[i])
                 .from_to(280, 1000).during(2.f).delay(2.f)
                 .to(280).during(2.f).delay(2.f);
         }
