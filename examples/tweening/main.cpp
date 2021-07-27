@@ -12,7 +12,7 @@ class Game : public ns::App {
     std::vector<sf::CircleShape> m_balls;
 
 public:
-    Game() : ns::App("Tweening Demo", {1280, 720}, 1, 60, 60) {
+    Game() : ns::App("Tweening Demo", {1280, 720}) {
         auto& scene = createScene("main");
         auto& camera = createCamera("main", 0);
         camera.lookAt(scene);
@@ -21,7 +21,7 @@ public:
         text->setPosition(640-text->getGlobalBounds().width/2, 10);
         scene.getDefaultLayer().add(text);
 
-        std::vector<ns::Tween::EasingFunction> easing_functions = {
+        std::vector<ns::tween::EasingFunction> easing_functions = {
             ns::easing::linear,
             ns::easing::quadraticInOut,
             ns::easing::cubicInOut,

@@ -48,12 +48,12 @@ auto Tween::during(float duration) -> Tween& {
     return *this;
 }
 
-auto Tween::apply(CallbackFunction cb) -> Tween& {
+auto Tween::apply(tween::CallbackFunction cb) -> Tween& {
     m_on_step_cbs[m_index] = std::move(cb);
     return *this;
 }
 
-auto Tween::with(EasingFunction fn) -> Tween& {
+auto Tween::with(tween::EasingFunction fn) -> Tween& {
     m_easing_fns[m_index] = std::move(fn);
     return *this;
 }
