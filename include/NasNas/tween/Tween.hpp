@@ -3,7 +3,6 @@
 #pragma once
 
 #include <utility>
-#include <functional>
 #include <SFML/Graphics.hpp>
 #include "NasNas/tween/Easing.hpp"
 
@@ -11,9 +10,6 @@ namespace ns {
 
     class Tween {
     public:
-        using EasingFunction = std::function<float(float)>;
-        using CallbackFunction = std::function<void(float)>;
-
         explicit Tween() = default;
 
         void clear();
@@ -28,9 +24,9 @@ namespace ns {
 
         auto during(float duration) -> Tween&;
 
-        auto apply(CallbackFunction callback) -> Tween&;
+        auto apply(tween::CallbackFunction callback) -> Tween&;
 
-        auto with(EasingFunction function) -> Tween&;
+        auto with(tween::EasingFunction function) -> Tween&;
 
         auto delay(float delay) -> Tween&;
 
@@ -46,8 +42,8 @@ namespace ns {
         std::vector<float> m_ends;
         std::vector<float> m_durations = {1.f};
         std::vector<float> m_delays = {0.f};
-        std::vector<EasingFunction> m_easing_fns = {easing::linear};
-        std::vector<CallbackFunction> m_on_step_cbs = {[](float){}};
+        std::vector<tween::EasingFunction> m_easing_fns = {easing::linear};
+        std::vector<tween::CallbackFunction> m_on_step_cbs = {[](float){}};
         unsigned m_index = 0;
         float m_initial_delay = 0.f;
         float m_current_delay = 0.f;
@@ -60,4 +56,5 @@ namespace ns {
 
         void emplaceAnimation();
     };
+
 }

@@ -2,7 +2,14 @@
 
 #pragma once
 
+#include <functional>
+
 namespace ns {
+
+    namespace tween {
+        using EasingFunction = std::function<float(float)>;
+        using CallbackFunction = std::function<void(float)>;
+    }
 
     struct easing {
         static auto linear(float t) -> float;

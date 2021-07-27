@@ -31,6 +31,7 @@ an elegant way.
   functionalities to them, like graphics, physics, collider, inputs... Or create and add your own customized components.
 - ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
 for tile based games.
+- ***Tween*** allows you to animate any object using various easing functions.
 - ***UI*** contains the User Interface utilities. (WIP)
 - More modules will be developed in the future !
 
