@@ -10,6 +10,9 @@ namespace ns {
     namespace tween {
         using EasingFunction = std::function<float(float)>;
         using CallbackFunction = std::function<void(float)>;
+
+        template <unsigned N>
+        using MultiCallbackFunction = std::function<void(std::array<float, N>)>;
     }
 
     struct easing {
@@ -72,4 +75,3 @@ namespace ns {
 }
 
 #include "NasNas/tween/Easing.tpp"
-
