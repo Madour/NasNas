@@ -3,6 +3,7 @@
 #pragma once
 
 #include <functional>
+#include "NasNas/core/data/Maths.hpp"
 
 namespace ns {
 
