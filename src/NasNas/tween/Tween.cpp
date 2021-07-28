@@ -67,7 +67,8 @@ void Tween::restart() {
     m_index = 0;
     m_current_delay = m_initial_delay;
     m_clock.restart();
-    m_on_step_cbs[0](m_starts[0]);
+    if (!m_starts.empty() && !m_first_run)
+        m_on_step_cbs[0](m_starts[0]);
 }
 
 auto Tween::loop() -> Tween& {
@@ -120,11 +121,7 @@ auto Tween::step() -> float {
 
 void Tween::emplaceAnimation() {
     m_durations.emplace_back(1.f);
-    m_easing_fns.empty() ?
-        m_easing_fns.emplace_back(easing::linear) :
-        m_easing_fns.emplace_back(m_easing_fns.back());
-    m_on_step_cbs.empty() ?
-        m_on_step_cbs.emplace_back() :
-        m_on_step_cbs.emplace_back(m_on_step_cbs.back());
     m_delays.emplace_back(0.f);
+    m_easing_fns.emplace_back(m_easing_fns.back());
+    m_on_step_cbs.emplace_back(m_on_step_cbs.back());
 }
