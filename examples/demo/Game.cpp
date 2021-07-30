@@ -7,11 +7,11 @@
 
 Game::Game() :
 ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
-    //------------ Creating Game Objects ------------------------------------------------
-    // loading tiled map from file
+    //------------ Game Objects creation ------------------------------------------------
+    // load tiled map from file
     this->tiled_map.loadFromFile("assets/test_map.tmx");
 
-    // generating 100 random octogons
+    // generate 100 random octogons
     auto colors = std::vector<sf::Color>{
         sf::Color::Blue, sf::Color::Red, sf::Color::Green, sf::Color::Yellow,
         sf::Color::Cyan, sf::Color::Magenta, sf::Color::White
@@ -27,10 +27,10 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
         this->shapes.push_back(shape);
     }
 
-    // creating Player entity (see class Player for more information)
+    // create Player entity (see class Player for more information)
     this->player.transform()->setPosition({100, 100});
 
-    // creating a BitmapFont
+    // create a BitmapFont
     this->font = new ns::BitmapFont(
         ns::Res::getTexture("font.png"),
         {8, 8},
@@ -38,11 +38,12 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
         {{"ABCDEFGHIJKMNOPQRSTUVWXYZ?=-", 7}, {"ijlntsofpqrux", 5}},
         6
     );
-    // creating a BitmapText using the font created above
+    // create a BitmapText using the font created above
     auto* bmp_text = new ns::BitmapText("Press E to toggle Shader \nPress R to run Shader Transition\nPress T to run Circle Transition");
     bmp_text->setFont(this->font);
     bmp_text->setPosition(250, 80);
 
+    // create a textbox
     this->textbox = new ns::ui::TypedText("TypedText is useful in RPG games ! It creates a typing animation and can be configured to display text on multiple pages.");
     this->textbox->setFont(this->font);
     this->textbox->setMaxWidth(200);
@@ -50,47 +51,56 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     this->textbox->setTypingDelay(5);
     this->textbox->setPosition(250, 125);
 
+    // setup the particle system and emmit 500 particles
+    this->particle_system.setTexture(ns::Res::getTexture("tileset.png"));
+    this->particle_system.setEmitRate(30.f);
+    this->particle_system.emit({224, 32, 16, 16}, 300, true);
+
     //-----------------------------------------------------------------------------------
 
-    //------------ Creating a Scene and its Layers --------------------------------------
+    //------------ Scene and Layers creation --------------------------------------------
     auto& scene = this->createScene("main");
     scene.addLayer("shapes", 0); // create a new Layer
     scene.addLayer("entities", 1);
     scene.addLayer("texts", 2);
     //-----------------------------------------------------------------------------------
 
-    //------------ Creating a Camera ----------------------------------------------------
+    //------------ Camera creation ------------------------------------------------------
     auto game_view = sf::Vector2i(640, 360);
     auto& game_camera = this->createCamera("main", 0, {{0, 0}, game_view});
-    game_camera.lookAt(scene);     // telling the Camera to look at the scene
-    game_camera.follow(this->player);   // telling the Camera to follow our entity
+    game_camera.lookAt(scene);     // tell the Camera to look at the scene
+    game_camera.follow(this->player);   // tell the Camera to follow our entity
     game_camera.setFramesDelay(2);       // the Camera will have 10 frames delay over the player
-    // setting Camera limits
+    // set Camera limits
     //this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
     //-----------------------------------------------------------------------------------
 
-    //------------ Adding Drawables to the Scene  ---------------------------------------
-    // adding tiledmap layers to the scene
-    //scene.getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
-    //scene.getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
-    //scene.getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
+    //------------ Add Drawables to the Scene  ------------------------------------------
+    // add tiledmap layers to the scene one by one
+    // scene.getDefaultLayer().add(this->tiled_map.getTileLayer("bg"));
+    // scene.getDefaultLayer().add(this->tiled_map.getTileLayer("front"));
+    // scene.getDefaultLayer().add(this->tiled_map.getObjectLayer("objects"));
+    // or add the whole group at once
     scene.getDefaultLayer().add(this->tiled_map.getGroupLayer("Group 1"));
 
-    // adding shapes
+    // add shapes
     for (auto& shape : this->shapes) {
         scene.getLayer("shapes").add(shape);
     }
 
-    // adding entities
+    // add entities
     scene.getLayer("entities").add(this->player);
 
-    // adding the BitmapText to the layer
+    // add the BitmapText to the layer
     scene.getLayer("texts").add(bmp_text);
-    scene.getLayer("texts").add(textbox);
+    scene.getLayer("texts").add(this->textbox);
+
+    // add the particle system
+    scene.getLayer("texts").add(this->particle_system);
     //-----------------------------------------------------------------------------------
 
-    //------------ Adding DebugTexts to the App -----------------------------------------
-    // adding a DebugText by using addDebugText method
+    //------------ Add DebugTexts to the App -----------------------------------------
+    // add a DebugText by using addDebugText method
     this->addDebugText<int>("frame counter:", &this->frame_counter, {10, 10});
     this->addDebugText<int>("nb of transitions:", [&]{return ns::Transition::list.size();}, {10, 50}, sf::Color::Green);
 
@@ -214,6 +224,9 @@ void Game::update() {
 
     // sorting the shapes layer by the y position
     this->getScene("main").getLayer("shapes").ySort();
+
+    this->particle_system.setPosition(getMousePosition(getCamera("main")));
+    this->particle_system.update();
 }
 
 Game::~Game() {
