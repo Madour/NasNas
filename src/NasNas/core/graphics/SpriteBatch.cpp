@@ -15,15 +15,8 @@ SpriteBatch::SpriteBatch() : m_usage(sf::VertexBuffer::Usage::Stream) {
     clear();
 }
 
-SpriteBatch::~SpriteBatch() {
-    for (const auto* spr : m_owned_sprites)
-        delete(spr);
-}
-
 void SpriteBatch::clear() {
-    for (const auto* spr : m_owned_sprites)
-        delete(spr);
-    m_owned_sprites.clear();
+    m_gc.clear();
     m_layers.clear();
     m_global_bounds = {0, 0, 0, 0};
 }
@@ -32,11 +25,23 @@ void SpriteBatch::start(sf::VertexBuffer::Usage usage) {
     m_usage = usage;
 }
 
+void SpriteBatch::setDrawOrder(DrawOrder order) {
+    m_draw_order = order;
+}
+
 void SpriteBatch::draw(const ns::Sprite* sprite) {
-    if (m_layers.empty() || m_layers.back().texture != sprite->getTexture()) {
-        m_layers.emplace_back(sprite->getTexture());
+    if (m_draw_order == DrawOrder::Front) {
+        if (m_layers.empty() || m_layers.back().texture != sprite->getTexture()) {
+            m_layers.emplace_back(sprite->getTexture());
+        }
+        m_layers.back().sprites.push_back(sprite);
     }
-    m_layers.back().sprites.push_back(sprite);
+    else {
+        if (m_layers.empty() || m_layers.front().texture != sprite->getTexture()) {
+            m_layers.emplace_front(sprite->getTexture());
+        }
+        m_layers.front().sprites.emplace(m_layers.front().sprites.begin(), sprite);
+    }
     m_need_end = true;
 }
 
@@ -45,7 +50,7 @@ void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, cons
     spr->setTextureRect(rect);
     spr->setPosition(pos);
     spr->setColor(color);
-    m_owned_sprites.push_back(spr);
+    m_gc.emplace_back(spr);
     draw(spr);
 }
 
@@ -56,7 +61,7 @@ void SpriteBatch::draw(const sf::Texture* texture, const sf::IntRect& rect, cons
     spr->setRotation(tr.getRotation());
     spr->setScale(tr.getScale());
     spr->setColor(color);
-    m_owned_sprites.push_back(spr);
+    m_gc.emplace_back(spr);
     draw(spr);
 }
 

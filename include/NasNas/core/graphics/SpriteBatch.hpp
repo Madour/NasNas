@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include <list>
 #include <SFML/Graphics.hpp>
 #include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/core/graphics/Renderable.hpp"
@@ -23,12 +24,14 @@ namespace ns {
         };
 
     public:
-        SpriteBatch();
-        ~SpriteBatch() override;
+        enum class DrawOrder {Front, Back};
 
+        SpriteBatch();
         void clear();
 
         void start(sf::VertexBuffer::Usage usage);
+
+        void setDrawOrder(DrawOrder order);
 
         void draw(const ns::Sprite* sprite);
         void draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect, const sf::Color& color = sf::Color::White);
@@ -43,20 +46,18 @@ namespace ns {
         auto getPosition() const -> sf::Vector2f override;
         auto getGlobalBounds() const -> ns::FloatRect override;
 
-
     private:
         void render() override;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         ns::FloatRect m_global_bounds;
         sf::VertexBuffer::Usage m_usage;
+        DrawOrder m_draw_order = DrawOrder::Front;
 
-        std::vector<SpriteBatchLayer> m_layers;
-        std::vector<const ns::Sprite*> m_owned_sprites;
+        std::list<SpriteBatchLayer> m_layers;
+        std::vector<std::unique_ptr<const ns::Sprite>> m_gc;
 
         bool m_need_end = false;
-
-        //static std::vector<SpriteBatch*> list;
     };
 
 }
