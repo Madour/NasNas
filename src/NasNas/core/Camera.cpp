@@ -59,10 +59,6 @@ void Camera::lookAt(Scene& target_scene) {
     m_scene = &target_scene;
 }
 
-void Camera::follow(Drawable& drawable) {
-    m_followee = &drawable;
-}
-
 void Camera::follow(sf::Transformable& transformable) {
     m_followee = &transformable;
 }
@@ -122,7 +118,7 @@ auto Camera::getGlobalBounds() const -> ns::FloatRect {
 
 void Camera::update() {
     if (m_followee) {
-        auto&& followee_pos = std::visit([](auto& d){ return d->getPosition(); }, m_followee.value());
+        auto& followee_pos = m_followee.value()->getPosition();
         if (m_frames_delay == 0) {
             setCenter({(float)(round(followee_pos.x)), (float)(round(followee_pos.y))});
         }

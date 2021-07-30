@@ -7,7 +7,7 @@
 #include <optional>
 #include <SFML/Graphics.hpp>
 #include "NasNas/core/data/Maths.hpp"
-#include "NasNas/core/graphics/DrawableTransformable.hpp"
+#include "NasNas/core/data/Rect.hpp"
 
 namespace ns {
     class EllipseShape : public sf::Shape {
@@ -32,7 +32,7 @@ namespace ns {
         sf::Vector2f m_radius;
     };
 
-    class LineShape : public DrawableTransformable {
+    class LineShape : public sf::Drawable, public sf::Transformable {
     public:
         LineShape();
         void addPoint(float x, float y, const std::optional<sf::Color>& color=std::nullopt);
@@ -46,7 +46,7 @@ namespace ns {
         void setColor(unsigned int index, const sf::Color& color);
 
         auto getLocalBounds() const -> sf::FloatRect;
-        auto getGlobalBounds() const -> ns::FloatRect override;
+        auto getGlobalBounds() const -> ns::FloatRect;
 
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

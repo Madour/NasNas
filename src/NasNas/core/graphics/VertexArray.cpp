@@ -6,10 +6,6 @@
 
 
 auto ns::VertexArray::getPosition() const -> sf::Vector2f {
-    auto&& bounds = getBounds();
+    auto bounds = getBounds();
     return {bounds.left, bounds.top};
-}
-
-auto ns::VertexArray::getGlobalBounds() const -> ns::FloatRect {
-    return getBounds();
 }

@@ -7,13 +7,12 @@
 #include <string>
 #include <list>
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/core/graphics/Renderable.hpp"
 #include "NasNas/core/graphics/Sprite.hpp"
 
 namespace ns {
 
-    class SpriteBatch : public ns::Drawable, Renderable {
+    class SpriteBatch : public sf::Drawable, ns::Renderable {
 
         struct SpriteBatchLayer {
             explicit SpriteBatchLayer(const sf::Texture* tex);
@@ -43,8 +42,8 @@ namespace ns {
 
         auto getDepth() const -> unsigned ;
         auto getUsage() const -> sf::VertexBuffer::Usage;
-        auto getPosition() const -> sf::Vector2f override;
-        auto getGlobalBounds() const -> ns::FloatRect override;
+        auto getPosition() const -> sf::Vector2f;
+        auto getGlobalBounds() const -> ns::FloatRect;
 
     private:
         void render() override;

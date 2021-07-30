@@ -26,7 +26,7 @@ namespace ns {
         ns::Sprite sprite;
     };
 
-    class ParticleSystem : public ns::Drawable {
+    class ParticleSystem : public sf::Drawable {
     public:
         ParticleSystem() = default;
 
@@ -39,8 +39,8 @@ namespace ns {
 
         void setPosition(float x, float y);
         void setPosition(const sf::Vector2f& pos);
-        auto getPosition() const -> sf::Vector2f override;
-        auto getGlobalBounds() const -> ns::FloatRect override;
+        auto getPosition() const -> sf::Vector2f;
+        auto getGlobalBounds() const -> ns::FloatRect;
 
         virtual void onParticleCreate(Particle& particle) = 0;
         virtual void onParticleUpdate(Particle& particle) = 0;

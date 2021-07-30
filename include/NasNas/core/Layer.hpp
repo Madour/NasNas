@@ -10,7 +10,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "NasNas/core/data/Rtti.hpp"
-#include "NasNas/core/graphics/DrawableTransformable.hpp"
 
 namespace ns {
     class Scene;

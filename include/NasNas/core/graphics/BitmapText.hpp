@@ -8,7 +8,6 @@
 #include <memory>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/core/data/Rect.hpp"
 
 namespace ns {
@@ -123,7 +122,7 @@ namespace ns {
     /**
      * \brief A BitmapText is a Drawable that uses a BitmapFont to display text.
      */
-    class BitmapText : public ns::Drawable, public sf::Transformable {
+    class BitmapText : public sf::Drawable, public sf::Transformable {
     public:
         /**
          * \brief Creates a BitmapText
@@ -171,13 +170,13 @@ namespace ns {
          * \brief Get BitmapText position
          * \return Position
          */
-        auto getPosition() const -> sf::Vector2f override;
+        auto getPosition() const -> sf::Vector2f;
 
         /**
          * \brief Get BitmapText global bounds
          * \return Global bounds rectangle
          */
-        auto getGlobalBounds() const -> ns::FloatRect override;
+        auto getGlobalBounds() const -> ns::FloatRect;
 
         /**
          * \brief Set the maximum width of the Text.

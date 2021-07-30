@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 24/08/2020.
 **/
 
+#include <iostream>
 #include "NasNas/core/graphics/Shapes.hpp"
 
 using namespace ns;

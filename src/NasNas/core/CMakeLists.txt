@@ -46,8 +46,6 @@ set(
 
         ${INC_PATH}/graphics/Anim.hpp
         ${INC_PATH}/graphics/BitmapText.hpp
-        ${INC_PATH}/graphics/Drawable.hpp
-        ${INC_PATH}/graphics/DrawableTransformable.hpp
         ${INC_PATH}/graphics/Shapes.hpp
         ${INC_PATH}/graphics/ParticleSystem.hpp
         ${INC_PATH}/graphics/Renderable.hpp
