@@ -258,12 +258,12 @@ void App::renderDebugBounds() {
             const auto& local_vport = cam.getViewport();
             sf::Vector2f offset{m_window.mapCoordsToPixel(cam.getSprite().getPosition(), m_window.getAppView())};
 
-            for (const auto& drawable_variant : cam.m_scene->m_default_layer.getDrawables()) {
-                storeDrawableDebugRects(drawable_variant, cam, render_bounds, offset, global_vport, local_vport);
+            for (const auto* dr : cam.m_scene->m_default_layer.allDrawables()) {
+                storeDrawableDebugRects(cam.m_scene->m_default_layer.getDrawableBounds(dr), cam, render_bounds, offset, global_vport, local_vport);
             }
             for (const auto& [key, layer] : cam.m_scene->m_layers) {
-                for (const auto& drawable_variant : layer.getDrawables()) {
-                    storeDrawableDebugRects(drawable_variant, cam, render_bounds, offset, global_vport, local_vport);
+                for (const auto* dr : layer.allDrawables()) {
+                    storeDrawableDebugRects(layer.getDrawableBounds(dr), cam, render_bounds, offset, global_vport, local_vport);
                 }
             }
         }
@@ -271,18 +271,15 @@ void App::renderDebugBounds() {
     m_window.draw(m_debug_bounds.data(), m_debug_bounds.size(), sf::PrimitiveType::Lines);
 }
 
-void App::storeDrawableDebugRects(const Layer::DrawablesTypes& variant, Camera& cam,
+void App::storeDrawableDebugRects(const ns::FloatRect& drawable_bounds, Camera& cam,
                                   const sf::FloatRect& render_bounds, sf::Vector2f& offset,
                                   const sf::FloatRect& global_vport, const sf::FloatRect& local_vport) {
-    if (std::visit([&](auto&& drawable){return render_bounds.intersects(drawable->getGlobalBounds());}, variant)) {
-        ns::FloatRect global_bounds;
-        std::visit([&](auto&& drawable){global_bounds = drawable->getGlobalBounds();}, variant);
-
+    if (render_bounds.intersects(drawable_bounds)) {
         // local view transformation
-        sf::Vector2f topleft{m_window.mapCoordsToPixel(global_bounds.topleft(), cam)};
-        sf::Vector2f topright{m_window.mapCoordsToPixel(global_bounds.topright(), cam)};
-        sf::Vector2f bottomright{m_window.mapCoordsToPixel(global_bounds.bottomright(), cam)};
-        sf::Vector2f bottomleft{m_window.mapCoordsToPixel(global_bounds.bottomleft(), cam)};
+        sf::Vector2f topleft{m_window.mapCoordsToPixel(drawable_bounds.topleft(), cam)};
+        sf::Vector2f topright{m_window.mapCoordsToPixel(drawable_bounds.topright(), cam)};
+        sf::Vector2f bottomright{m_window.mapCoordsToPixel(drawable_bounds.bottomright(), cam)};
+        sf::Vector2f bottomleft{m_window.mapCoordsToPixel(drawable_bounds.bottomleft(), cam)};
         topleft = {topleft.x*local_vport.width, topleft.y*local_vport.height};
         topright = {topright.x*local_vport.width, topright.y*local_vport.height};
         bottomright = {bottomright.x*local_vport.width, bottomright.y*local_vport.height};

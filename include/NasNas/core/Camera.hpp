@@ -6,6 +6,7 @@
 #pragma once
 
 #include <optional>
+#include <variant>
 #include <memory>
 #include "NasNas/core/data/Rect.hpp"
 #include "NasNas/core/data/ShaderHolder.hpp"

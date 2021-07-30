@@ -61,23 +61,24 @@ void Scene::temporaryLinkCamera(Camera* camera) {
 }
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    for (const auto& drawable_variant : m_default_layer.getDrawables()) {
-        drawVariant(drawable_variant, target, states);
-    }
-    for (const auto& [key, layer] : m_layers) {
-        for (const auto& drawable_variant : layer.getDrawables()) {
-            drawVariant(drawable_variant, target, states);
-        }
-    }
-}
-
-void Scene::drawVariant(const Layer::DrawablesTypes& variant, sf::RenderTarget& target, sf::RenderStates states) const {
-    std::visit([&](auto&& drawable){
-        if (m_render_bounds.intersects(drawable->getGlobalBounds())) {
+    for (const auto* drawable : m_default_layer.allDrawables()) {
+        if (m_render_bounds.intersects(m_default_layer.getDrawableBounds(drawable))) {
             target.draw(*drawable, states);
         }
-    }, variant);
-    if (std::holds_alternative<const ns::DrawableTransformable*>(variant)) {
-        std::get<const ns::DrawableTransformable*>(variant)->changed = false;
+        auto drawable_transformable = dynamic_cast<const ns::DrawableTransformable*>(drawable);
+        if (drawable_transformable != nullptr) {
+            drawable_transformable->changed = false;
+        }
+    }
+    for (const auto& [key, layer] : m_layers) {
+        for (const auto* drawable : layer.allDrawables()) {
+            if (m_render_bounds.intersects(layer.getDrawableBounds(drawable))) {
+                target.draw(*drawable, states);
+            }
+            auto drawable_transformable = dynamic_cast<const ns::DrawableTransformable*>(drawable);
+            if (drawable_transformable != nullptr) {
+                drawable_transformable->changed = false;
+            }
+        }
     }
 }

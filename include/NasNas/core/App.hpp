@@ -293,7 +293,7 @@ namespace ns {
         void render();
 
         void renderDebugBounds();
-        void storeDrawableDebugRects(const Layer::DrawablesTypes& variant, Camera& cam,
+        void storeDrawableDebugRects(const ns::FloatRect& drawable_bounds, Camera& cam,
                                      const sf::FloatRect& render_bounds, sf::Vector2f& offset,
                                      const sf::FloatRect& global_vport, const sf::FloatRect& local_vport);
     };
