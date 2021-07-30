@@ -9,25 +9,44 @@ void ParticleSystem::setTexture(const sf::Texture& texture) {
     m_texture = &texture;
 }
 
-void ParticleSystem::setEmmitRate(float rate) {
+void ParticleSystem::setEmitRate(float rate) {
     m_rate = rate;
 }
 
-void ParticleSystem::emmit(const sf::IntRect& rect, int nb, bool repeat) {
+void ParticleSystem::emit(const sf::IntRect& rect, int nb, bool repeat) {
+    m_batch.setDrawOrder(SpriteBatch::DrawOrder::Back);
     m_particles.reserve(m_particles.size()+nb);
     for (int i = 0; i < nb; ++i) {
-        m_particles.emplace_back(new Particle());
-        auto& particle = m_particles.back();
-        onParticleCreate(*particle);
-        particle->repeat = repeat;
-        particle->sprite.setTexture(*m_texture);
-        particle->sprite.setTextureRect(rect);
-        particle->sprite.setPosition(m_position);
-        particle->sprite.setOrigin(rect.width/2.f, rect.height/2.f);
-        particle->sprite.setColor(sf::Color(255, 255, 255, 0));
-        m_batch.draw(&particle->sprite);
+        auto& particle = *m_particles.emplace_back(new Particle());
+        onParticleCreate(particle);
+        particle.repeat = repeat;
+        particle.sprite.setTexture(*m_texture);
+        particle.sprite.setTextureRect(rect);
+        particle.sprite.setPosition(m_position);
+        particle.sprite.setOrigin(rect.width/2.f, rect.height/2.f);
+        particle.sprite.setColor(sf::Color(255, 255, 255, 0));
+        m_batch.draw(&particle.sprite);
     }
     m_batch.end();
+}
+
+void ParticleSystem::emitBurst(const sf::IntRect& rect, int nb) {
+    m_batch.setDrawOrder(SpriteBatch::DrawOrder::Front);
+    m_particles.reserve(m_particles.size()+nb);
+    for (int i = 0; i < nb; ++i) {
+        auto& particle = *m_particles.emplace_back(new Particle());
+        onParticleCreate(particle);
+        particle.active = true;
+        particle.repeat = false;
+        particle.sprite.setTexture(*m_texture);
+        particle.sprite.setTextureRect(rect);
+        particle.sprite.setPosition(m_position);
+        particle.sprite.setOrigin(rect.width/2.f, rect.height/2.f);
+        particle.sprite.setColor(sf::Color(255, 255, 255, 0));
+        m_batch.draw(&particle.sprite);
+    }
+    m_batch.end();
+    m_count += nb;
 }
 
 auto ParticleSystem::getParticleCount() const -> unsigned {
@@ -73,28 +92,32 @@ void ParticleSystem::update() {
         }
         else {
             if (particle.active) {
-                // update particle data
-                onParticleUpdate(particle);
-                particle.age = particle.age+dt;
-                // update particle sprite
-                particle.sprite.move(particle.velocity);
-                particle.sprite.setScale(particle.scale, particle.scale);
-                particle.sprite.setRotation(particle.rotation);
-                particle.sprite.setColor(particle.color);
+                updateParticle(particle, dt); // update particle data
             }
             else {
+                particle.sprite.setPosition(m_position);
                 if (m_to_emmit > 1.f){
                     particle.active = true;
                     particle.sprite.setColor(sf::Color::White);
                     onParticleCreate(particle);
+                    updateParticle(particle, 0);
                     m_to_emmit -= 1.f;
                     m_count++;
                 }
-                particle.sprite.setPosition(m_position);
             }
             it++;
         }
     }
+}
+
+void ParticleSystem::updateParticle(Particle& particle, float dt) {
+    onParticleUpdate(particle);
+    particle.age = particle.age+dt;
+    // update particle sprite
+    particle.sprite.move(particle.velocity);
+    particle.sprite.setScale(particle.scale, particle.scale);
+    particle.sprite.setRotation(particle.rotation);
+    particle.sprite.setColor(particle.color);
 }
 
 void ParticleSystem::draw(sf::RenderTarget& target, sf::RenderStates states) const {
