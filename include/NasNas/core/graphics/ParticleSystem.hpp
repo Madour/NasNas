@@ -12,17 +12,17 @@ namespace ns {
     class ParticleSystem;
 
     struct Particle {
-        float rotation=0.f;
-        float scale=1.f;
-        sf::Vector2f velocity={0.f,0.f};
-        sf::Color color = sf::Color::White;
-        float lifetime = 1.f;
+        float rotation          = 0.f;
+        float scale             = 1.f;
+        sf::Vector2f velocity   = {0.f,0.f};
+        sf::Color color         = sf::Color::White;
+        float lifetime          = 1.f;
         auto getAge() const -> float { return age; }
     private:
         friend ParticleSystem;
         bool active = false;
         bool repeat = false;
-        float age = 0.f;
+        float age   = 0.f;
         ns::Sprite sprite;
     };
 
@@ -31,8 +31,9 @@ namespace ns {
         ParticleSystem() = default;
 
         void setTexture(const sf::Texture& texture);
-        void setEmmitRate(float rate);
-        void emmit(const sf::IntRect& rect, int nb, bool repeat=false);
+        void setEmitRate(float rate);
+        void emit(const sf::IntRect& rect, int nb, bool repeat=false);
+        void emitBurst(const sf::IntRect& rect, int nb);
 
         auto getParticleCount() const -> unsigned;
 
@@ -47,6 +48,7 @@ namespace ns {
         void update();
 
     private:
+        void updateParticle(Particle& particle, float dt);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         const sf::Texture* m_texture = nullptr;
