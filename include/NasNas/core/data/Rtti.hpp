@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "NasNas/core/data/Rect.hpp"
+
 namespace rtti {
     using namespace std;
 #define NS_DEFINE_HAS_METHOD(name, signature)                                   \
@@ -27,7 +29,7 @@ namespace rtti {
     inline constexpr bool has_##name##_v = has_##name<C, T>::value
 
     NS_DEFINE_HAS_METHOD(getPosition, sf::Vector2f());
-    NS_DEFINE_HAS_METHOD(getGlobalBounds, sf::FloatRect());
-    NS_DEFINE_HAS_METHOD(getBounds, sf::FloatRect());
+    NS_DEFINE_HAS_METHOD(getGlobalBounds, ns::FloatRect());
+    NS_DEFINE_HAS_METHOD(getBounds, ns::FloatRect());
     NS_DEFINE_HAS_METHOD(update, void());
 }
