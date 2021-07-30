@@ -6,7 +6,6 @@
 #pragma once
 
 #include <memory>
-#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/ecs/ComponentGroup.hpp"
 
 namespace ns {

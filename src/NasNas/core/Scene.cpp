@@ -5,6 +5,7 @@
 
 #include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Camera.hpp"
+#include "NasNas/core/graphics/Transformable.hpp"
 
 using namespace ns;
 
@@ -65,7 +66,8 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (m_render_bounds.intersects(m_default_layer.getDrawableBounds(drawable))) {
             target.draw(*drawable, states);
         }
-        auto drawable_transformable = dynamic_cast<const ns::DrawableTransformable*>(drawable);
+        // TODO : fix cast broken because DrawableTransformable was removed
+        auto drawable_transformable = dynamic_cast<const ns::Transformable*>(drawable);
         if (drawable_transformable != nullptr) {
             drawable_transformable->changed = false;
         }
@@ -75,7 +77,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
             if (m_render_bounds.intersects(layer.getDrawableBounds(drawable))) {
                 target.draw(*drawable, states);
             }
-            auto drawable_transformable = dynamic_cast<const ns::DrawableTransformable*>(drawable);
+            auto drawable_transformable = dynamic_cast<const ns::Transformable*>(drawable);
             if (drawable_transformable != nullptr) {
                 drawable_transformable->changed = false;
             }

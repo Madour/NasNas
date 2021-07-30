@@ -69,7 +69,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     auto game_view = sf::Vector2i(640, 360);
     auto& game_camera = this->createCamera("main", 0, {{0, 0}, game_view});
     game_camera.lookAt(scene);     // tell the Camera to look at the scene
-    game_camera.follow(this->player);   // tell the Camera to follow our entity
+    game_camera.follow(*this->player.transform());   // tell the Camera to follow our entity
     game_camera.setFramesDelay(2);       // the Camera will have 10 frames delay over the player
     // set Camera limits
     //this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});

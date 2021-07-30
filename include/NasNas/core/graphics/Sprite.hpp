@@ -3,10 +3,11 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/DrawableTransformable.hpp"
+#include "NasNas/core/data/Rect.hpp"
+#include "NasNas/core/graphics/Transformable.hpp"
 
 namespace ns {
-    class Sprite : public DrawableTransformable {
+class Sprite : public sf::Drawable, public ns::Transformable {
     public:
         Sprite() = default;
         explicit Sprite(const sf::Sprite& other);
@@ -28,7 +29,7 @@ namespace ns {
         auto getVertex(unsigned index) const -> const sf::Vertex&;
 
         auto getLocalBounds() const -> ns::FloatRect;
-        auto getGlobalBounds() const -> ns::FloatRect override;
+        auto getGlobalBounds() const -> ns::FloatRect;
 
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

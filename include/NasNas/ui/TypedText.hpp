@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/core/graphics/BitmapText.hpp"
 
 namespace ns::ui {

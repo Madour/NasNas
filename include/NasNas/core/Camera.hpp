@@ -119,7 +119,6 @@ namespace ns {
          *
          * \param drawable Drawable object to follow
          */
-        void follow(Drawable& drawable);
         void follow(sf::Transformable& transformable);
 
         void unfollow();
@@ -240,7 +239,7 @@ namespace ns {
         bool m_visible;                     ///< Is the Camera content visible ?
         Scene* m_scene;                     ///< Scene looked at (content of the Camera)
 
-        std::optional<std::variant<Drawable*, sf::Transformable*>> m_followee; ///< Entity followed by the Camera
+        std::optional<sf::Transformable*> m_followee; ///< Entity followed by the Camera
         unsigned int m_frames_delay;        ///< Delay when following an entity
 
         ns::IntRect m_base_view;            ///< Camera size on creation or on reset

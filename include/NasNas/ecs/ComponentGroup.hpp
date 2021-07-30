@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "NasNas/core/graphics/Drawable.hpp"
 #include "NasNas/ecs/BaseComponent.hpp"
 #include "NasNas/ecs/GraphicsComponent.hpp"
 #include "NasNas/ecs/TransformComponent.hpp"
@@ -12,7 +11,7 @@
 
 namespace ns::ecs {
 
-    class ComponentGroup : public ns::Drawable {
+    class ComponentGroup : public sf::Drawable {
     public:
         explicit ComponentGroup(std::string name);
         ~ComponentGroup() override;
@@ -37,8 +36,8 @@ namespace ns::ecs {
 
         virtual void update();
 
-        auto getPosition() const -> sf::Vector2f override;
-        auto getGlobalBounds() const -> ns::FloatRect override;
+        auto getPosition() const -> sf::Vector2f;
+        auto getGlobalBounds() const -> ns::FloatRect;
 
     protected:
         auto graphics() -> const std::vector<GraphicsComponent*>&;
