@@ -5,8 +5,10 @@
 
 #pragma once
 
-#include <memory>
+#include <functional>
 #include <limits>
+#include <memory>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 
 #include "NasNas/core/data/Rtti.hpp"
@@ -91,8 +93,6 @@ namespace ns {
         auto getName() const -> const std::string&;
 
     private:
-        //friend Scene;
-
         std::string m_name;
         std::vector<const sf::Drawable*> m_drawables;
         std::vector<std::unique_ptr<const sf::Drawable>> m_gc;
