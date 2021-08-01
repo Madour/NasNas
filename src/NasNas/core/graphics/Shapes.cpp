@@ -44,65 +44,205 @@ auto EllipseShape::getPoint(std::size_t index) const -> sf::Vector2f {
 
 
 LineShape::LineShape() : m_color(sf::Color::White) {
-    m_vertices.setPrimitiveType(sf::PrimitiveType::LineStrip);
+    m_shape_verts.setPrimitiveType(sf::PrimitiveType::Triangles);
+    m_outline_verts.setPrimitiveType(sf::PrimitiveType::Triangles);
 }
 
 void LineShape::addPoint(float x, float y, const std::optional<sf::Color>& color) {
-    m_vertices.append({sf::Vector2f(x, y), (color.has_value() ? color.value() : m_color)});
+    addPoint({x, y}, color);
 }
 
 void LineShape::addPoint(const sf::Vector2f& point, const std::optional<sf::Color>& color) {
-    m_vertices.append({point, (color.has_value() ? color.value() : m_color)});
+    if (!m_points.empty() && ns::distance(point, m_points.back().pos) <= m_points.back().radius)
+        return;
+
+    if (color.has_value())
+        m_points.push_back({point, color.value(), m_thickness/2.f});
+    else
+        m_points.push_back({point, m_color, m_thickness/2.f});
+
+    update();
+    update(m_points.size()-1);
 }
 
-void LineShape::setPoint(unsigned int index, const sf::Vector2f& position) {
-    if (index < m_vertices.getVertexCount())
-        m_vertices[index].position = position;
-}
-
-void LineShape::setPoint(unsigned int index, float x, float y) {
-    if (index < m_vertices.getVertexCount())
-        m_vertices[index].position = {x, y};
-}
-
-void LineShape::removePoint(unsigned int index) {
-    if (index < m_vertices.getVertexCount()) {
-        for (unsigned int i = index; i < m_vertices.getVertexCount()-1; ++i)
-            m_vertices[i] = m_vertices[i+1];
-        m_vertices.resize(m_vertices.getVertexCount()-1);
+void LineShape::removePoint(unsigned index) {
+    if (index < m_points.size()) {
+        m_points.erase(std::remove(m_points.begin(), m_points.end(), m_points[index]), m_points.end());
+        update();
     }
-    else {
-        std::cerr << "Can't remove point " << index << ". "
-                  << "LineShape has only " << m_vertices.getVertexCount() << " points."
-                  << std::endl;
+}
+
+void LineShape::setPoint(unsigned index, float x, float y) {
+    setPoint(index, {x, y});
+}
+
+void LineShape::setPoint(unsigned index, const sf::Vector2f& position) {
+    if (index < m_points.size()) {
+        m_points[index].pos = position;
+        update(index);
     }
+}
+
+auto LineShape::getPoint(unsigned index) const -> const sf::Vector2f& {
+    return m_points[index].pos;
 }
 
 void LineShape::setColor(const sf::Color& color) {
     m_color = color;
-    for (unsigned int i = 0; i < m_vertices.getVertexCount(); ++i)
-        m_vertices[i].color = color;
 }
 
-void LineShape::setColor(unsigned int index, const sf::Color& color) {
-    if (index < m_vertices.getVertexCount())
-        m_vertices[index].color = color;
-    else {
-        std::cerr << "Can't set color of point " << index << ". "
-                  << "LineShape has only " << m_vertices.getVertexCount() << " points."
-                  << std::endl;
+auto LineShape::getColor() const -> const sf::Color& {
+    return m_color;
+}
+
+void LineShape::setColor(unsigned index, const sf::Color& color) {
+    if (index < m_points.size()) {
+        m_points[index].color = color;
+        update(index);
     }
 }
 
+auto LineShape::getColor(unsigned index) const -> const sf::Color& {
+    return m_points[index].color;
+}
+
+void LineShape::setThickness(float thickness) {
+    m_thickness = thickness;
+}
+
+auto LineShape::getThickness() const -> float {
+    return m_thickness;
+}
+
+void LineShape::setOutlineThickness(float thickness) {
+    m_outline_thickness = thickness;
+}
+
+auto LineShape::getOutlineThickness() const -> float {
+    return m_outline_thickness;
+}
+
+void LineShape::setOutlineColor(const sf::Color& color) {
+    m_outline_color = color;
+}
+
+auto LineShape::getOutlineColor() const -> const sf::Color& {
+    return m_outline_color;
+}
+
+auto LineShape::getPointCount() const -> std::size_t {
+    return m_points.size();
+}
+
 auto LineShape::getLocalBounds() const -> sf::FloatRect {
-    return m_vertices.getBounds();
+    return m_shape_verts.getBounds();
 }
 
 auto LineShape::getGlobalBounds() const -> ns::FloatRect {
-    return getTransform().transformRect(m_vertices.getBounds());
+    return getTransform().transformRect(m_shape_verts.getBounds());
+}
+
+void LineShape::update() {
+    m_shape_verts.resize(m_points.size() * 6 * 2);
+    m_outline_verts.resize(m_points.size() * 6 * 2);
+}
+
+void LineShape::update(unsigned int index) {
+    if (index > 0 && m_points.size() > 1) {
+        auto& A = m_points[index-1];
+        auto& B = m_points[index];
+
+        auto direction = (B.pos - A.pos) / ns::norm(B.pos - A.pos);
+        auto normal = ns::normal(direction);
+
+        auto A_up = A.pos - normal*A.radius;
+        auto AR = A.pos + normal*A.radius;
+        auto B_up = B.pos - normal*B.radius;
+        auto B_down = B.pos + normal*B.radius;
+
+        auto A_up_outline = A.pos - normal*(A.radius + m_outline_thickness);
+        auto A_down_outline = A.pos + normal*(A.radius + m_outline_thickness);
+        auto B_up_outline = B.pos - normal*(B.radius + m_outline_thickness);
+        auto B_down_outline = B.pos + normal*(B.radius + m_outline_thickness);
+
+        auto prev_joint_index = 2 * index - 2;
+        auto section_index = 2 * index - 1;
+        auto next_joint_index = 2 * index;
+
+        if (prev_joint_index > 0) {
+            m_shape_verts[prev_joint_index*6 + 0].position = AR;
+            m_shape_verts[prev_joint_index*6 + 5].position = A_up;
+
+            m_outline_verts[prev_joint_index*6 + 0].position = A_down_outline;
+            m_outline_verts[prev_joint_index*6 + 5].position = A_up_outline;
+        }
+
+        m_shape_verts[section_index*6 + 0].position = A_up;
+        m_shape_verts[section_index*6 + 1].position = AR;
+        m_shape_verts[section_index*6 + 2].position = B_down;
+        m_shape_verts[section_index*6 + 3].position = A_up;
+        m_shape_verts[section_index*6 + 4].position = B_down;
+        m_shape_verts[section_index*6 + 5].position = B_up;
+
+        m_shape_verts[section_index*6 + 0].color = A.color;
+        m_shape_verts[section_index*6 + 1].color = A.color;
+        m_shape_verts[section_index*6 + 2].color = B.color;
+        m_shape_verts[section_index*6 + 3].color = A.color;
+        m_shape_verts[section_index*6 + 4].color = B.color;
+        m_shape_verts[section_index*6 + 5].color = B.color;
+
+        m_outline_verts[section_index*6 + 0].position = A_up_outline;
+        m_outline_verts[section_index*6 + 1].position = A_down_outline;
+        m_outline_verts[section_index*6 + 2].position = B_down_outline;
+        m_outline_verts[section_index*6 + 3].position = A_up_outline;
+        m_outline_verts[section_index*6 + 4].position = B_down_outline;
+        m_outline_verts[section_index*6 + 5].position = B_up_outline;
+
+        m_outline_verts[section_index*6 + 0].color = m_outline_color;
+        m_outline_verts[section_index*6 + 1].color = m_outline_color;
+        m_outline_verts[section_index*6 + 2].color = m_outline_color;
+        m_outline_verts[section_index*6 + 3].color = m_outline_color;
+        m_outline_verts[section_index*6 + 4].color = m_outline_color;
+        m_outline_verts[section_index*6 + 5].color = m_outline_color;
+
+        if (next_joint_index > 0) {
+            m_shape_verts[next_joint_index*6 + 0].position = B_up;
+            m_shape_verts[next_joint_index*6 + 1].position = B_up;
+            m_shape_verts[next_joint_index*6 + 2].position = B_down;
+            m_shape_verts[next_joint_index*6 + 3].position = B_up;
+            m_shape_verts[next_joint_index*6 + 4].position = B_down;
+            m_shape_verts[next_joint_index*6 + 5].position = B_up;
+
+            m_shape_verts[next_joint_index*6 + 0].color = B.color;
+            m_shape_verts[next_joint_index*6 + 1].color = B.color;
+            m_shape_verts[next_joint_index*6 + 2].color = B.color;
+            m_shape_verts[next_joint_index*6 + 3].color = B.color;
+            m_shape_verts[next_joint_index*6 + 4].color = B.color;
+            m_shape_verts[next_joint_index*6 + 5].color = B.color;
+
+            m_outline_verts[next_joint_index*6 + 0].position = B_up_outline;
+            m_outline_verts[next_joint_index*6 + 1].position = B_up_outline;
+            m_outline_verts[next_joint_index*6 + 2].position = B_down_outline;
+            m_outline_verts[next_joint_index*6 + 3].position = B_up_outline;
+            m_outline_verts[next_joint_index*6 + 4].position = B_down_outline;
+            m_outline_verts[next_joint_index*6 + 5].position = B_up_outline;
+
+            m_outline_verts[next_joint_index*6 + 0].color = m_outline_color;
+            m_outline_verts[next_joint_index*6 + 1].color = m_outline_color;
+            m_outline_verts[next_joint_index*6 + 2].color = m_outline_color;
+            m_outline_verts[next_joint_index*6 + 3].color = m_outline_color;
+            m_outline_verts[next_joint_index*6 + 4].color = m_outline_color;
+            m_outline_verts[next_joint_index*6 + 5].color = m_outline_color;
+        }
+    }
 }
 
 void LineShape::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
-    target.draw(m_vertices, states);
+    target.draw(m_outline_verts, states);
+    target.draw(m_shape_verts, states);
+}
+
+auto ns::LineShape::Point::operator==(const ns::LineShape::Point& p) const -> bool {
+    return pos == p.pos && color == p.color && radius == p.radius;
 }
