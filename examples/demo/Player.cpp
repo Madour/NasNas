@@ -6,45 +6,18 @@
 
 Player::Player()
 : ns::BaseEntity("Player") {
-    // creating Player spritesheet and setting its animations
-
-    // entering manual all frames
-    /*m_spritesheet = new ns::Spritesheet(
-        "adventurer",
-        ns::Res::get().getTexture("adventurer.png"),
-        {
-            new ns::Anim("idle",
-                {
-                    ns::AnimFrame({0, 0, 50, 37}, 250, {25, 37}),
-                    ns::AnimFrame({50, 0, 50, 37}, 200, {25, 37}),
-                    ns::AnimFrame({100, 0, 50, 37}, 200, {25, 37}),
-                    ns::AnimFrame({150, 0, 50, 37}, 250, {25, 37}),
-                }
-            ),
-            new ns::Anim("walk",
-                {
-                    ns::AnimFrame({50, 37, 50, 37}, 150, {25, 37}),
-                    ns::AnimFrame({100, 37, 50, 37}, 150, {25, 37}),
-                    ns::AnimFrame({150, 37, 50, 37}, 150, {25, 37}),
-                    ns::AnimFrame({200, 37, 50, 37}, 150, {25, 37}),
-                    ns::AnimFrame({250, 37, 50, 37}, 150, {25, 37}),
-                    ns::AnimFrame({300, 37, 50, 37}, 150, {25, 37}),
-                }
-            )
-        }
-    );*/
-    // using a grid
+    // create Player spritesheet and set its animations
     m_spritesheet = new ns::Spritesheet("adventurer", ns::Res::getTexture("adventurer.png"));
     m_spritesheet->setGrid({50, 37}, 7);
     m_spritesheet->addAnim("idle", 0, 4, 200, {25, 37});
     m_spritesheet->addAnim("walk", 8, 6, 150, {25, 37});
-    // adding sprite component to player (from spritesheet defined above)
+    // add sprite component to player (from spritesheet defined above)
     add<ns::ecs::Sprite>(m_spritesheet);
 
-    // adding physics component to player
+    // add physics component to player
     add<ns::ecs::Physics>(sf::Vector2f(0.5f, 0.5f), 5.f, sf::Vector2f(0.1f, 0.1f));
 
-    // adding shape component to player (blue square)
+    // add shape component to player (blue square)
     auto convexshape = sf::ConvexShape(4);
     convexshape.setFillColor(sf::Color::Blue);
     convexshape.setPoint(0, {-5, -5});
@@ -54,12 +27,12 @@ Player::Player()
     add<ns::ecs::ConvexShape>(convexshape, sf::Vector2f(0, -15));
 
     auto velocity_vector = ns::LineShape();
-    velocity_vector.setColor(sf::Color::Yellow);
-    velocity_vector.addPoint(0, 0);
-    velocity_vector.addPoint(1, 0, sf::Color::Red);
+    velocity_vector.resize(2);
+    velocity_vector.setColor(0, sf::Color::Yellow);
+    velocity_vector.setColor(1, sf::Color::Red);
     add<ns::ecs::LineShape>(velocity_vector);
 
-    // adding inputs component to player and binding buttons to Player methods
+    // add inputs component to player and binding buttons to Player methods
     add<ns::ecs::Inputs>();
     get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("left"), [&](){ moveLeft(); });
     get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("right"), [&](){ moveRight(); });
@@ -67,7 +40,6 @@ Player::Player()
     get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("down"), [&](){ moveDown(); });
 
     add<ns::ecs::Collider>(new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
-
 }
 Player::~Player() {
     delete(m_spritesheet);
@@ -109,7 +81,7 @@ void Player::update() {
     auto& vel_vec = get<ns::ecs::LineShape>()->getDrawable();
     vel_vec.setPoint(1, get<ns::ecs::Physics>()->getVelocity()*10.f);
 
-    // moving and rotating the shape around the sprite
+    // move and rotate the shape around the sprite
     auto& shape = get<ns::ecs::ConvexShape>()->getDrawable();
     m_rotation += 5;
     shape.setRotation(m_rotation);
