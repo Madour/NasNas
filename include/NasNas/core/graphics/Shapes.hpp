@@ -42,6 +42,8 @@ namespace ns {
     public:
         LineShape();
 
+        void resize(size_t size);
+
         void addPoint(float x, float y, const std::optional<sf::Color>& color=std::nullopt);
         void addPoint(const sf::Vector2f& position, const std::optional<sf::Color>& color=std::nullopt);
         void removePoint(unsigned index);
@@ -58,6 +60,9 @@ namespace ns {
 
         void setThickness(float thickness);
         auto getThickness() const -> float;
+
+        void setThickness(unsigned index, float thickness);
+        auto getThickness(unsigned index) const -> float;
 
         void setOutlineThickness(float thickness);
         auto getOutlineThickness() const -> float;

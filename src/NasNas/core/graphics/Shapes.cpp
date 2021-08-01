@@ -48,6 +48,12 @@ LineShape::LineShape() : m_color(sf::Color::White) {
     m_outline_verts.setPrimitiveType(sf::PrimitiveType::Triangles);
 }
 
+void LineShape::resize(size_t size) {
+    Point val{getPosition(), m_color, m_thickness/2.f};
+    m_points.resize(size, val);
+    update();
+}
+
 void LineShape::addPoint(float x, float y, const std::optional<sf::Color>& color) {
     addPoint({x, y}, color);
 }
@@ -69,6 +75,8 @@ void LineShape::removePoint(unsigned index) {
     if (index < m_points.size()) {
         m_points.erase(std::remove(m_points.begin(), m_points.end(), m_points[index]), m_points.end());
         update();
+        for (unsigned i = index; i < m_points.size(); ++i)
+            update(i);
     }
 }
 
@@ -80,6 +88,7 @@ void LineShape::setPoint(unsigned index, const sf::Vector2f& position) {
     if (index < m_points.size()) {
         m_points[index].pos = position;
         update(index);
+        update(index+1);
     }
 }
 
@@ -114,6 +123,17 @@ auto LineShape::getThickness() const -> float {
     return m_thickness;
 }
 
+void LineShape::setThickness(unsigned int index, float thickness) {
+    if (index < m_points.size()) {
+        m_points[index].radius = thickness / 2.f;
+        update(index);
+    }
+}
+
+auto LineShape::getThickness(unsigned int index) const -> float {
+    return m_points[index].radius * 2;
+}
+
 void LineShape::setOutlineThickness(float thickness) {
     m_outline_thickness = thickness;
 }
@@ -143,12 +163,12 @@ auto LineShape::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void LineShape::update() {
-    m_shape_verts.resize(m_points.size() * 6 * 2);
-    m_outline_verts.resize(m_points.size() * 6 * 2);
+    m_shape_verts.resize(m_points.size() * 6 * 2 - 6);
+    m_outline_verts.resize(m_points.size() * 6 * 2 - 6);
 }
 
 void LineShape::update(unsigned int index) {
-    if (index > 0 && m_points.size() > 1) {
+    if (m_points.size() > 1 && index > 0 && index < m_points.size()) {
         auto& A = m_points[index-1];
         auto& B = m_points[index];
 
