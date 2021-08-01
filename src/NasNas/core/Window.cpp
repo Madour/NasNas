@@ -61,6 +61,6 @@ auto AppWindow::getClearColor() const -> const sf::Color& {
     return m_clear_color;
 }
 
-void AppWindow::setClearColor(const sf::Color& color) const {
+void AppWindow::setClearColor(const sf::Color& color) {
     m_clear_color = color;
 }

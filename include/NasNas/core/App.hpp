@@ -76,6 +76,8 @@ namespace ns {
          */
         auto getWindow() -> AppWindow&;
 
+        auto getMousePosition() const -> sf::Vector2f;
+
         auto getMousePosition(Camera& cam) const -> sf::Vector2f;
 
         /**
@@ -112,6 +114,8 @@ namespace ns {
         * \brief Toggle fullscreen display.
         */
         void toggleFullscreen();
+
+        auto getDt() const -> float;
 
         /**
          * \brief Starts the game loop.
@@ -232,8 +236,6 @@ namespace ns {
          * Used for Android when application run as main process.
          */
         void awake();
-
-        auto getDt() const -> float;
 
         /**
          * \brief Handles SFML events

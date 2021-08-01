@@ -70,6 +70,10 @@ auto App::getWindow() -> AppWindow& {
     return m_window;
 }
 
+auto App::getMousePosition() const -> sf::Vector2f {
+    return sf::Vector2f(sf::Mouse::getPosition(m_window));
+}
+
 auto App::getMousePosition(Camera& cam) const -> sf::Vector2f {
     auto offset = m_window.mapCoordsToPixel(cam.getSprite().getPosition(), m_window.getAppView());
     const auto& global_vport = m_window.getAppView().getViewport();
