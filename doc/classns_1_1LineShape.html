@@ -43,6 +43,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classns_1_1LineShape-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -66,21 +67,51 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addPoint</b> (float x
 <tr class="memitem:a7ef1b13d369a41f1411f57fb67da0cff"><td class="memItemLeft" align="right" valign="top"><a id="a7ef1b13d369a41f1411f57fb67da0cff"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addPoint</b> (const sf::Vector2f &amp;position, const std::optional&lt; sf::Color &gt; &amp;color=std::nullopt)</td></tr>
 <tr class="separator:a7ef1b13d369a41f1411f57fb67da0cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbef76b64af9121c6b1b6cd3d5ab524e"><td class="memItemLeft" align="right" valign="top"><a id="acbef76b64af9121c6b1b6cd3d5ab524e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPoint</b> (unsigned int index, const sf::Vector2f &amp;position)</td></tr>
-<tr class="separator:acbef76b64af9121c6b1b6cd3d5ab524e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34114ed11bf27bca198850b46a7d57cd"><td class="memItemLeft" align="right" valign="top"><a id="a34114ed11bf27bca198850b46a7d57cd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPoint</b> (unsigned int index, float x, float y)</td></tr>
-<tr class="separator:a34114ed11bf27bca198850b46a7d57cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b77c3381a6612967729a539f6c1ee73"><td class="memItemLeft" align="right" valign="top"><a id="a0b77c3381a6612967729a539f6c1ee73"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>removePoint</b> (unsigned int index)</td></tr>
-<tr class="separator:a0b77c3381a6612967729a539f6c1ee73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a351012f0f96c05cc6e0950782c831261"><td class="memItemLeft" align="right" valign="top"><a id="a351012f0f96c05cc6e0950782c831261"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>removePoint</b> (unsigned index)</td></tr>
+<tr class="separator:a351012f0f96c05cc6e0950782c831261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a5639d865cafcd5572a854fb4bf6b7"><td class="memItemLeft" align="right" valign="top"><a id="aa4a5639d865cafcd5572a854fb4bf6b7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPoint</b> (unsigned index, float x, float y)</td></tr>
+<tr class="separator:aa4a5639d865cafcd5572a854fb4bf6b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea88f156f28bd0af90ece52eee233335"><td class="memItemLeft" align="right" valign="top"><a id="aea88f156f28bd0af90ece52eee233335"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPoint</b> (unsigned index, const sf::Vector2f &amp;position)</td></tr>
+<tr class="separator:aea88f156f28bd0af90ece52eee233335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6082edfa633d741cc88f922fd0aecae6"><td class="memItemLeft" align="right" valign="top"><a id="a6082edfa633d741cc88f922fd0aecae6"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPoint</b> (unsigned index) const -&gt; const sf::Vector2f &amp;</td></tr>
+<tr class="separator:a6082edfa633d741cc88f922fd0aecae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dba4748c788fe07e49a18704384bcd1"><td class="memItemLeft" align="right" valign="top"><a id="a2dba4748c788fe07e49a18704384bcd1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setColor</b> (const sf::Color &amp;color)</td></tr>
 <tr class="separator:a2dba4748c788fe07e49a18704384bcd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91d32a7c0be48baa7c7375cf36e539bd"><td class="memItemLeft" align="right" valign="top"><a id="a91d32a7c0be48baa7c7375cf36e539bd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setColor</b> (unsigned int index, const sf::Color &amp;color)</td></tr>
-<tr class="separator:a91d32a7c0be48baa7c7375cf36e539bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a107bc5ab40d188c9575a9cfc37744eae"><td class="memItemLeft" align="right" valign="top"><a id="a107bc5ab40d188c9575a9cfc37744eae"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getColor</b> () const -&gt; const sf::Color &amp;</td></tr>
+<tr class="separator:a107bc5ab40d188c9575a9cfc37744eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac17fbba347c9706a28c3db9415f1f49"><td class="memItemLeft" align="right" valign="top"><a id="aac17fbba347c9706a28c3db9415f1f49"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setColor</b> (unsigned index, const sf::Color &amp;color)</td></tr>
+<tr class="separator:aac17fbba347c9706a28c3db9415f1f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ede081e916189b690d5b1282080d0d3"><td class="memItemLeft" align="right" valign="top"><a id="a2ede081e916189b690d5b1282080d0d3"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getColor</b> (unsigned index) const -&gt; const sf::Color &amp;</td></tr>
+<tr class="separator:a2ede081e916189b690d5b1282080d0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70bc188a9dc7e76a969916d9360da3b4"><td class="memItemLeft" align="right" valign="top"><a id="a70bc188a9dc7e76a969916d9360da3b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setThickness</b> (float thickness)</td></tr>
+<tr class="separator:a70bc188a9dc7e76a969916d9360da3b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7347d6e74d53e4f4f6391da759e32959"><td class="memItemLeft" align="right" valign="top"><a id="a7347d6e74d53e4f4f6391da759e32959"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getThickness</b> () const -&gt; float</td></tr>
+<tr class="separator:a7347d6e74d53e4f4f6391da759e32959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1039cb2d2a0d6c0bfaf0f68cb66b670e"><td class="memItemLeft" align="right" valign="top"><a id="a1039cb2d2a0d6c0bfaf0f68cb66b670e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setOutlineThickness</b> (float thickness)</td></tr>
+<tr class="separator:a1039cb2d2a0d6c0bfaf0f68cb66b670e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9075a7ec05358041825ab4456df62a3"><td class="memItemLeft" align="right" valign="top"><a id="aa9075a7ec05358041825ab4456df62a3"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getOutlineThickness</b> () const -&gt; float</td></tr>
+<tr class="separator:aa9075a7ec05358041825ab4456df62a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a559e0b3f99738f4220e14bb41b920b05"><td class="memItemLeft" align="right" valign="top"><a id="a559e0b3f99738f4220e14bb41b920b05"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setOutlineColor</b> (const sf::Color &amp;color)</td></tr>
+<tr class="separator:a559e0b3f99738f4220e14bb41b920b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97ccba344cd1047288202125d6f64a33"><td class="memItemLeft" align="right" valign="top"><a id="a97ccba344cd1047288202125d6f64a33"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getOutlineColor</b> () const -&gt; const sf::Color &amp;</td></tr>
+<tr class="separator:a97ccba344cd1047288202125d6f64a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a89ffd54edc7fafe41a445d45f8b8c"><td class="memItemLeft" align="right" valign="top"><a id="a63a89ffd54edc7fafe41a445d45f8b8c"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPointCount</b> () const -&gt; std::size_t</td></tr>
+<tr class="separator:a63a89ffd54edc7fafe41a445d45f8b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbda56f24dc2c99432ac25accf3f16a1"><td class="memItemLeft" align="right" valign="top"><a id="afbda56f24dc2c99432ac25accf3f16a1"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getLocalBounds</b> () const -&gt; sf::FloatRect</td></tr>
 <tr class="separator:afbda56f24dc2c99432ac25accf3f16a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
