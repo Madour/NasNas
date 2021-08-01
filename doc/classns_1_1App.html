@@ -82,6 +82,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a8e48f3177c7f4d53263ea0a961719f3b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a8e48f3177c7f4d53263ea0a961719f3b">getWindow</a> () -&gt; <a class="el" href="classns_1_1AppWindow.html">AppWindow</a> &amp;</td></tr>
 <tr class="memdesc:a8e48f3177c7f4d53263ea0a961719f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="classns_1_1AppWindow.html">AppWindow</a>.  <a href="#a8e48f3177c7f4d53263ea0a961719f3b">More...</a><br /></td></tr>
 <tr class="separator:a8e48f3177c7f4d53263ea0a961719f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc82e32c05d19335e72be4bfe67f1838"><td class="memItemLeft" align="right" valign="top"><a id="abc82e32c05d19335e72be4bfe67f1838"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getMousePosition</b> () const -&gt; sf::Vector2f</td></tr>
+<tr class="separator:abc82e32c05d19335e72be4bfe67f1838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1645163235ee780756615c6f61466472"><td class="memItemLeft" align="right" valign="top"><a id="a1645163235ee780756615c6f61466472"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getMousePosition</b> (<a class="el" href="classns_1_1Camera.html">Camera</a> &amp;cam) const -&gt; sf::Vector2f</td></tr>
 <tr class="separator:a1645163235ee780756615c6f61466472"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -101,6 +104,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getMousePosition</b> 
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a9c7dfbd6ea5a28b52d7a5097346f207d">toggleFullscreen</a> ()</td></tr>
 <tr class="memdesc:a9c7dfbd6ea5a28b52d7a5097346f207d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle fullscreen display. <br /></td></tr>
 <tr class="separator:a9c7dfbd6ea5a28b52d7a5097346f207d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ffca4529401414b3068ed1e7624476"><td class="memItemLeft" align="right" valign="top"><a id="ab4ffca4529401414b3068ed1e7624476"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDt</b> () const -&gt; float</td></tr>
+<tr class="separator:ab4ffca4529401414b3068ed1e7624476"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9c98c90e66b57a5e72bbab6e0190308"><td class="memItemLeft" align="right" valign="top"><a id="ae9c98c90e66b57a5e72bbab6e0190308"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#ae9c98c90e66b57a5e72bbab6e0190308">run</a> ()</td></tr>
 <tr class="memdesc:ae9c98c90e66b57a5e72bbab6e0190308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the game loop. <br /></td></tr>
@@ -159,9 +165,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a54f89513a12edccbc65532da0b58d61c">awake</a> ()</td></tr>
 <tr class="memdesc:a54f89513a12edccbc65532da0b58d61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="classns_1_1App.html">App</a> awakes from sleep mode. Used for Android when application run as main process. <br /></td></tr>
 <tr class="separator:a54f89513a12edccbc65532da0b58d61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4ffca4529401414b3068ed1e7624476"><td class="memItemLeft" align="right" valign="top"><a id="ab4ffca4529401414b3068ed1e7624476"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getDt</b> () const -&gt; float</td></tr>
-<tr class="separator:ab4ffca4529401414b3068ed1e7624476"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadbb3dd1531d3c9f5e208a66c3102fd8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#aadbb3dd1531d3c9f5e208a66c3102fd8">onEvent</a> (const sf::Event &amp;event)</td></tr>
 <tr class="memdesc:aadbb3dd1531d3c9f5e208a66c3102fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles SFML events.  <a href="#aadbb3dd1531d3c9f5e208a66c3102fd8">More...</a><br /></td></tr>
 <tr class="separator:aadbb3dd1531d3c9f5e208a66c3102fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -373,7 +376,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00302">302</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00304">304</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -443,7 +446,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00308">308</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00310">310</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -512,7 +515,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00314">314</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00316">316</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -557,7 +560,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00320">320</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00322">322</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -905,7 +908,7 @@ template&lt;typename T &gt; </div>
 <p>Optional method called just before rendering. </p>
 <p>Virtual method, can be defined by the user It can be used to execute code before rendering outside of the <code>update</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00262">262</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00264">264</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
