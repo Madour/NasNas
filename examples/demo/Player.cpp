@@ -56,7 +56,7 @@ Player::Player()
     auto velocity_vector = ns::LineShape();
     velocity_vector.setColor(sf::Color::Yellow);
     velocity_vector.addPoint(0, 0);
-    velocity_vector.addPoint(0, 0, sf::Color::Red);
+    velocity_vector.addPoint(1, 0, sf::Color::Red);
     add<ns::ecs::LineShape>(velocity_vector);
 
     // adding inputs component to player and binding buttons to Player methods
