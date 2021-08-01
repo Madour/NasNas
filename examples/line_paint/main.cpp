@@ -30,7 +30,7 @@ public:
         static bool mouse_grab  = false;
         static bool pen_down    = false;
         static auto color       = sf::Color::White;
-        static auto mouse_pos   = sf::Vector2f(sf::Mouse::getPosition(getWindow()));
+        static auto mouse_pos   = getMousePosition();
         static sf::Clock clock;
 
         if (clock.getElapsedTime().asMilliseconds() > 200) {
@@ -101,7 +101,7 @@ public:
                 this->line.addPoint(getMousePosition(getCamera("main")) - this->line.getPosition(), color);
             }
         }
-        mouse_pos = sf::Vector2f(sf::Mouse::getPosition(getWindow()));
+        mouse_pos = getMousePosition();
     }
 
     void update() override {

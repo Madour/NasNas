@@ -37,10 +37,10 @@ namespace ns {
          *
          * \param color Clear color
          */
-        void setClearColor(const sf::Color& color) const;
+        void setClearColor(const sf::Color& color);
 
     private:
-        mutable sf::Color m_clear_color;///< Window clear color
+        sf::Color m_clear_color;///< Window clear color
         sf::View m_app_view;            ///< App view defined by use
         sf::View m_screen_view;         ///< Screen view, same size as the window
 
