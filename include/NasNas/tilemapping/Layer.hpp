@@ -18,19 +18,24 @@ namespace ns::tm {
         Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
         auto getId() const -> unsigned int;
         auto getName() const -> const std::string&;
+
         auto getPosition() const -> sf::Vector2f;
         void setPosition(float x, float y);
         void setPosition(sf::Vector2f position);
         void move(float x, float y);
+
         auto isVisible() const -> bool;
         void setVisible(bool value);
 
-        auto getGlobalBounds() const -> ns::FloatRect;
+        auto getParallaxFactor() -> const sf::Vector2f&;
+
+        virtual auto getGlobalBounds() const -> ns::FloatRect;
 
     protected:
         const TiledMap& m_tiledmap;
         sf::Transformable m_transformable;
         sf::Color m_tintcolor = sf::Color::White;
+        sf::Vector2f m_parallax_factor = {0.f, 0.f};
 
     private:
         unsigned int m_id;
