@@ -75,24 +75,24 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectLayer</b> (c
 <tr class="memitem:a63d0d87be8ff2a98e1ad64708aeb49b5"><td class="memItemLeft" align="right" valign="top"><a id="a63d0d87be8ff2a98e1ad64708aeb49b5"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGroupLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1GroupLayer.html">GroupLayer</a> &amp;</td></tr>
 <tr class="separator:a63d0d87be8ff2a98e1ad64708aeb49b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9d9ab278703ffb1cd4fdd9d88643f5a"><td class="memItemLeft" align="right" valign="top"><a id="ae9d9ab278703ffb1cd4fdd9d88643f5a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
-<tr class="separator:ae9d9ab278703ffb1cd4fdd9d88643f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38e97b0b434c2b3223647259b3424daf"><td class="memItemLeft" align="right" valign="top"><a id="a38e97b0b434c2b3223647259b3424daf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (const <a class="el" href="classns_1_1Camera.html">Camera</a> *cam)</td></tr>
+<tr class="separator:a38e97b0b434c2b3223647259b3424daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a81025f3fa6d759ef935176f127997d9d"><td class="memItemLeft" align="right" valign="top"><a id="a81025f3fa6d759ef935176f127997d9d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>parseLayers</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
 <tr class="separator:a81025f3fa6d759ef935176f127997d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67eac02ea3b2156e14fe2867c084996e"><td class="memItemLeft" align="right" valign="top"><a id="a67eac02ea3b2156e14fe2867c084996e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addTileLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
-<tr class="separator:a67eac02ea3b2156e14fe2867c084996e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3953dc6f9eb327dc47baeb137ae8e46"><td class="memItemLeft" align="right" valign="top"><a id="ab3953dc6f9eb327dc47baeb137ae8e46"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addObjectLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
-<tr class="separator:ab3953dc6f9eb327dc47baeb137ae8e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4995fec4a4a4625e54f5218e9d702e00"><td class="memItemLeft" align="right" valign="top"><a id="a4995fec4a4a4625e54f5218e9d702e00"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addGroupLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap)</td></tr>
-<tr class="separator:a4995fec4a4a4625e54f5218e9d702e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78f3404987b58f25b27a59e9322f6b12"><td class="memItemLeft" align="right" valign="top"><a id="a78f3404987b58f25b27a59e9322f6b12"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>addTileLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
+<tr class="separator:a78f3404987b58f25b27a59e9322f6b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c12ad402f5311bf81a2a51669bbabd4"><td class="memItemLeft" align="right" valign="top"><a id="a7c12ad402f5311bf81a2a51669bbabd4"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>addObjectLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
+<tr class="separator:a7c12ad402f5311bf81a2a51669bbabd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a31580721f6651ec51a1efd6baf730d"><td class="memItemLeft" align="right" valign="top"><a id="a9a31580721f6651ec51a1efd6baf730d"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>addGroupLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
+<tr class="separator:a9a31580721f6651ec51a1efd6baf730d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9e9eb63dd283164b92a55b47478e76b"><td class="memItemLeft" align="right" valign="top"><a id="ae9e9eb63dd283164b92a55b47478e76b"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>allTileLayers</b> () const -&gt; const decltype(m_tilelayers)&amp;</td></tr>
 <tr class="separator:ae9e9eb63dd283164b92a55b47478e76b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,7 +108,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>allLayers</b> () cons
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="LayersContainer_8hpp_source.html#l00019">19</a> of file <a class="el" href="LayersContainer_8hpp_source.html">LayersContainer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LayersContainer_8hpp_source.html#l00020">20</a> of file <a class="el" href="LayersContainer_8hpp_source.html">LayersContainer.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="LayersContainer_8hpp_source.html">LayersContainer.hpp</a></li>
 </ul>
