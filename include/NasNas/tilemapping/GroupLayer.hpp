@@ -11,6 +11,8 @@ namespace ns::tm {
     public:
         GroupLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
+        auto getGlobalBounds() const -> ns::FloatRect override;
+
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
