@@ -24,6 +24,10 @@ m_tiledmap(*tiledmap)
         m_transformable.setPosition(m_transformable.getPosition().x, xml_node.attribute("offsety").as_float());
     if (xml_node.attribute("tintcolor"))
         m_tintcolor = hexToColor(std::string(xml_node.attribute("tintcolor").as_string()));
+    if (xml_node.attribute("parallaxx"))
+        m_parallax_factor.x = xml_node.attribute("parallaxx").as_float() - 1.f;
+    if (xml_node.attribute("parallaxy"))
+        m_parallax_factor.y = xml_node.attribute("parallaxy").as_float() - 1.f;
 
     parseProperties(xml_node.child("properties"));
 }
@@ -58,6 +62,10 @@ auto Layer::isVisible() const -> bool {
 
 void Layer::setVisible(bool value) {
     m_visible = value;
+}
+
+auto Layer::getParallaxFactor() -> const sf::Vector2f& {
+    return m_parallax_factor;
 }
 
 auto Layer::getGlobalBounds() const -> ns::FloatRect {
