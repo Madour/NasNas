@@ -33,6 +33,7 @@ namespace ns::tm {
         auto getTotalParallaxFactor() const -> sf::Vector2f;
 
         auto getOffset() const -> const sf::Vector2f&;
+        auto getTotalOffset() const -> sf::Vector2f;
 
         virtual auto getGlobalBounds() const -> ns::FloatRect;
 
