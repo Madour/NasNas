@@ -37,12 +37,23 @@ auto LayersContainer::getGroupLayer(const std::string& name) const -> GroupLayer
     exit(-1);
 }
 
-void LayersContainer::update() {
-    for (auto& [name, group] : m_grouplayers)
-        group->update();
+void LayersContainer::update(const Camera* cam) {
+    sf::Vector2f parallax_offset{1.f, 1.f};
 
-    for (auto& [name, layer] : m_tilelayers)
+    for (auto& [name, group] : m_grouplayers) {
+        group->update(cam);
+    }
+    for (auto& [name, layer] : m_tilelayers) {
         layer->update();
+        if (cam) {
+            layer->setPosition((parallax_offset - layer->getTotalParallaxFactor()) * cam->getPosition());
+        }
+    }
+    if (cam) {
+        for (auto& [name, layer] : m_objectlayers) {
+            layer->setPosition((parallax_offset - layer->getTotalParallaxFactor()) * cam->getPosition());
+        }
+    }
 }
 
 void LayersContainer::parseLayers(const pugi::xml_node& xml_node, TiledMap* tiledmap) {
@@ -63,6 +74,8 @@ void LayersContainer::parseLayers(const pugi::xml_node& xml_node, TiledMap* tile
 void LayersContainer::addTileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) {
     auto new_layer = std::make_unique<TileLayer>(xml_node, tiledmap);
     auto layer_name = new_layer->getName();
+    if (tiledmap != this)
+        new_layer->m_parent_group = dynamic_cast<GroupLayer*>(this);
     m_tilelayers[layer_name] = std::move(new_layer);
     m_layers.push_back(m_tilelayers.at(layer_name).get());
 }
@@ -70,6 +83,8 @@ void LayersContainer::addTileLayer(const pugi::xml_node& xml_node, TiledMap* til
 void LayersContainer::addObjectLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) {
     auto new_layer = std::make_unique<ObjectLayer>(xml_node, tiledmap);
     auto layer_name = new_layer->getName();
+    if (tiledmap != this)
+        new_layer->m_parent_group = dynamic_cast<GroupLayer*>(this);
     m_objectlayers[layer_name] = std::move(new_layer);
     m_layers.push_back(m_objectlayers.at(layer_name).get());
 }
@@ -77,6 +92,8 @@ void LayersContainer::addObjectLayer(const pugi::xml_node& xml_node, TiledMap* t
 void LayersContainer::addGroupLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) {
     auto new_layer = std::make_unique<GroupLayer>(xml_node, tiledmap);
     auto layer_name = new_layer->getName();
+    if (tiledmap != this)
+        new_layer->m_parent_group = dynamic_cast<GroupLayer*>(this);
     m_grouplayers[layer_name] = std::move(new_layer);
     m_layers.push_back(m_grouplayers.at(layer_name).get());
 }

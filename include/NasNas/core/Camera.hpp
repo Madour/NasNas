@@ -10,11 +10,11 @@
 #include <memory>
 #include "NasNas/core/data/Rect.hpp"
 #include "NasNas/core/data/ShaderHolder.hpp"
-#include "NasNas/core/Scene.hpp"
 
 namespace ns {
 
-    class AppWindow;
+    class App;
+    class Scene;
 
     class Camera : public sf::View, public ShaderHolder {
     public:

@@ -12,6 +12,8 @@
 
 namespace ns::tm {
     class TiledMap;
+    class GroupLayer;
+    class LayersContainer;
 
     class Layer : public PropertiesContainer, public sf::Drawable {
     public:
@@ -27,15 +29,18 @@ namespace ns::tm {
         auto isVisible() const -> bool;
         void setVisible(bool value);
 
-        auto getParallaxFactor() -> const sf::Vector2f&;
+        auto getParallaxFactor() const -> const sf::Vector2f&;
+        auto getTotalParallaxFactor() const -> sf::Vector2f;
 
         virtual auto getGlobalBounds() const -> ns::FloatRect;
 
     protected:
+        friend LayersContainer;
         const TiledMap& m_tiledmap;
+        const GroupLayer* m_parent_group = nullptr;
         sf::Transformable m_transformable;
         sf::Color m_tintcolor = sf::Color::White;
-        sf::Vector2f m_parallax_factor = {0.f, 0.f};
+        sf::Vector2f m_parallax_factor = {1.f, 1.f};
 
     private:
         unsigned int m_id;

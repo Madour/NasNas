@@ -5,6 +5,7 @@
 
 #include <cmath>
 #include "NasNas/core/data/Config.hpp"
+#include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Camera.hpp"
 
 using namespace ns;
