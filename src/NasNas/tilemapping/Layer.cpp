@@ -3,8 +3,10 @@
 **/
 
 
+#include "NasNas/core/data/Maths.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
+#include "NasNas/tilemapping/GroupLayer.hpp"
 
 using namespace ns;
 using namespace ns::tm;
@@ -25,9 +27,9 @@ m_tiledmap(*tiledmap)
     if (xml_node.attribute("tintcolor"))
         m_tintcolor = hexToColor(std::string(xml_node.attribute("tintcolor").as_string()));
     if (xml_node.attribute("parallaxx"))
-        m_parallax_factor.x = xml_node.attribute("parallaxx").as_float() - 1.f;
+        m_parallax_factor.x = xml_node.attribute("parallaxx").as_float();
     if (xml_node.attribute("parallaxy"))
-        m_parallax_factor.y = xml_node.attribute("parallaxy").as_float() - 1.f;
+        m_parallax_factor.y = xml_node.attribute("parallaxy").as_float();
 
     parseProperties(xml_node.child("properties"));
 }
@@ -64,8 +66,15 @@ void Layer::setVisible(bool value) {
     m_visible = value;
 }
 
-auto Layer::getParallaxFactor() -> const sf::Vector2f& {
+auto Layer::getParallaxFactor() const -> const sf::Vector2f& {
     return m_parallax_factor;
+}
+
+auto Layer::getTotalParallaxFactor() const -> sf::Vector2f {
+    if (m_parent_group != nullptr) {
+        return getParallaxFactor() * m_parent_group->getTotalParallaxFactor();
+    }
+    return getParallaxFactor();
 }
 
 auto Layer::getGlobalBounds() const -> ns::FloatRect {

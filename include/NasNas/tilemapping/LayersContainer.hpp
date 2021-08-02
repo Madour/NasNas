@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "NasNas/thirdparty/pugixml.hpp"
+#include "NasNas/core/Camera.hpp"
 
 namespace ns::tm {
     class TiledMap;
@@ -31,7 +32,7 @@ namespace ns::tm {
         auto getObjectLayer(const std::string& name) const -> ObjectLayer&;
         auto getGroupLayer(const std::string& name) const -> GroupLayer&;
 
-        void update();
+        void update(const Camera* cam);
 
     protected:
         void parseLayers(const pugi::xml_node& xml_node, TiledMap* tiledmap);

@@ -71,8 +71,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     game_camera.lookAt(scene);     // tell the Camera to look at the scene
     game_camera.follow(*this->player.transform());   // tell the Camera to follow our entity
     game_camera.setFramesDelay(2);       // the Camera will have 10 frames delay over the player
-    // set Camera limits
-    //this->game_camera->setLimitsRect({{0, 0}, sf::Vector2i(tiled_map.getSize())});
+    this->tiled_map.setCamera(game_camera);
     //-----------------------------------------------------------------------------------
 
     //------------ Add Drawables to the Scene  ------------------------------------------
@@ -210,21 +209,22 @@ void Game::update() {
         this->getCamera("main").zoom(0.99f);
 
     this->textbox->update();
-    // moving the octogons randomly
+    // move the shapes randomly
     for (auto& shape : this->shapes) {
         shape.move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
         shape.rotate(1);
     }
 
-    // updating map layers
-    this->tiled_map.update();
-
-    // updating the entities
+    // update the player
     this->player.update();
 
-    // sorting the shapes layer by the y position
+    // update tiled map
+    this->tiled_map.update();
+
+    // sort shapes layer by the y position
     this->getScene("main").getLayer("shapes").ySort();
 
+    // update particles
     this->particle_system.setPosition(getMousePosition(getCamera("main")));
     this->particle_system.update();
 }

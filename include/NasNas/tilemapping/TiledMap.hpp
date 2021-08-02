@@ -9,6 +9,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "NasNas/thirdparty/pugixml.hpp"
+#include "NasNas/core/Camera.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
 #include "NasNas/tilemapping/LayersContainer.hpp"
 #include "NasNas/tilemapping/Tileset.hpp"
@@ -29,6 +30,10 @@ namespace ns::tm {
         auto allTilesets() const -> const std::vector<Tileset>&;
         auto getTileTileset(unsigned int gid) const -> const Tileset&;
 
+        void setCamera(const Camera& cam);
+
+        void update();
+
     private:
         void load(const pugi::xml_document& xml);
 
@@ -42,6 +47,8 @@ namespace ns::tm {
 
         std::vector<Tileset> m_tilesets;
         std::vector<TilesetData> m_tilesets_data;
+
+        const Camera* m_camera = nullptr;
     };
 
 }

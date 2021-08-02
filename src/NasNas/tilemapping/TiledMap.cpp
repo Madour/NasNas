@@ -93,3 +93,11 @@ auto TiledMap::getTileTileset(unsigned int gid) const -> const Tileset& {
     std::cout << "Error (TiledMap::getTileTileset) : Tile gid " << gid << " not found in any tileset" << std::endl;
     exit(-1);
 }
+
+void TiledMap::setCamera(const Camera& cam) {
+    m_camera = &cam;
+}
+
+void TiledMap::update() {
+    LayersContainer::update(m_camera);
+}
