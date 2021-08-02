@@ -31,7 +31,6 @@ m_tiledmap(*tiledmap)
     if (xml_node.attribute("parallaxy"))
         m_parallax_factor.y = xml_node.attribute("parallaxy").as_float();
 
-    move(m_offset.x, m_offset.y);
     parseProperties(xml_node.child("properties"));
 }
 
@@ -71,12 +70,18 @@ auto Layer::getOffset() const -> const sf::Vector2f& {
     return m_offset;
 }
 
+auto Layer::getTotalOffset() const -> sf::Vector2f {
+    if (m_parent_group)
+        return getOffset() + m_parent_group->getOffset();
+    return getOffset();
+}
+
 auto Layer::getParallaxFactor() const -> const sf::Vector2f& {
     return m_parallax_factor;
 }
 
 auto Layer::getTotalParallaxFactor() const -> sf::Vector2f {
-    if (m_parent_group != nullptr) {
+    if (m_parent_group) {
         return getParallaxFactor() * m_parent_group->getTotalParallaxFactor();
     }
     return getParallaxFactor();

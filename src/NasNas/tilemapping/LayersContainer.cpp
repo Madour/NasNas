@@ -47,13 +47,13 @@ void LayersContainer::update(const Camera* cam) {
     for (auto& [name, layer] : m_tilelayers) {
         layer->update();
         if (cam) {
-            layer->setPosition((parallax_offset - layer->getTotalParallaxFactor()) * cam->getPosition() + layer->getOffset());
+            layer->setPosition((parallax_offset - layer->getTotalParallaxFactor()) * cam->getPosition() + layer->getTotalOffset());
         }
     }
 
     if (cam) {
         for (auto& [name, layer] : m_objectlayers) {
-            layer->setPosition((parallax_offset - layer->getTotalParallaxFactor()) * cam->getPosition() + layer->getOffset());
+            layer->setPosition((parallax_offset - layer->getTotalParallaxFactor()) * cam->getPosition() + layer->getTotalOffset());
         }
     }
 }
@@ -71,8 +71,10 @@ void LayersContainer::parseLayers(const pugi::xml_node& xml_node, TiledMap* tile
         else if (child_name == "group") {
             new_layer = addGroupLayer(child, tiledmap);
         }
-        if (tiledmap != this && new_layer)
+        if (tiledmap != this && new_layer) {
             new_layer->m_parent_group = dynamic_cast<GroupLayer*>(this);
+            new_layer->setPosition(new_layer->getOffset() + new_layer->m_parent_group->getOffset());
+        }
     }
 }
 
