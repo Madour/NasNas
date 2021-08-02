@@ -32,6 +32,8 @@ namespace ns::tm {
         auto getParallaxFactor() const -> const sf::Vector2f&;
         auto getTotalParallaxFactor() const -> sf::Vector2f;
 
+        auto getOffset() const -> const sf::Vector2f&;
+
         virtual auto getGlobalBounds() const -> ns::FloatRect;
 
     protected:
@@ -47,6 +49,7 @@ namespace ns::tm {
         std::string m_name;
         bool m_visible = true;
         float m_opacity = 1.f;
+        sf::Vector2f m_offset;
     };
 
 }
