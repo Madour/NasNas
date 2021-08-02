@@ -14,6 +14,21 @@ Layer(xml_node, tiledmap)
     parseLayers(xml_node, tiledmap);
 }
 
+auto GroupLayer::getGlobalBounds() const -> ns::FloatRect {
+    if (allLayers().empty()) return {};
+
+    auto bounds = allLayers()[0]->getGlobalBounds();
+    float right = bounds.right(), bottom = bounds.bottom();
+    for (auto& layer : allLayers()) {
+        auto layer_bounds = layer->getGlobalBounds();
+        bounds.left = std::min(bounds.left, layer_bounds.left);
+        bounds.top = std::min(bounds.top, layer_bounds.top);
+        right = std::max(right, layer_bounds.right());
+        bottom = std::max(bottom, layer_bounds.bottom());
+    }
+    return {bounds.left, bounds.top, right - bounds.left, bottom - bounds.top};
+}
+
 void GroupLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (auto* layer : allLayers()) {
         target.draw(*layer, states);
