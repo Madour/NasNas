@@ -81,7 +81,14 @@ void Camera::setLimitsRect(const ns::IntRect& rectangle) {
 }
 
 auto Camera::getPosition() const -> sf::Vector2f {
-    return sf::Vector2f(getLeft(), getTop());
+    return {getLeft(), getTop()};
+}
+
+auto Camera::getFolloweePosition() const -> const sf::Vector2f& {
+    if (m_followee.has_value())
+        return m_followee.value()->getPosition();
+    else
+        return getCenter();
 }
 
 auto Camera::getLeft() const -> float{

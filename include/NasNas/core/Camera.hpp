@@ -163,6 +163,8 @@ namespace ns {
          */
         auto getPosition() const -> sf::Vector2f;
 
+        auto getFolloweePosition() const -> const sf::Vector2f&;
+
         /**
          * \brief Get Camera left position in world's coordinates
          *
