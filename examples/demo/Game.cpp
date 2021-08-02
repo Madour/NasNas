@@ -71,6 +71,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     game_camera.lookAt(scene);     // tell the Camera to look at the scene
     game_camera.follow(*this->player.transform());   // tell the Camera to follow our entity
     game_camera.setFramesDelay(2);       // the Camera will have 10 frames delay over the player
+    game_camera.setLimitsRect({{0, 0}, {1000, 1000}});
     this->tiled_map.setCamera(game_camera);
     //-----------------------------------------------------------------------------------
 

@@ -37,9 +37,9 @@ namespace ns::tm {
     protected:
         void parseLayers(const pugi::xml_node& xml_node, TiledMap* tiledmap);
 
-        void addTileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
-        void addObjectLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
-        void addGroupLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
+        auto addTileLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) -> Layer*;
+        auto addObjectLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) -> Layer*;
+        auto addGroupLayer(const pugi::xml_node& xml_node, TiledMap* tiledmap) -> Layer*;
 
         auto allTileLayers() const -> const decltype(m_tilelayers)&;
         auto allObjectLayers() const -> const decltype(m_objectlayers)&;
