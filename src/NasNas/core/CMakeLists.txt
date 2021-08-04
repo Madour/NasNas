@@ -25,6 +25,7 @@ set(
         ${SRC_PATH}/App.cpp
         ${SRC_PATH}/Camera.cpp
         ${SRC_PATH}/Debug.cpp
+        ${SRC_PATH}/Inputs.cpp
         ${SRC_PATH}/Layer.cpp
         ${SRC_PATH}/Scene.cpp
         ${SRC_PATH}/Transition.cpp
@@ -42,6 +43,7 @@ set(
         ${INC_PATH}/data/Rect.hpp
         ${INC_PATH}/data/Rtti.hpp
         ${INC_PATH}/data/ShaderHolder.hpp
+        ${INC_PATH}/data/Singleton.hpp
         ${INC_PATH}/data/Utils.hpp
 
         ${INC_PATH}/graphics/Anim.hpp
@@ -58,6 +60,7 @@ set(
         ${INC_PATH}/App.hpp
         ${INC_PATH}/Camera.hpp
         ${INC_PATH}/Debug.hpp
+        ${INC_PATH}/Inputs.hpp
         ${INC_PATH}/Layer.hpp
         ${INC_PATH}/Scene.hpp
         ${INC_PATH}/Transition.hpp

@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
-
+#include "NasNas/core/Inputs.hpp"
 #include "NasNas/core/App.hpp"
 
 using namespace ns;
@@ -173,13 +173,23 @@ void App::addDebugText(const std::string& label, const sf::Vector2f& position, c
 
 void App::storeInputs(sf::Event event) {
     auto& pressed_keys = Config::Inputs::pressed_keys;
-    if (event.type == sf::Event::KeyPressed)
+    if (event.type == sf::Event::KeyPressed) {
         if (std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code) == pressed_keys.end())
             pressed_keys.insert(pressed_keys.begin(), event.key.code);
+        Inputs::get().m_keys_down.emplace_back(event.key.code);
+        Inputs::get().m_keys_released[event.key.code] = false;
+        Inputs::get().m_keys_states[event.key.code] = true;
+    }
 
-    if (event.type == sf::Event::KeyReleased)
+    if (event.type == sf::Event::KeyReleased) {
         if (std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code) != pressed_keys.end())
             pressed_keys.erase(std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code));
+        auto key_iter = std::find(Inputs::get().m_keys_down.begin(), Inputs::get().m_keys_down.end(), event.key.code);
+        if (key_iter != Inputs::get().m_keys_down.end())
+            Inputs::get().m_keys_down.erase(key_iter);
+        Inputs::get().m_keys_released[event.key.code] = true;
+        Inputs::get().m_keys_states[event.key.code] = false;
+    }
 }
 
 void App::onEvent(const sf::Event& event) {
@@ -300,6 +310,8 @@ void App::storeDrawableDebugRects(const ns::FloatRect& drawable_bounds, Camera& 
 }
 
 void App::run() {
+    // initialize Inputs manager
+    Inputs::init();
     // sort cameras by render order
     m_cameras.sort([](Camera& lhs, Camera& rhs) {return lhs.getRenderOrder() < rhs.getRenderOrder();});
 
