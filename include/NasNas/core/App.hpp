@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include <list>
+
 #include "NasNas/core/data/Config.hpp"
 #include "NasNas/core/data/ShaderHolder.hpp"
 
@@ -85,7 +87,7 @@ namespace ns {
          *
          * \return Vector of Scene objects
          */
-        auto allScenes() -> std::vector<Scene>&;
+        auto allScenes() -> std::list<Scene>&;
 
         /**
          * \brief Get a Scene by name
@@ -100,7 +102,7 @@ namespace ns {
          *
          * \return Vector of Camera objects
          */
-        auto allCameras() -> std::vector<Camera>&;
+        auto allCameras() -> std::list<Camera>&;
 
         /**
          * \brief Get a Camera by name
@@ -274,9 +276,8 @@ namespace ns {
         float m_dt;             ///< Delta time, time between two frames
         bool m_sleeping = false;
 
-        std::vector<Camera> m_cameras;
-        std::vector<Scene> m_scenes;
-        std::multimap<int, Camera*> m_cameras_map;
+        std::list<Camera> m_cameras;
+        std::list<Scene> m_scenes;
         std::vector<DebugTextInterface*> m_debug_texts;
         std::vector<sf::Vertex> m_debug_bounds;
 

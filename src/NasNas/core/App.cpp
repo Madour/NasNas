@@ -50,6 +50,7 @@ m_desired_fps(fps)
         m_window.setFramerateLimit(fps);
 
     m_renderer.create((unsigned int)m_window.getAppView().getSize().x, (unsigned int)m_window.getAppView().getSize().y);
+    m_debug_bounds.reserve(100*4);
 
     m_dt = 0.0;
     m_fps_clock.restart();
@@ -85,7 +86,7 @@ auto App::getMousePosition(Camera& cam) const -> sf::Vector2f {
     return mouse_pos;
 }
 
-auto App::allScenes() -> std::vector<Scene>& {
+auto App::allScenes() -> std::list<Scene>& {
     return m_scenes;
 }
 
@@ -99,7 +100,7 @@ auto App::getScene(const std::string& name) -> Scene& {
     std::exit(-1);
 }
 
-auto App::allCameras() -> std::vector<Camera>& {
+auto App::allCameras() -> std::list<Camera>& {
     return m_cameras;
 }
 
@@ -114,14 +115,11 @@ auto App::getCamera(const std::string& name) -> Camera& {
 }
 
 auto App::createScene(const std::string& name) -> Scene& {
-    m_scenes.emplace_back(name);
-    return m_scenes.back();
+    return m_scenes.emplace_back(name);
 }
 
 auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect& view, const ns::FloatRect& viewport) -> Camera& {
-    m_cameras.emplace_back(cam_name, order);
-
-    auto& new_cam = m_cameras.back();
+    auto& new_cam = m_cameras.emplace_back(cam_name, order);
     new_cam.reset(view.topleft(), view.size());
 
     if (viewport.left <= 1 && viewport.top <= 1 && viewport.width <= 1 && viewport.height <= 1)
@@ -207,9 +205,9 @@ void App::render() {
     }
 
     // for each camera, if it has a scene and is visible, render the content
-    for (auto& [order, cam] : m_cameras_map) {
-        if (cam->hasScene() && cam->isVisible()) {
-            cam->render(m_renderer);
+    for (auto& cam : m_cameras) {
+        if (cam.hasScene() && cam.isVisible()) {
+            cam.render(m_renderer);
         }
     }
     // render transitions, delete it when it has ended
@@ -262,8 +260,8 @@ void App::renderDebugBounds() {
             const auto& local_vport = cam.getViewport();
             sf::Vector2f offset{m_window.mapCoordsToPixel(cam.getSprite().getPosition(), m_window.getAppView())};
 
-            for (const auto* dr : cam.m_scene->m_default_layer.allDrawables()) {
-                storeDrawableDebugRects(cam.m_scene->m_default_layer.getDrawableBounds(dr), cam, render_bounds, offset, global_vport, local_vport);
+            for (const auto* dr : cam.m_scene->getDefaultLayer().allDrawables()) {
+                storeDrawableDebugRects(cam.m_scene->getDefaultLayer().getDrawableBounds(dr), cam, render_bounds, offset, global_vport, local_vport);
             }
             for (const auto& [key, layer] : cam.m_scene->m_layers) {
                 for (const auto* dr : layer.allDrawables()) {
@@ -302,10 +300,9 @@ void App::storeDrawableDebugRects(const ns::FloatRect& drawable_bounds, Camera& 
 }
 
 void App::run() {
-    // create camera map
-    for (auto& cam : m_cameras) {
-        m_cameras_map.emplace(cam.getRenderOrder(), &cam);
-    }
+    // sort cameras by render order
+    m_cameras.sort([](Camera& lhs, Camera& rhs) {return lhs.getRenderOrder() < rhs.getRenderOrder();});
+
     double current_slice = 0.;
     double slice_time = 1.0/m_ups;
     sf::Clock timer;

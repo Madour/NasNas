@@ -28,6 +28,9 @@ namespace ns {
 
         Camera(const Camera&) = delete;
         Camera(Camera&&) = default;
+        Camera& operator=(const Camera&) = delete;
+        Camera& operator=(Camera&&) = default;
+
         /**
          * \brief Reset Camera size and position
          *

@@ -15,6 +15,8 @@ public:
         auto& camera = this->createCamera("main", 0);
         camera.lookAt(scene);
 
+        this->line.setThickness(10.f);
+
         this->cursor.setRadius(this->line.getThickness() / 2.f);
         this->cursor.setOrigin(this->cursor.getRadius(), this->cursor.getRadius());
         this->cursor.setOutlineColor(sf::Color::Black);

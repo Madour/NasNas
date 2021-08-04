@@ -28,6 +28,8 @@ namespace ns {
 
         Scene(const Scene&) = delete;
         Scene(Scene&&) = default;
+        Scene& operator=(const Scene&) = delete;
+        Scene& operator=(Scene&&) = default;
 
         /**
          * \brief Adds a new layer to the scene
