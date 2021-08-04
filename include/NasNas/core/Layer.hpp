@@ -30,6 +30,8 @@ namespace ns {
 
         Layer(const Layer&) = delete;
         Layer(Layer&&) = default;
+        Layer& operator=(const Layer&) = delete;
+        Layer& operator=(Layer&&) = default;
 
         /**
          * \brief Removes all the drawables
