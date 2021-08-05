@@ -11,7 +11,7 @@ namespace ns {
 
     class ResourceManager {
     public:
-        static auto load(const std::string& assets_directory_name) -> bool;
+        static auto load(const std::string& assets_directory_name, bool autoload=false) -> bool;
         static void dispose();
         static auto in(const std::string& dir_name) -> Dir&;
 
@@ -28,6 +28,7 @@ namespace ns {
         ResourceManager();
         ~ResourceManager();
         static void checkReady();
+        static auto resolvePath(const std::string& p) -> std::pair<Dir*, std::string>;
     };
 
     typedef ResourceManager Res;
