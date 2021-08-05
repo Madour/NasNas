@@ -172,23 +172,18 @@ void App::addDebugText(const std::string& label, const sf::Vector2f& position, c
 }
 
 void App::storeInputs(sf::Event event) {
-    auto& pressed_keys = Config::Inputs::pressed_keys;
     if (event.type == sf::Event::KeyPressed) {
-        if (std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code) == pressed_keys.end())
-            pressed_keys.insert(pressed_keys.begin(), event.key.code);
         Inputs::get().m_keys_down.emplace_back(event.key.code);
-        Inputs::get().m_keys_released[event.key.code] = false;
         Inputs::get().m_keys_states[event.key.code] = true;
+        Inputs::get().m_keys_pressed[event.key.code] = true;
     }
 
     if (event.type == sf::Event::KeyReleased) {
-        if (std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code) != pressed_keys.end())
-            pressed_keys.erase(std::find(pressed_keys.begin(), pressed_keys.end(), event.key.code));
         auto key_iter = std::find(Inputs::get().m_keys_down.begin(), Inputs::get().m_keys_down.end(), event.key.code);
         if (key_iter != Inputs::get().m_keys_down.end())
             Inputs::get().m_keys_down.erase(key_iter);
-        Inputs::get().m_keys_released[event.key.code] = true;
         Inputs::get().m_keys_states[event.key.code] = false;
+        Inputs::get().m_keys_released[event.key.code] = true;
     }
 }
 
@@ -348,6 +343,9 @@ void App::run() {
                     cam.update();
                 for (unsigned int i = 0; i < Transition::list.size(); ++i)
                     Transition::list[i]->update();
+
+                Inputs::get().m_keys_pressed.clear();
+                Inputs::get().m_keys_released.clear();
             }
         }
         // render drawables and display window

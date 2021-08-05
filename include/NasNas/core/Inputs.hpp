@@ -22,12 +22,17 @@ namespace ns {
         static auto isKeyPressed(const sf::Keyboard::Key& key) -> bool;
         static auto isKeyReleased(const sf::Keyboard::Key& key) -> bool;
 
+        static void setButton(const std::string& btn, const sf::Keyboard::Key& key);
+        static auto getButton(const std::string& btn) ->  sf::Keyboard::Key;
+
     private:
+        using detail::Singleton<Inputs>::get;
         static void init();
 
         std::vector<sf::Keyboard::Key> m_keys_down;
         std::unordered_map<sf::Keyboard::Key, bool> m_keys_states;
         std::unordered_map<sf::Keyboard::Key, bool> m_keys_pressed;
         std::unordered_map<sf::Keyboard::Key, bool> m_keys_released;
+        std::unordered_map<std::string, sf::Keyboard::Key> m_buttons_map;
     };
 }

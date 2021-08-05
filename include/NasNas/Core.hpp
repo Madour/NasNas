@@ -7,6 +7,7 @@
 
 #include "NasNas/core/App.hpp"
 #include "NasNas/core/Camera.hpp"
+#include "NasNas/core/Inputs.hpp"
 #include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Layer.hpp"
 #include "NasNas/core/Window.hpp"

@@ -14,11 +14,11 @@ auto main() -> int {
     ns::Config::Window::vertical_sync = true;
     ns::Config::Window::style = sf::Style::Default;
     // map keys inputs
-    ns::Config::Inputs::setButtonKey("left", sf::Keyboard::Left);
-    ns::Config::Inputs::setButtonKey("right", sf::Keyboard::Right);
-    ns::Config::Inputs::setButtonKey("up", sf::Keyboard::Up);
-    ns::Config::Inputs::setButtonKey("down", sf::Keyboard::Down);
-    ns::Config::Inputs::setButtonKey("fullscreen", sf::Keyboard::F);
+    ns::Inputs::setButton("left", sf::Keyboard::Left);
+    ns::Inputs::setButton("right", sf::Keyboard::Right);
+    ns::Inputs::setButton("up", sf::Keyboard::Up);
+    ns::Inputs::setButton("down", sf::Keyboard::Down);
+    ns::Inputs::setButton("fullscreen", sf::Keyboard::F);
     // configure physics constants
     ns::Config::Physics::gravity = 0;
     //-----------------------------------------------------------------
