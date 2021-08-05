@@ -7,28 +7,16 @@
 
 using namespace ns;
 
-App::App()
-: App(
-    Config::Window::title,
-    Config::Window::size.x,
-    Config::Window::size.y,
-    Config::Window::view_size.x,
-    Config::Window::view_size.y,
-    Config::Window::framerate_limit,
-    Config::Window::update_rate
+App::App() : App(
+    Settings::user_config.title,
+    Settings::user_config.resolution,
+    Settings::user_config.scale,
+    Settings::user_config.frame_rate,
+    Settings::user_config.update_rate
 )
 {}
 
-App::App(const std::string &title, sf::Vector2u resolution, float scale, int fps, int ups) :
-App(
-    title,
-    static_cast<int>(resolution.x*scale), static_cast<int>(resolution.y*scale),
-    resolution.x, resolution.y,
-    fps, ups
-)
-{}
-
-App::App(std::string title, int w_width, int w_height, int v_width, int v_height, int fps, int ups) :
+App::App(std::string title, sf::Vector2u resolution, float scale, int fps, int ups) :
 m_title(std::move(title)),
 m_fullscreen(false),
 m_ups(ups),
@@ -36,15 +24,21 @@ m_desired_fps(fps)
 {
     AppComponent::app = this;
 
-    Config::Window::title = title;
-    Config::Window::size.x = w_width;
-    Config::Window::size.y = w_height;
-    Config::Window::view_size.x = v_width == 0 ? w_width : v_width;
-    Config::Window::view_size.y = v_height == 0 ? w_height : v_height;
-    Config::Window::framerate_limit = fps;
-    Config::Window::update_rate = ups;
+    sf::Vector2u window_size = {static_cast<unsigned>(resolution.x*scale), static_cast<unsigned>(resolution.y*scale)};
+    sf::Vector2f view_size = {static_cast<float>(resolution.x), static_cast<float>(resolution.y)};
+    float view_ratio = view_size.x / view_size.y;
 
-    m_window.create(sf::VideoMode(w_width, w_height), title, Config::Window::style);
+    Settings::user_config.title = title;
+    Settings::user_config.resolution = resolution;
+    Settings::user_config.scale = scale;
+    Settings::user_config.frame_rate = fps;
+    Settings::user_config.update_rate = ups;
+    Settings::user_config.video_mode.width = window_size.x;
+    Settings::user_config.video_mode.height = window_size.y;
+    Settings::user_config.view_size = view_size;
+    Settings::user_config.view_ratio = view_ratio;
+
+    m_window.create(Settings::user_config.video_mode, title, Settings::user_config.window_style);
     m_window.setTitle(m_title);
     if (fps > 0)
         m_window.setFramerateLimit(fps);
@@ -125,10 +119,11 @@ auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect
     if (viewport.left <= 1 && viewport.top <= 1 && viewport.width <= 1 && viewport.height <= 1)
         new_cam.resetViewport(viewport.topleft(), viewport.size());
     else {
-        auto x = viewport.left/float(ns::Config::Window::view_size.x);
-        auto width = viewport.width/float(ns::Config::Window::view_size.x);
-        auto y = viewport.top/float(ns::Config::Window::view_size.y);
-        auto height = viewport.height/float(ns::Config::Window::view_size.y);
+        auto& view_size = Settings::user_config.view_size;
+        auto x = viewport.left/view_size.x;
+        auto width = viewport.width/view_size.x;
+        auto y = viewport.top/view_size.y;
+        auto height = viewport.height/view_size.y;
         new_cam.resetViewport(x, y, width, height);
     }
 
@@ -136,7 +131,7 @@ auto App::createCamera(const std::string& cam_name, int order, const ns::IntRect
 }
 
 auto App::createCamera(const std::string& cam_name, int order, const ns::FloatRect & viewport) -> Camera& {
-    return createCamera(cam_name, order, {{0, 0}, Config::Window::view_size}, viewport);
+    return createCamera(cam_name, order, {{0, 0}, sf::Vector2i(Settings::user_config.view_size)}, viewport);
 }
 
 void App::sleep() {
@@ -158,7 +153,7 @@ void App::toggleFullscreen() {
         m_window.setMouseCursorVisible(false);
     }
     else {
-        m_window.create(sf::VideoMode(Config::Window::size.x, Config::Window::size.y), m_title, Config::Window::style);
+        m_window.create(Settings::user_config.video_mode, m_title, Settings::user_config.window_style);
     }
     m_window.setClearColor(clear_color);
     m_window.setFramerateLimit(m_desired_fps);
@@ -190,11 +185,17 @@ void App::storeInputs(sf::Event event) {
 void App::onEvent(const sf::Event& event) {
     if (event.type == sf::Event::Closed)
         m_window.close();
-    if (event.type == sf::Event::KeyPressed) {
+    else if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Escape)
             m_window.close();
-        if (event.key.code == sf::Keyboard::F1)
-            Config::debug = !Config::debug;
+        else if (event.key.code == sf::Keyboard::F1)
+            Settings::debug_mode = !Settings::debug_mode;
+        else if (event.key.code == sf::Keyboard::F2)
+            Settings::debug_mode.show_fps = !Settings::debug_mode.show_fps;
+        else if (event.key.code == sf::Keyboard::F3)
+            Settings::debug_mode.show_text = !Settings::debug_mode.show_text;
+        else if (event.key.code == sf::Keyboard::F4)
+            Settings::debug_mode.show_bounds = !Settings::debug_mode.show_bounds;
     }
 }
 
@@ -231,11 +232,11 @@ void App::render() {
     // draw debug things on ScreenView
     m_window.setView(m_window.getScreenView());
     // draw debug bounds
-    if (Config::debug && Config::debug.show_bounds) {
+    if (Settings::debug_mode && Settings::debug_mode.show_bounds) {
        renderDebugBounds();
     }
     // draw debug texts
-    if (Config::debug && Config::debug.show_text) {
+    if (Settings::debug_mode && Settings::debug_mode.show_text) {
         for (auto* dbg_txt: m_debug_texts) {
             dbg_txt->update();
             m_window.draw(*dbg_txt);
@@ -319,7 +320,7 @@ void App::run() {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
 
-        if (Config::debug && Config::debug.show_fps && timer.getElapsedTime().asMilliseconds()>200) {
+        if (Settings::debug_mode && Settings::debug_mode.show_fps && timer.getElapsedTime().asMilliseconds()>200) {
             m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
             timer.restart();
         }

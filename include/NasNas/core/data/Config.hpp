@@ -7,13 +7,37 @@
 
 #include <unordered_map>
 #include <SFML/Window.hpp>
-#include "AppComponent.hpp"
-#include "Utils.hpp"
+#include "NasNas/core/data/AppComponent.hpp"
+#include "NasNas/core/data/Utils.hpp"
 
 namespace ns {
+    struct AppConfig {
+        std::string title = "NasNas app";
+        sf::Vector2u resolution = {720, 480};
+        float scale = 1.f;
+        int frame_rate = 60;
+        int update_rate = 60;
+        bool vertical_sync = false;
+        int window_style = sf::Style::Default;
+        unsigned antialiasing_level = 0;
+        bool key_repeat = false;
+        bool cursor_visible = true;
+        bool cursor_grabbed = false;
 
+        auto getViewSize() const -> const sf::Vector2f&;
+        auto getViewRatio() const -> float;
 
-    class Config : AppComponent {
+    private:    // private configs set by the App
+        friend App;
+        sf::VideoMode video_mode;
+        sf::Vector2f view_size;
+        float view_ratio = 1.f;
+    };
+
+    class Settings : AppComponent {
+        friend App;
+
+        static AppConfig user_config;
 
         struct debug_info : public utils::bool_switch {
             debug_info(const debug_info&) = delete;
@@ -22,13 +46,16 @@ namespace ns {
             utils::bool_switch show_bounds;
             auto operator=(bool value) -> debug_info& override;
         private:
-            friend Config;
+            friend Settings;
             debug_info();
             unsigned int m_state;
         };
 
     public:
-        static debug_info debug;
+        static debug_info debug_mode;
+
+        static void setConfig(AppConfig config);
+        static auto getConfig() -> const AppConfig&;
 
         class Modules {
         public:
@@ -37,26 +64,6 @@ namespace ns {
             static const bool Ecs;
             static const bool Tilemapping;
             static const bool Ui;
-        };
-
-        class Window {
-        public:
-            static std::string title;
-            static sf::Vector2i size;
-            static sf::Vector2i view_size;
-            static int style;
-            static unsigned antialiasing;
-            static int framerate_limit;
-            static int update_rate;
-            static bool vertical_sync;
-            static bool key_repeat;
-            static bool cursor_visible;
-            static bool cursor_grabbed;
-        };
-
-        class Physics {
-        public:
-            static float gravity;
         };
     };
 

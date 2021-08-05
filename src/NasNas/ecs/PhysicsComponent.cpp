@@ -129,9 +129,6 @@ void PhysicsComponent::update() {
     m_velocity.x += m_acceleration.x*m_direction.x*m_direction_magnitude;
     m_velocity.y += m_acceleration.y*m_direction.y*m_direction_magnitude;
 
-    // gravity
-    m_velocity.y += m_mass * Config::Physics::gravity;
-
     // position
     m_owner->get<Transform>()->move(m_velocity);
 }

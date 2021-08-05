@@ -16,8 +16,8 @@ class Game : public ns::App {
     ns::SpriteBatch m_spritebatch;
 
 public:
-    Game() : ns::App("Spritebatch", 1080, 720) {
-        ns::Config::debug = true;
+    Game() : ns::App("Spritebatch", {1280, 720}) {
+        ns::Settings::debug_mode = true;
 
         // get the texture
         auto& texture = ns::Res::getTexture("adventurer.png");
@@ -33,7 +33,7 @@ public:
             m_sprites.emplace_back(new ns::Sprite(texture, {0, 0, 50, 37}));
             auto& sprite = m_sprites.back();
             sprite->setOrigin(25, 18.5);
-            sprite->setPosition(rand()%1080, rand()%720);
+            sprite->setPosition(rand()%1280, rand()%720);
             sprite->setColor(sf::Color(rand()%255, rand()%255, rand()%255));
             sprite->setScale(1.5f, 1.5f);
             m_spritebatch.draw(sprite.get());
@@ -41,7 +41,7 @@ public:
         // alternatively, you can draw sprites in the batch directly like this
         /*
         for (int i = 0; i < 1000; ++i)
-            m_spritebatch->draw(&texture, sf::Vector2f(rand()%1080, rand()%720), {0, 0, 50, 37});
+            m_spritebatch->draw(&texture, sf::Vector2f(rand()%1280, rand()%720), {0, 0, 50, 37});
         */
 
         // don't forget to end the batch when finished drawing in the batch !
@@ -74,7 +74,7 @@ public:
                     m_sprites.emplace_back(new ns::Sprite(texture, {0, 0, 50, 37}));
                     auto& spr = m_sprites.back();
                     spr->setRotation(rand()%360);
-                    spr->setPosition(rand()%1080, rand()%720);
+                    spr->setPosition(rand()%1280, rand()%720);
                     spr->setColor(sf::Color(rand()%255, rand()%255, rand()%255));
                     float scale = (rand()%100)/100.f;
                     spr->setScale(1.f + scale, 1.f + scale);
@@ -104,7 +104,9 @@ public:
 int main() {
     ns::Res::load("assets");
 
-    ns::Config::Window::framerate_limit = 0; // unlock FPS
+    ns::AppConfig config;
+    config.frame_rate = 0; // unlock FPS
+    ns::Settings::setConfig(config);
 
     Game g;
     g.run();

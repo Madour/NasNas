@@ -35,28 +35,10 @@ namespace ns {
          * \param fps Desired framerate limit
          * \param ups Update per second
          */
-        App(const std::string& title, sf::Vector2u resolution,
+        App(std::string  title, sf::Vector2u resolution,
             float scale=1.f,
-            int fps=ns::Config::Window::framerate_limit,
-            int ups=ns::Config::Window::update_rate
-        );
-
-        /**
-         * \brief Contructs an App from constructor arguments
-         *
-         * \param title App title
-         * \param w_width AppWindow width
-         * \param w_height AppWindow height
-         * \param v_width View width
-         * \param v_height View height
-         * \param fps Desired framerate limit
-         * \param ups Update per second
-         */
-        App(std::string title, int w_width, int w_height,
-            int v_width=ns::Config::Window::view_size.x,
-            int v_height=ns::Config::Window::view_size.y,
-            int fps=ns::Config::Window::framerate_limit,
-            int ups=ns::Config::Window::update_rate
+            int fps=Settings::user_config.frame_rate,
+            int ups=Settings::user_config.update_rate
         );
 
         /**
@@ -148,7 +130,7 @@ namespace ns {
          */
         auto createCamera(
                 const std::string& name, int order,
-                const ns::IntRect& view={{0, 0}, Config::Window::view_size},
+                const ns::IntRect& view={{0, 0}, sf::Vector2i(Settings::user_config.resolution)},
                 const ns::FloatRect& viewport={0, 0, 1.f, 1.f}
         ) -> Camera&;
 
@@ -266,6 +248,7 @@ namespace ns {
         virtual void preRender() {};
 
     private:
+        AppConfig m_config;
         AppWindow m_window;     ///< AppWindow
         sf::RenderTexture m_renderer;
         std::string m_title;    ///< Title of the App

@@ -10,17 +10,12 @@ auto main() -> int {
     ns::Res::printTree();
 
     //------------ Game Config ---------------------------------------
-    // window config
-    ns::Config::Window::vertical_sync = true;
-    ns::Config::Window::style = sf::Style::Default;
-    // map keys inputs
+    // set input buttons
     ns::Inputs::setButton("left", sf::Keyboard::Left);
     ns::Inputs::setButton("right", sf::Keyboard::Right);
     ns::Inputs::setButton("up", sf::Keyboard::Up);
     ns::Inputs::setButton("down", sf::Keyboard::Down);
     ns::Inputs::setButton("fullscreen", sf::Keyboard::F);
-    // configure physics constants
-    ns::Config::Physics::gravity = 0;
     //-----------------------------------------------------------------
 
     Game game;

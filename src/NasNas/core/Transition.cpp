@@ -82,7 +82,7 @@ m_scale_factor(1.f) {
 
 void CircleOpen::setDuration(int duration_ms) {
     m_duration_ms = duration_ms;
-    m_scale_factor = (float)std::pow(m_limit, 1./(ns::Config::Window::update_rate * m_duration_ms / 1000.));
+    m_scale_factor = (float)std::pow(m_limit, 1./(Settings::getConfig().update_rate * m_duration_ms / 1000.));
 }
 
 void CircleOpen::onUpdate() {
@@ -115,7 +115,7 @@ m_scale_factor(1.f) {
 
 void CircleClose::setDuration(int duration_ms) {
     m_duration_ms = duration_ms;
-    m_scale_factor = 2.f - (float)std::pow(m_circle.getScale().x, 1./(ns::Config::Window::update_rate * m_duration_ms / 1000.));
+    m_scale_factor = 2.f - (float)std::pow(m_circle.getScale().x, 1./(Settings::getConfig().update_rate * m_duration_ms / 1000.));
 }
 
 void CircleClose::onUpdate() {

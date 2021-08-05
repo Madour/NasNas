@@ -3,13 +3,12 @@
 **/
 
 
-#include <iostream>
 #include "NasNas/core/data/Config.hpp"
 #include "NasNas/core/App.hpp"
 
 using namespace ns;
 
-Config::debug_info::debug_info() :
+Settings::debug_info::debug_info() :
 utils::bool_switch([this]{
     show_fps = (m_state >> 0u) & 1u;
     show_text = (m_state >> 1u) & 1u;
@@ -23,54 +22,62 @@ show_bounds([&]{m_state |= 1u<<2u;}, [&]{m_state &= ~(1u<<2u);}),
 m_state(7u)
 {show_fps = show_text = show_bounds = true;}
 
-auto Config::debug_info::operator=(bool value) -> debug_info& {
+auto Settings::debug_info::operator=(bool value) -> debug_info& {
     value ? m_on_true() : m_on_false();
     m_val = value;
     return *this;;
 }
 
-Config::debug_info Config::debug;
+Settings::debug_info Settings::debug_mode;
 
-const bool Config::Modules::Core = true;
-const bool Config::Modules::Reslib =
+AppConfig Settings::user_config;
+
+auto AppConfig::getViewSize() const -> const sf::Vector2f& {
+    return view_size;
+}
+
+auto AppConfig::getViewRatio() const -> float {
+    return view_ratio;
+}
+
+void Settings::setConfig(AppConfig config) {
+    if (AppComponent::app == nullptr) {
+        Settings::user_config = std::move(config);
+    }
+    else {
+        std::cerr << "(ns::Settings::setConfig) Cannot set App configuration after App was run." << std::endl;
+    }
+}
+
+auto Settings::getConfig() -> const AppConfig& {
+    return user_config;
+}
+
+const bool Settings::Modules::Core = true;
+const bool Settings::Modules::Reslib =
 #ifdef NS_RESLIB
         true;
 #else
         false;
 #endif
 
-const bool Config::Modules::Ecs =
+const bool Settings::Modules::Ecs =
 #ifdef NS_ECS
         true;
 #else
         false;
 #endif
 
-const bool Config::Modules::Tilemapping =
+const bool Settings::Modules::Tilemapping =
 #ifdef NS_TILEMAPPING
         true;
 #else
         false;
 #endif
 
-const bool Config::Modules::Ui =
+const bool Settings::Modules::Ui =
 #ifdef NS_UI
         true;
 #else
         false;
 #endif
-
-std::string Config::Window::title = "NasNas demo app";
-sf::Vector2i Config::Window::size = {720, 480};
-sf::Vector2i Config::Window::view_size = {0, 0};
-int Config::Window::style = sf::Style::Default;
-unsigned Config::Window::antialiasing = 0;
-int Config::Window::framerate_limit = 60;
-int Config::Window::update_rate = 60;
-bool Config::Window::vertical_sync = false;
-bool Config::Window::key_repeat = false;
-bool Config::Window::cursor_visible = true;
-bool Config::Window::cursor_grabbed = false;
-
-
-float Config::Physics::gravity = 0;
