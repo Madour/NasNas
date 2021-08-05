@@ -18,28 +18,35 @@ m_parent(parent)
 
 Dir::~Dir() = default;
 
-void Dir::load(const std::filesystem::path& path) {
+void Dir::load(const std::filesystem::path& path, bool autoload) {
     namespace fs = std::filesystem;
     if (fs::is_directory(fs::status(path))) {
         for (const auto& file : fs::directory_iterator(path)) {
+            auto filename = file.path().filename().string();
             if (fs::is_regular_file(file)) {
                 if (file.path().has_extension()) {
                     if (Dir::texture_extensions.count(file.path().extension().string()) != 0) {
-                        std::unique_ptr<sf::Texture> new_texture(new sf::Texture());
-                        new_texture->loadFromFile(file.path().string());
-                        m_textures[file.path().filename().string()] = std::move(new_texture);
+                        m_textures.emplace(filename, nullptr);
+                        if (autoload) {
+                            std::unique_ptr<sf::Texture> new_texture(new sf::Texture());
+                            new_texture->loadFromFile(file.path().string());
+                            m_textures[filename] = std::move(new_texture);
+                        }
                     }
                     else if (Dir::fonts_extensions.count(file.path().extension().string()) != 0) {
-                        std::unique_ptr<sf::Font> new_font(new sf::Font());
-                        new_font->loadFromFile(file.path().string());
-                        m_fonts[file.path().filename().string()] = std::move(new_font);
+                        m_fonts.emplace(filename, nullptr);
+                        if (autoload) {
+                            std::unique_ptr<sf::Font> new_font(new sf::Font());
+                            new_font->loadFromFile(file.path().string());
+                            m_fonts[filename] = std::move(new_font);
+                        }
                     }
                 }
             }
             else if (fs::is_directory(file)) {
-                std::unique_ptr<Dir> new_dir(new Dir(file.path().filename().string(), this));
-                m_dirs[file.path().filename().string()] = std::move(new_dir);
-                m_dirs[file.path().filename().string()]->load(file.path());
+                std::unique_ptr<Dir> new_dir(new Dir(filename, this));
+                m_dirs[filename] = std::move(new_dir);
+                m_dirs[filename]->load(file.path(), autoload);
             }
         }
     }
@@ -54,14 +61,14 @@ auto Dir::in(const std::string& dir_name) -> Dir& {
         if (m_parent)
             return *m_parent;
         else {
-            std::cout << "Directory «" << m_name << "» does not have parent directory." << std::endl;
+            std::cerr << "Directory «" << m_name << "» does not have parent directory." << std::endl;
             exit(-1);
         }
     }
     if (m_dirs.count(dir_name) > 0)
         return *m_dirs.at(dir_name);
 
-    std::cout << "Directory «" << m_name << "» does not contain a directory named " << "«" << dir_name << "».\n";
+    std::cerr << "Directory «" << m_name << "» does not contain a directory named " << "«" << dir_name << "».\n";
     exit(-1);
 }
 
@@ -69,40 +76,51 @@ auto Dir::getName() -> const std::string& {
     return m_name;
 }
 
-auto Dir::getTexture(const std::string& texture_name) -> sf::Texture&{
-    if (m_textures.count(texture_name) > 0)
-        return *m_textures.at(texture_name);
-
+auto Dir::getPath() -> std::string {
     std::string path = m_name;
     Dir* current_dir = this;
     while (current_dir->m_parent != nullptr) {
         current_dir = current_dir->m_parent;
         path = current_dir->m_name + "/" + path;
     }
-    std::cout << "Directory «" << path << "» does not have a file named " << texture_name << std::endl;
+    return path;
+}
+
+auto Dir::getTexture(const std::string& texture_name) -> sf::Texture&{
+    if (m_textures.count(texture_name) > 0) {
+        auto& ptr = m_textures.at(texture_name);
+        if (ptr == nullptr) {
+            m_textures[texture_name] = std::make_unique<sf::Texture>();
+            m_textures.at(texture_name)->loadFromFile(getPath()+"/"+texture_name);
+        }
+        return *m_textures.at(texture_name);
+    }
+
+    std::cerr << "Directory «" << getPath() << "» does not have a file named " << texture_name << std::endl;
     std::exit(-1);
 }
 
 auto Dir::getFont(const std::string& font_name) -> sf::Font& {
-    if (m_fonts.count(font_name) > 0)
+    if (m_fonts.count(font_name) > 0) {
+        auto& ptr = m_fonts.at(font_name);
+        if (ptr == nullptr) {
+            m_fonts[font_name] = std::make_unique<sf::Font>();
+            m_fonts.at(font_name)->loadFromFile(getPath()+"/"+font_name);
+        }
         return *m_fonts.at(font_name);
-    std::string path = m_name;
-    Dir* current_dir = this;
-    while (current_dir->m_parent != nullptr) {
-        current_dir = current_dir->m_parent;
-        path = current_dir->m_name + "/" + path;
     }
-    std::cout << "Directory «" << path << "» does not have a file named " << font_name << std::endl;
+
+    std::cout << "Directory «" << getPath() << "» does not have a file named " << font_name << std::endl;
     std::exit(-1);
 }
 
-void Dir::print_tree(int indent) {
+void Dir::printTree(int indent) {
     auto print_indent = [](int n) { for (int i = 0; i < n; ++i) { std::cout << "|  "; } };
 
     for(auto& [dir_name, dir_ptr]: m_dirs) {
         print_indent(indent);
         std::cout << "|_ " << dir_name << " : Dir" << '\n';
-        dir_ptr->print_tree(indent + 1);
+        dir_ptr->printTree(indent + 1);
     }
 
     for(auto& [texture_name, _]: m_textures) {
