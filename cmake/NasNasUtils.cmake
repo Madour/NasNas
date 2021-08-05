@@ -1,6 +1,6 @@
-include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(FetchContent)
+mark_as_advanced(FETCHCONTENT_BASE_DIR)
 
 set(NasNas_Libs "")
 
@@ -154,6 +154,8 @@ endfunction()
 
 # Creates export and install rules for all NasNas targets
 function(NasNas_export_install targets)
+    include(GNUInstallDirs)
+
     # create build-tree export
     export(TARGETS ${targets} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
 
