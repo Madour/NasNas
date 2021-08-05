@@ -5,8 +5,9 @@
 namespace ns::detail {
     template <class T>
     class Singleton {
-    public:
+    protected:
         Singleton() = default;
+    public:
         Singleton(const Singleton&) = delete;
         Singleton(Singleton&&) = delete;
         Singleton& operator=(const Singleton&) = delete;
