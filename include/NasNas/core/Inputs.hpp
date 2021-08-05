@@ -13,6 +13,7 @@ namespace ns {
     class App;
 
     class Inputs :  public detail::Singleton<Inputs> {
+        friend detail::Singleton<Inputs>;
         friend App;
     public:
         static auto getKeysDown() -> const std::vector<sf::Keyboard::Key>&;
@@ -26,6 +27,7 @@ namespace ns {
         static auto getButton(const std::string& btn) ->  sf::Keyboard::Key;
 
     private:
+        Inputs() = default;
         using detail::Singleton<Inputs>::get;
         static void init();
 
