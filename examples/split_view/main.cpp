@@ -70,10 +70,11 @@ public:
 };
 
 int main() {
-    ns::Config::debug = true;
-    ns::Config::debug.show_bounds = false;
-    ns::Config::Window::antialiasing = 0;
+    ns::Settings::debug_mode = true;
+    ns::Settings::debug_mode.show_bounds = false;
+
     Game g;
     g.run();
+
     return 0;
 }

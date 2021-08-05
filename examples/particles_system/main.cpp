@@ -29,7 +29,7 @@ public:
 class Game : public ns::App {
     MyCustomParticleSystem m_particles_system;
 public:
-    Game() : ns::App("Particles System", {1080, 720}) {
+    Game() : ns::App("Particles System", {1280, 720}) {
         // create a scene and a camera
         auto& scene = this->createScene("main");
         auto& camera = this->createCamera("main", 0);
@@ -67,8 +67,6 @@ int main() {
     srand(time(nullptr));
 
     ns::Res::load("assets");
-
-    ns::Config::Window::update_rate = 60;
 
     Game g;
     g.run();

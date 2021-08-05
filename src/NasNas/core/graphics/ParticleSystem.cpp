@@ -70,7 +70,7 @@ auto ParticleSystem::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void ParticleSystem::update() {
-    float dt = 1.f/ns::Config::Window::update_rate;
+    float dt = 1.f/ns::Settings::getConfig().update_rate;
     m_to_emmit = std::min(m_rate, m_to_emmit+m_rate*dt);
 
     for (auto it = m_particles.begin(); it != m_particles.end();) {

@@ -127,7 +127,7 @@ void ComponentGroup::draw(sf::RenderTarget& target, sf::RenderStates states) con
     for (const auto& item : m_childs) {
         target.draw(*item.second, states);
     }
-    if (Config::debug) {
+    if (Settings::debug_mode) {
         if (get<ColliderComponent>())
             target.draw(get<ColliderComponent>()->getCollision().getShape());
     }

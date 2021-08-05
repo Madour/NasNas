@@ -6,7 +6,7 @@ class Game : public ns::App {
     sf::CircleShape cursor;
     ns::LineShape line;
 public:
-    Game() : ns::App("Line paint", {1280, 720}, 1, 0, 60) {
+    Game() : ns::App("Line paint", {1280, 720}) {
         getWindow().setClearColor(sf::Color(225, 240, 240));
         getWindow().setMouseCursorVisible(false);
 
@@ -113,6 +113,9 @@ public:
 
 int main() {
     srand((unsigned)time(nullptr));
+
+    ns::Settings::debug_mode = true;
+    ns::Settings::debug_mode.show_bounds = false;
 
     Game g;
     g.run();

@@ -71,7 +71,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     game_camera.lookAt(scene);     // tell the Camera to look at the scene
     game_camera.follow(*this->player.transform());   // tell the Camera to follow our entity
     game_camera.setFramesDelay(2);       // the Camera will have 10 frames delay over the player
-    game_camera.setLimitsRect({{0, 0}, {1000, 1000}});
+    game_camera.setLimitsRect({{0, 0}, sf::Vector2i(this->tiled_map.getSize())});
     this->tiled_map.setCamera(game_camera);
     //-----------------------------------------------------------------------------------
 
@@ -150,6 +150,7 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 }
 
 void Game::onEvent(const sf::Event& event) {
+    ns::App::onEvent(event);
     textbox->onEvent(event);
     switch (event.type) {
         case sf::Event::Closed:
@@ -159,17 +160,6 @@ void Game::onEvent(const sf::Event& event) {
         case sf::Event::KeyReleased:
             if(event.key.code == ns::Inputs::getButton("fullscreen"))
                 this->toggleFullscreen();
-            if (event.key.code == sf::Keyboard::Escape)
-                this->getWindow().close();
-
-            if (event.key.code == sf::Keyboard::F1)
-                ns::Config::debug = !ns::Config::debug;
-            if (event.key.code == sf::Keyboard::F2)
-                ns::Config::debug.show_fps = !ns::Config::debug.show_fps;
-            if (event.key.code == sf::Keyboard::F3)
-                ns::Config::debug.show_text = !ns::Config::debug.show_text;
-            if (event.key.code == sf::Keyboard::F4)
-                ns::Config::debug.show_bounds = !ns::Config::debug.show_bounds;
 
             if (event.key.code == sf::Keyboard::E) {
                 this->toggleShader();
