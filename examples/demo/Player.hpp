@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <NasNas/Core.hpp>
 #include <NasNas/Reslib.hpp>
 #include <NasNas/Ecs.hpp>
 #include <cmath>

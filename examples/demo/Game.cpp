@@ -157,7 +157,7 @@ void Game::onEvent(const sf::Event& event) {
             break;
 
         case sf::Event::KeyReleased:
-            if(event.key.code == ns::Config::Inputs::getButtonKey("fullscreen"))
+            if(event.key.code == ns::Inputs::getButton("fullscreen"))
                 this->toggleFullscreen();
             if (event.key.code == sf::Keyboard::Escape)
                 this->getWindow().close();

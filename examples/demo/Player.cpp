@@ -34,10 +34,10 @@ Player::Player()
 
     // add inputs component to player and binding buttons to Player methods
     add<ns::ecs::Inputs>();
-    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("left"), [&](){ moveLeft(); });
-    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("right"), [&](){ moveRight(); });
-    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("up"), [&](){ moveUp(); });
-    get<ns::ecs::Inputs>()->bind(ns::Config::Inputs::getButtonKey("down"), [&](){ moveDown(); });
+    get<ns::ecs::Inputs>()->bind(ns::Inputs::getButton("left"), [&](){ moveLeft(); });
+    get<ns::ecs::Inputs>()->bind(ns::Inputs::getButton("right"), [&](){ moveRight(); });
+    get<ns::ecs::Inputs>()->bind(ns::Inputs::getButton("up"), [&](){ moveUp(); });
+    get<ns::ecs::Inputs>()->bind(ns::Inputs::getButton("down"), [&](){ moveDown(); });
 
     add<ns::ecs::Collider>(new ns::ecs::RectangleCollision(15, 30), sf::Vector2f(0, -15));
 }

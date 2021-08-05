@@ -17,15 +17,21 @@ namespace ns::ecs {
     public:
         InputsComponent();
 
+        void reset();
+
         void bind(sf::Keyboard::Key key, const std::function<void()>& function);
+        void onPress(sf::Keyboard::Key key, const std::function<void()>& function);
+        void onRelease(sf::Keyboard::Key key, const std::function<void()>& function);
 
         void setCaptureInput(bool);
 
         void update() override;
 
     private:
-        std::unordered_map<sf::Keyboard::Key, std::function<void()>> m_inputs;
         bool m_capture_input;
+        std::unordered_map<sf::Keyboard::Key, std::function<void()>> m_inputs;
+        std::unordered_map<sf::Keyboard::Key, std::function<void()>> m_onpress;
+        std::unordered_map<sf::Keyboard::Key, std::function<void()>> m_onrelease;
     };
 
     typedef InputsComponent Inputs;
