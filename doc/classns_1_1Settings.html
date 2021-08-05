@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NasNas: ns::Config::Inputs Class Reference</title>
+<title>NasNas: ns::Settings Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -38,38 +38,52 @@ $(function() {
 <div id="main-nav"></div>
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacens.html">ns</a></li><li class="navelem"><a class="el" href="classns_1_1Config.html">Config</a></li><li class="navelem"><a class="el" href="classns_1_1Config_1_1Inputs.html">Inputs</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacens.html">ns</a></li><li class="navelem"><a class="el" href="classns_1_1Settings.html">Settings</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="classns_1_1Config_1_1Inputs-members.html">List of all members</a>  </div>
+<a href="classns_1_1Settings-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">ns::Config::Inputs Class Reference</div>  </div>
+<div class="title">ns::Settings Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for ns::Settings:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classns_1_1Settings.png" usemap="#ns::Settings_map" alt=""/>
+  <map id="ns::Settings_map" name="ns::Settings_map">
+<area href="classns_1_1AppComponent.html" alt="ns::AppComponent" shape="rect" coords="0,0,117,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Settings_1_1Modules.html">Modules</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a350899d73e45f07f4428f84196ea8c97"><td class="memItemLeft" align="right" valign="top"><a id="a350899d73e45f07f4428f84196ea8c97"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>setButtonKey</b> (const std::string &amp;btn_name, sf::Keyboard::Key key)</td></tr>
-<tr class="separator:a350899d73e45f07f4428f84196ea8c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0267c4ddbe0fb1d7cb2a393aa8ec2c6a"><td class="memItemLeft" align="right" valign="top"><a id="a0267c4ddbe0fb1d7cb2a393aa8ec2c6a"></a>
-static auto&#160;</td><td class="memItemRight" valign="bottom"><b>getButtonKey</b> (const std::string &amp;btn_name) -&gt; sf::Keyboard::Key</td></tr>
-<tr class="separator:a0267c4ddbe0fb1d7cb2a393aa8ec2c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a719835acbf9dc3373956c21f5b160a39"><td class="memItemLeft" align="right" valign="top"><a id="a719835acbf9dc3373956c21f5b160a39"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>setConfig</b> (<a class="el" href="structns_1_1AppConfig.html">AppConfig</a> config)</td></tr>
+<tr class="separator:a719835acbf9dc3373956c21f5b160a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b6f059465da875611b3c8ce2f6157e4"><td class="memItemLeft" align="right" valign="top"><a id="a3b6f059465da875611b3c8ce2f6157e4"></a>
+static auto&#160;</td><td class="memItemRight" valign="bottom"><b>getConfig</b> () -&gt; const <a class="el" href="structns_1_1AppConfig.html">AppConfig</a> &amp;</td></tr>
+<tr class="separator:a3b6f059465da875611b3c8ce2f6157e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ad592d4a2c7a593ba1c79b1508618550f"><td class="memItemLeft" align="right" valign="top"><a id="ad592d4a2c7a593ba1c79b1508618550f"></a>
-static std::vector&lt; sf::Keyboard::Key &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Config_1_1Inputs.html#ad592d4a2c7a593ba1c79b1508618550f">pressed_keys</a></td></tr>
-<tr class="memdesc:ad592d4a2c7a593ba1c79b1508618550f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of pressed keys. <br /></td></tr>
-<tr class="separator:ad592d4a2c7a593ba1c79b1508618550f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b029fbbb766f389a50beb03273ad59"><td class="memItemLeft" align="right" valign="top"><a id="ad5b029fbbb766f389a50beb03273ad59"></a>
+static debug_info&#160;</td><td class="memItemRight" valign="bottom"><b>debug_mode</b></td></tr>
+<tr class="separator:ad5b029fbbb766f389a50beb03273ad59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Config_8hpp_source.html#l00057">57</a> of file <a class="el" href="Config_8hpp_source.html">Config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Config_8hpp_source.html#l00037">37</a> of file <a class="el" href="Config_8hpp_source.html">Config.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="Config_8hpp_source.html">Config.hpp</a></li>
 </ul>

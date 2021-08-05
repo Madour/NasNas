@@ -64,14 +64,11 @@ Inheritance diagram for ns::App:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6cab3ce4cb417afbd82f4ad96f1aa4fa"><td class="memItemLeft" align="right" valign="top"><a id="a6cab3ce4cb417afbd82f4ad96f1aa4fa"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a6cab3ce4cb417afbd82f4ad96f1aa4fa">App</a> ()</td></tr>
-<tr class="memdesc:a6cab3ce4cb417afbd82f4ad96f1aa4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructs an <a class="el" href="classns_1_1App.html">App</a> from <a class="el" href="classns_1_1Config.html">ns::Config</a> configuration. <br /></td></tr>
+<tr class="memdesc:a6cab3ce4cb417afbd82f4ad96f1aa4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructs an <a class="el" href="classns_1_1App.html">App</a> from ns::Config configuration. <br /></td></tr>
 <tr class="separator:a6cab3ce4cb417afbd82f4ad96f1aa4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5169b9ae25b7d65c1e8fc5820494fd2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a5169b9ae25b7d65c1e8fc5820494fd2b">App</a> (const std::string &amp;title, sf::Vector2u resolution, float scale=1.f, int fps=ns::Config::Window::framerate_limit, int ups=ns::Config::Window::update_rate)</td></tr>
-<tr class="memdesc:a5169b9ae25b7d65c1e8fc5820494fd2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#a5169b9ae25b7d65c1e8fc5820494fd2b">More...</a><br /></td></tr>
-<tr class="separator:a5169b9ae25b7d65c1e8fc5820494fd2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03e86ed98026a02469f632d9da3859c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a03e86ed98026a02469f632d9da3859c3">App</a> (std::string title, int w_width, int w_height, int v_width=ns::Config::Window::view_size.x, int v_height=ns::Config::Window::view_size.y, int fps=ns::Config::Window::framerate_limit, int ups=ns::Config::Window::update_rate)</td></tr>
-<tr class="memdesc:a03e86ed98026a02469f632d9da3859c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#a03e86ed98026a02469f632d9da3859c3">More...</a><br /></td></tr>
-<tr class="separator:a03e86ed98026a02469f632d9da3859c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70f84a7d428f7270d539dbcc115b7a94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a70f84a7d428f7270d539dbcc115b7a94">App</a> (std::string title, sf::Vector2u resolution, float scale=1.f, int fps=Settings::user_config.frame_rate, int ups=Settings::user_config.update_rate)</td></tr>
+<tr class="memdesc:a70f84a7d428f7270d539dbcc115b7a94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments.  <a href="#a70f84a7d428f7270d539dbcc115b7a94">More...</a><br /></td></tr>
+<tr class="separator:a70f84a7d428f7270d539dbcc115b7a94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfc11923eb52e6e81ac4eb0067a54fa4"><td class="memItemLeft" align="right" valign="top"><a id="acfc11923eb52e6e81ac4eb0067a54fa4"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#acfc11923eb52e6e81ac4eb0067a54fa4">~App</a> ()</td></tr>
 <tr class="memdesc:acfc11923eb52e6e81ac4eb0067a54fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete all <a class="el" href="classns_1_1Scene.html">Scene</a>, <a class="el" href="classns_1_1Camera.html">Camera</a> and <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> objects and free loaded resources. <br /></td></tr>
@@ -131,9 +128,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7bfd8d164707d3a3aa38d7bfc9f21faf"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a7bfd8d164707d3a3aa38d7bfc9f21faf">createScene</a> (const std::string &amp;name) -&gt; <a class="el" href="classns_1_1Scene.html">Scene</a> &amp;</td></tr>
 <tr class="memdesc:a7bfd8d164707d3a3aa38d7bfc9f21faf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1Scene.html">Scene</a> object and returns a reference to it.  <a href="#a7bfd8d164707d3a3aa38d7bfc9f21faf">More...</a><br /></td></tr>
 <tr class="separator:a7bfd8d164707d3a3aa38d7bfc9f21faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae76a7b414cd05c40fbc3ebd3f685dda2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#ae76a7b414cd05c40fbc3ebd3f685dda2">createCamera</a> (const std::string &amp;name, int order, const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;view={{0, 0}, Config::Window::view_size}, const <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> &amp;viewport={0, 0, 1.f, 1.f}) -&gt; <a class="el" href="classns_1_1Camera.html">Camera</a> &amp;</td></tr>
-<tr class="memdesc:ae76a7b414cd05c40fbc3ebd3f685dda2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1Camera.html">Camera</a> object and returns a reference to it.  <a href="#ae76a7b414cd05c40fbc3ebd3f685dda2">More...</a><br /></td></tr>
-<tr class="separator:ae76a7b414cd05c40fbc3ebd3f685dda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0ebfa94a4915ee644f2a2296a4f6ceb"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#af0ebfa94a4915ee644f2a2296a4f6ceb">createCamera</a> (const std::string &amp;name, int order, const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;view={{0, 0}, sf::Vector2i(Settings::user_config.resolution)}, const <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> &amp;viewport={0, 0, 1.f, 1.f}) -&gt; <a class="el" href="classns_1_1Camera.html">Camera</a> &amp;</td></tr>
+<tr class="memdesc:af0ebfa94a4915ee644f2a2296a4f6ceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1Camera.html">Camera</a> object and returns a reference to it.  <a href="#af0ebfa94a4915ee644f2a2296a4f6ceb">More...</a><br /></td></tr>
+<tr class="separator:af0ebfa94a4915ee644f2a2296a4f6ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43ba6203ac77b9a488879fdfbcde13b9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1App.html#a43ba6203ac77b9a488879fdfbcde13b9">createCamera</a> (const std::string &amp;name, int order, const <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a> &amp;viewport) -&gt; <a class="el" href="classns_1_1Camera.html">Camera</a> &amp;</td></tr>
 <tr class="memdesc:a43ba6203ac77b9a488879fdfbcde13b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classns_1_1Camera.html">Camera</a> object and returns a reference to it.  <a href="#a43ba6203ac77b9a488879fdfbcde13b9">More...</a><br /></td></tr>
 <tr class="separator:a43ba6203ac77b9a488879fdfbcde13b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,8 +176,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00023">23</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5169b9ae25b7d65c1e8fc5820494fd2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5169b9ae25b7d65c1e8fc5820494fd2b">&#9670;&nbsp;</a></span>App() <span class="overload">[1/2]</span></h2>
+<a id="a70f84a7d428f7270d539dbcc115b7a94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70f84a7d428f7270d539dbcc115b7a94">&#9670;&nbsp;</a></span>App()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +185,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">ns::App::App </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>title</em>, </td>
         </tr>
         <tr>
@@ -207,13 +204,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fps</em> = <code>ns::Config::Window::framerate_limit</code>, </td>
+          <td class="paramname"><em>fps</em> = <code>Settings::user_config.frame_rate</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ups</em> = <code>ns::Config::Window::update_rate</code>&#160;</td>
+          <td class="paramname"><em>ups</em> = <code>Settings::user_config.update_rate</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -229,78 +226,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
     <tr><td class="paramname">title</td><td><a class="el" href="classns_1_1App.html">App</a> title </td></tr>
     <tr><td class="paramname">resolution</td><td>Resolution of you application </td></tr>
     <tr><td class="paramname">scale</td><td>Resolution * scale = WindowSize </td></tr>
-    <tr><td class="paramname">fps</td><td>Desired framerate limit </td></tr>
-    <tr><td class="paramname">ups</td><td>Update per second </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a03e86ed98026a02469f632d9da3859c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03e86ed98026a02469f632d9da3859c3">&#9670;&nbsp;</a></span>App() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ns::App::App </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>title</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>w_width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>w_height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>v_width</em> = <code>ns::Config::Window::view_size.x</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>v_height</em> = <code>ns::Config::Window::view_size.y</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fps</em> = <code>ns::Config::Window::framerate_limit</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ups</em> = <code>ns::Config::Window::update_rate</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Contructs an <a class="el" href="classns_1_1App.html">App</a> from constructor arguments. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">title</td><td><a class="el" href="classns_1_1App.html">App</a> title </td></tr>
-    <tr><td class="paramname">w_width</td><td><a class="el" href="classns_1_1AppWindow.html">AppWindow</a> width </td></tr>
-    <tr><td class="paramname">w_height</td><td><a class="el" href="classns_1_1AppWindow.html">AppWindow</a> height </td></tr>
-    <tr><td class="paramname">v_width</td><td>View width </td></tr>
-    <tr><td class="paramname">v_height</td><td>View height </td></tr>
     <tr><td class="paramname">fps</td><td>Desired framerate limit </td></tr>
     <tr><td class="paramname">ups</td><td>Update per second </td></tr>
   </table>
@@ -376,7 +301,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00305">305</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00288">288</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -446,7 +371,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00311">311</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00294">294</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -515,7 +440,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00317">317</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00300">300</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -560,7 +485,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00323">323</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00306">306</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
@@ -604,8 +529,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ae76a7b414cd05c40fbc3ebd3f685dda2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae76a7b414cd05c40fbc3ebd3f685dda2">&#9670;&nbsp;</a></span>createCamera() <span class="overload">[1/2]</span></h2>
+<a id="af0ebfa94a4915ee644f2a2296a4f6ceb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0ebfa94a4915ee644f2a2296a4f6ceb">&#9670;&nbsp;</a></span>createCamera() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -629,7 +554,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classns_1_1Rect.html">ns::IntRect</a> &amp;&#160;</td>
-          <td class="paramname"><em>view</em> = <code>{{0,&#160;0},&#160;Config::Window::view_size}</code>, </td>
+          <td class="paramname"><em>view</em> = <code>{{0,&#160;0},&#160;sf::Vector2i(Settings::user_config.resolution)}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -908,7 +833,7 @@ template&lt;typename T &gt; </div>
 <p>Optional method called just before rendering. </p>
 <p>Virtual method, can be defined by the user It can be used to execute code before rendering outside of the <code>update</code> </p>
 
-<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00266">266</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="App_8hpp_source.html#l00248">248</a> of file <a class="el" href="App_8hpp_source.html">App.hpp</a>.</p>
 
 </div>
 </div>
