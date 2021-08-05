@@ -47,8 +47,9 @@ for tile based games.
 - [x] **Tiled map loader** (.tmx)
 - [x] Text and **bitmap fonts**
 - [x] **Transitions**
+- [x] Flexible **Tween** and **MultiTween** utilities.
 - [x] Multi texture **SpriteBatching**
-- [x] Global app configuration settings
+- [x] App configuration and settings
 - [x] Debug text display in-game
 - [x] Convenient console **Logger**
 - [x] And more !
