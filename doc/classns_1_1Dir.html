@@ -55,28 +55,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a15b3d573661739d60796076a8df4b347"><td class="memItemLeft" align="right" valign="top"><a id="a15b3d573661739d60796076a8df4b347"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Dir</b> (std::string name, <a class="el" href="classns_1_1Dir.html">Dir</a> *parent)</td></tr>
 <tr class="separator:a15b3d573661739d60796076a8df4b347"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee10fe2be7b230c03425cea0759b0d36"><td class="memItemLeft" align="right" valign="top"><a id="aee10fe2be7b230c03425cea0759b0d36"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>load</b> (const std::filesystem::path &amp;path)</td></tr>
-<tr class="separator:aee10fe2be7b230c03425cea0759b0d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac58af5b258a6163fac957d1061a9fbd4"><td class="memItemLeft" align="right" valign="top"><a id="ac58af5b258a6163fac957d1061a9fbd4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>print_tree</b> (int indent=0)</td></tr>
-<tr class="separator:ac58af5b258a6163fac957d1061a9fbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7b382922228fdf0b58aacae126ee368"><td class="memItemLeft" align="right" valign="top"><a id="ab7b382922228fdf0b58aacae126ee368"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>load</b> (const std::filesystem::path &amp;path, bool autoload)</td></tr>
+<tr class="separator:ab7b382922228fdf0b58aacae126ee368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a413ecf1bf937e6afa5559ded77c69c6b"><td class="memItemLeft" align="right" valign="top"><a id="a413ecf1bf937e6afa5559ded77c69c6b"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>in</b> (const std::string &amp;dir_name) -&gt; <a class="el" href="classns_1_1Dir.html">Dir</a> &amp;</td></tr>
 <tr class="separator:a413ecf1bf937e6afa5559ded77c69c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d35974586354ed57efe3b0164cc4d46"><td class="memItemLeft" align="right" valign="top"><a id="a8d35974586354ed57efe3b0164cc4d46"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () -&gt; const std::string &amp;</td></tr>
 <tr class="separator:a8d35974586354ed57efe3b0164cc4d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada4e5e3ea1957e3135208d056581ff67"><td class="memItemLeft" align="right" valign="top"><a id="ada4e5e3ea1957e3135208d056581ff67"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPath</b> () -&gt; std::string</td></tr>
+<tr class="separator:ada4e5e3ea1957e3135208d056581ff67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98e2297eb0c46a2d553521b298ba5857"><td class="memItemLeft" align="right" valign="top"><a id="a98e2297eb0c46a2d553521b298ba5857"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTexture</b> (const std::string &amp;texture_name) -&gt; sf::Texture &amp;</td></tr>
 <tr class="separator:a98e2297eb0c46a2d553521b298ba5857"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a6b2882486375869acd6c133393ac42"><td class="memItemLeft" align="right" valign="top"><a id="a4a6b2882486375869acd6c133393ac42"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getFont</b> (const std::string &amp;font_name) -&gt; sf::Font &amp;</td></tr>
 <tr class="separator:a4a6b2882486375869acd6c133393ac42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a786255d24eb8fc56b0329e7f6b9a0582"><td class="memItemLeft" align="right" valign="top"><a id="a786255d24eb8fc56b0329e7f6b9a0582"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printTree</b> (int indent=0)</td></tr>
+<tr class="separator:a786255d24eb8fc56b0329e7f6b9a0582"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ResourceLoader_8hpp_source.html#l00018">18</a> of file <a class="el" href="ResourceLoader_8hpp_source.html">ResourceLoader.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ResourceLoader_8hpp_source.html#l00016">16</a> of file <a class="el" href="ResourceLoader_8hpp_source.html">ResourceLoader.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="ResourceLoader_8hpp_source.html">ResourceLoader.hpp</a></li>
 </ul>
