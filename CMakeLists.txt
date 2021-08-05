@@ -51,4 +51,4 @@ if (NASNAS_EXAMPLES)
 endif()
 
 # export and install targets
-#NasNas_export_install("${NasNas_Targets}")
+NasNas_export_install("${NasNas_Targets}")
