@@ -2,6 +2,9 @@
 * Created by Modar Nasser on 06/02/2020.
 **/
 
+#include <algorithm>
+#include <exception>
+#include <queue>
 #include <NasNas/Core.hpp>
 #include <NasNas/Ecs.hpp>
 
@@ -87,10 +90,51 @@ public:
     }
 };
 
-int main() {
+#include <NasNas/thirdparty/entt/entt.hpp>
+#include "NasNas/ecs/new/Registry.hpp"
 
-    Game g;
-    g.run();
+struct Position { int x; int y; };
+struct Velocity { int dx; int dy; };
+struct Parent { ns::ecs::Entity entity; };
+struct Children  { std::vector<ns::ecs::Entity> entities; };
+
+struct BaseEntity {
+    ns::ecs::Entity id;
+    BaseEntity() {
+        id = ns::Ecs.create();
+    }
+
+    template <class TComp, typename ...Targs>
+    TComp& add(Targs ...args) {
+        return ns::Ecs.attach<TComp>(id, args...);
+    }
+};
+
+int main() {
+    auto e1 = ns::Ecs.create();
+    auto e2 = ns::Ecs.create();
+
+    ns::Ecs.attach<Position>(e1);
+    ns::Ecs.attach<Position>(e2);
+
+    ns::Ecs.attach<Children>(e1).entities.emplace_back(e2);
+    ns::Ecs.attach<Parent>(e1).entity = e1;
+    ns::Ecs.attach<Parent>(e2).entity = e1;
+
+    auto view1 = ns::Ecs.view<Position>();
+    auto view2 = ns::Ecs.view<Position, Parent, Children>();
+
+    BaseEntity ent;
+    ent.add<Position>();
+    auto& pos = ns::Ecs.get<Position>(ent.id);
+    std::cout << ent.id << std::endl;
+
+    for (auto& pos : ns::Ecs.getAll<Position>()) {
+        pos.x += 2;
+    }
+
+    // Game g;
+    // g.run();
 
     return 0;
 }
