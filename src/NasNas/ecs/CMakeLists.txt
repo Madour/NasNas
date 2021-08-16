@@ -27,6 +27,9 @@ set(
         ${INC_PATH}/PhysicsComponent.hpp
         ${INC_PATH}/InputsComponent.hpp
         ${INC_PATH}/ColliderComponent.hpp
+        ${INC_PATH}/new/Registry.hpp
+        ${INC_PATH}/new/Storage.hpp
+        ${INC_PATH}/new/Types.hpp
 )
 
 NasNas_create_module(Ecs "${SRC}" "${INC}")
