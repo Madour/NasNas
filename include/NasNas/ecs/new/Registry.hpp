@@ -1,62 +1,54 @@
 // Created by Modar Nasser on 15/08/2021.
 #pragma once
 
+#include <queue>
 #include "NasNas/ecs/new/Types.hpp"
 #include "NasNas/ecs/new/Storage.hpp"
-
+#include "NasNas/ecs/new/View.hpp"
 
 namespace ns::ecs::detail {
-    template<typename...>
-    struct components_view;
-
-    template<typename TEntity, typename... TComp>
-    struct components_view<TEntity, TComp...> {
-        std::tuple<components_pool<TEntity, TComp>*...> pools;
-        components_view(components_pool<TEntity, TComp>&... components) : pools(&components...)
-        {}
-    };
 
     template <typename TEntity=Entity>
     class Registry {
-        std::vector<TEntity> entities;
-        std::queue<TEntity> cemetery;
-        std::unordered_map<UID, sparse_set<TEntity>*> pools;
-
-    public:
-        TEntity create() {
-            static TEntity ent_id = 0;
-            if (!cemetery.empty()) {
-                entities.emplace_back(cemetery.front());
-                cemetery.pop();
-            }
-            else {
-                entities.emplace_back(ent_id++);
-            }
-            return entities.back();
-        }
-
-        void destroy(TEntity ent) {
-            auto it = std::find(entities.begin(), entities.end(), ent);
-            if (it == entities.end())
-                return;
-
-            for (auto [id, pool] : pools) {
-                pool->remove(ent);
-            }
-
-            cemetery.push(ent);
-            entities[it-entities.begin()] = entities.back();
-            entities.pop_back();
-        }
+        std::vector<TEntity> m_entities;
+        std::queue<TEntity> m_cemetery;
+        std::unordered_map<UID, sparse_set<TEntity>*> m_pools;
 
         template <class TComp>
         auto getPool() -> components_pool<TEntity, TComp>& {
             auto comp_id = getTypeId<TComp>();
 
-            if (pools.find(comp_id) == pools.end()) {
-                pools[comp_id] = new components_pool<TEntity, TComp>;
+            if (m_pools.find(comp_id) == m_pools.end()) {
+                m_pools[comp_id] = new components_pool<TEntity, TComp>;
             }
-            return *static_cast<components_pool<TEntity, TComp>*>(pools.at(comp_id));
+            return *static_cast<components_pool<TEntity, TComp>*>(m_pools.at(comp_id));
+        }
+
+    public:
+        TEntity create() {
+            static TEntity ent_id = 0;
+            if (!m_cemetery.empty()) {
+                m_entities.emplace_back(m_cemetery.front());
+                m_cemetery.pop();
+            }
+            else {
+                m_entities.emplace_back(ent_id++);
+            }
+            return m_entities.back();
+        }
+
+        void destroy(TEntity ent) {
+            auto it = std::find(m_entities.begin(), m_entities.end(), ent);
+            if (it == m_entities.end())
+                return;
+
+            for (auto [id, pool] : m_pools) {
+                pool->remove(ent);
+            }
+
+            m_cemetery.push(ent);
+            m_entities[it-m_entities.begin()] = m_entities.back();
+            m_entities.pop_back();
         }
 
         template <class TComp, typename ...Targs>
@@ -72,25 +64,29 @@ namespace ns::ecs::detail {
         }
 
         template <class TComp>
-        auto getAll() -> std::vector<TComp>& {
-            return getPool<TComp>().components;
+        auto all() -> std::vector<TComp>& {
+            return getPool<TComp>().components();
         }
 
         template <class TComp>
         auto has(TEntity ent) -> bool {
             auto& pool = getPool<TComp>();
-            return pool.sparse.find(ent) != pool.sparse.end();
+            return pool.m_sparse.find(ent) != pool.m_sparse.end();
         }
 
         template <class TComp>
         auto get(TEntity ent) -> TComp& {
             auto& pool = getPool<TComp>();
             if (has<TComp>(ent)) {
-                return pool.components.at(pool.sparse[ent]);
+                return pool.m_components.at(pool.m_sparse[ent]);
             }
             else {
                 throw std::runtime_error("Trying to get non existing component from entity "+std::to_string(ent));
             }
+        }
+
+        auto count() const -> std::size_t {
+            return m_entities.size();
         }
 
         template<typename... TComp>
@@ -103,5 +99,5 @@ namespace ns::ecs::detail {
 }
 
 namespace ns {
-    static ecs::detail::Registry<ecs::Entity> Ecs;
+    inline ecs::detail::Registry<ecs::Entity> Ecs;
 }

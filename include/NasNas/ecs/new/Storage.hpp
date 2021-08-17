@@ -1,50 +1,73 @@
 // Created by Modar Nasser on 15/08/2021.
 #pragma once
 
+#include <map>
+#include <vector>
 #include <type_traits>
 
 namespace ns::ecs::detail {
 
     template <typename T, typename = std::enable_if<std::is_integral_v<T>>>
     struct sparse_set {
-        std::unordered_map<T, size_t> sparse;  // map[elmnt] = index
-        std::vector<T> packed;                 // vec[index] = elmnt
+        auto data() const -> const std::vector<T>& {
+            return m_packed;
+        }
 
-        virtual void push(T elmnt) {
-            packed.emplace_back(elmnt);
-            sparse[elmnt] = packed.size() - 1;
+        void append(T elmnt) {
+            m_packed.emplace_back(elmnt);
+            m_sparse[elmnt] = m_packed.size() - 1;
         }
 
         virtual void remove(T elmnt) {
-            const auto index = sparse[elmnt];
+            const auto index = m_sparse[elmnt];
 
-            if (index != packed.size() - 1) {
-                packed[index] = packed[packed.size() - 1];
-                sparse[packed[index]] = index;
+            if (index != m_packed.size() - 1) {
+                m_packed[index] = m_packed[m_packed.size() - 1];
+                m_sparse[m_packed[index]] = index;
             }
 
-            packed.pop_back();
-            sparse.erase(elmnt);
+            m_packed.pop_back();
+            m_sparse.erase(elmnt);
         }
 
-        virtual auto contains(T elmnt) -> bool {
-            return sparse.find(elmnt) == sparse.end();
+        auto size() const -> std::size_t {
+            return m_packed.size();
         }
 
-        virtual auto index(T elmnt) -> std::size_t {
-            return sparse[elmnt];
+        auto contains(T elmnt) const -> bool {
+            return m_sparse.find(elmnt) != m_sparse.end();
         }
+
+        auto index(T elmnt) const -> std::size_t {
+            return m_sparse.at(elmnt);
+        }
+
+    private:
+        std::map<T, size_t> m_sparse; // map[elmnt] = index
+        std::vector<T> m_packed;      // vec[index] = elmnt
+
     };
 
-    template <typename TEntity, class TComp>
-    struct components_pool : sparse_set<TEntity> {
-        using parent = sparse_set<TEntity>;
-        std::vector<TComp> components;               // vec[index] = comp
+    template <typename TEntity, typename...>
+    struct components_pool : sparse_set<TEntity>{
+        using super = sparse_set<TEntity>;
+    };
+
+    template <typename TEntity, typename TComp>
+    struct components_pool<TEntity, TComp> :  components_pool<TEntity> {
+        using super = components_pool<TEntity>;
+
+        auto components() -> std::vector<TComp>& {
+            return m_components;
+        }
 
         template <typename ...Targs>
-        TComp& add(TEntity ent, Targs ...args) {
-            parent::push(ent);
-            return components.emplace_back(args...);
+        auto add(TEntity ent, Targs ...args) -> TComp& {
+            if (contains(ent))
+                return get(ent);
+
+            super::append(ent);
+            return m_components.emplace_back(args...);
         }
 
         void remove(TEntity ent) override {
@@ -53,12 +76,22 @@ namespace ns::ecs::detail {
 
             const auto i = index(ent);
 
-            if (i != components.size() - 1) {
-                components[i] = std::move(components[components.size() - 1]);
+            if (i != m_components.size() - 1) {
+                m_components[i] = std::move(m_components[m_components.size() - 1]);
             }
-            components.pop_back();
+            m_components.pop_back();
 
-            parent::remove(ent);
+            super::remove(ent);
         }
+
+        auto get(TEntity ent) -> TComp& {
+            if (contains(ent))
+                return m_components[index(ent)];
+            throw std::runtime_error("Trying to get unexisting entity " + std::to_string(ent)
+                                    + " from pool of type " + typeid(TComp).name());
+        }
+
+    private:
+        std::vector<TComp> m_components;    // vec[index] = comp
     };
 }
