@@ -19,8 +19,8 @@ auto BaseEntity::transform() const -> ecs::Transform* {
     return get<ecs::Transform>();
 }
 
-auto BaseEntity::inputs() const -> ecs::Inputs* {
-    return get<ecs::Inputs>();
+auto BaseEntity::inputs() const -> ecs::old::Inputs* {
+    return get<ecs::old::Inputs>();
 }
 
 auto BaseEntity::physics() const -> ecs::Physics* {

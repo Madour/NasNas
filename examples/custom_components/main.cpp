@@ -7,6 +7,8 @@
 #include <queue>
 #include <NasNas/Core.hpp>
 #include <NasNas/Ecs.hpp>
+#include "NasNas/ecs/components/InputsComponent.hpp"
+#include "NasNas/ecs/new/Registry.hpp"
 
 /**
  * This example shows how to create a custom component and how
@@ -63,11 +65,15 @@ public:
     MyEntity* entity;
 
     Game() : ns::App("Custom components", {1080, 720}) {
-
         // create a scene and a camera
         auto& scene = this->createScene("main");
         auto& camera = this->createCamera("main", 0);
         camera.lookAt(scene);
+
+        auto ent = ns::Ecs.create();
+        auto& inputs = ns::Ecs.attach<ns::ecs::InputsComponent>(ent);
+        inputs.onPress(sf::Keyboard::Q, [&ent](){std::cout << ent << " : Q pressed\n"; });
+        inputs.enable();
 
         // create MyEntity and add it to the scene
         this->entity = new MyEntity();
@@ -87,10 +93,13 @@ public:
 
     void update() override {
         this->entity->update();
+        auto inputs_view = ns::Ecs.view<ns::ecs::InputsComponent>();
+        inputs_view.for_each([&](ns::ecs::InputsComponent& inputs) {
+            inputs.update();
+        });
     }
 };
 
-#include "NasNas/ecs/new/Registry.hpp"
 
 struct Position { int x; int y; };
 struct Velocity { int dx; int dy; };
@@ -157,8 +166,8 @@ int main() {
         std::cout << "Rotation : " << r << " ; Position : "<< p << " ; Velocity : " << v << " \n";
     });
 
-    // Game g;
-    // g.run();
+    Game g;
+    g.run();
 
     return 0;
 }

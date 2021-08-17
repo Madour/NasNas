@@ -10,20 +10,6 @@ namespace ns::ecs::detail {
 
     template <typename TEntity=Entity>
     class Registry {
-        std::vector<TEntity> m_entities;
-        std::queue<TEntity> m_cemetery;
-        std::unordered_map<UID, sparse_set<TEntity>*> m_pools;
-
-        template <class TComp>
-        auto getPool() -> components_pool<TEntity, TComp>& {
-            auto comp_id = getTypeId<TComp>();
-
-            if (m_pools.find(comp_id) == m_pools.end()) {
-                m_pools[comp_id] = new components_pool<TEntity, TComp>;
-            }
-            return *static_cast<components_pool<TEntity, TComp>*>(m_pools.at(comp_id));
-        }
-
     public:
         TEntity create() {
             static TEntity ent_id = 0;
@@ -70,17 +56,15 @@ namespace ns::ecs::detail {
 
         template <class TComp>
         auto has(TEntity ent) -> bool {
-            auto& pool = getPool<TComp>();
-            return pool.m_sparse.find(ent) != pool.m_sparse.end();
+            return getPool<TComp>().contains(ent);
         }
 
         template <class TComp>
         auto get(TEntity ent) -> TComp& {
             auto& pool = getPool<TComp>();
             if (has<TComp>(ent)) {
-                return pool.m_components.at(pool.m_sparse[ent]);
-            }
-            else {
+                return pool.components().at(pool.index(ent));
+            } else {
                 throw std::runtime_error("Trying to get non existing component from entity "+std::to_string(ent));
             }
         }
@@ -94,6 +78,20 @@ namespace ns::ecs::detail {
             return { getPool<TComp>()...};
         }
 
+    private:
+        template <class TComp>
+        auto getPool() -> components_pool<TEntity, TComp>& {
+            auto comp_id = getTypeId<TComp>();
+
+            if (m_pools.find(comp_id) == m_pools.end()) {
+                m_pools[comp_id] = new components_pool<TEntity, TComp>;
+            }
+            return *static_cast<components_pool<TEntity, TComp>*>(m_pools.at(comp_id));
+        }
+
+        std::vector<TEntity> m_entities;
+        std::queue<TEntity> m_cemetery;
+        std::unordered_map<UID, sparse_set<TEntity>*> m_pools;
     };
 
 }

@@ -11,7 +11,7 @@
 #include "NasNas/core/data/Config.hpp"
 #include "NasNas/ecs/BaseComponent.hpp"
 
-namespace ns::ecs {
+namespace ns::ecs::old {
 
     class InputsComponent : public Component<InputsComponent> {
     public:

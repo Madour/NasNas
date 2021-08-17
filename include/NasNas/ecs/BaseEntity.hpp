@@ -15,7 +15,7 @@ namespace ns {
         explicit BaseEntity(const std::string& name);
 
         auto transform() const -> ecs::Transform*;
-        auto inputs() const -> ecs::Inputs*;
+        auto inputs() const -> ecs::old::Inputs*;
         auto physics() const -> ecs::Physics*;
         auto collider() const -> ecs::Collider*;
 
