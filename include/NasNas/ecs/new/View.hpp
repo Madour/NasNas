@@ -2,6 +2,10 @@
 
 #pragma once
 
+#include <array>
+#include <algorithm>
+#include <functional>
+
 #include "NasNas/ecs/new/Storage.hpp"
 
 namespace ns::ecs::detail {
