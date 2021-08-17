@@ -11,6 +11,7 @@ set(
         ${SRC_PATH}/TransformComponent.cpp
         ${SRC_PATH}/PhysicsComponent.cpp
         ${SRC_PATH}/InputsComponent.cpp
+        ${SRC_PATH}/components/InputsComponent.cpp
         ${SRC_PATH}/ColliderComponent.cpp
 )
 
@@ -27,6 +28,7 @@ set(
         ${INC_PATH}/PhysicsComponent.hpp
         ${INC_PATH}/InputsComponent.hpp
         ${INC_PATH}/ColliderComponent.hpp
+        ${INC_PATH}/components/InputsComponent.hpp
         ${INC_PATH}/new/Registry.hpp
         ${INC_PATH}/new/Storage.hpp
         ${INC_PATH}/new/Types.hpp
