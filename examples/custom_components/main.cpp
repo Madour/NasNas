@@ -90,13 +90,27 @@ public:
     }
 };
 
-#include <NasNas/thirdparty/entt/entt.hpp>
 #include "NasNas/ecs/new/Registry.hpp"
 
 struct Position { int x; int y; };
 struct Velocity { int dx; int dy; };
-struct Parent { ns::ecs::Entity entity; };
-struct Children  { std::vector<ns::ecs::Entity> entities; };
+struct Rotation { int da; };
+
+std::ostream& operator<<(std::ostream& os, Position& p) {
+    os << "(" << p.x << ", " << p.y << ")";
+    return os;
+}
+
+
+std::ostream& operator<<(std::ostream& os, Velocity& v) {
+    os << "(" << v.dx << ", " << v.dy << ")";
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, Rotation& r) {
+    os  << r.da << " deg";
+    return os;
+}
 
 struct BaseEntity {
     ns::ecs::Entity id;
@@ -111,27 +125,37 @@ struct BaseEntity {
 };
 
 int main() {
+    auto e0 = ns::Ecs.create();
     auto e1 = ns::Ecs.create();
     auto e2 = ns::Ecs.create();
 
-    ns::Ecs.attach<Position>(e1);
-    ns::Ecs.attach<Position>(e2);
+    ns::Ecs.attach<Position>(e0).x = 1;
+    ns::Ecs.attach<Rotation>(e0).da = 1;
 
-    ns::Ecs.attach<Children>(e1).entities.emplace_back(e2);
-    ns::Ecs.attach<Parent>(e1).entity = e1;
-    ns::Ecs.attach<Parent>(e2).entity = e1;
+    ns::Ecs.attach<Position>(e1).x = 2;
+    ns::Ecs.attach<Velocity>(e1).dx = 2;
 
-    auto view1 = ns::Ecs.view<Position>();
-    auto view2 = ns::Ecs.view<Position, Parent, Children>();
+    ns::Ecs.attach<Position>(e2).x = 3;
+    ns::Ecs.attach<Velocity>(e2).dy = 3;
+    ns::Ecs.attach<Rotation>(e2).da = 3;
 
-    BaseEntity ent;
-    ent.add<Position>();
-    auto& pos = ns::Ecs.get<Position>(ent.id);
-    std::cout << ent.id << std::endl;
+    ns::Ecs.view<Position, Rotation>().for_each([](ns::ecs::Entity e, Position& p, Rotation& r) {
+        std::cout << "Entity " << e << " at " << p << " rotated by " << r << "\n";
+    });
 
-    for (auto& pos : ns::Ecs.getAll<Position>()) {
-        pos.x += 2;
-    }
+    std::cout << "-----" << std::endl;
+
+    auto pos_vel_view = ns::Ecs.view<Position, Velocity>();
+    pos_vel_view.for_each([&](ns::ecs::Entity e) {
+        auto& [pos, vel] = pos_vel_view.get(e);
+        std::cout << "Entity " << e << " has Position " << pos << " and Velocity " << vel << "\n";
+    });
+
+    std::cout << "-----" << std::endl;
+
+    ns::Ecs.view<Position, Velocity, Rotation>().for_each([](Position& p, Velocity& v, Rotation& r) {
+        std::cout << "Rotation : " << r << " ; Position : "<< p << " ; Velocity : " << v << " \n";
+    });
 
     // Game g;
     // g.run();
