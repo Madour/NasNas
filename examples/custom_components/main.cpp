@@ -156,7 +156,7 @@ int main() {
 
     auto pos_vel_view = ns::Ecs.view<Position, Velocity>();
     pos_vel_view.for_each([&](ns::ecs::Entity e) {
-        auto& [pos, vel] = pos_vel_view.get(e);
+        auto [pos, vel] = pos_vel_view.get(e);
         std::cout << "Entity " << e << " has Position " << pos << " and Velocity " << vel << "\n";
     });
 
