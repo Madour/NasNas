@@ -47,8 +47,8 @@ auto ComponentGroup::getParent() const -> ComponentGroup* {
 }
 
 void ComponentGroup::update() {
-    if (get<InputsComponent>())
-        get<InputsComponent>()->update();
+    if (get<old::InputsComponent>())
+        get<old::InputsComponent>()->update();
     if (get<PhysicsComponent>())
         get<PhysicsComponent>()->update();
     if (get<ColliderComponent>())

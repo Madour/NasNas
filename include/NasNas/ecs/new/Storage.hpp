@@ -63,7 +63,7 @@ namespace ns::ecs::detail {
 
         template <typename ...Targs>
         auto add(TEntity ent, Targs ...args) -> TComp& {
-            if (contains(ent))
+            if (this->contains(ent))
                 return get(ent);
 
             super::append(ent);
@@ -71,10 +71,10 @@ namespace ns::ecs::detail {
         }
 
         void remove(TEntity ent) override {
-            if (!contains(ent))
+            if (!this->contains(ent))
                 return;
 
-            const auto i = index(ent);
+            const auto i = this->index(ent);
 
             if (i != m_components.size() - 1) {
                 m_components[i] = std::move(m_components[m_components.size() - 1]);
@@ -85,8 +85,8 @@ namespace ns::ecs::detail {
         }
 
         auto get(TEntity ent) -> TComp& {
-            if (contains(ent))
-                return m_components[index(ent)];
+            if (this->contains(ent))
+                return m_components[this->index(ent)];
             throw std::runtime_error("Trying to get unexisting entity " + std::to_string(ent)
                                     + " from pool of type " + typeid(TComp).name());
         }
