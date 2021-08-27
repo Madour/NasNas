@@ -74,13 +74,13 @@ namespace ns::ecs::detail {
         }
 
         template<typename... TComp>
-        components_view<TEntity, TComp...> view() {
+        auto view() const -> components_view<TEntity, TComp...> {
             return { getPool<TComp>()...};
         }
 
     private:
         template <class TComp>
-        auto getPool() -> components_pool<TEntity, TComp>& {
+        auto getPool() const -> components_pool<TEntity, TComp>& {
             auto comp_id = getTypeId<TComp>();
 
             if (m_pools.find(comp_id) == m_pools.end()) {
@@ -91,7 +91,7 @@ namespace ns::ecs::detail {
 
         std::vector<TEntity> m_entities;
         std::queue<TEntity> m_cemetery;
-        std::unordered_map<UID, sparse_set<TEntity>*> m_pools;
+        mutable std::unordered_map<UID, sparse_set<TEntity>*> m_pools;
     };
 
 }
