@@ -9,11 +9,11 @@
 #include "NasNas/ecs/new/Storage.hpp"
 
 namespace ns::ecs::detail {
-    template<typename...>
-    struct components_view;
+    // template<typename...>
+    // struct components_view;
 
     template<typename TEntity, typename... TComps>
-    struct components_view<TEntity, TComps...> {
+    struct components_view {
         using components_pool_super = typename components_pool<TEntity>::super;
         const components_pool_super* ref_set;
         const std::tuple<components_pool<TEntity, TComps>*...> pools;
@@ -63,5 +63,15 @@ namespace ns::ecs::detail {
             }
         }
 
+        auto for_each_pair(std::function<void(Entity, Entity)> fn) {
+            for (auto it1 = ref_set->data().begin(); it1 != ref_set->data().end(); ++it1) {
+                if ((std::get<components_pool<TEntity, TComps>*>(pools)->contains(*it1) && ...)) {
+                    for (auto it2 = it1+1; it2 != ref_set->data().end(); ++it2) {
+                        if ((std::get<components_pool<TEntity, TComps>*>(pools)->contains(*it2) && ...))
+                            std::apply(fn, std::make_tuple(*it1, *it2));
+                    }
+                }
+            }
+        }
     };
 }

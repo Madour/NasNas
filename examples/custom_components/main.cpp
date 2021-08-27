@@ -127,6 +127,10 @@ struct BaseEntity {
         id = ns::Ecs.create();
     }
 
+    ~BaseEntity() {
+        ns::Ecs.destroy(id);
+    }
+
     template <class TComp, typename ...Targs>
     TComp& add(Targs ...args) {
         return ns::Ecs.attach<TComp>(id, args...);
@@ -134,6 +138,11 @@ struct BaseEntity {
 };
 
 int main() {
+
+    for (int i = 0; i < 1000; ++i) {
+        auto e = ns::Ecs.create();
+        ns::Ecs.attach<Position>(e);
+    }
     auto e0 = ns::Ecs.create();
     auto e1 = ns::Ecs.create();
     auto e2 = ns::Ecs.create();
@@ -151,6 +160,15 @@ int main() {
     ns::Ecs.view<Position, Rotation>().for_each([](ns::ecs::Entity e, Position& p, Rotation& r) {
         std::cout << "Entity " << e << " at " << p << " rotated by " << r << "\n";
     });
+
+
+    static int a = 0;
+    sf::Clock clk;
+    ns::Ecs.view<Position>().for_each_pair([](ns::ecs::Entity e1, ns::ecs::Entity e2) {
+        a++;
+        //std::cout << e1 << " - " << e2 << std::endl;
+    });
+    std::cout << clk.getElapsedTime().asSeconds() << std::endl;
 
     std::cout << "-----" << std::endl;
 
