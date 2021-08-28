@@ -9,8 +9,6 @@
 #include "NasNas/ecs/new/Storage.hpp"
 
 namespace ns::ecs::detail {
-    // template<typename...>
-    // struct components_view;
 
     template<typename TEntity, typename... TComps>
     struct components_view {
@@ -74,4 +72,5 @@ namespace ns::ecs::detail {
             }
         }
     };
+
 }

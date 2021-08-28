@@ -62,12 +62,19 @@ namespace ns::ecs::detail {
         }
 
         template <typename ...Targs>
-        auto add(TEntity ent, Targs ...args) -> TComp& {
+        auto add(TEntity ent, Targs&& ...args) -> TComp& {
             if (this->contains(ent))
                 return get(ent);
 
             super::append(ent);
-            return m_components.emplace_back(args...);
+            if constexpr(sizeof...(args) == 0)
+                return m_components.emplace_back();
+            else if constexpr(std::is_aggregate_v<TComp>) {
+                m_components.push_back({std::forward<Targs>(args)...});
+                return m_components.back();
+            }
+            else
+                return m_components.emplace_back(std::forward<Targs>(args)...);
         }
 
         void remove(TEntity ent) override {
