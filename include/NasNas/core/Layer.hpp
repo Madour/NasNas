@@ -118,7 +118,7 @@ namespace ns {
         else if constexpr(rtti::has_getBounds_v<T>)
             m_bounds_getters[&dr] = [&dr]() { return dr.getBounds(); };
         else
-            m_bounds_getters[&dr] = []() { return sf::FloatRect(float_min, float_min, 2*float_max, 2*float_max); };
+            m_bounds_getters[&dr] = []() { return sf::FloatRect(float_min/2.f, float_min/2.f, float_max, float_max); };
     }
 
     template <typename T, typename, typename>
