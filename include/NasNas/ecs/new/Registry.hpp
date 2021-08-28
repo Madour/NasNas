@@ -7,7 +7,6 @@
 #include "NasNas/ecs/new/View.hpp"
 
 namespace ns::ecs::detail {
-
     template <typename TEntity=Entity>
     class Registry {
     public:
@@ -37,29 +36,29 @@ namespace ns::ecs::detail {
             m_entities.pop_back();
         }
 
-        template <class TComp, typename ...Targs>
-        auto attach(TEntity ent, Targs ...args) -> TComp& {
-            return getPool<TComp>().add(ent, args...);
+        template <typename TComp, typename ...Targs>
+        auto attach(TEntity ent, Targs&& ...args) -> TComp& {
+            return getPool<TComp>().add(ent, std::forward<Targs>(args)...);
         }
 
-        template <class TComp>
+        template <typename TComp>
         void detach(TEntity ent) {
             if (has<TComp>(ent)) {
                 getPool<TComp>().remove(ent);
             }
         }
 
-        template <class TComp>
+        template <typename TComp>
         auto all() -> std::vector<TComp>& {
             return getPool<TComp>().components();
         }
 
-        template <class TComp>
+        template <typename TComp>
         auto has(TEntity ent) -> bool {
             return getPool<TComp>().contains(ent);
         }
 
-        template <class TComp>
+        template <typename TComp>
         auto get(TEntity ent) -> TComp& {
             auto& pool = getPool<TComp>();
             if (has<TComp>(ent)) {
@@ -73,13 +72,18 @@ namespace ns::ecs::detail {
             return m_entities.size();
         }
 
-        template<typename... TComp>
-        auto view() const -> components_view<TEntity, TComp...> {
-            return { getPool<TComp>()...};
+        template <typename... TComps>
+        auto view() const -> components_view<TEntity, TComps...> {
+            return { getPool<TComps>()...};
+        }
+
+        template <typename... TComps, typename Func>
+        auto run(Func fn) {
+            view<TComps...>().for_each(std::move(fn));
         }
 
     private:
-        template <class TComp>
+        template <typename TComp>
         auto getPool() const -> components_pool<TEntity, TComp>& {
             auto comp_id = getTypeId<TComp>();
 
