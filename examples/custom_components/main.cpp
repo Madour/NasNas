@@ -3,8 +3,6 @@
 **/
 
 #include <algorithm>
-#include <exception>
-#include <queue>
 #include <NasNas/Core.hpp>
 #include <NasNas/Ecs.hpp>
 #include "NasNas/ecs/components/InputsComponent.hpp"
@@ -52,8 +50,9 @@ public:
 };
 
 class Game : public ns::App {
-public:
     MyEntity entity;
+    ns::ecs::System<HpComponent> hp_system;
+public:
 
     Game() : ns::App("Custom components", {1080, 720}) {
         // create a scene and a camera
@@ -69,6 +68,8 @@ public:
         // add entity to the scene
         scene.getDefaultLayer().add(this->entity);
 
+        // set the Hp system
+        hp_system = [](auto& hp) { hp.restore(1); };
     }
 
     void update() override {
@@ -78,9 +79,7 @@ public:
         });
 
         // run HP system
-        ns::Ecs.run<HpComponent>([](auto& hp) {
-            hp.restore(1);
-        });
+        ns::Ecs.run(hp_system);
 
         // run HP drawable system
         ns::Ecs.run<HpComponent, ns::ecs::RectangleShape>([](auto& hp_comp, auto& rectangle) {
