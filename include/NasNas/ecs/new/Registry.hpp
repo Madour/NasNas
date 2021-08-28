@@ -82,6 +82,11 @@ namespace ns::ecs::detail {
             view<TComps...>().for_each(std::move(fn));
         }
 
+        template <typename... TComps>
+        auto run(System<TComps...>& system) {
+            view<TComps...>().for_each(system);
+        }
+
     private:
         template <typename TComp>
         auto getPool() const -> components_pool<TEntity, TComp>& {
