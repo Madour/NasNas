@@ -45,12 +45,6 @@ public:
         add<ns::ecs::RectangleShape>(hp_bar);
     }
 
-    void update() {
-        // update custom component
-        get<HpComponent>().restore(1);
-        get<ns::ecs::RectangleShape>().getDrawable().setSize({static_cast<float>(get<HpComponent>().hp), 20.f});
-    }
-
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
         states.transform *= get<sf::Transformable>().getTransform();
         target.draw(get<ns::ecs::RectangleShape>().getDrawable(), states);
@@ -59,7 +53,7 @@ public:
 
 class Game : public ns::App {
 public:
-    MyEntity* entity;
+    MyEntity entity;
 
     Game() : ns::App("Custom components", {1080, 720}) {
         // create a scene and a camera
@@ -67,29 +61,31 @@ public:
         auto& camera = this->createCamera("main", 0);
         camera.lookAt(scene);
 
-        auto ent = ns::Ecs.create();
-        auto& inputs = ns::Ecs.attach<ns::ecs::InputsComponent>(ent);
-        inputs.onPress(sf::Keyboard::Q, [ent](){std::cout << ent << " : Q pressed\n"; });
-        inputs.enable();
+        // add inputs components to the entity
+        auto& inputs_comp = this->entity.add<ns::ecs::InputsComponent>();
+        inputs_comp.onPress(sf::Keyboard::Space, [this](){ this->entity.get<HpComponent>().damage(50); });
+        inputs_comp.enable();
 
-        // create MyEntity and add it to the scene
-        this->entity = new MyEntity();
+        // add entity to the scene
         scene.getDefaultLayer().add(this->entity);
-    }
 
-    void onEvent(const sf::Event& event) override {
-        ns::App::onEvent(event);
-        if (event.type == sf::Event::KeyPressed) {
-            // when space bar is pressed, call damage method of HpComponent
-            if (event.key.code == sf::Keyboard::Space) {
-                this->entity->get<HpComponent>().damage(50);
-            }
-        }
     }
 
     void update() override {
-        this->entity->update();
-        ns::Ecs.run<ns::ecs::InputsComponent>([](auto& input) {input.update();});
+        // run Inputs system
+        ns::Ecs.run<ns::ecs::InputsComponent>([](auto& input) {
+            input.update();
+        });
+
+        // run HP system
+        ns::Ecs.run<HpComponent>([](auto& hp) {
+            hp.restore(1);
+        });
+
+        // run HP drawable system
+        ns::Ecs.run<HpComponent, ns::ecs::RectangleShape>([](auto& hp_comp, auto& rectangle) {
+            rectangle.getDrawable().setSize({static_cast<float>(hp_comp.hp), 20.f});
+        });
     }
 };
 
