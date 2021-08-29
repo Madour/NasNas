@@ -13,6 +13,7 @@ class Player : public ns::EntityObject, public sf::Drawable {
 public:
     Player();
     void update();
+    void jump();
     void moveLeft();
     void moveRight();
     void moveUp();

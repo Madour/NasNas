@@ -2,6 +2,7 @@
 * Created by Modar Nasser on 26/04/2020.
 **/
 
+#include <cmath>
 #include "Game.hpp"
 
 
@@ -10,6 +11,12 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //------------ Game Objects creation ------------------------------------------------
     // load tiled map from file
     this->tiled_map.loadFromFile("assets/test_map.tmx");
+    for (auto& rect : this->tiled_map.getGroupLayer("Group 1").getGroupLayer("Group 2").getObjectLayer("collisions").allRectangles()) {
+        auto ent = ns::Ecs.create();
+        auto& coll = ns::Ecs.attach<ns::ecs::AABBCollider>(ent);
+        coll.size = {rect.width, rect.height};
+        coll.position = {rect.x + rect.width/2.f, rect.y + rect.height/2.f};
+    }
 
     // generate 100 random octogons
     auto colors = std::vector<sf::Color>{
@@ -193,11 +200,69 @@ void Game::update() {
     // run the default systems
     ns::Ecs.run(ns::ecs::inputs_system);
     ns::Ecs.run(ns::ecs::physics_system);
-    ns::Ecs.run(ns::ecs::sprite_system);
+
+    // apply gravity
+    ns::Ecs.run<ns::ecs::Physics>([](auto& physics) {
+        physics.setVelocity(physics.getVelocity() + sf::Vector2f(0, 0.1f));
+    });
+
+    // collisions logic
+    auto colls_view = ns::Ecs.view<ns::ecs::AABBCollider>();
+    colls_view.for_each_pair([&](auto ent1, auto ent2) {
+        auto& coll1 = colls_view.get<ns::ecs::AABBCollider>(ent1);
+        auto& coll2 = colls_view.get<ns::ecs::AABBCollider>(ent2);
+        if (!coll1.dynamic && !coll2.dynamic)
+            return;
+        auto bounds1 = ns::FloatRect(coll1.getBounds());
+        auto bounds2 = ns::FloatRect(coll2.getBounds());
+
+        if (ns::Ecs.has<ns::ecs::Transform>(ent1))
+            bounds1 = ns::Ecs.get<ns::ecs::Transform>(ent1).getTransform().transformRect(bounds1);
+        if (ns::Ecs.has<ns::ecs::Transform>(ent2))
+            bounds2 = ns::Ecs.get<ns::ecs::Transform>(ent2).getTransform().transformRect(bounds2);
+
+        sf::FloatRect intersect;
+        if (bounds1.intersects(bounds2, intersect)) {
+            if (intersect.width < intersect.height) {
+                if (coll1.dynamic) {
+                    ns::Ecs.get<ns::ecs::Physics>(ent1).setVelocityX(0);
+                    if (bounds1.left < bounds2.left)
+                        ns::Ecs.get<ns::ecs::Transform>(ent1).move(-intersect.width, 0);
+                    else
+                        ns::Ecs.get<ns::ecs::Transform>(ent1).move(intersect.width, 0);
+                }
+                if (coll2.dynamic) {
+                    ns::Ecs.get<ns::ecs::Physics>(ent2).setVelocityX(0);
+                    if (bounds2.left < bounds1.left)
+                        ns::Ecs.get<ns::ecs::Transform>(ent2).move(-intersect.width, 0);
+                    else
+                        ns::Ecs.get<ns::ecs::Transform>(ent2).move(intersect.width, 0);
+                }
+            }
+            else {
+                if (coll1.dynamic) {
+                    ns::Ecs.get<ns::ecs::Physics>(ent1).setVelocityY(0);
+                    if (bounds1.top < bounds2.top)
+                        ns::Ecs.get<ns::ecs::Transform>(ent1).move(0, -intersect.height+0.0001f);
+                    else
+                        ns::Ecs.get<ns::ecs::Transform>(ent1).move(0, intersect.height);
+                }
+                if (coll2.dynamic) {
+                    ns::Ecs.get<ns::ecs::Physics>(ent2).setVelocityY(0);
+                    if (bounds2.top < bounds1.top)
+                        ns::Ecs.get<ns::ecs::Transform>(ent2).move(0, -intersect.height+0.0001f);
+                    else
+                        ns::Ecs.get<ns::ecs::Transform>(ent2).move(0, intersect.height);
+                }
+            }
+        }
+        ns_LOG(intersect);
+    });
     // run a custom system that updates transformable entities position
     ns::Ecs.run<ns::ecs::Transform, ns::ecs::Physics>([](auto& transform, auto& physics) {
         transform.move(physics.getVelocity());
     });
+    ns::Ecs.run(ns::ecs::sprite_system);
 
     this->textbox->update();
     // move the shapes randomly

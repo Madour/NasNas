@@ -9,21 +9,22 @@
 
 namespace ns::ecs  {
     struct ColliderComponentInterface {
+        bool dynamic = false;
         virtual auto getBounds() const -> sf::FloatRect = 0;
     };
 
-    struct AABBColliderComponent {
+    struct AABBColliderComponent : ColliderComponentInterface {
         sf::Vector2f position;
         sf::Vector2f size;
 
-        auto getBounds() const -> sf::FloatRect;
+        auto getBounds() const -> sf::FloatRect override;
     };
 
-    struct CircleColliderComponent {
+    struct CircleColliderComponent : ColliderComponentInterface {
         sf::Vector2f position;
         float radius;
 
-        auto getBounds() const -> sf::FloatRect;
+        auto getBounds() const -> sf::FloatRect override;
     };
 
     using AABBCollider = AABBColliderComponent;
