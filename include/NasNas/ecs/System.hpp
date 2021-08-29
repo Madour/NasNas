@@ -5,9 +5,14 @@
 #include <functional>
 
 namespace ns::ecs {
+    namespace detail {
+        template <typename T>
+        class Registry;
+    }
 
     template <typename... TComps>
     class System {
+        friend detail::Registry<unsigned long>;
         using FunctionType = std::function<void(TComps&...)>;
     public:
         System() = default;
