@@ -16,7 +16,7 @@ Player::Player() {
     add<ns::ecs::Sprite>(m_spritesheet.get());
 
     // add physics component to player
-    add<ns::ecs::Physics>(sf::Vector2f(0.5f, 0.5f), 5.f, sf::Vector2f(0.1f, 0.1f));
+    add<ns::ecs::Physics>(sf::Vector2f(0.5f, 5.f), 5.f, sf::Vector2f(0.1f, 0.f));
 
     // add shape component to player (blue square)
     auto convexshape = sf::ConvexShape(4);
@@ -37,8 +37,22 @@ Player::Player() {
     auto& inputs = add<ns::ecs::InputsComponent>();
     inputs.bind(ns::Inputs::getButton("left"), [&](){ moveLeft(); });
     inputs.bind(ns::Inputs::getButton("right"), [&](){ moveRight(); });
-    inputs.bind(ns::Inputs::getButton("up"), [&](){ moveUp(); });
+    inputs.onPress(ns::Inputs::getButton("up"), [&](){ jump(); });
     inputs.bind(ns::Inputs::getButton("down"), [&](){ moveDown(); });
+
+    auto& collider = add<ns::ecs::AABBCollider>();
+    collider.dynamic = true;
+    collider.position = {0, -15};
+    collider.size = {16, 30};
+
+    auto rectangle_coll = sf::RectangleShape(collider.size);
+    rectangle_coll.setOrigin(rectangle_coll.getSize()/2.f);
+    rectangle_coll.setFillColor({255, 0, 0, 100});
+    add<ns::ecs::RectangleShape>(rectangle_coll, collider.position);
+}
+
+void Player::jump() {
+    get<ns::ecs::Physics>().setDirectionY(-1);
 }
 
 void Player::moveLeft() {
@@ -94,5 +108,6 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= get<ns::ecs::Transform>().getTransform();
     target.draw(get<ns::ecs::Sprite>(), states);
     target.draw(get<ns::ecs::ConvexShape>(), states);
+    target.draw(get<ns::ecs::RectangleShape>(), states);
     target.draw(get<ns::ecs::LineShape>(), states);
 }
