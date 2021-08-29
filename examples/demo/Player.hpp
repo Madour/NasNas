@@ -9,17 +9,21 @@
 #include <NasNas/Ecs.hpp>
 #include <cmath>
 
-class Player : public ns::BaseEntity {
+class Player : public ns::EntityObject, public sf::Drawable {
 public:
     Player();
-    ~Player() override;
-    void update() override;
+    void update();
     void moveLeft();
     void moveRight();
     void moveUp();
     void moveDown();
+
+    auto getPosition() const -> sf::Vector2f;
+
 private:
-    ns::Spritesheet* m_spritesheet = nullptr;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    std::unique_ptr<ns::Spritesheet> m_spritesheet = nullptr;
     float m_rotation = 0.0;
 };
 

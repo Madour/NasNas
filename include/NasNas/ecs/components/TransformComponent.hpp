@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "NasNas/ecs/BaseComponent.hpp"
+#include <SFML/Graphics/Transformable.hpp>
 
 namespace ns::ecs {
 
-    class TransformComponent : public Component<TransformComponent>, public sf::Transformable{
+    class TransformComponent : public sf::Transformable {
     public:
         TransformComponent() = default;
 
@@ -15,11 +15,8 @@ namespace ns::ecs {
 
         void setScaleX(float x);
         void setScaleY(float y);
-
-        void update() override {}
-
     };
 
-    typedef TransformComponent Transform;
+    using Transform = TransformComponent;
 
 }

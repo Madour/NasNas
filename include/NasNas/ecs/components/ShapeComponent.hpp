@@ -6,13 +6,13 @@
 #pragma once
 
 #include "NasNas/core/data/Rect.hpp"
-#include "NasNas/ecs/GraphicsComponent.hpp"
-#include "NasNas/ecs/BaseEntity.hpp"
+#include "NasNas/ecs/components/GraphicsComponent.hpp"
+#include "NasNas/ecs/EntityObject.hpp"
 
 namespace ns::ecs {
 
     template <typename T>
-    class ShapeComponent :  public Component<ShapeComponent<T>> , public GraphicsComponent {
+    class ShapeComponent : public GraphicsComponent {
     public:
         explicit ShapeComponent(const T& shape, const sf::Vector2f& pos_offset={0, 0});
 
@@ -39,11 +39,6 @@ namespace ns::ecs {
 
     template<typename T>
     auto ShapeComponent<T>::getGlobalBounds() -> ns::FloatRect {
-        if (this->m_owner->template get<Transform>()) {
-            return this->m_owner->template get<Transform>()->getTransform().transformRect(
-                    m_transform.transformRect(m_drawable.getGlobalBounds())
-            );
-        }
         return m_transform.transformRect(m_drawable.getGlobalBounds());
     }
 

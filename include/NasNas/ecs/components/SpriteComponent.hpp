@@ -7,11 +7,11 @@
 
 #include "NasNas/core/graphics/Anim.hpp"
 #include "NasNas/core/graphics/Spritesheet.hpp"
-#include "NasNas/ecs/GraphicsComponent.hpp"
+#include "NasNas/ecs/components/GraphicsComponent.hpp"
 
 namespace ns::ecs {
 
-    class SpriteComponent : public Component<SpriteComponent>, public GraphicsComponent {
+    class SpriteComponent : public GraphicsComponent {
     public:
         SpriteComponent(Spritesheet* spritesheet, const sf::Vector2f& pos_offset);
         explicit SpriteComponent(Spritesheet* spritesheet, const std::string& anim_state="", const sf::Vector2f& pos_offset={0, 0});
@@ -31,7 +31,7 @@ namespace ns::ecs {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
 
-    typedef SpriteComponent Sprite;
+    using Sprite = SpriteComponent;
 
 }
 
