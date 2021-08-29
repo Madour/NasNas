@@ -62,6 +62,16 @@ auto Player::getPosition() const -> sf::Vector2f {
     return get<ns::ecs::Transform>().getPosition();
 }
 
+auto Player::getGlobalBounds() const -> ns::FloatRect {
+    return get<ns::ecs::Transform>().getTransform().transformRect(
+            ns::utils::computeBounds({
+                get<ns::ecs::Sprite>().getGlobalBounds(),
+                get<ns::ecs::ConvexShape>().getGlobalBounds(),
+                get<ns::ecs::LineShape>().getGlobalBounds()
+            })
+    );
+}
+
 void Player::update() {
     // reset physics direction
     get<ns::ecs::Physics>().setDirection(0, 0);
