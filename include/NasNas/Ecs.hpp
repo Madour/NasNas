@@ -2,6 +2,12 @@
 
 #pragma once
 
-#include "NasNas/ecs/BaseEntity.hpp"
-#include "NasNas/ecs/SpriteComponent.hpp"
-#include "NasNas/ecs/ShapeComponent.hpp"
+#include "NasNas/ecs/components/ColliderComponent.hpp"
+#include "NasNas/ecs/components/InputsComponent.hpp"
+#include "NasNas/ecs/components/PhysicsComponent.hpp"
+#include "NasNas/ecs/components/TransformComponent.hpp"
+#include "NasNas/ecs/components/SpriteComponent.hpp"
+#include "NasNas/ecs/components/ShapeComponent.hpp"
+
+#include "NasNas/ecs/EntityObject.hpp"
+#include "NasNas/ecs/Registry.hpp"

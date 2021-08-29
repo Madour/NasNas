@@ -6,11 +6,10 @@
 #pragma once
 
 #include <SFML/System.hpp>
-#include "NasNas/ecs/BaseComponent.hpp"
 
 namespace ns::ecs {
 
-    class PhysicsComponent : public Component<PhysicsComponent> {
+    class PhysicsComponent {
     public:
         explicit PhysicsComponent(const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
 
@@ -43,7 +42,7 @@ namespace ns::ecs {
 
         auto getMomentum() const -> sf::Vector2f;
 
-        void update() override;
+        void update();
 
     private:
         float m_mass;
@@ -55,6 +54,6 @@ namespace ns::ecs {
         sf::Vector2f m_friction;
     };
 
-    typedef PhysicsComponent Physics;
+    using Physics = PhysicsComponent;
 
 }
