@@ -85,7 +85,7 @@ namespace ns::ecs::detail {
 
         template <typename... TComps>
         auto run(System<TComps...>& system) {
-            view<TComps...>().for_each(system);
+            view<TComps...>().for_each(system.m_function);
         }
 
     private:
