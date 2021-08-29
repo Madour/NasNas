@@ -77,3 +77,35 @@ auto ns::utils::getRandomFloat(float min, float max) -> float {
 auto ns::utils::getRandomInt(int min, int max) -> int {
     return min + rand()%(max-min);
 }
+
+auto ns::utils::computeBounds(std::initializer_list<sf::FloatRect> rects) -> ns::FloatRect {
+    float left, top, right, bottom;
+    ns::FloatRect result{0, 0, 0, 0};
+    bool first = true;
+    for (auto& r : rects) {
+        ns::FloatRect rect{r};
+        auto topleft = rect.topleft();
+        auto topright = rect.topright();
+        auto bottomleft = rect.bottomleft();
+        auto bottomright = rect.bottomright();
+        if (first) {
+            left = std::min(topleft.x, bottomleft.x);
+            top = std::min(topleft.y, topright.y);
+            right = std::max(topright.x, bottomright.x);
+            bottom = std::max(bottomleft.y, bottomright.y);
+            first = false;
+        } else {
+            left = std::min(left, std::min(topleft.x, bottomleft.x));
+            top = std::min(top, std::min(topleft.y, topright.y));
+            right = std::max(right, std::max(topright.x, bottomright.x));
+            bottom = std::max(bottom, std::max(bottomleft.y, bottomright.y));
+        }
+    }
+    if (!first) {
+        result.left = left;
+        result.top = top;
+        result.width = right - left;
+        result.height = bottom - top;
+    }
+    return result;
+}
