@@ -6,6 +6,7 @@
 
 #include <string>
 #include <functional>
+#include "NasNas/core/data/Rect.hpp"
 
 namespace ns::utils {
 
@@ -30,4 +31,6 @@ namespace ns::utils {
 
     auto getRandomFloat(float min, float max) -> float;
     auto getRandomInt(int min, int max) -> int;
+
+    auto computeBounds(std::initializer_list<sf::FloatRect> rects) -> ns::FloatRect;
 }
