@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <functional>
 
-#include "NasNas/ecs/new/Storage.hpp"
+#include "NasNas/ecs/Storage.hpp"
 
 namespace ns::ecs::detail {
 

@@ -6,7 +6,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "NasNas/ecs/BaseComponent.hpp"
 #include "NasNas/core/data/Rect.hpp"
 
 namespace ns::ecs {
@@ -22,5 +21,5 @@ namespace ns::ecs {
         sf::Transform m_transform;
     };
 
-    typedef GraphicsComponent Graphics;
+    using  Graphics = GraphicsComponent;
 }

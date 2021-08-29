@@ -2,9 +2,10 @@
 #pragma once
 
 #include <queue>
-#include "NasNas/ecs/new/Types.hpp"
-#include "NasNas/ecs/new/Storage.hpp"
-#include "NasNas/ecs/new/View.hpp"
+#include <iostream>
+#include "NasNas/ecs/System.hpp"
+#include "NasNas/ecs/Storage.hpp"
+#include "NasNas/ecs/View.hpp"
 
 namespace ns::ecs::detail {
     template <typename TEntity=Entity>
@@ -100,11 +101,12 @@ namespace ns::ecs::detail {
 
         std::vector<TEntity> m_entities;
         std::queue<TEntity> m_cemetery;
-        mutable std::unordered_map<UID, sparse_set<TEntity>*> m_pools;
+        mutable std::map<UID, sparse_set<TEntity>*> m_pools;
     };
 
 }
 
 namespace ns {
-    inline ecs::detail::Registry<ecs::Entity> Ecs;
+    // can't use inline because of VS2017 bug (https://developercommunity.visualstudio.com/t/inline-static-destructors-are-called-multiple-time/1157794)
+    extern ecs::detail::Registry<ecs::Entity> Ecs;
 }

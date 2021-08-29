@@ -1,8 +1,10 @@
 // Created by Modar Nasser on 16/08/2021.
+
 #pragma once
 
+#include <functional>
+
 namespace ns::ecs {
-    using Entity = unsigned long;
 
     template <typename... TComps>
     class System {
@@ -30,18 +32,4 @@ namespace ns::ecs {
 
         FunctionType m_function {};
     };
-}
-
-namespace ns::ecs::detail {
-    using UID = unsigned long;
-    UID get_next_id() {
-        static UID counter = 0;
-        return counter++;
-    }
-
-    template <class T>
-    UID getTypeId() {
-        static UID id = get_next_id();
-        return id;
-    }
 }

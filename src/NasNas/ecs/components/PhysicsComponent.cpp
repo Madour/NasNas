@@ -2,12 +2,13 @@
 * Created by Modar Nasser on 15/06/2020.
 **/
 
+#include <iostream>
 
-#include "NasNas/ecs/PhysicsComponent.hpp"
+#include "NasNas/ecs/components/PhysicsComponent.hpp"
 
 #include "NasNas/core/data/Config.hpp"
 #include "NasNas/core/data/Maths.hpp"
-#include "NasNas/ecs/BaseEntity.hpp"
+#include "NasNas/ecs/EntityObject.hpp"
 
 using namespace ns;
 using namespace ns::ecs;
@@ -128,7 +129,4 @@ void PhysicsComponent::update() {
     // acceleration
     m_velocity.x += m_acceleration.x*m_direction.x*m_direction_magnitude;
     m_velocity.y += m_acceleration.y*m_direction.y*m_direction_magnitude;
-
-    // position
-    m_owner->get<Transform>()->move(m_velocity);
 }

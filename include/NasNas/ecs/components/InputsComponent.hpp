@@ -28,6 +28,8 @@ namespace ns::ecs {
         std::map<sf::Keyboard::Key, std::function<void()>> m_onrelease;
     };
 
+    using Inputs = InputsComponent;
+
 }
 
 

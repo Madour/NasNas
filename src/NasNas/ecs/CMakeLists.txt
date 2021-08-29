@@ -4,34 +4,28 @@ set(INC_PATH ${PROJECT_SOURCE_DIR}/include/NasNas/ecs)
 set(
         SRC
 
-        ${SRC_PATH}/BaseEntity.cpp
-        ${SRC_PATH}/BaseComponent.cpp
-        ${SRC_PATH}/ComponentGroup.cpp
-        ${SRC_PATH}/SpriteComponent.cpp
-        ${SRC_PATH}/TransformComponent.cpp
-        ${SRC_PATH}/PhysicsComponent.cpp
-        ${SRC_PATH}/InputsComponent.cpp
+        ${SRC_PATH}/EntityObject.cpp
+        ${SRC_PATH}/components/SpriteComponent.cpp
+        ${SRC_PATH}/components/ColliderComponent.cpp
         ${SRC_PATH}/components/InputsComponent.cpp
-        ${SRC_PATH}/ColliderComponent.cpp
+        ${SRC_PATH}/components/PhysicsComponent.cpp
+        ${SRC_PATH}/components/TransformComponent.cpp
 )
 
 set(
         INC
 
-        ${INC_PATH}/BaseEntity.hpp
-        ${INC_PATH}/BaseComponent.hpp
-        ${INC_PATH}/ComponentGroup.hpp
-        ${INC_PATH}/GraphicsComponent.hpp
-        ${INC_PATH}/SpriteComponent.hpp
-        ${INC_PATH}/ShapeComponent.hpp
-        ${INC_PATH}/TransformComponent.hpp
-        ${INC_PATH}/PhysicsComponent.hpp
-        ${INC_PATH}/InputsComponent.hpp
-        ${INC_PATH}/ColliderComponent.hpp
+        ${INC_PATH}/components/GraphicsComponent.hpp
+        ${INC_PATH}/components/SpriteComponent.hpp
+        ${INC_PATH}/components/ShapeComponent.hpp
+        ${INC_PATH}/components/ColliderComponent.hpp
         ${INC_PATH}/components/InputsComponent.hpp
-        ${INC_PATH}/new/Registry.hpp
-        ${INC_PATH}/new/Storage.hpp
-        ${INC_PATH}/new/Types.hpp
+        ${INC_PATH}/components/PhysicsComponent.hpp
+        ${INC_PATH}/components/TransformComponent.hpp
+        ${INC_PATH}/EntityObject.hpp
+        ${INC_PATH}/Registry.hpp
+        ${INC_PATH}/Storage.hpp
+        ${INC_PATH}/System.hpp
 )
 
 NasNas_create_module(Ecs "${SRC}" "${INC}")

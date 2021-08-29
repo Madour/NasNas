@@ -5,10 +5,26 @@
 #include <vector>
 #include <type_traits>
 
+namespace ns::ecs {
+    using Entity = unsigned long;
+}
+
 namespace ns::ecs::detail {
+    using UID = unsigned long;
+    inline UID get_next_id() {
+        static UID counter = 0;
+        return counter++;
+    }
+
+    template <class T>
+    auto getTypeId() -> decltype(auto) {
+        static auto id = get_next_id();
+        return id;
+    }
 
     template <typename T, typename = std::enable_if<std::is_integral_v<T>>>
     struct sparse_set {
+        ~sparse_set() = default;
         auto data() const -> const std::vector<T>& {
             return m_packed;
         }
