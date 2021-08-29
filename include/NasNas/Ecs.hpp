@@ -9,5 +9,6 @@
 #include "NasNas/ecs/components/SpriteComponent.hpp"
 #include "NasNas/ecs/components/ShapeComponent.hpp"
 
+#include "NasNas/ecs/DefaultSystems.hpp"
 #include "NasNas/ecs/EntityObject.hpp"
 #include "NasNas/ecs/Registry.hpp"
