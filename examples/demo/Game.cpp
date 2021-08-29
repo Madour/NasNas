@@ -190,14 +190,14 @@ void Game::onEvent(const sf::Event& event) {
 void Game::update() {
     this->frame_counter++;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        this->getCamera("main").rotate(1.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        this->getCamera("main").rotate(-1.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-        this->getCamera("main").zoom(1.01f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-        this->getCamera("main").zoom(0.99f);
+    // run the default systems
+    ns::Ecs.run(ns::ecs::inputs_system);
+    ns::Ecs.run(ns::ecs::physics_system);
+    ns::Ecs.run(ns::ecs::sprite_system);
+    // run a custom system that updates transformable entities position
+    ns::Ecs.run<ns::ecs::Transform, ns::ecs::Physics>([](auto& transform, auto& physics) {
+        transform.move(physics.getVelocity());
+    });
 
     this->textbox->update();
     // move the shapes randomly

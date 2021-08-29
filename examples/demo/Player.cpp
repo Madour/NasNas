@@ -73,19 +73,6 @@ auto Player::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void Player::update() {
-    // reset physics direction
-    get<ns::ecs::Physics>().setDirection(0, 0);
-
-    // update Player inputs component
-    get<ns::ecs::InputsComponent>().update();
-
-    // update physics component
-    get<ns::ecs::Physics>().update();
-    get<ns::ecs::Transform>().move(get<ns::ecs::Physics>().getVelocity());
-
-    // update graphics components
-    get<ns::ecs::Sprite>().update();
-
     // update velocity vector
     auto& vel_vec = get<ns::ecs::LineShape>().getDrawable();
     vel_vec.setPoint(1, get<ns::ecs::Physics>().getVelocity()*10.f);
@@ -99,6 +86,8 @@ void Player::update() {
     // if Player is not moving (direction x == 0), set anim state to idle
     if (get<ns::ecs::Physics>().getDirection().x == 0)
         get<ns::ecs::Sprite>().setAnimState("idle");
+
+    get<ns::ecs::Physics>().setDirection(0, 0);
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {

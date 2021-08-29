@@ -5,6 +5,7 @@ set(
         SRC
 
         ${SRC_PATH}/EntityObject.cpp
+        ${SRC_PATH}/DefaultSystems.cpp
         ${SRC_PATH}/components/SpriteComponent.cpp
         ${SRC_PATH}/components/ColliderComponent.cpp
         ${SRC_PATH}/components/InputsComponent.cpp
@@ -22,6 +23,7 @@ set(
         ${INC_PATH}/components/InputsComponent.hpp
         ${INC_PATH}/components/PhysicsComponent.hpp
         ${INC_PATH}/components/TransformComponent.hpp
+        ${INC_PATH}/DefaultSystems.hpp
         ${INC_PATH}/EntityObject.hpp
         ${INC_PATH}/Registry.hpp
         ${INC_PATH}/Storage.hpp
