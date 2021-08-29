@@ -19,6 +19,7 @@ public:
     void moveDown();
 
     auto getPosition() const -> sf::Vector2f;
+    auto getGlobalBounds() const -> ns::FloatRect;
 
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
