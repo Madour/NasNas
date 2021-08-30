@@ -128,12 +128,12 @@ void Camera::update() {
     if (m_followee) {
         auto& followee_pos = m_followee.value()->getPosition();
         if (m_frames_delay == 0) {
-            setCenter({(float)(round(followee_pos.x)), (float)(round(followee_pos.y))});
+            setCenter(followee_pos.x, followee_pos.y);
         }
         else {
             sf::Vector2f diff = followee_pos - getCenter();
             auto offset = diff/(float)m_frames_delay;
-            move({(float)round(offset.x), (float)round(offset.y)});
+            move(offset.x, offset.y);
         }
     }
     if (m_limits != ns::IntRect(0, 0, 0, 0)) {
