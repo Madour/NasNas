@@ -133,6 +133,8 @@ void Camera::update() {
         else {
             sf::Vector2f diff = followee_pos - getCenter();
             auto offset = diff/(float)m_frames_delay;
+            offset.x = std::abs(offset.x) < 0.25f ? 0.f : offset.x;
+            offset.y = std::abs(offset.y) < 0.25f ? 0.f : offset.y;
             move(offset.x, offset.y);
         }
     }
