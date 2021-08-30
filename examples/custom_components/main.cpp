@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <NasNas/Core.hpp>
 #include <NasNas/Ecs.hpp>
-#include "NasNas/ecs/components/InputsComponent.hpp"
-#include "NasNas/ecs/new/Registry.hpp"
 
 /**
  * This example shows how to create a custom component and how
@@ -28,7 +26,7 @@ struct HpComponent {
     }
 };
 
-class MyEntity : public ns::BaseEntity, public sf::Drawable {
+class MyEntity : public ns::EntityObject, public sf::Drawable {
 public:
     MyEntity() {
         add<sf::Transformable>().setPosition(540, 300);
