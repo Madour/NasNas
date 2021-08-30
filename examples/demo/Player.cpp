@@ -11,12 +11,12 @@ Player::Player() {
     m_spritesheet = std::make_unique<ns::Spritesheet>("adventurer", ns::Res::getTexture("adventurer.png"));
     m_spritesheet->setGrid({50, 37}, 7);
     m_spritesheet->addAnim("idle", 0, 4, 200, {25, 37});
-    m_spritesheet->addAnim("walk", 8, 6, 150, {25, 37});
+    m_spritesheet->addAnim("walk", 8, 6, 100, {25, 37});
     // add sprite component to player (from spritesheet defined above)
     add<ns::ecs::Sprite>(m_spritesheet.get());
 
     // add physics component to player
-    add<ns::ecs::Physics>(sf::Vector2f(0.5f, 5.f), 5.f, sf::Vector2f(0.1f, 0.f));
+    add<ns::ecs::Physics>(sf::Vector2f(0.5f, 5.f), 2.f, sf::Vector2f(0.2f, 0.f));
 
     // add shape component to player (blue square)
     auto convexshape = sf::ConvexShape(4);
@@ -43,7 +43,7 @@ Player::Player() {
     auto& collider = add<ns::ecs::AABBCollider>();
     collider.dynamic = true;
     collider.position = {0, -15};
-    collider.size = {16, 30};
+    collider.size = {16, 28};
 
     auto rectangle_coll = sf::RectangleShape(collider.size);
     rectangle_coll.setOrigin(rectangle_coll.getSize()/2.f);
@@ -52,15 +52,18 @@ Player::Player() {
 }
 
 void Player::jump() {
+    get<ns::ecs::Physics>().setVelocityY(-5.f);
     get<ns::ecs::Physics>().setDirectionY(-1);
 }
 
 void Player::moveLeft() {
+    get<ns::ecs::Physics>().applyForce({-0.4f, 0.f});
     get<ns::ecs::Physics>().setDirectionX(-1);
     get<ns::ecs::Sprite>().getDrawable().setScale(-1, 1);
     get<ns::ecs::Sprite>().setAnimState("walk");
 }
 void Player::moveRight() {
+    get<ns::ecs::Physics>().applyForce({0.4f, 0.f});
     get<ns::ecs::Physics>().setDirectionX(1.f);
     get<ns::ecs::Sprite>().getDrawable().setScale(1, 1);
     get<ns::ecs::Sprite>().setAnimState("walk");
@@ -108,6 +111,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= get<ns::ecs::Transform>().getTransform();
     target.draw(get<ns::ecs::Sprite>(), states);
     target.draw(get<ns::ecs::ConvexShape>(), states);
-    target.draw(get<ns::ecs::RectangleShape>(), states);
+    if (ns::Settings::debug_mode)
+        target.draw(get<ns::ecs::RectangleShape>(), states);
     target.draw(get<ns::ecs::LineShape>(), states);
 }

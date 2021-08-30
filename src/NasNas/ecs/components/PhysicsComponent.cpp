@@ -32,7 +32,6 @@ void PhysicsComponent::setMass(float mass) {
     m_mass = mass;
 }
 
-
 auto PhysicsComponent::getVelocity() const -> const sf::Vector2f& {
     return m_velocity;
 }
@@ -54,6 +53,9 @@ void PhysicsComponent::setVelocityY(float velocity_y) {
     m_velocity.y = velocity_y;
 }
 
+void PhysicsComponent::applyForce(sf::Vector2f force) {
+    m_forces += force;
+}
 
 auto PhysicsComponent::getAcceleration() const -> const sf::Vector2f& {
     return m_acceleration;
@@ -76,8 +78,7 @@ void PhysicsComponent::setAccelerationY(float acceleration_y) {
     m_acceleration.y = acceleration_y;
 }
 
-
-auto PhysicsComponent::getDirection() const -> const sf::Vector2f& {
+auto PhysicsComponent::getDirection() const -> sf::Vector2f {
     return m_direction;
 }
 
@@ -127,6 +128,10 @@ void PhysicsComponent::update() {
     m_velocity.y = (std::abs(m_velocity.y) > 0.000001f) ? m_velocity.y*(1-m_friction.y) : 0.f;
 
     // acceleration
-    m_velocity.x += m_acceleration.x*m_direction.x*m_direction_magnitude;
-    m_velocity.y += m_acceleration.y*m_direction.y*m_direction_magnitude;
+    // m_velocity.x += m_acceleration.x*m_direction.x*m_direction_magnitude;
+    // m_velocity.y += m_acceleration.y*m_direction.y*m_direction_magnitude;
+
+    m_velocity += m_forces;
+
+    m_forces = {0, 0};
 }

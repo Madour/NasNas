@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="129">
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="137">
  <properties>
   <property name="col" type="color" value="#ff55aa7f"/>
   <property name="prop" type="bool" value="true"/>
@@ -20,12 +20,8 @@
    </properties>
   </tile>
  </tileset>
- <group id="18" name="Group 1">
-  <properties>
-   <property name="tesprp" type="int" value="6369"/>
-  </properties>
-  <layer id="6" name="bg" width="50" height="50" parallaxx="0.5" parallaxy="0.5">
-   <data encoding="csv">
+ <layer id="6" name="bg" width="50" height="50" parallaxx="0.5" parallaxy="0.5">
+  <data encoding="csv">
 1,216,3,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,218,142,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,
 216,3,3,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,242,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,
 3,3,3,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,
@@ -77,10 +73,10 @@
 263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,
 263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263,263
 </data>
-  </layer>
-  <group id="20" name="Group 2">
-   <layer id="7" name="front" width="50" height="50">
-    <data encoding="csv">
+ </layer>
+ <group id="20" name="FrontGroup">
+  <layer id="7" name="front" width="50" height="50">
+   <data encoding="csv">
 0,0,0,54,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,54,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,54,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -132,16 +128,18 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
-   </layer>
-   <objectgroup color="#ff0000" id="21" name="collisions">
-    <object id="122" x="16.738" y="288.485" width="286.516" height="31.0146"/>
-    <object id="123" x="-16.6244" y="376.236" width="806.72" height="98.8713"/>
-    <object id="124" x="426.109" y="216.117" width="56.8729" height="170.619"/>
-    <object id="126" x="320.238" y="209.117" width="34.1237" height="7.8747"/>
-    <object id="127" x="748.097" y="73.4972" width="69.9974" height="384.986"/>
-    <object id="128" x="-61.2477" y="53.373" width="74.3722" height="339.487"/>
-   </objectgroup>
-  </group>
+  </layer>
+  <objectgroup color="#ff0000" id="21" name="collisions">
+   <object id="122" x="16.738" y="288.485" width="286.516" height="31.0146"/>
+   <object id="129" x="-45.5094" y="61.2984" width="60.3696" height="281.415"/>
+   <object id="130" x="385.437" y="465.311" width="43.6519" height="77.0874"/>
+   <object id="131" x="273.057" y="144.887" width="13.0027" height="26.9342"/>
+   <object id="132" x="288.846" y="159.747" width="13.0027" height="16.7177"/>
+   <object id="133" x="414.229" y="127.241" width="78.9449" height="47.367"/>
+   <object id="134" x="431.875" y="111.452" width="49.2245" height="13.9315"/>
+   <object id="135" x="431.875" y="173.679" width="47.367" height="17.6465"/>
+   <object id="136" x="321.352" y="286.059" width="238.692" height="33.4355"/>
+  </objectgroup>
   <objectgroup color="#00ff26" id="11" name="objects" parallaxx="1.5" parallaxy="1.5">
    <object id="37" name="name" type="type" x="390.938" y="157.535" width="32" height="19.25" rotation="29.6955">
     <properties>
