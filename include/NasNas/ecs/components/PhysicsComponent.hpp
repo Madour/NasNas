@@ -11,7 +11,7 @@ namespace ns::ecs {
 
     class PhysicsComponent {
     public:
-        explicit PhysicsComponent(const sf::Vector2f& acceleration, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
+        explicit PhysicsComponent(const sf::Vector2f& acceleration= {0, 0}, float mass=1.f, const sf::Vector2f& friction={1.f, 1.f});
 
         auto getMass() const -> float;
         void setMass(float mass);
@@ -22,13 +22,15 @@ namespace ns::ecs {
         void setVelocityX(float velocity_x);
         void setVelocityY(float velocity_y);
 
+        void applyForce(sf::Vector2f force);
+
         auto getAcceleration() const -> const sf::Vector2f&;
         void setAcceleration(const sf::Vector2f& acceleration);
         void setAcceleration(float acceleration_x, float acceleration_y);
         void setAccelerationX(float acceleration_x);
         void setAccelerationY(float acceleration_y);
 
-        auto getDirection() const -> const sf::Vector2f&;
+        auto getDirection() const -> sf::Vector2f;
         void setDirection(const sf::Vector2f& direction);
         void setDirection(float direction_x, float direction_y);
         void setDirectionX(float direction_x);
@@ -51,6 +53,7 @@ namespace ns::ecs {
         float m_direction_magnitude = 1.f;
         sf::Vector2f m_velocity = {0.f, 0.f};
         sf::Vector2f m_acceleration;
+        sf::Vector2f m_forces;
         sf::Vector2f m_friction;
     };
 
