@@ -30,18 +30,6 @@ namespace ns {
     }
 
     /**
-     * \brief Does element wise multiplication between two vectors
-     * \tparam T Vector type (int, float or unsigned)
-     * \param v1
-     * \param v2
-     * \return Returns {v1.x * v2.x, v1.y * v2.y}
-     */
-    template <typename T>
-    inline auto operator*(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> sf::Vector2<T> {
-        return {v1.x*v2.x, v1.y*v2.y};
-    }
-
-    /**
      * \brief Calculates the norm of a vector (its length)
      * \tparam T Vector type
      * \param vector
@@ -108,5 +96,17 @@ namespace ns {
     inline auto angle(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> float {
         auto r = std::atan2(v2.y, v2.x) - std::atan2(v1.y, v1.x);
         return (std::abs(r) > PI ? r - 2*PI*r/std::abs(r) : r);
+    }
+
+    /**
+     * \brief Does element wise multiplication between two vectors
+     * \tparam T Vector type (int, float or unsigned)
+     * \param v1
+     * \param v2
+     * \return Returns {v1.x * v2.x, v1.y * v2.y}
+     */
+    template <typename T>
+    inline auto operator*(const sf::Vector2<T>& v1, const sf::Vector2<T>& v2) -> sf::Vector2<T> {
+        return {v1.x*v2.x, v1.y*v2.y};
     }
 }
