@@ -2,18 +2,15 @@
 * Created by Modar Nasser on 26/04/2020.
 **/
 
-#include <cmath>
 #include "Game.hpp"
 
 const sf::Vector2f GRAVITY{0, 9.8f};
 
-Game::Game() :
-ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
+Game::Game() {
     //------------ Game Objects creation ------------------------------------------------
     // load tiled map from file
-    this->tiled_map.loadFromFile("assets/platformer.tmx");
-
-    for (auto& rect : this->tiled_map.getObjectLayer("collisions").allRectangles()) {
+    m_tiled_map.loadFromFile("assets/platformer.tmx");
+    for (auto& rect : m_tiled_map.getObjectLayer("collisions").allRectangles()) {
         auto ent = ns::Ecs.create();
         auto& transform = ns::Ecs.attach<ns::ecs::Transform>(ent);
         auto& collider = ns::Ecs.attach<ns::ecs::AABBCollider>(ent);
@@ -21,9 +18,11 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
         collider.size = {rect.width, rect.height};
         collider.position = {rect.width/2.f, rect.height/2.f};
     }
+    m_tiled_map.getGroupLayer("front").getTileLayer("front2").scale(1.4f, 1.4f);
+    m_tiled_map.getGroupLayer("front").getTileLayer("front2").setOrigin(200, 0);
 
     // create Player entity (see class Player for more information)
-    this->player.get<ns::ecs::Transform>().setPosition({100, 250});
+    m_player.get<ns::ecs::Transform>().setPosition(100, 250);
     //-----------------------------------------------------------------------------------
 
     //------------ Scene and Layers creation --------------------------------------------
@@ -34,26 +33,26 @@ ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     //------------ Camera creation ------------------------------------------------------
-    auto game_view = sf::Vector2i(640, 360);
+    auto game_view = sf::Vector2i(ns::Settings::getConfig().resolution);
     auto& game_camera = this->createCamera("main", 0, {{0, 0}, game_view});
-    game_camera.lookAt(scene);     // tell the Camera to look at the scene
-    game_camera.follow(this->player.get<ns::ecs::Transform>());   // tell the Camera to follow the player entity
-    game_camera.setFramesDelay(15);       // the Camera will have 7 frames delay over the player
-    game_camera.setLimitsRect({{0, 0}, sf::Vector2i(this->tiled_map.getSize())});
-    this->tiled_map.setCamera(game_camera);
+    game_camera.lookAt(scene);                  // tell the Camera to look at the scene
+    game_camera.follow(m_camera_anchor);    // tell the Camera to follow the anchor
+    game_camera.setFramesDelay(15);             // the Camera will have 7 frames delay over the player
+    game_camera.setLimitsRect({{0, 0}, sf::Vector2i(m_tiled_map.getSize())});
+    m_tiled_map.setCamera(game_camera);
     //-----------------------------------------------------------------------------------
 
     //------------ Add Drawables to the Scene  ------------------------------------------
-    scene.getLayer("map_bg").add(this->tiled_map.getTileLayer("sky"));
-    scene.getLayer("map_bg").add(this->tiled_map.getGroupLayer("bg"));
-    scene.getLayer("map_bg").add(this->tiled_map.getTileLayer("mid"));
-    scene.getLayer("map_front").add(this->tiled_map.getGroupLayer("front"));
+    scene.getLayer("map_bg").add(m_tiled_map.getTileLayer("sky"));
+    scene.getLayer("map_bg").add(m_tiled_map.getGroupLayer("bg"));
+    scene.getLayer("map_bg").add(m_tiled_map.getTileLayer("mid"));
+    scene.getLayer("map_front").add(m_tiled_map.getGroupLayer("front"));
 
-    scene.getLayer("entities").add(this->player);
+    scene.getLayer("entities").add(m_player);
     //-----------------------------------------------------------------------------------
 
     //------------ Add DebugTexts to the App -----------------------------------------
-    this->addDebugText<int>("frame counter:", &this->frame_counter, {10, 10});
+    this->addDebugText<int>("frame counter:", &m_frame_counter, {10, 10});
     //-----------------------------------------------------------------------------------
 }
 
@@ -61,9 +60,20 @@ void Game::onEvent(const sf::Event& event) {
     ns::App::onEvent(event);
 
     switch (event.type) {
+        case sf::Event::KeyPressed:
+            if (event.key.code == sf::Keyboard::F1) {
+                if (ns::Settings::debug_mode)
+                    getScene("main").getLayer("entities").add(m_tiled_map.getObjectLayer("collisions"));
+                else
+                    getScene("main").getLayer("entities").remove(m_tiled_map.getObjectLayer("collisions"));
+            }
+            break;
+
         case sf::Event::KeyReleased:
-            if(event.key.code == ns::Inputs::getButton("fullscreen"))
+            if (event.key.code == ns::Inputs::getButton("fullscreen"))
                 this->toggleFullscreen();
+            else if (event.key.code == sf::Keyboard::R)
+                m_player.get<ns::ecs::Transform>().setPosition(100, 250);
             break;
 
         default:
@@ -72,7 +82,7 @@ void Game::onEvent(const sf::Event& event) {
 }
 
 void Game::update() {
-    this->frame_counter++;
+    m_frame_counter++;
 
     // run the default input systems (call inputs components callbacks when needed)
     ns::Ecs.run(ns::ecs::inputs_system);
@@ -80,7 +90,7 @@ void Game::update() {
     ns::Ecs.run(ns::ecs::physics_system);
     // run a custom system that apply gravity to all physics components
     ns::Ecs.run<ns::ecs::Physics>([&](auto& physics) {
-        physics.applyForce(physics.getMass() * GRAVITY / float(ns::Settings::getConfig().update_rate));
+        physics.applyForce(GRAVITY / float(ns::Settings::getConfig().update_rate));
     });
     // run a custom system that updates transformable components according to physics velocity
     ns::Ecs.run<ns::ecs::Transform, ns::ecs::Physics>([](auto& transform, auto& physics) {
@@ -139,11 +149,17 @@ void Game::update() {
     });
 
     // update the player
-    this->player.update();
+    m_player.update();
+
+    m_camera_anchor.setPosition(
+            m_player.get<ns::ecs::Transform>().getPosition() +
+            m_player.get<ns::ecs::Physics>().getVelocity() * 5.f +
+            sf::Vector2f(0, -40.f)
+    );
 
     // run the default sprite component to update sprite animation
     ns::Ecs.run(ns::ecs::sprite_system);
 
     // update tiled map
-    this->tiled_map.update();
+    m_tiled_map.update();
 }
