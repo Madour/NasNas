@@ -15,16 +15,11 @@ namespace ns::tm {
     class GroupLayer;
     class LayersContainer;
 
-    class Layer : public PropertiesContainer, public sf::Drawable {
+    class Layer : public PropertiesContainer, public sf::Drawable, public sf::Transformable {
     public:
         Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
         auto getId() const -> unsigned int;
         auto getName() const -> const std::string&;
-
-        auto getPosition() const -> sf::Vector2f;
-        void setPosition(float x, float y);
-        void setPosition(sf::Vector2f position);
-        void move(float x, float y);
 
         auto isVisible() const -> bool;
         void setVisible(bool value);
@@ -39,9 +34,8 @@ namespace ns::tm {
 
     protected:
         friend LayersContainer;
-        const TiledMap& m_tiledmap;
+        const TiledMap* m_tiledmap;
         const GroupLayer* m_parent_group = nullptr;
-        sf::Transformable m_transformable;
         sf::Color m_tintcolor = sf::Color::White;
         sf::Vector2f m_parallax_factor = {1.f, 1.f};
 

@@ -148,7 +148,7 @@ auto ObjectLayer::getPolyline(unsigned int id) const -> const PolylineObject& {
 }
 
 void ObjectLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    states.transform *= m_transformable.getTransform();
+    states.transform *= getTransform();
 
     for (const auto& point : m_points)
         target.draw(point.getShape(), states);
