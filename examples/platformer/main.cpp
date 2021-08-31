@@ -18,6 +18,9 @@ auto main() -> int {
 
     ns::AppConfig config;
     config.vertical_sync = true;
+    config.resolution = {600, 300};
+    config.scale = 2;
+    config.title = "Platformer demo | NasNas ";
     ns::Settings::setConfig(config);
     //-----------------------------------------------------------------
 
