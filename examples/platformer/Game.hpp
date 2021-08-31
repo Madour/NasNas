@@ -19,7 +19,8 @@ public:
     void update() override ;
 
 private:
-    int frame_counter = 0;
-    ns::tm::TiledMap tiled_map;
-    Player player;
+    int m_frame_counter = 0;
+    ns::tm::TiledMap m_tiled_map;
+    Player m_player;
+    sf::Transformable m_camera_anchor;
 };

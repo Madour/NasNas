@@ -10,8 +10,14 @@ Player::Player() {
     // create Player spritesheet and set its animations
     m_spritesheet = std::make_unique<ns::Spritesheet>("adventurer", ns::Res::getTexture("adventurer.png"));
     m_spritesheet->setGrid({50, 37}, 7);
-    m_spritesheet->addAnim("idle", 0, 4, 200, {25, 37});
+    m_spritesheet->addAnim("idle", 0, 4, 100, {25, 37});
     m_spritesheet->addAnim("walk", 8, 6, 100, {25, 37});
+    m_spritesheet->addAnim("jump", 16, 2, {100, 150}, {25, 34});
+    m_spritesheet->getAnim("jump").loop = false;
+    m_spritesheet->addAnim("air_roll", 18, 4, 100, {25, 30});
+    m_spritesheet->addAnim("fall", 22, 2, 80, {25, 34});
+    m_spritesheet->addAnim("land", 14, 2, 120, {25, 37});
+    m_spritesheet->getAnim("land").loop = false;
     // add sprite component to player (from spritesheet defined above)
     add<ns::ecs::Sprite>(m_spritesheet.get());
 
@@ -36,7 +42,10 @@ Player::Player() {
 }
 
 void Player::jump() {
-    get<ns::ecs::Physics>().setVelocityY(-5.f);
+    if (!m_double_jump)
+        get<ns::ecs::Physics>().setVelocityY(-4.f);
+    auto& state = get<ns::ecs::Sprite>().getAnimState();
+    m_double_jump = m_in_air ? true : false;
 }
 
 void Player::moveLeft() {
@@ -59,10 +68,41 @@ auto Player::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void Player::update() {
-    if (std::abs(get<ns::ecs::Physics>().getVelocity().x) <= 0.5f)
-        get<ns::ecs::Sprite>().setAnimState("idle");
-    else
-        get<ns::ecs::Sprite>().setAnimState("walk");
+    static bool inputs_enabled = true;
+    auto& velocity = get<ns::ecs::Physics>().getVelocity();
+    auto& sprite = get<ns::ecs::Sprite>();
+    auto& inputs = get<ns::ecs::Inputs>();
+    if (std::abs(velocity.y) <= 0.2f && sprite.getAnimState() != "jump" && sprite.getAnimState() != "air_roll") {
+        m_in_air = false;
+        if (sprite.getAnimState() == "fall" && (m_double_jump || m_must_land)) {
+            sprite.setAnimState("land");
+            inputs.disable();
+            inputs_enabled = false;
+        }
+        else if (!sprite.getAnimPlayer().isPlaying()) {
+            inputs.enable();
+            inputs_enabled = true;
+        }
+        if (inputs_enabled) {
+            m_double_jump = false;
+            if (std::abs(velocity.x) <= 0.5f)
+                sprite.setAnimState("idle");
+            else
+                sprite.setAnimState("walk");
+        }
+    }
+    else if (velocity.y < 0) {
+        m_in_air = true;
+        if (m_double_jump)
+            sprite.setAnimState("air_roll");
+        else
+            sprite.setAnimState("jump");
+    }
+    else if (velocity.y > 0) {
+        m_in_air = true;
+        sprite.setAnimState("fall");
+        m_must_land = velocity.y > 4.5f;
+    }
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
