@@ -45,7 +45,8 @@ Game::Game() {
     //------------ Add Drawables to the Scene  ------------------------------------------
     scene.getLayer("map_bg").add(m_tiled_map.getTileLayer("sky"));
     scene.getLayer("map_bg").add(m_tiled_map.getGroupLayer("bg"));
-    scene.getLayer("map_bg").add(m_tiled_map.getTileLayer("mid"));
+    scene.getLayer("map_bg").add(m_tiled_map.getTileLayer("platforms"));
+    scene.getLayer("map_front").add(m_tiled_map.getTileLayer("props"));
     scene.getLayer("map_front").add(m_tiled_map.getGroupLayer("front"));
 
     scene.getLayer("entities").add(m_player);
