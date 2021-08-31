@@ -15,7 +15,7 @@ m_width(xml_node.attribute("width").as_int()),
 m_height(xml_node.attribute("height").as_int())
 {
     // create tile vertices that will be rendered
-    for (const auto& tileset : m_tiledmap.allTilesets()) {
+    for (const auto& tileset : m_tiledmap->allTilesets()) {
         m_vertices[&tileset].resize(6u * (size_t)m_width * (size_t)m_height);
         m_vertices[&tileset].setPrimitiveType(sf::PrimitiveType::Triangles);
     }
@@ -52,7 +52,7 @@ m_height(xml_node.attribute("height").as_int())
     addTile(tile_counter, current_gid);
 
     // create the render texture
-    m_render_texture.create(m_width*m_tiledmap.getTileSize().x, m_height*m_tiledmap.getTileSize().y);
+    m_render_texture.create(m_width*m_tiledmap->getTileSize().x, m_height*m_tiledmap->getTileSize().y);
 }
 
 auto TileLayer::getTile(int x, int y) const -> const std::optional<Tile>& {
@@ -73,7 +73,7 @@ void TileLayer::setTile(int x, int y, std::uint32_t gid) {
     gid = gid & Tile::gidmask;
 
     // get tile tileset, id and index
-    const auto& tileset = m_tiledmap.getTileTileset(gid);
+    const auto& tileset = m_tiledmap->getTileTileset(gid);
     auto id = gid - tileset.firstgid;
     auto tile_index = x + y*m_width;
 
@@ -101,7 +101,7 @@ void TileLayer::update() {
         auto& anim_index = anim_info.index;
 
         // get tileset and animation frames
-        const auto& tileset = m_tiledmap.getTileTileset(gid);
+        const auto& tileset = m_tiledmap->getTileTileset(gid);
         const auto& anim_frames = tileset.data.getTileData(gid - tileset.firstgid).animframes;
 
         // go to next anim frame when elapsed time is more than frame duration
@@ -125,11 +125,11 @@ void TileLayer::addTile(int tile_index, std::uint32_t gid) {
     if (gid == 0) {
         return;
     }
-    const auto& tileset = m_tiledmap.getTileTileset(gid&0x1fffffff);
+    const auto& tileset = m_tiledmap->getTileTileset(gid&0x1fffffff);
     auto x = tile_index % m_width;
     auto y = tile_index / m_width;
-    auto px = static_cast<float>(x * m_tiledmap.getTileSize().x);
-    auto py = static_cast<float>(y * m_tiledmap.getTileSize().y);
+    auto px = static_cast<float>(x * m_tiledmap->getTileSize().x);
+    auto py = static_cast<float>(y * m_tiledmap->getTileSize().y);
     auto tilewidth = tileset.data.tilewidth;
     auto tileheight = tileset.data.tileheight;
 
@@ -163,6 +163,6 @@ void TileLayer::render() {
 }
 
 void TileLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    states.transform *= m_transformable.getTransform();
+    states.transform *= getTransform();
     target.draw(m_sprite, states);
 }
