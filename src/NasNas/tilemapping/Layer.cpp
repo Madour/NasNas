@@ -12,7 +12,7 @@ using namespace ns;
 using namespace ns::tm;
 
 Layer::Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap) :
-m_tiledmap(*tiledmap)
+m_tiledmap(tiledmap)
 {
     m_id = xml_node.attribute("id").as_uint();
     m_name = xml_node.attribute("name").as_string();
@@ -40,22 +40,6 @@ auto Layer::getId() const -> unsigned int {
 
 auto Layer::getName() const -> const std::string& {
     return m_name;
-}
-
-auto Layer::getPosition() const -> sf::Vector2f {
-    return m_transformable.getPosition();
-}
-
-void Layer::setPosition(float x, float y) {
-    m_transformable.setPosition(x, y);
-}
-
-void Layer::setPosition(sf::Vector2f position) {
-    m_transformable.setPosition(position);
-}
-
-void Layer::move(float x, float y) {
-    m_transformable.move(x, y);
 }
 
 auto Layer::isVisible() const -> bool {
@@ -88,5 +72,5 @@ auto Layer::getTotalParallaxFactor() const -> sf::Vector2f {
 }
 
 auto Layer::getGlobalBounds() const -> ns::FloatRect {
-    return {m_transformable.getPosition(), m_tiledmap.getSize()};
+    return {getPosition(), m_tiledmap->getSize()};
 }
