@@ -10,7 +10,7 @@ Player::Player() {
     // create Player spritesheet and set its animations
     m_spritesheet = std::make_unique<ns::Spritesheet>("adventurer", ns::Res::getTexture("adventurer.png"));
     m_spritesheet->setGrid({50, 37}, 7);
-    m_spritesheet->addAnim("idle", 0, 4, 100, {25, 37});
+    m_spritesheet->addAnim("idle", 0, 4, 130, {25, 37});
     m_spritesheet->addAnim("walk", 8, 6, 100, {25, 37});
     m_spritesheet->addAnim("jump", 16, 2, {100, 150}, {25, 34});
     m_spritesheet->getAnim("jump").loop = false;

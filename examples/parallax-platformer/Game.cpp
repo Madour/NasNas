@@ -18,8 +18,8 @@ Game::Game() {
         collider.size = {rect.width, rect.height};
         collider.position = {rect.width/2.f, rect.height/2.f};
     }
-    m_tiled_map.getGroupLayer("front").getTileLayer("front2").scale(1.4f, 1.4f);
-    m_tiled_map.getGroupLayer("front").getTileLayer("front2").setOrigin(200, 0);
+    m_tiled_map.getGroupLayer("front").scale(2.f, 2.0f);
+    m_tiled_map.getGroupLayer("front").setOrigin(450, 35);
 
     // create Player entity (see class Player for more information)
     m_player.get<ns::ecs::Transform>().setPosition(100, 250);
