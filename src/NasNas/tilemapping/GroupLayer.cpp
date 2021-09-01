@@ -30,6 +30,7 @@ auto GroupLayer::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void GroupLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    states.transform *= getTransform();
     for (auto* layer : allLayers()) {
         target.draw(*layer, states);
     }
