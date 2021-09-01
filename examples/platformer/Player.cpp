@@ -16,7 +16,7 @@ Player::Player() {
     m_spritesheet->getAnim("jump").loop = false;
     m_spritesheet->addAnim("air_roll", 18, 4, 100, {25, 30});
     m_spritesheet->addAnim("fall", 22, 2, 80, {25, 34});
-    m_spritesheet->addAnim("land", 14, 2, 120, {25, 37});
+    m_spritesheet->addAnim("land", 14, 2, 90, {25, 37});
     m_spritesheet->getAnim("land").loop = false;
     // add sprite component to player (from spritesheet defined above)
     add<ns::ecs::Sprite>(m_spritesheet.get());
@@ -72,7 +72,7 @@ void Player::update() {
     auto& velocity = get<ns::ecs::Physics>().getVelocity();
     auto& sprite = get<ns::ecs::Sprite>();
     auto& inputs = get<ns::ecs::Inputs>();
-    if (std::abs(velocity.y) <= 0.2f && sprite.getAnimState() != "jump" && sprite.getAnimState() != "air_roll") {
+    if (std::abs(velocity.y) <= 0.1f && sprite.getAnimState() != "jump" && sprite.getAnimState() != "air_roll") {
         m_in_air = false;
         if (sprite.getAnimState() == "fall" && (m_double_jump || m_must_land)) {
             sprite.setAnimState("land");
@@ -98,7 +98,7 @@ void Player::update() {
         else
             sprite.setAnimState("jump");
     }
-    else if (velocity.y > 0) {
+    else if (velocity.y >= 0) {
         m_in_air = true;
         sprite.setAnimState("fall");
         m_must_land = velocity.y > 4.5f;
