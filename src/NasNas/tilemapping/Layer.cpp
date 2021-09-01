@@ -72,5 +72,5 @@ auto Layer::getTotalParallaxFactor() const -> sf::Vector2f {
 }
 
 auto Layer::getGlobalBounds() const -> ns::FloatRect {
-    return {getPosition(), m_tiledmap->getSize()};
+    return {getPosition(), m_tiledmap->getSize() * getScale()};
 }
