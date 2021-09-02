@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>NasNas : An intuitive and user friendly 2D game framework for C++</title>
+	<meta charset="UTF-8">
+	<title>NasNas : An intuitive and user friendly 2D game framework for C++</title>
 </head>
+
 <body>
 <h1> NasNas </h1>
-<h3> An intuitive and user friendly 2D game framework for C++. </h3>
+<h3> An intuitive and beginner friendly 2D game framework for C++. </h3>
 <h5> Under construction </h5>
+
 <hr>
 
-<p><b>NasNas</b> is a lightweight <b>cross platform</b> modular <b>2D game framework</b> with a focus on pixel art style games.</p>
+<p><b>NasNas</b> is a lightweight <b>cross platform</b> modular <b>2D game framework</b> for C++.</p>
 
 
 <p>It is entirely written in <b>modern C++17</b>, and doesn't have any dependency other than SFML2.</p>
@@ -20,18 +22,18 @@
 <p>The framework is separated in multiple independent modules :</p>
 <ul>
 	<li>
-		<b><i>Core</b></i> and <b><i>Data</b></i> are the only non optional modules. 
-		They are needed to create a NasNas application. They contain core classes and data needed by the framework.
+		<b><i>Core</b></i> is the only non optional modules. 
+		It is needed to create a NasNas application. It contains core classes and data needed by the framework.
 	</li>
 
 	<li>
 		<b><i>Reslib</b></i> contains the resource manager and resource loader. It handles resource loading and 
-		accessing in a very elegant way. This module is optional, you can use your own resource manager and loader if you have specific needs.
+		accessing in a very elegant way.
 	</li>
 
 	<li>
-		<b><i>ECS</b></i> contains the BaseEntity and Components classes. You can add Components to your BaseEntity derived classes 
-		to add more functionalities to them, like graphics, basic physics, collider, inputs.
+		<b><i>ECS</b></i> is a data driven Entity Component System. It allows you to attach components to entities and
+		run systems on specific sets of components.
 	</li>
 
 	<li>
@@ -39,13 +41,25 @@
 		for tile based games.
 	</li>
 
+	<li>
+		<b><i>Tween</b></i> allows you to animate any object using various easing functions.
+	</li>
+
+	<li>
+		<b><i>UI</b></i> contains the User Interface utilities (WIP).
+	</li>
+
 	<li>More modules will be developed in the future !</li>
 </ul>
-  
+
+<blockquote>Note : This page may be outdated, please visit the <a href="https://github.com/Madour/NasNas">Github repository</a>.</blockquote>
+
+<hr>
+
 <p> Useful links : </p>
 <ul>
-    <li><a href="https://github.com/Madour/NasNas">Github repository</a> </li>
-    <li><a href="https://madour.github.io/NasNas/doc">Documentation</a> </li>
+	<li><a href="https://github.com/Madour/NasNas">Github repository</a> </li>
+	<li><a href="https://madour.github.io/NasNas/doc">Documentation</a> </li>
 </ul>
 </body>
 </html>
