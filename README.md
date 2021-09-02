@@ -135,8 +135,30 @@ An introduction **tutorial** to learn how to use the framework can be found on t
 You can also check **[examples](https://github.com/Madour/NasNas/tree/master/examples)** source code
 for a small overview of what you can do with the framework.
 
+### Screenshots
+
+<details>
+  <summary>Click to take a look at the examples provided with NasNas</summary>
+
+All of these programs source code can be found in the `examples` folder.
+
+#### Split View
+
+#### Line paint
+
+#### Tweening
+
+#### Sprite batching
+
+#### Particles System
+
+#### Parallax platformer demo game
+
+</details>
 
 ### Showcase
+
+#### Games
 
 The following games were created with NasNas :
 
@@ -144,6 +166,9 @@ The following games were created with NasNas :
 - History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020)
 - Cyber Slayer on [github](https://github.com/Madour/CyberSlayer)
 
+#### Other
+
+- A simple physics engine made only with NasNas 
 
 ### Support
 
