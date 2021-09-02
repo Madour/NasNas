@@ -27,8 +27,8 @@ The framework is separated in multiple independent modules :
 It contains core classes and data needed by the framework.
 - ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
 an elegant way.
-- ***ECS*** contains the BaseEntity and Components classes. Add Components to BaseEntity derived classes to add more
-  functionalities to them, like graphics, physics, collider, inputs... Or create and add your own customized components.
+- ***ECS*** is an efficient data driven Entity Component System.
+It allows you to attach components to entities and run systems on specific sets of components.
 - ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
 for tile based games.
 - ***Tween*** allows you to animate any object using various easing functions.
