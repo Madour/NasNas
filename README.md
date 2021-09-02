@@ -96,6 +96,7 @@ Additional CMake options you can pass :
 - `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
 - `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
 - `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
+- `-DNASNAS_BUILD_TWEEN=OFF` to disable the *Tween* module
 - `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
 
 
