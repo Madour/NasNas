@@ -10,6 +10,7 @@
  <a href=#features>Features</a> •
  <a href=#build>How to build</a> •
  <a href=#get-started>Get Started</a> •
+ <a href=#screenshots>Screenshots</a> •
  <a href=#showcase>Showcase</a> •
  <a href=#support>Support</a>
 </p>
@@ -154,15 +155,13 @@ All of these programs source code can be found in the `examples` folder.
 
 ![2021-09-02_12-17-56](https://user-images.githubusercontent.com/11854124/131828412-122481a1-28ae-4272-8852-0de6f0ba33cf.gif)
  
-#### Sprite batching
-
-
- 
 #### Particles System
- 
 
+https://user-images.githubusercontent.com/11854124/131836256-553ec86b-54c2-4145-b2c5-f1229b282d7e.mp4
 
 #### Parallax platformer demo game
+
+https://user-images.githubusercontent.com/11854124/131836274-4363d86d-cbf3-4358-800c-841b347efd89.mp4
 
 </details>
 
@@ -178,10 +177,12 @@ The following games were created with NasNas :
 
 #### Other
 
-- A simple physics engine made only with NasNas 
+<details>
+    <summary>A simple physics engine made with NasNas only</summary>
 
 https://user-images.githubusercontent.com/11854124/131828997-5d3b1635-934f-4e89-8250-f9fcba9410ef.mp4
-
+ 
+</details>
 
 ### Support
 
