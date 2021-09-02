@@ -144,13 +144,23 @@ All of these programs source code can be found in the `examples` folder.
 
 #### Split View
 
+![2021-09-02_12-15-46](https://user-images.githubusercontent.com/11854124/131828318-8203a8c2-7ad2-4a7b-ab6a-938feb3d4dd2.gif)
+
 #### Line paint
+
+![2021-09-02_12-17-09](https://user-images.githubusercontent.com/11854124/131828374-e9e618ec-1d71-412e-94cc-15de075fac63.gif)
 
 #### Tweening
 
+![2021-09-02_12-17-56](https://user-images.githubusercontent.com/11854124/131828412-122481a1-28ae-4272-8852-0de6f0ba33cf.gif)
+ 
 #### Sprite batching
 
+
+ 
 #### Particles System
+ 
+
 
 #### Parallax platformer demo game
 
@@ -169,6 +179,9 @@ The following games were created with NasNas :
 #### Other
 
 - A simple physics engine made only with NasNas 
+
+https://user-images.githubusercontent.com/11854124/131828997-5d3b1635-934f-4e89-8250-f9fcba9410ef.mp4
+
 
 ### Support
 
