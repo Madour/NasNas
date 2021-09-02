@@ -55,7 +55,7 @@ Inheritance diagram for ns::tm::ObjectLayer:</div>
  <div class="center">
   <img src="classns_1_1tm_1_1ObjectLayer.png" usemap="#ns::tm::ObjectLayer_map" alt=""/>
   <map id="ns::tm::ObjectLayer_map" name="ns::tm::ObjectLayer_map">
-<area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="86,56,248,80"/>
+<area href="classns_1_1tm_1_1Layer.html" alt="ns::tm::Layer" shape="rect" coords="172,56,334,80"/>
 <area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="0,0,162,24"/>
 </map>
  </div></div>
@@ -111,18 +111,6 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getId</b> () const -&
 <tr class="memitem:a421cf8207bdb4f516b657792977f7fba inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a421cf8207bdb4f516b657792977f7fba"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const -&gt; const std::string &amp;</td></tr>
 <tr class="separator:a421cf8207bdb4f516b657792977f7fba inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae28adba7b944afd4fdcc757803977767 inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="ae28adba7b944afd4fdcc757803977767"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> () const -&gt; sf::Vector2f</td></tr>
-<tr class="separator:ae28adba7b944afd4fdcc757803977767 inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10aae2d7958011767abc38660e2e1f3d inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a10aae2d7958011767abc38660e2e1f3d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPosition</b> (float x, float y)</td></tr>
-<tr class="separator:a10aae2d7958011767abc38660e2e1f3d inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0b6fba30386dbd4f6dcb433d29bb157 inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="aa0b6fba30386dbd4f6dcb433d29bb157"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPosition</b> (sf::Vector2f position)</td></tr>
-<tr class="separator:aa0b6fba30386dbd4f6dcb433d29bb157 inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a810e155324f7a7745ca293856671356a inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a810e155324f7a7745ca293856671356a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (float x, float y)</td></tr>
-<tr class="separator:a810e155324f7a7745ca293856671356a inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad792a64b1ae63082e3d1cda3b9601deb inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="ad792a64b1ae63082e3d1cda3b9601deb"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>isVisible</b> () const -&gt; bool</td></tr>
 <tr class="separator:ad792a64b1ae63082e3d1cda3b9601deb inherit pub_methods_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,15 +158,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>parseProperties</b> (
 <tr class="memitem:a507d098b3e1fe80d27e2fe6586f252fb inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a507d098b3e1fe80d27e2fe6586f252fb"></a>
 friend&#160;</td><td class="memItemRight" valign="bottom"><b>LayersContainer</b></td></tr>
 <tr class="separator:a507d098b3e1fe80d27e2fe6586f252fb inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1607da40478e211aaec8c365cf2b83f9 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a1607da40478e211aaec8c365cf2b83f9"></a>
-const <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>m_tiledmap</b></td></tr>
-<tr class="separator:a1607da40478e211aaec8c365cf2b83f9 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac08797cd58d7a72cd081089dd781218c inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="ac08797cd58d7a72cd081089dd781218c"></a>
+const <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_tiledmap</b></td></tr>
+<tr class="separator:ac08797cd58d7a72cd081089dd781218c inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26e75afce84d3c2fc93b96426d4d0dbf inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a26e75afce84d3c2fc93b96426d4d0dbf"></a>
 const <a class="el" href="classns_1_1tm_1_1GroupLayer.html">GroupLayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_parent_group</b> = nullptr</td></tr>
 <tr class="separator:a26e75afce84d3c2fc93b96426d4d0dbf inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa07dfc979a2c1b07d8742b05c3c8b0c3 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="aa07dfc979a2c1b07d8742b05c3c8b0c3"></a>
-sf::Transformable&#160;</td><td class="memItemRight" valign="bottom"><b>m_transformable</b></td></tr>
-<tr class="separator:aa07dfc979a2c1b07d8742b05c3c8b0c3 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2041ad63c34eeb1e66dbe5910a997a28 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memItemLeft" align="right" valign="top"><a id="a2041ad63c34eeb1e66dbe5910a997a28"></a>
 sf::Color&#160;</td><td class="memItemRight" valign="bottom"><b>m_tintcolor</b> = sf::Color::White</td></tr>
 <tr class="separator:a2041ad63c34eeb1e66dbe5910a997a28 inherit pro_attribs_classns_1_1tm_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>

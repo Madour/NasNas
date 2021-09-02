@@ -78,8 +78,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Arial.html">Arial</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BaseEntity.html">BaseEntity</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1BitmapFont.html">BitmapFont</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A font that can be created from a texture.  <a href="classns_1_1BitmapFont.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -101,6 +99,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structns_1_1easing.html">easing</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1EllipseShape.html">EllipseShape</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1EntityObject.html">EntityObject</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Inputs.html">Inputs</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,10 +165,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a4ddef9eaf280961ca1ac020c2944e5e7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacens.html#a4ddef9eaf280961ca1ac020c2944e5e7">to_radian</a> (float value) -&gt; float</td></tr>
 <tr class="memdesc:a4ddef9eaf280961ca1ac020c2944e5e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a degree angle to radian.  <a href="#a4ddef9eaf280961ca1ac020c2944e5e7">More...</a><br /></td></tr>
 <tr class="separator:a4ddef9eaf280961ca1ac020c2944e5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae76141dd782e04aa88a237e3c02bbc24"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae76141dd782e04aa88a237e3c02bbc24"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#ae76141dd782e04aa88a237e3c02bbc24">operator*</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2) -&gt; sf::Vector2&lt; T &gt;</td></tr>
-<tr class="memdesc:ae76141dd782e04aa88a237e3c02bbc24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does element wise multiplication between two vectors.  <a href="#ae76141dd782e04aa88a237e3c02bbc24">More...</a><br /></td></tr>
-<tr class="separator:ae76141dd782e04aa88a237e3c02bbc24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa856b165a9fcc9924ade48c5fa4e07f1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:aa856b165a9fcc9924ade48c5fa4e07f1"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#aa856b165a9fcc9924ade48c5fa4e07f1">norm</a> (const sf::Vector2&lt; T &gt; &amp;vector) -&gt; float</td></tr>
 <tr class="memdesc:aa856b165a9fcc9924ade48c5fa4e07f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the norm of a vector (its length)  <a href="#aa856b165a9fcc9924ade48c5fa4e07f1">More...</a><br /></td></tr>
@@ -197,12 +193,19 @@ template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a44885293361ff939b241005342d69788"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#a44885293361ff939b241005342d69788">angle</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2) -&gt; float</td></tr>
 <tr class="memdesc:a44885293361ff939b241005342d69788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the clockwise positive angle between two vectors.  <a href="#a44885293361ff939b241005342d69788">More...</a><br /></td></tr>
 <tr class="separator:a44885293361ff939b241005342d69788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae76141dd782e04aa88a237e3c02bbc24"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae76141dd782e04aa88a237e3c02bbc24"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacens.html#ae76141dd782e04aa88a237e3c02bbc24">operator*</a> (const sf::Vector2&lt; T &gt; &amp;v1, const sf::Vector2&lt; T &gt; &amp;v2) -&gt; sf::Vector2&lt; T &gt;</td></tr>
+<tr class="memdesc:ae76141dd782e04aa88a237e3c02bbc24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does element wise multiplication between two vectors.  <a href="#ae76141dd782e04aa88a237e3c02bbc24">More...</a><br /></td></tr>
+<tr class="separator:ae76141dd782e04aa88a237e3c02bbc24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a85ecd3b5aa2a3ff481a08a55c0dbd34d"><td class="memItemLeft" align="right" valign="top"><a id="a85ecd3b5aa2a3ff481a08a55c0dbd34d"></a>
 constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>PI</b> = 3.14159265359f</td></tr>
 <tr class="separator:a85ecd3b5aa2a3ff481a08a55c0dbd34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf22adf4753269cbcf7bf06a9d39a68b"><td class="memItemLeft" align="right" valign="top"><a id="acf22adf4753269cbcf7bf06a9d39a68b"></a>
+<a class="el" href="classns_1_1ecs_1_1detail_1_1Registry.html">ecs::detail::Registry</a>&lt; ecs::Entity &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Ecs</b></td></tr>
+<tr class="separator:acf22adf4753269cbcf7bf06a9d39a68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Created by Modar Nasser on 15/04/2020.</p>
@@ -262,7 +265,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The angle between (-PI; PI] </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00096">96</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00084">84</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -318,7 +321,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The angle between (-PI; PI] </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00108">108</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00096">96</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -375,7 +378,7 @@ template&lt;typename T , typename S &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The distance between the two points </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00075">75</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00063">63</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -420,7 +423,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Norm of the vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00051">51</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00039">39</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -465,7 +468,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The normal of the vector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00062">62</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00050">50</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>
@@ -521,7 +524,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns {v1.x * v2.x, v1.y * v2.y} </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00040">40</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Maths_8hpp_source.html#l00109">109</a> of file <a class="el" href="Maths_8hpp_source.html">Maths.hpp</a>.</p>
 
 </div>
 </div>

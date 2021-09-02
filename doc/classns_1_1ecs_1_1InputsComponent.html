@@ -49,16 +49,6 @@ $(function() {
 <div class="title">ns::ecs::InputsComponent Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for ns::ecs::InputsComponent:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="classns_1_1ecs_1_1InputsComponent.png" usemap="#ns::ecs::InputsComponent_map" alt=""/>
-  <map id="ns::ecs::InputsComponent_map" name="ns::ecs::InputsComponent_map">
-<area href="classns_1_1ecs_1_1Component.html" alt="ns::ecs::Component&lt; InputsComponent &gt;" shape="rect" coords="0,56,240,80"/>
-<area href="classns_1_1ecs_1_1BaseComponent.html" alt="ns::ecs::BaseComponent" shape="rect" coords="0,0,240,24"/>
-</map>
- </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -74,27 +64,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>onPress</b> (sf::Keyb
 <tr class="memitem:a4ae5a95a0aa0a158fd9f7ed6db14bbcd"><td class="memItemLeft" align="right" valign="top"><a id="a4ae5a95a0aa0a158fd9f7ed6db14bbcd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>onRelease</b> (sf::Keyboard::Key key, const std::function&lt; void()&gt; &amp;function)</td></tr>
 <tr class="separator:a4ae5a95a0aa0a158fd9f7ed6db14bbcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71a8df19f28f84d34ff45bd000d0c25f"><td class="memItemLeft" align="right" valign="top"><a id="a71a8df19f28f84d34ff45bd000d0c25f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setCaptureInput</b> (bool)</td></tr>
-<tr class="separator:a71a8df19f28f84d34ff45bd000d0c25f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91e0c635779e7126ab23b8862a21296a"><td class="memItemLeft" align="right" valign="top"><a id="a91e0c635779e7126ab23b8862a21296a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> () override</td></tr>
-<tr class="separator:a91e0c635779e7126ab23b8862a21296a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_static_methods_classns_1_1ecs_1_1BaseComponent"><td colspan="2" onclick="javascript:toggleInherit('pro_static_methods_classns_1_1ecs_1_1BaseComponent')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classns_1_1ecs_1_1BaseComponent.html">ns::ecs::BaseComponent</a></td></tr>
-<tr class="memitem:a743569ce0b46f7ea59865685d5b6bd5c inherit pro_static_methods_classns_1_1ecs_1_1BaseComponent"><td class="memItemLeft" align="right" valign="top"><a id="a743569ce0b46f7ea59865685d5b6bd5c"></a>
-static auto&#160;</td><td class="memItemRight" valign="bottom"><b>getNextId</b> () -&gt; unsigned long</td></tr>
-<tr class="separator:a743569ce0b46f7ea59865685d5b6bd5c inherit pro_static_methods_classns_1_1ecs_1_1BaseComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_classns_1_1ecs_1_1BaseComponent"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classns_1_1ecs_1_1BaseComponent')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classns_1_1ecs_1_1BaseComponent.html">ns::ecs::BaseComponent</a></td></tr>
-<tr class="memitem:a0cc616443b2d5ed6f4cebec17d4e538b inherit pro_attribs_classns_1_1ecs_1_1BaseComponent"><td class="memItemLeft" align="right" valign="top"><a id="a0cc616443b2d5ed6f4cebec17d4e538b"></a>
-<a class="el" href="classns_1_1ecs_1_1ComponentGroup.html">ComponentGroup</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_owner</b> = nullptr</td></tr>
-<tr class="separator:a0cc616443b2d5ed6f4cebec17d4e538b inherit pro_attribs_classns_1_1ecs_1_1BaseComponent"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2073d458c4770e659b844f1edf077ac6"><td class="memItemLeft" align="right" valign="top"><a id="a2073d458c4770e659b844f1edf077ac6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>enable</b> ()</td></tr>
+<tr class="separator:a2073d458c4770e659b844f1edf077ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907ae37fb630cf17a24eb10bd4dd926a"><td class="memItemLeft" align="right" valign="top"><a id="a907ae37fb630cf17a24eb10bd4dd926a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>disable</b> ()</td></tr>
+<tr class="separator:a907ae37fb630cf17a24eb10bd4dd926a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a185b6fdc27f181e8f9c6641e13fd8b98"><td class="memItemLeft" align="right" valign="top"><a id="a185b6fdc27f181e8f9c6641e13fd8b98"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> ()</td></tr>
+<tr class="separator:a185b6fdc27f181e8f9c6641e13fd8b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="InputsComponent_8hpp_source.html#l00016">16</a> of file <a class="el" href="InputsComponent_8hpp_source.html">InputsComponent.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InputsComponent_8hpp_source.html#l00011">11</a> of file <a class="el" href="InputsComponent_8hpp_source.html">InputsComponent.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="InputsComponent_8hpp_source.html">InputsComponent.hpp</a></li>
 </ul>
