@@ -32,5 +32,10 @@ namespace ns::utils {
     auto getRandomFloat(float min, float max) -> float;
     auto getRandomInt(int min, int max) -> int;
 
+    /**
+     * \brief Compute the union between multiple FloatRect
+     * \param rects list of FloatRects
+     * \return The FloatRect containings all the rects
+     */
     auto computeBounds(std::initializer_list<sf::FloatRect> rects) -> ns::FloatRect;
 }
