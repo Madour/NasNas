@@ -22,7 +22,7 @@ Player::Player() {
     add<ns::ecs::Sprite>(m_spritesheet.get());
 
     // add physics component to player
-    add<ns::ecs::Physics>(sf::Vector2f(0.5f, 5.f), 2.f, sf::Vector2f(0.2f, 0.f));
+    add<ns::ecs::Physics>(2.f, sf::Vector2f(0.2f, 0.f));
 
     // add inputs component to player and binding buttons to Player methods
     auto& inputs = add<ns::ecs::InputsComponent>();
@@ -43,7 +43,7 @@ Player::Player() {
 
 void Player::jump() {
     if (!m_double_jump)
-        get<ns::ecs::Physics>().setVelocityY(-4.f);
+        get<ns::ecs::Physics>().linear_velocity.y = -4.f;
     auto& state = get<ns::ecs::Sprite>().getAnimState();
     m_double_jump = m_in_air ? true : false;
 }
@@ -69,7 +69,7 @@ auto Player::getGlobalBounds() const -> ns::FloatRect {
 
 void Player::update() {
     static bool inputs_enabled = true;
-    auto& velocity = get<ns::ecs::Physics>().getVelocity();
+    auto& velocity = get<ns::ecs::Physics>().linear_velocity;
     auto& sprite = get<ns::ecs::Sprite>();
     auto& inputs = get<ns::ecs::Inputs>();
     if (std::abs(velocity.y) <= 0.1f && sprite.getAnimState() != "jump" && sprite.getAnimState() != "air_roll") {

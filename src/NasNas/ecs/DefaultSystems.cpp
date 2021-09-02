@@ -4,4 +4,4 @@
 
 ns::ecs::System<ns::ecs::InputsComponent> ns::ecs::inputs_system{[](auto& inputs) { inputs.update(); }};
 ns::ecs::System<ns::ecs::PhysicsComponent> ns::ecs::physics_system{[](auto& physics) {physics.update();}};
-ns::ecs::System<ns::ecs::SpriteComponent> ns::ecs::sprite_system{[](auto& sprite) {sprite.update();}};
+ns::ecs::System<ns::ecs::SpriteComponent> ns::ecs::sprite_system{[](auto& sprite) { sprite.update(); }};

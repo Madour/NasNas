@@ -54,6 +54,7 @@ Game::Game() {
 
     //------------ Add DebugTexts to the App -----------------------------------------
     this->addDebugText<int>("frame counter:", &m_frame_counter, {10, 10});
+    this->addDebugText<sf::Vector2f>("player direction:", [&]{return m_player.get<ns::ecs::Physics>().getDirection();}, {10, 30});
     //-----------------------------------------------------------------------------------
 }
 
@@ -95,7 +96,7 @@ void Game::update() {
     });
     // run a custom system that updates transformable components according to physics velocity
     ns::Ecs.run<ns::ecs::Transform, ns::ecs::Physics>([](auto& transform, auto& physics) {
-        transform.move(physics.getVelocity());
+        transform.move(physics.linear_velocity);
     });
 
     // resolve collisions using Ecs view to get entities with given components
@@ -120,13 +121,13 @@ void Game::update() {
             if (coll1.dynamic) {
                 // X axis collision
                 if (intersect.width < intersect.height) {
-                    ns::Ecs.get<ns::ecs::Physics>(ent1).setVelocityX(0);
+                    ns::Ecs.get<ns::ecs::Physics>(ent1).linear_velocity.x = 0;
                     float sign = (bounds1.left < bounds2.left ? -1.f : 1.f);
                     tr1.move(sign * intersect.width, 0);
                 }
                 // Y axis collision
                 else {
-                    ns::Ecs.get<ns::ecs::Physics>(ent1).setVelocityY(0);
+                    ns::Ecs.get<ns::ecs::Physics>(ent1).linear_velocity.y = 0;
                     float sign = (bounds1.top < bounds2.top ? -1.f : 1.f);
                     tr1.move(0, sign * intersect.height);
                 }
@@ -135,13 +136,13 @@ void Game::update() {
             if (coll2.dynamic) {
                 // X axis collision
                 if (intersect.width < intersect.height) {
-                    ns::Ecs.get<ns::ecs::Physics>(ent2).setVelocityX(0);
+                    ns::Ecs.get<ns::ecs::Physics>(ent2).linear_velocity.x = 0;
                     float sign = (bounds2.left < bounds1.left ? -1.f : 1.f);
                     tr2.move(sign * intersect.width, 0);
                 }
                 // Y axis collision
                 else {
-                    ns::Ecs.get<ns::ecs::Physics>(ent2).setVelocityY(0);
+                    ns::Ecs.get<ns::ecs::Physics>(ent2).linear_velocity.y = 0;
                     float sign = (bounds2.top < bounds1.top ? -1.f : 1.f);
                     tr2.move(0, sign * intersect.height);
                 }
@@ -154,7 +155,7 @@ void Game::update() {
 
     m_camera_anchor.setPosition(
             m_player.get<ns::ecs::Transform>().getPosition() +
-            m_player.get<ns::ecs::Physics>().getVelocity() * 5.f +
+            m_player.get<ns::ecs::Physics>().linear_velocity * 5.f +
             sf::Vector2f(0, -40.f)
     );
 
