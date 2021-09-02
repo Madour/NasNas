@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 
-#include "NasNas/core/data/Rtti.hpp"
+#include "NasNas/core/data/Introspection.hpp"
 
 namespace ns {
     class Scene;
@@ -108,14 +108,14 @@ namespace ns {
         static constexpr auto float_max = std::numeric_limits<float>::max();
 
         m_drawables.emplace_back(&dr);
-        if constexpr(rtti::has_getPosition_v<T>)
+        if constexpr(introspect::has_getPosition_v<T>)
             m_position_getters[&dr] = [&dr]() { return dr.getPosition(); };
         else
             m_position_getters[&dr] = []() { return sf::Vector2f{0, float_min}; };
 
-        if constexpr(rtti::has_getGlobalBounds_v<T>)
+        if constexpr(introspect::has_getGlobalBounds_v<T>)
             m_bounds_getters[&dr] = [&dr]() { return dr.getGlobalBounds(); };
-        else if constexpr(rtti::has_getBounds_v<T>)
+        else if constexpr(introspect::has_getBounds_v<T>)
             m_bounds_getters[&dr] = [&dr]() { return dr.getBounds(); };
         else
             m_bounds_getters[&dr] = []() { return sf::FloatRect(float_min/2.f, float_min/2.f, float_max, float_max); };
@@ -141,7 +141,7 @@ namespace ns {
             m_bounds_getters.erase(&dr);
         }
         else
-            std::cout << "Warning : trying to remove a non existant drawable from Layer.\n";
+            std::cout << "Warning : trying to remove a non existent drawable from Layer.\n";
     }
 
     template <typename T, typename, typename>

@@ -41,7 +41,7 @@ set(
         ${INC_PATH}/data/Logger.hpp
         ${INC_PATH}/data/Maths.hpp
         ${INC_PATH}/data/Rect.hpp
-        ${INC_PATH}/data/Rtti.hpp
+        ${INC_PATH}/data/Introspection.hpp
         ${INC_PATH}/data/ShaderHolder.hpp
         ${INC_PATH}/data/Singleton.hpp
         ${INC_PATH}/data/Utils.hpp
