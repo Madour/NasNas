@@ -4,7 +4,7 @@
 
 #include "NasNas/core/data/Rect.hpp"
 
-namespace rtti {
+namespace introspect {
     using namespace std;
 #define NS_DEFINE_HAS_METHOD(name, signature)                                   \
     template<typename, typename T=signature>                                    \
