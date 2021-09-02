@@ -26,12 +26,12 @@ struct HpComponent {
     }
 };
 
-class MyEntity : public ns::EntityObject, public sf::Drawable {
+class HpBar : public ns::EntityObject, public sf::Drawable {
 public:
-    MyEntity() {
+    HpBar() {
         add<sf::Transformable>().setPosition(540, 300);
 
-        // add the custom component to MyEntity
+        // add the custom component
         add<HpComponent>(500, 500);
 
         // add a RectangleShape component to represent the HP bar
@@ -48,7 +48,7 @@ public:
 };
 
 class Game : public ns::App {
-    MyEntity entity;
+    HpBar hp_bar;
     ns::ecs::System<HpComponent> hp_system;
 public:
 
@@ -58,13 +58,13 @@ public:
         auto& camera = this->createCamera("main", 0);
         camera.lookAt(scene);
 
-        // add inputs components to the entity
-        auto& inputs_comp = this->entity.add<ns::ecs::InputsComponent>();
-        inputs_comp.onPress(sf::Keyboard::Space, [this](){ this->entity.get<HpComponent>().damage(50); });
+        // add inputs components to the hp_bar
+        auto& inputs_comp = this->hp_bar.add<ns::ecs::InputsComponent>();
+        inputs_comp.onPress(sf::Keyboard::Space, [this](){ this->hp_bar.get<HpComponent>().damage(50); });
         inputs_comp.enable();
 
-        // add entity to the scene
-        scene.getDefaultLayer().add(this->entity);
+        // add hp_bar to the scene
+        scene.getDefaultLayer().add(this->hp_bar);
 
         // set the Hp system
         hp_system = [](auto& hp) { hp.restore(1); };
