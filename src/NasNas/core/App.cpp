@@ -2,6 +2,8 @@
 * Created by Modar Nasser on 15/04/2020.
 **/
 
+#include <numeric>
+
 #include "NasNas/core/Inputs.hpp"
 #include "NasNas/core/App.hpp"
 
@@ -17,10 +19,10 @@ App::App() : App(
 {}
 
 App::App(std::string title, sf::Vector2u resolution, float scale, int fps, int ups) :
-m_title(std::move(title)),
-m_fullscreen(false),
-m_ups(ups),
-m_desired_fps(fps)
+        m_title(std::move(title)),
+        m_fullscreen(false),
+        m_ups(ups),
+        m_fps(fps)
 {
     AppComponent::app = this;
 
@@ -156,7 +158,7 @@ void App::toggleFullscreen() {
         m_window.create(Settings::user_config.video_mode, m_title, Settings::user_config.window_style);
     }
     m_window.setClearColor(clear_color);
-    m_window.setFramerateLimit(m_desired_fps);
+    m_window.setFramerateLimit(m_fps);
     m_fullscreen = !m_fullscreen;
 }
 
@@ -309,20 +311,31 @@ void App::run() {
     // initialize Inputs manager
     Inputs::init();
     // sort cameras by render order
-    m_cameras.sort([](Camera& lhs, Camera& rhs) {return lhs.getRenderOrder() < rhs.getRenderOrder();});
+    m_cameras.sort([](Camera& lhs, Camera& rhs) { return lhs.getRenderOrder() < rhs.getRenderOrder(); });
 
-    double current_slice = 0.;
-    double slice_time = 1.0/m_ups;
+    float current_slice = 0.f;
+    float slice_time = 1.f / static_cast<float>(m_ups);
     sf::Clock timer;
     sf::Clock update_clock;
-
+    std::array<float, 30> average_buffer{};
+    std::fill(average_buffer.begin(), average_buffer.end(), m_fps == 0 ? 0 : 1.f / static_cast<float>(m_fps));
+    size_t av_i = 0;
+    std::array<float, 30> dt_buffer{};
+    size_t dt_i = 0;
     while (m_window.isOpen()) {
         m_dt = m_fps_clock.restart().asSeconds();
         current_slice += m_dt;
 
         if (Settings::debug_mode && Settings::debug_mode.show_fps && timer.getElapsedTime().asMilliseconds()>200) {
-            m_window.setTitle(m_title+ " | FPS :" + std::to_string(1 / m_dt));
+            auto dt_average = std::accumulate(average_buffer.begin(), average_buffer.end(), 0.f) / average_buffer.size();
+            m_window.setTitle(m_title+ " | FPS :" + std::to_string(static_cast<int>(1 / dt_average)));
             timer.restart();
+        }
+        dt_buffer[dt_i++] = m_dt;
+        dt_i %= dt_buffer.size();
+        if (dt_i == 0) {
+            average_buffer[av_i++] = std::accumulate(dt_buffer.begin(), dt_buffer.end(), 0.f) / dt_buffer.size();
+            av_i %= average_buffer.size();
         }
 
         // get and store inputs
