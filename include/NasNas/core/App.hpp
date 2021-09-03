@@ -6,6 +6,7 @@
 #pragma once
 
 #include <list>
+#include <array>
 
 #include "NasNas/core/data/Config.hpp"
 #include "NasNas/core/data/ShaderHolder.hpp"
@@ -248,13 +249,12 @@ namespace ns {
         virtual void preRender() {};
 
     private:
-        AppConfig m_config;
         AppWindow m_window;     ///< AppWindow
         sf::RenderTexture m_renderer;
         std::string m_title;    ///< Title of the App
         bool m_fullscreen;      ///< Is the AppWindow fullscreen ?
         int m_ups;              ///< Update per second
-        int m_desired_fps;      ///< Frame per second
+        int m_fps;              ///< Frame per second
         sf::Clock m_fps_clock;  ///< Clock to compute real FPS
         float m_dt;             ///< Delta time, time between two frames
         bool m_sleeping = false;

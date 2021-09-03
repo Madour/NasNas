@@ -45,9 +45,9 @@ auto Scene::getLayer(int order) -> Layer& {
 }
 
 auto Scene::getLayer(const std::string& name) -> Layer& {
-    for (auto& [key, layer] : m_layers) {
-        if (layer.getName() == name)
-            return layer;
+    for (auto& item : m_layers) {
+        if (item.second.getName() == name)
+            return item.second;
     }
     std::cout << "Your Scene has no Layer named " << name << std::endl;
     exit(-1);
