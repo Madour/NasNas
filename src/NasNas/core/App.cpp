@@ -317,9 +317,6 @@ void App::run() {
     float slice_time = 1.f / static_cast<float>(m_ups);
     sf::Clock timer;
     sf::Clock update_clock;
-    std::array<float, 30> average_buffer{};
-    std::fill(average_buffer.begin(), average_buffer.end(), m_fps == 0 ? 0 : 1.f / static_cast<float>(m_fps));
-    size_t av_i = 0;
     std::array<float, 30> dt_buffer{};
     size_t dt_i = 0;
     while (m_window.isOpen()) {
@@ -327,16 +324,12 @@ void App::run() {
         current_slice += m_dt;
 
         if (Settings::debug_mode && Settings::debug_mode.show_fps && timer.getElapsedTime().asMilliseconds()>200) {
-            auto dt_average = std::accumulate(average_buffer.begin(), average_buffer.end(), 0.f) / average_buffer.size();
-            m_window.setTitle(m_title+ " | FPS :" + std::to_string(static_cast<int>(1 / dt_average)));
+            auto dt_average = std::accumulate(dt_buffer.begin(), dt_buffer.end(), 0.f) / dt_buffer.size();;
+            m_window.setTitle(m_title+ " | FPS :" + std::to_string(static_cast<int>(1 / dt_average)) + " (" + std::to_string((1/m_dt)) + ")");
             timer.restart();
         }
         dt_buffer[dt_i++] = m_dt;
         dt_i %= dt_buffer.size();
-        if (dt_i == 0) {
-            average_buffer[av_i++] = std::accumulate(dt_buffer.begin(), dt_buffer.end(), 0.f) / dt_buffer.size();
-            av_i %= average_buffer.size();
-        }
 
         // get and store inputs
         sf::Event event{};

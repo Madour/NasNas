@@ -43,6 +43,7 @@ void SpriteBatch::draw(const ns::Sprite* sprite) {
         m_layers.front().sprites.emplace(m_layers.front().sprites.begin(), sprite);
     }
     m_need_end = true;
+    m_need_render = true;
 }
 
 void SpriteBatch::draw(const sf::Texture* texture, const sf::Vector2f& pos, const sf::IntRect& rect, const sf::Color& color) {
@@ -71,6 +72,7 @@ void SpriteBatch::erase(const ns::Sprite* sprite) {
         vec.erase(std::remove(vec.begin(), vec.end(), sprite), vec.end());
     }
     m_need_end = true;
+    m_need_render = true;
 }
 
 void SpriteBatch::end() {
@@ -100,8 +102,10 @@ auto SpriteBatch::getGlobalBounds() const -> ns::FloatRect {
 }
 
 void SpriteBatch::render() {
-    if (m_usage == sf::VertexBuffer::Usage::Static)
+    if (m_usage == sf::VertexBuffer::Usage::Static && !m_need_render)
         return;
+    m_need_render = false;
+
     if (m_need_end)
         end();
 

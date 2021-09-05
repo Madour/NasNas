@@ -57,6 +57,7 @@ namespace ns {
         std::vector<std::unique_ptr<const ns::Sprite>> m_gc;
 
         bool m_need_end = false;
+        bool m_need_render = false;
     };
 
 }
