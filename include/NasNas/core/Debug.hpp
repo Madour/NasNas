@@ -66,15 +66,6 @@ namespace ns {
         DebugText(const std::string& label, T* var_address, const sf::Vector2f& position);
 
         /**
-         * \brief Create a DebugText from variable address
-         *
-         * \param var_address Address of the variable (const)
-         * \param label Label of the DebugText
-         * \param position Position of the DebugText on the AppWindow
-         */
-        DebugText(const std::string& label, const T* var_address, const sf::Vector2f& position);
-
-        /**
          * \brief Create a DebugText from a lambda function
          *
          * \param fn Lambda function to be evaluated
@@ -112,14 +103,8 @@ namespace ns {
     }
 
     template <typename T>
-    DebugText<T>::DebugText(const std::string& label, const T* var_address, const sf::Vector2f& position) :
-    DebugText(label, position) {
-        m_variable_address = (T*) var_address;
-    }
-
-    template <typename T>
     DebugText<T>::DebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position) :
-            DebugText(label, position) {
+    DebugText(label, position) {
         m_lambda = fn;
     }
 
