@@ -13,7 +13,7 @@
  */
 class Game : public ns::App {
 public:
-    Game() : ns::App("Split View", {1080*2, 720*2}, 0.5f) {
+    Game() : ns::App("Split view example", {1080*2, 720*2}, 0.5f) {
         // create a scene
         auto& scene = createScene("main");
 

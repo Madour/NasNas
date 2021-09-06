@@ -29,7 +29,7 @@ public:
 class Game : public ns::App {
     MyCustomParticleSystem m_particles_system;
 public:
-    Game() : ns::App("Particles System", {1280, 720}) {
+    Game() : ns::App("Particles System example", {1280, 720}) {
         // create a scene and a camera
         auto& scene = this->createScene("main");
         auto& camera = this->createCamera("main", 0);

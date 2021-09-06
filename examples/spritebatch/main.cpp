@@ -16,7 +16,7 @@ class Game : public ns::App {
     ns::SpriteBatch m_spritebatch;
 
 public:
-    Game() : ns::App("Spritebatch", {1280, 720}) {
+    Game() : ns::App("Spritebatch example", {1280, 720}) {
         ns::Settings::debug_mode = true;
 
         // get the texture
