@@ -98,8 +98,8 @@ Game::Game() : ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 
     //------------ Add DebugTexts to the App -----------------------------------------
     // add a DebugText by using addDebugText method
-    this->addDebugText<int>("frame counter:", &this->frame_counter, {10, 10});
-    this->addDebugText<int>("nb of transitions:", [&]{return ns::Transition::list.size();}, {10, 50}, sf::Color::Green);
+    this->addDebugText<int>("frame counter:", &this->frame_counter, {10, 10}, sf::Color::Yellow);
+    this->addDebugText<sf::Vector2f>("player pos:", [&]{return this->player.getPosition();}, {10, 50});
 
     // you can change debug text global properties by using DebugTextInterface
     // (will be applied to ALL debug texts created afterwards)
@@ -107,14 +107,6 @@ Game::Game() : ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     ns::DebugTextInterface::outline_thickness = 1;
     ns::DebugTextInterface::outline_color = sf::Color::Blue;
     this->addDebugText<sf::Vector2f>("mouse pos:", [&]{return getMousePosition(getCamera("main"));}, {10, 90});
-
-    // add DebugText by creating manually a DebugText object, changing its properties and adding it to the app;
-    // the app will delete automatically the debug texts, so don't worry about memory
-    auto* dbg_txt = new ns::DebugText<sf::Vector2f>("position:", [&]{return player.get<ns::ecs::Transform>().getPosition();}, {500, 10});
-    dbg_txt->setFillColor(sf::Color::Black);
-    dbg_txt->setOutlineThickness(1);
-    dbg_txt->setOutlineColor(sf::Color::White);
-    this->addDebugText(dbg_txt);
     //-----------------------------------------------------------------------------------
 
     this->palette_shader = new sf::Shader();
@@ -148,15 +140,16 @@ Game::Game() : ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
 void Game::onEvent(const sf::Event& event) {
     ns::App::onEvent(event);
     textbox->onEvent(event);
+
     switch (event.type) {
         case sf::Event::Closed:
             this->getWindow().close();
             break;
 
         case sf::Event::KeyReleased:
-            if(event.key.code == ns::Inputs::getButton("fullscreen"))
+            if(event.key.code == ns::Inputs::getButton("fullscreen")) {
                 this->toggleFullscreen();
-
+            }
             if (event.key.code == sf::Keyboard::E) {
                 this->toggleShader();
             }

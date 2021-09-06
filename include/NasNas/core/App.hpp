@@ -24,9 +24,11 @@
 namespace ns {
 
     class StateMachineApp;
+    class StateStackApp;
 
     class App : public AppStateInterface, public ShaderHolder {
         friend StateMachineApp;
+        friend StateStackApp;
     public:
         /**
          * \brief Contructs an App from ns::Config configuration
@@ -151,7 +153,6 @@ namespace ns {
          */
         auto createCamera(const std::string& name, int order, const ns::FloatRect& viewport) -> Camera&;
 
-
         /**
          * \brief Creates a label only DebugText object and render it on the AppWindow directly
          */
@@ -177,23 +178,6 @@ namespace ns {
         /**
          * \brief Creates a DebugText object and render it on the AppWindow directly
          *
-         * DebugText takes the address of a variable and will display its value on the AppWindow
-         * at the given position. The label is displayed near the value. DebugText let you visualize
-         * the variable's value changing in real time.
-         *
-         * \tparam T Type of the variable to be displayed
-         *
-         * \param label Label of the DebugText
-         * \param var_address Address of the variable (const)
-         * \param position Position of the DebugText on the AppWindow
-         * \param color Fill color of the DebugText
-         */
-        template<typename T>
-        void addDebugText(const std::string& label, const T* var_address,const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
-
-        /**
-         * \brief Creates a DebugText object and render it on the AppWindow directly
-         *
          * \tparam T Type of the value returned by the lambda function
          *
          * \param label Label of the DebugText
@@ -203,17 +187,6 @@ namespace ns {
          */
         template<typename T>
         void addDebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position, const sf::Color& color = ns::DebugTextInterface::color);
-
-        /**
-         * \brief Adds a DebugText to the App from a DebugText pointer
-         *
-         * \tparam T Return type of the method to be evaluated
-         * \tparam ObjT Type of the method's object
-         *
-         * \param debug_text Pointer to a DebugText object
-         */
-        template<typename T>
-        void addDebugText(DebugText<T>* debug_text);
 
         /**
          * \brief The App enters sleep mode, the App will not update.
@@ -291,33 +264,52 @@ namespace ns {
         dbg_txt->setFillColor(color);
         m_debug_texts.push_back(dbg_txt);
     }
-    template<typename T>
-    void App::addDebugText(const std::string& label, const T* var_address, const sf::Vector2f& position, const sf::Color& color) {
-        auto* dbg_txt = new DebugText<T>(label, var_address, position);
-        dbg_txt->setFillColor(color);
-        m_debug_texts.push_back(dbg_txt);
-    }
+
     template<typename T>
     void App::addDebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position, const sf::Color& color) {
         auto* dbg_txt = new DebugText<T>(label, fn, position);
         dbg_txt->setFillColor(color);
         m_debug_texts.push_back(dbg_txt);
     }
-    template<typename T>
-    void App::addDebugText(ns::DebugText<T>* debug_text) {
-        m_debug_texts.push_back(debug_text);
-    }
 
     class StateMachineApp : public App {
         std::unique_ptr<AppState> m_state = nullptr;
     public:
         using App::App;
+
         template <typename T, typename... Targs, typename = std::enable_if<std::is_base_of_v<AppState, T>>>
         void setState(Targs... args) {
-            m_state = std::make_unique<T>(std::forward(args)...);
+            m_state = std::make_unique<T>(std::forward<Targs>(args)...);
             m_cb_onevent = [&](const auto& event) { m_state->onEvent(event); };
             m_cb_update = [&] { m_state->update(); };
             m_cb_prerender = [&] { m_state->preRender(); };
+        }
+    };
+
+    class StateStackApp : public App {
+        std::stack<std::unique_ptr<AppState>> m_state_stack;
+    public:
+        using App::App;
+
+        template <typename T, typename... Targs, typename = std::enable_if<std::is_base_of_v<AppState, T>>>
+        void pushState(Targs... args) {
+            m_state_stack.emplace(std::make_unique<T>(std::forward<Targs>(args)...));
+            m_cb_onevent = [&](const sf::Event& event) { m_state_stack.top()->onEvent(event); };
+            m_cb_update = [&] { m_state_stack.top()->update(); };
+            m_cb_prerender = [&] { m_state_stack.top()->preRender(); };
+        }
+
+        inline void popState() {
+            if (m_state_stack.empty())
+                return;
+
+            m_state_stack.pop();
+
+            if (m_state_stack.empty()) {
+                m_cb_onevent = [&](const sf::Event& event) {};
+                m_cb_update = [&] {};
+                m_cb_prerender = [&] {};
+            }
         }
     };
 }
