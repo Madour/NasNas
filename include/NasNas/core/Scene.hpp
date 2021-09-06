@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <map>
+#include <list>
 #include "NasNas/core/AppAccess.hpp"
 #include "NasNas/core/Layer.hpp"
 
@@ -31,35 +31,17 @@ namespace ns {
         Scene& operator=(const Scene&) = delete;
         Scene& operator=(Scene&&) = default;
 
-        /**
-         * \brief Adds a new layer to the scene
-         * \param layer_name Layer name
-         * \param order The order of render of the layer
-         */
-        void addLayer(const std::string& name, int order);
-
-        /**
-         * \brief Removes and clears the Layer of the given order
-         *
-         * \param order Layer order to remove
-         */
-        void removeLayer(int order);
+        template <typename... T>
+        void createLayers(const T&... name) {
+            (m_layers.emplace_back(name), ...);
+        }
 
         /**
          * \brief Removes and clears the Layer of the given name
          *
          * \param name Layer name to remove
          */
-        void removeLayer(const std::string& name);
-
-        /**
-         * \brief Returns the layer of the given order
-         *
-         * \param order The order of the layer to get
-         *
-         * \return Pointer to Layer object
-         */
-        auto getLayer(int order) -> Layer&;
+        void deleteLayer(const std::string& name);
 
         /**
          * \brief Returns the layer of the given name
@@ -82,7 +64,7 @@ namespace ns {
         friend App; friend Camera;
 
         std::string m_name;         ///< Scene name
-        std::map<int, Layer> m_layers;
+        std::list<Layer> m_layers;
         Layer m_default_layer;
         ns::FloatRect m_render_bounds;
 

@@ -14,42 +14,22 @@ m_name(std::move(name)),
 m_default_layer("")
 {}
 
-void Scene::addLayer(const std::string& name, int order) {
-    auto ret = m_layers.emplace(order, name);
-    if (!ret.second)
-        std::cout << "Warning : the Scene " << m_name << " has already a Layer " << order << std::endl;
-}
-
-void Scene::removeLayer(int order) {
-    if (m_layers.count(order) > 0) {
-        m_layers.at(order).clear();
-        m_layers.erase(order);
-    }
-}
-
-void Scene::removeLayer(const std::string& name) {
-    for (auto& [key, layer] : m_layers) {
-        if (layer.getName() == name) {
-            layer.clear();
-            m_layers.erase(key);
+void Scene::deleteLayer(const std::string& name) {
+    for (auto it = m_layers.begin(); it != m_layers.end(); ++it) {
+        if (it->getName() == name) {
+            it->clear();
+            m_layers.erase(it);
             break;
         }
     }
 }
 
-auto Scene::getLayer(int order) -> Layer& {
-    if (m_layers.count(order) > 0)
-        return m_layers.at(order);
-    std::cout << "Your Scene has no Layer " << order << std::endl;
-    exit(-1);
-}
-
 auto Scene::getLayer(const std::string& name) -> Layer& {
-    for (auto& item : m_layers) {
-        if (item.second.getName() == name)
-            return item.second;
+    for (auto& layer : m_layers) {
+        if (layer.getName() == name)
+            return layer;
     }
-    std::cout << "Your Scene has no Layer named " << name << std::endl;
+    std::cerr << "(ns::Scene::getLayer) Scene has no Layer named " << name << std::endl;
     exit(-1);
 }
 
@@ -72,7 +52,7 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
             drawable_transformable->changed = false;
         }
     }
-    for (const auto& [key, layer] : m_layers) {
+    for (const auto& layer : m_layers) {
         for (const auto* drawable : layer.allDrawables()) {
             if (m_render_bounds.intersects(layer.getDrawableBounds(drawable))) {
                 target.draw(*drawable, states);
