@@ -6,11 +6,13 @@
 #pragma once
 
 #include <list>
+#include <stack>
 #include <array>
 
 #include "NasNas/core/data/Config.hpp"
 #include "NasNas/core/data/ShaderHolder.hpp"
 
+#include "NasNas/core/AppState.hpp"
 #include "NasNas/core/Scene.hpp"
 #include "NasNas/core/Layer.hpp"
 #include "NasNas/core/Camera.hpp"
@@ -21,7 +23,10 @@
 
 namespace ns {
 
-    class App : public ShaderHolder {
+    class StateMachineApp;
+
+    class App : public AppStateInterface, public ShaderHolder {
+        friend StateMachineApp;
     public:
         /**
          * \brief Contructs an App from ns::Config configuration
@@ -230,7 +235,7 @@ namespace ns {
          *
          * \param event The sf::Event that happened
          */
-        virtual void onEvent(const sf::Event& event);
+        void onEvent(const sf::Event& event) override;
 
         /**
          * \brief App update method
@@ -238,15 +243,7 @@ namespace ns {
          * Pure virtual method, has to be defined by the user.
          * `update` will be called as many times it needs to match the ups (update per second) parameter
          */
-        virtual void update() = 0;
-
-        /**
-         * \brief Optional method called just before rendering
-         *
-         * Virtual method, can be defined by the user
-         * It can be used to execute code before rendering outside of the `update`
-         */
-        virtual void preRender() {};
+        void update() override = 0;
 
     private:
         AppWindow m_window;     ///< AppWindow
@@ -263,6 +260,10 @@ namespace ns {
         std::list<Scene> m_scenes;
         std::vector<DebugTextInterface*> m_debug_texts;
         std::vector<sf::Vertex> m_debug_bounds;
+
+        std::function<void(const sf::Event&)> m_cb_onevent=[](const sf::Event&){};
+        std::function<void()> m_cb_update=[]{};
+        std::function<void()> m_cb_prerender=[]{};
 
         /**
          * \brief Updates m_inputs everytime a key event occurs
@@ -307,4 +308,17 @@ namespace ns {
         m_debug_texts.push_back(debug_text);
     }
 
+    class StateMachineApp : public App {
+        std::unique_ptr<AppState> m_state = nullptr;
+    public:
+        using App::App;
+        template <typename T, typename... Targs, typename = std::enable_if<std::is_base_of_v<AppState, T>>>
+        void setState(Targs... args) {
+            m_state = std::make_unique<T>(std::forward(args)...);
+            m_cb_onevent = [&](const auto& event) { m_state->onEvent(event); };
+            m_cb_update = [&] { m_state->update(); };
+            m_cb_prerender = [&] { m_state->preRender(); };
+        }
+    };
 }
+

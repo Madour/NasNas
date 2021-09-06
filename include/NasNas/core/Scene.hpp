@@ -6,7 +6,7 @@
 #pragma once
 
 #include <map>
-#include "NasNas/core/data/AppComponent.hpp"
+#include "NasNas/core/AppAccess.hpp"
 #include "NasNas/core/Layer.hpp"
 
 namespace ns {

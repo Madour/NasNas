@@ -8,7 +8,7 @@
 
 #include <NasNas/Core.hpp>
 
-class ShaderInTransition : public ns::Transition {
+class ShaderInTransition : public ns::Transition, public ns::AppAccess<> {
 public:
     explicit ShaderInTransition(std::string  uniform_name);
     void onUpdate() override;
@@ -19,7 +19,7 @@ private:
     float m_treshold;
 };
 
-class ShaderOutTransition : public ns::Transition {
+class ShaderOutTransition : public ns::Transition, public ns::AppAccess<> {
 public:
     explicit ShaderOutTransition(std::string  uniform_name);
     void onUpdate() override;

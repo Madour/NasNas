@@ -12,10 +12,8 @@ std::vector<Transition*> Transition::list;
 Transition::Transition() :
 m_end_callback([](){})
 {
-    m_render_texture.create(
-        static_cast<unsigned int>(app->getWindow().getAppView().getSize().x),
-        static_cast<unsigned int>(app->getWindow().getAppView().getSize().y)
-    );
+    auto texture_size = sf::Vector2u(ns::Settings::getConfig().getViewSize());
+    m_render_texture.create(texture_size.x, texture_size.y);
 }
 
 void Transition::start() {
@@ -62,8 +60,8 @@ using namespace ns::transition;
 CircleOpen::CircleOpen(int duration_ms) :
 m_duration_ms(duration_ms),
 m_scale_factor(1.f) {
-    const auto& c = app->getWindow().getAppView().getCenter();
-    const auto& s = app->getWindow().getAppView().getSize();
+    const auto& c = app().getWindow().getAppView().getCenter();
+    const auto& s = app().getWindow().getAppView().getSize();
 
     m_rectangle.setSize(s);
     m_rectangle.setFillColor(sf::Color::Black);
@@ -95,8 +93,8 @@ void CircleOpen::onUpdate() {
 CircleClose::CircleClose(int duration_ms) :
 m_duration_ms(duration_ms),
 m_scale_factor(1.f) {
-    const auto& c = app->getWindow().getAppView().getCenter();
-    const auto& s = app->getWindow().getAppView().getSize();
+    const auto& c = app().getWindow().getAppView().getCenter();
+    const auto& s = app().getWindow().getAppView().getSize();
 
     m_rectangle.setSize(s);
     m_rectangle.setFillColor(sf::Color::Black);
