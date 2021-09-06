@@ -231,7 +231,7 @@ namespace ns {
 
         std::list<Camera> m_cameras;
         std::list<Scene> m_scenes;
-        std::vector<DebugTextInterface*> m_debug_texts;
+        std::vector<std::unique_ptr<DebugTextInterface>> m_debug_texts;
         std::vector<sf::Vertex> m_debug_bounds;
 
         std::function<void(const sf::Event&)> m_cb_onevent=[](const sf::Event&){};
@@ -262,14 +262,14 @@ namespace ns {
     void App::addDebugText(const std::string& label, T* var_address, const sf::Vector2f& position, const sf::Color& color) {
         auto* dbg_txt = new DebugText<T>(label, var_address, position);
         dbg_txt->setFillColor(color);
-        m_debug_texts.push_back(dbg_txt);
+        m_debug_texts.emplace_back(dbg_txt);
     }
 
     template<typename T>
     void App::addDebugText(const std::string& label, std::function<T()> fn, const sf::Vector2f& position, const sf::Color& color) {
         auto* dbg_txt = new DebugText<T>(label, fn, position);
         dbg_txt->setFillColor(color);
-        m_debug_texts.push_back(dbg_txt);
+        m_debug_texts.emplace_back(dbg_txt);
     }
 
     class StateMachineApp : public App {

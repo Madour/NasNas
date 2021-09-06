@@ -53,8 +53,6 @@ App::App(std::string title, sf::Vector2u resolution, float scale, int fps, int u
 }
 
 App::~App() {
-    for (auto* dbg_txt : m_debug_texts)
-        delete(dbg_txt);
     for (auto* transition : Transition::list)
         delete(transition);
 }
@@ -165,7 +163,7 @@ void App::toggleFullscreen() {
 void App::addDebugText(const std::string& label, const sf::Vector2f& position, const sf::Color& color) {
     auto* dbg_txt = new DebugText<char>(label, position);
     dbg_txt->setFillColor(color);
-    m_debug_texts.push_back(dbg_txt);
+    m_debug_texts.emplace_back(dbg_txt);
 }
 
 void App::storeInputs(sf::Event event) {
@@ -239,7 +237,7 @@ void App::render() {
     }
     // draw debug texts
     if (Settings::debug_mode && Settings::debug_mode.show_text) {
-        for (auto* dbg_txt: m_debug_texts) {
+        for (auto& dbg_txt: m_debug_texts) {
             dbg_txt->update();
             m_window.draw(*dbg_txt);
         }
