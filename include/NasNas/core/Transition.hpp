@@ -7,11 +7,11 @@
 #include <functional>
 #include <SFML/Graphics.hpp>
 #include "NasNas/core/data/Maths.hpp"
-#include "NasNas/core/data/AppComponent.hpp"
+#include "NasNas/core/AppAccess.hpp"
 
 namespace ns {
 
-    class Transition : public AppComponent, public sf::Drawable {
+    class Transition : public sf::Drawable {
     public:
         static std::vector<Transition*> list;
 
@@ -42,7 +42,7 @@ namespace ns {
     };
 
     namespace transition {
-        class CircleOpen : public Transition {
+        class CircleOpen : public Transition, public AppAccess<> {
         public:
             explicit CircleOpen(int duration_ms=1000);
             void setDuration(int duration_ms);
@@ -55,7 +55,7 @@ namespace ns {
             sf::RectangleShape m_rectangle;
         };
 
-        class CircleClose : public Transition {
+        class CircleClose : public Transition, public AppAccess<> {
         public:
             explicit CircleClose(int duration_ms=1000);
             void setDuration(int duration_ms);

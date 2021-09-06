@@ -7,8 +7,8 @@
 
 #include <unordered_map>
 #include <SFML/Window.hpp>
-#include "NasNas/core/data/AppComponent.hpp"
 #include "NasNas/core/data/Utils.hpp"
+#include "NasNas/core/AppAccess.hpp"
 
 namespace ns {
     struct AppConfig {
@@ -34,19 +34,18 @@ namespace ns {
         float view_ratio = 1.f;
     };
 
-    class Settings : AppComponent {
+    class Settings : AppAccess<> {
         friend App;
-
         static AppConfig user_config;
 
         struct debug_info : public utils::bool_switch {
+            friend Settings;
             debug_info(const debug_info&) = delete;
             utils::bool_switch show_fps;
             utils::bool_switch show_text;
             utils::bool_switch show_bounds;
             auto operator=(bool value) -> debug_info& override;
         private:
-            friend Settings;
             debug_info();
             unsigned int m_state;
         };

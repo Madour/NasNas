@@ -4,7 +4,6 @@ set(INC_PATH ${PROJECT_SOURCE_DIR}/include/NasNas/core)
 set(
         SRC
 
-        ${SRC_PATH}/data/AppComponent.cpp
         ${SRC_PATH}/data/Arial.cpp
         ${SRC_PATH}/data/Config.cpp
         ${SRC_PATH}/data/Logger.cpp
@@ -23,6 +22,7 @@ set(
         ${SRC_PATH}/graphics/VertexArray.cpp
 
         ${SRC_PATH}/App.cpp
+        ${SRC_PATH}/AppAccess.cpp
         ${SRC_PATH}/Camera.cpp
         ${SRC_PATH}/Debug.cpp
         ${SRC_PATH}/Inputs.cpp
@@ -35,7 +35,6 @@ set(
 set(
         INC
 
-        ${INC_PATH}/data/AppComponent.hpp
         ${INC_PATH}/data/Arial.hpp
         ${INC_PATH}/data/Config.hpp
         ${INC_PATH}/data/Logger.hpp
@@ -58,6 +57,8 @@ set(
         ${INC_PATH}/graphics/VertexArray.hpp
 
         ${INC_PATH}/App.hpp
+        ${INC_PATH}/AppAccess.hpp
+        ${INC_PATH}/AppState.hpp
         ${INC_PATH}/Camera.hpp
         ${INC_PATH}/Debug.hpp
         ${INC_PATH}/Inputs.hpp
