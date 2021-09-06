@@ -27,9 +27,7 @@ Game::Game() {
 
     //------------ Scene and Layers creation --------------------------------------------
     auto& scene = this->createScene("main");
-    scene.addLayer("map_bg", 0);
-    scene.addLayer("entities", 1);
-    scene.addLayer("map_front", 2);
+    scene.createLayers("map_bg", "entities", "map_front");
     //-----------------------------------------------------------------------------------
 
     //------------ Camera creation ------------------------------------------------------

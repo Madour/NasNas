@@ -269,7 +269,7 @@ void App::renderDebugBounds() {
             for (const auto* dr : cam.m_scene->getDefaultLayer().allDrawables()) {
                 storeDrawableDebugRects(cam.m_scene->getDefaultLayer().getDrawableBounds(dr), cam, render_bounds, offset, global_vport, local_vport);
             }
-            for (const auto& [key, layer] : cam.m_scene->m_layers) {
+            for (const auto& layer : cam.m_scene->m_layers) {
                 for (const auto* dr : layer.allDrawables()) {
                     storeDrawableDebugRects(layer.getDrawableBounds(dr), cam, render_bounds, offset, global_vport, local_vport);
                 }

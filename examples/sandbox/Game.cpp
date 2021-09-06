@@ -58,10 +58,8 @@ Game::Game() : ns::App("NasNas sandbox", {640, 360}, 2, 60, 60) {
     //-----------------------------------------------------------------------------------
 
     //------------ Scene and Layers creation --------------------------------------------
-    auto& scene = this->createScene("main");
-    scene.addLayer("shapes", 0); // create a new Layer
-    scene.addLayer("entities", 1);
-    scene.addLayer("texts", 2);
+    auto& scene = this->createScene("main");            // create a scene
+    scene.createLayers("shapes", "entities", "texts");  // create 3 layers
     //-----------------------------------------------------------------------------------
 
     //------------ Camera creation ------------------------------------------------------
