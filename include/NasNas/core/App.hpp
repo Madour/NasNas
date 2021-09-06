@@ -276,6 +276,7 @@ namespace ns {
         std::unique_ptr<AppState> m_state = nullptr;
     public:
         using App::App;
+        virtual void update() {}
 
         template <typename T, typename... Targs, typename = std::enable_if<std::is_base_of_v<AppState, T>>>
         void setState(Targs... args) {
@@ -290,6 +291,7 @@ namespace ns {
         std::stack<std::unique_ptr<AppState>> m_state_stack;
     public:
         using App::App;
+        virtual void update() {}
 
         template <typename T, typename... Targs, typename = std::enable_if<std::is_base_of_v<AppState, T>>>
         void pushState(Targs... args) {
@@ -313,4 +315,3 @@ namespace ns {
         }
     };
 }
-
