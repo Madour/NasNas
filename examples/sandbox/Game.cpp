@@ -5,10 +5,7 @@
 #include <cmath>
 #include "Game.hpp"
 
-const sf::Vector2f GRAVITY{0, 9.8f};
-
-Game::Game() :
-ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
+Game::Game() : ns::App("NasNas demo", {640, 360}, 2, 60, 60) {
     //------------ Game Objects creation ------------------------------------------------
     // load tiled map from file
     this->tiled_map.loadFromFile("assets/test_map.tmx");

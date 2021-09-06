@@ -9,18 +9,21 @@
 using namespace ns;
 
 Settings::debug_info::debug_info() :
-utils::bool_switch([this]{
-    show_fps = (m_state >> 0u) & 1u;
-    show_text = (m_state >> 1u) & 1u;
-    show_bounds = (m_state >> 2u) & 1u;
-}, []{
-    if (app) app->getWindow().setTitle(app->getTitle());
-}),
-show_fps([&]{m_state |= 1u<<0u;}, [&]{m_state &= ~(1u<<0u); if (app) app->getWindow().setTitle(app->getTitle());}),
-show_text([&]{m_state |= 1u<<1u;}, [&]{m_state &= ~(1u<<1u);}),
-show_bounds([&]{m_state |= 1u<<2u;}, [&]{m_state &= ~(1u<<2u);}),
+utils::bool_switch(
+    [this] {
+        show_fps = (m_state >> 0u) & 1u;
+        show_text = (m_state >> 1u) & 1u;
+        show_bounds = (m_state >> 2u) & 1u;
+    },
+    [] { app().getWindow().setTitle(app().getTitle()); }
+),
+show_fps([&] { m_state |= 1u<<0u; }, [&] { m_state &= ~(1u<<0u); app().getWindow().setTitle(app().getTitle()); }),
+show_text([&] { m_state |= 1u<<1u; }, [&] { m_state &= ~(1u<<1u); }),
+show_bounds([&] { m_state |= 1u<<2u; }, [&] { m_state &= ~(1u<<2u); }),
 m_state(7u)
-{show_fps = show_text = show_bounds = true;}
+{
+    show_fps = show_text = show_bounds = true;
+}
 
 auto Settings::debug_info::operator=(bool value) -> debug_info& {
     value ? m_on_true() : m_on_false();

@@ -24,7 +24,7 @@ App::App(std::string title, sf::Vector2u resolution, float scale, int fps, int u
         m_ups(ups),
         m_fps(fps)
 {
-    AppComponent::app = this;
+    detail::AppComponent::app = this;
 
     sf::Vector2u window_size = {static_cast<unsigned>(resolution.x*scale), static_cast<unsigned>(resolution.y*scale)};
     sf::Vector2f view_size = {static_cast<float>(resolution.x), static_cast<float>(resolution.y)};
@@ -336,6 +336,7 @@ void App::run() {
         while (m_window.pollEvent(event)) {
             storeInputs(event);
             onEvent(event);
+            m_cb_onevent(event);
         }
         // update the app
         update_clock.restart();
@@ -346,6 +347,7 @@ void App::run() {
             if (!m_sleeping) {
                 m_dt = slice_time;
                 update();
+                m_cb_update();
                 for (auto& cam : m_cameras)
                     cam.update();
                 for (unsigned int i = 0; i < Transition::list.size(); ++i)
@@ -359,6 +361,7 @@ void App::run() {
         m_window.clear(m_window.getClearColor());
         if (!m_sleeping) {
             preRender();
+            m_cb_prerender();
             render();
         }
         m_window.display();
