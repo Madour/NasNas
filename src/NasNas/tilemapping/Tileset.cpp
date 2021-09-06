@@ -53,7 +53,7 @@ TilesetData::~TilesetData()
 }
 #endif
 
-auto TilesetData::getTexture() const -> const sf::Texture & {
+auto TilesetData::getTexture() const -> const sf::Texture& {
     return *m_texture;
 }
 

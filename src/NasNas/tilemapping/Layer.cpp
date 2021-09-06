@@ -71,6 +71,10 @@ auto Layer::getTotalParallaxFactor() const -> sf::Vector2f {
     return getParallaxFactor();
 }
 
+auto Layer::getTintColor() const -> const sf::Color& {
+    return m_tintcolor;
+}
+
 auto Layer::getGlobalBounds() const -> ns::FloatRect {
     return {getPosition(), m_tiledmap->getSize() * getScale()};
 }

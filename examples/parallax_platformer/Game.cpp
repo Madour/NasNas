@@ -18,8 +18,10 @@ Game::Game() {
         collider.size = {rect.width, rect.height};
         collider.position = {rect.width/2.f, rect.height/2.f};
     }
-    m_tiled_map.getGroupLayer("front").scale(2.f, 2.0f);
+    m_tiled_map.getGroupLayer("front").scale(2.f, 2.f);
     m_tiled_map.getGroupLayer("front").setOrigin(450, 35);
+    m_tiled_map.getGroupLayer("sky").getImageLayer("sky").scale(2.f, 2.f);
+    m_tiled_map.getGroupLayer("sky").getImageLayer("clouds").scale(2.f, 2.f);
 
     // create Player entity (see class Player for more information)
     m_player.get<ns::ecs::Transform>().setPosition(100, 250);
@@ -41,10 +43,11 @@ Game::Game() {
     //-----------------------------------------------------------------------------------
 
     //------------ Add Drawables to the Scene  ------------------------------------------
-    scene.getLayer("map_bg").add(m_tiled_map.getTileLayer("sky"));
+    scene.getLayer("map_bg").add(m_tiled_map.getGroupLayer("sky"));
     scene.getLayer("map_bg").add(m_tiled_map.getGroupLayer("bg"));
     scene.getLayer("map_bg").add(m_tiled_map.getTileLayer("platforms"));
     scene.getLayer("map_front").add(m_tiled_map.getTileLayer("props"));
+
     scene.getLayer("map_front").add(m_tiled_map.getGroupLayer("front"));
 
     scene.getLayer("entities").add(m_player);
@@ -52,7 +55,6 @@ Game::Game() {
 
     //------------ Add DebugTexts to the App -----------------------------------------
     this->addDebugText<int>("frame counter:", &m_frame_counter, {10, 10});
-    this->addDebugText<sf::Vector2f>("player direction:", [&]{return m_player.get<ns::ecs::Physics>().getDirection();}, {10, 30});
     //-----------------------------------------------------------------------------------
 }
 
