@@ -23,6 +23,8 @@ namespace ns::tm {
         auto loadFromFile(const std::string& file_name) -> bool;
         auto loadFromString(const std::string& data) -> bool;
 
+        auto getTMXFilePath() const -> const std::string&;
+
         auto getSize() const -> const sf::Vector2f&;
         auto getGridSize() const -> const sf::Vector2u&;
         auto getTileSize() const -> const sf::Vector2u&;

@@ -3,9 +3,11 @@
 **/
 
 #include "NasNas/core/data/Config.hpp"
-#include "NasNas/core/data/Utils.hpp"
 #include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/TileLayer.hpp"
+#include "NasNas/tilemapping/ObjectLayer.hpp"
+#include "NasNas/tilemapping/ImageLayer.hpp"
+#include "NasNas/tilemapping/GroupLayer.hpp"
 
 using namespace ns;
 using namespace ns::tm;
@@ -36,6 +38,10 @@ auto TiledMap::loadFromString(const std::string& data) -> bool {
     m_file_relative_path = "";
     load(xml);
     return true;
+}
+
+auto TiledMap::getTMXFilePath() const -> const std::string& {
+    return m_file_relative_path;
 }
 
 void TiledMap::load(const pugi::xml_document& xml) {
