@@ -159,7 +159,7 @@ void TileLayer::render() {
     }
     m_render_texture.display();
     m_sprite.setTexture(m_render_texture.getTexture());
-    m_sprite.setColor(m_tintcolor);
+    m_sprite.setColor(getTintColor());
 }
 
 void TileLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
