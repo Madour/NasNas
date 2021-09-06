@@ -52,7 +52,7 @@ class Game : public ns::App {
     ns::ecs::System<HpComponent> hp_system;
 public:
 
-    Game() : ns::App("Custom components", {1080, 720}) {
+    Game() : ns::App("Custom component example", {1080, 720}) {
         // create a scene and a camera
         auto& scene = this->createScene("main");
         auto& camera = this->createCamera("main", 0);

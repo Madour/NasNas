@@ -6,7 +6,7 @@ class Game : public ns::App {
     sf::CircleShape cursor;
     ns::LineShape line;
 public:
-    Game() : ns::App("Line paint", {1280, 720}) {
+    Game() : ns::App("Line paint example", {1280, 720}) {
         getWindow().setClearColor(sf::Color(225, 240, 240));
         getWindow().setMouseCursorVisible(false);
 

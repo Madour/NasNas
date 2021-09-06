@@ -12,7 +12,7 @@ class Game : public ns::App {
     std::vector<sf::CircleShape> m_balls;
 
 public:
-    Game() : ns::App("Tweening Demo", {1280, 720}) {
+    Game() : ns::App("Tweening example", {1280, 720}) {
         auto& scene = createScene("main");
         auto& camera = createCamera("main", 0);
         camera.lookAt(scene);
