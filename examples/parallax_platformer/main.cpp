@@ -20,7 +20,7 @@ auto main() -> int {
     config.vertical_sync = true;
     config.resolution = {600, 300};
     config.scale = 2;
-    config.title = "Platformer demo | NasNas ";
+    config.title = "NasNas Platformer demo";
     ns::Settings::setConfig(config);
     //-----------------------------------------------------------------
 
