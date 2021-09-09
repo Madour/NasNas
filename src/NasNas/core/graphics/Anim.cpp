@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 25/04/2020.
 **/
 
-
+#include <cmath>
 #include "NasNas/core/graphics/Anim.hpp"
 
 using namespace ns;

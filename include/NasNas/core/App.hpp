@@ -72,6 +72,11 @@ namespace ns {
 
         auto getMousePosition(Camera& cam) const -> sf::Vector2f;
 
+        auto getTouchPosition(int finger) const -> sf::Vector2f;
+
+        auto getTouchPosition(int finger, Camera& cam) const -> sf::Vector2f;
+
+
         /**
          * \brief Get all the Scene objects created within the App
          *
