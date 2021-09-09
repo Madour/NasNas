@@ -80,6 +80,21 @@ auto App::getMousePosition(Camera& cam) const -> sf::Vector2f {
     return mouse_pos;
 }
 
+auto App::getTouchPosition(int finger) const -> sf::Vector2f {
+    return sf::Vector2f(sf::Touch::getPosition(finger, m_window));
+}
+
+auto App::getTouchPosition(int finger, Camera& cam) const -> sf::Vector2f {
+    auto offset = m_window.mapCoordsToPixel(cam.getPosition(), m_window.getAppView());
+    const auto& global_vport = m_window.getAppView().getViewport();
+    const auto& local_vport = cam.getViewport();
+    auto finger_pos = sf::Vector2f(sf::Touch::getPosition(finger, m_window));
+    finger_pos.x = (finger_pos.x - offset.x) / (global_vport.width * local_vport.width);
+    finger_pos.y = (finger_pos.y - offset.y) / (global_vport.height * local_vport.height);
+    finger_pos = m_window.mapPixelToCoords(sf::Vector2i(finger_pos), cam);
+    return finger_pos;
+}
+
 auto App::allScenes() -> std::list<Scene>& {
     return m_scenes;
 }
@@ -311,6 +326,11 @@ void App::run() {
     // sort cameras by render order
     m_cameras.sort([](Camera& lhs, Camera& rhs) { return lhs.getRenderOrder() < rhs.getRenderOrder(); });
 
+    int update_cnt = 0;
+    int render_cnt = 0;
+    addDebugText("updates : ", &update_cnt, {400, 10});
+    addDebugText("renders : ", &render_cnt, {400, 50});
+
     float current_slice = 0.f;
     float slice_time = 1.f / static_cast<float>(m_ups);
     sf::Clock timer;
@@ -343,6 +363,7 @@ void App::run() {
             if (update_clock.getElapsedTime().asSeconds() > slice_time)
                 break;
             if (!m_sleeping) {
+                update_cnt++;
                 m_dt = slice_time;
                 update();
                 m_cb_update();
@@ -356,12 +377,13 @@ void App::run() {
             }
         }
         // render drawables and display window
-        m_window.clear(m_window.getClearColor());
         if (!m_sleeping) {
+            m_window.clear(m_window.getClearColor());
+            render_cnt++;
             preRender();
             m_cb_prerender();
             render();
+            m_window.display();
         }
-        m_window.display();
     }
 }

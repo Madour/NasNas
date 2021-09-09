@@ -3,7 +3,7 @@
 .idea
 .git
 _deps
-build*
+build
 build-*
 wiki
 
