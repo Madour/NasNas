@@ -72,9 +72,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8cd64f8da198427cf6b7905a11326f6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1DebugText.html#a8cd64f8da198427cf6b7905a11326f6e">DebugText</a> (const std::string &amp;label, T *var_address, const sf::Vector2f &amp;position)</td></tr>
 <tr class="memdesc:a8cd64f8da198427cf6b7905a11326f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> from variable address.  <a href="#a8cd64f8da198427cf6b7905a11326f6e">More...</a><br /></td></tr>
 <tr class="separator:a8cd64f8da198427cf6b7905a11326f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad96003287e5745c078453e56f164e39f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1DebugText.html#ad96003287e5745c078453e56f164e39f">DebugText</a> (const std::string &amp;label, const T *var_address, const sf::Vector2f &amp;position)</td></tr>
-<tr class="memdesc:ad96003287e5745c078453e56f164e39f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> from variable address.  <a href="#ad96003287e5745c078453e56f164e39f">More...</a><br /></td></tr>
-<tr class="separator:ad96003287e5745c078453e56f164e39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61e4fda5e9748fcdca611fd575d31cf4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1DebugText.html#a61e4fda5e9748fcdca611fd575d31cf4">DebugText</a> (const std::string &amp;label, std::function&lt; T()&gt; fn, const sf::Vector2f &amp;position)</td></tr>
 <tr class="memdesc:a61e4fda5e9748fcdca611fd575d31cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> from a lambda function.  <a href="#a61e4fda5e9748fcdca611fd575d31cf4">More...</a><br /></td></tr>
 <tr class="separator:a61e4fda5e9748fcdca611fd575d31cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,7 +116,7 @@ class ns::DebugText&lt; T &gt;</h3>
 <p class="definition">Definition at line <a class="el" href="Debug_8hpp_source.html#l00052">52</a> of file <a class="el" href="Debug_8hpp_source.html">Debug.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8cd64f8da198427cf6b7905a11326f6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cd64f8da198427cf6b7905a11326f6e">&#9670;&nbsp;</a></span>DebugText() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd64f8da198427cf6b7905a11326f6e">&#9670;&nbsp;</a></span>DebugText() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,60 +159,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Debug_8hpp_source.html#l00109">109</a> of file <a class="el" href="Debug_8hpp_source.html">Debug.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad96003287e5745c078453e56f164e39f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad96003287e5745c078453e56f164e39f">&#9670;&nbsp;</a></span>DebugText() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classns_1_1DebugText.html">ns::DebugText</a>&lt; T &gt;::<a class="el" href="classns_1_1DebugText.html">DebugText</a> </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>label</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T *&#160;</td>
-          <td class="paramname"><em>var_address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>position</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> from variable address. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">var_address</td><td>Address of the variable (const) </td></tr>
-    <tr><td class="paramname">label</td><td>Label of the <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> </td></tr>
-    <tr><td class="paramname">position</td><td>Position of the <a class="el" href="classns_1_1DebugText.html" title="DebugText evaluates a variable or a method and display the value on the AppWindow. ">DebugText</a> on the <a class="el" href="classns_1_1AppWindow.html">AppWindow</a> </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="Debug_8hpp_source.html#l00115">115</a> of file <a class="el" href="Debug_8hpp_source.html">Debug.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Debug_8hpp_source.html#l00100">100</a> of file <a class="el" href="Debug_8hpp_source.html">Debug.hpp</a>.</p>
 
 </div>
 </div>
 <a id="a61e4fda5e9748fcdca611fd575d31cf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61e4fda5e9748fcdca611fd575d31cf4">&#9670;&nbsp;</a></span>DebugText() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e4fda5e9748fcdca611fd575d31cf4">&#9670;&nbsp;</a></span>DebugText() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +207,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Debug_8hpp_source.html#l00121">121</a> of file <a class="el" href="Debug_8hpp_source.html">Debug.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Debug_8hpp_source.html#l00106">106</a> of file <a class="el" href="Debug_8hpp_source.html">Debug.hpp</a>.</p>
 
 </div>
 </div>

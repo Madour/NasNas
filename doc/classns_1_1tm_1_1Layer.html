@@ -56,10 +56,11 @@ Inheritance diagram for ns::tm::Layer:</div>
  <div class="center">
   <img src="classns_1_1tm_1_1Layer.png" usemap="#ns::tm::Layer_map" alt=""/>
   <map id="ns::tm::Layer_map" name="ns::tm::Layer_map">
-<area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="0,0,162,24"/>
+<area href="classns_1_1tm_1_1PropertiesContainer.html" alt="ns::tm::PropertiesContainer" shape="rect" coords="86,0,248,24"/>
 <area href="classns_1_1tm_1_1GroupLayer.html" alt="ns::tm::GroupLayer" shape="rect" coords="0,112,162,136"/>
-<area href="classns_1_1tm_1_1ObjectLayer.html" alt="ns::tm::ObjectLayer" shape="rect" coords="172,112,334,136"/>
-<area href="classns_1_1tm_1_1TileLayer.html" alt="ns::tm::TileLayer" shape="rect" coords="344,112,506,136"/>
+<area href="classns_1_1tm_1_1ImageLayer.html" alt="ns::tm::ImageLayer" shape="rect" coords="172,112,334,136"/>
+<area href="classns_1_1tm_1_1ObjectLayer.html" alt="ns::tm::ObjectLayer" shape="rect" coords="344,112,506,136"/>
+<area href="classns_1_1tm_1_1TileLayer.html" alt="ns::tm::TileLayer" shape="rect" coords="516,112,678,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -80,18 +81,21 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>isVisible</b> () cons
 <tr class="memitem:a323fcd048c8e2f1dd327b5295f8cc7f3"><td class="memItemLeft" align="right" valign="top"><a id="a323fcd048c8e2f1dd327b5295f8cc7f3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setVisible</b> (bool value)</td></tr>
 <tr class="separator:a323fcd048c8e2f1dd327b5295f8cc7f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a99addb0c165ba4ad66a6e6cc6ad495"><td class="memItemLeft" align="right" valign="top"><a id="a1a99addb0c165ba4ad66a6e6cc6ad495"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getParallaxFactor</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
-<tr class="separator:a1a99addb0c165ba4ad66a6e6cc6ad495"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a580720481c407a732282536a459c58a2"><td class="memItemLeft" align="right" valign="top"><a id="a580720481c407a732282536a459c58a2"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTotalParallaxFactor</b> () const -&gt; sf::Vector2f</td></tr>
-<tr class="separator:a580720481c407a732282536a459c58a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ee2d7455a9596af979c11d34e706985"><td class="memItemLeft" align="right" valign="top"><a id="a8ee2d7455a9596af979c11d34e706985"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getOffset</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
 <tr class="separator:a8ee2d7455a9596af979c11d34e706985"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae57461691a409094606b796d134d1684"><td class="memItemLeft" align="right" valign="top"><a id="ae57461691a409094606b796d134d1684"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTotalOffset</b> () const -&gt; sf::Vector2f</td></tr>
 <tr class="separator:ae57461691a409094606b796d134d1684"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a99addb0c165ba4ad66a6e6cc6ad495"><td class="memItemLeft" align="right" valign="top"><a id="a1a99addb0c165ba4ad66a6e6cc6ad495"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getParallaxFactor</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
+<tr class="separator:a1a99addb0c165ba4ad66a6e6cc6ad495"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a580720481c407a732282536a459c58a2"><td class="memItemLeft" align="right" valign="top"><a id="a580720481c407a732282536a459c58a2"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTotalParallaxFactor</b> () const -&gt; sf::Vector2f</td></tr>
+<tr class="separator:a580720481c407a732282536a459c58a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d92b63583256abdfa0352e44055dd0"><td class="memItemLeft" align="right" valign="top"><a id="af6d92b63583256abdfa0352e44055dd0"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTintColor</b> () const -&gt; const sf::Color &amp;</td></tr>
+<tr class="separator:af6d92b63583256abdfa0352e44055dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0adceeed5fad1a57293e47d7c0c8fe68"><td class="memItemLeft" align="right" valign="top"><a id="a0adceeed5fad1a57293e47d7c0c8fe68"></a>
 virtual auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGlobalBounds</b> () const -&gt; <a class="el" href="classns_1_1Rect.html">ns::FloatRect</a></td></tr>
 <tr class="separator:a0adceeed5fad1a57293e47d7c0c8fe68"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,21 +117,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>printProperties</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a507d098b3e1fe80d27e2fe6586f252fb"><td class="memItemLeft" align="right" valign="top"><a id="a507d098b3e1fe80d27e2fe6586f252fb"></a>
-friend&#160;</td><td class="memItemRight" valign="bottom"><b>LayersContainer</b></td></tr>
-<tr class="separator:a507d098b3e1fe80d27e2fe6586f252fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac08797cd58d7a72cd081089dd781218c"><td class="memItemLeft" align="right" valign="top"><a id="ac08797cd58d7a72cd081089dd781218c"></a>
-const <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_tiledmap</b></td></tr>
+const <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_tiledmap</b> = nullptr</td></tr>
 <tr class="separator:ac08797cd58d7a72cd081089dd781218c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26e75afce84d3c2fc93b96426d4d0dbf"><td class="memItemLeft" align="right" valign="top"><a id="a26e75afce84d3c2fc93b96426d4d0dbf"></a>
 const <a class="el" href="classns_1_1tm_1_1GroupLayer.html">GroupLayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_parent_group</b> = nullptr</td></tr>
 <tr class="separator:a26e75afce84d3c2fc93b96426d4d0dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2041ad63c34eeb1e66dbe5910a997a28"><td class="memItemLeft" align="right" valign="top"><a id="a2041ad63c34eeb1e66dbe5910a997a28"></a>
-sf::Color&#160;</td><td class="memItemRight" valign="bottom"><b>m_tintcolor</b> = sf::Color::White</td></tr>
-<tr class="separator:a2041ad63c34eeb1e66dbe5910a997a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88c9469ce52379e3433e229bc1cae4bf"><td class="memItemLeft" align="right" valign="top"><a id="a88c9469ce52379e3433e229bc1cae4bf"></a>
-sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><b>m_parallax_factor</b> = {1.f, 1.f}</td></tr>
-<tr class="separator:a88c9469ce52379e3433e229bc1cae4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>

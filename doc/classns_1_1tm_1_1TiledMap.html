@@ -68,6 +68,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>loadFromFile</b> (con
 <tr class="memitem:a5366de3c47fd3c5f3b68bf52b634836b"><td class="memItemLeft" align="right" valign="top"><a id="a5366de3c47fd3c5f3b68bf52b634836b"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>loadFromString</b> (const std::string &amp;data) -&gt; bool</td></tr>
 <tr class="separator:a5366de3c47fd3c5f3b68bf52b634836b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3069800b3c1491e675e888ece6e85ae"><td class="memItemLeft" align="right" valign="top"><a id="aa3069800b3c1491e675e888ece6e85ae"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTMXFilePath</b> () const -&gt; const std::string &amp;</td></tr>
+<tr class="separator:aa3069800b3c1491e675e888ece6e85ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f1feabfc94105123aa4446da694d86c"><td class="memItemLeft" align="right" valign="top"><a id="a5f1feabfc94105123aa4446da694d86c"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getSize</b> () const -&gt; const sf::Vector2f &amp;</td></tr>
 <tr class="separator:a5f1feabfc94105123aa4446da694d86c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,6 +102,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileLayer</b> (con
 <tr class="memitem:ac5a936c613f63f5f37b11c02c5e2bd13 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="ac5a936c613f63f5f37b11c02c5e2bd13"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1ObjectLayer.html">ObjectLayer</a> &amp;</td></tr>
 <tr class="separator:ac5a936c613f63f5f37b11c02c5e2bd13 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846adfbf26ea67da8f0c9280b551d8bc inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a846adfbf26ea67da8f0c9280b551d8bc"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getImageLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1ImageLayer.html">ImageLayer</a> &amp;</td></tr>
+<tr class="separator:a846adfbf26ea67da8f0c9280b551d8bc inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63d0d87be8ff2a98e1ad64708aeb49b5 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a63d0d87be8ff2a98e1ad64708aeb49b5"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGroupLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1GroupLayer.html">GroupLayer</a> &amp;</td></tr>
 <tr class="separator:a63d0d87be8ff2a98e1ad64708aeb49b5 inherit pub_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,6 +139,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>addTileLayer</b> (con
 <tr class="memitem:a7c12ad402f5311bf81a2a51669bbabd4 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a7c12ad402f5311bf81a2a51669bbabd4"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>addObjectLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
 <tr class="separator:a7c12ad402f5311bf81a2a51669bbabd4 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7df3f6b692a00e93fe880c039271e7 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="afb7df3f6b692a00e93fe880c039271e7"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>addImageLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
+<tr class="separator:afb7df3f6b692a00e93fe880c039271e7 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a31580721f6651ec51a1efd6baf730d inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a9a31580721f6651ec51a1efd6baf730d"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>addGroupLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
 <tr class="separator:a9a31580721f6651ec51a1efd6baf730d inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +151,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>allTileLayers</b> () 
 <tr class="memitem:aee2dacbd5656faf93c54abdd7fa7d189 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="aee2dacbd5656faf93c54abdd7fa7d189"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>allObjectLayers</b> () const -&gt; const decltype(m_objectlayers)&amp;</td></tr>
 <tr class="separator:aee2dacbd5656faf93c54abdd7fa7d189 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d390182a09b6849e94fd6399884f4e4 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a3d390182a09b6849e94fd6399884f4e4"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>allImageLayers</b> () const -&gt; const decltype(m_imagelayers)&amp;</td></tr>
+<tr class="separator:a3d390182a09b6849e94fd6399884f4e4 inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a366b4efca383206e31346f5997106caf inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memItemLeft" align="right" valign="top"><a id="a366b4efca383206e31346f5997106caf"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>allGroupLayers</b> () const -&gt; const decltype(m_grouplayers)&amp;</td></tr>
 <tr class="separator:a366b4efca383206e31346f5997106caf inherit pro_methods_classns_1_1tm_1_1LayersContainer"><td class="memSeparator" colspan="2">&#160;</td></tr>

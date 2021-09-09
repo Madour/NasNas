@@ -72,6 +72,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>getTileLayer</b> (con
 <tr class="memitem:ac5a936c613f63f5f37b11c02c5e2bd13"><td class="memItemLeft" align="right" valign="top"><a id="ac5a936c613f63f5f37b11c02c5e2bd13"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getObjectLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1ObjectLayer.html">ObjectLayer</a> &amp;</td></tr>
 <tr class="separator:ac5a936c613f63f5f37b11c02c5e2bd13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846adfbf26ea67da8f0c9280b551d8bc"><td class="memItemLeft" align="right" valign="top"><a id="a846adfbf26ea67da8f0c9280b551d8bc"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>getImageLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1ImageLayer.html">ImageLayer</a> &amp;</td></tr>
+<tr class="separator:a846adfbf26ea67da8f0c9280b551d8bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63d0d87be8ff2a98e1ad64708aeb49b5"><td class="memItemLeft" align="right" valign="top"><a id="a63d0d87be8ff2a98e1ad64708aeb49b5"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>getGroupLayer</b> (const std::string &amp;name) const -&gt; <a class="el" href="classns_1_1tm_1_1GroupLayer.html">GroupLayer</a> &amp;</td></tr>
 <tr class="separator:a63d0d87be8ff2a98e1ad64708aeb49b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -90,6 +93,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>addTileLayer</b> (con
 <tr class="memitem:a7c12ad402f5311bf81a2a51669bbabd4"><td class="memItemLeft" align="right" valign="top"><a id="a7c12ad402f5311bf81a2a51669bbabd4"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>addObjectLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
 <tr class="separator:a7c12ad402f5311bf81a2a51669bbabd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7df3f6b692a00e93fe880c039271e7"><td class="memItemLeft" align="right" valign="top"><a id="afb7df3f6b692a00e93fe880c039271e7"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>addImageLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
+<tr class="separator:afb7df3f6b692a00e93fe880c039271e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a31580721f6651ec51a1efd6baf730d"><td class="memItemLeft" align="right" valign="top"><a id="a9a31580721f6651ec51a1efd6baf730d"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>addGroupLayer</b> (const pugi::xml_node &amp;xml_node, <a class="el" href="classns_1_1tm_1_1TiledMap.html">TiledMap</a> *tiledmap) -&gt; <a class="el" href="classns_1_1tm_1_1Layer.html">Layer</a> *</td></tr>
 <tr class="separator:a9a31580721f6651ec51a1efd6baf730d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,6 +105,9 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>allTileLayers</b> () 
 <tr class="memitem:aee2dacbd5656faf93c54abdd7fa7d189"><td class="memItemLeft" align="right" valign="top"><a id="aee2dacbd5656faf93c54abdd7fa7d189"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>allObjectLayers</b> () const -&gt; const decltype(m_objectlayers)&amp;</td></tr>
 <tr class="separator:aee2dacbd5656faf93c54abdd7fa7d189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d390182a09b6849e94fd6399884f4e4"><td class="memItemLeft" align="right" valign="top"><a id="a3d390182a09b6849e94fd6399884f4e4"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>allImageLayers</b> () const -&gt; const decltype(m_imagelayers)&amp;</td></tr>
+<tr class="separator:a3d390182a09b6849e94fd6399884f4e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a366b4efca383206e31346f5997106caf"><td class="memItemLeft" align="right" valign="top"><a id="a366b4efca383206e31346f5997106caf"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>allGroupLayers</b> () const -&gt; const decltype(m_grouplayers)&amp;</td></tr>
 <tr class="separator:a366b4efca383206e31346f5997106caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,7 +117,7 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>allLayers</b> () cons
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="LayersContainer_8hpp_source.html#l00020">20</a> of file <a class="el" href="LayersContainer_8hpp_source.html">LayersContainer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LayersContainer_8hpp_source.html#l00021">21</a> of file <a class="el" href="LayersContainer_8hpp_source.html">LayersContainer.hpp</a>.</p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="LayersContainer_8hpp_source.html">LayersContainer.hpp</a></li>
 </ul>

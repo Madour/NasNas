@@ -75,18 +75,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a699197803a74d1d2490508e1389e17c6"><td class="memItemLeft" align="right" valign="top"><a id="a699197803a74d1d2490508e1389e17c6"></a>
 <a class="el" href="classns_1_1Scene.html">Scene</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classns_1_1Scene.html">Scene</a> &amp;&amp;)=default</td></tr>
 <tr class="separator:a699197803a74d1d2490508e1389e17c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a393f167473c65ff2a9354a2c72d0457b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Scene.html#a393f167473c65ff2a9354a2c72d0457b">addLayer</a> (const std::string &amp;name, int order)</td></tr>
-<tr class="memdesc:a393f167473c65ff2a9354a2c72d0457b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new layer to the scene.  <a href="#a393f167473c65ff2a9354a2c72d0457b">More...</a><br /></td></tr>
-<tr class="separator:a393f167473c65ff2a9354a2c72d0457b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a019359edd9fddb253f1bc9e27b0faa2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Scene.html#a019359edd9fddb253f1bc9e27b0faa2c">removeLayer</a> (int order)</td></tr>
-<tr class="memdesc:a019359edd9fddb253f1bc9e27b0faa2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes and clears the <a class="el" href="classns_1_1Layer.html">Layer</a> of the given order.  <a href="#a019359edd9fddb253f1bc9e27b0faa2c">More...</a><br /></td></tr>
-<tr class="separator:a019359edd9fddb253f1bc9e27b0faa2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af630cbdc23e51f408e56ab075b0542a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Scene.html#af630cbdc23e51f408e56ab075b0542a3">removeLayer</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:af630cbdc23e51f408e56ab075b0542a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes and clears the <a class="el" href="classns_1_1Layer.html">Layer</a> of the given name.  <a href="#af630cbdc23e51f408e56ab075b0542a3">More...</a><br /></td></tr>
-<tr class="separator:af630cbdc23e51f408e56ab075b0542a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac31783f0e22b16744e86f5d6cb149b8a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Scene.html#ac31783f0e22b16744e86f5d6cb149b8a">getLayer</a> (int order) -&gt; <a class="el" href="classns_1_1Layer.html">Layer</a> &amp;</td></tr>
-<tr class="memdesc:ac31783f0e22b16744e86f5d6cb149b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the layer of the given order.  <a href="#ac31783f0e22b16744e86f5d6cb149b8a">More...</a><br /></td></tr>
-<tr class="separator:ac31783f0e22b16744e86f5d6cb149b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a734eaa22dce55a826ccb05e522cf3fa6"><td class="memTemplParams" colspan="2"><a id="a734eaa22dce55a826ccb05e522cf3fa6"></a>
+template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:a734eaa22dce55a826ccb05e522cf3fa6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>createLayers</b> (const T &amp;... name)</td></tr>
+<tr class="separator:a734eaa22dce55a826ccb05e522cf3fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99ef360b48a8d69c20b0a5072a6da84d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Scene.html#a99ef360b48a8d69c20b0a5072a6da84d">deleteLayer</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a99ef360b48a8d69c20b0a5072a6da84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes and clears the <a class="el" href="classns_1_1Layer.html">Layer</a> of the given name.  <a href="#a99ef360b48a8d69c20b0a5072a6da84d">More...</a><br /></td></tr>
+<tr class="separator:a99ef360b48a8d69c20b0a5072a6da84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba811728770c83ec99b9ac74be36bd2d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classns_1_1Scene.html#aba811728770c83ec99b9ac74be36bd2d">getLayer</a> (const std::string &amp;name) -&gt; <a class="el" href="classns_1_1Layer.html">Layer</a> &amp;</td></tr>
 <tr class="memdesc:aba811728770c83ec99b9ac74be36bd2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the layer of the given name.  <a href="#aba811728770c83ec99b9ac74be36bd2d">More...</a><br /></td></tr>
 <tr class="separator:aba811728770c83ec99b9ac74be36bd2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,37 +130,26 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a393f167473c65ff2a9354a2c72d0457b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a393f167473c65ff2a9354a2c72d0457b">&#9670;&nbsp;</a></span>addLayer()</h2>
+<a id="a99ef360b48a8d69c20b0a5072a6da84d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99ef360b48a8d69c20b0a5072a6da84d">&#9670;&nbsp;</a></span>deleteLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ns::Scene::addLayer </td>
+          <td class="memname">void ns::Scene::deleteLayer </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>name</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>order</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds a new layer to the scene. </p>
+<p>Removes and clears the <a class="el" href="classns_1_1Layer.html">Layer</a> of the given name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">layer_name</td><td><a class="el" href="classns_1_1Layer.html">Layer</a> name </td></tr>
-    <tr><td class="paramname">order</td><td>The order of render of the layer </td></tr>
+    <tr><td class="paramname">name</td><td><a class="el" href="classns_1_1Layer.html">Layer</a> name to remove </td></tr>
   </table>
   </dd>
 </dl>
@@ -192,35 +176,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac31783f0e22b16744e86f5d6cb149b8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac31783f0e22b16744e86f5d6cb149b8a">&#9670;&nbsp;</a></span>getLayer() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto ns::Scene::getLayer </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>order</em></td><td>)</td>
-          <td> -&gt;  <a class="el" href="classns_1_1Layer.html">Layer</a> &amp;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the layer of the given order. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">order</td><td>The order of the layer to get</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to <a class="el" href="classns_1_1Layer.html">Layer</a> object </dd></dl>
-
-</div>
-</div>
 <a id="aba811728770c83ec99b9ac74be36bd2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba811728770c83ec99b9ac74be36bd2d">&#9670;&nbsp;</a></span>getLayer() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aba811728770c83ec99b9ac74be36bd2d">&#9670;&nbsp;</a></span>getLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,58 +200,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the requested <a class="el" href="classns_1_1Layer.html">Layer</a> object </dd></dl>
-
-</div>
-</div>
-<a id="a019359edd9fddb253f1bc9e27b0faa2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a019359edd9fddb253f1bc9e27b0faa2c">&#9670;&nbsp;</a></span>removeLayer() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ns::Scene::removeLayer </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>order</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes and clears the <a class="el" href="classns_1_1Layer.html">Layer</a> of the given order. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">order</td><td><a class="el" href="classns_1_1Layer.html">Layer</a> order to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af630cbdc23e51f408e56ab075b0542a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af630cbdc23e51f408e56ab075b0542a3">&#9670;&nbsp;</a></span>removeLayer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ns::Scene::removeLayer </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes and clears the <a class="el" href="classns_1_1Layer.html">Layer</a> of the given name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td><a class="el" href="classns_1_1Layer.html">Layer</a> name to remove </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
