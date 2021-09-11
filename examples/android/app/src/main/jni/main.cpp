@@ -248,10 +248,10 @@ public:
             music.play();
             auto touch_pos = getTouchPosition(0, getCamera("main"));
             if (btn_landscape.getGlobalBounds().contains(touch_pos)) {
-                setScreenOrientation(ScreenOrientation::Landscape);
+                ns::android::setScreenOrientation(ns::android::ScreenOrientation::Landscape);
             }
             if (btn_portrait.getGlobalBounds().contains(touch_pos)) {
-                setScreenOrientation(ScreenOrientation::Portrait);
+                ns::android::setScreenOrientation(ns::android::ScreenOrientation::Portrait);
             }
 
         }
@@ -267,7 +267,7 @@ public:
 
 
 int main() {
-    hideNavigation();
+    ns::android::init();
 
     Game g;
     g.run();

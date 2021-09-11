@@ -2,47 +2,48 @@
 
 
 #include "NasNas/core/android/Activity.hpp"
-#include "Jni.hpp"
+#include "JniManager.hpp"
+#include "JavaClasses.hpp"
+#include "JavaWrapper.hpp"
 
 using namespace ns;
 
-
-android::JniManager JNI;
-
-
 void android::init() {
     JNI.init();
-    //android::hideNavigation();
+}
+
+auto android::getActivity() -> ANativeActivity* {
+    return sf::getNativeActivity();
 }
 
 void android::hideStatusBar() {
     // hide status bar
-    ANativeActivity_setWindowFlags(JNI.getActivity(), AWINDOW_FLAG_FULLSCREEN, 0);
+    ANativeActivity_setWindowFlags(getActivity(), AWINDOW_FLAG_FULLSCREEN, 0);
 }
 
 void android::hideNavigation() {
-    auto* activity = JNI.getActivity();
+    auto* activity = getActivity();
 
     JNI.attachThread();
 
-    auto object_Window = JNI.env()->CallObjectMethod(activity->clazz, JNI.getMethodID(app::NativeActivity::getWindow::name));
-    auto object_DecorView = JNI.env()->CallObjectMethod(object_Window, JNI.getMethodID(view::Window::getDecorView::name));
+    auto object_Window = JNI.get<android::app::NativeActivity>(activity->clazz).getWindow();
+    auto object_View = JNI.get<android::view::Window>(object_Window).getDecorView();
 
     jint SYSTEM_UI_FLAG_HIDE_NAVIGATION = 0x2;
-    JNI.env()->CallVoidMethod(object_DecorView, JNI.getMethodID(view::View::setSystemUiVisibility::name), SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    JNI.get<android::view::View>(object_View).setSystemUiVisibility(SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-    JNI.env()->DeleteLocalRef(object_DecorView);
+    JNI.env()->DeleteLocalRef(object_View);
     JNI.env()->DeleteLocalRef(object_Window);
 
     JNI.detachThread();
 }
 
 void android::setScreenOrientation(ScreenOrientation orientation) {
-    auto* activity = JNI.getActivity();
+    auto* activity = getActivity();
 
     JNI.attachThread();
 
-    JNI.env()->CallVoidMethod(activity->clazz, JNI.getMethodID(app::NativeActivity::setRequestedOrientation::name), static_cast<jint>(orientation));
+    JNI.get<android::app::NativeActivity>(activity->clazz).setRequestedOrientation(static_cast<jint>(orientation));
 
     JNI.detachThread();
 }

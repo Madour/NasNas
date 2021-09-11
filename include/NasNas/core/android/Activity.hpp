@@ -2,9 +2,13 @@
 
 #pragma once
 
+#include <SFML/System/NativeActivity.hpp>
+
 namespace ns::android {
 
     void init();
+
+    auto getActivity() -> ANativeActivity*;
 
     void hideStatusBar();
     void hideNavigation();
