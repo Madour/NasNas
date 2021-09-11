@@ -40,13 +40,13 @@ if (NASNAS_EXAMPLES)
 endif()
 
 # print available targets
-get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
+log_targets(ARCHIVE)
+log_targets(LIBRARY)
+log_targets(RUNTIME)
+log_targets(EXECUTABLE)
 
-log_status("Targets available to build :")
-foreach(target ${NasNas_Targets})
-    log_list_item("${target}")
-endforeach()
 if (NASNAS_EXAMPLES)
+    log_status("Custom targets available :")
     log_list_item("NasNas_examples")
 endif()
 

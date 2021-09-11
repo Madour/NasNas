@@ -3,10 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
-#include <NasNas/NasNas>
 
 // These headers are only needed for direct NDK/JDK interaction
 #include <jni.h>
+#include <android/window.h>
 #include <android/native_activity.h>
 #include <SFML/System/NativeActivity.hpp>
 
@@ -90,6 +90,44 @@ void setScreenOrientation(int orientation=0){
     vm->DetachCurrentThread();
 }
 
+void hideNavigation() {
+    auto* activity = sf::getNativeActivity();
+    // hide status bar
+    ANativeActivity_setWindowFlags(activity, AWINDOW_FLAG_FULLSCREEN, 0);
+
+    // Hide the navigation bar
+    JavaVM* vm = activity->vm;
+    JNIEnv* env = activity->env;
+
+    // First, attach this thread to the main thread
+    JavaVMAttachArgs attachargs;
+    attachargs.version = JNI_VERSION_1_6;
+    attachargs.name = "NativeThread";
+    attachargs.group = NULL;
+    vm->AttachCurrentThread(&env, &attachargs);
+
+    jclass clazz = env->GetObjectClass(activity->clazz);
+
+    jmethodID methodGetWindow = env->GetMethodID(clazz, "getWindow", "()Landroid/view/Window;");
+    jobject objectWindow = env->CallObjectMethod(activity->clazz, methodGetWindow);
+
+    jclass classWindow = env->FindClass("android/view/Window");
+    jmethodID methodGetDecorView = env->GetMethodID(classWindow, "getDecorView", "()Landroid/view/View;");
+    jobject objectDecorView = env->CallObjectMethod(objectWindow, methodGetDecorView);
+
+    jclass classView = env->FindClass("android/view/View");
+
+    // Default flags
+    jint flags = 0;
+    jfieldID FieldSYSTEM_UI_FLAG_LOW_PROFILE = env->GetStaticFieldID(classView, "SYSTEM_UI_FLAG_HIDE_NAVIGATION", "I");
+    jint SYSTEM_UI_FLAG_LOW_PROFILE = env->GetStaticIntField(classView, FieldSYSTEM_UI_FLAG_LOW_PROFILE);
+    flags |= SYSTEM_UI_FLAG_LOW_PROFILE;
+
+    jmethodID methodsetSystemUiVisibility = env->GetMethodID(classView, "setSystemUiVisibility", "(I)V");
+    env->CallVoidMethod(objectDecorView, methodsetSystemUiVisibility, flags);
+    vm->DetachCurrentThread();
+}
+
 const std::string tilemap_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                                    "<map version=\"1.5\" tiledversion=\"1.7.0\" orientation=\"orthogonal\" renderorder=\"right-down\" width=\"20\" height=\"20\" tilewidth=\"16\" tileheight=\"16\" infinite=\"0\" nextlayerid=\"2\" nextobjectid=\"1\">\n"
                                    " <tileset firstgid=\"1\" name=\"tileset\" tilewidth=\"16\" tileheight=\"16\" tilecount=\"322\" columns=\"23\">\n"
@@ -120,6 +158,8 @@ const std::string tilemap_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n
                                    "</data>\n"
                                    " </layer>\n"
                                    "</map>";
+
+#include <NasNas/NasNas>
 
 class Game : public ns::App {
     ns::Tween tween;
@@ -197,9 +237,9 @@ public:
         if (event.type == sf::Event::Closed) {
             getWindow().close();
         }
-        else if (event.type == sf::Event::LostFocus)
+        else if (event.type == sf::Event::MouseLeft)
             sleep();
-        else if (event.type == sf::Event::GainedFocus)
+        else if (event.type == sf::Event::MouseEntered)
             awake();
 
         else if (event.type == sf::Event::TouchBegan) {
@@ -226,8 +266,9 @@ public:
 };
 
 
-int main()
-{
+int main() {
+    hideNavigation();
+
     Game g;
     g.run();
 }

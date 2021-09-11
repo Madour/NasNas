@@ -4,11 +4,25 @@ mark_as_advanced(FETCHCONTENT_BASE_DIR)
 
 set(NasNas_Libs "")
 
-# global list that contains all NasNas targets
 define_property(GLOBAL
-    PROPERTY NASNAS_TARGETS
-    BRIEF_DOCS "Contains all available targets defined by NasNas"
-    FULL_DOCS "Contains all available targets defined by NasNas"
+    PROPERTY NASNAS_ARCHIVE_TARGETS
+    BRIEF_DOCS "Contains all available archive targets defined by NasNas"
+    FULL_DOCS "Contains all available archive targets defined by NasNas"
+)
+define_property(GLOBAL
+    PROPERTY NASNAS_LIBRARY_TARGETS
+    BRIEF_DOCS "Contains all available library targets defined by NasNas"
+    FULL_DOCS "Contains all available library targets defined by NasNas"
+)
+define_property(GLOBAL
+    PROPERTY NASNAS_RUNTIME_TARGETS
+    BRIEF_DOCS "Contains all available runtime targets defined by NasNas"
+    FULL_DOCS "Contains all available runtime targets defined by NasNas"
+)
+define_property(GLOBAL
+    PROPERTY NASNAS_EXECUTABLE_TARGETS
+    BRIEF_DOCS "Contains all available executable targets defined by NasNas"
+    FULL_DOCS "Contains all available executable targets defined by NasNas"
 )
 
 # Custom prints
@@ -16,8 +30,22 @@ macro(log_status string)
     message(STATUS "[NasNas] ${string}")
 endmacro()
 
+macro(log_fatal string)
+    message(FATAL_ERROR "[NasNas] ${string}")
+endmacro()
+
 macro(log_list_item string)
     message(STATUS "          -> ${string}")
+endmacro()
+
+macro(log_targets type)
+    get_property(targets_list GLOBAL PROPERTY NASNAS_${type}_TARGETS)
+    if (targets_list)
+        log_status("${type} targets available :")
+        foreach(target ${targets_list})
+            log_list_item("${target}")
+        endforeach()
+    endif()
 endmacro()
 
 # Downloads an external github repository as build dependency
@@ -47,13 +75,20 @@ endfunction()
 
 # Looks for an installed SFML package. If not found, downloads it as a dependency
 macro(find_SFML)
-    if(NOT NASNAS_BUILD_SFML)
+    if (ANDROID)
+        set(NASNAS_BUILD_SFML OFF)  # cannot build SFML as subproject for android
+        set(SFML_DIR "${CMAKE_ANDROID_NDK}/sources/third_party/sfml/lib/${CMAKE_ANDROID_ARCH_ABI}/cmake/SFML/")
+    endif()
+
+    if (NOT NASNAS_BUILD_SFML)
         find_package(SFML 2 COMPONENTS graphics audio QUIET)
     endif()
 
     if (SFML_FOUND)
         log_status("Found SFML 2 in ${SFML_DIR}")
-    else ()
+    elseif (ANDROID)
+        log_fatal("Could not find SFML libraries in your Android NDK for the ${CMAKE_ANDROID_ARCH_ABI} architecture. Make sure you have built and installed SFML beforehand.")
+    else()
         set(NASNAS_BUILD_SFML ON)
         set(BUILD_SHARED_LIBS FALSE)
         set(SFML_USE_STATIC_STD_LIBS FALSE)
@@ -71,6 +106,8 @@ macro(find_SFML)
             endforeach()
         endif()
     endif()
+
+    # update NasNas linked libraries
     set(NasNas_Libs "${NasNas_Libs};sfml-graphics;sfml-audio")
 endmacro()
 
@@ -83,27 +120,25 @@ macro(check_compiler)
     endif()
 endmacro()
 
-# Adds a target to the global NASNAS_TARGETS list and exports it
+# Adds a target to the global NASNAS_${type}_TARGETS global property
 function(NasNas_register_target name type)
-    # append target to the global NasNas_Targets list
-    get_property(NasNas_Targets GLOBAL PROPERTY NASNAS_TARGETS)
-    list(APPEND NasNas_Targets ${name})
-    set_property(GLOBAL PROPERTY NASNAS_TARGETS ${NasNas_Targets})
-
-    # export target to NasNasTargets
-    if (${type} MATCHES ARCHIVE)
-        install(TARGETS ${name} EXPORT NasNasTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    elseif(${type} MATCHES RUNTIME)
-        install(TARGETS ${name} EXPORT NasNasTargets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/NasNas)
-    endif()
+    # append target to the global property matching the target type
+    get_property(targets_list GLOBAL PROPERTY NASNAS_${type}_TARGETS)
+    list(APPEND targets_list ${name})
+    set_property(GLOBAL PROPERTY NASNAS_${type}_TARGETS ${targets_list})
 endfunction()
 
-# Creates STATIC library target for a NasNas module
+# Creates library target for a NasNas module
 function(NasNas_add_module_target name src inc)
     string(TOLOWER ${name} name_lowercase)
     set(target "NasNas-${name_lowercase}")
 
-    add_library(${target} STATIC ${src} ${inc})
+    set(type "STATIC")
+    if (ANDROID)
+        set(type "SHARED")
+    endif()
+
+    add_library(${target} ${type} ${src} ${inc})
     add_library(NasNas::${name} ALIAS ${target})
     target_include_directories(${target} PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
     target_include_directories(${target} PUBLIC $<INSTALL_INTERFACE:include>)
@@ -128,7 +163,11 @@ function(NasNas_add_module_target name src inc)
             EXPORT_NAME ${name}
     )
 
-    NasNas_register_target(${target} ARCHIVE)
+    if (ANDROID)
+        NasNas_register_target(${target} LIBRARY)
+    else()
+        NasNas_register_target(${target} ARCHIVE)
+    endif()
 endfunction()
 
 # Creates executable for a NasNas example
@@ -149,23 +188,55 @@ function(NasNas_add_example_target name src inc)
             RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_BINARY_DIR}/bin
     )
 
-    NasNas_register_target(${target} RUNTIME)
+    NasNas_register_target(${target} EXECUTABLE)
 endfunction()
 
 # Creates export and install rules for all NasNas targets
 function(NasNas_export_install targets)
     include(GNUInstallDirs)
 
-    # create build-tree export
+    if (ANDROID)
+        set(CMAKE_INSTALL_PREFIX "${CMAKE_ANDROID_NDK}/sources/third_party/nasnas" CACHE STRING "" FORCE)
+        set(CMAKE_INSTALL_LIBDIR "${CMAKE_INSTALL_LIBDIR}/${CMAKE_ANDROID_ARCH_ABI}")
+        set(CMAKE_INSTALL_BINDIR "${CMAKE_INSTALL_BINDIR}/${CMAKE_ANDROID_ARCH_ABI}")
+    endif()
+
+    # create build-tree export cmake module
     export(TARGETS ${targets} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
 
-    # install license and readme
-    install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
-    install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    log_status("Install path : ${CMAKE_INSTALL_PREFIX}")
+
     # install headers
     install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/NasNas DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-    # install exported targets
-    install(EXPORT NasNasTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas NAMESPACE NasNas::)
+
+    if (NASNAS_EXAMPLES)
+        # install examples assets
+        install(DIRECTORY examples/assets DESTINATION ${CMAKE_INSTALL_BINDIR}/NasNas)
+    endif()
+
+    # install executables targets to NasNasTargets
+    get_property(executable_targets_list GLOBAL PROPERTY NASNAS_EXECUTABLE_TARGETS)
+    foreach(target ${executable_targets_list})
+        install(TARGETS ${target} EXPORT NasNasTargets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/NasNas)
+    endforeach()
+
+    # install runtime targets to NasNasTargets
+    get_property(runtime_targets_list GLOBAL PROPERTY NASNAS_RUNTIME_TARGETS)
+    foreach(target ${runtime_targets_list})
+        install(TARGETS ${target} EXPORT NasNasTargets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    endforeach()
+
+    # install archive targets to NasNasTargets
+    get_property(archive_targets_list GLOBAL PROPERTY NASNAS_ARCHIVE_TARGETS)
+    foreach(target ${archive_targets_list})
+        install(TARGETS ${target} EXPORT NasNasTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    endforeach()
+
+    # install library targets to NasNasTargets
+    get_property(library_targets_list GLOBAL PROPERTY NASNAS_LIBRARY_TARGETS)
+    foreach(target ${library_targets_list})
+        install(TARGETS ${target} EXPORT NasNasTargets LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    endforeach()
 
     # generate NasNasConfig.cmake
     configure_package_config_file(
@@ -174,4 +245,13 @@ function(NasNas_export_install targets)
     )
     # install NasNasConfig.cmake file
     install(FILES ${PROJECT_BINARY_DIR}/NasNasConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas)
+    # install NasNasTargets.cmake and NasNasTargets-${CMAKE_BUILD_TYPE}.cmake files
+    install(EXPORT NasNasTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas NAMESPACE NasNas::)
+
+    if (ANDROID)
+        install(FILES ${PROJECT_SOURCE_DIR}/src/NasNas/Android.mk DESTINATION .)
+    endif()
+    # install license and readme
+    install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
 endfunction()

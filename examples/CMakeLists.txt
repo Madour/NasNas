@@ -22,6 +22,3 @@ foreach(example ${NasNas_Examples})
     NasNas_add_example_target(${example} "${SRC}" "${INC}")
     add_dependencies(NasNas_examples ${example})
 endforeach()
-
-install(DIRECTORY assets DESTINATION ${CMAKE_INSTALL_BINDIR}/NasNas)
-
