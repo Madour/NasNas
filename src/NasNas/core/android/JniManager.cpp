@@ -18,15 +18,15 @@
  *
  */
 
-#include <SFML/System/Err.hpp>
-#include "Jni.hpp"
+#include "NasNas/core/android/Activity.hpp"
+#include "JniManager.hpp"
+#include "JavaWrapper.hpp"
+#include "JavaClasses.hpp"
 
 using namespace ns;
 using namespace ns::android;
 
-auto JniManager::getActivity() -> ANativeActivity* {
-    return sf::getNativeActivity();
-}
+android::JniManager android::JNI;
 
 void JniManager::init() {
     initCaches();
@@ -39,28 +39,16 @@ auto JniManager::env() const -> JNIEnv* {
 void JniManager::initCaches() {
     attachThread();
 
-    std::vector<const char*> class_names = {app::NativeActivity::name, content::Context::name, view::View::name, view::Window::name};
-
-    for (auto& name : class_names) {
-        m_jclass_cache[name] = m_env->FindClass(name);
-    }
-
-    fillMethodIDCache<app::NativeActivity, app::NativeActivity::getSystemService>();
-    fillMethodIDCache<app::NativeActivity, app::NativeActivity::getWindow>();
-    fillMethodIDCache<app::NativeActivity, app::NativeActivity::setRequestedOrientation>();
-
-    fillMethodIDCache<view::Window, view::Window::getDecorView>();
-    fillMethodIDCache<view::View, view::View::setSystemUiVisibility>();
+    registerClass<android::app::NativeActivity>();
+    registerClass<android::content::Context>();
+    registerClass<android::view::View>();
+    registerClass<android::view::Window>();
 
     detachThread();
 }
 
-auto JniManager::getClass(const char* name) const -> jclass {
-    return m_jclass_cache.at(name);
-}
-
-auto JniManager::getMethodID(const char* name) const -> jmethodID {
-    return m_jmethodID_cache.at(name);
+auto JniManager::getMethodID(JMethodBase* method) const -> jmethodID {
+    return m_jmethodID_cache.at(method->fullname);
 }
 
 void JniManager::attachThread() {
