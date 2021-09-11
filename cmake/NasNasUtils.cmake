@@ -98,7 +98,7 @@ macro(find_SFML)
         set(SFML_USE_STATIC_STD_LIBS FALSE)
         mark_as_advanced(BUILD_SHARED_LIBS)
 
-        download_dependency(SFML "https://github.com/SFML/SFML" "089f0fd8b4fb025bfb2f118c51333c77855e9413")
+        download_dependency(SFML "https://github.com/SFML/SFML" "eeeda74ec1fd5de24343ee845af0d8cc89e992f6")
 
         if(MSVC AND SFML_USE_STATIC_STD_LIBS)
             foreach(flag
