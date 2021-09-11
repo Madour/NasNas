@@ -84,3 +84,23 @@ const bool Settings::Modules::Ui =
 #else
         false;
 #endif
+
+const Settings::Platform Settings::platform =
+#if defined(_WIN32)
+        Settings::Platform::Windows;
+#elif defined(__unix__)
+    #if defined(__ANDROID__)
+            Settings::Platform::Android;
+    #else
+            Settings::Platform::Linux;
+    #endif
+#elif defined(__APPLE__) && defined(__MACH__)
+    // Apple platform, see which one it is (borrowed from SFML/Config.hpp)
+    #include "TargetConditionals.h"
+
+    #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+        Settings::Platform::iOS
+    #else
+        Settings::Platform::macOS
+    #endif
+#endif
