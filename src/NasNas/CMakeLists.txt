@@ -1,12 +1,10 @@
-log_status("Enabled modules :")
 set(NasNas_Selected_Modules "")
 
+# macro to create a module target, must be called only from modules subdirectories
 macro(NasNas_create_module name src inc)
     set(NasNas_${name}_Src "${src}" PARENT_SCOPE)
     set(NasNas_${name}_Inc "${inc}" PARENT_SCOPE)
     set(NasNas_Selected_Modules "${NasNas_Selected_Modules};${name}" PARENT_SCOPE)
-    log_list_item("${name}")
-
     NasNas_add_module_target(${name} "${src}" "${inc}")
 endmacro()
 
@@ -34,7 +32,12 @@ foreach(module ${NasNas_Selected_Modules})
     set(NasNas_Inc "${NasNas_Inc};${NasNas_${module}_Inc}")
 endforeach()
 
-add_library(NasNas STATIC ${NasNas_Src} ${NasNas_Inc})
+set(type "STATIC")
+if (ANDROID)
+    set(type "SHARED")
+endif()
+
+add_library(NasNas ${type} ${NasNas_Src} ${NasNas_Inc})
 add_library(NasNas::All ALIAS NasNas)
 target_include_directories(NasNas PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 target_include_directories(NasNas PUBLIC $<INSTALL_INTERFACE:include>)
@@ -55,4 +58,8 @@ set_target_properties(
         EXPORT_NAME All
 )
 
-NasNas_register_target(NasNas ARCHIVE)
+if (ANDROID)
+    NasNas_register_target(NasNas LIBRARY)
+else()
+    NasNas_register_target(NasNas ARCHIVE)
+endif()
