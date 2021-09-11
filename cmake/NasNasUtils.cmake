@@ -30,6 +30,10 @@ macro(log_status string)
     message(STATUS "[NasNas] ${string}")
 endmacro()
 
+macro(log_warn string)
+    message(WARNING "[NasNas] ${string}")
+endmacro()
+
 macro(log_fatal string)
     message(FATAL_ERROR "[NasNas] ${string}")
 endmacro()
