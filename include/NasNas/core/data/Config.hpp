@@ -64,6 +64,17 @@ namespace ns {
             static const bool Tilemapping;
             static const bool Ui;
         };
+
+        enum class Platform {
+            Windows,
+            Linux,
+            macOS,
+            Android,
+            iOS,
+            Other
+        };
+
+        static const Platform platform;
     };
 
 }
