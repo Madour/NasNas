@@ -326,11 +326,6 @@ void App::run() {
     // sort cameras by render order
     m_cameras.sort([](Camera& lhs, Camera& rhs) { return lhs.getRenderOrder() < rhs.getRenderOrder(); });
 
-    int update_cnt = 0;
-    int render_cnt = 0;
-    addDebugText("updates : ", &update_cnt, {400, 10});
-    addDebugText("renders : ", &render_cnt, {400, 50});
-
     float current_slice = 0.f;
     float slice_time = 1.f / static_cast<float>(m_ups);
     sf::Clock timer;
@@ -363,7 +358,6 @@ void App::run() {
             if (update_clock.getElapsedTime().asSeconds() > slice_time)
                 break;
             if (!m_sleeping) {
-                update_cnt++;
                 m_dt = slice_time;
                 update();
                 m_cb_update();
@@ -379,7 +373,6 @@ void App::run() {
         // render drawables and display window
         if (!m_sleeping) {
             m_window.clear(m_window.getClearColor());
-            render_cnt++;
             preRender();
             m_cb_prerender();
             render();
