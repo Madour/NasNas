@@ -36,6 +36,19 @@ for tile based games.
 - ***UI*** contains the User Interface utilities. (WIP)
 - More modules will be developed in the future !
 
+<details>
+  <summary>Click to see platforms support</summary>
+
+|         | Core               | Reslib             | Ecs                | Tilemapping        | Tween              | Ui                 |
+|---------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| Windows | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Linux   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| MacOS   | :heavy_check_mark: | :question:         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Android | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| iOS     | :question:         | :question:         | :question:         | :question:         | :question:         | :question:         |
+
+</details>
+
 # 
 
 ### Features
@@ -43,31 +56,29 @@ for tile based games.
 ##### Implemented :
 - [x] **Scene** and Layers system
 - [x] **Cameras** and Shaders
-- [x] Automatic **resource loader and  manager** system
-- [x] **Entities** and **components** (animated sprites, shapes, physics, inputs, collider, customized components ...) 
+- [x] Application **states** (using StateStackApp or StateMachineApp)
+- [x] Automatic **resource loader and  manager**
+- [x] Data oriented ECS inspired by entt with a bunch of provided components and defaults systems. 
 - [x] **Tiled map loader** (.tmx)
 - [x] Text and **bitmap fonts**
-- [x] **Transitions**
+- [x] Customizable **Transitions**
 - [x] Flexible **Tween** and **MultiTween** utilities.
+- [x] Extensible **Particles system**
 - [x] Multi texture **SpriteBatching**
 - [x] App configuration and settings
 - [x] Debug text display in-game
 - [x] Convenient console **Logger**
 - [x] And more !
 
-##### In Progress:
-- [ ] Particles system
-
 ##### To do :
 - [ ] Menus and UI
 
- 
 ##### Future :
 - [ ] Splash screens
 - [ ] Levels and game events management
 - [ ] In-game command line for debugging
 
-You can find a very global roadmap for the version 1.0 on the [project board](https://github.com/Madour/NasNas/projects/1) 
+You can find a global roadmap for the version 1.0 on the [project board](https://github.com/Madour/NasNas/projects/1) 
 
 
 ### Build
@@ -187,7 +198,9 @@ https://user-images.githubusercontent.com/11854124/131828997-5d3b1635-934f-4e89-
 
 ### Support
 
-If you like the project, please consider starring this repository.
+If you like the project, please consider starring this repository. 
+
+If you would like to discuss anything about the project, feel free to open a new [discussion](https://github.com/Madour/NasNas/discussions).
 
 ### Author
 
