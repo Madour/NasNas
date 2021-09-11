@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "NasNas/core/android/Activity.hpp"
+
 #include "NasNas/Core.data.hpp"
 #include "NasNas/Core.graphics.hpp"
 

@@ -4,6 +4,9 @@ set(INC_PATH ${PROJECT_SOURCE_DIR}/include/NasNas/core)
 set(
         SRC
 
+        ${SRC_PATH}/android/Activity.cpp
+        ${SRC_PATH}/android/Jni.cpp
+
         ${SRC_PATH}/data/Arial.cpp
         ${SRC_PATH}/data/Config.cpp
         ${SRC_PATH}/data/Logger.cpp
@@ -34,6 +37,9 @@ set(
 
 set(
         INC
+
+        ${INC_PATH}/android/Activity.hpp
+        ${SRC_PATH}/android/Jni.hpp
 
         ${INC_PATH}/data/Arial.hpp
         ${INC_PATH}/data/Config.hpp
