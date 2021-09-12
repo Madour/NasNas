@@ -8,7 +8,8 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include "NasNas/core/data/Utils.hpp"
 
 /**
  * \brief Logs a variable number of variable to the console.
@@ -30,6 +31,23 @@ namespace sf {
 }
 
 namespace ns {
+#ifdef __ANDROID__
+    namespace detail {
+        class AndroidStreamBuffer : public std::streambuf {
+        public:
+            AndroidStreamBuffer();
+            auto overflow (std::streambuf::int_type c) -> std::streambuf::int_type override;
+        private:
+            std::string m_buffer;
+        };
+
+        static AndroidStreamBuffer logger_buffer;
+    }
+    static std::ostream LoggerStream(&detail::logger_buffer);
+#else
+    using LoggerStream = std::cout;
+#endif
+
     /**
      * \brief Console Logger can log a variable number of variables to the console.
      *
@@ -52,13 +70,13 @@ namespace ns {
 
     template<typename... Types>
     void Logger::log(const std::string& file, int line_nb, Types... args) {
-        std::cout << "["<<line_nb<<"|"<<std::filesystem::path(file).filename().string()<<"] ";
+        LoggerStream << "["<<line_nb<<"|"<<ns::utils::path::getFilename(file)<<"] ";
         Logger::logr(args...);
     }
 
     template <typename T, typename... Types>
     void Logger::logr(T arg, Types... args) {
-        std::cout << std::boolalpha << arg << " ";
+        LoggerStream << std::boolalpha << arg << " ";
         Logger::logr(args...);
     }
 

@@ -102,6 +102,8 @@ public:
         scene.getDefaultLayer().add(btn_landscape);
         scene.getDefaultLayer().add(btn_portrait);
 
+        ns_LOG("TEST LOGCAT so cool", sf::Vector2f(52, 120));
+
         addDebugText<sf::Vector2u>("window size", [&]{ return getWindow().getSize(); }, {10, 10});
         addDebugText<sf::Vector2f>("sf::Touch 0", [&]{ return getTouchPosition(0); }, {10, 50});
         addDebugText<sf::Vector2f>("sf::Touch 1", [&]{ return getTouchPosition(1); }, {10, 90});

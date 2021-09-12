@@ -9,6 +9,7 @@ macro(NasNas_create_module name src inc)
 endmacro()
 
 if (ANDROID)
+    add_definitions(-DNS_ANDROID)
     if (NASNAS_BUILD_RESLIB)
         log_status("Module Reslib will be disabled because it is not compatible with Android")
         set(NASNAS_BUILD_RESLIB OFF)
