@@ -26,6 +26,13 @@ sig(psig)
     cls->methods.push_back(this);
 }
 
+JStaticMethodBase::JStaticMethodBase(JClass* pcls, const char* pname, const char* psig) :
+JClassMember(pcls, pname),
+sig(psig)
+{
+    cls->static_methods.push_back(this);
+}
+
 
 JStaticFieldBase::JStaticFieldBase(JClass* pcls, const char* pname, const char* ptype) :
 JClassMember(pcls, pname),

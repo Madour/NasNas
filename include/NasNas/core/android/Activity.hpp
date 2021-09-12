@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <string>
 #include <SFML/System/NativeActivity.hpp>
 
 namespace ns::android {
@@ -20,4 +21,6 @@ namespace ns::android {
     void setScreenOrientation(ScreenOrientation orientation);
 
     void vibrate(int milliseconds);
+
+    void showToast(const std::string& text);
 }

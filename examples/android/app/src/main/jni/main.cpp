@@ -81,6 +81,7 @@ public:
                     .from_to(720, 150).apply(tween_move_logo).with(ns::easing::quadraticOut).delay(0.5f);
 
         cursor.setRadius(35.f);
+        cursor.setOrigin(cursor.getRadius(), cursor.getRadius());
         cursor.setFillColor({255, 255, 255, 180});
 
         btn_landscape.setFont(ns::Arial::getFont());

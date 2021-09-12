@@ -29,13 +29,13 @@ using namespace ns::android;
 android::JniManager android::JNI;
 
 void JniManager::init() {
+    attachThread();
     initCaches();
 }
 
 JniManager::~JniManager() {
     for (auto& item : m_classes)
         delete item.second;
-    attachThread();
     for (auto& item : m_jclass_cache)
         m_env->DeleteGlobalRef(item.second);
     detachThread();
@@ -46,24 +46,21 @@ auto JniManager::env() const -> JNIEnv* {
 }
 
 void JniManager::initCaches() {
-    attachThread();
-
     registerClass<android::app::NativeActivity>();
     registerClass<android::content::Context>();
     registerClass<android::os::Vibrator>();
     registerClass<android::view::View>();
     registerClass<android::view::Window>();
-
-    detachThread();
+    registerClass<android::widget::Toast>();
 }
 
 auto JniManager::getClass(JClass* cls) const -> jclass {
     return m_jclass_cache.at(cls->name);
 }
-auto JniManager::getMethodID(JMethodBase* method) const -> jmethodID {
+auto JniManager::getMethodID(JClassMember* method) const -> jmethodID {
     return m_jmethodID_cache.at(method->fullname);
 }
-auto JniManager::getFieldID(JStaticFieldBase* field) const -> jfieldID {
+auto JniManager::getFieldID(JClassMember* field) const -> jfieldID {
     return m_jfieldID_cache.at(field->fullname);
 }
 

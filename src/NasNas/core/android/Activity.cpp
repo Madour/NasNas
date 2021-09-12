@@ -2,7 +2,6 @@
 
 
 #include "NasNas/core/android/Activity.hpp"
-
 #include "JniManager.hpp"
 #include "JavaClasses.hpp"
 
@@ -22,7 +21,6 @@ void android::hideStatusBar() {
 
 void android::hideNavigation() {
     auto* activity = getActivity();
-    JNI.attachThread();
 
     auto object_Window = JNI.get<android::app::NativeActivity>(activity->clazz).getWindow();
     auto object_View = JNI.get<android::view::Window>(object_Window).getDecorView();
@@ -32,22 +30,16 @@ void android::hideNavigation() {
 
     JNI.env()->DeleteLocalRef(object_View);
     JNI.env()->DeleteLocalRef(object_Window);
-
-    JNI.detachThread();
 }
 
 void android::setScreenOrientation(ScreenOrientation orientation) {
     auto* activity = getActivity();
-    JNI.attachThread();
 
     JNI.get<android::app::NativeActivity>(activity->clazz).setRequestedOrientation(static_cast<jint>(orientation));
-
-    JNI.detachThread();
 }
 
 void android::vibrate(int milliseconds) {
     auto* activity = getActivity();
-    JNI.attachThread();
 
     auto vibrator_service_str = JNI.get<android::content::Context>().VIBRATOR_SERVICE.val();
     auto object_Vibrator = JNI.get<android::app::NativeActivity>(activity->clazz).getSystemService(vibrator_service_str);
@@ -55,6 +47,20 @@ void android::vibrate(int milliseconds) {
 
     JNI.env()->DeleteLocalRef(vibrator_service_str);
     JNI.env()->DeleteLocalRef(object_Vibrator);
+}
 
-    JNI.detachThread();
+void android::showToast(const std::string& text) {
+    // not working : "Can't toast on a thread that has not called Looper.prepare()";
+    // need to figure out how to use runOnUIThread from c++
+    // or hook the Java Looper.getMainLooper to the Toast call somehow...
+    /*
+    auto* activity = getActivity();
+
+    auto jstr_text = JNI.env()->NewStringUTF(text.c_str());
+    auto object_toast = JNI.get<android::widget::Toast>().makeText(activity->clazz, jstr_text, 0);
+    JNI.get<android::widget::Toast>(object_toast).show();
+
+    JNI.env()->DeleteLocalRef(object_toast);
+    JNI.env()->DeleteLocalRef(jstr_text);
+    */
 }
