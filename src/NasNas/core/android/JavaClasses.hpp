@@ -16,7 +16,7 @@ namespace ns::android {
             {}
 
             JMethod<void(jint)> setRequestedOrientation;
-            JMethod<jobject(jstring)> getSystemService;
+            JMethod<jobject(jobject)> getSystemService;
             JMethod<jobject()> getWindow;
         };
     }
@@ -24,8 +24,22 @@ namespace ns::android {
     namespace content {
         struct Context : JClass {
             Context() :
-            JClass("android/content/Context")
+            JClass("android/content/Context"),
+            VIBRATOR_SERVICE(this, "VIBRATOR_SERVICE", "Ljava/lang/String;")
             {}
+
+            JStaticField<jobject> VIBRATOR_SERVICE;
+        };
+    }
+
+    namespace os {
+        struct Vibrator : JClass {
+            Vibrator() :
+            JClass("android/os/Vibrator"),
+            vibrate(this, "vibrate", "(J)V")
+            {}
+
+            JMethod<void(jlong)> vibrate;
         };
     }
 

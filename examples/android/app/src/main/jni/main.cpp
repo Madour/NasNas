@@ -3,130 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
-
-// These headers are only needed for direct NDK/JDK interaction
-#include <jni.h>
-#include <android/window.h>
-#include <android/native_activity.h>
-#include <SFML/System/NativeActivity.hpp>
-
-// NDK/JNI sub example - call Java code from native code
-int vibrate(sf::Time duration)
-{
-    // First we'll need the native activity handle
-    ANativeActivity *activity = sf::getNativeActivity();
-
-    // Retrieve the JVM and JNI environment
-    JavaVM* vm = activity->vm;
-    JNIEnv* env = activity->env;
-
-    // First, attach this thread to the main thread
-    JavaVMAttachArgs attachargs;
-    attachargs.version = JNI_VERSION_1_6;
-    attachargs.name = "NativeThread";
-    attachargs.group = NULL;
-    jint res = vm->AttachCurrentThread(&env, &attachargs);
-
-    if (res == JNI_ERR)
-        return EXIT_FAILURE;
-
-    // Retrieve class information
-    jclass natact = env->FindClass("android/app/NativeActivity");
-    jclass context = env->FindClass("android/content/Context");
-
-    // Get the value of a constant
-    jfieldID fid = env->GetStaticFieldID(context, "VIBRATOR_SERVICE", "Ljava/lang/String;");
-    jobject svcstr = env->GetStaticObjectField(context, fid);
-
-    // Get the method 'getSystemService' and call it
-    jmethodID getss = env->GetMethodID(natact, "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;");
-    jobject vib_obj = env->CallObjectMethod(activity->clazz, getss, svcstr);
-
-    // Get the object's class and retrieve the member name
-    jclass vib_cls = env->GetObjectClass(vib_obj);
-    jmethodID vibrate = env->GetMethodID(vib_cls, "vibrate", "(J)V");
-
-    // Determine the timeframe
-    jlong length = duration.asMilliseconds();
-
-    // Bzzz!
-    env->CallVoidMethod(vib_obj, vibrate, length);
-
-    // Free references
-    env->DeleteLocalRef(vib_obj);
-    env->DeleteLocalRef(vib_cls);
-    env->DeleteLocalRef(svcstr);
-    env->DeleteLocalRef(context);
-    env->DeleteLocalRef(natact);
-
-    // Detach thread again
-    vm->DetachCurrentThread();
-    return 0;
-}
-
-enum ScreenOrientation {
-    Landscape,
-    Portrait
-};
-
-void setScreenOrientation(int orientation=0){
-    // First we'll need the native activity handle
-    ANativeActivity *activity = sf::getNativeActivity();
-
-    // Retrieve the JVM and JNI environment
-    JavaVM* vm = activity->vm;
-    JNIEnv* env = activity->env;
-
-    // First, attach this thread to the main thread
-    JavaVMAttachArgs attachargs;
-    attachargs.version = JNI_VERSION_1_6;
-    attachargs.name = "NativeThread";
-    attachargs.group = NULL;
-    jint res = vm->AttachCurrentThread(&env, &attachargs);
-
-    jclass clazz = env->GetObjectClass(activity->clazz);
-    jmethodID methodID = env->GetMethodID(clazz, "setRequestedOrientation", "(I)V");
-    env->CallVoidMethod(activity->clazz, methodID, orientation);
-    vm->DetachCurrentThread();
-}
-
-void hideNavigation() {
-    auto* activity = sf::getNativeActivity();
-    // hide status bar
-    ANativeActivity_setWindowFlags(activity, AWINDOW_FLAG_FULLSCREEN, 0);
-
-    // Hide the navigation bar
-    JavaVM* vm = activity->vm;
-    JNIEnv* env = activity->env;
-
-    // First, attach this thread to the main thread
-    JavaVMAttachArgs attachargs;
-    attachargs.version = JNI_VERSION_1_6;
-    attachargs.name = "NativeThread";
-    attachargs.group = NULL;
-    vm->AttachCurrentThread(&env, &attachargs);
-
-    jclass clazz = env->GetObjectClass(activity->clazz);
-
-    jmethodID methodGetWindow = env->GetMethodID(clazz, "getWindow", "()Landroid/view/Window;");
-    jobject objectWindow = env->CallObjectMethod(activity->clazz, methodGetWindow);
-
-    jclass classWindow = env->FindClass("android/view/Window");
-    jmethodID methodGetDecorView = env->GetMethodID(classWindow, "getDecorView", "()Landroid/view/View;");
-    jobject objectDecorView = env->CallObjectMethod(objectWindow, methodGetDecorView);
-
-    jclass classView = env->FindClass("android/view/View");
-
-    // Default flags
-    jint flags = 0;
-    jfieldID FieldSYSTEM_UI_FLAG_LOW_PROFILE = env->GetStaticFieldID(classView, "SYSTEM_UI_FLAG_HIDE_NAVIGATION", "I");
-    jint SYSTEM_UI_FLAG_LOW_PROFILE = env->GetStaticIntField(classView, FieldSYSTEM_UI_FLAG_LOW_PROFILE);
-    flags |= SYSTEM_UI_FLAG_LOW_PROFILE;
-
-    jmethodID methodsetSystemUiVisibility = env->GetMethodID(classView, "setSystemUiVisibility", "(I)V");
-    env->CallVoidMethod(objectDecorView, methodsetSystemUiVisibility, flags);
-    vm->DetachCurrentThread();
-}
+#include <NasNas/NasNas>
 
 const std::string tilemap_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                                    "<map version=\"1.5\" tiledversion=\"1.7.0\" orientation=\"orthogonal\" renderorder=\"right-down\" width=\"20\" height=\"20\" tilewidth=\"16\" tileheight=\"16\" infinite=\"0\" nextlayerid=\"2\" nextobjectid=\"1\">\n"
@@ -159,7 +36,6 @@ const std::string tilemap_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n
                                    " </layer>\n"
                                    "</map>";
 
-#include <NasNas/NasNas>
 
 class Game : public ns::App {
     ns::Tween tween;
@@ -225,8 +101,6 @@ public:
         scene.getDefaultLayer().add(btn_landscape);
         scene.getDefaultLayer().add(btn_portrait);
 
-        setScreenOrientation(ScreenOrientation::Portrait);
-
         addDebugText<sf::Vector2u>("window size", [&]{ return getWindow().getSize(); }, {10, 10});
         addDebugText<sf::Vector2f>("sf::Touch 0", [&]{ return getTouchPosition(0); }, {10, 50});
         addDebugText<sf::Vector2f>("sf::Touch 1", [&]{ return getTouchPosition(1); }, {10, 90});
@@ -243,15 +117,15 @@ public:
             awake();
 
         else if (event.type == sf::Event::TouchBegan) {
-            vibrate(sf::milliseconds(100));
+            ns::android::vibrate(100);
             music.stop();
             music.play();
             auto touch_pos = getTouchPosition(0, getCamera("main"));
             if (btn_landscape.getGlobalBounds().contains(touch_pos)) {
-                ns::android::setScreenOrientation(ns::android::ScreenOrientation::Landscape);
+                ns::android::setScreenOrientation(ns::android::Landscape);
             }
             if (btn_portrait.getGlobalBounds().contains(touch_pos)) {
-                ns::android::setScreenOrientation(ns::android::ScreenOrientation::Portrait);
+                ns::android::setScreenOrientation(ns::android::Portrait);
             }
 
         }
@@ -268,6 +142,8 @@ public:
 
 int main() {
     ns::android::init();
+    ns::android::hideStatusBar();
+    ns::android::hideNavigation();
 
     Game g;
     g.run();

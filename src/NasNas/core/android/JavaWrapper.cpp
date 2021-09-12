@@ -12,13 +12,24 @@ auto JClass::object() -> jobject {
     return current_object;
 }
 
-
-JMethodBase::JMethodBase(JClass* pcls, const char* pname, const char* psig) :
+JClassMember::JClassMember(JClass* pcls, const char* pname) :
 cls(pcls),
 name(pname),
-sig(psig),
 fullname(std::string(cls->name) + "/" + name)
+{}
+
+
+JMethodBase::JMethodBase(JClass* pcls, const char* pname, const char* psig) :
+JClassMember(pcls, pname),
+sig(psig)
 {
     cls->methods.push_back(this);
 }
 
+
+JStaticFieldBase::JStaticFieldBase(JClass* pcls, const char* pname, const char* ptype) :
+JClassMember(pcls, pname),
+type(ptype)
+{
+    cls->static_fields.push_back(this);
+}

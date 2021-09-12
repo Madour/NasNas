@@ -19,6 +19,7 @@ set(
         ${INC_PATH}/Activity.hpp
         ${SRC_PATH}/JavaClasses.hpp
         ${SRC_PATH}/JavaWrapper.hpp
+        ${SRC_PATH}/JavaWrapperFwd.hpp
         ${SRC_PATH}/JniManager.hpp
 
         PARENT_SCOPE
