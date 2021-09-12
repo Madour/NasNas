@@ -13,11 +13,11 @@ namespace ns::android {
     void hideStatusBar();
     void hideNavigation();
 
-    void vibrate(int milliseconds);
-
-    enum class ScreenOrientation {
+    enum ScreenOrientation {
         Landscape,
         Portrait
     };
     void setScreenOrientation(ScreenOrientation orientation);
+
+    void vibrate(int milliseconds);
 }

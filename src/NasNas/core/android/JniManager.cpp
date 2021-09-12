@@ -32,6 +32,15 @@ void JniManager::init() {
     initCaches();
 }
 
+JniManager::~JniManager() {
+    for (auto& item : m_classes)
+        delete item.second;
+    attachThread();
+    for (auto& item : m_jclass_cache)
+        m_env->DeleteGlobalRef(item.second);
+    detachThread();
+}
+
 auto JniManager::env() const -> JNIEnv* {
     return m_env;
 }
@@ -41,14 +50,21 @@ void JniManager::initCaches() {
 
     registerClass<android::app::NativeActivity>();
     registerClass<android::content::Context>();
+    registerClass<android::os::Vibrator>();
     registerClass<android::view::View>();
     registerClass<android::view::Window>();
 
     detachThread();
 }
 
+auto JniManager::getClass(JClass* cls) const -> jclass {
+    return m_jclass_cache.at(cls->name);
+}
 auto JniManager::getMethodID(JMethodBase* method) const -> jmethodID {
     return m_jmethodID_cache.at(method->fullname);
+}
+auto JniManager::getFieldID(JStaticFieldBase* field) const -> jfieldID {
+    return m_jfieldID_cache.at(field->fullname);
 }
 
 void JniManager::attachThread() {
