@@ -6,6 +6,10 @@
 namespace ns::android {
     struct JClass;
 
+    struct JClassMember;
+
     struct JMethodBase;
+
     struct JStaticFieldBase;
+    struct JStaticMethodBase;
 }

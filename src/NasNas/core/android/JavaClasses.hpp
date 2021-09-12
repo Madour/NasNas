@@ -12,12 +12,14 @@ namespace ns::android {
             JClass("android/app/NativeActivity"),
             setRequestedOrientation(this, "setRequestedOrientation", "(I)V"),
             getSystemService(this, "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;"),
-            getWindow(this, "getWindow", "()Landroid/view/Window;")
+            getWindow(this, "getWindow", "()Landroid/view/Window;"),
+            getApplicationContext(this, "getApplicationContext", "()Landroid/content/Context;")
             {}
 
             JMethod<void(jint)> setRequestedOrientation;
             JMethod<jobject(jobject)> getSystemService;
             JMethod<jobject()> getWindow;
+            JMethod<jobject()> getApplicationContext;
         };
     }
 
@@ -60,6 +62,19 @@ namespace ns::android {
             {}
 
             JMethod<jobject()> getDecorView;
+        };
+    }
+
+    namespace widget {
+        struct Toast : JClass {
+            Toast() :
+            JClass("android/widget/Toast"),
+            makeText(this, "makeText", "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;"),
+            show(this, "show", "()V")
+            {}
+
+            JStaticMethod<jobject(jobject, jstring, jint)> makeText;
+            JMethod<void()> show;
         };
     }
 

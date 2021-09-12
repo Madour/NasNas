@@ -8,11 +8,9 @@
 #include <unordered_map>
 
 #include "JniManager.hpp"
+#include "JavaWrapperFwd.hpp"
 
 namespace ns::android {
-
-    struct JMethodBase;
-    struct JStaticFieldBase;
 
     struct JClass {
         explicit JClass(const char* name);
@@ -20,6 +18,7 @@ namespace ns::android {
 
         const char* name;
         std::vector<const JMethodBase*> methods;
+        std::vector<const JStaticMethodBase*> static_methods;
         std::vector<const JStaticFieldBase*> static_fields;
 
     private:
@@ -51,6 +50,27 @@ namespace ns::android {
             }
             else if constexpr(std::is_same_v<Ret, jobject>) {
                 return JNI.env()->CallObjectMethod(cls->object(), JNI.getMethodID(this), std::forward<Args>(args)...);
+            }
+        }
+    };
+
+    struct JStaticMethodBase : JClassMember {
+        JStaticMethodBase(JClass* cls, const char* name, const char* sig);
+        const char* sig;
+    };
+
+    template <typename T>
+    struct JStaticMethod {};
+
+    template <typename Ret, typename... Args>
+    struct JStaticMethod<Ret(Args...)> : JStaticMethodBase {
+        using JStaticMethodBase::JStaticMethodBase;
+        auto operator()(Args... args) -> Ret {
+            if constexpr(std::is_same_v<Ret, void>) {
+                JNI.env()->CallStaticVoidMethod(JNI.getClass(cls), JNI.getMethodID(this), std::forward<Args>(args)...);
+            }
+            else if constexpr(std::is_same_v<Ret, jobject>) {
+                return JNI.env()->CallStaticObjectMethod(JNI.getClass(cls), JNI.getMethodID(this), std::forward<Args>(args)...);
             }
         }
     };

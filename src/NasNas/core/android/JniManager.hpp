@@ -34,14 +34,11 @@ namespace ns::android {
         void registerClass();
 
         template <typename T>
-        auto get(jobject object) -> T&;
-
-        template <typename T>
-        auto get() -> T&;
+        auto get(jobject object = nullptr) -> T&;
 
         auto getClass(JClass* cls) const -> jclass;
-        auto getMethodID(JMethodBase* method) const -> jmethodID;
-        auto getFieldID(JStaticFieldBase* field) const -> jfieldID;
+        auto getMethodID(JClassMember* method) const -> jmethodID;
+        auto getFieldID(JClassMember* field) const -> jfieldID;
 
         void attachThread();
         void detachThread();
@@ -55,16 +52,22 @@ namespace ns::android {
         auto* instance = new T();
 
         // cache the jclass ref (after making it global to avoid "use of deleted local reference" error)
-        m_jclass_cache[instance->name] = static_cast<jclass>(m_env->NewGlobalRef(m_env->FindClass(instance->name)));
+        auto class_ref = static_cast<jclass>(m_env->NewGlobalRef(m_env->FindClass(instance->name)));
+        m_jclass_cache[instance->name] = class_ref;
 
         // cache class methods
         for (auto* method : instance->methods) {
-            m_jmethodID_cache[method->fullname] = m_env->GetMethodID(m_jclass_cache[instance->name], method->name, method->sig);
+            m_jmethodID_cache[method->fullname] = m_env->GetMethodID(class_ref, method->name, method->sig);
         }
 
         // cache class static fields
         for (auto* static_field : instance->static_fields) {
-            m_jfieldID_cache[static_field->fullname] = m_env->GetStaticFieldID(m_jclass_cache[instance->name], static_field->name, static_field->type);
+            m_jfieldID_cache[static_field->fullname] = m_env->GetStaticFieldID(class_ref, static_field->name, static_field->type);
+        }
+
+        // cache class static methods
+        for (auto* static_method : instance->static_methods) {
+            m_jmethodID_cache[static_method->fullname] = m_env->GetStaticMethodID(class_ref, static_method->name, static_method->sig);
         }
 
         // store the instance
@@ -76,14 +79,8 @@ namespace ns::android {
     auto JniManager::get(jobject object) -> T& {
         auto index = std::type_index(typeid(T));
         auto* instance = static_cast<T*>(m_classes.at(index));
-        instance->current_object = object;
-        return *instance;
-    }
-
-    template <typename T>
-    auto JniManager::get() -> T& {
-        auto index = std::type_index(typeid(T));
-        auto* instance = static_cast<T*>(m_classes.at(index));
+        if (object)
+            instance->current_object = object;
         return *instance;
     }
 
