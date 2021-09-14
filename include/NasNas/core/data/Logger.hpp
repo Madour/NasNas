@@ -8,6 +8,9 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
+#ifdef __ANDROID__
+#include <android/log.h>
+#endif
 #include <SFML/Graphics.hpp>
 #include "NasNas/core/data/Utils.hpp"
 
@@ -45,7 +48,7 @@ namespace ns {
     }
     static std::ostream LoggerStream(&detail::logger_buffer);
 #else
-    using LoggerStream = std::cout;
+    static auto& LoggerStream = std::cout;
 #endif
 
     /**
@@ -61,23 +64,26 @@ namespace ns {
         static void log(const std::string& file, int line_nb, Types... args);
 
     private:
+        Logger() = default;
+
         template <typename T, typename... Types>
         static void logr(T arg, Types... args);
-
-        static void logr();
-        Logger() = default;
     };
 
     template<typename... Types>
     void Logger::log(const std::string& file, int line_nb, Types... args) {
-        LoggerStream << "["<<line_nb<<"|"<<ns::utils::path::getFilename(file)<<"] ";
-        Logger::logr(args...);
+        LoggerStream << std::boolalpha << "["<<line_nb<<"|"<<ns::utils::path::getFilename(file)<<"] ";
+        logr(args...);
     }
 
     template <typename T, typename... Types>
     void Logger::logr(T arg, Types... args) {
-        LoggerStream << std::boolalpha << arg << " ";
-        Logger::logr(args...);
+        LoggerStream << arg << " ";
+        if constexpr(sizeof...(args) == 0) {
+            LoggerStream << std::endl;
+        } else {
+            logr(args...);
+        }
     }
 
 }
