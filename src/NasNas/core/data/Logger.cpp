@@ -3,9 +3,6 @@
 **/
 
 #include <iomanip>
-#ifdef NS_ANDROID
-#include <android/log.h>
-#endif
 #include "NasNas/core/data/Logger.hpp"
 
 using namespace ns;
@@ -46,14 +43,13 @@ auto sf::operator<<(std::ostream& os, const sf::Color& color) -> std::ostream& {
     return os;
 }
 
-void Logger::logr() { LoggerStream << std::endl; }
-
-detail::AndroidStreamBuffer::AndroidStreamBuffer() = default;
+#ifdef __ANDROID__
+detail::AndroidStreamBuffer::AndroidStreamBuffer() : std::streambuf()
+{}
 
 auto detail::AndroidStreamBuffer::overflow(std::streambuf::int_type c) -> std::streambuf::int_type {
     if (c == '\n') {
-        m_buffer.push_back(c);
-        __android_log_print(ANDROID_LOG_INFO, "ns_LOG", "%s", m_buffer.c_str());
+        __android_log_print(ANDROID_LOG_INFO, "ns_LOG", "%s\n", m_buffer.c_str());
         m_buffer.clear();
     } else {
         m_buffer.push_back(c);
@@ -61,3 +57,4 @@ auto detail::AndroidStreamBuffer::overflow(std::streambuf::int_type c) -> std::s
 
     return traits_type::not_eof(c);
 }
+#endif
