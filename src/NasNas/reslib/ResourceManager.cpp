@@ -23,7 +23,11 @@ auto ResourceManager::load(const std::string& assets_directory_name, bool autolo
     try {
         m_data = new Dir(assets_directory_name, nullptr);
         m_root_dir_name = assets_directory_name;
+#ifndef __ANDROID__
         m_data->load(std::filesystem::current_path().append(assets_directory_name), autoload);
+#else
+        m_data->load(assets_directory_name, autoload);
+#endif
         m_ready = true;
         return true;
     }

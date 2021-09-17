@@ -9,6 +9,10 @@
 #include "NasNas/tilemapping/ImageLayer.hpp"
 #include "NasNas/tilemapping/GroupLayer.hpp"
 
+#ifdef __ANDROID__
+#include "NasNas/core/android/Activity.hpp"
+#endif
+
 using namespace ns;
 using namespace ns::tm;
 
@@ -16,7 +20,15 @@ TiledMap::TiledMap() = default;
 
 auto TiledMap::loadFromFile(const std::string& file_name) -> bool {
     pugi::xml_document xml;
-    auto result = xml.load_file(file_name.c_str());
+    pugi::xml_parse_result result;
+
+#ifndef __ANDROID__
+    result = xml.load_file(file_name.c_str());
+#else
+    auto* asset = AAssetManager_open(android::getActivity()->assetManager, file_name.c_str(), AASSET_MODE_BUFFER);
+    const auto* filecontent = static_cast<const char*>(AAsset_getBuffer(asset));
+    result = xml.load_string(filecontent);
+#endif
     if (!result) {
         std::cout << "Error parsing TMX file «" << file_name << "» : " << result.description() << std::endl;
         return false;
@@ -29,7 +41,8 @@ auto TiledMap::loadFromFile(const std::string& file_name) -> bool {
 
 auto TiledMap::loadFromString(const std::string& data) -> bool {
     pugi::xml_document xml;
-    auto result = xml.load_string(data.c_str());
+    pugi::xml_parse_result result;
+    result = xml.load_string(data.c_str());
     if (!result) {
         std::cout << "Error parsing TMX data : " << result.description() << std::endl;
         return false;

@@ -29,7 +29,7 @@ auto path::getExtension(const std::string& path) -> std::string {
     auto i = f.find_last_of('.');
     if (i == std::string::npos || i == 0)
         return "";
-    return f.substr(i+1);
+    return f.substr(i);
 }
 
 auto path::getPath(const std::string& path) -> std::string {

@@ -2,7 +2,13 @@
 
 #pragma once
 
+#ifndef __ANDROID__
+#error "NasNas Android Activity header can only be used when developing for Android platform"
+#endif
+
 #include <string>
+#include <android/native_activity.h>
+#include <android/asset_manager.h>
 #include <SFML/System/NativeActivity.hpp>
 
 namespace ns::android {

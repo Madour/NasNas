@@ -7,7 +7,9 @@
 
 #include <set>
 #include <iostream>
+#ifndef __ANDROID__
 #include <filesystem>
+#endif
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 
@@ -17,7 +19,7 @@ namespace ns {
     public:
         Dir(std::string  name, Dir* parent);
         ~Dir();
-        void load(const std::filesystem::path& path, bool autoload);
+        void load(const std::string& path, bool autoload);
         auto in(const std::string& dir_name) -> Dir&;
         auto getName() -> const std::string&;
         auto getPath() -> std::string;

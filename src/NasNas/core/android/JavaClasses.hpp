@@ -11,15 +11,18 @@ namespace ns::android {
             NativeActivity() :
             JClass("android/app/NativeActivity"),
             setRequestedOrientation(this, "setRequestedOrientation", "(I)V"),
+            getApplicationContext(this, "getApplicationContext", "()Landroid/content/Context;"),
+            getAssets(this, "getAssets", "()Landroid/content/res/AssetManager;"),
             getSystemService(this, "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;"),
-            getWindow(this, "getWindow", "()Landroid/view/Window;"),
-            getApplicationContext(this, "getApplicationContext", "()Landroid/content/Context;")
+            getWindow(this, "getWindow", "()Landroid/view/Window;")
             {}
 
             JMethod<void(jint)> setRequestedOrientation;
+
+            JMethod<jobject()> getApplicationContext;
+            JMethod<jobject()> getAssets;
             JMethod<jobject(jobject)> getSystemService;
             JMethod<jobject()> getWindow;
-            JMethod<jobject()> getApplicationContext;
         };
     }
 
@@ -32,6 +35,17 @@ namespace ns::android {
 
             JStaticField<jobject> VIBRATOR_SERVICE;
         };
+
+        namespace res {
+            struct AssetManager : JClass {
+                AssetManager() :
+                JClass("android/content/res/AssetManager"),
+                list(this, "list", "(Ljava/lang/String;)[Ljava/lang/String;")
+                {}
+
+                JMethod<jobjectArray(jstring)> list;
+            };
+        }
     }
 
     namespace os {

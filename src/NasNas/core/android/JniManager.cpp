@@ -48,6 +48,7 @@ auto JniManager::env() const -> JNIEnv* {
 void JniManager::initCaches() {
     registerClass<android::app::NativeActivity>();
     registerClass<android::content::Context>();
+    registerClass<android::content::res::AssetManager>();
     registerClass<android::os::Vibrator>();
     registerClass<android::view::View>();
     registerClass<android::view::Window>();
