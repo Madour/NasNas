@@ -2,39 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include <NasNas/NasNas>
-
-const std::string tilemap_string = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                                   "<map version=\"1.5\" tiledversion=\"1.7.0\" orientation=\"orthogonal\" renderorder=\"right-down\" width=\"20\" height=\"20\" tilewidth=\"16\" tileheight=\"16\" infinite=\"0\" nextlayerid=\"2\" nextobjectid=\"1\">\n"
-                                   " <tileset firstgid=\"1\" name=\"tileset\" tilewidth=\"16\" tileheight=\"16\" tilecount=\"322\" columns=\"23\">\n"
-                                   "  <image source=\"tileset.png\" width=\"368\" height=\"224\"/>\n"
-                                   " </tileset>\n"
-                                   " <layer id=\"1\" name=\"bg\" width=\"20\" height=\"20\">\n"
-                                   "  <data encoding=\"csv\">\n"
-                                   "1,1,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "1,1,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "1,1,152,152,152,152,4,4,4,4,4,4,4,4,152,152,152,152,152,152,\n"
-                                   "1,1,152,152,4,4,4,4,152,152,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "1,1,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "1,1,152,4,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,1,152,152,4,152,152,152,152,152,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,152,152,152,4,152,152,152,152,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,152,152,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,152,\n"
-                                   "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,152,152,152,\n"
-                                   "152,152,152,152,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,\n"
-                                   "152,152,152,152,152,4,4,4,4,4,4,4,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,\n"
-                                   "152,152,152,152,152,152,152,152,152,4,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,152,152,152,152,152,152,152,4,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,152,152,152,152,152,152,152,4,152,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,152,152,152,152,152,152,152,152,4,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,152,152,152,152,152,152,152,152,4,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,4,152,152,152,152,152,152,152,4,4,152,152,152,152,152,152,152,152,152,\n"
-                                   "152,152,4,4,4,4,4,4,4,152,152,152,152,152,152,152,152,152,152,152\n"
-                                   "</data>\n"
-                                   " </layer>\n"
-                                   "</map>";
 
 
 class Game : public ns::App {
@@ -60,7 +28,7 @@ public:
 
         music.openFromFile("canary.wav");
 
-        tilemap.loadFromString(tilemap_string);
+        tilemap.loadFromFile("simple_map.tmx");
         tilemap.getTileLayer("bg").scale(4, 4);
 
         logo_tex.loadFromFile("image.png");
@@ -120,6 +88,7 @@ public:
             awake();
 
         else if (event.type == sf::Event::TouchBegan) {
+            ns_LOG("TouchEvent : finger =", event.touch.finger, " ; position = (", event.touch.x, ",", event.touch.y);
             ns::android::vibrate(100);
             music.stop();
             music.play();
@@ -147,6 +116,7 @@ int main() {
     ns::android::init();
     ns::android::hideStatusBar();
     ns::android::hideNavigation();
+    ns::Res::load("");  // load root assets folder
 
     Game g;
     g.run();

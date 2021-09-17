@@ -51,6 +51,10 @@ namespace ns::android {
             else if constexpr(std::is_same_v<Ret, jobject>) {
                 return JNI.env()->CallObjectMethod(cls->object(), JNI.getMethodID(this), std::forward<Args>(args)...);
             }
+            else if constexpr(std::is_same_v<Ret, jobjectArray>) {
+                return static_cast<jobjectArray>(JNI.env()->CallObjectMethod(cls->object(), JNI.getMethodID(this), std::forward<Args>(args)...));
+            }
+
         }
     };
 

@@ -7,6 +7,9 @@
 #ifdef NS_RESLIB
 #include "NasNas/reslib/ResourceManager.hpp"
 #endif
+#ifdef __ANDROID__
+#include "NasNas/core/android/Activity.hpp"
+#endif
 
 using namespace ns;
 using namespace ns::tm;
@@ -113,7 +116,14 @@ auto TsxTilesetsManager::get(const std::string& tsx_file_name) -> const TilesetD
         return instance.m_shared_tilesets.at(tsx_file_name);
     else {
         pugi::xml_document xml;
-        auto result = xml.load_file(tsx_file_name.c_str());
+        pugi::xml_parse_result result;
+#ifndef __ANDROID__
+        result = xml.load_file(tsx_file_name.c_str());
+#else
+        auto* asset = AAssetManager_open(android::getActivity()->assetManager, tsx_file_name.c_str(), AASSET_MODE_BUFFER);
+        const auto* filecontent = static_cast<const char*>(AAsset_getBuffer(asset));
+        result = xml.load_string(filecontent);
+#endif
         if (!result) {
             std::cout << "Error parsing TSX file «" << tsx_file_name << "» : " << result.description() << std::endl;
             std::exit(-1);

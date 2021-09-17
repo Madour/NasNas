@@ -8,13 +8,6 @@ macro(NasNas_create_module name src inc)
     NasNas_add_module_target(${name} "${src}" "${inc}")
 endmacro()
 
-if (ANDROID)
-    if (NASNAS_BUILD_RESLIB)
-        log_status("Module Reslib will be disabled because it is not compatible with Android")
-        set(NASNAS_BUILD_RESLIB OFF)
-    endif()
-endif()
-
 set(NasNas_Active_Options "CORE")
 foreach(module_name ${NASNAS_MODULES})
     if (NASNAS_BUILD_${module_name})

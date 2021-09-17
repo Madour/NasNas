@@ -4,21 +4,28 @@
 
 
 #include <utility>
+#include "NasNas/core/data/Logger.hpp"
 #include "NasNas/reslib/ResourceLoader.hpp"
+#ifdef __ANDROID__
+#include "NasNas/core/android/Activity.hpp"
+#include "../core/android/JniManager.hpp"
+#include "../core/android/JavaClasses.hpp"
+#endif
 
 using namespace ns;
 
 const std::set<std::string> Dir::texture_extensions = {".png", ".jpg", ".bmp"};
 const std::set<std::string> Dir::fonts_extensions = {".ttf"};
 
-Dir::Dir(std::string  name, Dir* parent) :
+Dir::Dir(std::string name, Dir* parent) :
 m_name(std::move(name)),
 m_parent(parent)
 {}
 
 Dir::~Dir() = default;
 
-void Dir::load(const std::filesystem::path& path, bool autoload) {
+void Dir::load(const std::string& path, bool autoload) {
+#ifndef __ANDROID__
     namespace fs = std::filesystem;
     if (fs::is_directory(fs::status(path))) {
         for (const auto& file : fs::directory_iterator(path)) {
@@ -51,9 +58,43 @@ void Dir::load(const std::filesystem::path& path, bool autoload) {
         }
     }
     else {
-        std::cout << "ResourceLoader Exception : Path "<<path.string()<<" does not exist."<< std::endl;
+        std::cout << "ResourceLoader Exception : Path "<<path<<" does not exist."<< std::endl;
         throw std::exception();
     }
+#else
+    using namespace android;
+    auto* activity = getActivity();
+    auto object_asset_manager = JNI.get<app::NativeActivity>(activity->clazz).getAssets();
+    auto jstring_path = JNI.env()->NewStringUTF(path.c_str());
+    auto array_files = JNI.get<content::res::AssetManager>(object_asset_manager).list(jstring_path);
+    for (int i = 0; i < JNI.env()->GetArrayLength(array_files); ++i) {
+        auto object_file_name = static_cast<jstring>(JNI.env()->GetObjectArrayElement(array_files, i));
+        auto file_name = std::string(JNI.env()->GetStringUTFChars(object_file_name, nullptr));
+        auto file_is_folder = JNI.env()->GetArrayLength(JNI.get<content::res::AssetManager>(object_asset_manager).list(object_file_name)) > 0;
+
+        if (file_is_folder) {
+            m_dirs[file_name] = std::make_unique<Dir>(file_name, this);
+            m_dirs[file_name]->load(file_name, autoload);
+        }
+        else {
+            auto extension = ns::utils::path::getExtension(file_name);
+            if (Dir::texture_extensions.count(extension) != 0) {
+                m_textures.emplace(file_name, nullptr);
+                if (autoload) {
+                    m_textures[file_name] = std::make_unique<sf::Texture>();
+                    m_textures[file_name]->loadFromFile(file_name);
+                }
+            }
+            else if (Dir::fonts_extensions.count(extension) != 0) {
+                m_fonts.emplace(file_name, nullptr);
+                if (autoload) {
+                    m_fonts[file_name] = std::make_unique<sf::Font>();
+                    m_fonts[file_name]->loadFromFile(file_name);
+                }
+            }
+        }
+    }
+#endif
 }
 
 auto Dir::in(const std::string& dir_name) -> Dir& {
@@ -86,8 +127,8 @@ auto Dir::getPath() -> std::string {
     return path;
 }
 
-auto Dir::getTexture(const std::string& texture_name) -> sf::Texture&{
-    if (m_textures.count(texture_name) > 0) {
+auto Dir::getTexture(const std::string& texture_name) -> sf::Texture& {
+    if (m_textures.find(texture_name) != m_textures.end()) {
         auto& ptr = m_textures.at(texture_name);
         if (ptr == nullptr) {
             m_textures[texture_name] = std::make_unique<sf::Texture>();
@@ -101,7 +142,7 @@ auto Dir::getTexture(const std::string& texture_name) -> sf::Texture&{
 }
 
 auto Dir::getFont(const std::string& font_name) -> sf::Font& {
-    if (m_fonts.count(font_name) > 0) {
+    if (m_fonts.find(font_name) != m_fonts.end()) {
         auto& ptr = m_fonts.at(font_name);
         if (ptr == nullptr) {
             m_fonts[font_name] = std::make_unique<sf::Font>();
