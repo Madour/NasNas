@@ -20,12 +20,19 @@ android {
             abiFilters 'armeabi-v7a'
         }
     }
+
+    signingConfigs {
+        debug {}
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     externalNativeBuild {
         ndkBuild {
             path "src/main/jni/Android.mk"
