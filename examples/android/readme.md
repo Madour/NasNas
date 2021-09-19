@@ -1,7 +1,7 @@
 ## NasNas Android example
 
 This folder contains an example gradle project (inspired by SFML android example). 
-You can compile it either by using command line or by using Android Studio.
+You can compile it either by using the command line or by using Android Studio.
 
 ### Requirements
 
@@ -14,8 +14,8 @@ To build and install SFML for Android :
 ```bash
 git clone https://github.com/SFML/SFML && cd SFML
 mkdir build-android && cd build-android
-cmake -DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=/path/to/AndroidSDK/ndk/20.1.5948944 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a -DCMAKE_ANDROID_STL_TYPE=c++_static -DCMAKE_BUILD_TYPE=Debug ../..
-cmake --build . -- -j4
+cmake -DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=/path/to/AndroidSDK/ndk/20.1.5948944 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a -DCMAKE_ANDROID_STL_TYPE=c++_static -DCMAKE_BUILD_TYPE=Debug ..
+cmake --build . -j4
 cmake --install .
 ```
 
@@ -24,8 +24,8 @@ To build and install NasNas for Android, it is the same process :
 ```bash
 git clone https://github.com/Madour/NasNas && cd NasNas
 mkdir build-android && cd build-android
-cmake -DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=/path/to/AndroidSDK/ndk/20.1.5948944 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a -DCMAKE_ANDROID_STL_TYPE=c++_static -DCMAKE_BUILD_TYPE=Debug ../..
-cmake --build . -- -j4
+cmake -DCMAKE_SYSTEM_NAME=Android -DCMAKE_ANDROID_NDK=/path/to/AndroidSDK/ndk/20.1.5948944 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a -DCMAKE_ANDROID_STL_TYPE=c++_static -DCMAKE_BUILD_TYPE=Debug ..
+cmake --build . -j4
 cmake --install .
 ```
 

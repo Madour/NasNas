@@ -44,7 +44,7 @@ for tile based games.
 | Windows | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Linux   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | MacOS   | :heavy_check_mark: | :question:         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Android | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Android | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | iOS     | :question:         | :question:         | :question:         | :question:         | :question:         | :question:         |
 
 </details>
@@ -183,9 +183,9 @@ https://user-images.githubusercontent.com/11854124/131836274-4363d86d-cbf3-4358-
 
 The following games were created with NasNas :
 
-- Warp Runner on [itch](https://madour.itch.io/warp-runner) - source code not available (yet)
-- History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020)
-- Cyber Slayer on [github](https://github.com/Madour/CyberSlayer)
+- Warp Runner on [itch](https://madour.itch.io/warp-runner) (Desktop)
+- History Leaks on [itch](https://madour.itch.io/history-leaks) and [github](https://github.com/Madour/GB_OLC_Jam2020) (Desktop)
+- Cyber Slayer on [github](https://github.com/Madour/CyberSlayer) (Desktop and Android)
 
 #### Other
 
