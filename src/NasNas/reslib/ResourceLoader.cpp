@@ -4,8 +4,8 @@
 
 
 #include <utility>
-#include "NasNas/core/data/Logger.hpp"
 #include "NasNas/reslib/ResourceLoader.hpp"
+#include "NasNas/core/data/Logger.hpp"
 #ifdef __ANDROID__
 #include "NasNas/core/android/Activity.hpp"
 #include "../core/android/JniManager.hpp"
@@ -70,11 +70,12 @@ void Dir::load(const std::string& path, bool autoload) {
     for (int i = 0; i < JNI.env()->GetArrayLength(array_files); ++i) {
         auto object_file_name = static_cast<jstring>(JNI.env()->GetObjectArrayElement(array_files, i));
         auto file_name = std::string(JNI.env()->GetStringUTFChars(object_file_name, nullptr));
-        auto file_is_folder = JNI.env()->GetArrayLength(JNI.get<content::res::AssetManager>(object_asset_manager).list(object_file_name)) > 0;
-
+        auto file_path = path + "/" + file_name;
+        auto jstring_file_path = JNI.env()->NewStringUTF(file_path.c_str());
+        auto file_is_folder = JNI.env()->GetArrayLength(JNI.get<content::res::AssetManager>(object_asset_manager).list(jstring_file_path)) > 0;
         if (file_is_folder) {
             m_dirs[file_name] = std::make_unique<Dir>(file_name, this);
-            m_dirs[file_name]->load(file_name, autoload);
+            m_dirs[file_name]->load(file_path, autoload);
         }
         else {
             auto extension = ns::utils::path::getExtension(file_name);
@@ -82,14 +83,14 @@ void Dir::load(const std::string& path, bool autoload) {
                 m_textures.emplace(file_name, nullptr);
                 if (autoload) {
                     m_textures[file_name] = std::make_unique<sf::Texture>();
-                    m_textures[file_name]->loadFromFile(file_name);
+                    m_textures[file_name]->loadFromFile(file_path);
                 }
             }
             else if (Dir::fonts_extensions.count(extension) != 0) {
                 m_fonts.emplace(file_name, nullptr);
                 if (autoload) {
                     m_fonts[file_name] = std::make_unique<sf::Font>();
-                    m_fonts[file_name]->loadFromFile(file_name);
+                    m_fonts[file_name]->loadFromFile(file_path);
                 }
             }
         }
