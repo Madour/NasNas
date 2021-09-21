@@ -1,6 +1,7 @@
 // Created by Modar Nasser on 01/07/2021.
 
 #include "NasNas/tilemapping/LayersContainer.hpp"
+#include "NasNas/tilemapping/TiledMap.hpp"
 
 #include "NasNas/tilemapping/TileLayer.hpp"
 #include "NasNas/tilemapping/ObjectLayer.hpp"

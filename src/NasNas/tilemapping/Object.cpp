@@ -1,6 +1,7 @@
 // Created by Modar Nasser on 28/06/2021.
 
 #include <sstream>
+#include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/Object.hpp"
 
 using namespace ns;

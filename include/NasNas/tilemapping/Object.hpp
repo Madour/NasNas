@@ -4,11 +4,11 @@
 
 #include "NasNas/core/graphics/Shapes.hpp"
 #include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/Tile.hpp"
 
 namespace ns::tm {
 
+    class TiledMap;
     struct PointObject;
     struct RectangleObject;
     struct EllipseObject;

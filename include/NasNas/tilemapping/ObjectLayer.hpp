@@ -5,8 +5,6 @@
 #pragma once
 
 #include "NasNas/core/graphics/Shapes.hpp"
-#include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
 #include "NasNas/tilemapping/Layer.hpp"
 #include "NasNas/tilemapping/Object.hpp"
 
