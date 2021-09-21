@@ -53,7 +53,7 @@ void Dir::load(const std::string& path, bool autoload) {
             else if (fs::is_directory(file)) {
                 std::unique_ptr<Dir> new_dir(new Dir(filename, this));
                 m_dirs[filename] = std::move(new_dir);
-                m_dirs[filename]->load(file.path(), autoload);
+                m_dirs[filename]->load(file.path().string(), autoload);
             }
         }
     }
