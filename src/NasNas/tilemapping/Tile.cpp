@@ -49,7 +49,7 @@ auto ns::tm::operator&(Tile::Flip lhs, Tile::Flip rhs) -> Tile::Flip {
 
 auto ns::tm::operator==(const std::optional<Tile>& lhs, const std::optional<Tile>& rhs) -> bool {
     if (!lhs && !rhs) return true;
-    if (!lhs && rhs || lhs && !rhs) return false;
+    if ((!lhs && rhs) || (lhs && !rhs)) return false;
     return (lhs->gid == rhs->gid && lhs->x == rhs->x && lhs->y == rhs->y);
 }
 
