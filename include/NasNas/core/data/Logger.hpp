@@ -34,8 +34,8 @@ namespace sf {
 }
 
 namespace ns {
-#ifdef __ANDROID__
     namespace detail {
+#ifdef __ANDROID__
         class AndroidStreamBuffer : public std::streambuf {
         public:
             AndroidStreamBuffer();
@@ -45,11 +45,11 @@ namespace ns {
         };
 
         static AndroidStreamBuffer logger_buffer;
-    }
-    static std::ostream LoggerStream(&detail::logger_buffer);
+        static std::ostream LoggerStream(&logger_buffer);
 #else
-    static auto& LoggerStream = std::cout;
+        static auto& LoggerStream = std::cout;
 #endif
+    }
 
     /**
      * \brief Console Logger can log a variable number of variables to the console.
@@ -72,15 +72,15 @@ namespace ns {
 
     template<typename... Types>
     void Logger::log(const std::string& file, int line_nb, Types... args) {
-        LoggerStream << std::boolalpha << "["<<line_nb<<"|"<<ns::utils::path::getFilename(file)<<"] ";
+        detail::LoggerStream << std::boolalpha << "["<<line_nb<<"|"<<ns::utils::path::getFilename(file)<<"] ";
         logr(args...);
     }
 
     template <typename T, typename... Types>
     void Logger::logr(T arg, Types... args) {
-        LoggerStream << arg << " ";
+        detail::LoggerStream << arg << " ";
         if constexpr(sizeof...(args) == 0) {
-            LoggerStream << std::endl;
+            detail::LoggerStream << std::endl;
         } else {
             logr(args...);
         }
