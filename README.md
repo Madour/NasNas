@@ -25,25 +25,25 @@ It provides a **clean** and **easy to use** API.
 
 The framework is separated in multiple independent modules :
 - ***Core*** is the only non-optional module. It is needed to create a NasNas application. 
-It contains core classes and data needed by the framework.
-- ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
-an elegant way.
+  It contains core classes and data needed by the framework.
 - ***ECS*** is an efficient data driven Entity Component System.
-It allows you to attach components to entities and run systems on specific sets of components.
+  It allows you to attach components to entities and run systems on specific sets of components.
+- ***Reslib*** contains the resource manager and resource loader. It handles resource loading and accessing in
+  an elegant way.
 - ***Tilemapping*** is a Tiled Map loader (.tmx). It seamlessly integrates with NasNas and speeds up development
-for tile based games.
-- ***Tween*** allows you to animate any object using various easing functions.
+  for tile based games.
+- ***Tween*** allows you to animate any object using the provided or custom easing functions.
 - ***UI*** contains the User Interface utilities. (WIP)
 - More modules will be developed in the future !
 
 <details>
   <summary>Click to see platforms support</summary>
 
-|         | Core               | Reslib             | Ecs                | Tilemapping        | Tween              | Ui                 |
+|         | Core               | Ecs                | Reslib             | Tilemapping        | Tween              | Ui                 |
 |---------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
 | Windows | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Linux   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| MacOS   | :heavy_check_mark: | :question:         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| MacOS   | :heavy_check_mark: | :heavy_check_mark: | :question:         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Android | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | iOS     | :question:         | :question:         | :question:         | :question:         | :question:         | :question:         |
 
@@ -83,6 +83,8 @@ You can find a global roadmap for the version 1.0 on the [project board](https:/
 
 ### Build
 
+#### Desktop
+
 Clone the repository. 
 ```bash
 git clone https://github.com/Madour/NasNas
@@ -102,10 +104,14 @@ Finally, you can install those libraries using :
 cmake --install .
 ```
 
-Additional CMake options you can pass : 
+#### Android
 
-- `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
+To build the framework for Android, please refer to the [Android example's readme](https://github.com/Madour/NasNas/tree/master/examples/android)
+
+#### Available CMake options : 
+
 - `-DNASNAS_BUILD_ECS=OFF` to disable the *ECS* module
+- `-DNASNAS_BUILD_RESLIB=OFF` to disable the *Reslib* module
 - `-DNASNAS_BUILD_TILEMAPPING=OFF` to disable the *Tilemapping* module
 - `-DNASNAS_BUILD_TWEEN=OFF` to disable the *Tween* module
 - `-DNASNAS_BUILD_UI=OFF` to disable the *UI* module
