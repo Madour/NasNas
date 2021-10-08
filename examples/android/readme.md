@@ -50,6 +50,7 @@ To run the application on your smartphone, plug your device and enable USB debug
 
 Then run : `./gradlew installDebug"`. The application will be installed, tap on the icon to run it.
 
+You can also run `./gradlew installRelease` to install the release version APK.
 
 ### Build the example with Android Studio
 

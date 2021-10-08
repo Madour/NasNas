@@ -28,8 +28,8 @@ ifdef prebuilt
 endif
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := NasNas-reslib
-LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-reslib.so
+LOCAL_MODULE := NasNas-ecs
+LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-ecs.so
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
 LOCAL_SHARED_LIBRARIES := NasNas-core
 
@@ -41,8 +41,8 @@ ifdef prebuilt
 endif
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := NasNas-ecs
-LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-ecs.so
+LOCAL_MODULE := NasNas-reslib
+LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-reslib.so
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
 LOCAL_SHARED_LIBRARIES := NasNas-core
 
@@ -121,10 +121,10 @@ ifdef prebuilt
 endif
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := NasNas-reslib-d
-LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-reslib-d.so
+LOCAL_MODULE := NasNas-ecs-d
+LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-ecs-d.so
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
-LOCAL_SHARED_LIBRARIES := NasNas-core
+LOCAL_SHARED_LIBRARIES := NasNas-core-d
 
 prebuilt_path := $(call local-prebuilt-path,$(LOCAL_SRC_FILES))
 prebuilt := $(strip $(wildcard $(prebuilt_path)))
@@ -134,8 +134,8 @@ ifdef prebuilt
 endif
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := NasNas-ecs-d
-LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-ecs-d.so
+LOCAL_MODULE := NasNas-reslib-d
+LOCAL_SRC_FILES := lib/$(TARGET_ARCH_ABI)/libNasNas-reslib-d.so
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
 LOCAL_SHARED_LIBRARIES := NasNas-core-d
 
