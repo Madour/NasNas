@@ -21,7 +21,7 @@ namespace ns {
          * \brief Get the current Shader
          * \return Pointer to the current Shader
          */
-        auto getShader() -> sf::Shader*;
+        auto getShader() const -> sf::Shader*;
 
         /**
          * \brief Toggle shader
