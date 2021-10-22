@@ -10,7 +10,7 @@ void ShaderHolder::setShader(sf::Shader* shader) {
     m_shader = shader;
 }
 
-auto ShaderHolder::getShader() -> sf::Shader* {
+auto ShaderHolder::getShader() const -> sf::Shader* {
     return m_shader;
 }
 
