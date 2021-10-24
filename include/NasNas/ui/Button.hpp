@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <functional>
 #include "NasNas/ui/Widget.hpp"
 
 namespace ns::ui {

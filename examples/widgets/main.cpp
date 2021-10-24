@@ -7,6 +7,7 @@
 struct Game : ns::App {
     ns::BitmapFont* m_font;
     ns::ui::Container m_gui;
+    ns::ui::NineSlice* nineslice;
     Game() : ns::App("Widgets example", {1280, 720}) {
         // create a BitmapFont
         m_font = new ns::BitmapFont(
@@ -28,8 +29,15 @@ struct Game : ns::App {
 
         m_gui.m_widgets.push_back(btn);
 
+        nineslice = new ns::ui::NineSlice(ns::Res::getTexture("tileset.png"), {32, 16, 48, 48});
+        nineslice->setSlices(16, 16, 16, 16);
+        nineslice->setSize(32, 32);
+        nineslice->setPosition(20, 20);
+        nineslice->scale(2.f, 2.f);
+
         auto& scene = createScene("main");
         scene.getDefaultLayer().add(m_gui);
+        scene.getDefaultLayer().add(nineslice);
 
         auto& cam = createCamera("main", 0);
         cam.lookAt(scene);
@@ -38,6 +46,9 @@ struct Game : ns::App {
     void onEvent(const sf::Event& event) override {
         ns::App::onEvent(event);
         m_gui.onEvent(event);
+        if (event.type == sf::Event::MouseMoved) {
+            nineslice->setSize(sf::Vector2i(getMousePosition() - nineslice->getPosition())/2);
+        }
     }
     void update() override {
     }
