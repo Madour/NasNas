@@ -12,17 +12,21 @@
 namespace ns::ui {
     class NineSlice : public sf::Drawable, public sf::Transformable {
     public:
-        enum class Mode { Scale, Repeat };
+        enum class Mode { Stretch, Repeat };
 
-        explicit NineSlice(const sf::Texture& texture, Mode mode=Mode::Scale);
-        NineSlice(const sf::Texture& texture, const sf::IntRect& rect, Mode mode=Mode::Scale);
+        explicit NineSlice(Mode mode=Mode::Stretch);
+        explicit NineSlice(const sf::Texture& texture, Mode mode=Mode::Stretch);
+        NineSlice(const sf::Texture& texture, const sf::IntRect& rect, Mode mode=Mode::Stretch);
 
-        void setTexture(const sf::Texture& texture);
+        void setMode(Mode mode);
+
+        void setTexture(const sf::Texture& texture, bool reset_rect = false);
         void setTextureRect(const sf::IntRect& rect);
         void setSlices(int left, int right, int top, int bottom);
 
         void setSize(const sf::Vector2i& size);
         void setSize(int width, int height);
+        auto getSize() -> const sf::Vector2f&;
 
         auto getGlobalBounds() const -> sf::FloatRect;
 
@@ -31,15 +35,16 @@ namespace ns::ui {
         void updateVertices();
 
         struct Slices {
-            ns::FloatRect topleft;
-            ns::FloatRect topright;
-            ns::FloatRect botleft;
-            ns::FloatRect botright;
+            enum { CENTER, LEFT, RIGHT, TOP, BOT, TL, TR, BL, BR };
+            ns::FloatRect center;
             ns::FloatRect left;
             ns::FloatRect top;
             ns::FloatRect right;
             ns::FloatRect bot;
-            ns::FloatRect center;
+            ns::FloatRect topleft;
+            ns::FloatRect topright;
+            ns::FloatRect botleft;
+            ns::FloatRect botright;
         };
 
         Mode m_mode;
