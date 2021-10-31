@@ -1,7 +1,8 @@
 // Created by Modar Nasser on 23/10/2021.
 
 #include <array>
-#include "NasNas/ui/NineSlice.hpp"
+
+#include <NasNas/ui/NineSlice.hpp>
 
 using namespace ns;
 using namespace ns::ui;

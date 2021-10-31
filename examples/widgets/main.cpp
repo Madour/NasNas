@@ -18,14 +18,20 @@ struct Game : ns::App {
                 6
         );
 
-
         auto* sprite = new sf::RectangleShape();
         sprite->setFillColor(sf::Color::Yellow);
         sprite->setSize({200, 50});
         auto* btn = new ns::ui::Button<sf::RectangleShape>();
         btn->setBackground(*sprite);
         btn->setPosition(500, 300);
-        btn->setOnHoverCallback([](auto& btn) { ns_LOG("hovered"); btn.scale(1.2f, 1.2f);});
+        btn->setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.2f, 1.2f);});
+        btn->setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
+        btn->setCallback(ns::ui::Callback::onFocus, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
+        btn->setCallback(ns::ui::Callback::onUnfocus, [](auto* btn) {btn->setScale(1.f, 1.f);});
+        btn->setCallback(ns::ui::Callback::onLeftClickPress, [](auto* btn) {ns_LOG("Btn left click press");});
+        btn->setCallback(ns::ui::Callback::onLeftClickRelease, [](auto* btn) {ns_LOG("Btn left click release");});
+        btn->setCallback(ns::ui::Callback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
+        btn->setCallback(ns::ui::Callback::onMiddleClickRelease, [](auto* btn) {ns_LOG("Btn middle click release");});
 
         m_gui.m_widgets.push_back(btn);
 

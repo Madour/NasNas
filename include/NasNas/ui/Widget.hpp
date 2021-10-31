@@ -2,15 +2,25 @@
 
 #pragma once
 
+#include <functional>
+#include <unordered_map>
+
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
+#include <NasNas/ui/Callbacks.hpp>
+
 namespace ns::ui {
+
     class Widget : public sf::Drawable, public sf::Transformable {
     public:
         virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
-        virtual void onHover() {};
-        virtual void onFocus() {};
-        virtual void onClick() {};
+        void setCallback(Callback cb_type, std::function<void(Widget*)> cb);
+        void call(Callback cb_type);
+
+        bool m_hovered = false;
+        bool m_focused = false;
+        std::unordered_map<Callback, std::function<void(Widget*)>> m_callbacks;
     };
+
 }

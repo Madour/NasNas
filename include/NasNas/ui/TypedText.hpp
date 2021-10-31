@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "NasNas/core/graphics/BitmapText.hpp"
+#include <NasNas/core/graphics/BitmapText.hpp>
 
 namespace ns::ui {
     class TypedText : public BitmapText {

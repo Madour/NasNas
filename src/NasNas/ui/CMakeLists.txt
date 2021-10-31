@@ -15,6 +15,7 @@ set(
         INC
 
         ${INC_PATH}/Button.hpp
+        ${INC_PATH}/Callbacks.hpp
         ${INC_PATH}/Container.hpp
         ${INC_PATH}/NineSlice.hpp
         ${INC_PATH}/TypedText.hpp
