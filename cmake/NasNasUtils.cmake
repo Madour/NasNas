@@ -196,7 +196,7 @@ function(NasNas_add_example_target name src inc)
 endfunction()
 
 # Creates export and install rules for all NasNas targets
-function(NasNas_export_install targets)
+function(NasNas_export_install)
     include(GNUInstallDirs)
 
     if (ANDROID)
@@ -204,9 +204,6 @@ function(NasNas_export_install targets)
         set(CMAKE_INSTALL_LIBDIR "${CMAKE_INSTALL_LIBDIR}/${CMAKE_ANDROID_ARCH_ABI}")
         set(CMAKE_INSTALL_BINDIR "${CMAKE_INSTALL_BINDIR}/${CMAKE_ANDROID_ARCH_ABI}")
     endif()
-
-    # create build-tree export cmake module
-    export(TARGETS ${targets} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
 
     log_status("Install path : ${CMAKE_INSTALL_PREFIX}")
 
@@ -258,4 +255,10 @@ function(NasNas_export_install targets)
     # install license and readme
     install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
     install(FILES ${PROJECT_SOURCE_DIR}/README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+
+    # create build-tree export cmake module
+    export(APPEND TARGETS ${archive_targets_list} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
+    export(APPEND TARGETS ${library_targets_list} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
+    export(APPEND TARGETS ${runtime_targets_list} FILE ${PROJECT_BINARY_DIR}/NasNas.cmake NAMESPACE NasNas::)
+
 endfunction()
