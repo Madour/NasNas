@@ -3,18 +3,14 @@
 #pragma once
 
 #include <functional>
-#include "NasNas/ui/Widget.hpp"
+
+#include <NasNas/ui/Widget.hpp>
 
 namespace ns::ui {
 
     class ButtonBase : public Widget {
-        std::function<void(ButtonBase&)> m_onhover;
-        bool m_is_hovered = false;
     public:
         ButtonBase() = default;
-        void setOnHoverCallback(decltype(m_onhover) cb);
-        void onHover() override;
-
     };
 
     template <typename T>

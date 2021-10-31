@@ -7,7 +7,7 @@
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
-#include "NasNas/core/data/Rect.hpp"
+#include <NasNas/core/data/Rect.hpp>
 
 namespace ns::ui {
     class NineSlice : public sf::Drawable, public sf::Transformable {

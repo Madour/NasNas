@@ -2,8 +2,7 @@
 * Created by Modar Nasser on 27/08/2020.
 **/
 
-
-#include "NasNas/ui/TypedText.hpp"
+#include <NasNas/ui/TypedText.hpp>
 
 using namespace ns;
 using namespace ns::ui;

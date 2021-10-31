@@ -1,8 +1,8 @@
 // Created by Modar Nasser on 10/10/2021.
 
-#include "NasNas/ui/Container.hpp"
-#include "NasNas/core/App.hpp"
-#include "NasNas/core/data/Logger.hpp"
+#include <NasNas/core/App.hpp>
+#include <NasNas/core/data/Logger.hpp>
+#include <NasNas/ui/Container.hpp>
 
 using namespace ns::ui;
 
@@ -11,11 +11,48 @@ void Container::onEvent(const sf::Event& event) {
         case sf::Event::MouseMoved:
             {
                 auto mouse_pos = app().getMousePosition(*m_cam);
-                for (auto* widget : m_widgets) {
+                Widget* widget_hovered = nullptr;
+                for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
+                    auto* widget = *it;
                     if (widget->getGlobalBounds().contains(mouse_pos)) {
-                        widget->onHover();
+                        widget_hovered = widget;
+                        break;
                     }
                 }
+                if (m_hovered_widget && m_hovered_widget != widget_hovered) {
+                    m_hovered_widget->m_hovered = false;
+                    m_hovered_widget->m_focused = false;
+                    m_hovered_widget->call(Callback::onUnhover);
+                }
+                m_hovered_widget = widget_hovered;
+                if (m_hovered_widget && !m_hovered_widget->m_hovered) {
+                    m_hovered_widget->m_hovered = true;
+                    m_hovered_widget->call(Callback::onHover);
+                }
+            }
+            break;
+        case sf::Event::MouseButtonPressed:
+            if (m_hovered_widget != nullptr) {
+                if (event.mouseButton.button == sf::Mouse::Button::Left)
+                    m_hovered_widget->call(Callback::onLeftClickPress);
+                else if (event.mouseButton.button == sf::Mouse::Button::Right)
+                    m_hovered_widget->call(Callback::onRightClickPress);
+                else if (event.mouseButton.button == sf::Mouse::Button::Middle)
+                    m_hovered_widget->call(Callback::onMiddleClickPress);
+                m_hovered_widget->m_focused = true;
+                m_hovered_widget->call(Callback::onFocus);
+            }
+            break;
+        case sf::Event::MouseButtonReleased:
+            if (m_hovered_widget != nullptr) {
+                if (event.mouseButton.button == sf::Mouse::Button::Left)
+                    m_hovered_widget->call(Callback::onLeftClickRelease);
+                else if (event.mouseButton.button == sf::Mouse::Button::Right)
+                    m_hovered_widget->call(Callback::onRightClickRelease);
+                else if (event.mouseButton.button == sf::Mouse::Button::Middle)
+                    m_hovered_widget->call(Callback::onMiddleClickRelease);
+                m_hovered_widget->m_focused = false;
+                m_hovered_widget->call(Callback::onUnfocus);
             }
             break;
         case sf::Event::TouchBegan:
@@ -25,7 +62,7 @@ void Container::onEvent(const sf::Event& event) {
     }
 }
 
-void Container::setCamera(ns::Camera& cam) {
+void Container::setCamera(Camera& cam) {
     m_cam = &cam;
     m_render_texture.create(m_cam->getSize().x, m_cam->getSize().y);
 }
