@@ -1,12 +1,14 @@
 // Created by Modar Nasser on 10/10/2021.
 
+#include <utility>
+
 #include <NasNas/ui/Widget.hpp>
 
 using namespace ns;
 using namespace ns::ui;
 
 void Widget::setCallback(Callback cb_type, std::function<void(Widget*)> cb) {
-    m_callbacks[cb_type] = cb;
+    m_callbacks[cb_type] = std::move(cb);
 }
 
 void Widget::call(Callback cb_type) {

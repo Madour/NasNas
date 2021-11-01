@@ -4,6 +4,7 @@
 #include <NasNas/core/data/Logger.hpp>
 #include <NasNas/ui/Container.hpp>
 
+using namespace ns;
 using namespace ns::ui;
 
 void Container::onEvent(const sf::Event& event) {

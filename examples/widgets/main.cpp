@@ -21,13 +21,22 @@ struct Game : ns::App {
         auto* sprite = new sf::RectangleShape();
         sprite->setFillColor(sf::Color::Yellow);
         sprite->setSize({200, 50});
+        auto* sprite2 = new sf::RectangleShape();
+        sprite2->setFillColor(sf::Color::Red);
+        sprite2->setSize({200, 50});
         auto* btn = new ns::ui::Button<sf::RectangleShape>();
         btn->setBackground(*sprite);
         btn->setPosition(500, 300);
-        btn->setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.2f, 1.2f);});
+        btn->setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
         btn->setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
-        btn->setCallback(ns::ui::Callback::onFocus, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
-        btn->setCallback(ns::ui::Callback::onUnfocus, [](auto* btn) {btn->setScale(1.f, 1.f);});
+        btn->setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {
+            auto* b = dynamic_cast<ns::ui::Button<sf::RectangleShape>*>(btn);
+            b->setBackground(*sprite2);
+        });
+        btn->setCallback(ns::ui::Callback::onUnfocus, [sprite](auto* btn) {
+            auto* b = dynamic_cast<ns::ui::Button<sf::RectangleShape>*>(btn);
+            b->setBackground(*sprite);
+        });
         btn->setCallback(ns::ui::Callback::onLeftClickPress, [](auto* btn) {ns_LOG("Btn left click press");});
         btn->setCallback(ns::ui::Callback::onLeftClickRelease, [](auto* btn) {ns_LOG("Btn left click release");});
         btn->setCallback(ns::ui::Callback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
@@ -39,7 +48,7 @@ struct Game : ns::App {
         nineslice.setTexture(ns::Res::getTexture("tileset.png"));
         nineslice.setTextureRect({32, 16, 48, 48});
         nineslice.setSlices(16, 16, 16, 16);
-        nineslice.setSize(32, 32);
+        nineslice.setSize(200, 45);
         nineslice.setPosition(20, 20);
         nineslice.scale(2.f, 2.f);
 
@@ -54,9 +63,6 @@ struct Game : ns::App {
     void onEvent(const sf::Event& event) override {
         ns::App::onEvent(event);
         m_gui.onEvent(event);
-        if (event.type == sf::Event::MouseMoved) {
-            nineslice.setSize(sf::Vector2i(getMousePosition(getCamera("main")) - nineslice.getPosition())/2);
-        }
     }
     void update() override {
     }
