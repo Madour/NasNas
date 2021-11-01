@@ -24,25 +24,24 @@ struct Game : ns::App {
         auto* sprite2 = new sf::RectangleShape();
         sprite2->setFillColor(sf::Color::Red);
         sprite2->setSize({200, 50});
-        auto* btn = new ns::ui::Button<sf::RectangleShape>();
-        btn->setBackground(*sprite);
-        btn->setPosition(500, 300);
-        btn->setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
-        btn->setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
-        btn->setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {
+
+        auto& btn = m_gui.addWidget<ns::ui::Button<sf::RectangleShape>>();
+        btn.setBackground(*sprite);
+        btn.setPosition(500, 300);
+        btn.setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
+        btn.setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
+        btn.setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {
             auto* b = dynamic_cast<ns::ui::Button<sf::RectangleShape>*>(btn);
             b->setBackground(*sprite2);
         });
-        btn->setCallback(ns::ui::Callback::onUnfocus, [sprite](auto* btn) {
+        btn.setCallback(ns::ui::Callback::onUnfocus, [sprite](auto* btn) {
             auto* b = dynamic_cast<ns::ui::Button<sf::RectangleShape>*>(btn);
             b->setBackground(*sprite);
         });
-        btn->setCallback(ns::ui::Callback::onLeftClickPress, [](auto* btn) {ns_LOG("Btn left click press");});
-        btn->setCallback(ns::ui::Callback::onLeftClickRelease, [](auto* btn) {ns_LOG("Btn left click release");});
-        btn->setCallback(ns::ui::Callback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
-        btn->setCallback(ns::ui::Callback::onMiddleClickRelease, [](auto* btn) {ns_LOG("Btn middle click release");});
-
-        m_gui.m_widgets.push_back(btn);
+        btn.setCallback(ns::ui::Callback::onLeftClickPress, [](auto* btn) {ns_LOG("Btn left click press");});
+        btn.setCallback(ns::ui::Callback::onLeftClickRelease, [](auto* btn) {ns_LOG("Btn left click release");});
+        btn.setCallback(ns::ui::Callback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
+        btn.setCallback(ns::ui::Callback::onMiddleClickRelease, [](auto* btn) {ns_LOG("Btn middle click release");});
 
         nineslice.setMode(ns::ui::NineSlice::Mode::Repeat);
         nineslice.setTexture(ns::Res::getTexture("tileset.png"));

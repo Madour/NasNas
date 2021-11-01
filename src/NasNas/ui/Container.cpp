@@ -14,9 +14,9 @@ void Container::onEvent(const sf::Event& event) {
                 auto mouse_pos = app().getMousePosition(*m_cam);
                 Widget* widget_hovered = nullptr;
                 for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
-                    auto* widget = *it;
+                    auto& widget = *it;
                     if (widget->getGlobalBounds().contains(mouse_pos)) {
-                        widget_hovered = widget;
+                        widget_hovered = widget.get();
                         break;
                     }
                 }
@@ -68,9 +68,13 @@ void Container::setCamera(Camera& cam) {
     m_render_texture.create(m_cam->getSize().x, m_cam->getSize().y);
 }
 
+auto Container::getSize() const -> sf::Vector2f {
+    return sf::Vector2f(m_render_texture.getSize());
+}
+
 void Container::render() {
     m_render_texture.clear(sf::Color::Transparent);
-    for (auto* widget : m_widgets) {
+    for (auto& widget : m_widgets) {
         m_render_texture.draw(*widget);
     }
     m_render_texture.display();
