@@ -6,6 +6,7 @@ set(
 
         ${SRC_PATH}/Button.cpp
         ${SRC_PATH}/Container.cpp
+        ${SRC_PATH}/GuiRoot.cpp
         ${SRC_PATH}/NineSlice.cpp
         ${SRC_PATH}/TypedText.cpp
         ${SRC_PATH}/Widget.cpp
@@ -17,6 +18,7 @@ set(
         ${INC_PATH}/Button.hpp
         ${INC_PATH}/Callbacks.hpp
         ${INC_PATH}/Container.hpp
+        ${INC_PATH}/GuiRoot.hpp
         ${INC_PATH}/NineSlice.hpp
         ${INC_PATH}/TypedText.hpp
         ${INC_PATH}/Widget.hpp

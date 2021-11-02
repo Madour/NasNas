@@ -6,8 +6,8 @@
 namespace ns::ui {
     enum class Callback {
         onHover,
-        onFocus,
         onUnhover,
+        onFocus,
         onUnfocus,
         onLeftClickPress,
         onLeftClickRelease,
