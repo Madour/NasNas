@@ -6,7 +6,7 @@
 
 struct Game : ns::App {
     ns::BitmapFont* m_font;
-    ns::ui::Container m_gui;
+    ns::ui::GuiRoot m_gui;
     ns::ui::NineSlice nineslice;
     Game() : ns::App("Widgets example", {1280, 720}) {
         // create a BitmapFont
@@ -18,16 +18,38 @@ struct Game : ns::App {
                 6
         );
 
+        auto& scene = createScene("main");
+        //scene.getDefaultLayer().add(nineslice);
+
+        auto& cam = createCamera("main", 0);
+        cam.lookAt(scene);
+        m_gui.setCamera(cam);
+
+        for (int x = 0; x < 1280; x+=100)
+            for (int y = 0; y < 720; y+=100) {
+                auto* r = new sf::RectangleShape({100, 100});
+                r->setFillColor(sf::Color(200, 200, 200));
+                r->setOutlineColor(sf::Color(50, 50, 50));
+                r->setOutlineThickness(1);
+                r->setPosition(x, y);
+                //scene.getDefaultLayer().add(r);
+            }
+
+        scene.getDefaultLayer().add(m_gui);
+
         auto* sprite = new sf::RectangleShape();
         sprite->setFillColor(sf::Color::Yellow);
-        sprite->setSize({200, 50});
+        sprite->setSize({40, 40});
         auto* sprite2 = new sf::RectangleShape();
         sprite2->setFillColor(sf::Color::Red);
         sprite2->setSize({200, 50});
 
-        auto& btn = m_gui.addWidget<ns::ui::Button<sf::RectangleShape>>();
+        auto& container = m_gui.addWidget<ns::ui::Container>();
+        container.setSize(500, 200);
+        container.setPosition(50, 100);
+        auto& btn = container.addWidget<ns::ui::Button<sf::RectangleShape>>();
         btn.setBackground(*sprite);
-        btn.setPosition(500, 300);
+        btn.setPosition(50, 25);
         btn.setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
         btn.setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
         btn.setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {
@@ -43,6 +65,7 @@ struct Game : ns::App {
         btn.setCallback(ns::ui::Callback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
         btn.setCallback(ns::ui::Callback::onMiddleClickRelease, [](auto* btn) {ns_LOG("Btn middle click release");});
 
+
         nineslice.setMode(ns::ui::NineSlice::Mode::Repeat);
         nineslice.setTexture(ns::Res::getTexture("tileset.png"));
         nineslice.setTextureRect({32, 16, 48, 48});
@@ -51,13 +74,6 @@ struct Game : ns::App {
         nineslice.setPosition(20, 20);
         nineslice.scale(2.f, 2.f);
 
-        auto& scene = createScene("main");
-        scene.getDefaultLayer().add(m_gui);
-        scene.getDefaultLayer().add(nineslice);
-
-        auto& cam = createCamera("main", 0);
-        cam.lookAt(scene);
-        m_gui.setCamera(cam);
     }
     void onEvent(const sf::Event& event) override {
         ns::App::onEvent(event);

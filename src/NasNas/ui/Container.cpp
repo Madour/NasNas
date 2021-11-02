@@ -3,34 +3,41 @@
 #include <NasNas/core/App.hpp>
 #include <NasNas/core/data/Logger.hpp>
 #include <NasNas/ui/Container.hpp>
+#include <NasNas/ui/GuiRoot.hpp>
 
 using namespace ns;
 using namespace ns::ui;
 
+void Container::setSize(float x, float y) {
+    m_size = {x, y};
+    m_view.setSize(m_size);
+    m_render_texture.create(x, y);
+}
+
+auto Container::getSize() const -> sf::Vector2f {
+    return m_size;
+}
+
+auto Container::getGlobalBounds() const -> sf::FloatRect {
+    return {getPosition(), getSize()};
+}
+
 void Container::onEvent(const sf::Event& event) {
     switch (event.type) {
         case sf::Event::MouseMoved:
-            {
-                auto mouse_pos = app().getMousePosition(*m_cam);
-                Widget* widget_hovered = nullptr;
-                for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
-                    auto& widget = *it;
-                    if (widget->getGlobalBounds().contains(mouse_pos)) {
-                        widget_hovered = widget.get();
-                        break;
-                    }
-                }
-                if (m_hovered_widget && m_hovered_widget != widget_hovered) {
-                    m_hovered_widget->m_hovered = false;
-                    m_hovered_widget->m_focused = false;
-                    m_hovered_widget->call(Callback::onUnhover);
-                }
-                m_hovered_widget = widget_hovered;
-                if (m_hovered_widget && !m_hovered_widget->m_hovered) {
-                    m_hovered_widget->m_hovered = true;
-                    m_hovered_widget->call(Callback::onHover);
-                }
+        {
+            auto* widget_hovered = getHoveredWidget();
+            if (m_hovered_widget && m_hovered_widget != widget_hovered) {
+                m_hovered_widget->m_hovered = false;
+                m_hovered_widget->m_focused = false;
+                m_hovered_widget->call(Callback::onUnhover);
             }
+            m_hovered_widget = widget_hovered;
+            if (m_hovered_widget && !m_hovered_widget->m_hovered) {
+                m_hovered_widget->m_hovered = true;
+                m_hovered_widget->call(Callback::onHover);
+            }
+        }
             break;
         case sf::Event::MouseButtonPressed:
             if (m_hovered_widget != nullptr) {
@@ -63,25 +70,37 @@ void Container::onEvent(const sf::Event& event) {
     }
 }
 
-void Container::setCamera(Camera& cam) {
-    m_cam = &cam;
-    m_render_texture.create(m_cam->getSize().x, m_cam->getSize().y);
-}
-
-auto Container::getSize() const -> sf::Vector2f {
-    return sf::Vector2f(m_render_texture.getSize());
-}
-
 void Container::render() {
-    m_render_texture.clear(sf::Color::Transparent);
+    static sf::Vector2f view_pos;
+
+    m_view.setCenter(getSize()/2.f);
+    if (m_root != this)
+        m_view.setCenter(view_pos + getSize()/2.f);
+
+    m_render_texture.clear(m_root == this ? sf::Color::Transparent : sf::Color::Green);
+    m_render_texture.setView(m_view);
     for (auto& widget : m_widgets) {
         m_render_texture.draw(*widget);
     }
     m_render_texture.display();
+    view_pos.y -= 1;
 }
 
 void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.shader = getShader();
     states.transform *= getTransform();
     target.draw(sf::Sprite(m_render_texture.getTexture()), states);
+}
+
+auto Container::getHoveredWidget() const -> Widget* {
+    auto mouse_pos = m_root->getMousePosition();
+    Widget* widget_hovered = nullptr;
+    for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
+        auto* widget = it->get();
+        if (widget->getGlobalBounds().contains(mouse_pos)) {
+            widget_hovered = widget;
+            break;
+        }
+    }
+    return widget_hovered;
 }
