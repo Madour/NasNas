@@ -2,13 +2,15 @@
 
 
 #include <NasNas/core/App.hpp>
-#include <NasNas/core/data/Logger.hpp>
 #include <NasNas/ui/GuiRoot.hpp>
 
 using namespace ns;
 using namespace ns::ui;
 
-GuiRoot::GuiRoot() : Container(this, this) {}
+GuiRoot::GuiRoot() {
+    m_root = this;
+    m_iscontainer = true;
+}
 
 void GuiRoot::setCamera(Camera& cam) {
     m_cam = &cam;

@@ -2,17 +2,8 @@
 
 #pragma once
 
-#include <memory>
-
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Transformable.hpp>
-
-#include <NasNas/core/data/ShaderHolder.hpp>
-#include <NasNas/core/graphics/Renderable.hpp>
 #include <NasNas/core/Camera.hpp>
-#include <NasNas/core/AppAccess.hpp>
 #include <NasNas/ui/Container.hpp>
-#include <NasNas/ui/Widget.hpp>
 
 namespace ns::ui {
     class GuiRoot : public Container, public AppAccess<> {

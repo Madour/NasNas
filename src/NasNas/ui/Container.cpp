@@ -1,16 +1,22 @@
 // Created by Modar Nasser on 10/10/2021.
 
 #include <NasNas/core/App.hpp>
-#include <NasNas/core/data/Logger.hpp>
 #include <NasNas/ui/Container.hpp>
 #include <NasNas/ui/GuiRoot.hpp>
+
+#include <NasNas/core/data/Logger.hpp>
 
 using namespace ns;
 using namespace ns::ui;
 
+Container::Container() {
+    m_iscontainer = true;
+}
+
 void Container::setSize(float x, float y) {
     m_size = {x, y};
     m_view.setSize(m_size);
+
     m_render_texture.create(x, y);
 }
 
@@ -68,22 +74,18 @@ void Container::onEvent(const sf::Event& event) {
         default:
             break;
     }
+    if (m_hovered_widget && m_hovered_widget->m_iscontainer)
+        dynamic_cast<Container*>(m_hovered_widget)->onEvent(event);
 }
 
 void Container::render() {
-    static sf::Vector2f view_pos;
-
     m_view.setCenter(getSize()/2.f);
-    if (m_root != this)
-        m_view.setCenter(view_pos + getSize()/2.f);
-
-    m_render_texture.clear(m_root == this ? sf::Color::Transparent : sf::Color::Green);
     m_render_texture.setView(m_view);
-    for (auto& widget : m_widgets) {
+
+    m_render_texture.clear(m_root == this ? sf::Color::Transparent : sf::Color::Blue);
+    for (auto& widget : m_widgets)
         m_render_texture.draw(*widget);
-    }
     m_render_texture.display();
-    view_pos.y -= 1;
 }
 
 void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -93,7 +95,7 @@ void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 auto Container::getHoveredWidget() const -> Widget* {
-    auto mouse_pos = m_root->getMousePosition();
+    auto mouse_pos = getInverseTransform().transformPoint(m_root->getMousePosition());
     Widget* widget_hovered = nullptr;
     for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
         auto* widget = it->get();

@@ -4,19 +4,14 @@
 
 #include <memory>
 
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Transformable.hpp>
-
 #include <NasNas/core/data/ShaderHolder.hpp>
 #include <NasNas/core/graphics/Renderable.hpp>
-#include <NasNas/core/Camera.hpp>
-#include <NasNas/core/AppAccess.hpp>
 #include <NasNas/ui/Widget.hpp>
 
 namespace ns::ui {
     class Container : public Widget, public Renderable, public ShaderHolder {
     public:
-        using Widget::Widget;
+        Container();
 
         template <typename T>
         auto addWidget() -> T&;
@@ -34,7 +29,7 @@ namespace ns::ui {
         sf::RenderTexture m_render_texture;
         sf::Vector2f m_size;
         sf::View m_view;
-        std::vector<std::shared_ptr<Widget>> m_widgets;
+        std::vector<std::unique_ptr<Widget>> m_widgets;
         Widget* m_hovered_widget = nullptr;
     };
 
