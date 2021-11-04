@@ -18,20 +18,20 @@ namespace ns::ui {
         friend Container;
     public:
         Widget() = default;
-        Widget(GuiRoot* root, Container* parent);
 
         virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
         void setCallback(Callback cb_type, std::function<void(Widget*)> cb);
         void call(Callback cb_type);
-        bool m_hovered = false;
-        bool m_focused = false;
 
-    protected:
         GuiRoot* m_root = nullptr;
         Container* m_parent = nullptr;
+
+        bool m_hovered = false;
+        bool m_focused = false;
+        bool m_iscontainer = false;
+
     private:
         std::unordered_map<Callback, std::function<void(Widget*)>> m_callbacks;
-
     };
 
 }

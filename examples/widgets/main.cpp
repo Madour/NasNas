@@ -65,7 +65,6 @@ struct Game : ns::App {
         btn.setCallback(ns::ui::Callback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
         btn.setCallback(ns::ui::Callback::onMiddleClickRelease, [](auto* btn) {ns_LOG("Btn middle click release");});
 
-
         nineslice.setMode(ns::ui::NineSlice::Mode::Repeat);
         nineslice.setTexture(ns::Res::getTexture("tileset.png"));
         nineslice.setTextureRect({32, 16, 48, 48});

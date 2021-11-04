@@ -7,11 +7,6 @@
 using namespace ns;
 using namespace ns::ui;
 
-Widget::Widget(GuiRoot* root, Container* parent) :
-m_root(root),
-m_parent(parent)
-{}
-
 void Widget::setCallback(Callback cb_type, std::function<void(Widget*)> cb) {
     m_callbacks[cb_type] = std::move(cb);
 }
