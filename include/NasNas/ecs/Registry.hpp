@@ -1,11 +1,14 @@
 // Created by Modar Nasser on 15/08/2021.
+
 #pragma once
 
-#include <queue>
 #include <iostream>
-#include "NasNas/ecs/System.hpp"
-#include "NasNas/ecs/Storage.hpp"
-#include "NasNas/ecs/View.hpp"
+#include <queue>
+#include <string>
+
+#include <NasNas/ecs/System.hpp>
+#include <NasNas/ecs/Storage.hpp>
+#include <NasNas/ecs/View.hpp>
 
 namespace ns::ecs::detail {
     template <typename TEntity=Entity>

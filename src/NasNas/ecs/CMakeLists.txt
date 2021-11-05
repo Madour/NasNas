@@ -28,6 +28,7 @@ set(
         ${INC_PATH}/Registry.hpp
         ${INC_PATH}/Storage.hpp
         ${INC_PATH}/System.hpp
+        ${INC_PATH}/View.hpp
 )
 
 NasNas_create_module(Ecs "${SRC}" "${INC}")

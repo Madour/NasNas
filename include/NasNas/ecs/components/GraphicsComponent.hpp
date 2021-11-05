@@ -1,12 +1,10 @@
-/**
-* Created by Modar Nasser on 10/06/2020.
-**/
-
+// Created by Modar Nasser on 10/06/2020.
 
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "NasNas/core/data/Rect.hpp"
+
+#include <NasNas/core/data/Rect.hpp>
 
 namespace ns::ecs {
 

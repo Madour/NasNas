@@ -1,13 +1,12 @@
-/**
-* Created by Modar Nasser on 11/06/2020.
-**/
-
+// Created by Modar Nasser on 11/06/2020.
 
 #pragma once
 
-#include "NasNas/core/data/Rect.hpp"
-#include "NasNas/ecs/components/GraphicsComponent.hpp"
-#include "NasNas/ecs/EntityObject.hpp"
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/core/graphics/Shapes.hpp>
+
+#include <NasNas/ecs/components/GraphicsComponent.hpp>
+#include <NasNas/ecs/EntityObject.hpp>
 
 namespace ns::ecs {
 

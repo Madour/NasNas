@@ -1,13 +1,11 @@
-/**
-* Created by Modar Nasser on 10/06/2020.
-**/
-
+// Created by Modar Nasser on 10/06/2020.
 
 #pragma once
 
-#include "NasNas/core/graphics/Anim.hpp"
-#include "NasNas/core/graphics/Spritesheet.hpp"
-#include "NasNas/ecs/components/GraphicsComponent.hpp"
+#include <NasNas/core/graphics/Anim.hpp>
+#include <NasNas/core/graphics/Spritesheet.hpp>
+
+#include <NasNas/ecs/components/GraphicsComponent.hpp>
 
 namespace ns::ecs {
 

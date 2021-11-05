@@ -1,10 +1,9 @@
-/**
-* Created by Modar Nasser on 26/07/2020.
-**/
+// Created by Modar Nasser on 26/07/2020.
 
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
+
 #include <NasNas/core/data/Rect.hpp>
 
 namespace ns::ecs  {

@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include "NasNas/ecs/System.hpp"
-#include "NasNas/ecs/components/InputsComponent.hpp"
-#include "NasNas/ecs/components/PhysicsComponent.hpp"
-#include "NasNas/ecs/components/SpriteComponent.hpp"
+#include <NasNas/ecs/components/InputsComponent.hpp>
+#include <NasNas/ecs/components/PhysicsComponent.hpp>
+#include <NasNas/ecs/components/SpriteComponent.hpp>
+#include <NasNas/ecs/System.hpp>
 
 namespace ns::ecs {
     extern System<InputsComponent> inputs_system;

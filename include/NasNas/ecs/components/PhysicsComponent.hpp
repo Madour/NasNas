@@ -1,7 +1,4 @@
-/**
-* Created by Modar Nasser on 15/06/2020.
-**/
-
+// Created by Modar Nasser on 15/06/2020.
 
 #pragma once
 

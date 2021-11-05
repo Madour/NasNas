@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "NasNas/ecs/Registry.hpp"
+#include <NasNas/ecs/Registry.hpp>
 
 namespace ns {
     class EntityObject {
