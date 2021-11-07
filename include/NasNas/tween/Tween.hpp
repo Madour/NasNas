@@ -30,6 +30,8 @@ namespace ns {
 
         auto delay(float delay) -> Tween&;
 
+        void onEnd(std::function<void()> fn);
+
         void restart();
 
         auto ended() const -> bool;
@@ -44,10 +46,12 @@ namespace ns {
         std::vector<float> m_delays = {0.f};
         std::vector<tween::EasingFunction> m_easing_fns = {easing::linear};
         std::vector<tween::CallbackFunction> m_on_step_cbs = {[](float){}};
+        std::function<void()> m_on_end_cb;
         unsigned m_index = 0;
         float m_initial_delay = 0.f;
         float m_current_delay = 0.f;
         bool m_first_run = true;
+        bool m_on_end_called = false;
         bool m_loop = false;
 
         inline auto interpolate(unsigned i, float x) const -> float {

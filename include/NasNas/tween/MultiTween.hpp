@@ -31,6 +31,8 @@ namespace ns {
 
         auto delay(float delay) -> MultiTween<N>&;
 
+        void onEnd(std::function<void()> fn);
+
         void restart();
 
         auto ended() const -> bool;
@@ -45,10 +47,12 @@ namespace ns {
         std::vector<float> m_delays;
         std::vector<std::array<tween::EasingFunction, N>> m_easing_fns;
         std::vector<tween::MultiCallbackFunction<N>> m_on_step_cbs;
+        std::function<void()> m_on_end_cb;
         unsigned m_index = 0;
         float m_initial_delay = 0.f;
         float m_current_delay = 0.f;
         bool m_first_run = true;
+        bool m_on_end_called = false;
         bool m_loop = false;
 
         inline void interpolate(unsigned index, std::array<float, N>& x) const {

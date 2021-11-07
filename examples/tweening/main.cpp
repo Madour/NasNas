@@ -56,17 +56,18 @@ public:
             m_balls[i].setRadius(ball_radius);
             m_balls[i].setFillColor(sf::Color::Red);
             m_balls[i].setOrigin(ball_radius, ball_radius);
-            m_balls[i].setPosition(50, float(75 + 75*i));
+            m_balls[i].setPosition(280, float(75 + 75*i));
             scene.getDefaultLayer().add(m_balls[i]);
 
             auto move_ball_fn = [this, i] (float v) {
                 m_balls[i].setPosition(v, m_balls[i].getPosition().y);
             };
 
-            m_tweens[i].loop()
+            m_tweens[i].loop().after(2.f)
                 .apply(move_ball_fn).with(easing_functions[i])
                 .from_to(280, 1000).during(2.f).delay(2.f)
-                .to(280).during(2.f).delay(2.f);
+                .to(280).during(2.f);
+            m_tweens[i].onEnd([name]{ ns_LOG("Tween", name->getString().toAnsiString(), "ended.");});
         }
     }
 

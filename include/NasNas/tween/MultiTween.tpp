@@ -23,6 +23,7 @@ namespace ns {
         m_current_delay = 0.f;
         m_clock.restart();
         m_loop = false;
+        m_on_end_cb = []{};
     }
 
     template <unsigned int N, typename E>
@@ -92,8 +93,14 @@ namespace ns {
     }
 
     template <unsigned int N, typename E>
+    void MultiTween<N, E>::onEnd(std::function<void()> fn) {
+        m_on_end_cb = std::move(fn);
+    }
+
+    template <unsigned int N, typename E>
     void MultiTween<N, E>::restart() {
         m_index = 0;
+        m_on_end_called = false;
         m_current_delay = m_initial_delay;
         m_clock.restart();
         if (!m_starts.empty() && !m_first_run)
@@ -122,6 +129,8 @@ namespace ns {
         }
 
         if (ended()) {
+            if (!m_on_end_called) m_on_end_cb();
+            m_on_end_called = true;
             if (m_loop) {
                 restart();
                 return 0.f;
