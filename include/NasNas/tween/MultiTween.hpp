@@ -47,7 +47,7 @@ namespace ns {
         std::vector<float> m_delays;
         std::vector<std::array<tween::EasingFunction, N>> m_easing_fns;
         std::vector<tween::MultiCallbackFunction<N>> m_on_step_cbs;
-        std::function<void()> m_on_end_cb;
+        std::function<void()> m_on_end_cb = []{};
         unsigned m_index = 0;
         float m_initial_delay = 0.f;
         float m_current_delay = 0.f;
