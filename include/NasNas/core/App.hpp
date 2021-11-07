@@ -285,6 +285,7 @@ namespace ns {
 
         template <typename T, typename... Targs, typename = std::enable_if<std::is_base_of_v<AppState, T>>>
         void setState(Targs... args) {
+            m_state.reset();
             m_state = std::make_unique<T>(std::forward<Targs>(args)...);
             m_cb_onevent = [&](const auto& event) { m_state->onEvent(event); };
             m_cb_update = [&] { m_state->update(); };
