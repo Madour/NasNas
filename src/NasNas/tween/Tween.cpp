@@ -17,6 +17,7 @@ void Tween::clear() {
     m_clock.restart();
     m_loop = false;
     m_on_end_cb = []{};
+    m_on_end_called = false;
 }
 
 auto Tween::after(float delay) -> Tween& {

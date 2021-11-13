@@ -24,6 +24,7 @@ namespace ns {
         m_clock.restart();
         m_loop = false;
         m_on_end_cb = []{};
+        m_on_end_called = false;
     }
 
     template <unsigned int N, typename E>
