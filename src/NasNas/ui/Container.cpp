@@ -11,6 +11,13 @@ using namespace ns::ui;
 
 Container::Container() {
     m_iscontainer = true;
+    auto widget_default = m_default_callbacks.at(Callback::onUnhover);
+    m_default_callbacks[Callback::onUnhover] = [this, widget_default] (Widget* w) {
+        for (auto& widget : m_widgets) {
+            widget->call(Callback::onUnhover);
+        }
+        widget_default(w);
+    };
 }
 
 void Container::setSize(float x, float y) {
@@ -31,19 +38,16 @@ auto Container::getGlobalBounds() const -> sf::FloatRect {
 void Container::onEvent(const sf::Event& event) {
     switch (event.type) {
         case sf::Event::MouseMoved:
-        {
-            auto* widget_hovered = getHoveredWidget();
-            if (m_hovered_widget && m_hovered_widget != widget_hovered) {
-                m_hovered_widget->m_hovered = false;
-                m_hovered_widget->m_focused = false;
-                m_hovered_widget->call(Callback::onUnhover);
+            {
+                auto* widget_hovered = getHoveredWidget();
+                if (m_hovered_widget && m_hovered_widget != widget_hovered) {
+                    m_hovered_widget->call(Callback::onUnhover);
+                }
+                m_hovered_widget = widget_hovered;
+                if (m_hovered_widget && !m_hovered_widget->m_hovered) {
+                    m_hovered_widget->call(Callback::onHover);
+                }
             }
-            m_hovered_widget = widget_hovered;
-            if (m_hovered_widget && !m_hovered_widget->m_hovered) {
-                m_hovered_widget->m_hovered = true;
-                m_hovered_widget->call(Callback::onHover);
-            }
-        }
             break;
         case sf::Event::MouseButtonPressed:
             if (m_hovered_widget != nullptr) {
@@ -53,7 +57,6 @@ void Container::onEvent(const sf::Event& event) {
                     m_hovered_widget->call(Callback::onRightClickPress);
                 else if (event.mouseButton.button == sf::Mouse::Button::Middle)
                     m_hovered_widget->call(Callback::onMiddleClickPress);
-                m_hovered_widget->m_focused = true;
                 m_hovered_widget->call(Callback::onFocus);
             }
             break;
@@ -65,7 +68,6 @@ void Container::onEvent(const sf::Event& event) {
                     m_hovered_widget->call(Callback::onRightClickRelease);
                 else if (event.mouseButton.button == sf::Mouse::Button::Middle)
                     m_hovered_widget->call(Callback::onMiddleClickRelease);
-                m_hovered_widget->m_focused = false;
                 m_hovered_widget->call(Callback::onUnfocus);
             }
             break;
@@ -74,15 +76,27 @@ void Container::onEvent(const sf::Event& event) {
         default:
             break;
     }
-    if (m_hovered_widget && m_hovered_widget->m_iscontainer)
+    if (m_hovered_widget && m_hovered_widget->m_iscontainer) {
         dynamic_cast<Container*>(m_hovered_widget)->onEvent(event);
+    }
 }
 
 void Container::render() {
+    // if user did not call setSize, set minimum size to fit all child widgets
+    if (!m_widgets.empty() && getSize() == sf::Vector2f(0, 0)) {
+        std::vector<sf::FloatRect> widgets_bounds;
+        for (auto& w : m_widgets) {
+            widgets_bounds.emplace_back(w->getGlobalBounds());
+        }
+        std::initializer_list<sf::FloatRect> list(widgets_bounds.data(), widgets_bounds.data()+widgets_bounds.size());
+        auto bounds = utils::computeBounds(list);
+        setSize(bounds.left+bounds.width, bounds.top+bounds.height);
+    }
+
     m_view.setCenter(getSize()/2.f);
     m_render_texture.setView(m_view);
 
-    m_render_texture.clear(m_root == this ? sf::Color::Transparent : sf::Color::Blue);
+    m_render_texture.clear(sf::Color::Transparent);
     for (auto& widget : m_widgets)
         m_render_texture.draw(*widget);
     m_render_texture.display();
@@ -95,7 +109,10 @@ void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 auto Container::getHoveredWidget() const -> Widget* {
-    auto mouse_pos = getInverseTransform().transformPoint(m_root->getMousePosition());
+    auto mouse_pos = m_root->getMousePosition();
+    if (m_parent)
+        mouse_pos = m_parent->getInverseTransform().transformPoint(mouse_pos);
+    mouse_pos = getInverseTransform().transformPoint(mouse_pos);
     Widget* widget_hovered = nullptr;
     for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
         auto* widget = it->get();

@@ -17,11 +17,10 @@ namespace ns::ui {
     class Widget : public sf::Drawable, public sf::Transformable {
         friend Container;
     public:
-        Widget() = default;
+        Widget();
 
         virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
         void setCallback(Callback cb_type, std::function<void(Widget*)> cb);
-        void call(Callback cb_type);
 
         GuiRoot* m_root = nullptr;
         Container* m_parent = nullptr;
@@ -31,7 +30,9 @@ namespace ns::ui {
         bool m_iscontainer = false;
 
     private:
-        std::unordered_map<Callback, std::function<void(Widget*)>> m_callbacks;
+        void call(Callback cb_type);
+        std::unordered_map<Callback, std::function<void(Widget*)>> m_default_callbacks;
+        std::unordered_map<Callback, std::function<void(Widget*)>> m_user_callbacks;
     };
 
 }
