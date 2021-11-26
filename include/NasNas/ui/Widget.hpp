@@ -9,6 +9,7 @@
 #include <SFML/Graphics/Transformable.hpp>
 
 #include <NasNas/ui/Callbacks.hpp>
+#include <NasNas/ui/Style.hpp>
 
 namespace ns::ui {
     class GuiRoot;
@@ -21,6 +22,7 @@ namespace ns::ui {
 
         virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
         void setCallback(Callback cb_type, std::function<void(Widget*)> cb);
+        void setStyle(const Style& widget_style);
 
         GuiRoot* m_root = nullptr;
         Container* m_parent = nullptr;
@@ -28,6 +30,9 @@ namespace ns::ui {
         bool m_hovered = false;
         bool m_focused = false;
         bool m_iscontainer = false;
+
+    protected:
+        Style m_style;
 
     private:
         void call(Callback cb_type);

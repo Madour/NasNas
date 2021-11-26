@@ -22,7 +22,9 @@ Container::Container() {
 
 void Container::setSize(float x, float y) {
     m_size = {x, y};
-    m_view.setSize(m_size);
+    m_view.setSize(m_size-m_style.padding_topleft-m_style.padding_botright);
+    m_view.setViewport({m_style.padding_topleft.x / x, m_style.padding_topleft.y / y,
+                        m_view.getSize().x / x, m_view.getSize().y / y});
 
     m_render_texture.create(x, y);
 }
@@ -94,11 +96,13 @@ void Container::render() {
     }
 
     m_view.setCenter(getSize()/2.f);
-    m_render_texture.setView(m_view);
+    m_view.move(-m_style.padding_topleft); // top left padding
 
-    m_render_texture.clear(sf::Color::Transparent);
+    m_render_texture.clear(m_root != this ? sf::Color(55, 255, 0, 150) : sf::Color::Transparent);
+    m_render_texture.setView(m_view);
     for (auto& widget : m_widgets)
         m_render_texture.draw(*widget);
+    m_render_texture.setView(m_render_texture.getDefaultView());
     m_render_texture.display();
 }
 
@@ -113,9 +117,15 @@ auto Container::getHoveredWidget() const -> Widget* {
     if (m_parent)
         mouse_pos = m_parent->getInverseTransform().transformPoint(mouse_pos);
     mouse_pos = getInverseTransform().transformPoint(mouse_pos);
+    auto tmp = mouse_pos;
+    mouse_pos += m_style.padding_topleft;
+    if (this != m_root) {
+        ns_LOG(tmp, mouse_pos);
+    }
     Widget* widget_hovered = nullptr;
     for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
         auto* widget = it->get();
+        ns_LOG(widget->getGlobalBounds());
         if (widget->getGlobalBounds().contains(mouse_pos)) {
             widget_hovered = widget;
             break;
