@@ -38,6 +38,7 @@ struct Game : ns::App {
                 r.setPosition(x, y);
                 rt->draw(r);
             }
+        rt->display();
         scene.getDefaultLayer().add(new sf::Sprite(rt->getTexture()));
         scene.getDefaultLayer().add(m_gui);
 
@@ -48,16 +49,18 @@ struct Game : ns::App {
         sprite2->setFillColor(sf::Color::Red);
         sprite2->setSize({200, 50});
 
-        auto& container = m_gui.addWidget<ns::ui::Container>();
-        container.setSize(825, 400);
-        container.setPosition(75, 50);
-
-        auto& container2 = container.addWidget<ns::ui::Container>();
-        container2.setSize(412, 200);
-        container2.setPosition(95, 60);
+        auto& container2 = m_gui.addWidget<ns::ui::Container>();
+        container2.setPosition(100, 100);
+        container2.setStyle({{10, 0}, {50, 0}, nullptr});
+        container2.setSize(500, 300);
+        auto& btn00 = container2.addWidget<ns::ui::Button<sf::CircleShape>>();
+        auto*ccs=new sf::CircleShape(500);
+        ccs->setOrigin(500, 500);
+        ccs->setFillColor(sf::Color(200, 200, 200));
+        btn00.setBackground(*ccs);
         auto& btn = container2.addWidget<ns::ui::Button<sf::RectangleShape>>();
         btn.setBackground(*sprite);
-        btn.setPosition(50, 25);
+        btn.setPosition(350, 20);
         btn.setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
         btn.setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
         btn.setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {

@@ -19,6 +19,10 @@ void Widget::setCallback(Callback cb_type, std::function<void(Widget*)> cb) {
     m_user_callbacks[cb_type] = std::move(cb);
 }
 
+void Widget::setStyle(const Style& widget_style) {
+    m_style = widget_style;
+}
+
 void Widget::call(Callback cb_type) {
     if (m_default_callbacks.find(cb_type) != m_default_callbacks.end())
         m_default_callbacks.at(cb_type)(this);
