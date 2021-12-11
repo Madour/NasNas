@@ -14,7 +14,6 @@ Widget::Widget() {
     m_default_callbacks[Callback::onUnfocus] = [](Widget* w) { w->m_focused = true; };
 }
 
-
 void Widget::setCallback(Callback cb_type, std::function<void(Widget*)> cb) {
     m_user_callbacks[cb_type] = std::move(cb);
 }
