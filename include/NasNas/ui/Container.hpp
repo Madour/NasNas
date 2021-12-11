@@ -19,6 +19,7 @@ namespace ns::ui {
         void setSize(float x, float y);
         void setSize(const sf::Vector2f& size);
         auto getSize() const -> sf::Vector2f;
+
         auto getGlobalBounds() const -> sf::FloatRect override;
 
         void onEvent(const sf::Event& event);

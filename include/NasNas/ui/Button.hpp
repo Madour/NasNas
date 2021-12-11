@@ -4,6 +4,8 @@
 
 #include <functional>
 
+#include <SFML/Graphics/Text.hpp>
+
 #include <NasNas/ui/Widget.hpp>
 
 namespace ns::ui {
@@ -16,8 +18,11 @@ namespace ns::ui {
     template <typename T>
     class Button : public ButtonBase {
         T* m_bg = nullptr;
+        sf::Text m_text;
     public:
         Button() = default;
+
+        void setText(sf::Text text);
 
         void setBackground(T& background);
 
@@ -25,6 +30,13 @@ namespace ns::ui {
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };
+
+    template <typename T>
+    void Button<T>::setText(sf::Text text) {
+        m_text = text;
+        auto bounds = m_text.getGlobalBounds();
+        //m_text.setOrigin(bounds.width/2, bounds.height/2);
+    }
 
     template <typename T>
     void Button<T>::setBackground(T& background) {
@@ -40,5 +52,6 @@ namespace ns::ui {
     void Button<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
         target.draw(*m_bg, states);
+        target.draw(m_text, states);
     }
 }
