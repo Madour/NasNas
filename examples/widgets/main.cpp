@@ -44,15 +44,16 @@ struct Game : ns::App {
 
         auto* sprite = new sf::RectangleShape();
         sprite->setFillColor(sf::Color::Yellow);
-        sprite->setSize({50, 50});
+        sprite->setSize({150, 50});
+        sprite->setOrigin(75, 25);
         auto* sprite2 = new sf::RectangleShape();
         sprite2->setFillColor(sf::Color::Red);
         sprite2->setSize({200, 50});
-
+        sprite2->setOrigin(100, 25);
 
         auto& container2 = m_gui.addWidget<ns::ui::Container>();
         container2.setPosition(250, 100);
-        container2.setStyle({{32, 32, 32, 32}, &nineslice});
+        container2.setStyle({{50, 32, 50, 32}, &nineslice});
         container2.setSize(500, 300);
         auto& btn01 = container2.addWidget<ns::ui::Button<sf::CircleShape>>();
         auto*cs1=new sf::CircleShape(150);
@@ -69,7 +70,15 @@ struct Game : ns::App {
 
         auto& btn = container2.addWidget<ns::ui::Button<sf::RectangleShape>>();
         btn.setBackground(*sprite);
-        btn.setPosition(100, 100);
+        btn.setPosition(150, 100);
+
+        sf::Text btn_text;
+        btn_text.setString("Click here");
+        btn_text.setFont(ns::Arial::getFont());
+        btn_text.setCharacterSize(25);
+        btn_text.setOrigin(btn_text.getGlobalBounds().width/2, btn_text.getGlobalBounds().height/2+5);
+        btn_text.setFillColor(sf::Color::Black);
+        btn.setText(btn_text);
         btn.setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
         btn.setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
         btn.setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {

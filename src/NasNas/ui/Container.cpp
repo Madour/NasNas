@@ -93,9 +93,9 @@ void Container::render() {
     if (!m_widgets.empty() && getSize() == sf::Vector2f(0, 0)) {
         sf::Vector2f max;
         for (auto& w : m_widgets) {
-            auto gb = w->getGlobalBounds();
-            max.x = std::max(max.x, gb.left + gb.width);
-            max.y = std::max(max.y, gb.top + gb.height);
+            auto bounds = w->getGlobalBounds();
+            max.x = std::max(max.x, bounds.left + bounds.width);
+            max.y = std::max(max.y, bounds.top + bounds.height);
         }
         setSize(max + m_style.padding.topleft() + m_style.padding.bottomright());
     }
