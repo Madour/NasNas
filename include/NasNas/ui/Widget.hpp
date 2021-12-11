@@ -24,20 +24,23 @@ namespace ns::ui {
         void setCallback(Callback cb_type, std::function<void(Widget*)> cb);
         void setStyle(const Style& widget_style);
 
+        auto isHovered() const -> bool { return m_hovered; }
+        auto isFocused() const -> bool { return m_focused; }
+
+    protected:
         GuiRoot* m_root = nullptr;
         Container* m_parent = nullptr;
 
-        bool m_hovered = false;
-        bool m_focused = false;
-        bool m_iscontainer = false;
-
-    protected:
         Style m_style;
+        bool m_iscontainer = false;
 
     private:
         void call(Callback cb_type);
         std::unordered_map<Callback, std::function<void(Widget*)>> m_default_callbacks;
         std::unordered_map<Callback, std::function<void(Widget*)>> m_user_callbacks;
+
+        bool m_hovered = false;
+        bool m_focused = false;
     };
 
 }

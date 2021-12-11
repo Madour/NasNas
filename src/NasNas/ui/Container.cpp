@@ -22,11 +22,16 @@ Container::Container() {
 
 void Container::setSize(float x, float y) {
     m_size = {x, y};
-    m_view.setSize(m_size-m_style.padding_topleft-m_style.padding_botright);
-    m_view.setViewport({m_style.padding_topleft.x / x, m_style.padding_topleft.y / y,
+    m_view.setSize(m_size - m_style.padding.topleft() - m_style.padding.bottomright());
+    m_view.setViewport({m_style.padding.left / x, m_style.padding.top / y,
                         m_view.getSize().x / x, m_view.getSize().y / y});
+    m_view.setCenter(m_view.getSize()/2.f);
 
     m_render_texture.create(x, y);
+}
+
+void Container::setSize(const sf::Vector2f& size) {
+    setSize(size.x, size.y);
 }
 
 auto Container::getSize() const -> sf::Vector2f {
@@ -86,22 +91,25 @@ void Container::onEvent(const sf::Event& event) {
 void Container::render() {
     // if user did not call setSize, set minimum size to fit all child widgets
     if (!m_widgets.empty() && getSize() == sf::Vector2f(0, 0)) {
-        std::vector<sf::FloatRect> widgets_bounds;
+        sf::Vector2f max;
         for (auto& w : m_widgets) {
-            widgets_bounds.emplace_back(w->getGlobalBounds());
+            auto gb = w->getGlobalBounds();
+            max.x = std::max(max.x, gb.left + gb.width);
+            max.y = std::max(max.y, gb.top + gb.height);
         }
-        auto bounds = utils::computeBounds(widgets_bounds.begin(), widgets_bounds.end());
-        setSize(bounds.left+bounds.width, bounds.top+bounds.height);
+        setSize(max + m_style.padding.topleft() + m_style.padding.bottomright());
     }
 
-    m_view.setCenter(getSize()/2.f);
-    m_view.move(-m_style.padding_topleft); // top left padding
+    m_render_texture.clear(sf::Color::Transparent);
 
-    m_render_texture.clear(m_root != this ? sf::Color(55, 255, 0, 150) : sf::Color::Transparent);
+    m_render_texture.setView(m_render_texture.getDefaultView());
+    if (m_style.drawable != nullptr)
+        m_render_texture.draw(*m_style.drawable);
+
     m_render_texture.setView(m_view);
     for (auto& widget : m_widgets)
         m_render_texture.draw(*widget);
-    m_render_texture.setView(m_render_texture.getDefaultView());
+
     m_render_texture.display();
 }
 
@@ -116,15 +124,10 @@ auto Container::getHoveredWidget() const -> Widget* {
     if (m_parent)
         mouse_pos = m_parent->getInverseTransform().transformPoint(mouse_pos);
     mouse_pos = getInverseTransform().transformPoint(mouse_pos);
-    auto tmp = mouse_pos;
-    mouse_pos += m_style.padding_topleft;
-    if (this != m_root) {
-        ns_LOG(tmp, mouse_pos);
-    }
+    mouse_pos -= m_style.padding.topleft();
     Widget* widget_hovered = nullptr;
     for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
         auto* widget = it->get();
-        ns_LOG(widget->getGlobalBounds());
         if (widget->getGlobalBounds().contains(mouse_pos)) {
             widget_hovered = widget;
             break;
