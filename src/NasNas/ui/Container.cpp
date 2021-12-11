@@ -90,8 +90,7 @@ void Container::render() {
         for (auto& w : m_widgets) {
             widgets_bounds.emplace_back(w->getGlobalBounds());
         }
-        std::initializer_list<sf::FloatRect> list(widgets_bounds.data(), widgets_bounds.data()+widgets_bounds.size());
-        auto bounds = utils::computeBounds(list);
+        auto bounds = utils::computeBounds(widgets_bounds.begin(), widgets_bounds.end());
         setSize(bounds.left+bounds.width, bounds.top+bounds.height);
     }
 
