@@ -17,6 +17,7 @@ namespace ns::ui {
         auto addWidget() -> T&;
 
         void setSize(float x, float y);
+        void setSize(const sf::Vector2f& size);
         auto getSize() const -> sf::Vector2f;
         auto getGlobalBounds() const -> sf::FloatRect override;
 

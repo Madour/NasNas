@@ -44,23 +44,32 @@ struct Game : ns::App {
 
         auto* sprite = new sf::RectangleShape();
         sprite->setFillColor(sf::Color::Yellow);
-        sprite->setSize({40, 40});
+        sprite->setSize({50, 50});
         auto* sprite2 = new sf::RectangleShape();
         sprite2->setFillColor(sf::Color::Red);
         sprite2->setSize({200, 50});
 
+
         auto& container2 = m_gui.addWidget<ns::ui::Container>();
-        container2.setPosition(100, 100);
-        container2.setStyle({{10, 0}, {50, 0}, nullptr});
+        container2.setPosition(250, 100);
+        container2.setStyle({{32, 32, 32, 32}, &nineslice});
         container2.setSize(500, 300);
-        auto& btn00 = container2.addWidget<ns::ui::Button<sf::CircleShape>>();
-        auto*ccs=new sf::CircleShape(500);
-        ccs->setOrigin(500, 500);
-        ccs->setFillColor(sf::Color(200, 200, 200));
-        btn00.setBackground(*ccs);
+        auto& btn01 = container2.addWidget<ns::ui::Button<sf::CircleShape>>();
+        auto*cs1=new sf::CircleShape(150);
+        cs1->setOrigin(cs1->getRadius(), cs1->getRadius());
+        cs1->setFillColor(sf::Color(180, 180, 180));
+        btn01.setBackground(*cs1);
+
+        auto& btn02 = container2.addWidget<ns::ui::Button<sf::CircleShape>>();
+        auto*cs2=new sf::CircleShape(150);
+        cs2->setOrigin(cs2->getRadius(), cs2->getRadius());
+        cs2->setFillColor(sf::Color(180, 180, 180));
+        btn02.setBackground(*cs2);
+        btn02.setPosition(500, 300);
+
         auto& btn = container2.addWidget<ns::ui::Button<sf::RectangleShape>>();
         btn.setBackground(*sprite);
-        btn.setPosition(350, 20);
+        btn.setPosition(100, 100);
         btn.setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
         btn.setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
         btn.setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {
@@ -78,11 +87,10 @@ struct Game : ns::App {
 
         nineslice.setMode(ns::ui::NineSlice::Mode::Repeat);
         nineslice.setTexture(ns::Res::getTexture("tileset.png"));
-        nineslice.setTextureRect({32, 16, 48, 48});
-        nineslice.setSlices(16, 16, 16, 16);
-        nineslice.setSize(200, 45);
-        nineslice.setPosition(20, 20);
-        nineslice.scale(2.f, 2.f);
+        nineslice.setTextureRect({16, 0, 16*5, 16*5});
+        nineslice.setSlices(32, 32, 32, 32);
+        nineslice.setSize(500-64, 300-64);
+        nineslice.setPosition(0, 0);
 
         addDebugText<sf::Vector2f>("mouse pos", [&] { return getMousePosition(getCamera("main")); }, {10, 10});
     }
