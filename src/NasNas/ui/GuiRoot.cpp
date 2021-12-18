@@ -9,7 +9,6 @@ using namespace ns::ui;
 
 GuiRoot::GuiRoot() {
     m_root = this;
-    m_iscontainer = true;
 }
 
 void GuiRoot::setCamera(Camera& cam) {
@@ -20,3 +19,8 @@ void GuiRoot::setCamera(Camera& cam) {
 auto GuiRoot::getMousePosition() const -> sf::Vector2f {
     return app().getMousePosition(*m_cam);
 }
+
+auto GuiRoot::getTouchPosition(unsigned finger) const -> sf::Vector2f {
+    return app().getTouchPosition(finger, *m_cam);
+}
+

@@ -8,6 +8,7 @@ struct Game : ns::App {
     ns::BitmapFont* m_font;
     ns::ui::GuiRoot m_gui;
     ns::ui::NineSlice nineslice;
+    ns::ui::Button* m_btn;
     Game() : ns::App("Widgets example", {1280, 720}) {
         // create a BitmapFont
         m_font = new ns::BitmapFont(
@@ -51,48 +52,45 @@ struct Game : ns::App {
         sprite2->setSize({200, 50});
         sprite2->setOrigin(100, 25);
 
+        auto* cs1 = new sf::CircleShape(150);
+        cs1->setOrigin(cs1->getRadius(), cs1->getRadius());
+        cs1->setFillColor(sf::Color(180, 180, 180));
+
+        auto* cs2 = new sf::CircleShape(150);
+        cs2->setOrigin(cs2->getRadius(), cs2->getRadius());
+        cs2->setFillColor(sf::Color(120, 120, 180));
+
         auto& container2 = m_gui.addWidget<ns::ui::Container>();
         container2.setPosition(250, 100);
         container2.setStyle({{50, 32, 50, 32}, &nineslice});
         container2.setSize(500, 300);
-        auto& btn01 = container2.addWidget<ns::ui::Button<sf::CircleShape>>();
-        auto*cs1=new sf::CircleShape(150);
-        cs1->setOrigin(cs1->getRadius(), cs1->getRadius());
-        cs1->setFillColor(sf::Color(180, 180, 180));
-        btn01.setBackground(*cs1);
 
-        auto& btn02 = container2.addWidget<ns::ui::Button<sf::CircleShape>>();
-        auto*cs2=new sf::CircleShape(150);
-        cs2->setOrigin(cs2->getRadius(), cs2->getRadius());
-        cs2->setFillColor(sf::Color(180, 180, 180));
-        btn02.setBackground(*cs2);
+        auto circlebtn_style = ns::ui::Button::Style{{0, 0, 0, 0, cs1}, cs2, nullptr, cs1->getGlobalBounds()};
+
+        auto& btn01 = container2.addWidget<ns::ui::Button>();
+        btn01.setPosition(0, 0);
+        btn01.setStyle(circlebtn_style);
+
+        auto& btn02 = container2.addWidget<ns::ui::Button>();
         btn02.setPosition(500, 300);
+        btn02.setStyle(circlebtn_style);
 
-        auto& btn = container2.addWidget<ns::ui::Button<sf::RectangleShape>>();
-        btn.setBackground(*sprite);
+        auto& btn = container2.addWidget<ns::ui::Button>();
         btn.setPosition(150, 100);
+        btn.setStyle({{0, 0, 0, 10, sprite}, sprite, sprite2, sprite->getGlobalBounds()});
+        m_btn = &btn;
+        btn.text.setString("Click here");
+        btn.text.setFont(ns::Arial::getFont());
+        btn.text.setCharacterSize(25);
+        btn.text.setFillColor(sf::Color::Black);
+        btn.setTextAlign(ns::ui::TextAlign::Center);
+        btn.setCallback(ns::ui::MouseCallback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(-10.f);});
+        btn.setCallback(ns::ui::MouseCallback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(+10.f);});
 
-        sf::Text btn_text;
-        btn_text.setString("Click here");
-        btn_text.setFont(ns::Arial::getFont());
-        btn_text.setCharacterSize(25);
-        btn_text.setOrigin(btn_text.getGlobalBounds().width/2, btn_text.getGlobalBounds().height/2+5);
-        btn_text.setFillColor(sf::Color::Black);
-        btn.setText(btn_text);
-        btn.setCallback(ns::ui::Callback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f);});
-        btn.setCallback(ns::ui::Callback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f);});
-        btn.setCallback(ns::ui::Callback::onFocus, [sprite2](auto* btn) {
-            auto* b = dynamic_cast<ns::ui::Button<sf::RectangleShape>*>(btn);
-            b->setBackground(*sprite2);
-        });
-        btn.setCallback(ns::ui::Callback::onUnfocus, [sprite](auto* btn) {
-            auto* b = dynamic_cast<ns::ui::Button<sf::RectangleShape>*>(btn);
-            b->setBackground(*sprite);
-        });
-        btn.setCallback(ns::ui::Callback::onLeftClickPress, [](auto* btn) {ns_LOG("Btn left click press");});
-        btn.setCallback(ns::ui::Callback::onLeftClickRelease, [](auto* btn) {ns_LOG("Btn left click release");});
-        btn.setCallback(ns::ui::Callback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
-        btn.setCallback(ns::ui::Callback::onMiddleClickRelease, [](auto* btn) {ns_LOG("Btn middle click release");});
+        btn.setCallback(ns::ui::ClickCallback::onLeftClickPress, [](auto* btn) {ns_LOG("Btn left click press");});
+        btn.setCallback(ns::ui::ClickCallback::onLeftClickRelease, [](auto* btn) {ns_LOG("Btn left click release");});
+        btn.setCallback(ns::ui::ClickCallback::onMiddleClickPress, [](auto* btn) {ns_LOG("Btn middle click press");});
+        btn.setCallback(ns::ui::ClickCallback::onMiddleClickRelease, [](auto* btn) {ns_LOG("Btn middle click release");});
 
         nineslice.setMode(ns::ui::NineSlice::Mode::Repeat);
         nineslice.setTexture(ns::Res::getTexture("tileset.png"));
@@ -108,6 +106,12 @@ struct Game : ns::App {
         m_gui.onEvent(event);
     }
     void update() override {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            m_btn->setTextAlign(ns::ui::TextAlign::Left);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            m_btn->setTextAlign(ns::ui::TextAlign::Center);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            m_btn->setTextAlign(ns::ui::TextAlign::Right);
     }
 };
 

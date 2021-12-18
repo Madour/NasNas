@@ -10,32 +10,32 @@ using namespace ns;
 using namespace ns::ui;
 
 Container::Container() {
-    m_iscontainer = true;
-    auto widget_default = m_default_callbacks.at(Callback::onUnhover);
-    m_default_callbacks[Callback::onUnhover] = [this, widget_default] (Widget* w) {
+    m_type |= Type::Container;
+    auto widget_default = m_default_callbacks.at(MouseCallback::onUnhover);
+    m_default_callbacks[MouseCallback::onUnhover] = [this, widget_default] (Widget* w) {
         for (auto& widget : m_widgets) {
-            widget->call(Callback::onUnhover);
+            if (widget->isHovered())
+                widget->call(MouseCallback::onUnhover);
         }
         widget_default(w);
     };
 }
 
 void Container::setSize(float x, float y) {
-    m_size = {x, y};
-    m_view.setSize(m_size - m_style.padding.topleft() - m_style.padding.bottomright());
-    m_view.setViewport({m_style.padding.left / x, m_style.padding.top / y,
-                        m_view.getSize().x / x, m_view.getSize().y / y});
-    m_view.setCenter(m_view.getSize()/2.f);
-
-    m_render_texture.create(x, y);
+    setSize({x, y});
 }
 
 void Container::setSize(const sf::Vector2f& size) {
-    setSize(size.x, size.y);
+    m_view.setSize(size - m_style.padding.topleft() - m_style.padding.bottomright());
+    m_view.setViewport({m_style.padding.left / size.x, m_style.padding.top / size.y,
+                        m_view.getSize().x / size.x, m_view.getSize().y / size.y});
+    m_view.setCenter(m_view.getSize()/2.f);
+
+    m_render_texture.create(unsigned(size.x), unsigned(size.y));
 }
 
 auto Container::getSize() const -> sf::Vector2f {
-    return m_size;
+    return sf::Vector2f(m_render_texture.getSize());
 }
 
 auto Container::getGlobalBounds() const -> sf::FloatRect {
@@ -43,47 +43,78 @@ auto Container::getGlobalBounds() const -> sf::FloatRect {
 }
 
 void Container::onEvent(const sf::Event& event) {
+    Widget* widget_hovered = nullptr;
     switch (event.type) {
         case sf::Event::MouseMoved:
-            {
-                auto* widget_hovered = getHoveredWidget();
-                if (m_hovered_widget && m_hovered_widget != widget_hovered) {
-                    m_hovered_widget->call(Callback::onUnhover);
-                }
-                m_hovered_widget = widget_hovered;
-                if (m_hovered_widget && !m_hovered_widget->m_hovered) {
-                    m_hovered_widget->call(Callback::onHover);
-                }
+            widget_hovered = getWidgetUnder(transformPosition(m_root->getMousePosition()));
+            if (m_hovered_widget && m_hovered_widget != widget_hovered) {
+                m_hovered_widget->call(MouseCallback::onUnhover);
+            }
+            m_hovered_widget = widget_hovered;
+            if (m_hovered_widget && !m_hovered_widget->m_hovered) {
+                m_hovered_widget->call(MouseCallback::onHover);
             }
             break;
         case sf::Event::MouseButtonPressed:
             if (m_hovered_widget != nullptr) {
                 if (event.mouseButton.button == sf::Mouse::Button::Left)
-                    m_hovered_widget->call(Callback::onLeftClickPress);
+                    m_hovered_widget->call(ClickCallback::onLeftClickPress);
                 else if (event.mouseButton.button == sf::Mouse::Button::Right)
-                    m_hovered_widget->call(Callback::onRightClickPress);
+                    m_hovered_widget->call(ClickCallback::onRightClickPress);
                 else if (event.mouseButton.button == sf::Mouse::Button::Middle)
-                    m_hovered_widget->call(Callback::onMiddleClickPress);
-                m_hovered_widget->call(Callback::onFocus);
+                    m_hovered_widget->call(ClickCallback::onMiddleClickPress);
+                m_hovered_widget->call(MouseCallback::onFocus);
             }
             break;
         case sf::Event::MouseButtonReleased:
             if (m_hovered_widget != nullptr) {
                 if (event.mouseButton.button == sf::Mouse::Button::Left)
-                    m_hovered_widget->call(Callback::onLeftClickRelease);
+                    m_hovered_widget->call(ClickCallback::onLeftClickRelease);
                 else if (event.mouseButton.button == sf::Mouse::Button::Right)
-                    m_hovered_widget->call(Callback::onRightClickRelease);
+                    m_hovered_widget->call(ClickCallback::onRightClickRelease);
                 else if (event.mouseButton.button == sf::Mouse::Button::Middle)
-                    m_hovered_widget->call(Callback::onMiddleClickRelease);
-                m_hovered_widget->call(Callback::onUnfocus);
+                    m_hovered_widget->call(ClickCallback::onMiddleClickRelease);
+                m_hovered_widget->call(MouseCallback::onUnfocus);
             }
             break;
+
         case sf::Event::TouchBegan:
+            widget_hovered = getWidgetUnder(transformPosition(m_root->getTouchPosition(event.touch.finger)));
+            if (m_hovered_widget && m_hovered_widget != widget_hovered) {
+                m_hovered_widget->call(MouseCallback::onUnhover);
+                m_hovered_widget->call(MouseCallback::onUnfocus);
+            }
+            m_hovered_widget = widget_hovered;
+            if (m_hovered_widget && !m_hovered_widget->m_hovered) {
+                m_hovered_widget->call(MouseCallback::onHover);
+                m_hovered_widget->call(MouseCallback::onFocus);
+            }
             break;
+
+        case sf::Event::TouchMoved:
+            widget_hovered = getWidgetUnder(transformPosition(m_root->getTouchPosition(event.touch.finger)));
+            if (m_hovered_widget && m_hovered_widget != widget_hovered) {
+                m_hovered_widget->call(MouseCallback::onUnhover);
+            }
+            m_hovered_widget = widget_hovered;
+            if (m_hovered_widget && !m_hovered_widget->m_hovered) {
+                m_hovered_widget->call(MouseCallback::onHover);
+            }
+            break;
+
+        case sf::Event::TouchEnded:
+            if (m_hovered_widget != nullptr) {
+                m_hovered_widget->call(ClickCallback::onTouchEnded);
+                m_hovered_widget->call(MouseCallback::onUnfocus);
+                m_hovered_widget->call(MouseCallback::onUnhover);
+                m_hovered_widget = nullptr;
+            }
+            break;
+
         default:
             break;
     }
-    if (m_hovered_widget && m_hovered_widget->m_iscontainer) {
+    if (m_hovered_widget && (m_hovered_widget->m_type & Type::Container)) {
         dynamic_cast<Container*>(m_hovered_widget)->onEvent(event);
     }
 }
@@ -119,19 +150,24 @@ void Container::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sf::Sprite(m_render_texture.getTexture()), states);
 }
 
-auto Container::getHoveredWidget() const -> Widget* {
-    auto mouse_pos = m_root->getMousePosition();
+auto Container::transformPosition(const sf::Vector2f& position) const -> sf::Vector2f {
+    sf::Vector2f real_pos = position;
     if (m_parent)
-        mouse_pos = m_parent->getInverseTransform().transformPoint(mouse_pos);
-    mouse_pos = getInverseTransform().transformPoint(mouse_pos);
-    mouse_pos -= m_style.padding.topleft();
+        real_pos = m_parent->transformPosition(real_pos);
+    real_pos = getInverseTransform().transformPoint(real_pos);
+    real_pos -= m_style.padding.topleft();
+    return real_pos;
+}
+
+auto Container::getWidgetUnder(const sf::Vector2f& position) const -> Widget* {
     Widget* widget_hovered = nullptr;
     for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
         auto* widget = it->get();
-        if (widget->getGlobalBounds().contains(mouse_pos)) {
+        if (widget->getGlobalBounds().contains(position)) {
             widget_hovered = widget;
             break;
         }
     }
     return widget_hovered;
 }
+

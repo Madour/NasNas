@@ -4,16 +4,20 @@
 
 
 namespace ns::ui {
-    enum class Callback {
+    enum class MouseCallback {
         onHover,
         onUnhover,
         onFocus,
         onUnfocus,
+    };
+
+    enum class ClickCallback {
         onLeftClickPress,
         onLeftClickRelease,
         onRightClickPress,
         onRightClickRelease,
         onMiddleClickPress,
         onMiddleClickRelease,
+        onTouchEnded
     };
 }
