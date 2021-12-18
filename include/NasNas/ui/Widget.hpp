@@ -9,7 +9,6 @@
 #include <SFML/Graphics/Transformable.hpp>
 
 #include <NasNas/ui/Callbacks.hpp>
-#include <NasNas/ui/Style.hpp>
 
 namespace ns::ui {
     class GuiRoot;
@@ -21,8 +20,8 @@ namespace ns::ui {
         Widget();
 
         virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
-        void setCallback(Callback cb_type, std::function<void(Widget*)> cb);
-        void setStyle(const Style& widget_style);
+
+        void setCallback(MouseCallback cb_type, std::function<void(Widget*)> cb);
 
         auto isHovered() const -> bool { return m_hovered; }
         auto isFocused() const -> bool { return m_focused; }
@@ -31,16 +30,56 @@ namespace ns::ui {
         GuiRoot* m_root = nullptr;
         Container* m_parent = nullptr;
 
-        Style m_style;
-        bool m_iscontainer = false;
+        void call(MouseCallback cb_type);
+        virtual void call(ClickCallback cb_type);
+
+        enum Type {
+            None = 0,
+            Container = 1 << 0,
+            Styled = 1 << 1,
+            Clickable = 1 << 2
+        };
+        unsigned m_type = Type::None;
 
     private:
-        void call(Callback cb_type);
-        std::unordered_map<Callback, std::function<void(Widget*)>> m_default_callbacks;
-        std::unordered_map<Callback, std::function<void(Widget*)>> m_user_callbacks;
+        std::unordered_map<MouseCallback, std::function<void(Widget*)>> m_default_callbacks;
+        std::unordered_map<MouseCallback, std::function<void(Widget*)>> m_user_callbacks;
 
         bool m_hovered = false;
         bool m_focused = false;
+    };
+
+    template <typename T>
+    class StyledWidget : virtual public Widget {
+    public:
+        using Style = T;
+
+        StyledWidget() : Widget() {
+            m_type |= Type::Styled;
+        }
+        void setStyle(const T& widget_style) {
+            m_style = widget_style;
+        }
+        auto getStyle() const -> const T& {
+            return m_style;
+        }
+
+    protected:
+        T m_style;
+    };
+
+    class ClickableWidget : public virtual Widget {
+    public:
+        ClickableWidget();
+
+        using Widget::setCallback;
+        void setCallback(ClickCallback cb_type, std::function<void(Widget*)> cb);
+
+    private:
+        using Widget::call;
+        void call(ClickCallback cb_type) override;
+        std::unordered_map<ClickCallback, std::function<void(Widget*)>> m_user_callbacks;
+
     };
 
 }

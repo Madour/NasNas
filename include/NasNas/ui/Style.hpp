@@ -6,18 +6,32 @@
 #include <SFML/System/Vector2.hpp>
 
 namespace ns::ui {
-    struct Style {
-    private:
-        struct Padding {
-            float left = 0.f;
-            float top = 0.f;
-            float right = 0.f;
-            float bottom = 0.f;
-            auto topleft() const -> sf::Vector2f { return {left, top}; }
-            auto bottomright() const -> sf::Vector2f { return {right, bottom}; }
+    namespace style {
+        struct Basic {
+        private:
+            struct Padding {
+                float left = 0.f;
+                float top = 0.f;
+                float right = 0.f;
+                float bottom = 0.f;
+                auto topleft() const -> sf::Vector2f { return {left, top}; }
+                auto bottomright() const -> sf::Vector2f { return {right, bottom}; }
+            };
+        public:
+            Padding padding{};
+            sf::Drawable* drawable = nullptr;
         };
-    public:
-        Padding padding{};
-        sf::Drawable* drawable = nullptr;
+
+        struct Button : Basic {
+            sf::Drawable* drawable_hovered = nullptr;
+            sf::Drawable* drawable_focused = nullptr;
+            sf::FloatRect clickable_zone;
+        };
+    }
+
+    enum class TextAlign {
+        Left,
+        Center,
+        Right
     };
 }

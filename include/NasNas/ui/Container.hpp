@@ -6,10 +6,11 @@
 
 #include <NasNas/core/data/ShaderHolder.hpp>
 #include <NasNas/core/graphics/Renderable.hpp>
+#include <NasNas/ui/Style.hpp>
 #include <NasNas/ui/Widget.hpp>
 
 namespace ns::ui {
-    class Container : public Widget, public Renderable, public ShaderHolder {
+    class Container : public StyledWidget<style::Basic>, public Renderable, public ShaderHolder {
     public:
         Container();
 
@@ -27,12 +28,14 @@ namespace ns::ui {
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     private:
-        auto getHoveredWidget() const -> Widget*;
-        sf::RenderTexture m_render_texture;
-        sf::Vector2f m_size;
-        sf::View m_view;
+        auto transformPosition(const sf::Vector2f& position) const -> sf::Vector2f;
+        auto getWidgetUnder(const sf::Vector2f& position) const -> Widget*;
+
         std::vector<std::unique_ptr<Widget>> m_widgets;
         Widget* m_hovered_widget = nullptr;
+
+        sf::View m_view;
+        sf::RenderTexture m_render_texture;
     };
 
     template <typename T>
