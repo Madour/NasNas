@@ -26,8 +26,8 @@ void Container::setSize(float x, float y) {
 }
 
 void Container::setSize(const sf::Vector2f& size) {
-    m_view.setSize(size - m_style.padding.topleft() - m_style.padding.bottomright());
-    m_view.setViewport({m_style.padding.left / size.x, m_style.padding.top / size.y,
+    m_view.setSize(size - style.padding.topleft() - style.padding.bottomright());
+    m_view.setViewport({style.padding.left / size.x, style.padding.top / size.y,
                         m_view.getSize().x / size.x, m_view.getSize().y / size.y});
     m_view.setCenter(m_view.getSize()/2.f);
 
@@ -39,7 +39,11 @@ auto Container::getSize() const -> sf::Vector2f {
 }
 
 auto Container::getGlobalBounds() const -> sf::FloatRect {
-    return {getPosition(), getSize()};
+    return getTransform().transformRect({{0.f, 0.f}, getSize()});
+}
+
+auto Container::contains(const sf::Vector2f& pos) const -> bool {
+    return getGlobalBounds().contains(pos);
 }
 
 void Container::onEvent(const sf::Event& event) {
@@ -128,14 +132,14 @@ void Container::render() {
             max.x = std::max(max.x, bounds.left + bounds.width);
             max.y = std::max(max.y, bounds.top + bounds.height);
         }
-        setSize(max + m_style.padding.topleft() + m_style.padding.bottomright());
+        setSize(max + style.padding.topleft() + style.padding.bottomright());
     }
 
     m_render_texture.clear(sf::Color::Transparent);
 
     m_render_texture.setView(m_render_texture.getDefaultView());
-    if (m_style.drawable != nullptr)
-        m_render_texture.draw(*m_style.drawable);
+    if (style.drawable != nullptr)
+        m_render_texture.draw(*style.drawable);
 
     m_render_texture.setView(m_view);
     for (auto& widget : m_widgets)
@@ -155,7 +159,7 @@ auto Container::transformPosition(const sf::Vector2f& position) const -> sf::Vec
     if (m_parent)
         real_pos = m_parent->transformPosition(real_pos);
     real_pos = getInverseTransform().transformPoint(real_pos);
-    real_pos -= m_style.padding.topleft();
+    real_pos -= style.padding.topleft();
     return real_pos;
 }
 
@@ -163,7 +167,7 @@ auto Container::getWidgetUnder(const sf::Vector2f& position) const -> Widget* {
     Widget* widget_hovered = nullptr;
     for (auto it = m_widgets.rbegin(); it != m_widgets.rend(); it++) {
         auto* widget = it->get();
-        if (widget->getGlobalBounds().contains(position)) {
+        if (widget->contains(position)) {
             widget_hovered = widget;
             break;
         }

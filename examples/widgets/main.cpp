@@ -20,8 +20,6 @@ struct Game : ns::App {
         );
 
         auto& scene = createScene("main");
-        //scene.getDefaultLayer().add(nineslice);
-
         auto& cam = createCamera("main", 0);
         cam.lookAt(scene);
         m_gui.setCamera(cam);
@@ -62,28 +60,28 @@ struct Game : ns::App {
 
         auto& container2 = m_gui.addWidget<ns::ui::Container>();
         container2.setPosition(250, 100);
-        container2.setStyle({{50, 32, 50, 32}, &nineslice});
+        container2.style = {{50, 32, 50, 32}, &nineslice};
         container2.setSize(500, 300);
 
-        auto circlebtn_style = ns::ui::Button::Style{{0, 0, 0, 0, cs1}, cs2, nullptr, cs1->getGlobalBounds()};
+        auto circlebtn_style = ns::ui::Button::Style{{0, 0, 0, 0, cs1}, cs2, nullptr, new ns::ui::CircleRegion(150)};
 
         auto& btn01 = container2.addWidget<ns::ui::Button>();
         btn01.setPosition(0, 0);
-        btn01.setStyle(circlebtn_style);
+        btn01.style = circlebtn_style;
 
         auto& btn02 = container2.addWidget<ns::ui::Button>();
         btn02.setPosition(500, 300);
-        btn02.setStyle(circlebtn_style);
+        btn02.style = circlebtn_style;
 
         auto& btn = container2.addWidget<ns::ui::Button>();
         btn.setPosition(150, 100);
-        btn.setStyle({{0, 0, 0, 10, sprite}, sprite, sprite2, sprite->getGlobalBounds()});
+        btn.style = {{0, 0, 0, 10, sprite}, sprite, sprite2, new ns::ui::RectangleRegion(150, 50)};
         m_btn = &btn;
         btn.text.setString("Click here");
         btn.text.setFont(ns::Arial::getFont());
         btn.text.setCharacterSize(25);
         btn.text.setFillColor(sf::Color::Black);
-        btn.setTextAlign(ns::ui::TextAlign::Center);
+        btn.setTextAlign(ns::ui::TextAlign::Left);
         btn.setCallback(ns::ui::MouseCallback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(-10.f);});
         btn.setCallback(ns::ui::MouseCallback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(+10.f);});
 
