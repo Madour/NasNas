@@ -10,7 +10,7 @@ using namespace ns;
 using namespace ns::ui;
 
 Container::Container() {
-    m_type |= Type::Container;
+    m_type |= Type::Parent;
     auto widget_default = m_default_callbacks.at(MouseCallback::onUnhover);
     m_default_callbacks[MouseCallback::onUnhover] = [this, widget_default] (Widget* w) {
         for (auto& widget : m_widgets) {
@@ -118,7 +118,7 @@ void Container::onEvent(const sf::Event& event) {
         default:
             break;
     }
-    if (m_hovered_widget && (m_hovered_widget->m_type & Type::Container)) {
+    if (m_hovered_widget && (m_hovered_widget->m_type & Type::Parent)) {
         dynamic_cast<Container*>(m_hovered_widget)->onEvent(event);
     }
 }

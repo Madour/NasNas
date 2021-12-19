@@ -36,7 +36,7 @@ namespace ns::ui {
 
         enum Type {
             None = 0,
-            Container = 1 << 0,
+            Parent = 1 << 0,
             Styled = 1 << 1,
             Clickable = 1 << 2
         };
