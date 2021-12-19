@@ -20,6 +20,7 @@ namespace ns::ui {
         void setTextAlign(TextAlign alignement);
 
         auto getGlobalBounds() const -> sf::FloatRect override;
+        auto contains(const sf::Vector2f& pos) const -> bool override;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     };

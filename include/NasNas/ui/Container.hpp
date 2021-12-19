@@ -22,6 +22,7 @@ namespace ns::ui {
         auto getSize() const -> sf::Vector2f;
 
         auto getGlobalBounds() const -> sf::FloatRect override;
+        auto contains(const sf::Vector2f& pos) const -> bool override;
 
         void onEvent(const sf::Event& event);
         void render() override;

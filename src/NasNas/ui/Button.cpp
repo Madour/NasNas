@@ -8,14 +8,17 @@
 using namespace ns::ui;
 
 Button::Button() {
-    setTextAlign(TextAlign::Center);
+    text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2+5);
+    text.setPosition(0, text.getPosition().y);
 }
 
 void Button::setTextAlign(TextAlign alignement) {
+    if (!style.region) return;
+    auto region_bounds = style.region->getBounds();
     switch (alignement) {
         case TextAlign::Left:
             text.setOrigin(0, text.getLocalBounds().height/2+5);
-            text.setPosition(m_style.padding.left - m_style.clickable_zone.width/2, text.getPosition().y);
+            text.setPosition(style.padding.left - region_bounds.width/2, text.getPosition().y);
             break;
         case TextAlign::Center:
             text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2+5);
@@ -23,24 +26,29 @@ void Button::setTextAlign(TextAlign alignement) {
             break;
         case TextAlign::Right:
             text.setOrigin(text.getLocalBounds().width, text.getLocalBounds().height/2+5);
-            text.setPosition(m_style.clickable_zone.width/2 - m_style.padding.right, text.getPosition().y);
+            text.setPosition(region_bounds.width/2 - style.padding.right, text.getPosition().y);
             break;
     }
 }
 
 auto Button::getGlobalBounds() const -> sf::FloatRect {
-    return getTransform().transformRect(m_style.clickable_zone);
+    return getTransform().transformRect(style.region->getBounds());
+}
+
+auto Button::contains(const sf::Vector2f& pos) const -> bool {
+    if (!style.region) return false;
+    return style.region->contains(getInverseTransform().transformPoint(pos));
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
 
-    if (isFocused() && m_style.drawable_focused != nullptr)
-        target.draw(*m_style.drawable_focused, states);
-    else if (isHovered() && m_style.drawable_hovered != nullptr)
-        target.draw(*m_style.drawable_hovered, states);
-    else if (m_style.drawable != nullptr)
-        target.draw(*m_style.drawable, states);
+    if (isFocused() && style.drawable_focused != nullptr)
+        target.draw(*style.drawable_focused, states);
+    else if (isHovered() && style.drawable_hovered != nullptr)
+        target.draw(*style.drawable_hovered, states);
+    else if (style.drawable != nullptr)
+        target.draw(*style.drawable, states);
 
     target.draw(text, states);
 }

@@ -2,10 +2,31 @@
 
 #pragma once
 
+#include <memory>
+
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include <NasNas/ui/Region.hpp>
+
+
 namespace ns::ui {
+    namespace internal {
+        template <typename T>
+        struct shared_ptr : std::shared_ptr<T> {
+            shared_ptr() = default;
+
+            shared_ptr(T* ptr) {
+                this->reset(ptr);
+            }
+
+            auto operator=(T* ptr) -> shared_ptr<T> {
+                this->reset(ptr);
+                return this;
+            }
+        };
+    }
+
     namespace style {
         struct Basic {
         private:
@@ -25,7 +46,7 @@ namespace ns::ui {
         struct Button : Basic {
             sf::Drawable* drawable_hovered = nullptr;
             sf::Drawable* drawable_focused = nullptr;
-            sf::FloatRect clickable_zone;
+            internal::shared_ptr<Region> region;
         };
     }
 

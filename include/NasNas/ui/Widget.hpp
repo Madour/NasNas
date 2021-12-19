@@ -20,6 +20,7 @@ namespace ns::ui {
         Widget();
 
         virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
+        virtual auto contains(const sf::Vector2f& pos) const -> bool = 0;
 
         void setCallback(MouseCallback cb_type, std::function<void(Widget*)> cb);
 
@@ -57,15 +58,7 @@ namespace ns::ui {
         StyledWidget() : Widget() {
             m_type |= Type::Styled;
         }
-        void setStyle(const T& widget_style) {
-            m_style = widget_style;
-        }
-        auto getStyle() const -> const T& {
-            return m_style;
-        }
-
-    protected:
-        T m_style;
+        T style;
     };
 
     class ClickableWidget : public virtual Widget {
