@@ -95,7 +95,7 @@ public:
         btn_play_audio.text.setString("Play audio");
         btn_play_audio.setTextAlign(ns::ui::TextAlign::Center);
         btn_play_audio.setPosition(300, 550);
-        btn_play_audio.setCallback(ns::ui::ClickCallback::onTouchEnded, [&](auto* w) { music.stop(); music.play(); });
+        btn_play_audio.setCallback(ns::ui::ClickCallback::onTouchBegan, [&](auto* w) { music.stop(); music.play(); });
 
         scene.getDefaultLayer().add(tilemap.getTileLayer("bg"));
         scene.getDefaultLayer().add(logo);
