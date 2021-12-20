@@ -178,8 +178,12 @@ All of these programs source code can be found in the `examples` folder.
 https://user-images.githubusercontent.com/11854124/131836256-553ec86b-54c2-4145-b2c5-f1229b282d7e.mp4
 
 #### Parallax platformer demo game
-
+ 
+##### Desktop 
 https://user-images.githubusercontent.com/11854124/131836274-4363d86d-cbf3-4358-800c-841b347efd89.mp4
+
+##### Android
+https://user-images.githubusercontent.com/11854124/146814302-29f5f9be-3032-448f-987c-3967b5ed9689.mp4
 
 </details>
 
