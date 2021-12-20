@@ -92,6 +92,7 @@ void Container::onEvent(const sf::Event& event) {
             if (m_hovered_widget && !m_hovered_widget->m_hovered) {
                 m_hovered_widget->call(MouseCallback::onHover);
                 m_hovered_widget->call(MouseCallback::onFocus);
+                m_hovered_widget->call(ClickCallback::onTouchBegan);
             }
             break;
 
@@ -99,10 +100,12 @@ void Container::onEvent(const sf::Event& event) {
             widget_hovered = getWidgetUnder(transformPosition(m_root->getTouchPosition(event.touch.finger)));
             if (m_hovered_widget && m_hovered_widget != widget_hovered) {
                 m_hovered_widget->call(MouseCallback::onUnhover);
+                m_hovered_widget->call(MouseCallback::onUnfocus);
             }
             m_hovered_widget = widget_hovered;
             if (m_hovered_widget && !m_hovered_widget->m_hovered) {
                 m_hovered_widget->call(MouseCallback::onHover);
+                m_hovered_widget->call(MouseCallback::onFocus);
             }
             break;
 

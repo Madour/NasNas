@@ -18,6 +18,7 @@ namespace ns::ui {
         onRightClickRelease,
         onMiddleClickPress,
         onMiddleClickRelease,
+        onTouchBegan,
         onTouchEnded
     };
 }
