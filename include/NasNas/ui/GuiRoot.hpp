@@ -14,9 +14,13 @@ namespace ns::ui {
         auto getMousePosition() const -> sf::Vector2f;
         auto getTouchPosition(unsigned finger) const -> sf::Vector2f;
 
+        void setMaxFingersCount(int finger_count);
+        auto getMaxFingersCount() const -> int;
+
     private:
         using Container::setSize;
         Camera* m_cam = nullptr;
+        int m_max_finger_count = 1;
     };
 
 }

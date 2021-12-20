@@ -24,3 +24,10 @@ auto GuiRoot::getTouchPosition(unsigned finger) const -> sf::Vector2f {
     return app().getTouchPosition(finger, *m_cam);
 }
 
+void GuiRoot::setMaxFingersCount(int finger_count) {
+    m_max_finger_count = std::clamp(finger_count, 1, 10);
+}
+
+auto GuiRoot::getMaxFingersCount() const -> int {
+    return m_max_finger_count;
+}

@@ -26,14 +26,15 @@ namespace ns::ui {
 
         void onEvent(const sf::Event& event);
         void render() override;
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     private:
         auto transformPosition(const sf::Vector2f& position) const -> sf::Vector2f;
         auto getWidgetUnder(const sf::Vector2f& position) const -> Widget*;
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         std::vector<std::unique_ptr<Widget>> m_widgets;
         Widget* m_hovered_widget = nullptr;
+        std::vector<Widget*> m_touched_widgets;
 
         sf::View m_view;
         sf::RenderTexture m_render_texture;
