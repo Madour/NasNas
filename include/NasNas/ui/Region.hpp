@@ -9,6 +9,7 @@
 
 namespace ns::ui {
     struct Region {
+        virtual ~Region() = default;
         virtual inline auto getBounds() const -> sf::FloatRect = 0;
         virtual inline auto contains(const sf::Vector2f& pos) const -> bool = 0;
     };
