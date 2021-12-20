@@ -13,8 +13,10 @@ class Game : public ns::App {
     sf::Music music;
     sf::CircleShape cursor;
 
-    sf::Text btn_landscape;
-    sf::Text btn_portrait;
+    ns::ui::GuiRoot m_gui;
+
+    sf::RectangleShape btn_bg;
+    sf::RectangleShape btn_bg_focused;
 
 public:
     Game() : ns::App("NasNas android !", {1280, 720}) {
@@ -25,6 +27,7 @@ public:
         auto& scene = createScene("main");
         auto& cam = createCamera("main", 0);
         cam.lookAt(scene);
+        m_gui.setCamera(cam);
 
         music.openFromFile("canary.wav");
 
@@ -50,27 +53,57 @@ public:
 
         cursor.setRadius(35.f);
         cursor.setOrigin(cursor.getRadius(), cursor.getRadius());
-        cursor.setFillColor({255, 255, 255, 180});
+        cursor.setFillColor({180, 180, 180, 180});
 
-        btn_landscape.setFont(ns::Arial::getFont());
-        btn_landscape.setString("Landscape");
-        btn_landscape.setCharacterSize(50);
-        btn_landscape.setStyle(sf::Text::Bold);
-        btn_landscape.setPosition(100, 300);
+        btn_bg.setSize({300, 150});
+        btn_bg.setOrigin(150, 75);
+        btn_bg.setFillColor({250, 190, 0});
 
-        btn_portrait.setFont(ns::Arial::getFont());
-        btn_portrait.setString("Portrait");
-        btn_portrait.setCharacterSize(50);
-        btn_portrait.setStyle(sf::Text::Bold);
-        btn_portrait.setPosition(100, 600);
+        btn_bg_focused.setSize({300, 150});
+        btn_bg_focused.setOrigin(150, 75);
+        btn_bg_focused.setFillColor({255, 238, 46});
+
+        ns::ui::Button::Style btn_style;
+        btn_style.padding = {25, 25, 25, 25};
+        btn_style.drawable = &btn_bg;
+        btn_style.drawable_focused = &btn_bg_focused;
+        btn_style.region = new ns::ui::RectangleRegion(300, 150);
+
+        auto btn_text = sf::Text("", ns::Arial::getFont());
+        btn_text.setCharacterSize(32);
+        btn_text.setFillColor(sf::Color::Black);
+
+        auto& btn_landscape = m_gui.addWidget<ns::ui::Button>();
+        btn_landscape.style = btn_style;
+        btn_landscape.text = btn_text;
+        btn_landscape.text.setString("Landscape");
+        btn_landscape.setTextAlign(ns::ui::TextAlign::Left);
+        btn_landscape.setPosition(300, 150);
+        btn_landscape.setCallback(ns::ui::ClickCallback::onTouchEnded, [](auto* w) { ns::android::setScreenOrientation(ns::android::ScreenOrientation::Landscape); });
+
+        auto& btn_portrait = m_gui.addWidget<ns::ui::Button>();
+        btn_portrait.style = btn_style;
+        btn_portrait.text = btn_text;
+        btn_portrait.text.setString("Portrait");
+        btn_portrait.setTextAlign(ns::ui::TextAlign::Right);
+        btn_portrait.setPosition(300, 350);
+        btn_portrait.setCallback(ns::ui::ClickCallback::onTouchEnded, [](auto* w) { ns::android::setScreenOrientation(ns::android::ScreenOrientation::Portrait); });
+
+        auto& btn_play_audio = m_gui.addWidget<ns::ui::Button>();
+        btn_play_audio.style = btn_style;
+        btn_play_audio.text = btn_text;
+        btn_play_audio.text.setString("Play audio");
+        btn_play_audio.setTextAlign(ns::ui::TextAlign::Center);
+        btn_play_audio.setPosition(300, 550);
+        btn_play_audio.setCallback(ns::ui::ClickCallback::onTouchEnded, [&](auto* w) { music.stop(); music.play(); });
 
         scene.getDefaultLayer().add(tilemap.getTileLayer("bg"));
         scene.getDefaultLayer().add(logo);
+        scene.getDefaultLayer().add(m_gui);
         scene.getDefaultLayer().add(cursor);
-        scene.getDefaultLayer().add(btn_landscape);
-        scene.getDefaultLayer().add(btn_portrait);
 
-        ns_LOG("TEST LOGCAT so cool", sf::Vector2f(52, 120));
+
+        ns_LOG("Test printing to logcat.", "Run `adb logcat | grep ns_LOG` to see output !");
 
         addDebugText<sf::Vector2u>("window size", [&]{ return getWindow().getSize(); }, {10, 10});
         addDebugText<sf::Vector2f>("sf::Touch 0", [&]{ return getTouchPosition(0); }, {10, 50});
@@ -79,27 +112,24 @@ public:
     }
 
     void onEvent(const sf::Event& event) override {
+        static bool music_paused = false;
+        m_gui.onEvent(event);
         if (event.type == sf::Event::Closed) {
             getWindow().close();
         }
-        else if (event.type == sf::Event::MouseLeft)
+        else if (event.type == sf::Event::MouseLeft) {
+            music.pause();
+            music_paused = true;
             sleep();
-        else if (event.type == sf::Event::MouseEntered)
+        }
+        else if (event.type == sf::Event::MouseEntered) {
+            if (music_paused) music.play();
             awake();
+        }
 
         else if (event.type == sf::Event::TouchBegan) {
-            ns_LOG("TouchEvent : finger =", event.touch.finger, " ; position = (", event.touch.x, ",", event.touch.y);
-            ns::android::vibrate(100);
-            music.stop();
-            music.play();
-            auto touch_pos = getTouchPosition(0, getCamera("main"));
-            if (btn_landscape.getGlobalBounds().contains(touch_pos)) {
-                ns::android::setScreenOrientation(ns::android::Landscape);
-            }
-            if (btn_portrait.getGlobalBounds().contains(touch_pos)) {
-                ns::android::setScreenOrientation(ns::android::Portrait);
-            }
-
+            ns_LOG("TouchEvent : finger =", event.touch.finger, " ; position = (", event.touch.x, ",", event.touch.y, ")");
+            ns::android::vibrate(75);
         }
     }
 
