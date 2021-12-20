@@ -6,14 +6,14 @@
 
 
 class Game : public ns::App {
-    ns::Tween tween;
-    sf::Texture logo_tex;
-    sf::Sprite logo;
-    ns::tm::TiledMap tilemap;
     sf::Music music;
-    sf::CircleShape cursor;
+    ns::tm::TiledMap tilemap;
 
-    ns::ui::GuiRoot m_gui;
+    sf::CircleShape cursor;
+    sf::Sprite logo;
+    ns::Tween tween;
+
+    ns::ui::GuiRoot gui;
 
     sf::RectangleShape btn_bg;
     sf::RectangleShape btn_bg_focused;
@@ -27,16 +27,15 @@ public:
         auto& scene = createScene("main");
         auto& cam = createCamera("main", 0);
         cam.lookAt(scene);
-        m_gui.setCamera(cam);
+        gui.setCamera(cam);
 
         music.openFromFile("canary.wav");
 
         tilemap.loadFromFile("simple_map.tmx");
         tilemap.getTileLayer("bg").scale(4, 4);
 
-        logo_tex.loadFromFile("image.png");
-        logo.setTexture(logo_tex);
-        logo.setOrigin(logo_tex.getSize().x/2.f, logo_tex.getSize().y);
+        logo.setTexture(ns::Res::getTexture("sfml_logo.png"));
+        logo.setOrigin(logo.getGlobalBounds().width/2.f, logo.getGlobalBounds().height);
 
         auto& view_size = ns::Settings::getConfig().getViewSize();
         auto tween_move_logo = [&](float val) {
@@ -53,7 +52,7 @@ public:
 
         cursor.setRadius(35.f);
         cursor.setOrigin(cursor.getRadius(), cursor.getRadius());
-        cursor.setFillColor({180, 180, 180, 180});
+        cursor.setFillColor({220, 220, 220, 180});
 
         btn_bg.setSize({300, 150});
         btn_bg.setOrigin(150, 75);
@@ -64,7 +63,7 @@ public:
         btn_bg_focused.setFillColor({255, 238, 46});
 
         ns::ui::Button::Style btn_style;
-        btn_style.padding = {25, 25, 25, 25};
+        btn_style.padding = {30, 25, 30, 25};
         btn_style.drawable = &btn_bg;
         btn_style.drawable_focused = &btn_bg_focused;
         btn_style.region = new ns::ui::RectangleRegion(300, 150);
@@ -73,33 +72,33 @@ public:
         btn_text.setCharacterSize(32);
         btn_text.setFillColor(sf::Color::Black);
 
-        auto& btn_landscape = m_gui.addWidget<ns::ui::Button>();
+        auto& btn_landscape = gui.addWidget<ns::ui::Button>();
         btn_landscape.style = btn_style;
         btn_landscape.text = btn_text;
         btn_landscape.text.setString("Landscape");
         btn_landscape.setTextAlign(ns::ui::TextAlign::Left);
-        btn_landscape.setPosition(300, 150);
+        btn_landscape.setPosition(220, 150);
         btn_landscape.setCallback(ns::ui::ClickCallback::onTouchEnded, [](auto* w) { ns::android::setScreenOrientation(ns::android::ScreenOrientation::Landscape); });
 
-        auto& btn_portrait = m_gui.addWidget<ns::ui::Button>();
+        auto& btn_portrait = gui.addWidget<ns::ui::Button>();
         btn_portrait.style = btn_style;
         btn_portrait.text = btn_text;
         btn_portrait.text.setString("Portrait");
-        btn_portrait.setTextAlign(ns::ui::TextAlign::Right);
-        btn_portrait.setPosition(300, 350);
+        btn_portrait.setTextAlign(ns::ui::TextAlign::Center);
+        btn_portrait.setPosition(220, 350);
         btn_portrait.setCallback(ns::ui::ClickCallback::onTouchEnded, [](auto* w) { ns::android::setScreenOrientation(ns::android::ScreenOrientation::Portrait); });
 
-        auto& btn_play_audio = m_gui.addWidget<ns::ui::Button>();
+        auto& btn_play_audio = gui.addWidget<ns::ui::Button>();
         btn_play_audio.style = btn_style;
         btn_play_audio.text = btn_text;
         btn_play_audio.text.setString("Play audio");
-        btn_play_audio.setTextAlign(ns::ui::TextAlign::Center);
-        btn_play_audio.setPosition(300, 550);
+        btn_play_audio.setTextAlign(ns::ui::TextAlign::Right);
+        btn_play_audio.setPosition(220, 550);
         btn_play_audio.setCallback(ns::ui::ClickCallback::onTouchBegan, [&](auto* w) { music.stop(); music.play(); });
 
         scene.getDefaultLayer().add(tilemap.getTileLayer("bg"));
         scene.getDefaultLayer().add(logo);
-        scene.getDefaultLayer().add(m_gui);
+        scene.getDefaultLayer().add(gui);
         scene.getDefaultLayer().add(cursor);
 
 
@@ -113,7 +112,7 @@ public:
 
     void onEvent(const sf::Event& event) override {
         static bool music_paused = false;
-        m_gui.onEvent(event);
+        gui.onEvent(event);
         if (event.type == sf::Event::Closed) {
             getWindow().close();
         }
