@@ -4,10 +4,13 @@
 
 #pragma once
 
+#include <cmath>
+
+#include <SFML/Audio.hpp>
+
 #include <NasNas/Core.hpp>
 #include <NasNas/Reslib.hpp>
 #include <NasNas/Ecs.hpp>
-#include <cmath>
 
 class Player : public ns::EntityObject, public sf::Drawable {
 public:
@@ -27,5 +30,10 @@ private:
     bool m_double_jump = false;
     bool m_in_air = false;
     bool m_must_land = false;
+
+    sf::SoundBuffer m_jump_sound_buffer;
+    sf::Sound m_jump_sound;
+    sf::SoundBuffer m_walk_sound_buffer;
+    sf::Sound m_walk_sound;
 };
 

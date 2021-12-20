@@ -5,6 +5,15 @@
 #include "Player.hpp"
 
 Player::Player() {
+    // load sound buffer
+    m_jump_sound_buffer.loadFromFile("assets/sfx/jump.ogg");
+    m_jump_sound.setBuffer(m_jump_sound_buffer);
+
+    m_walk_sound_buffer.loadFromFile("assets/sfx/footsteps.ogg");
+    m_walk_sound.setBuffer(m_walk_sound_buffer);
+    m_walk_sound.setVolume(20);
+    m_walk_sound.setLoop(true);
+
     add<ns::ecs::Transform>();
 
     // create Player spritesheet and set its animations
@@ -42,9 +51,10 @@ Player::Player() {
 }
 
 void Player::jump() {
-    if (!m_double_jump)
+    if (!m_double_jump) {
         get<ns::ecs::Physics>().linear_velocity.y = -4.f;
-    auto& state = get<ns::ecs::Sprite>().getAnimState();
+        m_jump_sound.play();
+    }
     m_double_jump = m_in_air ? true : false;
 }
 
@@ -72,6 +82,14 @@ void Player::update() {
     auto& velocity = get<ns::ecs::Physics>().linear_velocity;
     auto& sprite = get<ns::ecs::Sprite>();
     auto& inputs = get<ns::ecs::Inputs>();
+
+    if (std::abs(velocity.x) > 0.5f && !m_in_air) {
+        if (m_walk_sound.getStatus() != sf::Sound::Status::Playing)
+            m_walk_sound.play();
+    }
+    else
+        m_walk_sound.stop();
+
     if (std::abs(velocity.y) <= 0.1f && sprite.getAnimState() != "jump" && sprite.getAnimState() != "air_roll") {
         m_in_air = false;
         if (sprite.getAnimState() == "fall" && (m_double_jump || m_must_land)) {
