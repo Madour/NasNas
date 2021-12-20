@@ -13,17 +13,21 @@
 namespace ns::ui {
     namespace internal {
         template <typename T>
-        struct shared_ptr : std::shared_ptr<T> {
+        struct shared_ptr : private std::shared_ptr<T> {
             shared_ptr() = default;
 
             shared_ptr(T* ptr) {
                 this->reset(ptr);
             }
 
-            auto operator=(T* ptr) -> shared_ptr<T> {
+            auto operator=(T* ptr) -> shared_ptr<T>& {
                 this->reset(ptr);
-                return this;
+                return *this;
             }
+
+            using std::shared_ptr<T>::operator bool;
+            using std::shared_ptr<T>::operator->;
+            using std::shared_ptr<T>::operator*;
         };
     }
 
