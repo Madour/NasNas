@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    := NasNas-example
 
-LOCAL_SRC_FILES := main.cpp
+LOCAL_SRC_FILES := main.cpp Game.cpp Player.cpp
 
 LOCAL_C_INCLUDES += ${LOCAL_PATH}/include
 
