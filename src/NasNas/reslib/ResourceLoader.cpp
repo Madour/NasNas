@@ -70,7 +70,7 @@ void Dir::load(const std::string& path, bool autoload) {
     for (int i = 0; i < JNI.env()->GetArrayLength(array_files); ++i) {
         auto object_file_name = static_cast<jstring>(JNI.env()->GetObjectArrayElement(array_files, i));
         auto file_name = std::string(JNI.env()->GetStringUTFChars(object_file_name, nullptr));
-        auto file_path = path + "/" + file_name;
+        auto file_path = (path.empty() ? "" : path + "/") + file_name;
         auto jstring_file_path = JNI.env()->NewStringUTF(file_path.c_str());
         auto file_is_folder = JNI.env()->GetArrayLength(JNI.get<content::res::AssetManager>(object_asset_manager).list(jstring_file_path)) > 0;
         if (file_is_folder) {
