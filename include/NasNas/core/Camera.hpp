@@ -7,7 +7,6 @@
 
 #include <memory>
 #include <optional>
-#include <variant>
 
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -18,11 +17,10 @@
 #include <NasNas/core/data/ShaderHolder.hpp>
 
 namespace ns {
-
-    class App;
     class Scene;
 
     class Camera : public sf::View, public ShaderHolder {
+        friend class App;
     public:
         /**
          * \brief Construct a Camera object
@@ -243,8 +241,6 @@ namespace ns {
         void update();
 
     private:
-        friend App;
-
         std::string m_name;                 ///< Camera name
         int m_render_order;                 ///< Camera render order
         bool m_visible;                     ///< Is the Camera content visible ?

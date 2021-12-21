@@ -5,21 +5,31 @@
 
 #pragma once
 
-#include <list>
-#include <stack>
+
 #include <array>
+#include <functional>
+#include <list>
+#include <memory>
+#include <stack>
+#include <string>
+#include <type_traits>
+#include <vector>
 
-#include "NasNas/core/data/Config.hpp"
-#include "NasNas/core/data/ShaderHolder.hpp"
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
-#include "NasNas/core/AppState.hpp"
-#include "NasNas/core/Scene.hpp"
-#include "NasNas/core/Layer.hpp"
-#include "NasNas/core/Camera.hpp"
-#include "NasNas/core/Window.hpp"
-#include "NasNas/core/Transition.hpp"
-#include "NasNas/core/graphics/SpriteBatch.hpp"
-#include "NasNas/core/Debug.hpp"
+#include <NasNas/core/data/Config.hpp>
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/core/data/ShaderHolder.hpp>
+
+#include <NasNas/core/AppState.hpp>
+#include <NasNas/core/Camera.hpp>
+#include <NasNas/core/Debug.hpp>
+#include <NasNas/core/Scene.hpp>
+#include <NasNas/core/Window.hpp>
 
 namespace ns {
 

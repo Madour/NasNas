@@ -5,12 +5,13 @@
 
 #pragma once
 
-#include <iostream>
-#include <sstream>
 #include <functional>
-#include <SFML/Graphics.hpp>
-#include <utility>
-#include "NasNas/core/data/Arial.hpp"
+#include <sstream>
+#include <string>
+
+#include <SFML/Graphics/Text.hpp>
+
+#include <NasNas/core/data/Arial.hpp>
 
 namespace ns {
 

@@ -2,7 +2,9 @@
 * Created by Modar Nasser on 26/08/2020.
 **/
 
-#include "NasNas/core/data/ShaderHolder.hpp"
+#include <NasNas/core/data/ShaderHolder.hpp>
+
+#include <SFML/Graphics/Shader.hpp>
 
 using namespace ns;
 

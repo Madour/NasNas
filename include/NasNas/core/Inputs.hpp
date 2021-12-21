@@ -2,12 +2,13 @@
 
 #pragma once
 
+#include <string>
 #include <vector>
 #include <unordered_map>
 
-#include <SFML/Window/Event.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
-#include "NasNas/core/data/Singleton.hpp"
+#include <NasNas/core/data/Singleton.hpp>
 
 namespace ns {
     class App;
