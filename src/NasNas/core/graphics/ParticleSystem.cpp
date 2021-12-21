@@ -1,7 +1,8 @@
 // Created by Modar Nasser on 14/02/2021.
 
-#include "NasNas/core/graphics/ParticleSystem.hpp"
-#include "NasNas/core/data/Config.hpp"
+#include <NasNas/core/graphics/ParticleSystem.hpp>
+
+#include <NasNas/core/data/Config.hpp>
 
 using namespace ns;
 

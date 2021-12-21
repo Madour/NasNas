@@ -1,6 +1,6 @@
 // Created by Modar Nasser on 20/04/2021.
 
-#include "NasNas/core/graphics/Sprite.hpp"
+#include <NasNas/core/graphics/Sprite.hpp>
 
 using namespace ns;
 

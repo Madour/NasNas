@@ -5,16 +5,14 @@
 #include <vector>
 
 namespace ns {
-    class App;
-
     class Renderable {
-        friend App;
-    protected:
+        friend class App;
+    public:
         Renderable();
         virtual ~Renderable();
-        virtual void render() = 0;
     private:
         static std::vector<Renderable*> list;
+        virtual void render() = 0;
     };
 }
 

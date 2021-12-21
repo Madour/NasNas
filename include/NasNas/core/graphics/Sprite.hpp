@@ -2,9 +2,14 @@
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/data/Rect.hpp"
-#include "NasNas/core/graphics/Transformable.hpp"
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Vertex.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/core/graphics/Transformable.hpp>
 
 namespace ns {
 class Sprite : public sf::Drawable, public ns::Transformable {

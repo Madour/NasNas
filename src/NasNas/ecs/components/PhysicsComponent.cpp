@@ -5,6 +5,7 @@
 
 #include <NasNas/ecs/components/PhysicsComponent.hpp>
 
+#include <algorithm>
 #include <iostream>
 
 #include <NasNas/core/data/Maths.hpp>

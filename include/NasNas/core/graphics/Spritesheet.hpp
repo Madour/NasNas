@@ -5,10 +5,14 @@
 
 #pragma once
 
+#include <string>
 #include <unordered_map>
-#include <variant>
-#include <SFML/Graphics.hpp>
-#include "Anim.hpp"
+#include <vector>
+
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/graphics/Anim.hpp>
 
 namespace ns {
 

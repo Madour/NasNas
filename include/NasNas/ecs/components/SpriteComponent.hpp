@@ -4,11 +4,12 @@
 
 #include <string>
 
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include <NasNas/core/graphics/Anim.hpp>
 #include <NasNas/core/graphics/Spritesheet.hpp>
-
 #include <NasNas/ecs/components/GraphicsComponent.hpp>
 
 namespace ns::ecs {

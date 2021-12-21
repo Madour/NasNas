@@ -4,11 +4,20 @@
 
 #pragma once
 
-#include <string>
 #include <list>
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/Renderable.hpp"
-#include "NasNas/core/graphics/Sprite.hpp"
+#include <memory>
+#include <vector>
+
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include <SFML/Graphics/Vertex.hpp>
+#include <SFML/Graphics/VertexBuffer.hpp>
+
+#include <NasNas/core/graphics/Renderable.hpp>
+#include <NasNas/core/graphics/Sprite.hpp>
 
 namespace ns {
 

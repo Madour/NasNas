@@ -8,6 +8,8 @@
 #include "NasNas/tilemapping/ImageLayer.hpp"
 #include "NasNas/tilemapping/GroupLayer.hpp"
 
+#include <NasNas/core/data/Maths.hpp>
+
 using namespace ns;
 using namespace ns::tm;
 

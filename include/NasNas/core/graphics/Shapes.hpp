@@ -5,9 +5,14 @@
 #pragma once
 
 #include <optional>
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/data/Maths.hpp"
-#include "NasNas/core/data/Rect.hpp"
+
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Shape.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
 
 namespace ns {
     class EllipseShape : public sf::Shape {
@@ -28,7 +33,7 @@ namespace ns {
         auto getPoint(std::size_t index) const -> sf::Vector2f override;
 
     private :
-        std::size_t m_point_cout = 30;
+        std::size_t m_point_count = 30;
         sf::Vector2f m_radius;
     };
 

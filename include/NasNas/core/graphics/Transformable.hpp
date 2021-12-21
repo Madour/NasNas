@@ -5,11 +5,10 @@
 #include <SFML/Graphics/Transformable.hpp>
 
 namespace ns {
-    class SpriteBatch;
-    class Sprite;
-    class Scene;
-
     class Transformable : sf::Transformable {
+        friend class SpriteBatch;
+        friend class Sprite;
+        friend class Scene;
     public:
         void setPosition(float x, float y);
         void setPosition(const sf::Vector2f& position);
@@ -38,11 +37,7 @@ namespace ns {
         using sf::Transformable::getInverseTransform;
 
     private:
-        friend SpriteBatch;
-        friend Sprite;
-        friend Scene;
         mutable bool changed = true;
-
     };
 }
 
