@@ -2,7 +2,7 @@
 * Created by Modar Nasser on 26/07/2020.
 **/
 
-#include "NasNas/ecs/components/ColliderComponent.hpp"
+#include <NasNas/ecs/components/ColliderComponent.hpp>
 
 using namespace ns::ecs;
 

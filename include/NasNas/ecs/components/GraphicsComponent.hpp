@@ -2,7 +2,8 @@
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Transform.hpp>
 
 #include <NasNas/core/data/Rect.hpp>
 

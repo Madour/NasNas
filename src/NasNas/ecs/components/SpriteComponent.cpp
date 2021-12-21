@@ -3,8 +3,7 @@
 **/
 
 
-#include "NasNas/ecs/components/SpriteComponent.hpp"
-#include "NasNas/ecs/EntityObject.hpp"
+#include <NasNas/ecs/components/SpriteComponent.hpp>
 
 using namespace ns;
 using namespace ns::ecs;

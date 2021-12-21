@@ -2,6 +2,10 @@
 
 #pragma once
 
+#include <string>
+
+#include <SFML/System/Vector2.hpp>
+
 #include <NasNas/core/graphics/Anim.hpp>
 #include <NasNas/core/graphics/Spritesheet.hpp>
 

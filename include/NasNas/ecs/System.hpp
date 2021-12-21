@@ -3,6 +3,7 @@
 #pragma once
 
 #include <functional>
+#include <utility>
 
 namespace ns::ecs {
     namespace detail {

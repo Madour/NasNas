@@ -8,6 +8,7 @@
 
 namespace ns::ecs  {
     struct ColliderComponentInterface {
+        virtual ~ColliderComponentInterface() = default;
         bool dynamic = false;
         virtual auto getBounds() const -> ns::FloatRect = 0;
     };

@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <SFML/System.hpp>
+#include <SFML/System/Vector2.hpp>
 
 namespace ns::ecs {
 

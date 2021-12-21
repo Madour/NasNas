@@ -2,10 +2,12 @@
 * Created by Modar Nasser on 15/06/2020.
 **/
 
+
+#include <NasNas/ecs/components/PhysicsComponent.hpp>
+
 #include <iostream>
 
-#include "NasNas/ecs/components/PhysicsComponent.hpp"
-#include "NasNas/core/data/Maths.hpp"
+#include <NasNas/core/data/Maths.hpp>
 
 using namespace ns;
 using namespace ns::ecs;

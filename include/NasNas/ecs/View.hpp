@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include <array>
 #include <algorithm>
+#include <array>
 #include <functional>
+#include <tuple>
 
 #include <NasNas/ecs/Storage.hpp>
 

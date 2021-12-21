@@ -2,11 +2,15 @@
 
 #pragma once
 
-#include <NasNas/core/data/Rect.hpp>
-#include <NasNas/core/graphics/Shapes.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/ConvexShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
-#include <NasNas/ecs/components/GraphicsComponent.hpp>
-#include <NasNas/ecs/EntityObject.hpp>
+//#include <NasNas/core/data/Rect.hpp>
+//#include <NasNas/core/graphics/Shapes.hpp>
+
+//#include <NasNas/ecs/components/GraphicsComponent.hpp>
+//#include <NasNas/ecs/EntityObject.hpp>
 
 namespace ns::ecs {
 

@@ -4,6 +4,7 @@
 
 #include <memory>
 
+#include <NasNas/ecs/Storage.hpp>
 #include <NasNas/ecs/Registry.hpp>
 
 namespace ns {

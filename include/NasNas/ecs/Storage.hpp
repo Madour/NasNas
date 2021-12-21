@@ -3,8 +3,10 @@
 #pragma once
 
 #include <map>
-#include <vector>
+#include <stdexcept>
+#include <string>
 #include <type_traits>
+#include <vector>
 
 namespace ns::ecs {
     using Entity = unsigned long;
@@ -62,7 +64,6 @@ namespace ns::ecs::detail {
     private:
         std::map<T, size_t> m_sparse; // map[elmnt] = index
         std::vector<T> m_packed;      // vec[index] = elmnt
-
     };
 
     template <typename TEntity, typename...>

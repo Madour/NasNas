@@ -1,7 +1,8 @@
 // Created by Modar Nasser on 17/08/2021.
 
-#include "NasNas/core/Inputs.hpp"
-#include "NasNas/ecs/components/InputsComponent.hpp"
+#include <NasNas/ecs/components/InputsComponent.hpp>
+
+#include <NasNas/core/Inputs.hpp>
 
 using namespace ns;
 using namespace ns::ecs;
