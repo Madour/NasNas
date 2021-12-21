@@ -2,12 +2,14 @@
 * Created by Modar Nasser on 23/04/2020.
 **/
 
+#include <NasNas/reslib/ResourceLoader.hpp>
 
-#include <utility>
-#include "NasNas/reslib/ResourceLoader.hpp"
-#include "NasNas/core/data/Logger.hpp"
-#ifdef __ANDROID__
-#include "NasNas/core/android/Activity.hpp"
+#include <iostream>
+#ifndef __ANDROID__
+#include <filesystem>
+#else
+#include <NasNas/core/android/Activity.hpp>
+#include <NasNas/core/data/Utils.hpp>
 #include "../core/android/JniManager.hpp"
 #include "../core/android/JavaClasses.hpp"
 #endif

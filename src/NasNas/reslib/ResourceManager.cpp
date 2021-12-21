@@ -3,8 +3,12 @@
 **/
 
 
-#include "NasNas/reslib/ResourceManager.hpp"
-#include "NasNas/core/data/Arial.hpp"
+#include <NasNas/reslib/ResourceManager.hpp>
+
+#include <iostream>
+#ifndef __ANDROID__
+#include <filesystem>
+#endif
 
 using namespace ns;
 

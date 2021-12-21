@@ -5,7 +5,13 @@
 
 #pragma once
 
-#include "NasNas/reslib/ResourceLoader.hpp"
+#include <string>
+#include <utility>
+
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Texture.hpp>
+
+#include <NasNas/reslib/ResourceLoader.hpp>
 
 namespace ns {
 

@@ -5,13 +5,13 @@
 
 #pragma once
 
+#include <memory>
 #include <set>
-#include <iostream>
-#ifndef __ANDROID__
-#include <filesystem>
-#endif
+#include <string>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
+
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 namespace ns {
 
