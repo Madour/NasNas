@@ -2,9 +2,12 @@
 
 #pragma once
 
-#include <utility>
-#include <SFML/Graphics.hpp>
-#include "NasNas/tween/Easing.hpp"
+#include <functional>
+#include <vector>
+
+#include <SFML/System/Clock.hpp>
+
+ #include <NasNas/tween/Easing.hpp>
 
 namespace ns {
 

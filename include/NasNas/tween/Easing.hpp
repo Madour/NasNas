@@ -2,8 +2,8 @@
 
 #pragma once
 
+#include <array>
 #include <functional>
-#include "NasNas/core/data/Maths.hpp"
 
 namespace ns {
 

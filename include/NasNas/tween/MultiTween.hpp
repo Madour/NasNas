@@ -3,8 +3,11 @@
 #pragma once
 
 #include <array>
-#include "NasNas/tween/Tween.hpp"
-#include "NasNas/tween/Easing.hpp"
+#include <functional>
+#include <type_traits>
+#include <vector>
+
+#include <NasNas/tween/Easing.hpp>
 
 namespace ns {
     template <unsigned N, typename = std::enable_if_t<N != 0 && N != 1>>

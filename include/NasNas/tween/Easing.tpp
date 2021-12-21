@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <NasNas/core/data/Maths.hpp>
+
 namespace ns {
     //// Polynomial easing functions //////////////////////////////////
     template <unsigned Degree>

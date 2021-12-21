@@ -1,9 +1,6 @@
 // Created by Modar Nasser on 18/07/2021.
 
-#include "NasNas/core/data/Maths.hpp"
-
-#include "NasNas/tween/Easing.hpp"
-
+#include <NasNas/tween/Easing.hpp>
 
 auto ns::easing::linear(float t) -> float {
     return t;
