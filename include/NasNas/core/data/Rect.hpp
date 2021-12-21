@@ -5,8 +5,7 @@
 
 #pragma once
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 namespace ns {
     /**

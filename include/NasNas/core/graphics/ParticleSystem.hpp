@@ -4,9 +4,16 @@
 
 #include <vector>
 #include <memory>
-#include <SFML/Graphics.hpp>
 
-#include "NasNas/core/graphics/SpriteBatch.hpp"
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Texture.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/core/graphics/Sprite.hpp>
+#include <NasNas/core/graphics/SpriteBatch.hpp>
 
 namespace ns {
     class ParticleSystem;

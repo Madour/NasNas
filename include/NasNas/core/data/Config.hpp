@@ -5,10 +5,15 @@
 
 #pragma once
 
+#include <string>
 #include <unordered_map>
-#include <SFML/Window.hpp>
-#include "NasNas/core/data/Utils.hpp"
-#include "NasNas/core/AppAccess.hpp"
+
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/VideoMode.hpp>
+#include <SFML/Window/WindowStyle.hpp>
+
+#include <NasNas/core/data/Utils.hpp>
+#include <NasNas/core/AppAccess.hpp>
 
 namespace ns {
     struct AppConfig {

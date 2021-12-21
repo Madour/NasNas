@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include <SFML/Window/Event.hpp>
+
 #include <NasNas/core/graphics/BitmapText.hpp>
 
 namespace ns::ui {

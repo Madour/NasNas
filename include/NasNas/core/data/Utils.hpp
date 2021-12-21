@@ -4,9 +4,12 @@
 
 #pragma once
 
-#include <string>
+#include <algorithm>
 #include <functional>
-#include "NasNas/core/data/Rect.hpp"
+#include <initializer_list>
+#include <string>
+
+#include <NasNas/core/data/Rect.hpp>
 
 namespace ns::utils {
 

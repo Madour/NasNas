@@ -2,13 +2,14 @@
 
 #pragma once
 
-#include <vector>
+#include <string>
 #include <typeindex>
-#include <functional>
 #include <unordered_map>
+#include <vector>
+
+#include <jni.h>
 
 #include "JniManager.hpp"
-#include "JavaWrapperFwd.hpp"
 
 namespace ns::android {
 

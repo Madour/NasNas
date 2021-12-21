@@ -2,8 +2,10 @@
 * Created by Modar Nasser on 25/04/2020.
 **/
 
+#include <NasNas/core/graphics/Anim.hpp>
+
 #include <cmath>
-#include "NasNas/core/graphics/Anim.hpp"
+#include <iostream>
 
 using namespace ns;
 

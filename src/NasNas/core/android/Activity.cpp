@@ -1,9 +1,13 @@
 // Created by Modar Nasser on 11/09/2021.
 
 
-#include "NasNas/core/android/Activity.hpp"
-#include "JniManager.hpp"
+#include <NasNas/core/android/Activity.hpp>
+
+#include <android/window.h>
+#include <SFML/System/NativeActivity.hpp>
+
 #include "JavaClasses.hpp"
+#include "JniManager.hpp"
 
 using namespace ns;
 

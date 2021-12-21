@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <jni.h>
+
 #include "JavaWrapper.hpp"
 
 namespace ns::android {

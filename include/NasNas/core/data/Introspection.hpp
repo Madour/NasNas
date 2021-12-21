@@ -2,7 +2,9 @@
 
 #pragma once
 
-#include "NasNas/core/data/Rect.hpp"
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
 
 namespace introspect {
     using namespace std;

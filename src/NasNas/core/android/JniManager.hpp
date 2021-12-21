@@ -2,15 +2,12 @@
 
 #pragma once
 
-#include <unordered_map>
 #include <string>
-#include <vector>
 #include <typeindex>
+#include <unordered_map>
+#include <vector>
 
 #include <jni.h>
-#include <android/native_activity.h>
-#include <android/window.h>
-#include <SFML/System/NativeActivity.hpp>
 
 #include "JavaWrapperFwd.hpp"
 

@@ -5,11 +5,17 @@
 
 #pragma once
 
+#include <memory>
 #include <optional>
 #include <variant>
-#include <memory>
-#include "NasNas/core/data/Rect.hpp"
-#include "NasNas/core/data/ShaderHolder.hpp"
+
+#include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include <SFML/Graphics/View.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/core/data/ShaderHolder.hpp>
 
 namespace ns {
 

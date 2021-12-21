@@ -5,6 +5,8 @@
 
 #include <NasNas/ecs/components/SpriteComponent.hpp>
 
+#include <iostream>
+
 using namespace ns;
 using namespace ns::ecs;
 

@@ -5,7 +5,9 @@
 
 #pragma once
 
-#include "NasNas/core/Camera.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include <NasNas/core/Camera.hpp>
 
 namespace ns {
 

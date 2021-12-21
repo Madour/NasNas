@@ -7,12 +7,17 @@
 
 #include <iostream>
 #include <string>
-#include <filesystem>
+
 #ifdef __ANDROID__
 #include <android/log.h>
 #endif
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/data/Utils.hpp"
+
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Vector3.hpp>
+
+#include <NasNas/core/data/Utils.hpp>
 
 /**
  * \brief Logs a variable number of variable to the console.

@@ -6,6 +6,7 @@
 #pragma once
 
 #include <functional>
+#include <iostream>
 #include <limits>
 #include <memory>
 #include <unordered_map>

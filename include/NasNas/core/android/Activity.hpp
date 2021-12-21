@@ -8,8 +8,6 @@
 
 #include <string>
 #include <android/native_activity.h>
-#include <android/asset_manager.h>
-#include <SFML/System/NativeActivity.hpp>
 
 namespace ns::android {
 

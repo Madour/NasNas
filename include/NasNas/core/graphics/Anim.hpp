@@ -5,9 +5,14 @@
 
 #pragma once
 
+#include <string>
 #include <vector>
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/data/Rect.hpp"
+
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/System/Clock.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
 
 namespace ns {
 

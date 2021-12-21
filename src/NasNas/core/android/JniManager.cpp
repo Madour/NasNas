@@ -18,10 +18,12 @@
  *
  */
 
-#include "NasNas/core/android/Activity.hpp"
 #include "JniManager.hpp"
-#include "JavaWrapper.hpp"
+
+#include <NasNas/core/android/Activity.hpp>
+
 #include "JavaClasses.hpp"
+#include "JavaWrapper.hpp"
 
 using namespace ns;
 using namespace ns::android;

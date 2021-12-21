@@ -6,7 +6,8 @@
 #pragma once
 
 #include <cmath>
-#include <SFML/System.hpp>
+
+#include <SFML/System/Vector2.hpp>
 
 namespace ns {
     constexpr float PI = 3.14159265359f;

@@ -6,9 +6,17 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/data/Rect.hpp"
+
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
 
 namespace ns {
 

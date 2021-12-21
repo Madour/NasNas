@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <SFML/Window/Event.hpp>
+
 namespace ns {
     struct AppStateInterface {
         virtual void onEvent(const sf::Event&) {}
