@@ -27,7 +27,7 @@ namespace ns::ecs::detail {
 
     template <typename T, typename = std::enable_if<std::is_integral_v<T>>>
     struct sparse_set {
-        ~sparse_set() = default;
+        virtual ~sparse_set() = default;
         auto data() const -> const std::vector<T>& {
             return m_packed;
         }

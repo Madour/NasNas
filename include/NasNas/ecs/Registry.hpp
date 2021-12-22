@@ -3,6 +3,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <queue>
 #include <string>
 
@@ -31,7 +32,7 @@ namespace ns::ecs::detail {
             if (it == m_entities.end())
                 return;
 
-            for (auto [id, pool] : m_pools) {
+            for (auto& [id, pool] : m_pools) {
                 pool->remove(ent);
             }
 
@@ -97,14 +98,14 @@ namespace ns::ecs::detail {
             auto comp_id = getTypeId<TComp>();
 
             if (m_pools.find(comp_id) == m_pools.end()) {
-                m_pools[comp_id] = new components_pool<TEntity, TComp>;
+                m_pools[comp_id] = std::make_unique<components_pool<TEntity, TComp>>();
             }
-            return *static_cast<components_pool<TEntity, TComp>*>(m_pools.at(comp_id));
+            return *static_cast<components_pool<TEntity, TComp>*>(m_pools.at(comp_id).get());
         }
 
         std::vector<TEntity> m_entities;
         std::queue<TEntity> m_cemetery;
-        mutable std::map<UID, sparse_set<TEntity>*> m_pools;
+        mutable std::map<UID, std::unique_ptr<sparse_set<TEntity>>> m_pools;
     };
 
 }
