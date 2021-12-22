@@ -3,6 +3,13 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Graphics/View.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include <NasNas/core/data/ShaderHolder.hpp>
 #include <NasNas/core/graphics/Renderable.hpp>

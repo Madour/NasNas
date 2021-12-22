@@ -5,6 +5,9 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include <SFML/Window/Event.hpp>
 
 #include <NasNas/core/graphics/BitmapText.hpp>

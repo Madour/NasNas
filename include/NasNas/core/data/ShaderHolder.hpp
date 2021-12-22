@@ -4,9 +4,7 @@
 
 #pragma once
 
-namespace sf {
-    class Shader;
-}
+#include <SFML/Graphics/Shader.hpp>
 
 namespace ns {
 

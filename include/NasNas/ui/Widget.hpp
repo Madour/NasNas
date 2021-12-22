@@ -6,7 +6,9 @@
 #include <unordered_map>
 
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Transformable.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include <NasNas/ui/Callbacks.hpp>
 

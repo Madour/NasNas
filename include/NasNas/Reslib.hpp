@@ -2,4 +2,4 @@
 
 #pragma once
 
-#include "NasNas/reslib/ResourceManager.hpp"
+#include <NasNas/reslib/ResourceManager.hpp>

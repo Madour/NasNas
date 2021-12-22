@@ -3,9 +3,11 @@
 #pragma once
 
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include <NasNas/core/data/Rect.hpp>
 

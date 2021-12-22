@@ -2,5 +2,6 @@
 
 #pragma once
 
-#include "NasNas/tween/Tween.hpp"
-#include "NasNas/tween/MultiTween.hpp"
+#include <NasNas/tween/Easing.hpp>
+#include <NasNas/tween/Tween.hpp>
+#include <NasNas/tween/MultiTween.hpp>

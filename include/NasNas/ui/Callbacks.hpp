@@ -2,7 +2,6 @@
 
 #pragma once
 
-
 namespace ns::ui {
     enum class MouseCallback {
         onHover,

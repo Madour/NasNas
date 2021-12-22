@@ -1,10 +1,9 @@
 // Created by Modar Nasser on 10/10/2021.
 
-#include <NasNas/core/App.hpp>
 #include <NasNas/ui/Container.hpp>
-#include <NasNas/ui/GuiRoot.hpp>
 
-#include <NasNas/core/data/Logger.hpp>
+#include <NasNas/core/App.hpp>
+#include <NasNas/ui/GuiRoot.hpp>
 
 using namespace ns;
 using namespace ns::ui;

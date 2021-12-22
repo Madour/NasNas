@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include <functional>
-
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include <NasNas/ui/Style.hpp>
 #include <NasNas/ui/Widget.hpp>

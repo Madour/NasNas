@@ -2,8 +2,14 @@
 
 #pragma once
 
-#include <NasNas/core/Camera.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/AppAccess.hpp>
 #include <NasNas/ui/Container.hpp>
+
+namespace ns {
+    class Camera;
+}
 
 namespace ns::ui {
 
