@@ -4,9 +4,12 @@
 
 #pragma once
 
-#include "NasNas/core/graphics/Shapes.hpp"
-#include "NasNas/tilemapping/Layer.hpp"
-#include "NasNas/tilemapping/Object.hpp"
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+#include <NasNas/tilemapping/Layer.hpp>
+#include <NasNas/tilemapping/Object.hpp>
 
 namespace ns::tm {
 

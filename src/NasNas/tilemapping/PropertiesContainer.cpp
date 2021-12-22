@@ -3,8 +3,10 @@
 **/
 
 
-#include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/core/data/Logger.hpp"
+#include <NasNas/tilemapping/PropertiesContainer.hpp>
+
+#include <NasNas/core/data/Logger.hpp>
+#include <NasNas/thirdparty/pugixml.hpp>
 
 using namespace ns;
 using namespace ns::tm;

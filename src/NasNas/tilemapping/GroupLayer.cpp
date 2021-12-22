@@ -1,9 +1,12 @@
 // Created by Modar Nasser on 01/07/2021.
 
-#include "NasNas/tilemapping/TileLayer.hpp"
-#include "NasNas/tilemapping/ObjectLayer.hpp"
-#include "NasNas/tilemapping/ImageLayer.hpp"
-#include "NasNas/tilemapping/GroupLayer.hpp"
+#include <NasNas/tilemapping/GroupLayer.hpp>
+
+#include <NasNas/thirdparty/pugixml.hpp>
+
+#include <NasNas/tilemapping/ImageLayer.hpp>
+#include <NasNas/tilemapping/ObjectLayer.hpp>
+#include <NasNas/tilemapping/TileLayer.hpp>
 
 using namespace ns;
 using namespace ns::tm;

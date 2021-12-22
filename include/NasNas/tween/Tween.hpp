@@ -7,7 +7,7 @@
 
 #include <SFML/System/Clock.hpp>
 
- #include <NasNas/tween/Easing.hpp>
+#include <NasNas/tween/Easing.hpp>
 
 namespace ns {
 

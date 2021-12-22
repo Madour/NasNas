@@ -1,7 +1,9 @@
 // Created by Modar Nasser on 24/06/2021.
 
-#include "NasNas/tilemapping/Tile.hpp"
-#include "NasNas/tilemapping/Tileset.hpp"
+#include <NasNas/tilemapping/Tile.hpp>
+
+#include <NasNas/tilemapping/Tileset.hpp>
+#include <NasNas/thirdparty/pugixml.hpp>
 
 using namespace ns;
 using namespace ns::tm;

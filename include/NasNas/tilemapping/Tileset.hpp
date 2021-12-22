@@ -5,14 +5,17 @@
 
 #pragma once
 
-#include <iostream>
-#include <map>
-#include <memory>
-#include <SFML/Graphics.hpp>
-#include "NasNas/thirdparty/pugixml.hpp"
-#include "NasNas/core/data/Rect.hpp"
-#include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/tilemapping/Tile.hpp"
+#include <cstdint>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/tilemapping/PropertiesContainer.hpp>
+#include <NasNas/tilemapping/Tile.hpp>
 
 namespace ns::tm {
 

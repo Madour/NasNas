@@ -12,6 +12,7 @@
 #include <string>
 #include <type_traits>
 #include <unordered_map>
+#include <vector>
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Rect.hpp>

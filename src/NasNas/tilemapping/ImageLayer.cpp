@@ -1,9 +1,14 @@
 // Created by Modar Nasser on 06/09/2021.
 
-#include "NasNas/tilemapping/ImageLayer.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
+#include <NasNas/tilemapping/ImageLayer.hpp>
+
+#include <SFML/Graphics/Sprite.hpp>
+
+#include <NasNas/thirdparty/pugixml.hpp>
+#include <NasNas/tilemapping/TiledMap.hpp>
+
 #ifdef NS_RESLIB
-#include "NasNas/reslib/ResourceManager.hpp"
+#include <NasNas/reslib/ResourceManager.hpp>
 #endif
 
 using namespace ns;

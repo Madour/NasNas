@@ -1,6 +1,6 @@
 // Created by Modar Nasser on 28/08/2021.
 
-#include "NasNas/ecs/EntityObject.hpp"
+#include <NasNas/ecs/EntityObject.hpp>
 
 using namespace ns;
 

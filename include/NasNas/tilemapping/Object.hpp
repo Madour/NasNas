@@ -2,19 +2,30 @@
 
 #pragma once
 
-#include "NasNas/core/graphics/Shapes.hpp"
-#include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/tilemapping/Tile.hpp"
+#include <cstdint>
+#include <string>
+#include <type_traits>
+#include <vector>
+
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/ConvexShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/graphics/Shapes.hpp>
+#include <NasNas/tilemapping/PropertiesContainer.hpp>
+#include <NasNas/tilemapping/Tile.hpp>
 
 namespace ns::tm {
-
-    class TiledMap;
     struct PointObject;
     struct RectangleObject;
     struct EllipseObject;
     struct PolylineObject;
     struct PolygonObject;
     struct TileObject;
+    class TiledMap;
 
     struct Object : PropertiesContainer {
         enum class Shape {

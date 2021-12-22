@@ -3,10 +3,12 @@
 **/
 
 
-#include "NasNas/core/data/Maths.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
-#include "NasNas/tilemapping/Layer.hpp"
-#include "NasNas/tilemapping/GroupLayer.hpp"
+#include <NasNas/tilemapping/Layer.hpp>
+
+#include <NasNas/core/data/Maths.hpp>
+#include <NasNas/thirdparty/pugixml.hpp>
+#include <NasNas/tilemapping/GroupLayer.hpp>
+#include <NasNas/tilemapping/TiledMap.hpp>
 
 using namespace ns;
 using namespace ns::tm;

@@ -2,7 +2,9 @@
 * Created by Modar Nasser on 22/08/2020.
 **/
 
-#include "NasNas/tilemapping/ObjectLayer.hpp"
+#include <NasNas/tilemapping/ObjectLayer.hpp>
+
+#include <NasNas/thirdparty/pugixml.hpp>
 
 using namespace ns;
 using namespace ns::tm;

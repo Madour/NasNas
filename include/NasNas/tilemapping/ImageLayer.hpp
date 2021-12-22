@@ -2,6 +2,11 @@
 
 #pragma once
 
+#include <string>
+
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Vector2.hpp>
+
 #include <NasNas/tilemapping/Layer.hpp>
 
 namespace ns::tm {

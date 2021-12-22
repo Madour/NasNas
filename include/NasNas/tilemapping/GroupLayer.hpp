@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <NasNas/core/data/Rect.hpp>
 #include <NasNas/tilemapping/Layer.hpp>
 #include <NasNas/tilemapping/LayersContainer.hpp>
 
@@ -15,6 +16,6 @@ namespace ns::tm {
 
     private:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
     };
+
 }

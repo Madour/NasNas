@@ -2,15 +2,19 @@
 * Created by Modar Nasser on 09/07/2020.
 **/
 
-#include "NasNas/core/data/Config.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
-#include "NasNas/tilemapping/TileLayer.hpp"
-#include "NasNas/tilemapping/ObjectLayer.hpp"
-#include "NasNas/tilemapping/ImageLayer.hpp"
-#include "NasNas/tilemapping/GroupLayer.hpp"
+#include <NasNas/tilemapping/TiledMap.hpp>
+
+#include <iostream>
+
+#include <NasNas/core/data/Utils.hpp>
+#include <NasNas/thirdparty/pugixml.hpp>
+#include <NasNas/tilemapping/GroupLayer.hpp>
+#include <NasNas/tilemapping/ImageLayer.hpp>
+#include <NasNas/tilemapping/ObjectLayer.hpp>
+#include <NasNas/tilemapping/TileLayer.hpp>
 
 #ifdef __ANDROID__
-#include "NasNas/core/android/Activity.hpp"
+#include <NasNas/core/android/Activity.hpp>
 #endif
 
 using namespace ns;
@@ -58,20 +62,20 @@ auto TiledMap::getTMXFilePath() const -> const std::string& {
 }
 
 void TiledMap::load(const pugi::xml_document& xml) {
-    m_xmlnode_map = xml.child("map");
-    m_gridsize.x = m_xmlnode_map.attribute("width").as_uint();
-    m_gridsize.y = m_xmlnode_map.attribute("height").as_uint();
-    m_tilesize.x = m_xmlnode_map.attribute("tilewidth").as_uint();
-    m_tilesize.y = m_xmlnode_map.attribute("tileheight").as_uint();
+    auto xmlnode_map = xml.child("map");
+    m_gridsize.x = xmlnode_map.attribute("width").as_uint();
+    m_gridsize.y = xmlnode_map.attribute("height").as_uint();
+    m_tilesize.x = xmlnode_map.attribute("tilewidth").as_uint();
+    m_tilesize.y = xmlnode_map.attribute("tileheight").as_uint();
     m_size.x = static_cast<float>(m_gridsize.x * m_tilesize.x);
     m_size.y = static_cast<float>(m_gridsize.y * m_tilesize.y);
 
-    parseProperties(m_xmlnode_map.child("properties"));
+    parseProperties(xmlnode_map.child("properties"));
 
     // parse tilesets
-    m_tilesets.reserve(std::distance(m_xmlnode_map.children("tileset").begin(), m_xmlnode_map.children("tileset").end()));
+    m_tilesets.reserve(std::distance(xmlnode_map.children("tileset").begin(), xmlnode_map.children("tileset").end()));
     m_tilesets_data.reserve(m_tilesets.capacity());
-    for (const auto& xmlnode_tileset : m_xmlnode_map.children("tileset")) {
+    for (const auto& xmlnode_tileset : xmlnode_map.children("tileset")) {
         unsigned int firstgid = xmlnode_tileset.attribute("firstgid").as_uint();
         // external tileset
         if (xmlnode_tileset.attribute("source")){
@@ -85,7 +89,7 @@ void TiledMap::load(const pugi::xml_document& xml) {
         }
     }
 
-    parseLayers(m_xmlnode_map, this);
+    parseLayers(xmlnode_map, this);
 }
 
 auto TiledMap::getSize() const -> const sf::Vector2f& {

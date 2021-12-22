@@ -5,13 +5,22 @@
 
 #pragma once
 
-#include <unordered_map>
-#include <optional>
 #include <cstdint>
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/graphics/Renderable.hpp"
-#include "NasNas/tilemapping/Layer.hpp"
-#include "NasNas/tilemapping/Tile.hpp"
+#include <map>
+#include <optional>
+#include <vector>
+#include <unordered_map>
+
+#include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/graphics/Renderable.hpp>
+#include <NasNas/tilemapping/Layer.hpp>
+#include <NasNas/tilemapping/Tile.hpp>
+#include <NasNas/tilemapping/Tileset.hpp>
 
 namespace ns::tm {
     class TiledMap;

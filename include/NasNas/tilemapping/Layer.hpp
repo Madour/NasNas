@@ -5,18 +5,23 @@
 
 #pragma once
 
-#include "NasNas/thirdparty/pugixml.hpp"
+#include <string>
 
-#include "NasNas/core/data/Rect.hpp"
-#include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/tilemapping/PropertiesContainer.hpp>
 
 namespace ns::tm {
     class TiledMap;
     class GroupLayer;
-    class LayersContainer;
 
     class Layer : public PropertiesContainer, public sf::Drawable, public sf::Transformable {
-        friend LayersContainer;
+        friend class LayersContainer;
     public:
         Layer(const pugi::xml_node& xml_node, TiledMap* tiledmap);
         auto getId() const -> unsigned int;

@@ -2,14 +2,18 @@
 
 #pragma once
 
+#include <cstdint>
 #include <optional>
+#include <string>
+#include <vector>
 
-#include "NasNas/core/data/Rect.hpp"
-#include "NasNas/tilemapping/PropertiesContainer.hpp"
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/tilemapping/PropertiesContainer.hpp>
 
 namespace ns::tm {
     class TilesetData;
-    class Tileset;
 
     class TileData : public PropertiesContainer {
         friend TilesetData;

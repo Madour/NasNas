@@ -7,22 +7,26 @@
 #include <vector>
 #include <unordered_map>
 
-#include "NasNas/thirdparty/pugixml.hpp"
-#include "NasNas/core/Camera.hpp"
+namespace pugi {
+    class xml_node;
+}
+namespace ns {
+    class Camera;
+}
 
 namespace ns::tm {
-    class TiledMap;
     class Layer;
     class TileLayer;
     class ObjectLayer;
     class ImageLayer;
     class GroupLayer;
+    class TiledMap;
 
     class LayersContainer {
         std::unordered_map<std::string, std::unique_ptr<TileLayer>> m_tilelayers;
         std::unordered_map<std::string, std::unique_ptr<ObjectLayer>> m_objectlayers;
-        std::unordered_map<std::string, std::unique_ptr<GroupLayer>> m_grouplayers;
         std::unordered_map<std::string, std::unique_ptr<ImageLayer>> m_imagelayers;
+        std::unordered_map<std::string, std::unique_ptr<GroupLayer>> m_grouplayers;
         std::vector<Layer*> m_layers;
 
     public:

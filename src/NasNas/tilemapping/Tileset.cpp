@@ -2,13 +2,16 @@
 * Created by Modar Nasser on 14/07/2020.
 **/
 
-#include "NasNas/core/data/Utils.hpp"
-#include "NasNas/tilemapping/Tileset.hpp"
-#ifdef NS_RESLIB
-#include "NasNas/reslib/ResourceManager.hpp"
-#endif
+#include <NasNas/tilemapping/Tileset.hpp>
+
+#include <NasNas/core/data/Utils.hpp>
+#include <NasNas/thirdparty/pugixml.hpp>
+
 #ifdef __ANDROID__
-#include "NasNas/core/android/Activity.hpp"
+#include <NasNas/core/android/Activity.hpp>
+#endif
+#ifdef NS_RESLIB
+#include <NasNas/reslib/ResourceManager.hpp>
 #endif
 
 using namespace ns;

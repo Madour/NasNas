@@ -1,14 +1,19 @@
 // Created by Modar Nasser on 01/07/2021.
 
-#include "NasNas/tilemapping/LayersContainer.hpp"
-#include "NasNas/tilemapping/TiledMap.hpp"
+#include <NasNas/tilemapping/LayersContainer.hpp>
 
-#include "NasNas/tilemapping/TileLayer.hpp"
-#include "NasNas/tilemapping/ObjectLayer.hpp"
-#include "NasNas/tilemapping/ImageLayer.hpp"
-#include "NasNas/tilemapping/GroupLayer.hpp"
+#include <iostream>
 
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/Camera.hpp>
 #include <NasNas/core/data/Maths.hpp>
+#include <NasNas/thirdparty/pugixml.hpp>
+#include <NasNas/tilemapping/GroupLayer.hpp>
+#include <NasNas/tilemapping/ImageLayer.hpp>
+#include <NasNas/tilemapping/ObjectLayer.hpp>
+#include <NasNas/tilemapping/TiledMap.hpp>
+#include <NasNas/tilemapping/TileLayer.hpp>
 
 using namespace ns;
 using namespace ns::tm;
@@ -140,7 +145,7 @@ auto LayersContainer::allObjectLayers() const -> const decltype(m_objectlayers)&
     return m_objectlayers;
 }
 
-auto LayersContainer::allImageLayers() const -> const decltype(this->m_imagelayers)& {
+auto LayersContainer::allImageLayers() const -> const decltype(m_imagelayers)& {
     return m_imagelayers;
 }
 

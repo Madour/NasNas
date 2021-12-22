@@ -5,14 +5,18 @@
 
 #pragma once
 
-#include <unordered_map>
-#include <memory>
-#include <SFML/Graphics.hpp>
-#include "NasNas/thirdparty/pugixml.hpp"
-#include "NasNas/core/Camera.hpp"
-#include "NasNas/tilemapping/PropertiesContainer.hpp"
-#include "NasNas/tilemapping/LayersContainer.hpp"
-#include "NasNas/tilemapping/Tileset.hpp"
+#include <string>
+#include <vector>
+
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/tilemapping/LayersContainer.hpp>
+#include <NasNas/tilemapping/PropertiesContainer.hpp>
+#include <NasNas/tilemapping/Tileset.hpp>
+
+namespace pugi {
+    class xml_document;
+}
 
 namespace ns::tm {
 
@@ -39,7 +43,6 @@ namespace ns::tm {
     private:
         void load(const pugi::xml_document& xml);
 
-        pugi::xml_node m_xmlnode_map;
         std::string m_file_name;
         std::string m_file_relative_path;
 

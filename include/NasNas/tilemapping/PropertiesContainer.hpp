@@ -5,11 +5,17 @@
 
 #pragma once
 
-#include <variant>
 #include <iostream>
+#include <string>
+#include <type_traits>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
-#include "NasNas/thirdparty/pugixml.hpp"
+#include <variant>
+
+#include <SFML/Graphics/Color.hpp>
+
+namespace pugi {
+    class xml_node;
+}
 
 namespace ns::tm {
 
