@@ -11,11 +11,9 @@
 #include <NasNas/core/data/Singleton.hpp>
 
 namespace ns {
-    class App;
-
     class Inputs :  public detail::Singleton<Inputs> {
         friend detail::Singleton<Inputs>;
-        friend App;
+        friend class App;
     public:
         static auto getKeysDown() -> const std::vector<sf::Keyboard::Key>&;
 

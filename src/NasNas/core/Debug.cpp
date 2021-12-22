@@ -3,7 +3,7 @@
 **/
 
 
-#include "NasNas/core/Debug.hpp"
+#include <NasNas/core/Debug.hpp>
 
 int ns::DebugTextInterface::font_size = 20;
 sf::Color ns::DebugTextInterface::color = sf::Color(255, 255, 255);

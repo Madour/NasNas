@@ -3,8 +3,9 @@
 **/
 
 
-#include "NasNas/core/Window.hpp"
-#include "NasNas/core/App.hpp"
+#include <NasNas/core/Window.hpp>
+
+#include <NasNas/core/data/Config.hpp>
 
 using namespace ns;
 

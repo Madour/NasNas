@@ -5,9 +5,13 @@
 #pragma once
 
 #include <functional>
-#include <SFML/Graphics.hpp>
-#include "NasNas/core/data/Maths.hpp"
-#include "NasNas/core/AppAccess.hpp"
+#include <vector>
+
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
+
+#include <NasNas/core/AppAccess.hpp>
 
 namespace ns {
 

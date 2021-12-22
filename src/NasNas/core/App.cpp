@@ -6,6 +6,8 @@
 
 #include <numeric>
 
+#include <SFML/Window/Touch.hpp>
+
 #include <NasNas/core/graphics/Renderable.hpp>
 #include <NasNas/core/Inputs.hpp>
 #include <NasNas/core/Transition.hpp>

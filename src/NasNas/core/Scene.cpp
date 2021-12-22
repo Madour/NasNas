@@ -3,9 +3,12 @@
 **/
 
 
-#include "NasNas/core/Scene.hpp"
-#include "NasNas/core/Camera.hpp"
-#include "NasNas/core/graphics/Transformable.hpp"
+#include <NasNas/core/Scene.hpp>
+
+#include <SFML/Graphics/RenderTarget.hpp>
+
+#include <NasNas/core/graphics/Transformable.hpp>
+#include <NasNas/core/Camera.hpp>
 
 using namespace ns;
 

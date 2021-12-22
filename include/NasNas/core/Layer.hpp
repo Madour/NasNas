@@ -9,10 +9,15 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <string>
+#include <type_traits>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
 
-#include "NasNas/core/data/Introspection.hpp"
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include <NasNas/core/data/Introspection.hpp>
 
 namespace ns {
     class Scene;

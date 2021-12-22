@@ -2,8 +2,15 @@
 * Created by Modar Nasser on 26/08/2020.
 **/
 
-#include "NasNas/core/Transition.hpp"
-#include "NasNas/core/App.hpp"
+#include <NasNas/core/Transition.hpp>
+
+#include <cmath>
+
+#include <SFML/Graphics/Sprite.hpp>
+
+#include <NasNas/core/data/Config.hpp>
+#include <NasNas/core/data/Maths.hpp>
+#include <NasNas/core/App.hpp>
 
 using namespace ns;
 

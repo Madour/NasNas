@@ -6,14 +6,19 @@
 #pragma once
 
 #include <list>
-#include "NasNas/core/AppAccess.hpp"
-#include "NasNas/core/Layer.hpp"
+#include <string>
+
+#include <SFML/Graphics/Drawable.hpp>
+
+#include <NasNas/core/data/Rect.hpp>
+#include <NasNas/core/Layer.hpp>
 
 namespace ns {
-
     class Camera;
 
     class Scene : public sf::Drawable {
+        friend class App;
+        friend Camera;
     public:
         /**
          * \brief Constructs a Scene object
@@ -61,8 +66,6 @@ namespace ns {
          auto getDefaultLayer() -> Layer&;
 
     private:
-        friend App; friend Camera;
-
         std::string m_name;         ///< Scene name
         std::list<Layer> m_layers;
         Layer m_default_layer;

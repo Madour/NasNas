@@ -5,9 +5,9 @@
 
 #pragma once
 
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-
-#include <NasNas/core/Camera.hpp>
+#include <SFML/Graphics/View.hpp>
 
 namespace ns {
 

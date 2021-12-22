@@ -2,11 +2,14 @@
 * Created by Modar Nasser on 20/04/2020.
 **/
 
+#include <NasNas/core/Camera.hpp>
 
 #include <cmath>
-#include "NasNas/core/data/Config.hpp"
-#include "NasNas/core/Scene.hpp"
-#include "NasNas/core/Camera.hpp"
+
+#include <SFML/Graphics/RenderTarget.hpp>
+
+#include <NasNas/core/data/Config.hpp>
+#include <NasNas/core/Scene.hpp>
 
 using namespace ns;
 

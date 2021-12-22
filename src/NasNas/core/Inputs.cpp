@@ -1,6 +1,6 @@
 // Created by Modar Nasser on 04/08/2021.
 
-#include "NasNas/core/Inputs.hpp"
+#include <NasNas/core/Inputs.hpp>
 
 using namespace ns;
 

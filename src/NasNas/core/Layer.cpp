@@ -4,13 +4,12 @@
 
 #include <utility>
 
-#include "NasNas/core/Layer.hpp"
+#include <NasNas/core/Layer.hpp>
 
 using namespace ns;
 
 Layer::Layer(std::string name) : m_name(std::move(name))
 {}
-
 
 void Layer::clear() {
     m_drawables.clear();
@@ -48,6 +47,3 @@ auto Layer::getDrawableBounds(const sf::Drawable* dr) const -> sf::FloatRect {
 auto Layer::getName() const -> const std::string& {
     return m_name;
 }
-
-
-
