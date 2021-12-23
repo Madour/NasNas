@@ -115,14 +115,15 @@ void SpriteBatch::render() {
             auto* spr = layer.sprites[i];
             if (!spr->changed) continue;
             spr->changed = false;
+            const auto& transform = spr->getTransform();
             const ns::FloatRect tex_rect{spr->getTextureRect()};
             const ns::FloatRect lb{spr->getLocalBounds()};
-            const ns::FloatRect rect{spr->getTransform().transformRect(lb)};
+            const ns::FloatRect rect{transform.transformRect(lb)};
 
-            const auto& topleft = spr->getTransform().transformPoint(lb.topleft());
-            const auto& topright = spr->getTransform().transformPoint(lb.topright());
-            const auto& bottomright = spr->getTransform().transformPoint(lb.bottomright());
-            const auto& bottomleft = spr->getTransform().transformPoint(lb.bottomleft());
+            const auto& topleft = transform.transformPoint(lb.topleft());
+            const auto& topright = transform.transformPoint(lb.topright());
+            const auto& bottomright = transform.transformPoint(lb.bottomright());
+            const auto& bottomleft = transform.transformPoint(lb.bottomleft());
 
             layer.vertices[i*6+0].position = topleft;
             layer.vertices[i*6+1].position = topright;
