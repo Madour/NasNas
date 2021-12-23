@@ -12,7 +12,7 @@ set(
         ${SRC_PATH}/Shapes.cpp
         ${SRC_PATH}/Sprite.cpp
         ${SRC_PATH}/SpriteBatch.cpp
-        ${SRC_PATH}/Spritesheet.cpp
+        ${SRC_PATH}/SpriteSheet.cpp
         ${SRC_PATH}/Transformable.cpp
         ${SRC_PATH}/VertexArray.cpp
 
@@ -30,7 +30,7 @@ set(
         ${INC_PATH}/Renderable.hpp
         ${INC_PATH}/Sprite.hpp
         ${INC_PATH}/SpriteBatch.hpp
-        ${INC_PATH}/Spritesheet.hpp
+        ${INC_PATH}/SpriteSheet.hpp
         ${INC_PATH}/Transformable.hpp
         ${INC_PATH}/VertexArray.hpp
 

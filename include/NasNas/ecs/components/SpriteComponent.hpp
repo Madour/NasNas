@@ -10,16 +10,16 @@
 
 #include <NasNas/core/data/Rect.hpp>
 #include <NasNas/core/graphics/Anim.hpp>
-#include <NasNas/core/graphics/Spritesheet.hpp>
+#include <NasNas/core/graphics/SpriteSheet.hpp>
 #include <NasNas/ecs/components/GraphicsComponent.hpp>
 
 namespace ns::ecs {
 
     class SpriteComponent : public GraphicsComponent {
     public:
-        SpriteComponent(Spritesheet* spritesheet, const sf::Vector2f& pos_offset);
-        explicit SpriteComponent(Spritesheet* spritesheet, const std::string& anim_state="", const sf::Vector2f& pos_offset={0, 0});
-        void setSpritesheet(Spritesheet* spritesheet);
+        SpriteComponent(SpriteSheet* spritesheet, const sf::Vector2f& pos_offset);
+        explicit SpriteComponent(SpriteSheet* spritesheet, const std::string& anim_state="", const sf::Vector2f& pos_offset={0, 0});
+        void setSpritesheet(SpriteSheet* spritesheet);
         auto getAnimState() const -> const std::string&;
         void setAnimState(const std::string& anim_state);
         auto getAnimPlayer() -> AnimPlayer&;
@@ -28,7 +28,7 @@ namespace ns::ecs {
         void update() override;
 
     private:
-        Spritesheet* m_spritesheet = nullptr;
+        SpriteSheet* m_spritesheet = nullptr;
         AnimPlayer m_anim_player;
         sf::Sprite m_drawable;
 

@@ -16,12 +16,12 @@
 
 namespace ns {
 
-    class Spritesheet {
+    class SpriteSheet {
     public:
 
-        Spritesheet() = default;
+        SpriteSheet() = default;
 
-        explicit Spritesheet(const sf::Texture& texture);
+        explicit SpriteSheet(const sf::Texture& texture);
 
         /**
          * \brief Constructs a Spritesheet object
@@ -30,12 +30,12 @@ namespace ns {
          * \param texture Spritesheet texture
          * \param anims Spritesheet animations, vector of pointers to Anim objects
          */
-        Spritesheet(const sf::Texture& texture, const std::vector<Anim*>& anims);
+        SpriteSheet(const sf::Texture& texture, const std::vector<Anim*>& anims);
 
         /**
          * \brief Delete all the Anim objects of this Spritesheet
          */
-        ~Spritesheet();
+        ~SpriteSheet();
 
         void setTexture(const sf::Texture& texture);
 

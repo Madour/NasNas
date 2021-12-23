@@ -30,7 +30,7 @@ public:
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    ns::Spritesheet m_spritesheet;
+    ns::SpriteSheet m_spritesheet;
     float m_rotation = 0.0;
 };
 

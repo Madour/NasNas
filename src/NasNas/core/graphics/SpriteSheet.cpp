@@ -3,38 +3,38 @@
 **/
 
 
-#include <NasNas/core/graphics/Spritesheet.hpp>
+#include <NasNas/core/graphics/SpriteSheet.hpp>
 
 #include <iostream>
 
 using namespace ns;
 
-Spritesheet::Spritesheet(const sf::Texture& texture) :
+SpriteSheet::SpriteSheet(const sf::Texture& texture) :
 m_texture(&texture)
 {}
 
-Spritesheet::Spritesheet(const sf::Texture& texture, const std::vector<Anim*>& anims) :
-Spritesheet(texture) {
+SpriteSheet::SpriteSheet(const sf::Texture& texture, const std::vector<Anim*>& anims) :
+        SpriteSheet(texture) {
     for(const auto& anim: anims) {
         m_anims_map[anim->getName()] = anim;
     }
 }
 
-Spritesheet::~Spritesheet() {
+SpriteSheet::~SpriteSheet() {
     for(auto& [anim_name, anim]: m_anims_map) {
         delete(anim);
     }
 }
 
-void Spritesheet::setTexture(const sf::Texture& texture) {
+void SpriteSheet::setTexture(const sf::Texture& texture) {
     m_texture = &texture;
 }
 
-auto Spritesheet::getTexture() const -> const sf::Texture* {
+auto SpriteSheet::getTexture() const -> const sf::Texture* {
     return m_texture;
 }
 
-void Spritesheet::setGrid(const sf::Vector2i& cell_size, int columns_nb, int margin, int spacing) {
+void SpriteSheet::setGrid(const sf::Vector2i& cell_size, int columns_nb, int margin, int spacing) {
     m_cell_size = cell_size;
     if (columns_nb <= 0) {
         std::cout << "Error (Spritesheet::setGrid) : Columns number in Spritesheet must be superior or equal to 1.";
@@ -45,11 +45,11 @@ void Spritesheet::setGrid(const sf::Vector2i& cell_size, int columns_nb, int mar
     m_spacing = spacing;
 }
 
-void Spritesheet::addAnim(Anim* new_anim) {
+void SpriteSheet::addAnim(Anim* new_anim) {
     m_anims_map[new_anim->getName()] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, int duration, const sf::Vector2i& origin) {
+void SpriteSheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, int duration, const sf::Vector2i& origin) {
     auto* new_anim = new Anim(anim_name, {});
     for (unsigned int i = 0; i < nb_of_frames; ++i) {
         new_anim->add(AnimFrame({getFrameTexCoords(first_frame+i), m_cell_size}, duration, origin));
@@ -57,7 +57,7 @@ void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame
     m_anims_map[anim_name] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, int duration, const std::vector<sf::Vector2i>& origins) {
+void SpriteSheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, int duration, const std::vector<sf::Vector2i>& origins) {
     if (origins.size() < nb_of_frames) {
         std::cout << "Error (Spritesheet::addAnim) : Number of frames not matching with origins vector." << std::endl;
         exit(-1);
@@ -69,7 +69,7 @@ void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame
     m_anims_map[anim_name] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, const std::vector<int>& durations, const sf::Vector2i& origin) {
+void SpriteSheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, const std::vector<int>& durations, const sf::Vector2i& origin) {
     if (durations.size() < nb_of_frames) {
         std::cout << "Error (Spritesheet::addAnim) : Number of frames not matching with durations vector." << std::endl;
         exit(-1);
@@ -81,7 +81,7 @@ void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame
     m_anims_map[anim_name] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, const std::vector<int>& durations, const std::vector<sf::Vector2i>& origins) {
+void SpriteSheet::addAnim(const std::string& anim_name, unsigned int first_frame, unsigned int nb_of_frames, const std::vector<int>& durations, const std::vector<sf::Vector2i>& origins) {
     if (origins.size() < nb_of_frames) {
         std::cout << "Error (Spritesheet::addAnim) : Number of frames not matching with origins vector." << std::endl;
         exit(-1);
@@ -97,7 +97,7 @@ void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame
     m_anims_map[anim_name] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, int duration, const sf::Vector2i& origin) {
+void SpriteSheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, int duration, const sf::Vector2i& origin) {
     auto* new_anim = new Anim(anim_name, {});
     for (unsigned int i = 0; i < frames.size(); ++i) {
         new_anim->add(AnimFrame({getFrameTexCoords(frames[i]), m_cell_size}, duration, origin));
@@ -105,7 +105,7 @@ void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsign
     m_anims_map[anim_name] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, int duration, const std::vector<sf::Vector2i>& origins) {
+void SpriteSheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, int duration, const std::vector<sf::Vector2i>& origins) {
     if (origins.size() < frames.size()) {
         std::cout << "Error (Spritesheet::addAnim) : Number of frames not matching with origins vector." << std::endl;
         exit(-1);
@@ -117,7 +117,7 @@ void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsign
     m_anims_map[anim_name] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, const std::vector<int>& durations, const sf::Vector2i& origin) {
+void SpriteSheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, const std::vector<int>& durations, const sf::Vector2i& origin) {
     if (durations.size() < frames.size()) {
         std::cout << "Error (Spritesheet::addAnim) : Number of frames not matching with durations vector." << std::endl;
         exit(-1);
@@ -129,7 +129,7 @@ void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsign
     m_anims_map[anim_name] = new_anim;
 }
 
-void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, const std::vector<int>& durations, const std::vector<sf::Vector2i>& origins) {
+void SpriteSheet::addAnim(const std::string& anim_name, const std::vector<unsigned int>& frames, const std::vector<int>& durations, const std::vector<sf::Vector2i>& origins) {
     if (origins.size() < frames.size()) {
         std::cout << "Error (Spritesheet::addAnim) : Number of frames not matching with origins vector." << std::endl;
         exit(-1);
@@ -145,18 +145,18 @@ void Spritesheet::addAnim(const std::string& anim_name, const std::vector<unsign
     m_anims_map[anim_name] = new_anim;
 }
 
-auto Spritesheet::getAnimsMap() -> const std::unordered_map<std::string, Anim*>& {
+auto SpriteSheet::getAnimsMap() -> const std::unordered_map<std::string, Anim*>& {
     return m_anims_map;
 }
 
-auto Spritesheet::getAnim(const std::string& anim_name) -> const Anim& {
+auto SpriteSheet::getAnim(const std::string& anim_name) -> const Anim& {
     if(m_anims_map.count(anim_name) > 0)
         return *m_anims_map.at(anim_name);
     else
         throw std::invalid_argument("Error (Spritesheet::getAnim) : Accessing unexisting Anim "+anim_name+" in spritesheet ");
 }
 
-auto Spritesheet::getFrameTexCoords(unsigned int frame_index) const -> sf::Vector2i {
+auto SpriteSheet::getFrameTexCoords(unsigned int frame_index) const -> sf::Vector2i {
     return sf::Vector2i((frame_index % m_columns)*(m_cell_size.x + m_spacing) + m_margin,
                         (frame_index / m_columns)*(m_cell_size.y + m_spacing) + m_margin);
 }

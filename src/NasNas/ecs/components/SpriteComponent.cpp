@@ -10,17 +10,17 @@
 using namespace ns;
 using namespace ns::ecs;
 
-SpriteComponent::SpriteComponent(Spritesheet* spritesheet, const sf::Vector2f& pos_offset) :
+SpriteComponent::SpriteComponent(SpriteSheet* spritesheet, const sf::Vector2f& pos_offset) :
 SpriteComponent(spritesheet, "", pos_offset)
 {}
 
-SpriteComponent::SpriteComponent(Spritesheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) {
+SpriteComponent::SpriteComponent(SpriteSheet* spritesheet, const std::string& anim_state, const sf::Vector2f& pos_offset) {
     m_transform.translate(pos_offset);
     setSpritesheet(spritesheet);
     anim_state.empty() ? setAnimState(spritesheet->getAnimsMap().begin()->first) : setAnimState(anim_state);
 }
 
-void SpriteComponent::setSpritesheet(Spritesheet* spritesheet) {
+void SpriteComponent::setSpritesheet(SpriteSheet* spritesheet) {
     m_spritesheet = spritesheet;
     if (spritesheet->getTexture() != nullptr)
         m_drawable.setTexture(*spritesheet->getTexture());

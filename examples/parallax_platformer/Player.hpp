@@ -26,7 +26,7 @@ public:
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    ns::Spritesheet m_spritesheet;
+    ns::SpriteSheet m_spritesheet;
     bool m_double_jump = false;
     bool m_in_air = false;
     bool m_must_land = false;
