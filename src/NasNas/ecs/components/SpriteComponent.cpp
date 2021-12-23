@@ -22,7 +22,8 @@ SpriteComponent::SpriteComponent(Spritesheet* spritesheet, const std::string& an
 
 void SpriteComponent::setSpritesheet(Spritesheet* spritesheet) {
     m_spritesheet = spritesheet;
-    m_drawable.setTexture(*spritesheet->texture);
+    if (spritesheet->getTexture() != nullptr)
+        m_drawable.setTexture(*spritesheet->getTexture());
 }
 
 auto SpriteComponent::getAnimState() const -> const std::string& {

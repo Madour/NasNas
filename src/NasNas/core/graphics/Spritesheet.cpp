@@ -6,17 +6,15 @@
 #include <NasNas/core/graphics/Spritesheet.hpp>
 
 #include <iostream>
-#include <utility>
 
 using namespace ns;
 
-Spritesheet::Spritesheet(std::string name, const sf::Texture& texture) :
-name(std::move(name)),
-texture(&texture)
+Spritesheet::Spritesheet(const sf::Texture& texture) :
+m_texture(&texture)
 {}
 
-Spritesheet::Spritesheet(std::string  name, const sf::Texture& texture, const std::vector<Anim*>& anims) :
-Spritesheet(std::move(name), texture) {
+Spritesheet::Spritesheet(const sf::Texture& texture, const std::vector<Anim*>& anims) :
+Spritesheet(texture) {
     for(const auto& anim: anims) {
         m_anims_map[anim->getName()] = anim;
     }
@@ -28,10 +26,18 @@ Spritesheet::~Spritesheet() {
     }
 }
 
+void Spritesheet::setTexture(const sf::Texture& texture) {
+    m_texture = &texture;
+}
+
+auto Spritesheet::getTexture() const -> const sf::Texture* {
+    return m_texture;
+}
+
 void Spritesheet::setGrid(const sf::Vector2i& cell_size, int columns_nb, int margin, int spacing) {
     m_cell_size = cell_size;
     if (columns_nb <= 0) {
-        std::cout << "Error (Spritesheet::setGrid) : Columns number in Spritesheet " << name << " must be superior or equal to 1.";
+        std::cout << "Error (Spritesheet::setGrid) : Columns number in Spritesheet must be superior or equal to 1.";
         exit(-1);
     }
     m_columns = columns_nb;
@@ -86,7 +92,7 @@ void Spritesheet::addAnim(const std::string& anim_name, unsigned int first_frame
     }
     auto* new_anim = new Anim(anim_name, {});
     for (unsigned int i = 0; i < nb_of_frames; ++i) {
-        new_anim->add(AnimFrame({getFrameTexCoords(first_frame+i), m_cell_size}, durations[i], origins [i]));
+        new_anim->add(AnimFrame({getFrameTexCoords(first_frame+i), m_cell_size}, durations[i], origins[i]));
     }
     m_anims_map[anim_name] = new_anim;
 }
@@ -147,7 +153,7 @@ auto Spritesheet::getAnim(const std::string& anim_name) -> const Anim& {
     if(m_anims_map.count(anim_name) > 0)
         return *m_anims_map.at(anim_name);
     else
-        throw std::invalid_argument("Error (Spritesheet::getAnim) : Accessing unexisting Anim "+anim_name+" in spritesheet "+name);
+        throw std::invalid_argument("Error (Spritesheet::getAnim) : Accessing unexisting Anim "+anim_name+" in spritesheet ");
 }
 
 auto Spritesheet::getFrameTexCoords(unsigned int frame_index) const -> sf::Vector2i {

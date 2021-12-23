@@ -19,7 +19,9 @@ namespace ns {
     class Spritesheet {
     public:
 
-        Spritesheet(std::string name, const sf::Texture& texture);
+        Spritesheet() = default;
+
+        explicit Spritesheet(const sf::Texture& texture);
 
         /**
          * \brief Constructs a Spritesheet object
@@ -28,12 +30,16 @@ namespace ns {
          * \param texture Spritesheet texture
          * \param anims Spritesheet animations, vector of pointers to Anim objects
          */
-        Spritesheet(std::string name, const sf::Texture& texture, const std::vector<Anim*>& anims);
+        Spritesheet(const sf::Texture& texture, const std::vector<Anim*>& anims);
 
         /**
          * \brief Delete all the Anim objects of this Spritesheet
          */
         ~Spritesheet();
+
+        void setTexture(const sf::Texture& texture);
+
+        auto getTexture() const -> const sf::Texture*;
 
         void setGrid(const sf::Vector2i& cell_size, int columns_nb, int margin=0, int spacing=0);
 
@@ -62,10 +68,8 @@ namespace ns {
          */
         auto getAnim(const std::string& anim_name) -> const Anim&;
 
-        const std::string name;     ///< Spritesheet name
-        const sf::Texture* texture; ///< Spritesheet texture
-
     private:
+        const sf::Texture* m_texture = nullptr; ///< Spritesheet texture
         std::unordered_map<std::string, Anim*> m_anims_map;
         sf::Vector2i m_cell_size;
         int m_margin = 0;

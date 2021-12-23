@@ -28,7 +28,7 @@ public:
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    std::unique_ptr<ns::Spritesheet> m_spritesheet = nullptr;
+    ns::Spritesheet m_spritesheet;
     bool m_double_jump = false;
     bool m_in_air = false;
     bool m_must_land = false;

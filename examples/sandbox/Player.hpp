@@ -30,7 +30,7 @@ public:
 private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    std::unique_ptr<ns::Spritesheet> m_spritesheet = nullptr;
+    ns::Spritesheet m_spritesheet;
     float m_rotation = 0.0;
 };
 

@@ -8,12 +8,12 @@ Player::Player() {
     add<ns::ecs::Transform>();
 
     // create Player spritesheet and set its animations
-    m_spritesheet = std::make_unique<ns::Spritesheet>("adventurer", ns::Res::getTexture("adventurer.png"));
-    m_spritesheet->setGrid({50, 37}, 7);
-    m_spritesheet->addAnim("idle", 0, 4, 200, {25, 37});
-    m_spritesheet->addAnim("walk", 8, 6, 100, {25, 37});
+    m_spritesheet.setTexture(ns::Res::getTexture("adventurer.png"));
+    m_spritesheet.setGrid({50, 37}, 7);
+    m_spritesheet.addAnim("idle", 0, 4, 200, {25, 37});
+    m_spritesheet.addAnim("walk", 8, 6, 100, {25, 37});
     // add sprite component to player (from spritesheet defined above)
-    add<ns::ecs::Sprite>(m_spritesheet.get());
+    add<ns::ecs::Sprite>(&m_spritesheet);
 
     // add physics component to player
     add<ns::ecs::Physics>(2.f, sf::Vector2f(0.2f, 0.2f), 1.f);
