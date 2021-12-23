@@ -18,9 +18,12 @@ public:
         ns::Settings::debug_mode = false;
         auto& texture = ns::Res::getTexture("adventurer.png");
 
+        // set up the sprite sheet by defining the texture and the grid dimensions
         m_spritesheet.setTexture(texture);
         m_spritesheet.setGrid({50, 37}, 7);
 
+        // add the animations
+        // <name>, <first_frame_index>, <frames_number>, <frame_duration>
         m_spritesheet.addAnim("idle", 0, 4, 120);
         m_spritesheet.addAnim("run", 8, 6, 100);
         m_spritesheet.addAnim("slide", 24, 3, 130);
@@ -39,7 +42,6 @@ public:
         m_animators[6].play(m_spritesheet.getAnim("slash_front"));
         m_animators[7].play(m_spritesheet.getAnim("magic"));
 
-
         for (unsigned i = 0; i < m_sprites.size(); ++i) {
             auto& sprite = m_sprites[i];
             sprite.setTexture(*m_spritesheet.getTexture());
@@ -56,7 +58,7 @@ public:
     }
 
     void update() override {
-        // update the sprites here
+        // update the sprites
         for (unsigned i = 0; i < m_animators.size(); ++i) {
             m_animators[i].update(m_sprites[i]);
         }
