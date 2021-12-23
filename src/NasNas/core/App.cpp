@@ -331,8 +331,8 @@ void App::run() {
     // sort cameras by render order
     m_cameras.sort([](Camera& lhs, Camera& rhs) { return lhs.getRenderOrder() < rhs.getRenderOrder(); });
 
-    float current_slice = 0.f;
     float slice_time = 1.f / static_cast<float>(m_ups);
+    float current_slice = slice_time;
     sf::Clock timer;
     sf::Clock update_clock;
     std::array<float, 30> dt_buffer{};
