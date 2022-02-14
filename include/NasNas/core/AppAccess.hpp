@@ -26,7 +26,8 @@ namespace ns {
         static constexpr auto app() -> T& {
             if constexpr(std::is_same_v<App, T>)
                 return *AppComponent::app;
-            return *static_cast<T*>(AppComponent::app);
+            else
+                return *static_cast<T*>(AppComponent::app);
         }
     };
 

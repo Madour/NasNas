@@ -297,6 +297,7 @@ namespace ns {
         void setState(Targs... args) {
             m_state.reset();
             m_state = std::make_unique<T>(std::forward<Targs>(args)...);
+            m_state->setup();
             m_cb_onevent = [&](const auto& event) { m_state->onEvent(event); };
             m_cb_update = [&] { m_state->update(); };
             m_cb_prerender = [&] { m_state->preRender(); };
@@ -312,6 +313,7 @@ namespace ns {
         template <typename T, typename... Targs, typename = std::enable_if<std::is_base_of_v<AppState, T>>>
         void pushState(Targs... args) {
             m_state_stack.emplace(std::make_unique<T>(std::forward<Targs>(args)...));
+            m_state_stack.top()->setup();
             m_cb_onevent = [&](const sf::Event& event) { m_state_stack.top()->onEvent(event); };
             m_cb_update = [&] { m_state_stack.top()->update(); };
             m_cb_prerender = [&] { m_state_stack.top()->preRender(); };
@@ -328,6 +330,7 @@ namespace ns {
                 m_cb_update = [&] {};
                 m_cb_prerender = [&] {};
             } else {
+                m_state_stack.top()->setup();
                 m_cb_onevent = [&](const sf::Event& event) { m_state_stack.top()->onEvent(event); };
                 m_cb_update = [&] { m_state_stack.top()->update(); };
                 m_cb_prerender = [&] { m_state_stack.top()->preRender(); };

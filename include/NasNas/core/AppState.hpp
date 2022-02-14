@@ -13,5 +13,6 @@ namespace ns {
 
     struct AppState : AppStateInterface {
         virtual ~AppState() = default;
+        virtual void setup() {};
     };
 }
