@@ -327,6 +327,10 @@ namespace ns {
                 m_cb_onevent = [&](const sf::Event& event) {};
                 m_cb_update = [&] {};
                 m_cb_prerender = [&] {};
+            } else {
+                m_cb_onevent = [&](const sf::Event& event) { m_state_stack.top()->onEvent(event); };
+                m_cb_update = [&] { m_state_stack.top()->update(); };
+                m_cb_prerender = [&] { m_state_stack.top()->preRender(); };
             }
         }
     };
