@@ -104,11 +104,11 @@ struct Game : ns::App {
         m_gui.onEvent(event);
     }
     void update() override {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::Left))
             m_btn->setTextAlign(ns::ui::TextAlign::Left);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::Up))
             m_btn->setTextAlign(ns::ui::TextAlign::Center);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::Right))
             m_btn->setTextAlign(ns::ui::TextAlign::Right);
     }
 };

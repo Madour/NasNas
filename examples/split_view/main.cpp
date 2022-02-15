@@ -48,23 +48,23 @@ public:
 
     void update() override {
         // move the left camera with WASD (or ZQSD for AZERTY keyboards)
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::A) || ns::Inputs::isKeyDown(sf::Keyboard::Q))
             getCamera("left").move(-5, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::D))
             getCamera("left").move(5, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::W) || ns::Inputs::isKeyDown(sf::Keyboard::Z))
             getCamera("left").move(0, -5);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::S))
             getCamera("left").move(0, 5);
 
         // move the right camera with the arrows
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::Left))
             getCamera("right").move(-5, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::Right))
             getCamera("right").move(5, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::Up))
             getCamera("right").move(0, -5);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        if (ns::Inputs::isKeyDown(sf::Keyboard::Down))
             getCamera("right").move(0, 5);
     }
 };
