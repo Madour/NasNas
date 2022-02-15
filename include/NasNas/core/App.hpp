@@ -231,7 +231,7 @@ namespace ns {
          * Pure virtual method, has to be defined by the user.
          * `update` will be called as many times it needs to match the ups (update per second) parameter
          */
-        void update() override = 0;
+        void update() override;
 
     private:
         AppWindow m_window;     ///< AppWindow

@@ -219,6 +219,8 @@ void App::onEvent(const sf::Event& event) {
     }
 }
 
+void App::update() {}
+
 void App::render() {
     // draw Cameras content on AppView
     m_window.setView(m_window.getAppView());
