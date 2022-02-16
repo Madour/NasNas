@@ -5,20 +5,10 @@
 #include <NasNas/Ui.hpp>
 
 struct Game : ns::App {
-    ns::BitmapFont* m_font;
     ns::ui::GuiRoot m_gui;
     ns::ui::NineSlice nineslice;
     ns::ui::Button* m_btn;
     Game() : ns::App("Widgets example", {1280, 720}) {
-        // create a BitmapFont
-        m_font = new ns::BitmapFont(
-                ns::Res::getTexture("font.png"),
-                {8, 8},
-                " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+=",
-                {{"ABCDEFGHIJKMNOPQRSTUVWXYZ?=-", 7}, {"ijlntsofpqrux", 5}},
-                6
-        );
-
         auto& scene = createScene("main");
         auto& cam = createCamera("main", 0);
         cam.lookAt(scene);

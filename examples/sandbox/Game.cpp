@@ -30,25 +30,19 @@ Game::Game() : ns::App("NasNas sandbox", {640, 360}, 2, 60, 60) {
     this->player.get<ns::ecs::Transform>().setPosition({100, 100});
 
     // create a BitmapFont
-    this->font = new ns::BitmapFont(
-        ns::Res::getTexture("font.png"),
-        {8, 8},
-        " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+=",
-        {{"ABCDEFGHIJKMNOPQRSTUVWXYZ?=-", 7}, {"ijlntsofpqrux", 5}},
-        6
-    );
+    font.loadFromTexture(ns::Res::getTexture("font.png"), {8, 8}, 5);
+    font.setCharacters(L"_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm"
+                       L"nopqrstuvwxyz0123456789.,:;!?-+=☺☻♥♦♣♠");
+    font.setCharactersAdvance({{L"fijlt.,:;", 3},
+                               {L"Tabcdeghknopqrsuvwxyz?+-=", 4},
+                               {L"_0123456789ABCDEFGHIJKLMNOPQRSUVXYZmw", 6},
+                               {L"W", 7}});
     // create a BitmapText using the font created above
-    auto* bmp_text = new ns::BitmapText("Press E to toggle Shader \nPress R to run Shader Transition\nPress T to run Circle Transition");
+    auto* bmp_text = new ns::BitmapText();
+    bmp_text->setString("Press E to toggle Shader\nPress R to run Shader Transition\nPress T to run Circle Transition");
     bmp_text->setFont(this->font);
-    bmp_text->setPosition(250, 80);
-
-    // create a textbox
-    this->textbox = new ns::ui::TypedText("TypedText is useful in RPG games ! It creates a typing animation and can be configured to display text on multiple pages.");
-    this->textbox->setFont(this->font);
-    this->textbox->setMaxWidth(200);
-    this->textbox->setMaxLines(2);
-    this->textbox->setTypingDelay(5);
-    this->textbox->setPosition(250, 125);
+    bmp_text->setLineSpacing(1.2f);
+    bmp_text->setPosition(250, 65);
 
     // setup the particle system and emmit 500 particles
     this->particle_system.setTexture(ns::Res::getTexture("tileset.png"));
@@ -88,7 +82,6 @@ Game::Game() : ns::App("NasNas sandbox", {640, 360}, 2, 60, 60) {
 
     // add the BitmapText to the layer
     scene.getLayer("texts").add(bmp_text);
-    scene.getLayer("texts").add(this->textbox);
 
     // add the particle system
     scene.getLayer("texts").add(this->particle_system);
@@ -137,7 +130,6 @@ Game::Game() : ns::App("NasNas sandbox", {640, 360}, 2, 60, 60) {
 
 void Game::onEvent(const sf::Event& event) {
     ns::App::onEvent(event);
-    textbox->onEvent(event);
 
     switch (event.type) {
         case sf::Event::Closed:
@@ -188,7 +180,6 @@ void Game::update() {
     // run the default sprite component to update sprite animation
     ns::Ecs.run(ns::ecs::sprite_system);
 
-    this->textbox->update();
     // move the shapes randomly
     for (auto& shape : this->shapes) {
         shape.move((float)(std::rand()%3) - 1.f, (float)(std::rand()%3) - 1.f);
@@ -211,5 +202,4 @@ void Game::update() {
 
 Game::~Game() {
     delete(this->palette_shader);
-    delete(this->font);
 }

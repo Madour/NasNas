@@ -39,8 +39,7 @@ public:
     void update() override ;
 
 private:
-    ns::BitmapFont* font;
-    ns::ui::TypedText* textbox;
+    ns::BitmapFont font;
 
     ns::tm::TiledMap tiled_map;
 
