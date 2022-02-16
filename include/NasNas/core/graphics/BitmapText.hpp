@@ -17,6 +17,8 @@
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
+#include <SFML/System/String.hpp>
+
 #include <NasNas/core/data/Rect.hpp>
 
 namespace ns {
@@ -50,14 +52,14 @@ namespace ns {
          *
          * \return Const pointer to the Texture
          */
-        auto getTexture() -> const sf::Texture*;
+        auto getTexture() const -> const sf::Texture*;
 
         /**
          * \brief Get BitmapFont glyph size
          *
          * \return Glyph size
          */
-        auto getGlyphSize() -> const sf::Vector2u&;
+        auto getGlyphSize() const -> const sf::Vector2u&;
 
         void setCharacters(const std::wstring& characters);
 
@@ -70,9 +72,9 @@ namespace ns {
          *
          * \return BitmapGlyph data of the character
          */
-        auto getGlyph(wchar_t character) -> const BitmapGlyph&;
+        auto getGlyph(wchar_t character) const -> const BitmapGlyph&;
 
-        auto computeStringSize(const std::wstring& string) -> sf::Vector2i;
+        auto computeStringSize(const std::wstring& string) const -> sf::Vector2i;
 
     private:
         const sf::Texture* m_texture = nullptr;
@@ -86,40 +88,33 @@ namespace ns {
      */
     class BitmapText : public sf::Drawable, public sf::Transformable {
     public:
+        BitmapText();
+
         /**
          * \brief Creates a BitmapText
          *
-         * When using this constructor, you have to manually set the font used by
-         * calling `setFont`.
+         * \param string String to display
+         * \param font Font used to draw the string
+         */
+        BitmapText(const sf::String& string, const ns::BitmapFont& font);
+
+        /**
+         * \brief Set the text's string
          *
-         * \param text String to display
+         * \param string New string
          */
-        explicit BitmapText(const std::wstring& text, ns::BitmapFont* font=nullptr);
+        void setString(const sf::String& string);
 
-        auto getString() -> const std::wstring&;
+        auto getString() -> const sf::String&;
 
         /**
-         * \brief Set a the string to be displayed
+         * \brief Set the text's BitmapFont
          *
-         * \param string String to write
+         * \param font New bitmapfont
          */
-        void setString(const std::wstring& string);
+        void setFont(const BitmapFont& font);
 
-        auto getFont() -> BitmapFont*;
-
-        /**
-         * \brief Set the BitmapFont to use
-
-         * \param font BitmapFont to use
-         */
-        void setFont(const std::shared_ptr<BitmapFont>& font);
-
-        /**
-         * \brief Set the BitmapFont to use
-
-         * \param font BitmapFont to use
-         */
-         void setFont(BitmapFont* font);
+        auto getFont() const -> const BitmapFont*;
 
         /**
          * \brief Set the font color
@@ -128,6 +123,16 @@ namespace ns {
          */
         void setColor(const sf::Color& color);
 
+        auto getColor() const -> const sf::Color&;
+
+        void setLetterSpacing(float factor);
+
+        auto getLetterSpacing() const -> float;
+
+        void setLineSpacing(float factor);
+
+        auto getLineSpacing() const -> float;
+
         /**
          * \brief Get BitmapText position
          * \return Position
@@ -135,43 +140,37 @@ namespace ns {
         auto getPosition() const -> sf::Vector2f;
 
         /**
-         * \brief Get BitmapText global bounds
-         * \return Global bounds rectangle
-         */
-        auto getGlobalBounds() const -> ns::FloatRect;
-
-        /**
-         * \brief Set the maximum width of the Text.
-         * Line breaks will be inserted to respect the max width value
-         * \param max_width
-         */
-        virtual void setMaxWidth(int max_width);
-
-        /**
          * \brief Get BitmapText size
          * \return Size
          */
         auto getSize() const -> sf::Vector2f;
 
-    protected:
-        auto getProcessedString() -> const std::wstring&;
-        void processString();
+        /**
+         * \brief Get BitmapText local bounds
+         * \return Local bounds rectangle
+         */
+        auto getLocalBounds() const -> ns::FloatRect;
+
+        /**
+         * \brief Get BitmapText global bounds
+         * \return Global bounds rectangle
+         */
+        auto getGlobalBounds() const -> ns::FloatRect;
 
     private:
-        void updateVertices();
+        void updateVertices() const;
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        std::wstring m_string;
-        std::wstring m_processed_string;
-        BitmapFont* m_font = nullptr;
+        sf::String m_string;
+        const BitmapFont* m_font = nullptr;
         sf::Color m_color = sf::Color::White;
 
-        int m_max_width = 0;
-        int m_width = 0;
-        int m_height = 0;
+        float m_letter_spacing = 1.f;
+        float m_line_spacing = 1.f;
 
-        sf::Transformable m_transformable;
-        sf::VertexArray m_vertices;
+        mutable sf::Vector2f m_size;
+        mutable sf::VertexArray m_vertices;
+        mutable bool m_need_update;
     };
 
 }

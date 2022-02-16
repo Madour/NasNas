@@ -13,11 +13,12 @@
 #include <NasNas/core/graphics/BitmapText.hpp>
 
 namespace ns::ui {
+/*
     class TypedText : public BitmapText {
     public:
         explicit TypedText(std::wstring string);
 
-        void setMaxWidth(int max_width) override;
+        void setMaxWidth(int max_width);
         void setMaxLines(int lines_nb);
 
         void setTypingDelay(int delay);
@@ -40,5 +41,5 @@ namespace ns::ui {
         unsigned m_current_page = 0;
         unsigned m_current_letter_index = 0;
     };
-
+*/
 }

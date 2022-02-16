@@ -42,11 +42,11 @@ m_glyph_size(glyph_size) {
 }
 */
 
-auto BitmapFont::getTexture() -> const sf::Texture* {
+auto BitmapFont::getTexture() const -> const sf::Texture* {
     return m_texture;
 }
 
-auto BitmapFont::getGlyphSize() -> const sf::Vector2u& {
+auto BitmapFont::getGlyphSize() const -> const sf::Vector2u& {
     return m_glyph_size;
 }
 
@@ -64,6 +64,10 @@ void BitmapFont::setCharacters(const std::wstring& characters) {
         auto tex_rect = ns::IntRect(tex_coords.x, tex_coords.y, m_glyph_size.x, m_glyph_size.y);
         m_glyphs[character] = {tex_rect, character, m_default_advance};
     }
+
+    if (characters.find(' ') == std::wstring::npos) {
+        m_glyphs[' '] = {{0, 0, 0, 0}, ' ', m_default_advance};
+    }
 }
 
 void BitmapFont::setCharactersAdvance(const std::map<std::wstring, unsigned int>& advances) {
@@ -76,14 +80,14 @@ void BitmapFont::setCharactersAdvance(const std::map<std::wstring, unsigned int>
     }
 }
 
-auto BitmapFont::getGlyph(wchar_t character) -> const BitmapGlyph& {
+auto BitmapFont::getGlyph(wchar_t character) const -> const BitmapGlyph& {
     if (m_glyphs.find(character) != m_glyphs.end()) {
         return m_glyphs.at(character);
     }
     return m_glyphs.at(0);
 }
 
-auto BitmapFont::computeStringSize(const std::wstring& string) -> sf::Vector2i {
+auto BitmapFont::computeStringSize(const std::wstring& string) const -> sf::Vector2i {
     int h = getGlyphSize().y;
     int w = 0, max_width = 0;
     for (const auto character : string) {
@@ -100,64 +104,82 @@ auto BitmapFont::computeStringSize(const std::wstring& string) -> sf::Vector2i {
 }
 
 
-BitmapText::BitmapText(const std::wstring& text, ns::BitmapFont* font) {
-    setFont(font);
-    m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
-    setString(text);
+BitmapText::BitmapText() :
+m_vertices(sf::PrimitiveType::Triangles),
+m_need_update(true)
+{}
+
+BitmapText::BitmapText(const sf::String& string, const ns::BitmapFont& font) :
+m_string(string),
+m_font(&font),
+m_vertices(sf::PrimitiveType::Triangles),
+m_need_update(true)
+{}
+
+void BitmapText::setString(const sf::String& string) {
+    m_string = string;
+    m_need_update = true;
 }
 
-auto BitmapText::getString() -> const std::wstring& {
+auto BitmapText::getString() -> const sf::String& {
     return m_string;
 }
 
-void BitmapText::setString(const std::wstring &string) {
-    m_string = string;
-    processString();
-    updateVertices();
-}
-
-auto BitmapText::getFont() -> BitmapFont* {
+auto BitmapText::getFont() const -> const BitmapFont* {
     return m_font;
 }
 
-void BitmapText::setFont(const std::shared_ptr<BitmapFont>& font) {
-    setFont(font.get());
-}
-void BitmapText::setFont(BitmapFont* font) {
-    if (font != nullptr) {
-        m_font = font;
-        processString();
-        updateVertices();
-    }
+void BitmapText::setFont(const BitmapFont& font) {
+    m_font = &font;
+    m_need_update = true;
 }
 
 void BitmapText::setColor(const sf::Color &color) {
     m_color = color;
-    updateVertices();
+    m_need_update = true;
+}
+
+auto BitmapText::getColor() const -> const sf::Color& {
+    return m_color;
+}
+
+void BitmapText::setLetterSpacing(float factor) {
+    m_letter_spacing = factor;
+    m_need_update = true;
+}
+
+auto BitmapText::getLetterSpacing() const -> float {
+    return m_letter_spacing;
+}
+
+void BitmapText::setLineSpacing(float factor) {
+    m_line_spacing = factor;
+    m_need_update = true;
+}
+
+auto BitmapText::getLineSpacing() const -> float {
+    return m_line_spacing;
 }
 
 auto BitmapText::getPosition() const -> sf::Vector2f {
     return sf::Transformable::getPosition();
 }
 
-auto BitmapText::getGlobalBounds() const -> ns::FloatRect {
-    return getTransform().transformRect({{0, 0}, getSize()});
+auto BitmapText::getLocalBounds() const -> ns::FloatRect {
+    return {{0, 0}, getSize()};
 }
 
-void BitmapText::setMaxWidth(int max_width) {
-    m_max_width = max_width;
-    processString();
-    updateVertices();
+auto BitmapText::getGlobalBounds() const -> ns::FloatRect {
+    return getTransform().transformRect(getLocalBounds());
 }
 
 auto BitmapText::getSize() const -> sf::Vector2f {
-    return {static_cast<float>(m_width), static_cast<float>(m_height)};
+    if (m_need_update)
+        updateVertices();
+    return {static_cast<float>(m_size.x), static_cast<float>(m_size.y)};
 }
 
-auto BitmapText::getProcessedString() -> const std::wstring& {
-    return m_processed_string;
-}
-
+/*
 void BitmapText::processString() {
     m_processed_string = m_string;
     if (m_max_width > 0 && m_font != nullptr) {
@@ -207,37 +229,40 @@ void BitmapText::processString() {
         }
     }
 }
+*/
 
-void BitmapText::updateVertices() {
+void BitmapText::updateVertices() const {
+    m_need_update = false;
     m_vertices.clear();
     if (m_font != nullptr) {
         float x = 0, y = 0;
-        int w = 0, h = m_font->getGlyphSize().y;
-        int max_w = 0;
-        for(const auto& character : m_processed_string) {
+        float w = 0, h = (float)m_font->getGlyphSize().y;
+        float max_w = 0;
+        for(const auto& character : m_string) {
             if (character == '\n') {
-                x = 0;
-                y += (float)m_font->getGlyphSize().y;
                 max_w = std::max(max_w, w);
-                w = 0;
-                h += m_font->getGlyphSize().y;
+                x = 0; y += (float)m_font->getGlyphSize().y * m_line_spacing;
+                w = 0; h += (float)m_font->getGlyphSize().y * m_line_spacing;
                 continue;
             }
-            auto glyph = m_font->getGlyph(character);
-            auto glyph_size = (sf::Vector2f)m_font->getGlyphSize();
-            auto vertex_tl = sf::Vertex({x, y}, m_color, sf::Vector2f(glyph.texture_rect.topleft()));
-            auto vertex_tr = sf::Vertex({x + glyph_size.x, y}, m_color, sf::Vector2f(glyph.texture_rect.topright()));
-            auto vertex_br = sf::Vertex({x + glyph_size.x, y + glyph_size.y}, m_color, sf::Vector2f(glyph.texture_rect.bottomright()));
-            auto vertex_bl = sf::Vertex({x, y + glyph_size.y}, m_color, sf::Vector2f(glyph.texture_rect.bottomleft()));
-            m_vertices.append(vertex_tl);
-            m_vertices.append(vertex_tr);
-            m_vertices.append(vertex_br);
-            m_vertices.append(vertex_bl);
-            x += (float)glyph.advance;
-            w += glyph.advance;
+            const auto& glyph = m_font->getGlyph(character);
+            // no need to draw vertices for space
+            if (character != ' ') {
+                auto glyph_size = sf::Vector2f(m_font->getGlyphSize());
+                auto glyph_rect = ns::FloatRect(x, y, glyph_size.x, glyph_size.y);
+                auto tex_rect = ns::FloatRect(glyph.texture_rect);
+                m_vertices.append({glyph_rect.topleft(), m_color, tex_rect.topleft()});
+                m_vertices.append({glyph_rect.topright(), m_color, tex_rect.topright()});
+                m_vertices.append({glyph_rect.bottomleft(), m_color, tex_rect.bottomleft()});
+                m_vertices.append({glyph_rect.bottomleft(), m_color, tex_rect.bottomleft()});
+                m_vertices.append({glyph_rect.topright(), m_color, tex_rect.topright()});
+                m_vertices.append({glyph_rect.bottomright(), m_color, tex_rect.bottomright()});
+            }
+            x += (float)glyph.advance * m_letter_spacing;
+            w += (float)glyph.advance * m_letter_spacing;
         }
-        m_width = std::max(max_w, w);
-        m_height = h;
+        m_size.x = std::max(max_w, w);
+        m_size.y = h;
     }
 }
 
