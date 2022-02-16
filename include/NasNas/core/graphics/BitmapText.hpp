@@ -140,12 +140,6 @@ namespace ns {
         auto getPosition() const -> sf::Vector2f;
 
         /**
-         * \brief Get BitmapText size
-         * \return Size
-         */
-        auto getSize() const -> sf::Vector2f;
-
-        /**
          * \brief Get BitmapText local bounds
          * \return Local bounds rectangle
          */

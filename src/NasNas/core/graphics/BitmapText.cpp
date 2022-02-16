@@ -89,18 +89,18 @@ auto BitmapFont::getGlyph(wchar_t character) const -> const BitmapGlyph& {
 
 auto BitmapFont::computeStringSize(const std::wstring& string) const -> sf::Vector2i {
     int h = getGlyphSize().y;
-    int w = 0, max_width = 0;
-    for (const auto character : string) {
+    int w = 0, max_w = 0;
+    for (const auto& character : string) {
         if (character == '\n') {
             h += getGlyphSize().y;
-            max_width = std::max(w, max_width);
+            max_w = std::max(w, max_w);
             w = 0;
             continue;
         }
         w += getGlyph(character).advance;
     }
-    max_width = std::max(w, max_width);
-    return {max_width, h};
+    max_w = std::max(w, max_w);
+    return {max_w, h};
 }
 
 
@@ -166,17 +166,13 @@ auto BitmapText::getPosition() const -> sf::Vector2f {
 }
 
 auto BitmapText::getLocalBounds() const -> ns::FloatRect {
-    return {{0, 0}, getSize()};
+    if (m_need_update)
+        updateVertices();
+    return {{0, 0}, m_size};
 }
 
 auto BitmapText::getGlobalBounds() const -> ns::FloatRect {
     return getTransform().transformRect(getLocalBounds());
-}
-
-auto BitmapText::getSize() const -> sf::Vector2f {
-    if (m_need_update)
-        updateVertices();
-    return {static_cast<float>(m_size.x), static_cast<float>(m_size.y)};
 }
 
 /*
