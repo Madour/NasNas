@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -22,77 +23,27 @@ namespace ns {
 
     class BitmapFont;
 
-    class BitmapGlyph {
-    public:
-        const ns::IntRect texture_rect; ///< BitmapGlyph rectangle on the BitmapFont texutre
-        const char character;           ///< Character represented by the BitmapGlyph
-        const int advance;              ///< Space to add after the BitmapGlyph
-
-    private:
-        friend BitmapFont;
-
-        /**
-         * \brief Creates a BitmapGlyph
-         *
-         * \param texture_rect BitmapGlyph rectangle on the BitmapFont texutre
-         * \param character Character represented by the BitmapGlyph
-         * \param spacing Space to add after the BitmapGlyph
-         */
-        BitmapGlyph(const ns::IntRect& texture_rect, char character, int spacing);
+    struct BitmapGlyph {
+        ns::IntRect texture_rect; ///< BitmapGlyph rectangle on the BitmapFont texture
+        wchar_t character;        ///< Character represented by the BitmapGlyph
+        unsigned advance;         ///< Space to add after the BitmapGlyph
     };
 
     /**
      * \brief A font that can be created from a texture
      */
     class BitmapFont {
+        static constexpr wchar_t default_characters[] = L" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
     public:
-        /**
-         * \brief Creates a BitmapFont from a Texture
-         *
-         * This constructor will use the default character map and advance map.
-         * Make sure your characters in the texture are placed in the following order (first character is a space):
-         *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-         *
-         * \param texture Font texture
-         * \param glyph_size Glyphs size in pixels
-         */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, int default_advance=0);
-
-        /**
-         * \brief Creates a BitmapFont from a Texture
-         *
-         * This constructor will use the provided character map.
-         *
-         * \param texture Font texture
-         * \param glyph_size Glyphs size in pixels
-         * \param chars_map Character map, defines the order of the characters on the texture
-         */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, int default_advance=0);
-
-        /**
-        * \brief Creates a BitmapFont from a Texture
-        *
-        * This constructor will use the provided advance map and the default character map.
-        * Make sure your characters in the texture are placed in the following order (first character is a space):
-        *  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-        *
-        * \param texture Font texture
-        * \param glyph_size Glyphs size in pixels
-        * \param advance_map Advance map, defines the space after each character
-        */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<std::string, int>& advance_map, int default_advance=0);
+        BitmapFont() = default;
 
         /**
          * \brief Creates a BitmapFont from a Texture
          *
          * \param texture Font texture
          * \param glyph_size Glyphs size in pixels
-         * \param chars_map Character map, defines the order of the characters on the texture
-         * \param advance_map Advance map, defines the space after each character
          */
-        BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<std::string, int>& advance_map, int default_advance=0);
-
-        ~BitmapFont();
+        void loadFromTexture(const sf::Texture& texture, const sf::Vector2u& glyph_size, unsigned advance);
 
         /**
          * \brief Get BitmapFont texture
@@ -108,6 +59,10 @@ namespace ns {
          */
         auto getGlyphSize() -> const sf::Vector2u&;
 
+        void setCharacters(const std::wstring& characters);
+
+        void setCharactersAdvance(const std::map<std::wstring, unsigned>& advances);
+
         /**
          * \brief Get the BitmapGlyph data of a given character
 
@@ -115,16 +70,15 @@ namespace ns {
          *
          * \return BitmapGlyph data of the character
          */
-        auto getGlyph(char character) -> const BitmapGlyph&;
+        auto getGlyph(wchar_t character) -> const BitmapGlyph&;
 
-        auto computeStringSize(const std::string& string) -> sf::Vector2i;
+        auto computeStringSize(const std::wstring& string) -> sf::Vector2i;
 
     private:
-        const sf::Texture* m_texture;
-        const sf::Vector2u m_glyph_size;
-        std::string m_chars_map;
-        std::unordered_map<char, int> m_advance_map;
-        std::unordered_map<char, BitmapGlyph*> m_glyphs;
+        const sf::Texture* m_texture = nullptr;
+        sf::Vector2u m_glyph_size;
+        unsigned m_default_advance = 0;
+        std::unordered_map<wchar_t, BitmapGlyph> m_glyphs;
     };
 
     /**
@@ -140,16 +94,16 @@ namespace ns {
          *
          * \param text String to display
          */
-        explicit BitmapText(const std::string& text, ns::BitmapFont* font=nullptr);
+        explicit BitmapText(const std::wstring& text, ns::BitmapFont* font=nullptr);
 
-        auto getString() -> const std::string&;
+        auto getString() -> const std::wstring&;
 
         /**
          * \brief Set a the string to be displayed
          *
          * \param string String to write
          */
-        void setString(const std::string& string);
+        void setString(const std::wstring& string);
 
         auto getFont() -> BitmapFont*;
 
@@ -200,15 +154,15 @@ namespace ns {
         auto getSize() const -> sf::Vector2f;
 
     protected:
-        auto getProcessedString() -> const std::string&;
+        auto getProcessedString() -> const std::wstring&;
         void processString();
 
     private:
         void updateVertices();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        std::string m_string;
-        std::string m_processed_string;
+        std::wstring m_string;
+        std::wstring m_processed_string;
         BitmapFont* m_font = nullptr;
         sf::Color m_color = sf::Color::White;
 

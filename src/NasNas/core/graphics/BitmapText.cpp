@@ -9,34 +9,21 @@
 
 using namespace ns;
 
-BitmapGlyph::BitmapGlyph(const ns::IntRect& texture_rect, char character, int default_advance) :
-texture_rect(texture_rect),
-character(character),
-advance(default_advance)
-{}
 
+void BitmapFont::loadFromTexture(const sf::Texture& texture, const sf::Vector2u& glyph_size, unsigned advance) {
+    m_texture = &texture;
+    m_glyph_size = glyph_size;
+    m_default_advance = advance;
+    setCharacters(default_characters);
+}
 
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, int default_advance) :
-BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", {}, default_advance)
-{}
-
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, int default_advance) :
-BitmapFont(texture, glyph_size, chars_map, {}, default_advance)
-{}
-
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::unordered_map<std::string, int>& spacings_map, int default_advance) :
-BitmapFont(texture, glyph_size, " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~", spacings_map, default_advance)
-{}
-
-BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::string& chars_map, const std::unordered_map<std::string, int>& spacings_map, int default_advance) :
+/*
+BitmapFont::BitmapFont(const sf::Texture& texture, const sf::Vector2u& glyph_size, const std::wstring& chars_map, const std::unordered_map<std::wstring, int>& spacings_map, int default_advance) :
 m_texture(&texture),
 m_glyph_size(glyph_size) {
     m_chars_map = chars_map;
     if (default_advance <= 0)
         default_advance = glyph_size.x;
-    for (const auto& [string, advance] : spacings_map)
-        for (const auto& letter : string)
-            m_advance_map[letter] = advance;
 
     unsigned int i = 0;
     for (int y = 0; y < (int)m_texture->getSize().y; y += m_glyph_size.y) {
@@ -44,39 +31,59 @@ m_glyph_size(glyph_size) {
             if (i < m_chars_map.size()) {
                 char character = m_chars_map[i];
                 int spacing = default_advance;
-                if (m_advance_map.count(character) > 0)
-                    spacing = m_advance_map[character];
+                // if (m_advance_map.count(character) > 0)
+                //     spacing = m_advance_map[character];
                 if (m_glyphs.count(character) == 0)
-                    m_glyphs[character] = new BitmapGlyph({{x, y}, {(int)m_glyph_size.x, (int)m_glyph_size.y}}, character, spacing);
+                    m_glyphs[character].reset(new BitmapGlyph({{x, y}, {(int)m_glyph_size.x, (int)m_glyph_size.y}}, character, spacing));
             }
             i += 1;
         }
     }
 }
+*/
 
-BitmapFont::~BitmapFont() {
-    for (const auto& [name, glyph] : m_glyphs) {
-        delete(glyph);
-    }
+auto BitmapFont::getTexture() -> const sf::Texture* {
+    return m_texture;
 }
 
 auto BitmapFont::getGlyphSize() -> const sf::Vector2u& {
     return m_glyph_size;
 }
 
-auto BitmapFont::getTexture() -> const sf::Texture* {
-    return m_texture;
-}
+void BitmapFont::setCharacters(const std::wstring& characters) {
+    if (m_texture == nullptr)
+        return;
 
-auto BitmapFont::getGlyph(char character) -> const BitmapGlyph& {
-    if (m_glyphs.count(character) > 0) {
-        return *m_glyphs[character];
+    m_glyphs.clear();
+    m_glyphs[0] = {{0, 0, 0, 0}, static_cast<wchar_t>(0), 0};
+
+    auto columns = m_texture->getSize().x / m_glyph_size.x;
+    for (unsigned i = 0; i < characters.size(); ++i) {
+        auto character = characters.at(i);
+        auto tex_coords = sf::Vector2i((i % columns)*m_glyph_size.x, (i / columns)*m_glyph_size.y);
+        auto tex_rect = ns::IntRect(tex_coords.x, tex_coords.y, m_glyph_size.x, m_glyph_size.y);
+        m_glyphs[character] = {tex_rect, character, m_default_advance};
     }
-    std::cout << "Selected BitmapFont does not have glyph for character «" << character << "» " << std::endl;
-    exit(-1);
 }
 
-auto BitmapFont::computeStringSize(const std::string& string) -> sf::Vector2i {
+void BitmapFont::setCharactersAdvance(const std::map<std::wstring, unsigned int>& advances) {
+    for (const auto& [string, advance]: advances) {
+        for (const auto& character: string) {
+            if (m_glyphs.find(character) != m_glyphs.end()) {
+                m_glyphs.at(character).advance = advance;
+            }
+        }
+    }
+}
+
+auto BitmapFont::getGlyph(wchar_t character) -> const BitmapGlyph& {
+    if (m_glyphs.find(character) != m_glyphs.end()) {
+        return m_glyphs.at(character);
+    }
+    return m_glyphs.at(0);
+}
+
+auto BitmapFont::computeStringSize(const std::wstring& string) -> sf::Vector2i {
     int h = getGlyphSize().y;
     int w = 0, max_width = 0;
     for (const auto character : string) {
@@ -93,17 +100,17 @@ auto BitmapFont::computeStringSize(const std::string& string) -> sf::Vector2i {
 }
 
 
-BitmapText::BitmapText(const std::string& text, ns::BitmapFont* font) {
+BitmapText::BitmapText(const std::wstring& text, ns::BitmapFont* font) {
     setFont(font);
     m_vertices.setPrimitiveType(sf::PrimitiveType::Quads);
     setString(text);
 }
 
-auto BitmapText::getString() -> const std::string& {
+auto BitmapText::getString() -> const std::wstring& {
     return m_string;
 }
 
-void BitmapText::setString(const std::string &string) {
+void BitmapText::setString(const std::wstring &string) {
     m_string = string;
     processString();
     updateVertices();
@@ -147,7 +154,7 @@ auto BitmapText::getSize() const -> sf::Vector2f {
     return {static_cast<float>(m_width), static_cast<float>(m_height)};
 }
 
-auto BitmapText::getProcessedString() -> const std::string& {
+auto BitmapText::getProcessedString() -> const std::wstring& {
     return m_processed_string;
 }
 
@@ -155,15 +162,15 @@ void BitmapText::processString() {
     m_processed_string = m_string;
     if (m_max_width > 0 && m_font != nullptr) {
         // splitting string into words
-        std::vector<std::string> words;
+        std::vector<std::wstring> words;
         auto* str = m_string.data();
-        std::string current_word;
+        std::wstring current_word;
         while(*str != '\0') {
             if (*str == ' ' || *str == '\n') {
                 if (!current_word.empty())
                     words.push_back(current_word);
                 words.emplace_back(1, *str);
-                current_word = "";
+                current_word = L"";
             }
             else
                 current_word += *str;
@@ -175,15 +182,15 @@ void BitmapText::processString() {
         int current_width = 0;
         for (auto& w : words) {
             const auto& word_width = getFont()->computeStringSize(w).x;
-            if (w == "\n")
+            if (w == L"\n")
                 current_width = 0;
             else if (current_width + word_width > m_max_width) {
                 current_width = 0;
                 if (w[0] != '\n') {
-                    if (w != " ")
-                        w = std::string("\n").append(w);
+                    if (w != L" ")
+                        w = std::wstring(L"\n").append(w);
                     else
-                        w = "\n";
+                        w = L"\n";
                 }
             }
             current_width += word_width;
@@ -193,7 +200,7 @@ void BitmapText::processString() {
         m_processed_string.clear();
         for (unsigned i = 0; i < words.size(); ++i) {
             auto& word = words[i];
-            if (word == " ")
+            if (word == L" ")
                 if ((i+1 < words.size() && words[i+1][0] == '\n') || i+1 == words.size())
                     continue;
             m_processed_string += words[i];

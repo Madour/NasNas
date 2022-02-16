@@ -15,7 +15,7 @@
 namespace ns::ui {
     class TypedText : public BitmapText {
     public:
-        explicit TypedText(std::string string);
+        explicit TypedText(std::wstring string);
 
         void setMaxWidth(int max_width) override;
         void setMaxLines(int lines_nb);
@@ -32,8 +32,8 @@ namespace ns::ui {
         void nextPage();
 
     private:
-        std::string m_string;
-        std::vector<std::string> m_pages;
+        std::wstring m_string;
+        std::vector<std::wstring> m_pages;
         int m_max_lines = 0;
         int m_counter = 0;
         int m_typing_delay = 0;

@@ -1,4 +1,4 @@
-/**
+﻿/**
 * Created by Modar Nasser on 07/01/2022.
 **/
 
@@ -9,6 +9,7 @@
  * This example shows how to draw Text and BitmapText
  */
 class Game : public ns::App {
+    ns::BitmapFont bitmap_font;
 public:
     Game() : ns::App("Texts example", {720, 480}) {
         getWindow().setClearColor(sf::Color::White);
@@ -18,15 +19,10 @@ public:
         text->setPosition(720/2 - text->getGlobalBounds().width/2,
                           480/2 - text->getGlobalBounds().height/2 - 50);
 
-        auto* font = new ns::BitmapFont(
-                ns::Res::getTexture("font.png"),
-                {8, 8},
-                " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+=",
-                {{"ABCDEFGHIJKMNOPQRSTUVWXYZ?=-", 5}, {"fijl1", 3}},
-                4
-        );
+        bitmap_font.loadFromTexture(ns::Res::getTexture("font.png"), {8, 8}, 4);
+        bitmap_font.setCharacters(L" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?-+=");
 
-        auto* bmp_text = new ns::BitmapText("Text using png font", font);
+        auto* bmp_text = new ns::BitmapText(L"Text using png font", &bitmap_font);
         bmp_text->scale(3.f, 3.f);
         bmp_text->setPosition(720/2 - bmp_text->getGlobalBounds().width/2,
                               480/2 - bmp_text->getGlobalBounds().height/2 + 50);

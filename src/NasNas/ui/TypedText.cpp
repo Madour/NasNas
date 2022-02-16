@@ -7,7 +7,7 @@
 using namespace ns;
 using namespace ns::ui;
 
-TypedText::TypedText(std::string string) :
+TypedText::TypedText(std::wstring string) :
 BitmapText(string),
 m_string(std::move(string))
 {}
