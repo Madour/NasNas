@@ -6,6 +6,7 @@ set(
 
         ${SRC}
         ${SRC_PATH}/Anim.cpp
+        ${SRC_PATH}/BitmapFont.cpp
         ${SRC_PATH}/BitmapText.cpp
         ${SRC_PATH}/ParticleSystem.cpp
         ${SRC_PATH}/Renderable.cpp
@@ -24,6 +25,7 @@ set(
 
         ${INC}
         ${INC_PATH}/Anim.hpp
+        ${INC_PATH}/BitmapFont.hpp
         ${INC_PATH}/BitmapText.hpp
         ${INC_PATH}/Shapes.hpp
         ${INC_PATH}/ParticleSystem.hpp

@@ -4,6 +4,7 @@
 
 #include <NasNas/core/graphics/Anim.hpp>
 #include <NasNas/core/graphics/BitmapText.hpp>
+#include <NasNas/core/graphics/BitmapFont.hpp>
 #include <NasNas/core/graphics/ParticleSystem.hpp>
 #include <NasNas/core/graphics/Renderable.hpp>
 #include <NasNas/core/graphics/Shapes.hpp>
