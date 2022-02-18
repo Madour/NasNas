@@ -16,7 +16,7 @@ namespace ns {
     struct BitmapGlyph {
         ns::IntRect texture_rect; ///< BitmapGlyph rectangle on the BitmapFont texture
         wchar_t character;        ///< Character represented by the BitmapGlyph
-        unsigned advance;         ///< Space to add after the BitmapGlyph
+        float advance;            ///< Space to add after the BitmapGlyph
     };
 
     /**
@@ -62,12 +62,12 @@ namespace ns {
          */
         auto getGlyph(wchar_t character) const -> const BitmapGlyph&;
 
-        auto computeStringSize(const std::wstring& string) const -> sf::Vector2i;
+        auto computeStringSize(const std::wstring& string) const -> sf::Vector2f;
 
     private:
         const sf::Texture* m_texture = nullptr;
         sf::Vector2u m_glyph_size;
-        unsigned m_default_advance = 0;
+        float m_default_advance = 0.f;
         std::unordered_map<wchar_t, BitmapGlyph> m_glyphs;
     };
 

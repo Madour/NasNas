@@ -44,7 +44,7 @@ void BitmapFont::setCharactersAdvance(const std::map<std::wstring, unsigned int>
     for (const auto& [string, advance]: advances) {
         for (const auto& character: string) {
             if (m_glyphs.find(character) != m_glyphs.end()) {
-                m_glyphs.at(character).advance = advance;
+                m_glyphs.at(character).advance = static_cast<float>(advance);
             }
         }
     }
@@ -57,9 +57,9 @@ auto BitmapFont::getGlyph(wchar_t character) const -> const BitmapGlyph& {
     return m_glyphs.at(0);
 }
 
-auto BitmapFont::computeStringSize(const std::wstring& string) const -> sf::Vector2i {
-    int h = getGlyphSize().y;
-    int w = 0, max_w = 0;
+auto BitmapFont::computeStringSize(const std::wstring& string) const -> sf::Vector2f {
+    unsigned h = getGlyphSize().y;
+    float w = 0, max_w = 0;
     for (const auto& character : string) {
         if (character == '\n') {
             h += getGlyphSize().y;
@@ -70,6 +70,6 @@ auto BitmapFont::computeStringSize(const std::wstring& string) const -> sf::Vect
         w += getGlyph(character).advance;
     }
     max_w = std::max(w, max_w);
-    return {max_w, h};
+    return {max_w, static_cast<float>(h)};
 }
 
