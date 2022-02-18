@@ -19,12 +19,12 @@ public:
         text->setPosition(720/2 - text->getGlobalBounds().width/2,
                           480/2 - text->getGlobalBounds().height/2 - 85);
 
-        bitmap_font.loadFromTexture(ns::Res::getTexture("font.png"), {8, 8}, 5);
+        bitmap_font.loadFromTexture(ns::Res::getTexture("font.png"), {8, 8}, 8);
         bitmap_font.setCharacters(L"_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm"
                                   L"nopqrstuvwxyz0123456789.,:;!?-+=☺☻♥♦♣♠");
         bitmap_font.setCharactersAdvance({
             {L"fijlt.,:;", 3},
-            {L"Tabcdeghknopqrsuvwxyz?+-=", 4},
+            {L" Tabcdeghknopqrsuvwxyz?+-=", 4},
             {L"_0123456789ABCDEFGHIJKLMNOPQRSUVXYZmw", 6},
             {L"W", 7},
         });

@@ -72,6 +72,8 @@ namespace ns {
 
         auto getLineSpacing() const -> float;
 
+        auto getCharacterIndexAt(float position) const -> std::size_t;
+
         /**
          * \brief Get BitmapText position
          * \return Position

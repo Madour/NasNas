@@ -64,6 +64,24 @@ auto BitmapText::getLineSpacing() const -> float {
     return m_line_spacing;
 }
 
+auto BitmapText::getCharacterIndexAt(float position) const -> std::size_t {
+    if (m_font == nullptr || m_string.isEmpty())
+        return 0;
+
+    std::size_t i = 0;
+    float x = 0.f;
+    while (x < position && i < m_string.getSize()) {
+        wchar_t c = m_string[i];
+        if (c == L'\n') {
+            x  = 0;
+            continue;
+        }
+        x += m_font->getGlyph(c).advance * m_letter_spacing;
+        i++;
+    }
+    return i;
+}
+
 auto BitmapText::getPosition() const -> sf::Vector2f {
     return sf::Transformable::getPosition();
 }
