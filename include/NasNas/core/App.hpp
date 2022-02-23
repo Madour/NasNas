@@ -260,7 +260,7 @@ namespace ns {
          *
          * \param event The key event
          */
-        static void storeInputs(sf::Event event);
+        static void storeInputs(const sf::Event& event);
 
         /**
          * \brief Render App content to the AppWindow

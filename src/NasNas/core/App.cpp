@@ -186,19 +186,19 @@ void App::addDebugText(const std::string& label, const sf::Vector2f& position, c
     m_debug_texts.emplace_back(dbg_txt);
 }
 
-void App::storeInputs(sf::Event event) {
+void App::storeInputs(const sf::Event& event) {
+    auto& inputs = Inputs::get();
     if (event.type == sf::Event::KeyPressed) {
-        Inputs::get().m_keys_down.emplace_back(event.key.code);
-        Inputs::get().m_keys_states[event.key.code] = true;
-        Inputs::get().m_keys_pressed[event.key.code] = true;
+        inputs.m_keys_down.emplace_back(event.key.code);
+        inputs.m_keys_states[event.key.code] = true;
+        inputs.m_keys_pressed[event.key.code] = true;
     }
-
-    if (event.type == sf::Event::KeyReleased) {
-        auto key_iter = std::find(Inputs::get().m_keys_down.begin(), Inputs::get().m_keys_down.end(), event.key.code);
-        if (key_iter != Inputs::get().m_keys_down.end())
-            Inputs::get().m_keys_down.erase(key_iter);
-        Inputs::get().m_keys_states[event.key.code] = false;
-        Inputs::get().m_keys_released[event.key.code] = true;
+    else if (event.type == sf::Event::KeyReleased) {
+        auto key_iter = std::find(inputs.m_keys_down.begin(), inputs.m_keys_down.end(), event.key.code);
+        if (key_iter != inputs.m_keys_down.end())
+            inputs.m_keys_down.erase(key_iter);
+        inputs.m_keys_states[event.key.code] = false;
+        inputs.m_keys_released[event.key.code] = true;
     }
 }
 
