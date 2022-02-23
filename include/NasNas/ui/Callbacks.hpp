@@ -3,7 +3,7 @@
 #pragma once
 
 namespace ns::ui {
-    enum class MouseCallback {
+    enum class CursorCallback {
         onHover,
         onUnhover,
         onFocus,

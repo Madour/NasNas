@@ -10,11 +10,11 @@ using namespace ns::ui;
 
 Container::Container() {
     m_type |= Type::Parent;
-    auto widget_default = m_default_callbacks.at(MouseCallback::onUnhover);
-    m_default_callbacks[MouseCallback::onUnhover] = [this, widget_default] (Widget* w) {
+    auto widget_default = m_default_callbacks.at(CursorCallback::onUnhover);
+    m_default_callbacks[CursorCallback::onUnhover] = [this, widget_default] (Widget* w) {
         for (auto& widget : m_widgets) {
             if (widget->isHovered())
-                widget->call(MouseCallback::onUnhover);
+                widget->call(CursorCallback::onUnhover);
         }
         widget_default(w);
     };
@@ -55,11 +55,11 @@ void Container::onEvent(const sf::Event& event) {
         case sf::Event::MouseMoved:
             widget_hovered = getWidgetUnder(transformPosition(m_root->getMousePosition()));
             if (m_hovered_widget && m_hovered_widget != widget_hovered) {
-                m_hovered_widget->call(MouseCallback::onUnhover);
+                m_hovered_widget->call(CursorCallback::onUnhover);
             }
             m_hovered_widget = widget_hovered;
             if (m_hovered_widget && !m_hovered_widget->m_hovered) {
-                m_hovered_widget->call(MouseCallback::onHover);
+                m_hovered_widget->call(CursorCallback::onHover);
             }
             break;
         case sf::Event::MouseButtonPressed:
@@ -70,7 +70,7 @@ void Container::onEvent(const sf::Event& event) {
                     m_hovered_widget->call(ClickCallback::onRightClickPress);
                 else if (event.mouseButton.button == sf::Mouse::Button::Middle)
                     m_hovered_widget->call(ClickCallback::onMiddleClickPress);
-                m_hovered_widget->call(MouseCallback::onFocus);
+                m_hovered_widget->call(CursorCallback::onFocus);
             }
             break;
         case sf::Event::MouseButtonReleased:
@@ -81,7 +81,7 @@ void Container::onEvent(const sf::Event& event) {
                     m_hovered_widget->call(ClickCallback::onRightClickRelease);
                 else if (event.mouseButton.button == sf::Mouse::Button::Middle)
                     m_hovered_widget->call(ClickCallback::onMiddleClickRelease);
-                m_hovered_widget->call(MouseCallback::onUnfocus);
+                m_hovered_widget->call(CursorCallback::onUnfocus);
             }
             break;
 
@@ -89,13 +89,13 @@ void Container::onEvent(const sf::Event& event) {
             if (event.touch.finger >= m_root->getMaxFingersCount()) break;
             widget_touched = getWidgetUnder(transformPosition(m_root->getTouchPosition(event.touch.finger)));
             if (m_touched_widgets[event.touch.finger] && m_touched_widgets[event.touch.finger] != widget_touched) {
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onUnhover);
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onUnfocus);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onUnhover);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onUnfocus);
             }
             m_touched_widgets[event.touch.finger] = widget_touched;
             if (m_touched_widgets[event.touch.finger] && !m_touched_widgets[event.touch.finger]->m_hovered) {
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onHover);
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onFocus);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onHover);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onFocus);
                 m_touched_widgets[event.touch.finger]->call(ClickCallback::onTouchBegan);
             }
             break;
@@ -104,13 +104,13 @@ void Container::onEvent(const sf::Event& event) {
             if (event.touch.finger >= m_root->getMaxFingersCount()) break;
             widget_touched = getWidgetUnder(transformPosition(m_root->getTouchPosition(event.touch.finger)));
             if (m_touched_widgets[event.touch.finger] && m_touched_widgets[event.touch.finger] != widget_touched) {
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onUnhover);
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onUnfocus);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onUnhover);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onUnfocus);
             }
             m_touched_widgets[event.touch.finger] = widget_touched;
             if (m_touched_widgets[event.touch.finger] && !m_touched_widgets[event.touch.finger]->m_hovered) {
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onHover);
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onFocus);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onHover);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onFocus);
             }
             break;
 
@@ -118,8 +118,8 @@ void Container::onEvent(const sf::Event& event) {
             if (event.touch.finger >= m_root->getMaxFingersCount()) break;
             if (m_touched_widgets[event.touch.finger] != nullptr) {
                 m_touched_widgets[event.touch.finger]->call(ClickCallback::onTouchEnded);
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onUnfocus);
-                m_touched_widgets[event.touch.finger]->call(MouseCallback::onUnhover);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onUnfocus);
+                m_touched_widgets[event.touch.finger]->call(CursorCallback::onUnhover);
                 m_touched_widgets[event.touch.finger] = nullptr;
             }
             break;

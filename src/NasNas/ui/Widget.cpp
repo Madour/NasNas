@@ -6,17 +6,17 @@ using namespace ns;
 using namespace ns::ui;
 
 Widget::Widget() {
-    m_default_callbacks[MouseCallback::onHover] = [](Widget* w) { w->m_hovered = true; };
-    m_default_callbacks[MouseCallback::onUnhover] = [](Widget* w) { w->call(MouseCallback::onUnfocus); w->m_hovered = false; };
-    m_default_callbacks[MouseCallback::onFocus] = [](Widget* w) { w->m_focused = true; };
-    m_default_callbacks[MouseCallback::onUnfocus] = [](Widget* w) { w->m_focused = false; };
+    m_default_callbacks[CursorCallback::onHover] = [](Widget* w) { w->m_hovered = true; };
+    m_default_callbacks[CursorCallback::onUnhover] = [](Widget* w) { w->call(CursorCallback::onUnfocus); w->m_hovered = false; };
+    m_default_callbacks[CursorCallback::onFocus] = [](Widget* w) { w->m_focused = true; };
+    m_default_callbacks[CursorCallback::onUnfocus] = [](Widget* w) { w->m_focused = false; };
 }
 
-void Widget::setCallback(MouseCallback cb_type, std::function<void(Widget*)> cb) {
+void Widget::setCallback(CursorCallback cb_type, std::function<void(Widget*)> cb) {
     m_user_callbacks[cb_type] = std::move(cb);
 }
 
-void Widget::call(MouseCallback cb_type) {
+void Widget::call(CursorCallback cb_type) {
     if (m_default_callbacks.find(cb_type) != m_default_callbacks.end())
         m_default_callbacks.at(cb_type)(this);
     if (m_user_callbacks.find(cb_type) != m_user_callbacks.end())

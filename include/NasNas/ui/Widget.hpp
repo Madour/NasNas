@@ -24,7 +24,7 @@ namespace ns::ui {
         virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
         virtual auto contains(const sf::Vector2f& pos) const -> bool = 0;
 
-        void setCallback(MouseCallback cb_type, std::function<void(Widget*)> cb);
+        void setCallback(CursorCallback cb_type, std::function<void(Widget*)> cb);
 
         auto isHovered() const -> bool { return m_hovered; }
         auto isFocused() const -> bool { return m_focused; }
@@ -33,7 +33,7 @@ namespace ns::ui {
         GuiRoot* m_root = nullptr;
         Container* m_parent = nullptr;
 
-        void call(MouseCallback cb_type);
+        void call(CursorCallback cb_type);
         virtual void call(ClickCallback cb_type);
 
         enum Type {
@@ -45,8 +45,8 @@ namespace ns::ui {
         unsigned m_type = Type::None;
 
     private:
-        std::unordered_map<MouseCallback, std::function<void(Widget*)>> m_default_callbacks;
-        std::unordered_map<MouseCallback, std::function<void(Widget*)>> m_user_callbacks;
+        std::unordered_map<CursorCallback, std::function<void(Widget*)>> m_default_callbacks;
+        std::unordered_map<CursorCallback, std::function<void(Widget*)>> m_user_callbacks;
 
         bool m_hovered = false;
         bool m_focused = false;

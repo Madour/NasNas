@@ -72,8 +72,8 @@ struct Game : ns::App {
         btn.text.setCharacterSize(25);
         btn.text.setFillColor(sf::Color::Black);
         btn.setTextAlign(ns::ui::TextAlign::Left);
-        btn.setCallback(ns::ui::MouseCallback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(-10.f);});
-        btn.setCallback(ns::ui::MouseCallback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(+10.f);});
+        btn.setCallback(ns::ui::CursorCallback::onHover, [](auto* btn) {btn->setScale(1.1f, 1.1f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(-10.f);});
+        btn.setCallback(ns::ui::CursorCallback::onUnhover, [](auto* btn) {btn->setScale(1.f, 1.f); dynamic_cast<ns::ui::Button*>(btn)->text.rotate(+10.f);});
 
         btn.setCallback(ns::ui::ClickCallback::onLeftClickPress, [](auto* btn) {ns_LOG("Btn left click press");});
         btn.setCallback(ns::ui::ClickCallback::onLeftClickRelease, [](auto* btn) {ns_LOG("Btn left click release");});
