@@ -99,8 +99,8 @@ const Settings::Platform Settings::platform =
     #include "TargetConditionals.h"
 
     #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        Settings::Platform::iOS
+        Settings::Platform::iOS;
     #else
-        Settings::Platform::macOS
+        Settings::Platform::macOS;
     #endif
 #endif
