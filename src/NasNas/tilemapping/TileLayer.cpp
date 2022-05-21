@@ -80,11 +80,14 @@ void TileLayer::setTile(int x, int y, std::uint32_t gid) {
     auto tile_index = x + y*m_width;
 
     // if tile is animated, update animation positions
-    auto old_gid = getTile(x, y)->gid;
-    if (m_animated_tiles_pos.count(old_gid) > 0) {
-        auto& v = m_animated_tiles_pos.at(old_gid).positions;
-        v.erase(std::remove(v.begin(), v.end(), sf::Vector2u(x, y)), v.end());
+    if (auto tile = getTile(x, y)) {
+        auto old_gid = tile->gid;
+        if (m_animated_tiles_pos.count(old_gid) > 0) {
+            auto& v = m_animated_tiles_pos.at(old_gid).positions;
+            v.erase(std::remove(v.begin(), v.end(), sf::Vector2u(x, y)), v.end());
+        }
     }
+    
     if (!tileset.data.getTileData(id).animframes.empty()) {
         m_animated_tiles_pos[gid].index = 0;
         m_animated_tiles_pos[gid].clock.restart();
