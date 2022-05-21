@@ -101,13 +101,13 @@ macro(find_SFML)
         download_dependency(SFML "https://github.com/SFML/SFML" "eeeda74ec1fd5de24343ee845af0d8cc89e992f6")
 
         if(MSVC AND SFML_USE_STATIC_STD_LIBS)
-            foreach(flag
-                    CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
-                    CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
-                if(${flag} MATCHES "/MD")
-                    string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
-                endif()
-            endforeach()
+            add_compile_options(
+                    $<$<CONFIG:>:/MT>
+                    $<$<CONFIG:Debug>:/MTd>
+                    $<$<CONFIG:Release>:/MT>
+                    $<$<CONFIG:MinSizeRel>:/MT>
+                    $<$<CONFIG:RelWithDebInfo>:/MT>
+            )
         endif()
     endif()
 
