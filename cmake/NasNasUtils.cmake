@@ -95,7 +95,7 @@ macro(find_SFML)
     else()
         set(NASNAS_BUILD_SFML ON)
         set(BUILD_SHARED_LIBS FALSE)
-        set(SFML_USE_STATIC_STD_LIBS FALSE)
+        set(SFML_USE_STATIC_STD_LIBS TRUE)
         mark_as_advanced(BUILD_SHARED_LIBS)
 
         download_dependency(SFML "https://github.com/SFML/SFML" "eeeda74ec1fd5de24343ee845af0d8cc89e992f6")
