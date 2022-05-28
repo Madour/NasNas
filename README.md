@@ -23,7 +23,7 @@ It is entirely written in **modern C++17**, and uses SFML2 for rendering.
 
 It provides a **clean** and **easy to use** API.
 
-The framework is separated in multiple independent modules :
+The framework is separated in multiple modules :
 - ***Core*** is the only non-optional module. It is needed to create a NasNas application. 
   It contains core classes and data needed by the framework.
 - ***ECS*** is an efficient data driven Entity Component System.
@@ -43,7 +43,7 @@ The framework is separated in multiple independent modules :
 |---------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
 | Windows | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Linux   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| MacOS   | :heavy_check_mark: | :heavy_check_mark: | :question:         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| MacOS   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | Android | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | iOS     | :question:         | :question:         | :question:         | :question:         | :question:         | :question:         |
 
@@ -156,9 +156,6 @@ for a small overview of what you can do with the framework.
 
 ### Screenshots
 
-<details>
-  <summary>Click to take a look at the examples provided with NasNas</summary>
-
 All of these programs source code can be found in the `examples` folder.
 
 #### Split View
@@ -173,6 +170,10 @@ All of these programs source code can be found in the `examples` folder.
 
 ![2021-09-02_12-17-56](https://user-images.githubusercontent.com/11854124/131828412-122481a1-28ae-4272-8852-0de6f0ba33cf.gif)
  
+#### Animated sprites
+ 
+![animated_sprites-d_zZDAUUAIOb](https://user-images.githubusercontent.com/11854124/170838730-1756a3bd-9505-4cbf-9852-9d1e7360ca83.gif)
+ 
 #### Particles System
 
 https://user-images.githubusercontent.com/11854124/131836256-553ec86b-54c2-4145-b2c5-f1229b282d7e.mp4
@@ -184,8 +185,7 @@ https://user-images.githubusercontent.com/11854124/131836274-4363d86d-cbf3-4358-
 
 ##### Android
 https://user-images.githubusercontent.com/11854124/146814302-29f5f9be-3032-448f-987c-3967b5ed9689.mp4
-
-</details>
+ 
 
 ### Showcase
 
