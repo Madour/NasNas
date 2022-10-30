@@ -95,6 +95,7 @@ macro(find_SFML)
     else()
         set(NASNAS_BUILD_SFML ON)
         set(BUILD_SHARED_LIBS FALSE)
+        set(SFML_INSTALL_PKGCONFIG_FILES FALSE)
         set(SFML_USE_STATIC_STD_LIBS TRUE)
         mark_as_advanced(BUILD_SHARED_LIBS)
 
