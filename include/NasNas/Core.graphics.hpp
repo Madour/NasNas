@@ -11,5 +11,4 @@
 #include <NasNas/core/graphics/Sprite.hpp>
 #include <NasNas/core/graphics/SpriteBatch.hpp>
 #include <NasNas/core/graphics/SpriteSheet.hpp>
-#include <NasNas/core/graphics/Transformable.hpp>
 #include <NasNas/core/graphics/VertexArray.hpp>

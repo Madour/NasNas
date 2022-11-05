@@ -7,7 +7,6 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
-#include <NasNas/core/graphics/Transformable.hpp>
 #include <NasNas/core/Camera.hpp>
 
 using namespace ns;
@@ -49,20 +48,11 @@ void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         if (m_render_bounds.intersects(m_default_layer.getDrawableBounds(drawable))) {
             target.draw(*drawable, states);
         }
-        // TODO : fix cast broken because DrawableTransformable was removed
-        auto drawable_transformable = dynamic_cast<const ns::Transformable*>(drawable);
-        if (drawable_transformable != nullptr) {
-            drawable_transformable->changed = false;
-        }
     }
     for (const auto& layer : m_layers) {
         for (const auto* drawable : layer.allDrawables()) {
             if (m_render_bounds.intersects(layer.getDrawableBounds(drawable))) {
                 target.draw(*drawable, states);
-            }
-            auto drawable_transformable = dynamic_cast<const ns::Transformable*>(drawable);
-            if (drawable_transformable != nullptr) {
-                drawable_transformable->changed = false;
             }
         }
     }

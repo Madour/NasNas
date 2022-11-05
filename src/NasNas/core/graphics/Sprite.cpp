@@ -28,7 +28,6 @@ void Sprite::setTexture(const sf::Texture& texture, bool reset_rect) {
 
 void Sprite::setTextureRect(const sf::IntRect& rectangle) {
     if (rectangle != m_texture_rect) {
-        changed = true;
         m_texture_rect = rectangle;
 
         auto bounds = getLocalBounds();
@@ -54,7 +53,6 @@ void Sprite::setColor(const sf::Color& color) {
 }
 
 void Sprite::setColor(const sf::Color& color, unsigned int vert_index) {
-    changed = true;
     switch (vert_index) {
         case 2: m_vertices[3].color = color; break;
         case 3: m_vertices[2].color = color; break;

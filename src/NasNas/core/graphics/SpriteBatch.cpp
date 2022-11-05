@@ -113,8 +113,7 @@ void SpriteBatch::render() {
     for (auto& layer : m_layers) {
         for (unsigned int i = 0; i < layer.sprites.size(); ++i) {
             auto* spr = layer.sprites[i];
-            if (!spr->changed) continue;
-            spr->changed = false;
+
             const auto& transform = spr->getTransform();
             const ns::FloatRect tex_rect{spr->getTextureRect()};
             const ns::FloatRect lb{spr->getLocalBounds()};

@@ -6,13 +6,13 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/Vertex.hpp>
 
 #include <NasNas/core/data/Rect.hpp>
-#include <NasNas/core/graphics/Transformable.hpp>
 
 namespace ns {
-class Sprite : public sf::Drawable, public ns::Transformable {
+class Sprite : public sf::Drawable, public sf::Transformable {
     public:
         Sprite() = default;
         explicit Sprite(const sf::Sprite& other);

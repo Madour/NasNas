@@ -14,7 +14,6 @@ set(
         ${SRC_PATH}/Sprite.cpp
         ${SRC_PATH}/SpriteBatch.cpp
         ${SRC_PATH}/SpriteSheet.cpp
-        ${SRC_PATH}/Transformable.cpp
         ${SRC_PATH}/VertexArray.cpp
 
         PARENT_SCOPE
@@ -33,7 +32,6 @@ set(
         ${INC_PATH}/Sprite.hpp
         ${INC_PATH}/SpriteBatch.hpp
         ${INC_PATH}/SpriteSheet.hpp
-        ${INC_PATH}/Transformable.hpp
         ${INC_PATH}/VertexArray.hpp
 
         PARENT_SCOPE
