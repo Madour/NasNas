@@ -44,16 +44,17 @@ void Scene::temporaryLinkCamera(Camera* camera) {
 }
 
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    for (const auto* drawable : m_default_layer.allDrawables()) {
-        if (m_render_bounds.intersects(m_default_layer.getDrawableBounds(drawable))) {
-            target.draw(*drawable, states);
-        }
-    }
+    drawLayer(target, states, m_default_layer);
+
     for (const auto& layer : m_layers) {
-        for (const auto* drawable : layer.allDrawables()) {
-            if (m_render_bounds.intersects(layer.getDrawableBounds(drawable))) {
-                target.draw(*drawable, states);
-            }
+        drawLayer(target, states, layer);
+    }
+}
+
+void Scene::drawLayer(sf::RenderTarget& target, sf::RenderStates& states, const ns::Layer& layer) const {
+    for (const auto* drawable : layer.allDrawables()) {
+        if (m_render_bounds.intersects(layer.getDrawableBounds(drawable))) {
+            target.draw(*drawable, states);
         }
     }
 }

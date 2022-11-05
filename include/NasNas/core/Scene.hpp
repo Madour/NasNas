@@ -85,6 +85,15 @@ namespace ns {
          * \param states Render states
          */
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+        /**
+         * \brief Draws a Layer on the AppWindow
+         *
+         * \param target AppWindow
+         * \param states Render states
+         * \param layer Layer to be drawn
+         */
+        void drawLayer(sf::RenderTarget& target, sf::RenderStates& states, const ns::Layer& layer) const;
     };
 
 }
