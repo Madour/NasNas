@@ -1,10 +1,8 @@
 <p align=center><img width=500px align=center src="https://i.ibb.co/r3RdmN8/Nas-Nas-title.png" alt="NasNas-logo"></p>
 <h3 align=center> An intuitive and beginner friendly 2D game framework for C++. </h3>
 <p align=center>
- <a href=https://travis-ci.com/Madour/NasNas><img src=https://travis-ci.com/Madour/NasNas.svg?branch=master></a>
- <a href=https://www.codacy.com/manual/Madour/NasNas><img src=https://app.codacy.com/project/badge/Grade/23bdd1079c3f4274a712f42851a276d8></a>
- <a href="https://lgtm.com/projects/g/Madour/NasNas/context:cpp"><img alt="Language grade: C/C++" src="https://img.shields.io/lgtm/grade/cpp/g/Madour/NasNas.svg?logo=lgtm&logoWidth=18"/></a>
- <a href="https://lgtm.com/projects/g/Madour/NasNas/alerts/"><img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/Madour/NasNas.svg?logo=lgtm&logoWidth=18"/></a>
+ <a href=https://github.com/Madour/NasNas/actions/workflows/cmake.yml><img src=https://github.com/Madour/NasNas/actions/workflows/cmake.yml/badge.svg></a>
+ <a href=https://github.com/Madour/NasNas/actions/workflows/codeql.yml><img src=https://github.com/Madour/NasNas/actions/workflows/codeql.yml/badge.svg></a>
 </p>
 <p align=center>
  <a href=#features>Features</a> •
