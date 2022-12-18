@@ -9,19 +9,23 @@
 using namespace ns;
 
 Settings::debug_info::debug_info() :
-utils::bool_switch(
-    [this] {
-        show_fps = (m_state >> 0u) & 1u;
-        show_text = (m_state >> 1u) & 1u;
-        show_bounds = (m_state >> 2u) & 1u;
-    },
-    [] { app().getWindow().setTitle(app().getTitle()); }
-),
-show_fps([&] { m_state |= 1u<<0u; }, [&] { m_state &= ~(1u<<0u); app().getWindow().setTitle(app().getTitle()); }),
-show_text([&] { m_state |= 1u<<1u; }, [&] { m_state &= ~(1u<<1u); }),
-show_bounds([&] { m_state |= 1u<<2u; }, [&] { m_state &= ~(1u<<2u); }),
-m_state(7u)
-{
+        utils::bool_switch(
+                [this] {
+                    show_fps = (m_state >> 0u) & 1u;
+                    show_text = (m_state >> 1u) & 1u;
+                    show_bounds = (m_state >> 2u) & 1u;
+                },
+                [] {
+                    app().getWindow().setTitle(app().getTitle());
+                }
+        ),
+        show_fps([&] { m_state |= 1u << 0u; }, [&] {
+            m_state &= ~(1u << 0u);
+            app().getWindow().setTitle(app().getTitle());
+        }),
+        show_text([&] { m_state |= 1u << 1u; }, [&] { m_state &= ~(1u << 1u); }),
+        show_bounds([&] { m_state |= 1u << 2u; }, [&] { m_state &= ~(1u << 2u); }),
+        m_state(7u) {
     show_fps = show_text = show_bounds = true;
 }
 
@@ -46,8 +50,7 @@ auto AppConfig::getViewRatio() const -> float {
 void Settings::setConfig(AppConfig config) {
     if (AppComponent::app == nullptr) {
         Settings::user_config = std::move(config);
-    }
-    else {
+    } else {
         std::cerr << "(ns::Settings::setConfig) Cannot set App configuration after App was run." << std::endl;
     }
 }
@@ -56,51 +59,28 @@ auto Settings::getConfig() -> const AppConfig& {
     return user_config;
 }
 
-const bool Settings::Modules::Core = true;
-const bool Settings::Modules::Reslib =
-#ifdef NS_RESLIB
+const bool Module::Core = true;
+const bool Module::Reslib =
+#if defined(NS_RESLIB)
         true;
 #else
         false;
 #endif
-
-const bool Settings::Modules::Ecs =
-#ifdef NS_ECS
+const bool Module::Ecs =
+#if defined(NS_ECS)
         true;
 #else
         false;
 #endif
-
-const bool Settings::Modules::Tilemapping =
-#ifdef NS_TILEMAPPING
+const bool Module::Tilemapping =
+#if defined(NS_TILEMAPPING)
         true;
 #else
         false;
 #endif
-
-const bool Settings::Modules::Ui =
-#ifdef NS_UI
+const bool Module::Ui =
+#if defined(NS_UI)
         true;
 #else
         false;
-#endif
-
-const Settings::Platform Settings::platform =
-#if defined(_WIN32)
-        Settings::Platform::Windows;
-#elif defined(__unix__)
-    #if defined(__ANDROID__)
-            Settings::Platform::Android;
-    #else
-            Settings::Platform::Linux;
-    #endif
-#elif defined(__APPLE__) && defined(__MACH__)
-    // Apple platform, see which one it is (borrowed from SFML/Config.hpp)
-    #include "TargetConditionals.h"
-
-    #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-        Settings::Platform::iOS;
-    #else
-        Settings::Platform::macOS;
-    #endif
 #endif
