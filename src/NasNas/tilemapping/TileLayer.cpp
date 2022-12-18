@@ -58,7 +58,8 @@ m_height(xml_node.attribute("height").as_int())
 }
 
 auto TileLayer::getTile(int x, int y) const -> const std::optional<Tile>& {
-    if (x > m_width || y > m_height) return Tile::None;
+    if (x > m_width || y > m_height)
+        return Tile::None;
     return m_tiles.at(x + y*m_width);
 }
 
@@ -135,14 +136,14 @@ void TileLayer::addTile(int tile_index, std::uint32_t gid) {
     auto y = tile_index / m_width;
     auto px = static_cast<float>(x * m_tiledmap->getTileSize().x);
     auto py = static_cast<float>(y * m_tiledmap->getTileSize().y);
-    auto tilewidth = tileset.data.tilewidth;
-    auto tileheight = tileset.data.tileheight;
+    auto tilewidth = static_cast<float>(tileset.data.tilewidth);
+    auto tileheight = static_cast<float>(tileset.data.tileheight);
 
     m_vertices[&tileset][tile_index*6 + 0].position = sf::Vector2f(px, py);
-    m_vertices[&tileset][tile_index*6 + 1].position = sf::Vector2f(px+tilewidth, py);
-    m_vertices[&tileset][tile_index*6 + 2].position = sf::Vector2f(px+tilewidth, py+tileheight);
-    m_vertices[&tileset][tile_index*6 + 3].position = sf::Vector2f(px+tilewidth, py+tileheight);
-    m_vertices[&tileset][tile_index*6 + 4].position = sf::Vector2f(px, py+tileheight);
+    m_vertices[&tileset][tile_index*6 + 1].position = sf::Vector2f(px + tilewidth, py);
+    m_vertices[&tileset][tile_index*6 + 2].position = sf::Vector2f(px + tilewidth, py + tileheight);
+    m_vertices[&tileset][tile_index*6 + 3].position = sf::Vector2f(px + tilewidth, py + tileheight);
+    m_vertices[&tileset][tile_index*6 + 4].position = sf::Vector2f(px, py + tileheight);
     m_vertices[&tileset][tile_index*6 + 5].position = sf::Vector2f(px, py);
 
     setTile(x, y, gid);
