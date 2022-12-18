@@ -1,0 +1,45 @@
+name: CMake Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - { name: Windows MSVC, os: windows-latest }
+        - { name: Linux GCC, os: ubuntu-latest }
+        - { name: Linux Clang, os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ }
+        - { name: MacOS Clang, os: macos-latest }
+
+    runs-on: ${{matrix.config.os}}
+
+    steps:
+    - name: ${{matrix.config.name}}
+      uses: actions/checkout@v3
+
+    - name: Install Linux Dependencies
+      if: runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install libxrandr-dev libxcursor-dev libudev-dev libopenal-dev libflac-dev libvorbis-dev libgl1-mesa-dev libegl1-mesa-dev libdrm-dev libgbm-dev
+
+    - name: Configure CMake
+      shell: bash
+      run: |
+          cmake -S $GITHUB_WORKSPACE \
+                -B $GITHUB_WORKSPACE/build \
+                -DNASNAS_EXAMPLES=ON \
+                -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} \
+                -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install \
+                ${{matrix.config.flags}}
+
+    - name: Build
+      shell: bash
+      run: cmake --build $GITHUB_WORKSPACE/build --config ${{env.BUILD_TYPE}} --target install -j16
