@@ -205,6 +205,7 @@ endfunction()
 # Creates export and install rules for all NasNas targets
 function(NasNas_export_install)
     include(GNUInstallDirs)
+    include(CMakePackageConfigHelpers)
 
     if (ANDROID)
         set(CMAKE_INSTALL_PREFIX "${CMAKE_ANDROID_NDK}/sources/third_party/nasnas" CACHE STRING "" FORCE)
@@ -253,6 +254,16 @@ function(NasNas_export_install)
     )
     # install NasNasConfig.cmake file
     install(FILES ${PROJECT_BINARY_DIR}/NasNasConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas)
+
+    # generate NasNasVersion.cmake
+    write_basic_package_version_file(
+            "${PROJECT_BINARY_DIR}/NasNasConfigVersion.cmake"
+            VERSION ${CMAKE_PROJECT_VERSION}
+            COMPATIBILITY SameMinorVersion
+    )
+    # install NasNasVersion.cmake file
+    install(FILES ${PROJECT_BINARY_DIR}/NasNasConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas)
+
     # install NasNasTargets.cmake and NasNasTargets-${CMAKE_BUILD_TYPE}.cmake files
     install(EXPORT NasNasTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/NasNas NAMESPACE NasNas::)
 
