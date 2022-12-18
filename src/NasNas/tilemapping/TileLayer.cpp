@@ -16,14 +16,16 @@ Layer(xml_node, tiledmap),
 m_width(xml_node.attribute("width").as_int()),
 m_height(xml_node.attribute("height").as_int())
 {
+    auto tiles_count = static_cast<std::size_t>(m_width) * static_cast<std::size_t>(m_height);
+
     // create tile vertices that will be rendered
     for (const auto& tileset : m_tiledmap->allTilesets()) {
-        m_vertices[&tileset].resize(6u * (size_t)m_width * (size_t)m_height);
+        m_vertices[&tileset].resize(6ul * tiles_count);
         m_vertices[&tileset].setPrimitiveType(sf::PrimitiveType::Triangles);
     }
     // create the tiles
-    m_tiles.reserve(m_width*m_height);
-    for (int i = 0; i < m_width*m_height; ++i)
+    m_tiles.reserve(tiles_count);
+    for (std::size_t i = 0; i < tiles_count; ++i)
         m_tiles.emplace_back(Tile::None);
 
     auto xml_data = xml_node.child("data");
