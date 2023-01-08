@@ -23,6 +23,9 @@ endforeach()
 # Select optional targets
 option(NASNAS_EXAMPLES     "Build the example applications"          OFF)
 option(NASNAS_BUILD_SFML   "Download and build SFML as a subproject" OFF)
+if (MSVC)
+    option(NASNAS_STATIC_VCRT "Use /MT option instead of /MD for static VC runtimes" OFF)
+endif()
 
 include(cmake/NasNasUtils.cmake)
 

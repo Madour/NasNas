@@ -117,7 +117,7 @@ To build the framework for Android, please refer to the [Android example's readm
 
 - `-DNASNAS_EXAMPLES=ON` to create the example applications targets
 - `-DNASNAS_BUILD_SFML=ON` to download and build SFML inside the project (enabled automatically if SFML package is not found)
-
+- `-DNASNAS_STATIC_VCRT=ON` to link the Visual C++ runtime statically (/MT) when using the Microsoft Visual C++ compiler
 
 ### Get Started
 

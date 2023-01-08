@@ -82,33 +82,38 @@ macro(find_SFML)
     if (ANDROID)
         set(NASNAS_BUILD_SFML OFF)  # cannot build SFML as subproject for android
         set(SFML_DIR "${CMAKE_ANDROID_NDK}/sources/third_party/sfml/lib/${CMAKE_ANDROID_ARCH_ABI}/cmake/SFML/")
-    endif()
 
-    if (NOT NASNAS_BUILD_SFML)
-        find_package(SFML 2 COMPONENTS graphics audio QUIET)
-    endif()
+        find_package(SFML 2 COMPONENTS graphics audio)
 
-    if (SFML_FOUND)
-        log_status("Found SFML 2 in ${SFML_DIR}")
-    elseif (ANDROID)
-        log_fatal("Could not find SFML libraries in your Android NDK for the ${CMAKE_ANDROID_ARCH_ABI} architecture. Make sure you have built and installed SFML beforehand.")
+        if (SFML_FOUND)
+            log_status("Found SFML 2 in ${SFML_DIR}")
+        else()
+            log_fatal("Could not find SFML libraries in your Android NDK for the ${CMAKE_ANDROID_ARCH_ABI} architecture. Make sure you have built and installed SFML beforehand.")
+        endif()
     else()
-        set(NASNAS_BUILD_SFML ON)
-        set(BUILD_SHARED_LIBS FALSE)
-        set(SFML_INSTALL_PKGCONFIG_FILES FALSE)
-        set(SFML_USE_STATIC_STD_LIBS TRUE)
-        mark_as_advanced(BUILD_SHARED_LIBS)
+        if (NOT NASNAS_BUILD_SFML AND NOT SFML_USE_STATIC_STD_LIBS)
+            find_package(SFML 2 COMPONENTS graphics audio QUIET)
+        endif()
 
-        download_dependency(SFML "https://github.com/SFML/SFML" "eeeda74ec1fd5de24343ee845af0d8cc89e992f6")
+        if (SFML_FOUND)
+            log_status("Found SFML 2 in ${SFML_DIR}")
+        else()
+            set(NASNAS_BUILD_SFML ON)
+            set(BUILD_SHARED_LIBS FALSE)
+            set(SFML_INSTALL_PKGCONFIG_FILES FALSE)
+            set(SFML_USE_STATIC_STD_LIBS ${NASNAS_STATIC_VCRT})
+            mark_as_advanced(BUILD_SHARED_LIBS)
+            mark_as_advanced(SFML_INSTALL_PKGCONFIG)
+            mark_as_advanced(SFML_USE_STATIC_STD_LIBS)
 
-        if(MSVC AND SFML_USE_STATIC_STD_LIBS)
-            add_compile_options(
-                    $<$<CONFIG:>:/MT>
-                    $<$<CONFIG:Debug>:/MTd>
-                    $<$<CONFIG:Release>:/MT>
-                    $<$<CONFIG:MinSizeRel>:/MT>
-                    $<$<CONFIG:RelWithDebInfo>:/MT>
-            )
+            download_dependency(SFML "https://github.com/SFML/SFML" "eeeda74ec1fd5de24343ee845af0d8cc89e992f6")
+
+            if (MSVC AND NASNAS_STATIC_VCRT)
+                foreach(flag CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+                             CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+                    string(REGEX REPLACE "/MD" "/MT" ${flag} "${${flag}}")
+                endforeach()
+            endif()
         endif()
     endif()
 
