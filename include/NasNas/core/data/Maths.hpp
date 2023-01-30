@@ -48,7 +48,7 @@ namespace ns {
      * \return The normal of the vector
      */
     template <typename T>
-    inline auto normal(const sf::Vector2<T>& vector) -> sf::Vector2f {
+    inline auto normal(const sf::Vector2<T>& vector) -> sf::Vector2<T> {
         return { -vector.y, vector.x };
     }
 
