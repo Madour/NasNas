@@ -42,6 +42,17 @@ namespace ns {
     }
 
     /**
+     * \brief Calculates a Normalized vector. The normalized vector has a length of 1.
+     * \tparam T Vector type
+     * \param vector
+     * \return Normalized vector
+     */
+    template <typename T>
+    inline auto normalize(const sf::Vector2<T>& vector) -> float {
+        return vector / norm(vector);
+    }
+
+    /**
      * \brief Calculates the normal of a vector
      * \tparam T Vector type
      * \param vector
