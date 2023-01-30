@@ -35,18 +35,18 @@ App::App(std::string title, sf::Vector2u resolution, float scale, int fps, int u
     sf::Vector2f view_size = {static_cast<float>(resolution.x), static_cast<float>(resolution.y)};
     float view_ratio = view_size.x / view_size.y;
 
-    Settings::user_config.title = title;
+    Settings::user_config.title = m_title;
     Settings::user_config.resolution = resolution;
     Settings::user_config.scale = scale;
-    Settings::user_config.frame_rate = fps;
-    Settings::user_config.update_rate = ups;
+    Settings::user_config.frame_rate = m_fps;
+    Settings::user_config.update_rate = m_ups;
     Settings::user_config.video_mode.width = window_size.x;
     Settings::user_config.video_mode.height = window_size.y;
     Settings::user_config.view_size = view_size;
     Settings::user_config.view_ratio = view_ratio;
 
-    m_window.create(Settings::user_config.video_mode, title, Settings::user_config.window_style);
-    m_window.setTitle(m_title);
+    m_window.create(Settings::user_config.video_mode, m_title, Settings::user_config.window_style);
+
     if (fps > 0)
         m_window.setFramerateLimit(fps);
 
