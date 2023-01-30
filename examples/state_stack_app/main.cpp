@@ -76,7 +76,7 @@ void GameStateTwo::update() {
     if (ns::Inputs::isKeyPressed(sf::Keyboard::Space)) {
         // when space bar is pressed, create a new CircleClose transition and start it
         auto* tr = new ns::transition::CircleClose(500);
-        tr->setOnEndCallback([&]{
+        tr->onEnd([&]{
             // when the transition ends, popState and start a new CircleOpen transition
             app().popState();
             (new ns::transition::CircleOpen(500))->start();

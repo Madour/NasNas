@@ -146,7 +146,7 @@ void Game::onEvent(const sf::Event& event) {
             if (event.key.code == sf::Keyboard::R) {
                 auto* tr = new ShaderOutTransition("threshold");
                 tr->start();
-                tr->setOnEndCallback([](){
+                tr->onEnd([](){
                     auto* next = new ShaderInTransition("threshold");
                     next->start();
                 });
@@ -154,7 +154,7 @@ void Game::onEvent(const sf::Event& event) {
             if (event.key.code == sf::Keyboard::T) {
                 auto* tr = new ns::transition::CircleClose();
                 tr->start();
-                tr->setOnEndCallback([](){
+                tr->onEnd([](){
                     auto* next = new ns::transition::CircleOpen();
                     next->start();
                 });

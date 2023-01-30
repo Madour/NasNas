@@ -44,7 +44,7 @@ void Transition::addShape(const sf::Shape& shape) {
     m_drawables.push_back(&shape);
 }
 
-void Transition::setOnEndCallback(const std::function<void()>& fn) {
+void Transition::onEnd(const std::function<void()>& fn) {
     m_end_callback = fn;
 }
 

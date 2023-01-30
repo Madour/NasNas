@@ -28,7 +28,7 @@ namespace ns {
 
         void addShape(const sf::Shape& shape);
 
-        void setOnEndCallback(const std::function<void()>& fn);
+        void onEnd(const std::function<void()>& fn);
 
         void update();
 

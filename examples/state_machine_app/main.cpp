@@ -60,7 +60,7 @@ void GameStateTwo::onEvent(const sf::Event& event) {
         if (event.key.code == sf::Keyboard::Space) {
             // when space bar is pressed, create a new CircleClose transition and start it
             auto* tr = new ns::transition::CircleClose(500);
-            tr->setOnEndCallback([&]{
+            tr->onEnd([&]{
                 // when the transition ends, go to StateOne and start a new CircleOpen transition
                 app().setState<GameStateOne>();
                 (new ns::transition::CircleOpen(500))->start();
