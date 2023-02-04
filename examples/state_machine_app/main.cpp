@@ -24,6 +24,19 @@ struct GameStateTwo : ns::AppState, ns::AppAccess<Game> {
 };
 
 
+Game::Game() : ns::StateMachineApp("State Machine App example", {720, 480}) {
+    ns::Settings::debug_mode.show_bounds = false;
+    ns::Settings::debug_mode = true;
+
+    createScene("main");
+    createCamera("main", 0).lookAt(getScene("main"));
+
+    setState<GameStateOne>();
+
+    addDebugText("Press the space bar to change the current state", {20, 20});
+}
+
+
 GameStateOne::GameStateOne() {
     app().getWindow().setClearColor(sf::Color(200, 230, 250));
 
@@ -38,8 +51,10 @@ GameStateOne::GameStateOne() {
 void GameStateOne::onEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space) {
-            // when space bar is pressed, go to StateTwo
-            app().setState<GameStateTwo>();
+            if (!app().isRunningTransition()) {
+                // when space bar is pressed, go to StateTwo
+                app().setState<GameStateTwo>();
+            }
         }
     }
 }
@@ -56,30 +71,17 @@ GameStateTwo::GameStateTwo() {
 }
 
 void GameStateTwo::onEvent(const sf::Event& event) {
-    if (event.type == sf::Event::KeyPressed && ns::Transition::list.empty()) {
+    if (event.type == sf::Event::KeyPressed && !app().isRunningTransition()) {
         if (event.key.code == sf::Keyboard::Space) {
-            // when space bar is pressed, create a new CircleClose transition and start it
-            auto* tr = new ns::transition::CircleClose(500);
-            tr->onEnd([&]{
-                // when the transition ends, go to StateOne and start a new CircleOpen transition
-                app().setState<GameStateOne>();
-                (new ns::transition::CircleOpen(500))->start();
-            });
-            tr->start();
+            if (!app().isRunningTransition()) {
+                // when space bar is pressed, create a new CircleClose transition, then set app state one
+                app().startTransition<ns::transition::CircleClose>(500).onEnd([&]() {
+                    app().setState<GameStateOne>();
+                    app().startTransition<ns::transition::CircleOpen>(500);
+                });
+            }
         }
     }
-}
-
-Game::Game() : ns::StateMachineApp("State Machine App example", {720, 480}) {
-    ns::Settings::debug_mode.show_bounds = false;
-    ns::Settings::debug_mode = true;
-
-    createScene("main");
-    createCamera("main", 0).lookAt(getScene("main"));
-
-    setState<GameStateOne>();
-
-    addDebugText("Press the space bar to change the current state", {20, 20});
 }
 
 

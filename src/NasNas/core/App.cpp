@@ -57,11 +57,6 @@ App::App(std::string title, sf::Vector2u resolution, float scale, int fps, int u
     m_fps_clock.restart();
 }
 
-App::~App() {
-    for (auto* transition : Transition::list)
-        delete(transition);
-}
-
 auto App::getTitle() const -> const std::string& {
     return m_title;
 }
@@ -126,6 +121,10 @@ auto App::getCamera(const std::string& name) -> Camera& {
     std::cout << "Error (App::getCamera) : No Camera named " << name
               << " was found. Make sure the Camera you are requesting was created.";
     std::exit(-1);
+}
+
+auto App::isRunningTransition() const -> bool {
+    return !m_transitions.empty();
 }
 
 auto App::createScene(const std::string& name) -> Scene& {
@@ -238,16 +237,13 @@ void App::render() {
             cam.render(m_renderer);
         }
     }
-    // render transitions, delete it when it has ended
-    for (unsigned int i = 0; i < Transition::list.size(); ++i) {
-        auto* tr = Transition::list[i];
-        if (tr->hasStarted())
-            m_renderer.draw(*tr);
-        if (tr->hasEnded()) {
-            Transition::list.erase(Transition::list.begin() + i--);
-            delete(tr);
+    // render transitions
+    for (auto& transition : m_transitions) {
+        if (transition->hasStarted()) {
+            m_renderer.draw(*transition);
         }
     }
+
     m_renderer.display();
     m_window.draw(sf::Sprite(m_renderer.getTexture()), getShader());
 
@@ -370,8 +366,12 @@ void App::run() {
                 m_cb_update();
                 for (auto& cam : m_cameras)
                     cam.update();
-                for (unsigned int i = 0; i < Transition::list.size(); ++i)
-                    Transition::list[i]->update();
+
+                // remove transitions that already ended
+                m_transitions.remove_if([](auto& transition) { return transition->hasEnded(); });
+
+                for (auto& transition : m_transitions)
+                    transition->update();
 
                 Inputs::get().m_keys_pressed.clear();
                 Inputs::get().m_keys_released.clear();

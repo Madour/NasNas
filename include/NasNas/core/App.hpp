@@ -29,6 +29,7 @@
 #include <NasNas/core/Camera.hpp>
 #include <NasNas/core/Debug.hpp>
 #include <NasNas/core/Scene.hpp>
+#include <NasNas/core/Transition.hpp>
 #include <NasNas/core/Window.hpp>
 
 namespace ns {
@@ -62,7 +63,7 @@ namespace ns {
         /**
          * \brief Delete all Scene, Camera and DebugText objects and free loaded resources
          */
-        virtual ~App();
+        virtual ~App() = default;
 
         /**
          * \brief Returns the title of the App
@@ -116,6 +117,11 @@ namespace ns {
          * \return Reference to the requested Camera
          */
         auto getCamera(const std::string& name) -> Camera&;
+
+        template <typename T, typename... Targs,  typename = std::enable_if_t<std::is_base_of_v<Transition, T>>>
+        auto startTransition(Targs&&... args) -> Transition&;
+
+        auto isRunningTransition() const -> bool;
 
         /**
         * \brief Toggle fullscreen display.
@@ -246,6 +252,7 @@ namespace ns {
 
         std::list<Camera> m_cameras;
         std::list<Scene> m_scenes;
+        std::list<std::unique_ptr<Transition>> m_transitions;
         std::vector<std::unique_ptr<DebugTextInterface>> m_debug_texts;
         std::vector<sf::Vertex> m_debug_bounds;
 
@@ -272,6 +279,15 @@ namespace ns {
                                      const sf::FloatRect& render_bounds, sf::Vector2f& offset,
                                      const sf::FloatRect& global_vport, const sf::FloatRect& local_vport);
     };
+
+
+    template <typename T, typename... Targs,  typename Enable>
+    auto App::startTransition(Targs&&... args) -> Transition& {
+        auto new_transition = std::make_unique<T>(std::forward<Targs>(args)...);
+        new_transition->start();
+        m_transitions.push_back(std::move(new_transition));
+        return *m_transitions.back();
+    }
 
     template<typename T>
     void App::addDebugText(const std::string& label, T* var_address, const sf::Vector2f& position, const sf::Color& color) {

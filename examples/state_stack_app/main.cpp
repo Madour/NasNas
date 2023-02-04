@@ -17,13 +17,11 @@ public:
 };
 
 struct GameStateOne : ns::AppState, ns::AppAccess<Game> {
-    GameStateOne();
     void setup() override;
     void update() override;
 };
 
 struct GameStateTwo : ns::AppState, ns::AppAccess<Game> {
-    GameStateTwo();
     void setup() override;
     void update() override;
 };
@@ -33,9 +31,18 @@ Game::Game() : ns::StateStackApp("State Stack App example", {720, 480}) {
     ns::Settings::debug_mode.show_bounds = false;
     ns::Settings::debug_mode = true;
 
-    createScene("one");
-    createScene("two");
-    createCamera("main", 0).lookAt(getScene("one"));
+    auto* text1 = new sf::Text("State One", ns::Arial::getFont(), 60);
+    text1->setPosition(360 - text1->getGlobalBounds().width / 2, 200);
+
+    auto* text2 = new sf::Text("State Two", ns::Arial::getFont(), 60);
+    text2->setPosition(360 - text2->getGlobalBounds().width / 2, 200);
+
+    auto& scene1 = createScene("one");
+    auto& scene2 = createScene("two");
+    createCamera("main", 0);
+
+    scene1.getDefaultLayer().add(text1);
+    scene2.getDefaultLayer().add(text2);
 
     pushState<GameStateOne>();
 
@@ -43,28 +50,16 @@ Game::Game() : ns::StateStackApp("State Stack App example", {720, 480}) {
 }
 
 
-GameStateOne::GameStateOne() {
-    auto* text = new sf::Text("State One", ns::Arial::getFont(), 60);
-    text->setPosition(360 - text->getGlobalBounds().width / 2, 200);
-    app().getScene("one").getDefaultLayer().add(text);
-}
-
 void GameStateOne::setup() {
     app().getWindow().setClearColor(sf::Color(200, 230, 250));
     app().getCamera("main").lookAt(app().getScene("one"));
 }
 
 void GameStateOne::update() {
-    if (ns::Inputs::isKeyPressed(sf::Keyboard::Space)) {
+    if (ns::Inputs::isKeyPressed(sf::Keyboard::Space) && !app().isRunningTransition()) {
         // when space bar is pressed, go to StateTwo
         app().pushState<GameStateTwo>();
     }
-}
-
-GameStateTwo::GameStateTwo() {
-    auto* text = new sf::Text("State Two", ns::Arial::getFont(), 60);
-    text->setPosition(360 - text->getGlobalBounds().width / 2, 200);
-    app().getScene("two").getDefaultLayer().add(text);
 }
 
 void GameStateTwo::setup() {
@@ -73,15 +68,12 @@ void GameStateTwo::setup() {
 }
 
 void GameStateTwo::update() {
-    if (ns::Inputs::isKeyPressed(sf::Keyboard::Space)) {
-        // when space bar is pressed, create a new CircleClose transition and start it
-        auto* tr = new ns::transition::CircleClose(500);
-        tr->onEnd([&]{
-            // when the transition ends, popState and start a new CircleOpen transition
+    if (ns::Inputs::isKeyPressed(sf::Keyboard::Space) && !app().isRunningTransition()) {
+        // when space bar is pressed, create a new CircleClose transition, then pop the state to go back to state one
+        app().startTransition<ns::transition::CircleClose>(500).onEnd([&]() {
             app().popState();
-            (new ns::transition::CircleOpen(500))->start();
+            app().startTransition<ns::transition::CircleOpen>(500);
         });
-        tr->start();
     }
 }
 

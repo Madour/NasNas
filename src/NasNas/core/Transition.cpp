@@ -14,8 +14,6 @@
 
 using namespace ns;
 
-std::vector<Transition*> Transition::list;
-
 Transition::Transition() :
 m_end_callback([](){})
 {
@@ -24,7 +22,6 @@ m_end_callback([](){})
 }
 
 void Transition::start() {
-    Transition::list.push_back(this);
     m_started = true;
 }
 

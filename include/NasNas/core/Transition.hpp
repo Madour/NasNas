@@ -16,26 +16,23 @@
 namespace ns {
 
     class Transition : public sf::Drawable {
+        friend class App;
     public:
-        static std::vector<Transition*> list;
-
-        Transition();
-        void start();
-        void end();
-
-        auto hasStarted() const -> bool;
-        auto hasEnded() const -> bool;
-
-        void addShape(const sf::Shape& shape);
-
         void onEnd(const std::function<void()>& fn);
 
-        void update();
-
     protected:
+        Transition();
+        void addShape(const sf::Shape& shape);
+        void end();
         virtual void onUpdate() = 0;
 
     private:
+        void start();
+
+        auto hasStarted() const -> bool;
+        auto hasEnded() const -> bool;
+        void update();
+
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         bool m_started = false;
         bool m_ended = false;
