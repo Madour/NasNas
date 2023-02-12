@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 if (POLICY CMP0074)
-    cmake_policy(SET CMP0074 NEW)
+    cmake_policy(SET CMP0074 NEW) # Enable CMake search paths defined by NasNas_ROOT variable
+endif()
+if (POLICY CMP0077)
+    cmake_policy(SET CMP0077 NEW) # NasNas options will not override user defined variable if they exist
 endif()
 
 project(
