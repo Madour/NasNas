@@ -5,7 +5,7 @@ endif()
 
 project(
     NasNas
-    VERSION 0.1.0
+    VERSION 0.2.0
     DESCRIPTION "An intuitive and beginner friendly 2D game framework"
     LANGUAGES CXX
     HOMEPAGE_URL "https://github.com/Madour/NasNas"
